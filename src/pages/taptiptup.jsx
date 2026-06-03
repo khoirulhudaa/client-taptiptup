@@ -1254,7 +1254,7 @@ export default function TapTipTup() {
               alignItems: "center",
               textAlign: 'center'
             }}>
-              <div style={{ fontSize: "18px", width: '100%', fontWeight: 700, color: C.text, textAlign: 'center' }}>
+              <div className="!mt-1.5" style={{ fontSize: "18px", width: '100%', fontWeight: 700, color: C.text, textAlign: 'center' }}>
                 Selamat Datang di TapTipTup
               </div>
             </div>
@@ -1281,7 +1281,7 @@ export default function TapTipTup() {
             className="text-[22px] md:text-[36px]"  
             style={{
               textAlign: "center",
-              padding: "32px 40px 40px",
+              padding: "32px 40px 30px",
             }}>
               <h2 style={{
                 fontFamily: "'Bebas Neue', sans-serif",
