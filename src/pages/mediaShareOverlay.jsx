@@ -18,8 +18,6 @@
     const match = url.match(/tiktok\.com\/@[\w.]+\/video\/(\d+)/);
     return match ? match[1] : null;
   };
-
-
   const getTikTokEmbedUrl = (url) => {
     const videoId = extractTikTokVideoId(url);
     if (!videoId) return null;
