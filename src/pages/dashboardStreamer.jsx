@@ -3081,7 +3081,10 @@ const handleChangePin = async () => {
   const { theme, toggle } = useTheme();
 
   const { data: profileData, isLoading: profileLoading } = useQuery({
-    queryKey: ['profile'], queryFn: fetchProfile, refetchInterval: 30000,
+    queryKey: ['profile', activeSlot],     // ← INI YANG BENAR
+    queryFn: () => fetchProfile(activeSlot),
+    refetchInterval: 30000,
+    staleTime: 1000 * 30,        // 30 detik
   });
 
   useEffect(() => {
