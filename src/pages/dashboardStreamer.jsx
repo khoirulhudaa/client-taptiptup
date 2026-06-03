@@ -2994,15 +2994,6 @@ export const DashboardStreamer = () => {
 const fetchProfile = async (slot = 'A') => 
   (await api.get(`/api/overlay/settings?slot=${slot}`)).data;
 
-const { data: profileDataA } = useQuery({
-  queryKey: ['profile', 'A'], 
-  queryFn: () => fetchProfile('A') 
-});
-const { data: profileDataB } = useQuery({
-  queryKey: ['profile', 'B'], 
-  queryFn: () => fetchProfile('B') 
-});
-
 const handlePinInputChange = useCallback((group, index, value, refs, setter) => {
   const sanitized = value.replace(/[^0-9]/g, '').slice(0, 1);
   
@@ -3105,22 +3096,18 @@ const handleChangePin = async () => {
   // }, [profileData]);
 
   useEffect(() => {
-    const currentData = activeSlot === 'A' ? profileDataA : profileDataB;
-    
-    if (currentData) {
-      const s = currentData.settings || currentData.overlaySetting || {};
-      setLocalSettings(prev => {
-        if (!prev) {
-          return {
-            ...DEFAULT_SETTINGS,
-            ...s,
-            publicSounds: Array.isArray(s.publicSounds) ? s.publicSounds : DEFAULT_SETTINGS.publicSounds,
-          };
-        }
-        return prev; // jangan overwrite kalau sudah ada
+    if (profileData) {
+      const s = profileData.settings || profileData.overlaySetting || {};
+
+      setLocalSettings({
+        ...DEFAULT_SETTINGS,
+        ...s,
+        publicSounds: Array.isArray(s.publicSounds) 
+          ? s.publicSounds 
+          : DEFAULT_SETTINGS.publicSounds,
       });
     }
-  }, [profileDataA, profileDataB, activeSlot]);
+  }, [profileData, activeSlot]);   // ← activeSlot + profileData
 
   useEffect(() => {
     console.log('Current Slot:', activeSlot);
