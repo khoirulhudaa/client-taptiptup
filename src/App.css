@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+::-webkit-scrollbar {
+    background-color: rgb(255, 120, 120);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(255, 120, 120);
+}

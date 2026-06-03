@@ -1,0 +1,76 @@
+@import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'); */
+@custom-variant dark (&:where(.dark, .dark *));
+
+::-webkit-scrollbar {
+    /* background-color: rgb(255, 255, 255); */
+    width: 8px;
+    background-color: white;
+    display: none; 
+    /* padding-left: 3px; */
+    /* padding-right: 3px; */
+}
+
+body {
+  background-color: #213995;
+}
+
+/* * {
+    font-family: "Bebas Neue", sans-serif;
+} */
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(194, 194, 194);
+    /* border-radius: 999px; */
+    /* display: none; */
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes mouseScroll {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(18px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes rainbowSlide {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 150% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmerSlide {
+  0%   { background-position: -250% 0; }
+  100% { background-position: 250% 0; }
+}
+
+
+body {
+  overflow-x: hidden;
+}
+
+/* Tambahkan di index.css atau App.css */
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer !important;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 0;
+}
+
+input[type="color"]::-moz-color-swatch {
+  border: none;
+  border-radius: 0;
+}

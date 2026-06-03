@@ -1,0 +1,1199 @@
+import axios from 'axios';
+import { AnimatePresence, motion } from 'framer-motion';
+import { 
+  AlertCircle, ArrowRight, CheckCircle2, Eye, EyeOff, Lock, Mail, Moon, Sun, User, 
+  ShieldCheck, ArrowLeft, Clock, Loader2 
+} from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { sanitizeInput, isValidEmail, isValidUsername, validatePassword, detectXSS, safeText } from '../utils/xssProtection';
+
+// ─── Theme tokens ──────────────────────────────────────────────────────────────
+const getTheme = (dark) => ({
+  pageBg:           dark ? '#0f0c29'                       : '#f5f4ff',
+  rightBg:          dark ? '#13111f'                       : '#ffffff',
+  inputBg: dark ? 'rgba(255,255,255,0.04)' : 'rgba(79,70,229,0.04)',
+  inputBgFocus: dark ? 'rgba(255,255,255,0.08)' : 'rgba(79,70,229,0.07)',
+  inputBorder: dark ? 'rgba(255,255,255,0.10)' : 'rgba(79,70,229,0.18)',
+  inputBorderFocus: dark ? 'rgba(99,102,241,0.6)' : 'rgba(79,70,229,0.8)',
+  tabBg:            dark ? 'rgba(255,255,255,0.04)'        : 'rgba(79,70,229,0.06)',
+  tabBorder:        dark ? 'rgba(255,255,255,0.2)'        : 'rgba(79,70,229,0.14)',
+  tabInactive:      dark ? '#475569'                       : '#94a3b8',
+  divider:          dark ? 'rgba(255,255,255,0.2)'        : 'rgba(0,0,0,0.08)',
+  dividerText:      dark ? '#ffffff'                       : '#94a3b8',
+  toggleBg:         dark ? 'rgba(255,255,255,0.08)'        : 'rgba(79,70,229,0.08)',
+  toggleColor:      dark ? '#a5b4fc'                       : '#4f46e5',
+  heading:          dark ? '#ffffff'                       : '#1e1b4b',
+  subtext:          dark ? 'white'                       : '#64748b',
+  label:            dark ? '#818cf8'                       : '#4f46e5',
+  inputText:        dark ? '#1e1b4b'                       : '#1e1b4b',
+  iconDefault:      dark ? '#94a3b8'                       : '#94a3b8',
+  switchText:       dark ? 'white'                       : '#64748b',
+  switchLink:       dark ? '#818cf8'                       : '#4f46e5',
+  backBtn:          dark ? '#94a3b8'                       : '#64748b',
+  forgotColor:      dark ? '#818cf8'                       : '#4f46e5',
+  forgotHover:      dark ? '#a78bfa'                       : '#7c3aed',
+});
+
+// ─── Background Canvas ─────────────────────────────────────────────────────────
+// const BgCanvas = () => (
+//   <div className="absolute inset-0 overflow-hidden pointer-events-none">
+//     <div style={{ 
+//       position:'absolute', top:'-80px', left:'-60px', width:'420px', height:'420px', 
+//       borderRadius:'0%', background:'radial-gradient(circle, rgba(99,102,241,0.28) 0%, transparent 70%)' 
+//     }} />
+//     <div style={{ 
+//       position:'absolute', bottom:'-100px', right:'-80px', width:'360px', height:'360px', 
+//       borderRadius:'0%', background:'radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 70%)' 
+//     }} />
+//     <svg width="100%" height="100%" style={{ opacity:0.06 }}>
+//       <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+//         <circle cx="1.5" cy="1.5" r="1.5" fill="white" />
+//       </pattern>
+//       <rect width="100%" height="100%" fill="url(#dots)" />
+//     </svg>
+//   </div>
+// );
+
+// ─── Notification Modal ────────────────────────────────────────────────────────
+const NotifModal = ({ notification, onClose }) => (
+  <AnimatePresence>
+    {notification.show && (
+      <div className='fixed z-[9999] w-screen h-screen flex justify-center items-center'>
+        <motion.div 
+          initial={{ opacity:0 }} 
+          animate={{ opacity:1 }} 
+          exit={{ opacity:0 }}
+          style={{ position:'fixed', inset:0, zIndex:100, background:'rgba(15,15,30,0.75)', backdropFilter:'blur(10px)' }}
+          onClick={onClose} 
+        />
+        <motion.div
+          initial={{ opacity:0, scale:0.88, y:28 }} 
+          animate={{ opacity:1, scale:1, y:0 }} 
+          exit={{ opacity:0, scale:0.88, y:28 }}
+          transition={{ type:'spring', stiffness:340, damping:30 }}
+          style={{ position:'fixed', zIndex:101, transform:'translate(-50%,-50%)', width:'92vw', maxWidth:400 }}
+        >
+          <div style={{ 
+            background:'rgba(255,255,255,0.97)', padding:'36px 32px', 
+            boxShadow:'0 32px 80px rgba(0,0,0,0.22)', textAlign:'center' 
+          }}>
+            <motion.div initial={{ scale:0 }} animate={{ scale:1 }} 
+              transition={{ type:'spring', stiffness:400, damping:20, delay:0.1 }}
+              style={{ 
+                width:68, height:68, margin:'0 auto 20px', display:'flex', 
+                alignItems:'center', justifyContent:'center', 
+                background: notification.type==='success' ? '#ecfdf5' : '#fff1f2', 
+                color: notification.type==='success' ? '#059669' : '#e11d48' 
+              }}
+            >
+              {notification.type==='success' ? <CheckCircle2 size={34}/> : <AlertCircle size={34}/>}
+            </motion.div>
+            <h3 style={{ fontSize:20, fontWeight:900, color:'#1e1b4b', marginBottom:8 }}>
+              {notification.title}
+            </h3>
+            <p style={{ fontSize:14, color:'#64748b', lineHeight:1.6, marginBottom:24 }}>
+              {notification.message}
+            </p>
+            <button className='cursor-pointer active:scale-[0.99]' onClick={onClose}
+              style={{ 
+                width:'100%', padding:'14px 0', borderRadius:0, fontWeight:900, fontSize:14, 
+                border:'none',  
+                background: notification.type==='success' ? '#4f46e5' : '#e11d48', 
+                color:'white', transition:'opacity 0.2s' 
+              }}
+              onMouseEnter={e => e.target.style.opacity='0.88'} 
+              onMouseLeave={e => e.target.style.opacity='1'}
+            >
+              {notification.type==='success' ? 'Lanjutkan →' : 'Coba Lagi'}
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    )}
+  </AnimatePresence>
+);
+
+// ─── Auth Input Component ─────────────────────────────────────────────────────
+const AuthInput = ({ icon: Icon, type='text', value, onChange, placeholder, T, className = "" }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const isPassword = type === 'password';
+  
+  // Handler untuk input change dengan sanitasi
+  const handleChange = (inputValue) => {
+    // Sanitasi input untuk mencegah XSS
+    const sanitized = sanitizeInput(inputValue);
+    onChange(sanitized);
+  };
+
+  return (
+    <div style={{ position:'relative' }}>
+      <div style={{ 
+        position:'absolute', left:16, top:'50%', transform:'translateY(-50%)', 
+        color: focused ? '#4f46e5' : T.iconDefault, transition:'color 0.2s', 
+        zIndex:1, display:'flex' 
+      }}>
+        <Icon size={18} />
+      </div>
+      <input
+        type={isPassword ? (showPassword ? 'text' : 'password') : type}
+        value={value}
+        onChange={e => handleChange(e.target.value)}
+        placeholder={placeholder}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        style={{
+          width:'100%', boxSizing:'border-box',
+          background: focused ? T.inputBgFocus : T.inputBg,
+          border: `1.5px solid ${focused ? T.inputBorderFocus : T.inputBorder}`,
+          borderRadius:0, padding:'15px 48px',
+          color: T.inputText, fontSize:15, fontWeight:600,
+          outline:'none', transition:'all 0.2s',
+        }}
+        className={`auth-input-field ${className}`}
+      />
+      {isPassword && (
+        <button type="button" onClick={() => setShowPassword(v => !v)}
+          style={{ 
+            position:'absolute', right:16, top:'50%', transform:'translateY(-50%)', 
+            background:'none', border:'none', cursor:'pointer', color: T.iconDefault, 
+            display:'flex', zIndex:1 
+          }}
+        >
+          {showPassword ? <EyeOff size={18}/> : <Eye size={18}/>}
+        </button>
+      )}
+    </div>
+  );
+};
+
+// ─── LEFT PANEL ───────────────────────────────────────────────────────────────
+const LeftPanel = () => (
+  <div className="auth-left md:h-[100vh] h-max" style={{
+    position:'relative', width:'48%',
+    background:'linear-gradient(145deg, #312e81 0%, #4f46e5 45%, #6d28d9 100%)',
+    display:'flex', flexDirection:'column', justifyContent:'space-between',
+    padding:'48px 44px', overflow:'hidden',
+  }}>
+    {/* <BgCanvas /> */}
+    <img src="/img.jpg" alt="img" className='absolute md:flex hidden top-0 left-0 w-full z-[999]' />
+    <img src="/img2.jpg" alt="img" className='md:hidden relative md:absolute h-full w-full z-[999]' />
+    {/* <div className='md:px-0 px-4 hidden md:hidden' style={{ position:'relative', zIndex:10 }}>
+      <BrandLogo />
+      <HeroJellyfish />
+      <HeroContent />
+    </div> */}
+    {/* <StatsGrid /> */}
+  </div>
+);
+
+// ─── THEME TOGGLE ─────────────────────────────────────────────────────────────
+const ThemeToggle = ({ isDark, onToggle, T }) => (
+  <motion.button onClick={onToggle} whileTap={{ scale:0.90 }} style={{
+    position:'absolute', top:30, right:35, display:'flex', alignItems:'center', gap:7,
+    background: T.toggleBg, padding:'12px 18px', cursor:'pointer', zIndex:20,
+    borderRadius:0, transition:'background 0.35s',
+  }}>
+    <AnimatePresence mode="wait">
+      <motion.div key={isDark ? 'moon' : 'sun'}
+        initial={{ opacity:0, rotate:-30, scale:0.7 }}
+        animate={{ opacity:1, rotate:0, scale:1 }}
+        exit={{ opacity:0, rotate:30, scale:0.7 }}
+        transition={{ duration:0.22 }}
+        style={{ display:'flex', color: T.toggleColor }}
+      >
+        {isDark ? <Moon size={15}/> : <Sun size={15}/>}
+      </motion.div>
+    </AnimatePresence>
+    <span style={{ fontSize:12, fontWeight:800, color: T.toggleColor, letterSpacing:'0.02em' }}>
+      {isDark ? 'Dark' : 'Light'}
+    </span>
+  </motion.button>
+);
+
+// ─── RIGHT PANEL WRAPPER ──────────────────────────────────────────────────────
+const RightPanel = ({ T, isDark, setIsDark, children }) => (
+  <div className='md:min-h-[100vh] h-max pb-8 md:pb-[40px] md:py-[40px] md:px-[0px] py-[20px]' 
+    style={{
+      flex:1, position:'relative', background: T.rightBg, display:'flex', 
+      alignItems:'center', justifyContent:'center', transition:'background 0.35s',
+    }}
+  >
+    <ThemeToggle isDark={isDark} onToggle={() => setIsDark(d => !d)} T={T} />
+    <div style={{ width:'100%', maxWidth: '92%', marginTop: 16 }}>
+      {children}
+    </div>
+  </div>
+);
+
+// ─── MAIN AUTH FORM ───────────────────────────────────────────────────────────
+const MainAuthForm = ({ 
+    T, isLogin, setIsLogin, loading, formData, setFormData, 
+    isTabActive, handleSubmit, setCurrentPage 
+  }) => {
+    // State untuk error messages
+    const [errors, setErrors] = useState({ username: '', email: '', password: '' });
+    
+    useEffect(() => {
+      setErrors({ username: '', email: '', password: '' });
+    }, [isLogin]);
+
+    // Validasi form sebelum submit
+    const validateForm = () => {
+      const newErrors = { username: '', email: '', password: '' };
+      let isValid = true;
+      
+      if (!isLogin) {
+        // Validasi username
+        if (!formData.username) {
+          newErrors.username = 'Username wajib diisi';
+          isValid = false;
+        } else if (!isValidUsername(formData.username)) {
+          newErrors.username = 'Username 3-20 karakter (huruf, angka, _, -)';
+          isValid = false;
+        }
+        
+        // Cek XSS di username
+        if (detectXSS(formData.username)) {
+          newErrors.username = 'Username tidak valid';
+          isValid = false;
+        }
+      }
+      
+      // Validasi email
+      if (!formData.email) {
+        newErrors.email = 'Email wajib diisi';
+        isValid = false;
+      } else if (!isValidEmail(formData.email)) {
+        newErrors.email = 'Format email tidak valid';
+        isValid = false;
+      }
+      
+      // Cek XSS di email
+      if (detectXSS(formData.email)) {
+        newErrors.email = 'Email tidak valid';
+        isValid = false;
+      }
+      
+      // Validasi password
+      if (!formData.password) {
+        newErrors.password = 'Password wajib diisi';
+        isValid = false;
+      } else if (formData.password.length < 6) {
+        newErrors.password = 'Password minimal 6 karakter';
+        isValid = false;
+      }
+      
+      // Cek XSS di password
+      if (detectXSS(formData.password)) {
+        newErrors.password = 'Password tidak valid';
+        isValid = false;
+      }
+      
+      setErrors(newErrors);
+      return isValid;
+  };
+    
+  // Wrapper handleSubmit dengan validasi
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;     // ← Perbaikan
+    handleSubmit(e);
+  };
+  const isFormValid = formData.email && formData.password && (isLogin || formData.username);
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div 
+        key="main-form"
+        initial={{ opacity:0, y:20 }} 
+        animate={{ opacity:1, y:0 }} 
+        exit={{ opacity:0, y:-20 }}
+        transition={{ duration:0.22 }}
+      >
+        <div style={{ marginBottom:28 }}>
+          <h2 style={{ 
+            fontSize:28, fontWeight:900, color: T.heading, lineHeight:1.2, 
+            letterSpacing:'-0.01em', transition:'color 0.35s' 
+          }}>
+            {isLogin ? 'AKSES MASUK SUPERADMIN' : 'Buat Akun Baru'}
+          </h2>
+          <p style={{ color: T.subtext, fontSize:14, marginTop:8, lineHeight:1.55 }}>
+            {isLogin 
+              ? 'Masuk untuk mengelola overlay mu.' 
+              : 'Daftar mulai kustom alert mu.'
+            }
+          </p>
+        </div>
+
+        <form onSubmit={handleFormSubmit}>
+          <div style={{ display:'flex', flexDirection:'column', gap:16, marginBottom:20 }}>
+            <div className={`grid ${isLogin ? 'grid-cols-1' : ' grid-cols-1 md:grid-cols-2'} gap-4`}>
+                {!isLogin && (
+                  <motion.div 
+                    key="username" 
+                    initial={{ opacity:0, height:0, marginBottom:0 }} 
+                    animate={{ opacity:1, height:'auto', marginBottom:0 }} 
+                    // exit={{ opacity:0, height:0, marginBottom:0 }}
+                    transition={{ duration:0.2 }}
+                  >
+                    <AuthInput 
+                      icon={User} 
+                      placeholder="Username" 
+                      value={formData.username} 
+                      onChange={v => setFormData(f => ({ ...f, username:v }))} 
+                      T={T} 
+                    />
+                  </motion.div>
+              )}
+              {!isLogin && (
+                <AuthInput 
+                  icon={ShieldCheck} 
+                  type="text" 
+                  maxLength={4}
+                  placeholder="PIN Keamanan (4 digit)" 
+                  value={formData.securityPin || ''} 
+                  onChange={v => setFormData(f => ({ ...f, securityPin: v.replace(/\D/g,'').slice(0,4) }))} 
+                  T={T} 
+                />
+              )}
+            </div>
+            <div className={`grid ${!isLogin ? 'md:grid-cols-2' : 'md:grid-cols-1' } grid-cols-1 gap-4`}>
+              <AuthInput 
+                icon={Mail} 
+                type="email" 
+                placeholder="Alamat Email" 
+                value={formData.email} 
+                onChange={v => setFormData(f => ({ ...f, email:v }))} 
+                T={T} 
+                />
+              {errors.username && (
+                <p style={{ color: '#ef4444', fontSize: 12, marginTop: -12, marginBottom: 12 }}>
+                  {errors.username}
+                </p>
+              )}
+              <AuthInput 
+                icon={Lock} 
+                type="password" 
+                placeholder="Password" 
+                value={formData.password} 
+                onChange={v => setFormData(f => ({ ...f, password:v }))} 
+                T={T} 
+              />
+            </div>
+          </div>
+
+          {isLogin && (
+            <div className='uppercase' style={{ textAlign:'left', marginBottom:24 }}>
+              <button className='uppercase' type="button" onClick={() => setCurrentPage('forgot-password')}
+                style={{ 
+                  background:'none', border:'none', cursor:'pointer', 
+                  color: T.forgotColor, fontSize:13, fontWeight:700, 
+                  transition:'color 0.2s' 
+                }}
+                onMouseEnter={e => e.currentTarget.style.color=T.forgotHover}
+                onMouseLeave={e => e.currentTarget.style.color=T.forgotColor}
+              >
+                Lupa Password?
+              </button>
+            </div>
+          )}
+
+          <button type="submit" disabled={!isFormValid || loading} className="submit-btn"
+            style={{ 
+              width:'100%', padding:'16px 0', borderRadius:0, fontWeight:900, fontSize:15, 
+              border:'none', cursor:'pointer', 
+              background: isFormValid ? 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)' : '#e2e8f0',
+              color: isFormValid ? 'white' : '#64748b', 
+              opacity: loading ? 0.65 : 1, display:'flex', alignItems:'center', 
+              justifyContent:'center', gap:8, 
+              boxShadow: isFormValid ? '0 8px 32px rgba(79,70,229,0.4)' : 'none',
+              transition:'all 0.2s'
+            }}
+          >
+            {loading ? (
+              <Loader2 className="w-5 h-5 animate-spin" />
+            ) : (
+              <>
+                {isLogin ? 'Masuk Dashboard' : 'Daftar Sekarang'}
+                <ArrowRight size={16}/>
+              </>
+            )}
+          </button>
+        </form>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+// ─── FORGOT PASSWORD PAGE ────────────────────────────────────────────────────
+// ─── FORGOT PASSWORD PAGE (VERSI BARU - Pakai Security PIN) ───────────────────
+const ForgotPasswordPage = ({ 
+  T, 
+  setCurrentPage, 
+  emailReset, 
+  setEmailReset, 
+  setTempEmail, 
+  setTempToken,
+  notify 
+}) => {
+  
+  const [step, setStep] = useState(1); // 1 = Masukkan Email, 2 = Masukkan PIN
+  const [pin, setPin] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');   // ← WAJIB DITAMBAHKAN
+
+  // Step 1: Cek Email
+  const handleCheckEmail = async () => {
+    setError('');
+    
+    if (!emailReset) {
+      setError('Email wajib diisi');
+      return;
+    }
+    if (!isValidEmail(emailReset)) {
+      setError('Format email tidak valid');
+      return;
+    }
+    if (detectXSS(emailReset)) {
+      setError('Email tidak valid');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/forgot-password', {
+        email: sanitizeInput(emailReset)
+      });
+      
+      notify('Email Ditemukan', 'Masukkan PIN Keamanan 4 digit Anda', 'success');
+      setStep(2);
+    } catch (err) {
+      notify('Gagal', err.response?.data?.message || 'Email tidak terdaftar', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Step 2: Verifikasi Security PIN
+  const handleVerifyPin = async () => {
+    if (pin.length !== 4) {
+      setError('PIN harus 4 digit');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+    
+    try {
+      const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/verify-security-pin', {
+        email: sanitizeInput(emailReset),
+        securityPin: pin
+      });
+
+      setTempEmail(emailReset);
+      setTempToken(res.data.tempToken);
+      setCurrentPage('reset-password');
+      
+    } catch (err) {
+      setError(err.response?.data?.message || 'PIN salah');
+      setPin('');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <motion.div 
+      key="forgot" 
+      initial={{ opacity:0, y:20 }} 
+      animate={{ opacity:1, y:0 }} 
+      exit={{ opacity:0, y:-20 }}
+    >
+      <button 
+        onClick={() => setCurrentPage('main')}
+        className='active:scale-[0.99] hover:brightness-80'
+        style={{ 
+          position: 'absolute', top: 40, marginLeft: -3,
+          background:'none', border:'none', cursor:'pointer', 
+          color: T.backBtn, fontSize:14, fontWeight:700, 
+          display:'flex', alignItems:'center', gap:6 
+        }}
+      >
+        <ArrowLeft size={18} /> Kembali
+      </button>
+
+      <div style={{ textAlign: 'left', marginBottom: 32 }}>
+        <div style={{ 
+          width: 72, height: 72, margin: '50px 0 20px 0px', 
+          background: '#fef3c7', borderRadius: 20, 
+          display: 'flex', alignItems: 'center', justifyContent: 'center' 
+        }}>
+          <Mail size={32} style={{ color: '#d97706' }} />
+        </div>
+        <h2 style={{ fontSize: 28, fontWeight: 900, color: T.heading, marginBottom: 8 }}>
+          {step === 1 ? 'Lupa Password?' : 'Masukkan PIN Keamanan'}
+        </h2>
+        <p style={{ color: T.subtext, fontSize:14, lineHeight:1.6 }}>
+          {step === 1 
+            ? 'Masukkan email yang terdaftar' 
+            : `Masukkan PIN 4 digit untuk akun\n${emailReset}`}
+        </p>
+      </div>
+
+      {error && (
+        <div style={{ 
+          background: '#fee2e2', border: '1px solid #fecaca', borderRadius: 8, 
+          padding: '12px 16px', marginBottom: 16, display: 'flex', alignItems: 'center' 
+        }}>
+          <AlertCircle size={16} style={{ color: '#ef4444', marginRight: 8 }} />
+          <span style={{ color: '#dc2626', fontSize: 13 }}>{error}</span>
+        </div>
+      )}
+
+      <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
+        {step === 1 ? (
+          <>
+            <AuthInput 
+              icon={Mail} 
+              placeholder="Email kamu" 
+              value={emailReset} 
+              onChange={setEmailReset} 
+              T={T} 
+            />
+            <button 
+              onClick={handleCheckEmail} 
+              disabled={loading || !emailReset}
+              className='text-center flex justify-center items-center active:scale-[0.99]'
+              style={{ 
+                width:'100%', padding:'16px 0', borderRadius:0, fontWeight:900, fontSize:14, 
+                border:'none', cursor:'pointer', 
+                background: emailReset ? 'linear-gradient(135deg, #4f46e5, #7c3aed)' : '#e2e8f0', 
+                color: emailReset ? 'white' : '#64748b', 
+                opacity: loading ? 0.6 : 1 
+              }}
+            >
+              {loading ? <Loader2 className="w-5 h-5 mx-auto animate-spin" /> : 'Lanjutkan →'}
+            </button>
+          </>
+        ) : (
+          <>
+            <AuthInput 
+              icon={ShieldCheck} 
+              type="text" 
+              maxLength={4}
+              placeholder="PIN Keamanan 4 Digit" 
+              value={pin} 
+              onChange={(v) => setPin(v.replace(/\D/g, '').slice(0,4))} 
+              T={T} 
+            />
+            <button 
+              onClick={handleVerifyPin} 
+              disabled={loading || pin.length !== 4}
+              className='flex justify-center items-center active:scale-[0.99] text-center'
+              style={{ 
+                width:'100%', padding:'16px 0', borderRadius:0, fontWeight:900, fontSize:14, 
+                border:'none', cursor:'pointer', 
+                background: pin.length === 4 ? 'linear-gradient(135deg, #10b981, #059669)' : '#e2e8f0', 
+                color: pin.length === 4 ? 'white' : '#64748b', 
+                opacity: loading ? 0.6 : 1 
+              }}
+            >
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Verifikasi PIN'}
+            </button>
+          </>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
+// ─── VERIFY PIN PAGE ─────────────────────────────────────────────────────────
+const VerifyPinPage = ({ T, notify, closeNotif, navigate, email }) => {
+  const [pin, setPin] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [countdown, setCountdown] = useState(300); // 5 minutes
+
+  useEffect(() => {
+    const timer = setInterval(() => setCountdown(c => c > 0 ? c - 1 : 0), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleVerify = async (e) => {
+    e.preventDefault();
+    if (pin.length !== 6) return;
+    
+    setLoading(true);
+    try {
+      const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/verify-pin', {
+        email, pin
+      });
+      notify('Verifikasi Berhasil!', res.data.message, 'success');
+      setTimeout(() => navigate('/auth'), 2000);
+    } catch (err) {
+      notify('Gagal', err.response?.data?.message || 'PIN salah atau kadaluarsa', 'error');
+      setPin('');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResend = async () => {
+    if (countdown > 0) return;
+    setResendLoading(true);
+    try {
+      const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/resend-pin', { email });
+      notify('PIN Baru Dikirim!', res.data.message, 'success');
+      setCountdown(300);
+    } catch (err) {
+      notify('Gagal', err.response?.data?.message, 'error');
+    } finally {
+      setResendLoading(false);
+    }
+  };
+
+  return (
+    <motion.div 
+      key="verify-pin" 
+      initial={{ opacity:0, y:20 }} 
+      animate={{ opacity:1, y:0 }} 
+      exit={{ opacity:0, y:-20 }}
+    >
+      <div style={{ textAlign: 'left', marginBottom: 32 }}>
+        <div style={{ 
+          width: 80, height: 80, margin: '50px 0 24px 0px', background: '#eff6ff', 
+          borderRadius: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' 
+        }}>
+          <ShieldCheck size={36} style={{ color: '#4f46e5' }} />
+        </div>
+        <h2 style={{ fontSize: 28, fontWeight: 900, color: T.heading, marginBottom: 8 }}>
+          Verifikasi PIN
+        </h2>
+        <p style={{ color: T.subtext, fontSize:14 }}>
+          Masukkan 6 digit kode yang dikirim ke <strong>{email}</strong>
+        </p>
+        {countdown > 0 && (
+          <div style={{ 
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, 
+            background: '#dbeafe', borderRadius: 999, padding: '8px 16px', marginTop: 12 
+          }}>
+            <Clock size={16} style={{ color: '#1e40af' }} />
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#1e40af' }}>
+              {formatTime(countdown)}
+            </span>
+          </div>
+        )}
+      </div>
+
+      <form onSubmit={handleVerify}>
+        <div style={{ marginBottom: 24 }}>
+          <input
+            type="text" 
+            maxLength={6} 
+            value={pin}
+            onChange={(e) => setPin(e.target.value.replace(/\D/g, '').toUpperCase())}
+            placeholder="000000"
+            style={{
+              width: '100%', boxSizing: 'border-box', background: T.inputBgFocus,
+              border: `2px solid ${T.inputBorderFocus}`, borderRadius: 16, 
+              padding: '24px 20px', fontSize: 32, fontWeight: 800, 
+              textAlign: 'center', letterSpacing: '12px', 
+              color: T.inputText, outline: 'none', fontFamily: 'monospace',
+              textTransform: 'uppercase'
+            }}
+          />
+        </div>
+        
+        <button 
+          type="submit" 
+          disabled={loading || pin.length !== 6}
+          className="submit-btn"
+          style={{ 
+            width: '100%', padding: '18px 0', borderRadius: 16, fontWeight: 900, fontSize: 15, 
+            border: 'none', cursor: 'pointer', 
+            background: pin.length === 6 ? 'linear-gradient(135deg, #10b981, #059669)' : '#e2e8f0',
+            color: pin.length === 6 ? 'white' : '#64748b', 
+            opacity: loading ? 0.7 : 1 
+          }}
+        >
+          {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Verifikasi PIN'}
+        </button>
+      </form>
+
+      <div style={{ textAlign: 'center', marginTop: 28 }}>
+        <button 
+          onClick={handleResend} 
+          disabled={resendLoading || countdown > 0}
+          style={{ 
+            background: 'none', border: 'none', color: T.forgotColor, 
+            fontSize: 14, fontWeight: 600, cursor: countdown > 0 ? 'not-allowed' : 'pointer',
+            opacity: countdown > 0 ? 0.5 : 1 
+          }}
+        >
+          {resendLoading ? 'Mengirim...' : countdown > 0 ? `Kirim ulang ${formatTime(countdown)}` : 'Kirim ulang PIN'}
+        </button>
+      </div>
+    </motion.div>
+  );
+};
+
+// ─── RESET PASSWORD PAGE ─────────────────────────────────────────────────────
+const ResetPasswordPage = ({ T, notify, closeNotif, navigate, emailProp, tokenProp, setCurrentPage, setIsLogin }) => {
+  const [searchParams] = useSearchParams();
+  const [formData, setFormData] = useState({ password: '', confirmPassword: '' });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState({ strength: 0, message: '' });
+
+  // ← Prioritas: dari props dulu, fallback ke URL params
+  const token = tokenProp || searchParams.get('token');
+  const email = emailProp || searchParams.get('email');
+
+  // Update handler untuk password dengan validasi
+  const handlePasswordChange = (password) => {
+    const sanitized = sanitizeInput(password);
+    setFormData(f => ({ ...f, password: sanitized }));
+    
+    // Update password strength
+    if (sanitized) {
+      setPasswordStrength(validatePassword(sanitized));
+    } else {
+      setPasswordStrength({ strength: 0, message: '' });
+    }
+  };
+
+
+  
+  const handleReset = async (e) => {
+    e.preventDefault();
+    setError('');
+    
+    // Validasi password
+    if (!formData.password) {
+      setError('Password wajib diisi');
+      return;
+    }
+    
+    // Validasi password strength
+    const pwdValidation = validatePassword(formData.password);
+    if (!pwdValidation.isValid) {
+      setError('Password minimal 6 karakter');
+      return;
+    }
+    
+    // Cek XSS
+    if (detectXSS(formData.password)) {
+      setError('Password tidak valid');
+      return;
+    }
+    
+    // Validasi konfirmasi password
+    if (formData.password !== formData.confirmPassword) {
+      setError('Password konfirmasi tidak cocok');
+      return;
+    }
+    
+    setLoading(true);
+
+    try {
+      const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/reset-password', {
+        email: sanitizeInput(email),
+        token: sanitizeInput(token),
+        newPassword: formData.password
+      });
+      notify('Password Berhasil Diubah!', res.data.message, 'success');
+      // setTimeout(() => navigate('/login'), 2500);
+      setCurrentPage('main');
+      setIsLogin(true);
+
+    } catch (err) {
+      setError(err.response?.data?.message || 'Token tidak valid atau sudah kadaluarsa');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!token || !email) {
+      setCurrentPage('main');
+      setIsLogin(true);
+      // navigate('/login');
+    }
+  }, [token, email, navigate]);
+
+  if (!token || !email) return null;
+
+  return (
+    <motion.div 
+      key="reset-password" 
+      initial={{ opacity:0, y:20 }} 
+      animate={{ opacity:1, y:0 }} 
+      exit={{ opacity:0, y:-20 }}
+    >
+      <button 
+        onClick={() => setCurrentPage('main')}
+        className='active:scale-[0.99] hover:brightness-80'
+        style={{ 
+          position: 'absolute', top: 40, marginLeft: -3,
+          background:'none', border:'none', cursor:'pointer', 
+          color: T.backBtn, fontSize:14, fontWeight:700, 
+          display:'flex', alignItems:'center', gap:6 
+        }}
+      >
+        <ArrowLeft size={18} /> Kembali
+      </button>
+      <div style={{ textAlign: 'left', marginBottom: 32 }}>
+        <div style={{ 
+          width: 80, height: 80, margin: '50px 0 24px 0px', background: '#ecfdf5', 
+          borderRadius: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' 
+        }}>
+          <ShieldCheck size={36} style={{ color: '#059669' }} />
+        </div>
+        <h2 style={{ fontSize: 28, fontWeight: 900, color: T.heading, marginBottom: 8 }}>
+          Reset Password
+        </h2>
+        <p style={{ color: T.subtext, fontSize:14 }}>
+          Buat password baru untuk akun <strong>{email}</strong>
+        </p>
+      </div>
+
+      {error && (
+        <motion.div 
+          initial={{ opacity:0, height:0 }} 
+          animate={{ opacity:1, height: 'auto' }} 
+          style={{ 
+            background: '#fee2e2', border: '1px solid #fecaca', borderRadius: 12, 
+            padding: '16px 20px', marginBottom: 20, display: 'flex', alignItems: 'center' 
+          }}
+        >
+          <AlertCircle size={18} style={{ color: '#ef4444', marginRight: 12 }} />
+          <span style={{ color: '#dc2626', fontSize: 14, fontWeight: 500 }}>{error}</span>
+        </motion.div>
+      )}
+
+      <form onSubmit={handleReset}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <AuthInput 
+            icon={Lock} 
+            type="password" 
+            placeholder="Password baru (min 6 karakter)" 
+            value={formData.password}
+            onChange={handlePasswordChange}   // ← GANTI INI (jangan inline)
+            T={T}
+          />
+          {passwordStrength.message && (
+            <p style={{ fontSize:13, marginTop:4, color: passwordStrength.strength >= 4 ? '#10b981' : '#eab308' }}>
+              {passwordStrength.message}
+            </p>
+          )}
+          <AuthInput 
+            icon={Lock} 
+            type="password" 
+            placeholder="Konfirmasi password" 
+            value={formData.confirmPassword}
+            onChange={v => setFormData(f => ({ ...f, confirmPassword: v }))}
+            T={T}
+          />
+          <button 
+            type="submit" 
+            disabled={loading}
+            className="submit-btn"
+            className="flex justify-center items-center text-center"
+            style={{ 
+              width: '100%', padding: '16px 0', borderRadius: 0, fontWeight: 900, fontSize: 14, 
+              border: 'none', cursor: 'pointer', 
+              background: 'linear-gradient(135deg, #10b981, #059669)', color: 'white', 
+              opacity: loading ? 0.7 : 1 
+            }}
+          >
+            {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Set Password Baru'}
+          </button>
+        </div>
+      </form>
+    </motion.div>
+  );
+};
+
+// ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
+const AuthSuperAdmin = () => {
+  const [isDark, setIsDark] = useState(false);
+  const T = getTheme(isDark);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [tempToken, setTempToken] = useState('');
+
+  // Page state
+  const [currentPage, setCurrentPage] = useState('main');
+  const [tempEmail, setTempEmail] = useState('');
+
+  // Form state
+  const [isLogin, setIsLogin] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({ username:'', email:'', password:'', securityPin: '' });
+  const [emailReset, setEmailReset] = useState('');
+  // const [validationErrors, setValidationErrors] = useState({});
+
+  // Notification
+  const [notification, setNotification] = useState({ show:false, title:'', message:'', type:'success' });
+  const notify = (title, message, type='success') => setNotification({ show:true, title, message, type });
+  const closeNotif = () => setNotification(n => ({ ...n, show:false }));
+
+  // Check reset password URL
+  useEffect(() => {
+    const token = searchParams.get('token');
+    const email = searchParams.get('email');
+    if (token && email) {
+      setCurrentPage('reset-password');
+    }
+  }, [searchParams]);
+
+  // Reset form ketika pindah tab
+  useEffect(() => {
+    if (isLogin) {
+      // Saat di Login → hapus username
+      setFormData(prev => ({ ...prev, username: '' }));
+    } else {
+      // Saat di Register → boleh kosong semua atau reset full
+      setFormData({ username: '', email: '', password: '' });
+    }
+  }, [isLogin]);
+
+  // Main form submit handler dengan XSS protection
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Validasi awal - sanitasi semua input dulu
+    const sanitizedData = {
+      username: sanitizeInput(formData.username),
+      email: sanitizeInput(formData.email),
+      password: formData.password,
+      securityPin: formData.securityPin || ''
+    };
+
+    // Validasi tambahan untuk Register
+    if (!isLogin) {
+      if (!sanitizedData.securityPin || sanitizedData.securityPin.length !== 4) {
+        notify('Validasi Gagal', 'PIN Keamanan harus 4 digit angka', 'error');
+        return;
+      }
+    }
+    
+    const isFormValid = sanitizedData.email && formData.password && 
+                     (isLogin || (sanitizedData.username && sanitizedData.securityPin));
+
+    if (!isFormValid) {
+      notify('Validasi Gagal', 'Mohon lengkapi semua field', 'error');
+      return;
+    }
+    
+    // CEK XSS sebelum submit
+    if (detectXSS(sanitizedData.username) || detectXSS(sanitizedData.email) || detectXSS(formData.password)) {
+      notify('Peringatan', 'Input mengandung karakter berbahaya', 'error');
+      return;
+    }
+    
+    // Validasi username jika register
+    if (!isLogin && sanitizedData.username) {
+      if (!isValidUsername(sanitizedData.username)) {
+        notify('Validasi Gagal', 'Username harus 3-20 karakter, alphanumeric saja', 'error');
+        return;
+      }
+    }
+    
+    // Validasi email format
+    if (!isValidEmail(sanitizedData.email)) {
+      notify('Validasi Gagal', 'Format email tidak valid', 'error');
+      return;
+    }
+    
+    setLoading(true);
+    
+    try {
+      const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
+      
+      // Kirim data yang sudah disanitasi
+      const payload = isLogin 
+        ? { 
+            email: sanitizedData.email, 
+            password: formData.password 
+          }
+        : { 
+            username: sanitizedData.username, 
+            email: sanitizedData.email, 
+            password: formData.password,
+            securityPin: sanitizedData.securityPin  
+          };
+      
+      const res = await axios.post(`https://server-ttt-production.up.railway.app${endpoint}`, payload);
+      
+      if (isLogin) {
+        // Login success - SIMPAN TOKEN DENGAN AMAN
+        localStorage.setItem('token', res.data.token);
+        
+        // Simpan info user (tidak sensitive)
+        if (res.data.user) {
+          localStorage.setItem('user', JSON.stringify(safeText(JSON.stringify({
+            id: res.data.user.id,
+            username: res.data.user.username,
+            email: res.data.user.email // Email boleh disimpan
+          }))));
+        }
+        
+        notify('Login Berhasil!', 'Selamat datang kembali di dashboard!', 'success');
+        setTimeout(() => navigate('/dashboard'), 2000);
+      } else {
+        // Register → Verify PIN
+        setTempEmail(sanitizedData.email);
+        notify('Registrasi Berhasil', 'Selamat datang streamer', 'success');
+        setTimeout(() => {
+          closeNotif();
+          setIsLogin(true);           
+          setFormData({ username:'', email:'', password:'' });
+        }, 2500);
+      }
+    } catch (err) {
+      // ERROR HANDLING - Jangan expose detail error ke user
+      const errorMessage = err.response?.data?.message || 'Koneksi terputus atau server error';
+      
+      // Log error ke console untuk debugging (tidak perlu expose ke user)
+      console.error('[Auth Error]:', err.response?.status, errorMessage);
+      
+      notify('Gagal', errorMessage, 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  // Fungsi untuk validasi email di Forgot Password
+  // const handleForgotPassword = async (emailReset) => {
+  //   const sanitizedEmail = sanitizeInput(emailReset);
+    
+  //   if (!isValidEmail(sanitizedEmail)) {
+  //     return { success: false, message: 'Email tidak valid' };
+  //   }
+    
+  //   if (detectXSS(sanitizedEmail)) {
+  //     return { success: false, message: 'Email tidak valid' };
+  //   }
+    
+  //   try {
+  //     const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/forgot-password', { 
+  //       email: sanitizedEmail 
+  //     });
+  //     return { success: true, message: res.data.message };
+  //   } catch (err) {
+  //     return { success: false, message: err.response?.data?.message || 'Email tidak terdaftar' };
+  //   }
+  // };
+  
+  // Fungsi untuk validasi password di Reset Password
+  // const handleResetPassword = async (email, token, newPassword) => {
+  //   const sanitizedEmail = sanitizeInput(email);
+  //   const sanitizedToken = sanitizeInput(token);
+    
+  //   // Validasi password
+  //   const pwdValidation = validatePassword(newPassword);
+  //   if (!pwdValidation.isValid) {
+  //     return { success: false, message: pwdValidation.message };
+  //   }
+    
+  //   try {
+  //     const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/reset-password', {
+  //       email: sanitizedEmail,
+  //       token: sanitizedToken,
+  //       newPassword: newPassword // Password jangan disanitasi
+  //     });
+  //     return { success: true, message: res.data.message };
+  //   } catch (err) {
+  //     return { success: false, message: err.response?.data?.message || 'Token tidak valid atau kadaluarsa' };
+  //   }
+  // };
+
+  const isTabActive = (i) => (isLogin && i === 0) || (!isLogin && i === 1);
+
+  // Render current page
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'reset-password':
+        return <ResetPasswordPage 
+          T={T} 
+          notify={notify} 
+          closeNotif={closeNotif} 
+          navigate={navigate}
+          emailProp={tempEmail}    // ← tambah ini
+          tokenProp={tempToken}    // ← tambah ini
+          setCurrentPage={setCurrentPage}   // ← tambah ini
+          setIsLogin={setIsLogin}  
+      />;
+      
+      case 'verify-pin':
+        return <VerifyPinPage T={T} notify={notify} closeNotif={closeNotif} navigate={navigate} email={tempEmail} />;
+      
+      case 'forgot-password':
+        return (
+          <ForgotPasswordPage 
+            T={T} 
+            setCurrentPage={setCurrentPage} 
+            emailReset={emailReset} 
+            setEmailReset={setEmailReset}
+            setTempEmail={setTempEmail}
+            setTempToken={setTempToken}     // ← Tambahkan ini
+            notify={notify}
+          />
+        );
+      
+      default:
+        return (
+          <MainAuthForm 
+            T={T} isLogin={isLogin} setIsLogin={setIsLogin}
+            loading={loading} formData={formData} setFormData={setFormData}
+            isTabActive={isTabActive} handleSubmit={handleSubmit}
+            setCurrentPage={setCurrentPage}
+          />
+        );
+    }
+  };
+
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+        * { font-family: 'Plus Jakarta Sans', sans-serif; box-sizing: border-box; }
+        .auth-input-field::placeholder { color: #94a3b8 !important; font-weight: 400; }
+        .tab-btn { transition: all 0.22s cubic-bezier(.4,0,.2,1); }
+        .tab-btn:active { transform: scale(0.97); }
+        .submit-btn:active:not(:disabled) { transform: scale(0.97) !important; }
+        .submit-btn:hover:not(:disabled) { filter: brightness(1.08); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (max-width: 768px) {
+          .auth-root { flex-direction: column !important; }
+          .auth-left { width: 100% !important; min-height: auto !important; padding: 0px 0px !important; }
+        }
+      `}</style>
+
+      <div className="auth-root" style={{ 
+        minHeight:'100vh', overflow:'hidden', background: T.pageBg, 
+        display:'flex', flexDirection:'row', transition:'background 0.35s' 
+      }}>
+        <NotifModal notification={notification} onClose={closeNotif} />
+        
+        <LeftPanel />
+        <RightPanel T={T} isDark={isDark} setIsDark={setIsDark}>
+          <AnimatePresence mode="wait">
+            {renderPage()}
+          </AnimatePresence>
+        </RightPanel>
+      </div>
+    </>
+  );
+};
+
+export default AuthSuperAdmin;
