@@ -337,7 +337,7 @@
                 <FrogDeco />
                 <span style={{
                   fontFamily: monospace, fontSize: 22, color: hl,
-                  textTransform: 'uppercase', letterSpacing: '0.18em', fontWeight: 900,
+                  letterSpacing: '0.18em', fontWeight: 900,
                 }}>DUKUNGAN MASUK</span>
               </div> */}
               <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
@@ -454,8 +454,7 @@
                 <div style={{
                   fontFamily: "'Poppins', sans-serif",
                   fontSize: 22,
-                  textTransform: 'uppercase',
-                  width: 'max-content',
+                                    width: 'max-content',
                   fontWeight: 500,
                   color: fg,
                   borderBottom: `1px solid ${highlight}25`,
@@ -512,7 +511,7 @@
             {/* Icon + Nama */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
               <div>
-                <div style={{ textTransform: 'uppercase', display: 'flex', width: 'max-content', gap: '6px', justifyContent: 'center', alignItems: 'center', fontSize: 22, fontWeight: 900, color: fg, lineHeight: 1.2, top: 1.5, position: 'relative' }}>
+                <div style={{ display: 'flex', width: 'max-content', gap: '6px', justifyContent: 'center', alignItems: 'center', fontSize: 22, fontWeight: 900, color: fg, lineHeight: 1.2, top: 1.5, position: 'relative' }}>
                   {alert.donorName} 
                 </div>
               </div>
@@ -580,7 +579,7 @@
                 <span style={{ fontSize: 22, lineHeight: 1 }}>{renderIcon(customIcon, 16)}</span>
                 <span style={{
                   fontFamily: monospace, fontSize: 10, fontWeight: 900, color: hl,
-                  textTransform: 'uppercase', letterSpacing: '0.15em',
+                  letterSpacing: '0.15em',
                 }}>★ Dukungan Masuk! ★</span>
               </div> */}
               <span style={{ fontFamily: monospace, fontSize: 22, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
@@ -645,10 +644,6 @@
           <div style={scanlineStyle} />
           <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
-              {/* <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ fontFamily: monospace, fontSize: 22, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
-                <span style={{ fontFamily: monospace, fontSize: 8, color: hl, letterSpacing: '0.18em', textTransform: 'uppercase' }}>DONASI</span>
-              </div> */}
               <span style={{
                 fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl,
                 letterSpacing: '-1px', textShadow: `0 0 8px ${hl}50`,
