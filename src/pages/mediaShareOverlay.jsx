@@ -152,13 +152,19 @@ const calculateMediaShareDuration = (config, amount) => {
     const [mediaError, setMediaError] = useState(false);
 
     // ── Fetch config ──────────────────────────────────────────────────────────
-    useEffect(() => {
-      if (!token) return;
-      axios
-        .get(`${API_URL}/api/overlay/config/${token}`)
-        .then((res) => { setConfig(res.data); configRef.current = res.data; })
-        .catch(() => console.error('[MediaShare] Invalid token'));
-    }, [token]);
+    // useEffect(() => {
+    //   if (!token) return;
+    //   axios
+    //     .get(`${API_URL}/api/overlay/config/${token}`)
+    //     .then((res) => { setConfig(res.data); configRef.current = res.data; })
+    //     .catch(() => console.error('[MediaShare] Invalid token'));
+    // }, [token]);
+
+    const slot = new URLSearchParams(window.location.search).get('slot') || 'A';
+    axios
+      .get(`${API_URL}/api/overlay/config/${token}?slot=${slot}`)
+      .then((res) => { setConfig(res.data); configRef.current = res.data; })
+      .catch(() => console.error('[MediaShare] Invalid token'));
 
     useEffect(() => {
       if (!token) return;

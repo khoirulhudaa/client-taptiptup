@@ -81,8 +81,6 @@ import LoadingOverlay from '../components/overlayLoading';
 import StreamerManagerPage from './streamerManager';
 
 // ─── API ──────────────────────────────────────────────────────────────────────
-
-const fetchProfile    = async () => (await api.get('/api/overlay/settings')).data;
 const fetchBadges = async () => (await api.get('/api/midtrans/badges')).data;
 const fetchHistory    = async ({ page = 1, limit = 50, status = '' } = {}) => {
   const params = new URLSearchParams({ page, limit });
@@ -90,13 +88,23 @@ const fetchHistory    = async ({ page = 1, limit = 50, status = '' } = {}) => {
   return (await api.get(`/api/donations/history?${params}`)).data;
 };
 const fetchStats      = async () => (await api.get('/api/donations/stats')).data;
-const saveSettings = async (s) => {
+// const saveSettings = async (s) => {
+//   const clean = JSON.parse(JSON.stringify(s, (key, val) => {
+//     if (val instanceof HTMLElement || val instanceof Element) return undefined;
+//     return val;
+//   }));
+//   return (await api.put('/api/overlay/settings', clean)).data;
+// };
+
+const saveSettings = async (s, slot = 'A') => {
+  console.log('💾 Saving settings with slot:', slot); // ← tambahkan ini
   const clean = JSON.parse(JSON.stringify(s, (key, val) => {
     if (val instanceof HTMLElement || val instanceof Element) return undefined;
     return val;
   }));
-  return (await api.put('/api/overlay/settings', clean)).data;
+  return (await api.put(`/api/overlay/settings?slot=${slot}`, clean)).data;
 };
+
 const updateProfile   = async (d) => (await api.put('/api/auth/profile', d)).data;
 const changePassword  = async (d) => (await api.put('/api/auth/change-password', d)).data;
 const fetchBannedWords = async () => (await api.get('/api/banned-words')).data;
@@ -233,7 +241,7 @@ const InputField = ({ label, ...props }) => (
 
 // ─── QuickAmountsEditor ───────────────────────────────────────────────────────
 
-const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, settings }) => {
+const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, settings, activeSlot }) => {
   const add = () => onChange([...amounts, 50000]);
   const remove = (i) => onChange(amounts.filter((_, idx) => idx !== i));
   const update = (i, val) => {
@@ -264,7 +272,7 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
         + Tambah Nominal
       </button>
       <button
-        onClick={() => saveSettingsMutation.mutate(settings)}
+        onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })}
         disabled={saveSettingsMutation.isPending}
         className="mt-3 md:mt-6 cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full py-3 bg-emerald-600 text-white rounded-none text-sm font-black"
       >
@@ -724,7 +732,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
                 ))}
               </div>
         }
-        <button onClick={() => saveSettingsMutation.mutate(settings)} disabled={saveSettingsMutation.isPending}
+        <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
           className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
           <Save size={20} />
           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
@@ -1137,7 +1145,7 @@ const AdminWithdrawalPage = () => {
 
 // ─── DurationSettings ─────────────────────────────────────────────────────────
 
-const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly = false, mediaOnly = false }) => {
+const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly = false, mediaOnly = false, activeSlot }) => {
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-8">
       <SectionHeader
@@ -1243,7 +1251,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
         </div>
       </div>
 
-      <button onClick={() => saveSettingsMutation.mutate(settings)} disabled={saveSettingsMutation.isPending}
+      <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
         className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
         <Save size={20} />
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan Durasi'}
@@ -1254,7 +1262,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
 
 // ─── MediaTriggersEditor ──────────────────────────────────────────────────────
 
-const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, settings }) => {
+const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, settings, activeSlot }) => {
   const add    = () => onChange([...triggers, { minAmount: 50000, mediaType: 'both', label: '' }]);
   const remove = (i) => onChange(triggers.filter((_, idx) => idx !== i));
   const update = (i, key, val) => onChange(triggers.map((t, idx) => idx === i ? { ...t, [key]: val } : t));
@@ -1300,7 +1308,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
       <button onClick={add} className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-2">
         <Plus size={16} /> Tambah Ketentuan Media Alert
       </button>
-      <button onClick={() => saveSettingsMutation.mutate(settings)} disabled={saveSettingsMutation.isPending}
+      <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
         className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
         <Save size={20} />
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Izin Media'}
@@ -2882,7 +2890,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
             </div>
           </div>
 
-          <button onClick={() => saveSettingsMutation.mutate(settings)} disabled={saveSettingsMutation.isPending}
+          <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
             className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 hover:brightness-90 text-white font-black rounded-none transition-all disabled:opacity-60 flex items-center justify-center gap-2">
             <Save size={18} />
             {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan TTS'}
@@ -2977,8 +2985,23 @@ export const DashboardStreamer = () => {
     confirmPin: ['','','',''] 
   });
   const { maintenance } = useMaintenance(); // ← tambah ini
+  const [activeSlot, setActiveSlot] = useState('A'); // 'A' | 'B'
+  const [localSettingsB, setLocalSettingsB] = useState(null);
 
 // ─── PIN HANDLERS (dipindah ke dalam komponen) ─────────────────────────────────
+
+// const fetchProfile    = async () => (await api.get('/api/overlay/settings')).data;
+const fetchProfile = async (slot = 'A') => 
+  (await api.get(`/api/overlay/settings?slot=${slot}`)).data;
+
+const { data: profileDataA } = useQuery({
+  queryKey: ['profile', 'A'], 
+  queryFn: () => fetchProfile('A') 
+});
+const { data: profileDataB } = useQuery({
+  queryKey: ['profile', 'B'], 
+  queryFn: () => fetchProfile('B') 
+});
 
 const handlePinInputChange = useCallback((group, index, value, refs, setter) => {
   const sanitized = value.replace(/[^0-9]/g, '').slice(0, 1);
@@ -3067,16 +3090,39 @@ const handleChangePin = async () => {
     }
   }, [localSettings?.customIcon]);
 
+  // useEffect(() => {
+  //   if (profileData && !localSettings) {
+  //     const s = profileData.settings || profileData.overlaySetting || {};
+  //     setLocalSettings({
+  //       ...DEFAULT_SETTINGS,
+  //       ...s,
+  //       publicSounds: Array.isArray(s.publicSounds) ? s.publicSounds : DEFAULT_SETTINGS.publicSounds,
+  //     });
+  //   }
+  // }, [profileData]);
+
   useEffect(() => {
-    if (profileData && !localSettings) {
-      const s = profileData.settings || profileData.overlaySetting || {};
-      setLocalSettings({
-        ...DEFAULT_SETTINGS,
-        ...s,
-        publicSounds: Array.isArray(s.publicSounds) ? s.publicSounds : DEFAULT_SETTINGS.publicSounds,
+    const currentData = activeSlot === 'A' ? profileDataA : profileDataB;
+    
+    if (currentData) {
+      const s = currentData.settings || currentData.overlaySetting || {};
+      setLocalSettings(prev => {
+        if (!prev) {
+          return {
+            ...DEFAULT_SETTINGS,
+            ...s,
+            publicSounds: Array.isArray(s.publicSounds) ? s.publicSounds : DEFAULT_SETTINGS.publicSounds,
+          };
+        }
+        return prev; // jangan overwrite kalau sudah ada
       });
     }
-  }, [profileData]);
+  }, [profileDataA, profileDataB, activeSlot]);
+
+  useEffect(() => {
+    console.log('Current Slot:', activeSlot);
+    console.log('Current Settings:', localSettings);
+  }, [activeSlot, localSettings]);
 
   useEffect(() => {
     if (profileData && localSettings) {
@@ -3103,10 +3149,21 @@ const handleChangePin = async () => {
     return payload?.role === 'superAdmin';
   }, [profileData]);
 
+  // const saveSettingsMutation = useMutation({
+  //   mutationFn: saveSettings,
+  //   onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['profile'] }); setShowToast(true); setTimeout(() => setShowToast(false), 3000); },
+  //   onError: (err) => alert(err || 'Gagal menyimpan pengaturan'),
+  // });
+
   const saveSettingsMutation = useMutation({
-    mutationFn: saveSettings,
-    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['profile'] }); setShowToast(true); setTimeout(() => setShowToast(false), 3000); },
-    onError: (err) => alert(err.response?.data?.message || 'Gagal menyimpan pengaturan'),
+    mutationFn: ({ settings, slot = 'A' }) => saveSettings(settings, slot),
+    onSuccess: () => { 
+      queryClient.invalidateQueries({ queryKey: ['profile'] }); 
+      queryClient.invalidateQueries({ queryKey: ['profile', activeSlot] });
+      setShowToast(true); 
+      setTimeout(() => setShowToast(false), 3000); 
+    },
+    onError: (err) => alert(err?.response?.data?.message || 'Gagal menyimpan pengaturan'),
   });
 
   const updateProfileMutation = useMutation({
@@ -3199,7 +3256,7 @@ const handleChangePin = async () => {
 
  // ─── SoundTiersEditor ─────────────────────────────────────────────────────────
 
-  const SoundTiersEditor = ({ tiers, onChange, saveSettingsMutation, settings, onPreview }) => {
+  const SoundTiersEditor = ({ tiers, onChange, saveSettingsMutation, settings, onPreview, activeSlot }) => {
     // ✅ Local state untuk tracking input - tidak trigger parent update
     const [localTiers, setLocalTiers] = useState(() => 
       tiers.map(t => ({ ...t }))
@@ -3306,7 +3363,7 @@ const handleChangePin = async () => {
         <button 
           onClick={() => {
             syncToParent(); // ✅ Sync semua data ke parent dulu sebelum simpan
-            saveSettingsMutation.mutate(settings);
+            saveSettingsMutation.mutate({ settings, slot: activeSlot });
           }} 
           disabled={saveSettingsMutation.isPending}
           className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
@@ -3366,7 +3423,7 @@ const handleChangePin = async () => {
   const displayBalance = showBalance ? `Rp ${Number(user.balance).toLocaleString('id-ID')}` : 'Rp ••••••';
 
   // ── Shared Sound Section (dipakai di alertSettings) ──────────────────────────
-  const SoundSection = () => {
+  const SoundSection = ({activeSlot}) => {
     const previewAudioRef = useRef(null);
 
     const playPreview = (url) => {
@@ -3398,6 +3455,7 @@ const handleChangePin = async () => {
             tiers={settings.soundTiers || []}
             onChange={v => upd('soundTiers', v)}
             onPreview={playPreview}
+            activeSlot={activeSlot}
           />
           <div className="pt-2 md:pt-8 md:border-t border-slate-200 dark:border-slate-700">
             <div className="flex items-center gap-3 mb-6">
@@ -3415,7 +3473,7 @@ const handleChangePin = async () => {
               }}
             />
             <div className='w-full h-[1px] bg-slate-100/10 my-4' />
-            <button onClick={() => saveSettingsMutation.mutate(settings)} disabled={saveSettingsMutation.isPending || uploading}
+            <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending || uploading}
               className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-blue-600 to-violet-600 hover:brightness-90 text-white font-black rounded-none transition-all disabled:opacity-60 flex items-center justify-center gap-2">
               <Save size={20} />
               {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Suara'}
@@ -3641,6 +3699,26 @@ const handleChangePin = async () => {
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                     <SectionHeader icon={<Settings size={20} />} title="Konfigurasi Alert" color="bg-blue-500" />
                     <div className="mt-8 space-y-6">
+                      <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 rounded-none">
+                        {['A', 'B'].map((slot, index) => (
+                          <button
+                            key={slot}
+                            onClick={() => setActiveSlot(slot)}
+                            className={`flex justify-between px-5 flex-1 py-4 cursor-pointer active:scale-[0.99] font-black text-xs rounded-none transition-all ${
+                              activeSlot === slot 
+                                ? 'bg-blue-600 text-white shadow-sm' 
+                                : 'text-slate-400 hover:text-slate-500'
+                            }`}
+                          >
+                            <span>
+                              OVERLAY
+                            </span>
+                            <span className="px-1.5 py-0.5 bg-white text-black text-[10px] font-medium rounded-none">
+                              SLOT {index + 1}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
                       {[
                         { key: 'overlayEnabled', label: 'Aktifkan Overlay OBS',  desc: 'Alert tidak akan muncul di OBS sama sekali' },
                         { key: 'showTimestamp',  label: 'Tampilkan Jam Donasi',  desc: 'Waktu kapan donasi diterima overlay' },
@@ -3782,12 +3860,11 @@ const handleChangePin = async () => {
                       ))}
                       <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
                     </div>
-                    <button onClick={() => saveSettingsMutation.mutate(settings)} disabled={saveSettingsMutation.isPending}
+                    <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                       className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2 mt-8">
                       <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
                     </button>
                   </div>
-
                   {/* Preset Warna Siap Pakai */}
                   <div className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6">
                     <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
@@ -3821,12 +3898,16 @@ const handleChangePin = async () => {
                   </div>
 
                   {/* Quick Nominal */}
-                  <QuickAmountsEditor amounts={settings.quickAmounts || DEFAULT_SETTINGS.quickAmounts} onChange={v => upd('quickAmounts', v)} saveSettingsMutation={saveSettingsMutation} settings={settings} />
+                  <QuickAmountsEditor amounts={settings.quickAmounts || DEFAULT_SETTINGS.quickAmounts} onChange={v => upd('quickAmounts', v)} saveSettingsMutation={saveSettingsMutation} settings={settings} activeSlot={activeSlot} />
 
                   {/* OBS URLs */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                     {[
                       { label: 'URL ALERT - OBS',           url: user.overlayUrl },
+                      // Slot A (existing)
+                      { label: 'URL ALERT - OBS (Slot A)', url: user.overlayUrl },
+                      // Slot B (baru)
+                      { label: 'URL ALERT - OBS (Slot B)', url: `${user.overlayUrl}?slot=B` },
                       { label: 'URL MEDIASHARE - OBS',      url: `${window.location.origin}/overlay/${user.overlayToken}/mediashare` },
                       { label: 'URL VOICE NOTE - OBS',      url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
                       { label: 'URL COMBINED (ALL-IN-ONE)', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
@@ -3839,7 +3920,7 @@ const handleChangePin = async () => {
                         </div>
                       </div>
                     ))}
-                    <button onClick={() => saveSettingsMutation.mutate(settings)} disabled={saveSettingsMutation.isPending}
+                    <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                       className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
                       <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
                     </button>
@@ -3912,10 +3993,10 @@ const handleChangePin = async () => {
                 <InstantTestAlert overlayToken={user.overlayToken} settings={settings} user={user} />
 
                 {/* Durasi */}
-                <DurationSettings alertOnly={true} settings={settings} onChange={upd} saveSettingsMutation={saveSettingsMutation} />
+                <DurationSettings alertOnly={true} settings={settings} onChange={upd} saveSettingsMutation={saveSettingsMutation} activeSlot={activeSlot} />
 
                 {/* Suara */}
-                <SoundSection />
+                <SoundSection activeSlot={activeSlot} />
 
                 {/* TTS */}
                  <TTSSection
@@ -3950,7 +4031,7 @@ const handleChangePin = async () => {
                 {/* Izin Media */}
                 <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
                   <SectionHeader icon={<ImageIcon size={20} />} title="Izinkan Donor Kirim Media" color="bg-purple-500" />
-                  <MediaTriggersEditor saveSettingsMutation={saveSettingsMutation} settings={settings} triggers={settings.mediaTriggers || []} onChange={v => upd('mediaTriggers', v)} />
+                  <MediaTriggersEditor saveSettingsMutation={saveSettingsMutation} settings={settings} triggers={settings.mediaTriggers || []} onChange={v => upd('mediaTriggers', v)} activeSlot={activeSlot} />
                 </div>
               </motion.div>
             )}

@@ -107,10 +107,19 @@
       }
     }, []);
 
+    // useEffect(() => {
+    //   if (!token) return;
+    //   axios
+    //     .get(`https://server-ttt-production.up.railway.app/api/overlay/config/${token}`)
+    //     .then((res) => { setConfig(res.data); configRef.current = res.data; })
+    //     .catch(() => console.error('[Overlay] Invalid token'));
+    // }, [token]);
+
     useEffect(() => {
       if (!token) return;
+      const slot = new URLSearchParams(window.location.search).get('slot') || 'A';
       axios
-        .get(`https://server-ttt-production.up.railway.app/api/overlay/config/${token}`)
+        .get(`https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${slot}`)
         .then((res) => { setConfig(res.data); configRef.current = res.data; })
         .catch(() => console.error('[Overlay] Invalid token'));
     }, [token]);

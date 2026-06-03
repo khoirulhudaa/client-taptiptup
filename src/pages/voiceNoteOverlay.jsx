@@ -85,16 +85,25 @@ const VoiceNoteOverlay = () => {
   const dismissTimerRef = useRef(null);
 
   // Load config
-  useEffect(() => {
-    if (!token) return;
-    axios
-      .get(`${BASE_URL}/api/overlay/config/${token}`)
-      .then((res) => {
-        setConfig(res.data);
-        configRef.current = res.data;
-      })
-      .catch(() => console.error('[VoiceOverlay] Invalid token'));
-  }, [token]);
+  // useEffect(() => {
+  //   if (!token) return;
+  //   axios
+  //     .get(`${BASE_URL}/api/overlay/config/${token}`)
+  //     .then((res) => {
+  //       setConfig(res.data);
+  //       configRef.current = res.data;
+  //     })
+  //     .catch(() => console.error('[VoiceOverlay] Invalid token'));
+  // }, [token]);
+
+  const slot = new URLSearchParams(window.location.search).get('slot') || 'A';
+  axios
+    .get(`${BASE_URL}/api/overlay/config/${token}?slot=${slot}`)
+    .then((res) => {
+      setConfig(res.data);
+      configRef.current = res.data;
+    })
+    .catch(() => console.error('[VoiceOverlay] Invalid token'));
 
   // Audio progress tracker
   const startAudioProgress = useCallback(() => {
