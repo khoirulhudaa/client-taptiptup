@@ -315,7 +315,7 @@
       };
 
       const FrogDeco = () => (
-        <span style={{ fontFamily: monospace, fontSize: 24, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
+        <span style={{ fontFamily: monospace, fontSize: 22, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
       );
 
       const pixelBorder = `2px solid ${hl}`;
@@ -336,7 +336,7 @@
               {/* <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <FrogDeco />
                 <span style={{
-                  fontFamily: monospace, fontSize: 24, color: hl,
+                  fontFamily: monospace, fontSize: 22, color: hl,
                   textTransform: 'uppercase', letterSpacing: '0.18em', fontWeight: 900,
                 }}>DUKUNGAN MASUK</span>
               </div> */}
@@ -354,7 +354,7 @@
                   {/* <div style={{ fontFamily: monospace, fontSize: 10, color: fg5, marginBottom: 2, letterSpacing: '0.1em' }}>
                     {'> DONOR:'}
                     </div> */}
-                  <div style={{ marginTop: 10, fontFamily: monospace, fontSize: 24, fontWeight: 900, color: fg, lineHeight: 1.1 }}>
+                  <div style={{ marginTop: 10, fontFamily: monospace, fontSize: 22, fontWeight: 900, color: fg, lineHeight: 1.1 }}>
                     {alert.donorName}
                   </div>
                 </div>
@@ -362,7 +362,7 @@
                   width: 40, height: 40, 
                   // border: pixelBorder, flexShrink: 0,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 24, 
+                  fontSize: 22, 
                   // background: hl + '12',
                 }}>
                   {renderIcon(customIcon, 20)}
@@ -370,7 +370,7 @@
               </div>
 
               <div style={{
-                fontFamily: monospace, fontSize: 24, fontWeight: 900, color: hl,
+                fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl,
                 letterSpacing: '-1px', lineHeight: 1,
                 // borderLeft: `3px solid ${hl}`, 
                 // paddingLeft: 8, 
@@ -382,7 +382,7 @@
 
               {alert.message && (
                 <div style={{
-                  fontFamily: monospace, fontSize: 24, color: fg,
+                  fontFamily: monospace, fontSize: 20, color: fg,
                   fontWeight: 400,
                   background: 'rgba(255,255,255,0.04)', border: dimBorder,
                   padding: '5px 8px', lineHeight: 1.4, marginBottom: 6,
@@ -393,7 +393,7 @@
 
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 }}>
                 {showTs && alert?.receivedAt
-                  ? <div style={{ fontFamily: monospace, fontSize: 24, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em' }}>
+                  ? <div style={{ fontFamily: monospace, fontSize: 22, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em' }}>
                       {'> '}{formatTimestamp(alert.receivedAt)}
                     </div>
                   : <div />
@@ -453,7 +453,7 @@
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{
                   fontFamily: "'Poppins', sans-serif",
-                  fontSize: 18,
+                  fontSize: 22,
                   textTransform: 'uppercase',
                   width: 'max-content',
                   fontWeight: 500,
@@ -464,7 +464,7 @@
                 </div>
                 <div style={{
                   fontFamily: "'Poppins', sans-serif",
-                  fontSize: 18,
+                  fontSize: 22,
                   marginLeft: 5,
                   fontWeight: 500,
                   color: highlight,
@@ -479,7 +479,7 @@
               {alert.message && (
                 <div style={{
                   fontFamily: "'Poppins', sans-serif",
-                  fontSize: 16,
+                  fontSize: 20,
                   color: fg,
                   fontWeight: 400,
                   background: highlight + '12',
@@ -512,7 +512,7 @@
             {/* Icon + Nama */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
               <div>
-                <div style={{ textTransform: 'uppercase', display: 'flex', width: 'max-content', gap: '6px', justifyContent: 'center', alignItems: 'center', fontSize: 24, fontWeight: 900, color: fg, lineHeight: 1.2, top: 1.5, position: 'relative' }}>
+                <div style={{ textTransform: 'uppercase', display: 'flex', width: 'max-content', gap: '6px', justifyContent: 'center', alignItems: 'center', fontSize: 22, fontWeight: 900, color: fg, lineHeight: 1.2, top: 1.5, position: 'relative' }}>
                   {alert.donorName} 
                 </div>
               </div>
@@ -528,14 +528,14 @@
             {/* Divider */}
             <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} />
             
-            <div style={{ fontSize: 24, padding: '10px 0px', fontWeight: 800, color: hl, letterSpacing: '-0.5px', lineHeight: 1 }}>
+            <div style={{ fontSize: 22, padding: '10px 0px', fontWeight: 800, color: hl, letterSpacing: '-0.5px', lineHeight: 1 }}>
               Rp {Number(alert.amount).toLocaleString('id-ID')}
             </div>
 
             {/* Pesan */}
             {alert.message && (
               <div style={{
-                fontSize: 24, 
+                fontSize: 20, 
                 color: fg,
                 fontWeight: 400,
                 // background: hl + '10', 
@@ -577,13 +577,13 @@
               position: 'relative', zIndex: 2,
             }}>
               {/* <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                <span style={{ fontSize: 24, lineHeight: 1 }}>{renderIcon(customIcon, 16)}</span>
+                <span style={{ fontSize: 22, lineHeight: 1 }}>{renderIcon(customIcon, 16)}</span>
                 <span style={{
                   fontFamily: monospace, fontSize: 10, fontWeight: 900, color: hl,
                   textTransform: 'uppercase', letterSpacing: '0.15em',
                 }}>★ Dukungan Masuk! ★</span>
               </div> */}
-              <span style={{ fontFamily: monospace, fontSize: 24, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
+              <span style={{ fontFamily: monospace, fontSize: 22, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
             </div>
 
             <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
@@ -592,12 +592,12 @@
                 borderBottom: `1px dashed ${hl}30`, 
                 paddingBottom: 6,
               }}>
-                {/* <span style={{ fontFamily: monospace, fontSize: 24, color: hl, opacity: 0.65, letterSpacing: '0.12em' }}>NAME</span> */}
-                <span style={{ fontFamily: monospace, fontSize: 24, fontWeight: 900, color: fg }}>{alert.donorName}</span>
+                {/* <span style={{ fontFamily: monospace, fontSize: 22, color: hl, opacity: 0.65, letterSpacing: '0.12em' }}>NAME</span> */}
+                <span style={{ fontFamily: monospace, fontSize: 22, fontWeight: 900, color: fg }}>{alert.donorName}</span>
               </div>
 
               <div style={{
-                fontFamily: monospace, fontSize: 24, fontWeight: 900, color: hl,
+                fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl,
                 letterSpacing: '-0.5px', marginBottom: 5, textShadow: `0 0 10px ${hl}50`,
               }}>
                 Rp {Number(alert.amount).toLocaleString('id-ID')}
@@ -605,7 +605,7 @@
 
               {alert.message && (
                 <div style={{
-                  fontFamily: monospace, fontSize: 24, color: fg,
+                  fontFamily: monospace, fontSize: 20, color: fg,
                   lineHeight: 1.45, 
                   // borderLeft: `2px solid ${hl}`, paddingLeft: 8, 
                   marginBottom: 6,
@@ -617,7 +617,7 @@
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
                 {showTs && alert?.receivedAt
-                  ? <div style={{ fontFamily: monospace, fontSize: 24, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em' }}>
+                  ? <div style={{ fontFamily: monospace, fontSize: 22, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em' }}>
                       {'> '}{formatTimestamp(alert.receivedAt)}
                     </div>
                   : <div />
@@ -646,11 +646,11 @@
           <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
               {/* <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ fontFamily: monospace, fontSize: 24, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
+                <span style={{ fontFamily: monospace, fontSize: 22, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
                 <span style={{ fontFamily: monospace, fontSize: 8, color: hl, letterSpacing: '0.18em', textTransform: 'uppercase' }}>DONASI</span>
               </div> */}
               <span style={{
-                fontFamily: monospace, fontSize: 24, fontWeight: 900, color: hl,
+                fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl,
                 letterSpacing: '-1px', textShadow: `0 0 8px ${hl}50`,
               }}>
                 Rp {Number(alert.amount).toLocaleString('id-ID')}
@@ -658,7 +658,7 @@
             </div>
 
             <div style={{
-              fontFamily: monospace, fontSize: 24, fontWeight: 900, color: fg,
+              fontFamily: monospace, fontSize: 22, fontWeight: 900, color: fg,
               marginBottom: 3, borderBottom: `1px solid ${hl}20`, paddingBottom: 5,
             }}>
               {alert.donorName}
@@ -666,7 +666,7 @@
 
             {alert.message && (
               <div style={{
-                fontFamily: monospace, fontSize: 24, color: fg,
+                fontFamily: monospace, fontSize: 20, color: fg,
                 lineHeight: 1.4, marginBottom: 4,
               }}>
                 {alert.message}
@@ -675,7 +675,7 @@
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               {showTs && alert?.receivedAt
-                ? <div style={{ fontFamily: monospace, fontSize: 24, color: 'rgba(255,255,255,0.35)' }}>
+                ? <div style={{ fontFamily: monospace, fontSize: 22, color: 'rgba(255,255,255,0.35)' }}>
                     {formatTimestamp(alert.receivedAt)}
                   </div>
                 : <div />
