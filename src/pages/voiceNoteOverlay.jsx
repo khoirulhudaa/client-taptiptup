@@ -1,7 +1,3 @@
-// components/VoiceNoteOverlay.jsx
-// Overlay OBS khusus voice note donations
-// Pasang di OBS: http://localhost:5173/overlay/voice/:token
-
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
@@ -16,49 +12,22 @@ const formatRp = (n) => {
   return `Rp ${Number(n).toLocaleString('id-ID')}`;
 };
 
-// Visualizer bar animasi
-const AudioVisualizer = ({ isPlaying, color = '#a5b4fc' }) => {
-  const bars = Array.from({ length: 20 });
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 2, height: 28 }}>
-      {bars.map((_, i) => (
-        <div
-          key={i}
-          style={{
-            width: 3,
-            borderRadius: 2,
-            background: color,
-            height: isPlaying ? `${20 + Math.sin((Date.now() / 200 + i) * 1.5) * 14}%` : '20%',
-            animation: isPlaying ? `voiceBar${i % 5} ${0.4 + (i % 5) * 0.08}s ease-in-out infinite alternate` : 'none',
-            opacity: isPlaying ? 1 : 0.3,
-            transition: 'opacity 0.3s',
-          }}
-        />
-      ))}
-      <style>{`
-        @keyframes voiceBar0 { from { height: 20%; } to { height: 85%; } }
-        @keyframes voiceBar1 { from { height: 35%; } to { height: 70%; } }
-        @keyframes voiceBar2 { from { height: 50%; } to { height: 95%; } }
-        @keyframes voiceBar3 { from { height: 25%; } to { height: 75%; } }
-        @keyframes voiceBar4 { from { height: 40%; } to { height: 60%; } }
-      `}</style>
-    </div>
-  );
-};
-
 const VoiceNoteOverlay = () => {
   const { token } = useParams();
   const [config, setConfig] = useState(null);
   const [alert, setAlert] = useState(null);
   const [progress, setProgress] = useState(100);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audioDuration, setAudioDuration] = useState(0);
   const [audioProgress, setAudioProgress] = useState(0);
 
   const audioDurationMsRef = useRef(0);
   const audioRef = useRef(null);
+  const configRef = useRef(null);
+  const progressIntervalRef = useRef(null);
+  const audioProgressRef = useRef(null);
+  const dismissTimerRef = useRef(null);
 
-  // ✅ LETAKKAN DI SINI — sebelum conditional return apapun
+  // Unlock Audio (User Interaction)
   useEffect(() => {
     const unlock = () => {
       if (audioRef.current) {
@@ -70,67 +39,52 @@ const VoiceNoteOverlay = () => {
     document.addEventListener('click', unlock);
 
     setTimeout(() => {
-      if (audioRef.current) {
-        audioRef.current.play().catch(() => {});
-        audioRef.current.pause();
-      }
+      if (audioRef.current) audioRef.current.play().catch(() => {});
     }, 500);
 
     return () => document.removeEventListener('click', unlock);
   }, []);
 
-  const configRef = useRef(null);
-  const progressIntervalRef = useRef(null);
-  const audioProgressRef = useRef(null);
-  const dismissTimerRef = useRef(null);
-
-  // Load config
-  // useEffect(() => {
-  //   if (!token) return;
-  //   axios
-  //     .get(`${BASE_URL}/api/overlay/config/${token}`)
-  //     .then((res) => {
-  //       setConfig(res.data);
-  //       configRef.current = res.data;
-  //     })
-  //     .catch(() => console.error('[VoiceOverlay] Invalid token'));
-  // }, [token]);
-
-  useEffect(() => {
-  if (!token) return;
-
-  const slotFromUrl = new URLSearchParams(window.location.search).get('slot');
-
-  const loadConfig = async () => {
+  // ==================== LOAD ACTIVE CONFIG ====================
+  const loadActiveConfig = useCallback(async (source = 'initial') => {
     try {
-      if (slotFromUrl) {
-        const res = await axios.get(`${BASE_URL}/api/overlay/config/${token}?slot=${slotFromUrl}`);
-        setConfig(res.data); configRef.current = res.data;
-        return;
-      }
-      const masterRes = await axios.get(`${BASE_URL}/api/overlay/config/${token}?slot=A`);
-      const activeSlot = masterRes.data.activeSlot || 'A';
+      const timestamp = Date.now();
+      const resA = await axios.get(`${BASE_URL}/api/overlay/config/${token}?slot=A&t=${timestamp}`);
+
+      const activeSlot = resA.data?.activeSlot || 'A';
+      console.log(`[VoiceNote] Active Slot: ${activeSlot} (from ${source})`);
+
+      let finalConfig;
       if (activeSlot === 'A') {
-        setConfig(masterRes.data); configRef.current = masterRes.data;
+        finalConfig = resA.data;
       } else {
-        const res = await axios.get(`${BASE_URL}/api/overlay/config/${token}?slot=${activeSlot}`);
-        setConfig(res.data); configRef.current = res.data;
+        const resB = await axios.get(`${BASE_URL}/api/overlay/config/${token}?slot=${activeSlot}&t=${timestamp}`);
+        finalConfig = resB.data;
       }
-    } catch { console.error('[VoiceOverlay] Invalid token'); }
-  };
 
-  loadConfig();
-}, [token]);
+      if (!configRef.current || finalConfig.slot !== configRef.current.slot) {
+        console.log(`[VoiceNote] ✅ Config di-update ke Slot ${finalConfig.slot}`);
+        setConfig(finalConfig);
+        configRef.current = finalConfig;
+      }
+    } catch (err) {
+      console.error('[VoiceNote] Failed to load config:', err);
+    }
+  }, [token]);
 
-  // Audio progress tracker
+  // Load pertama
+  useEffect(() => {
+    if (!token) return;
+    loadActiveConfig('initial');
+  }, [token, loadActiveConfig]);
+
+  // Audio Progress
   const startAudioProgress = useCallback(() => {
     if (audioProgressRef.current) clearInterval(audioProgressRef.current);
     audioProgressRef.current = setInterval(() => {
       if (!audioRef.current) return;
       const { currentTime, duration } = audioRef.current;
-      if (duration > 0) {
-        setAudioProgress((currentTime / duration) * 100);
-      }
+      if (duration > 0) setAudioProgress((currentTime / duration) * 100);
     }, 100);
   }, []);
 
@@ -140,23 +94,28 @@ const VoiceNoteOverlay = () => {
     setIsPlaying(false);
   }, []);
 
-  // Socket
+  // ==================== SOCKET ====================
   useEffect(() => {
     if (!token) return;
 
     const socket = io(BASE_URL, {
       reconnection: true,
       reconnectionAttempts: Infinity,
-      reconnectionDelay: 2000,
+      reconnectionDelay: 1500,
+      timeout: 10000,
     });
 
     socket.emit('join-room', `${token}-voice`);
 
     socket.on('reconnect', () => {
+      console.log('[VoiceNote] 🔄 Reconnected');
       socket.emit('join-room', `${token}-voice`);
+      loadActiveConfig('reconnect');
     });
 
-   socket.on('new-voice-donation', (data) => {
+    socket.on('new-voice-donation', (data) => {
+      console.log('[VoiceNote] 🎙️ New Voice Donation Diterima!', data.donorName, 'Rp', data.amount);
+
       if (configRef.current?.overlayEnabled === false) return;
 
       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
@@ -178,28 +137,21 @@ const VoiceNoteOverlay = () => {
       setAudioProgress(0);
       setIsPlaying(false);
 
-      const INTRO_DELAY  = 1000;
-      // const OUTRO_BUFFER = 2000;
-      // const FALLBACK_DURATION = 10000; // kalau gagal detect durasi
+      const INTRO_DELAY = 1000;
       const FALLBACK_DURATION = (() => {
         const cfg = configRef.current;
         if (!cfg) return 10000;
-
-        const base   = Number(cfg.voiceBaseDuration)     || 10;
-        const perAmt = Number(cfg.voiceExtraPerAmount)   || 10000;
-        const extra  = Number(cfg.voiceExtraDuration)    || 5;
+        const base = Number(cfg.voiceBaseDuration) || 10;
+        const perAmt = Number(cfg.voiceExtraPerAmount) || 10000;
+        const extra = Number(cfg.voiceExtraDuration) || 5;
         const extras = perAmt > 0 ? Math.floor((data.amount || 0) / perAmt) : 0;
-
-        // Naikkan maksimal jadi 5 menit
-        return Math.min(300000, (base + extras * extra) * 1000); 
+        return Math.min(300000, (base + extras * extra) * 1000);
       })();
 
       const startCountdownAndDismiss = (audioDurationMs) => {
         audioDurationMsRef.current = audioDurationMs;
         const TOTAL_DURATION = INTRO_DELAY + audioDurationMs;
-        console.log(`[VoiceOverlay] Total duration: ${TOTAL_DURATION}ms (audio: ${audioDurationMs}ms)`);
 
-        // ✅ Hanya dismiss timer — TIDAK ada progressInterval di sini
         dismissTimerRef.current = setTimeout(() => {
           setAlert(null);
           setProgress(100);
@@ -214,12 +166,10 @@ const VoiceNoteOverlay = () => {
       };
 
       if (!absoluteVoiceUrl || !audioRef.current) {
-        // Tidak ada voice — fallback
         startCountdownAndDismiss(FALLBACK_DURATION);
         return;
       }
 
-      // ── Load audio dulu, baru set countdown ──────────────────────────────────
       const audio = audioRef.current;
       audio.src = absoluteVoiceUrl;
       audio.load();
@@ -228,9 +178,8 @@ const VoiceNoteOverlay = () => {
 
       const onMeta = () => {
         const rawDuration = audio.duration;
-        // WebM dari MediaRecorder kadang Infinity/NaN — fallback ke 60s
         const knownDuration = isFinite(rawDuration) && rawDuration > 0
-          ? Math.min(rawDuration, 300)   // ← Ubah dari 60 jadi 300
+          ? Math.min(rawDuration, 300)
           : null;
 
         if (knownDuration && !countdownStarted) {
@@ -240,12 +189,9 @@ const VoiceNoteOverlay = () => {
         }
       };
 
-      // Fallback: kalau metadata tidak fire dalam 2s, mulai play dan pakai ended
       const metaTimeout = setTimeout(() => {
         if (!countdownStarted) {
-          console.warn('[VoiceOverlay] onloadedmetadata timeout — pakai ended event');
           countdownStarted = true;
-          // Mulai countdown dengan max 60s, biarkan onended yang akurat
           startCountdownAndDismiss(60 * 1000);
         }
       }, 2000);
@@ -261,13 +207,9 @@ const VoiceNoteOverlay = () => {
 
         if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
         const startTime = Date.now();
-
-        // ✅ Baca langsung dari audio element, bukan dari ref
         const duration = isFinite(audio.duration) && audio.duration > 0
           ? audio.duration * 1000
           : audioDurationMsRef.current;
-
-        console.log('[onplay] duration used for progress:', duration);
 
         progressIntervalRef.current = setInterval(() => {
           const elapsed = Date.now() - startTime;
@@ -280,7 +222,6 @@ const VoiceNoteOverlay = () => {
       audio.onended = () => {
         stopAudioProgress();
         setIsPlaying(false);
-        // Kalau countdown belum dimulai (edge case), mulai sekarang dengan 0s audio
         if (!countdownStarted) {
           countdownStarted = true;
           startCountdownAndDismiss(0);
@@ -291,39 +232,29 @@ const VoiceNoteOverlay = () => {
         clearTimeout(metaTimeout);
         stopAudioProgress();
         setIsPlaying(false);
-        if (!countdownStarted) {
-          countdownStarted = true;
-          startCountdownAndDismiss(FALLBACK_DURATION);
-        }
+        if (!countdownStarted) startCountdownAndDismiss(FALLBACK_DURATION);
       };
 
-      // Play setelah intro delay
       setTimeout(() => {
         audio.play().catch(() => setIsPlaying(false));
       }, INTRO_DELAY);
     });
 
-    socket.on('settings-updated', async (newConfig) => {
-      const slotFromUrl = new URLSearchParams(window.location.search).get('slot');
-      if (!slotFromUrl && newConfig.activeSlot && newConfig.activeSlot !== 'A') {
-        try {
-          const res = await axios.get(`${BASE_URL}/api/overlay/config/${token}?slot=${newConfig.activeSlot}`);
-          setConfig(res.data); configRef.current = res.data;
-        } catch {}
-      } else {
-        setConfig(newConfig); configRef.current = newConfig;
-      }
+    socket.on('settings-updated', () => {
+      console.log('[VoiceNote] Settings updated → reloading...');
+      loadActiveConfig('socket');
     });
 
+    const polling = setInterval(() => loadActiveConfig('polling'), 4000);
+
     return () => {
-      socket.off('new-voice-donation');
-      socket.off('settings-updated');
       socket.disconnect();
+      clearInterval(polling);
       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
       if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
       if (audioProgressRef.current) clearInterval(audioProgressRef.current);
     };
-  }, [token, startAudioProgress, stopAudioProgress]);
+  }, [token, loadActiveConfig, startAudioProgress, stopAudioProgress]);
 
   if (!config) return null;
   if (config.overlayEnabled === false) {
@@ -443,7 +374,7 @@ const VoiceNoteOverlay = () => {
                       <div style={{
                         fontSize: 13, color: fg,
                         background: hl + '10', borderRadius: 10, padding: '8px 12px',
-                        lineHeight: 1.5, border: `1px solid ${hl}20`,
+                        lineHeight: 1.5, border: `1px solid ${hl}20`, maxWidth: 400
                       }}>
                         {alert.message}
                       </div>
@@ -546,7 +477,7 @@ const VoiceNoteOverlay = () => {
                       <div style={{
                         fontFamily: monospace, fontSize: 23, color: fg,
                         background: 'rgba(255,255,255,0.04)', border: `1px solid ${hl}35`,
-                        padding: '5px 8px', lineHeight: 1.4, marginBottom: 8,
+                        padding: '5px 8px', lineHeight: 1.4, marginBottom: 8, maxWidth: 400
                       }}>
                         {'>> '}{alert.message}
                       </div>

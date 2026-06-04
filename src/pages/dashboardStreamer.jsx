@@ -3628,13 +3628,15 @@ const handleChangePin = async () => {
                           <button
                             key={slot}
                             onClick={() => {
-                              setActiveSlot(slot);
-                              setObsActiveSlot(slot);
-                              // const newSettings = { ...settings, activeSlot: slot };
-                              // upd('activeSlot', slot);
+                              const newSlot = slot; // 'A' atau 'B'
+
+                              setActiveSlot(newSlot);
+                              setObsActiveSlot(newSlot);
+
+                              // Simpan activeSlot ke Slot A
                               saveSettingsMutation.mutate({ 
-                                settings: { activeSlot: slot }, // hanya field ini saja
-                                slot: `${slot}` 
+                                settings: { activeSlot: newSlot }, 
+                                slot: newSlot          // ← Ubah dari 'A' menjadi newSlot
                               });
                             }}
                             className={`flex justify-between px-5 flex-1 py-4 cursor-pointer active:scale-[0.99] font-black text-xs rounded-none transition-all ${
@@ -3842,9 +3844,7 @@ const handleChangePin = async () => {
                   {/* OBS URLs */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                     {[
-                      { label: 'URL ALERT - OBS (Slot A)', url: user.overlayUrl },
-                      // Slot B (baru)
-                      { label: 'URL ALERT - OBS (Slot B)', url: `${user.overlayUrl}?slot=B` },
+                      { label: 'URL ALERT - OBS Slot A + B', url: user.overlayUrl },
                       { label: 'URL MEDIASHARE - OBS',      url: `${window.location.origin}/overlay/${user.overlayToken}/mediashare` },
                       { label: 'URL VOICE NOTE - OBS',      url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
                       { label: 'URL COMBINED (ALL-IN-ONE)', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }

@@ -1,5 +1,5 @@
   import { AnimatePresence, motion } from 'framer-motion';
-  import { useEffect, useRef, useState } from 'react';
+  import { useCallback, useEffect, useRef, useState } from 'react';
   import { useParams } from 'react-router-dom';
   import { io } from 'socket.io-client';
   import axios from 'axios';
@@ -151,40 +151,47 @@ const calculateMediaShareDuration = (config, amount) => {
     const dismissTimerRef     = useRef(null);
     const [mediaError, setMediaError] = useState(false);
 
-   useEffect(() => {
-      if (!token) return;
+    // ==================== LOAD ACTIVE CONFIG ====================
+    const loadActiveConfig = useCallback(async (source = 'initial') => {
+      try {
+        const timestamp = Date.now();
+        const resA = await axios.get(`${API_URL}/api/overlay/config/${token}?slot=A&t=${timestamp}`);
 
-      const slotFromUrl = new URLSearchParams(window.location.search).get('slot');
+        const activeSlot = resA.data?.activeSlot || 'A';
+        console.log(`[MediaShare] Active Slot: ${activeSlot} (from ${source})`);
 
-      const loadConfig = async () => {
-        try {
-          if (slotFromUrl) {
-            const res = await axios.get(`${API_URL}/api/overlay/config/${token}?slot=${slotFromUrl}`);
-            setConfig(res.data); configRef.current = res.data;
-            return;
-          }
-          const masterRes = await axios.get(`${API_URL}/api/overlay/config/${token}?slot=A`);
-          const activeSlot = masterRes.data.activeSlot || 'A';
-          if (activeSlot === 'A') {
-            setConfig(masterRes.data); configRef.current = masterRes.data;
-          } else {
-            const res = await axios.get(`${API_URL}/api/overlay/config/${token}?slot=${activeSlot}`);
-            setConfig(res.data); configRef.current = res.data;
-          }
-        } catch { console.error('[MediaShare] Invalid token'); }
-      };
+        let finalConfig;
+        if (activeSlot === 'A') {
+          finalConfig = resA.data;
+        } else {
+          const resB = await axios.get(`${API_URL}/api/overlay/config/${token}?slot=${activeSlot}&t=${timestamp}`);
+          finalConfig = resB.data;
+        }
 
-      loadConfig();
+        if (!configRef.current || finalConfig.slot !== configRef.current.slot) {
+          console.log(`[MediaShare] ✅ Config di-update ke Slot ${finalConfig.slot}`);
+          setConfig(finalConfig);
+          configRef.current = finalConfig;
+        }
+      } catch (err) {
+        console.error('[MediaShare] Failed to load config:', err);
+      }
     }, [token]);
 
+    // Load pertama kali
+    useEffect(() => {
+      if (!token) return;
+      loadActiveConfig('initial');
+    }, [token, loadActiveConfig]);
+
+    // ==================== SOCKET ====================
     useEffect(() => {
       if (!token) return;
 
       const socket = io(API_URL, {
         reconnection: true,
         reconnectionAttempts: Infinity,
-        reconnectionDelay: 2000,
-        reconnectionDelayMax: 10000,
+        reconnectionDelay: 1500,
         timeout: 10000,
       });
 
@@ -194,31 +201,19 @@ const calculateMediaShareDuration = (config, amount) => {
         console.log(`[MediaShare] ✅ Joined rooms: ${token} | ${token}-mediashare`);
       };
 
-      // ✅ Join setelah connect & reconnect
       socket.on('connect', () => {
-        console.log(`[MediaShare] 🔌 Connected: ${socket.id}`);
+        console.log(`[MediaShare] 🔌 Connected`);
         joinRooms();
       });
 
-      socket.on('reconnect', (attempt) => {
-        console.log(`[MediaShare] 🔄 Reconnected setelah ${attempt} percobaan`);
+      socket.on('reconnect', () => {
+        console.log(`[MediaShare] 🔄 Reconnected`);
         joinRooms();
-      });
-
-      socket.on('disconnect', (reason) => {
-        console.warn(`[MediaShare] ❌ Disconnected: ${reason}`);
-      });
-
-      socket.on('connect_error', (err) => {
-        console.error(`[MediaShare] ⚠️ Connect error: ${err.message}`);
+        loadActiveConfig('reconnect');
       });
 
       socket.on('new-media-donation', (data) => {
-        
-        console.log('[MediaShare] RAW DATA:', JSON.stringify(data, null, 2));
-        console.log('[MediaShare] mediaUrl:', data.mediaUrl);
-        console.log('[MediaShare] detectType:', detectMediaType(data.mediaUrl, data.mediaType));
-        console.log('[MediaShare] embedUrl:', getYouTubeEmbedUrl(data.mediaUrl, data.startTime));
+        console.log(`[MediaShare] 📥 Media Donation Diterima!`, data.donorName, 'Rp', data.amount);
 
         if (configRef.current?.overlayEnabled === false) return;
 
@@ -243,7 +238,6 @@ const calculateMediaShareDuration = (config, amount) => {
         if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
 
         const startTime = Date.now();
-
         progressIntervalRef.current = setInterval(() => {
           const elapsed = Date.now() - startTime;
           const remaining = Math.max(0, 100 - (elapsed / duration) * 100);
@@ -257,62 +251,20 @@ const calculateMediaShareDuration = (config, amount) => {
         }, duration);
       });
 
-      socket.on('mediashare-control', ({ action, volume }) => {
-        if (action === 'skip') {
-          setAlert(null);
-          setProgress(100);
-          if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-          if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
-          if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0; }
-          if (videoRef.current) videoRef.current.src = '';
-        }
-        if (action === 'volume' && typeof volume === 'number') {
-          if (audioRef.current) audioRef.current.volume = volume / 100;
-          if (videoRef.current) videoRef.current.volume = volume / 100;
-        }
+      socket.on('settings-updated', () => {
+        console.log('[MediaShare] Settings updated → reloading config');
+        loadActiveConfig('socket');
       });
 
-      // socket.on('settings-updated', (newConfig) => {
-      //   setConfig(newConfig);
-      //   configRef.current = newConfig;
-      //   if (newConfig.overlayEnabled === false) {
-      //     setAlert(null);
-      //     setProgress(100);
-      //     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-      //     if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
-      //   }
-      // });
-
-      socket.on('settings-updated', async (newConfig) => {
-        const slotFromUrl = new URLSearchParams(window.location.search).get('slot');
-        if (!slotFromUrl && newConfig.activeSlot && newConfig.activeSlot !== 'A') {
-          try {
-            const res = await axios.get(`${API_URL}/api/overlay/config/${token}?slot=${newConfig.activeSlot}`);
-            setConfig(res.data); configRef.current = res.data;
-          } catch {}
-        } else {
-          setConfig(newConfig); configRef.current = newConfig;
-        }
-        if (newConfig.overlayEnabled === false) {
-          setAlert(null); setProgress(100);
-          if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-          if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
-        }
-      });
+      const polling = setInterval(() => loadActiveConfig('polling'), 4000);
 
       return () => {
-        socket.off('connect');
-        socket.off('reconnect');
-        socket.off('disconnect');
-        socket.off('connect_error');
-        socket.off('new-media-donation');
-        socket.off('mediashare-control');
-        socket.off('settings-updated');
         socket.disconnect();
+        clearInterval(polling);
         if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
         if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
       };
-    }, [token]);
+    }, [token, loadActiveConfig]);
 
     if (!config) return null;
     if (config.overlayEnabled === false) {
@@ -535,7 +487,7 @@ const calculateMediaShareDuration = (config, amount) => {
                 <div style={{
                   fontFamily: monospace, fontSize: 18, color: fg, fontWeight: 400,
                   background: 'rgba(255,255,255,0.04)', border: dimBorder,
-                  padding: '6px 10px', lineHeight: 1.5,
+                  padding: '6px 10px', lineHeight: 1.5, maxWidth: 500
                 }}>
                   {alert.message}
                 </div>
@@ -578,7 +530,7 @@ const calculateMediaShareDuration = (config, amount) => {
                 <div style={{
                   fontSize: 18, color: fg, fontWeight: 400,
                   background: hl + '10', borderRadius: 8, padding: '7px 12px',
-                  lineHeight: 1.6, border: `1px solid ${hl}20`,
+                  lineHeight: 1.6, border: `1px solid ${hl}20`, maxWidth: 500
                 }}>
                   {alert.message}
                 </div>
@@ -612,7 +564,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
               {/* Pesan */}
               {alert.message && (
-                <div style={{ fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, marginBottom: 10 }}>
+                <div style={{ fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, marginBottom: 10, maxWidth: 500 }}>
                   {alert.message}
                 </div>
               )}
@@ -646,7 +598,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
             {/* Pesan */}
             {alert.message && (
-              <div style={{ fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderBottom: `1px solid ${hl}20`, paddingBottom: 8, marginBottom: 8 }}>
+              <div style={{ fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderBottom: `1px solid ${hl}20`, paddingBottom: 8, marginBottom: 8, maxWidth: 500 }}>
                 {alert.message}
               </div>
             )}
