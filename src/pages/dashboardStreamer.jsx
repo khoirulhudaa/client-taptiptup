@@ -252,7 +252,7 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
       <SectionHeader icon={<Plus size={20} />} title="Quick Nominal" color="bg-emerald-500" />
-      <div className="gap-4 grid grid-cols-1 mt-5 md:grid-cols-2">
+      <div className="gap-2.5 grid grid-cols-1 mt-5 md:grid-cols-2">
         {amounts.map((amt, i) => (
           <div key={i} className="w-[100%] flex gap-3 items-center bg-slate-50 dark:bg-slate-800 p-3 rounded-none">
             <input
@@ -354,7 +354,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-3">
         {[10000, 50000, 100000, 500000, 1000000].map(v => (
           <button key={v} onClick={() => setCustomAmount(v)}
             className={`cursor-pointer active:scale-[0.97] px-3 py-1.5 rounded-none text-xs font-black transition-all border-2 ${
@@ -368,7 +368,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       </div>
 
       <button onClick={sendTest} disabled={isSending || !overlayToken}
-        className="cursor-pointer active:scale-[0.97] w-full py-3 hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-60">
+        className="cursor-pointer active:scale-[0.97] w-full py-3 hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60">
         {isSending ? (
           <><RefreshCw size={18} className="animate-spin" /> Mengirim...</>
         ) : (
@@ -378,7 +378,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
 
       {lastSent && (
         <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2 text-xs text-white dark:text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-none px-4 py-3 border border-emerald-100 dark:border-emerald-900">
+          className="flex items-center gap-3 text-xs text-white dark:text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-none px-4 py-3 border border-emerald-100 dark:border-emerald-900">
           <CheckCircle2 size={14} /> Test terakhir dikirim: {lastSent.toLocaleTimeString('id-ID')}
         </motion.div>
       )}
@@ -468,7 +468,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
           placeholder="Terima kasih dukungannya!" />
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-1">Media URL</label>
         <input value={formData.mediaUrl} onChange={e => updateForm('mediaUrl', e.target.value)}
           className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm focus:border-purple-400 focus:outline-none transition-all"
@@ -477,7 +477,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
 
       <div className="pt-2">
         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 pb-1">Quick Presets</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {PRESET_MEDIA.map((preset, i) => (
             <button key={i} onClick={() => { updateForm('mediaUrl', preset.url); updateForm('mediaType', preset.type); }}
               className={`cursor-pointer active:scale-[0.99] group relative p-2 rounded-none border-2 transition-all overflow-hidden hover:shadow-md ${
@@ -504,7 +504,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
 
       {lastSent && (
         <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2 text-xs text-white dark:text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-none px-4 py-3 border border-emerald-100 dark:border-emerald-900">
+          className="flex items-center gap-3 text-xs text-white dark:text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-none px-4 py-3 border border-emerald-100 dark:border-emerald-900">
           <CheckCircle2 size={14} /> MediaShare berhasil dikirim: {lastSent.toLocaleTimeString('id-ID')}
         </motion.div>
       )}
@@ -571,7 +571,7 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
                     ) : username?.charAt(0).toUpperCase()}
                   </div>
                 </div>
-                <h2 className="text-2xl font-black text-slate-800 dark:text-white flex items-center gap-2">
+                <h2 className="text-2xl font-black text-slate-800 dark:text-white flex items-center gap-3">
                   {streamer?.fullName || username}
                   <div className="w-4 h-4 bg-blue-500 rounded-none flex items-center justify-center">
                     <div className="w-1.5 h-1.5 bg-white rounded-none" />
@@ -579,12 +579,12 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
                 </h2>
                 <p className="text-blue-600 dark:text-blue-400 font-bold text-sm">@{username}</p>
               </div>
-              <div className="space-y-2">
-                <div className="flex flex-col mt-auto space-y-1 gap-2 mt-4">
-                  <button onClick={copy} className="w-full flex items-center justify-center gap-2 py-3 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-none font-bold text-xs hover:bg-slate-50 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700">
+              <div className="space-y-3">
+                <div className="flex flex-col mt-auto space-y-1 gap-3 mt-4">
+                  <button onClick={copy} className="w-full flex items-center justify-center gap-3 py-3 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-none font-bold text-xs hover:bg-slate-50 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700">
                     {copied ? <><CheckCircle2 size={16} /> Tersalin!</> : <><Copy size={16} /> Salin Link Profile</>}
                   </button>
-                  <button className="w-full py-3 bg-blue-600 text-white rounded-none font-black text-sm shadow-lg shadow-blue-100 dark:shadow-none hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+                  <button className="w-full py-3 bg-blue-600 text-white rounded-none font-black text-sm shadow-lg shadow-blue-100 dark:shadow-none hover:bg-blue-700 transition-all flex items-center justify-center gap-3">
                     <Heart size={16} /> Follow
                   </button>
                 </div>
@@ -602,28 +602,28 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
               {(streamer?.instagram || streamer?.facebook || streamer?.youtube || streamer?.twitter) && (
                 <div className="pt-4 border-t border-slate-100 dark:border-slate-700">
                   <p className="text-xs font-black text-slate-400 dark:text-slate-500 mb-3">SOCIAL MEDIA</p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     {streamer.instagram && (
                       <a href={`https://instagram.com/${streamer.instagram.replace('@','')}`} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 bg-pink-50 dark:bg-pink-600 text-white rounded-none text-sm font-medium hover:bg-pink-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-2 bg-pink-50 dark:bg-pink-600 text-white rounded-none text-sm font-medium hover:bg-pink-700 active:scale-[0.98]">
                         📷 Instagram
                       </a>
                     )}
                     {streamer.facebook && (
                       <a href={streamer.facebook.startsWith('http') ? streamer.facebook : `https://facebook.com/${streamer.facebook}`} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-600 text-white rounded-none text-sm font-medium hover:bg-blue-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-2 bg-blue-50 dark:bg-blue-600 text-white rounded-none text-sm font-medium hover:bg-blue-700 active:scale-[0.98]">
                         👍 Facebook
                       </a>
                     )}
                     {streamer.youtube && (
                       <a href={streamer.youtube} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 bg-red-50 dark:bg-red-600 text-white rounded-none text-sm font-medium hover:bg-red-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-2 bg-red-50 dark:bg-red-600 text-white rounded-none text-sm font-medium hover:bg-red-700 active:scale-[0.98]">
                         ▶ YouTube
                       </a>
                     )}
                     {streamer.twitter && (
                       <a href={`https://twitter.com/${streamer.twitter.replace('@','')}`} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 bg-sky-50 dark:bg-emerald-600 text-white rounded-none text-sm font-medium hover:bg-emerald-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-2 bg-sky-50 dark:bg-emerald-600 text-white rounded-none text-sm font-medium hover:bg-emerald-700 active:scale-[0.98]">
                         𝕏 Twitter
                       </a>
                     )}
@@ -691,7 +691,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
             <button key={opt.id}
               onClick={() => { setLocalAction(opt.id); saveMutation.mutate({ words, action: opt.id, replacement: localReplacement }); }}
               className={`cursor-pointer active:scale-[0.99] text-left p-4 rounded-none border-2 transition-all space-y-1.5 ${localAction === opt.id ? opt.active + ' shadow-md' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600'}`}>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <span className="text-xl">{opt.emoji}</span>
                 <span className="font-black text-sm text-slate-700 dark:text-slate-200">{opt.title}</span>
               </div>
@@ -708,11 +708,11 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
       <div className="border-t border-slate-100 dark:border-slate-800" />
       <div className="space-y-4">
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Daftar kata terlarang</label>
-        <div className="md:flex gap-3 md:space-y-0 space-y-2">
+        <div className="md:flex gap-3 md:space-y-0 space-y-3">
           <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && add()}
             placeholder="Ketik kata lalu tekan Enter..."
             className="w-full flex-1 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-red-400 transition-all" />
-          <button onClick={add} className="md:w-max w-max mt-1 md:mt-0 cursor-pointer active:scale-[0.97] px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-none font-black text-sm transition-all flex items-center gap-2">
+          <button onClick={add} className="md:w-max w-max mt-1 md:mt-0 cursor-pointer active:scale-[0.97] px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-none font-black text-sm transition-all flex items-center gap-3">
             <Plus size={16} /> Tambah
           </button>
         </div>
@@ -722,9 +722,9 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
                 <p className="text-2xl mb-2">🚫</p>
                 <p className="font-black text-sm">Belum ada kata terlarang</p>
               </div>
-            : <div className="flex flex-wrap gap-2">
+            : <div className="flex flex-wrap gap-3">
                 {words.map(word => (
-                  <span key={word} className="w-max flex justify-center md:justify-start items-center gap-2 px-4 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-none text-sm font-black border border-red-100 dark:border-red-900">
+                  <span key={word} className="w-max flex justify-center md:justify-start items-center gap-3 px-4 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-none text-sm font-black border border-red-100 dark:border-red-900">
                     {word}
                     <button onClick={() => remove(word)} className="cursor-pointer hover:text-red-800 dark:hover:text-red-300 transition-colors"><Trash2 size={12} /></button>
                   </span>
@@ -732,7 +732,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
               </div>
         }
         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-          className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
+          className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
           <Save size={20} />
           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
         </button>
@@ -786,12 +786,12 @@ const MilestonesEditor = () => {
               <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.97] text-red-400 hover:text-red-600 p-2 flex-shrink-0"><Trash2 size={16} /></button>
             </div>
           ))}
-          <button onClick={add} className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-900 text-green-600 dark:text-green-400 rounded-none font-black text-sm hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-2">
+          <button onClick={add} className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-900 text-green-600 dark:text-green-400 rounded-none font-black text-sm hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-3">
             <Plus size={16} /> Tambah Milestone
           </button>
           {list.length > 0 && (
             <button onClick={() => mutation.mutate(list)} disabled={mutation.isPending}
-              className="cursor-pointer active:scale-[0.97] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70">
+              className="cursor-pointer active:scale-[0.97] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-70">
               <Save size={16} /> {mutation.isPending ? 'Menyimpan...' : 'Simpan Milestones'}
             </button>
           )}
@@ -860,7 +860,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
     <div className="space-y-3">
       {label && <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</label>}
 
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         {[{ id: 'preset', label: '🎵 Preset' }, { id: 'upload', label: '📤 Upload MP3' }].map(m => (
           <button
             key={m.id}
@@ -876,7 +876,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
 
       {/* Preset */}
       {mode === 'preset' && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <button onClick={() => { onChange(''); setPlaying(null); }}
             className={`cursor-pointer active:scale-[0.97] flex items-center gap-1.5 p-3 rounded-none border-2 font-black text-xs transition-all ${
               !value ? 'border-slate-600 bg-slate-800 text-white' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
@@ -962,12 +962,12 @@ const QrCodeCard = ({ username }) => {
         <p className="font-black text-slate-700 dark:text-slate-300 text-sm">{donateUrl}</p>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <button onClick={copy} className={`cursor-pointer active:scale-[0.97] flex items-center justify-center gap-2 py-3 md:py-4 rounded-none font-black text-sm transition-all ${copied ? 'bg-green-500 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'}`}>
+        <button onClick={copy} className={`cursor-pointer active:scale-[0.97] flex items-center justify-center gap-3 py-3 md:py-4 rounded-none font-black text-sm transition-all ${copied ? 'bg-green-500 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'}`}>
           {copied ? <><CheckCircle2 size={16} /> Tersalin!</> : <><Copy size={16} /> Salin URL</>}
         </button>
         <a href={`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(donateUrl)}&color=0f172a&format=png`}
           download={`qr-donasi-${username}.png`} target="_blank" rel="noreferrer"
-          className="cursor-pointer active:scale-[0.97] flex items-center justify-center gap-2 py-3 md:py-4 rounded-none font-black text-sm bg-slate-900/70 dark:bg-slate-700 text-white hover:bg-slate-800 dark:hover:bg-slate-600 transition-all">
+          className="cursor-pointer active:scale-[0.97] flex items-center justify-center gap-3 py-3 md:py-4 rounded-none font-black text-sm bg-slate-900/70 dark:bg-slate-700 text-white hover:bg-slate-800 dark:hover:bg-slate-600 transition-all">
           ↓ Download QR
         </a>
       </div>
@@ -1039,7 +1039,7 @@ const AdminWithdrawalPage = () => {
             <p className="text-blue-300 dark:text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Super Admin</p>
             <h2 className="text-2xl font-black">Penarikan Dana</h2>
           </div>
-          <div className="hidden md:flex items-center gap-2 text-blue-200 dark:text-slate-400 text-xs font-bold">
+          <div className="hidden md:flex items-center gap-3 text-blue-200 dark:text-slate-400 text-xs font-bold">
             <span className="w-2 h-2 bg-green-400 rounded-none animate-pulse" /> Auto 30s
             <button onClick={() => refetch()} disabled={isFetching} className="ml-1 hover:text-white transition-colors disabled:opacity-50">
               <RefreshCw size={14} className={isFetching ? 'animate-spin' : ''} />
@@ -1047,7 +1047,7 @@ const AdminWithdrawalPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex px-5 md:px-0 gap-2 flex-wrap">
+      <div className="flex px-5 md:px-0 gap-3 flex-wrap">
         {[{ val: 'PENDING', label: '⏳ Pending' }, { val: 'COMPLETED', label: '✅ Selesai' }, { val: 'FAILED', label: '❌ Ditolak' }, { val: '', label: '📋 Semua' }].map(f => (
           <button key={f.val} onClick={() => setStatusFilter(f.val)}
             className={`cursor-pointer active:scale-[0.98] px-4 py-2 rounded-none font-black text-sm transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700'}`}>
@@ -1089,7 +1089,7 @@ const AdminWithdrawalPage = () => {
                           {statusFilter === 'PENDING' && (
                           <td className="px-6 py-5">
                             {wd.status === 'PENDING' && (
-                            <div className="flex gap-2">
+                            <div className="flex gap-3">
                               <button onClick={() => { setSelectedId(wd._id); setShowApproveModal(true); }} className="cursor-pointer px-2.5 py-2 bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400 rounded-none text-sm font-black hover:bg-green-200 transition-all flex items-center"><Check size={18} /></button>
                               <button onClick={() => { setSelectedId(wd._id); setRejectNote(''); setShowRejectModal(true); }} className="cursor-pointer px-2.5 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900 rounded-none text-sm font-black hover:bg-red-100 transition-all"><X size={18} /></button>
                             </div>
@@ -1170,7 +1170,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                   className="w-full text-lg font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none p-2" />
               </div>
               <div>
-                <div className="md:flex items-center gap-2">
+                <div className="md:flex items-center gap-3">
                   <div className='w-full'>
                     <label className="text-xs font-black text-slate-500 block mb-1.5">Tambahan tiap Rp</label>
                     <div className='md:flex items-center'>
@@ -1204,7 +1204,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                   className="w-full text-lg font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none p-2" />
               </div>
               <div>
-                <div className="md:flex items-center gap-2">
+                <div className="md:flex items-center gap-3">
                   <div className='w-full'>
                     <label className="text-xs font-black text-slate-500 block mb-1.5">Tambahan tiap Rp</label>
                     <div className='md:flex items-center'>
@@ -1230,7 +1230,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
       {/* Preview kalkulasi */}
       <div className="bg-slate-50 dark:bg-slate-800/70 p-5 rounded-none text-sm border border-dashed border-slate-200 dark:border-slate-700">
         <p className="font-black text-xs text-slate-400 mb-3">DURASI SAAT INI</p>
-        <div className="space-y-2">
+        <div className="space-y-3">
           {!mediaOnly && (
             <div className="flex justify-between">
               <span>Rp 25.000 — Alert Biasa</span>
@@ -1251,7 +1251,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
       </div>
 
       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
+        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
         <Save size={20} />
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan Durasi'}
       </button>
@@ -1293,7 +1293,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {mediaTypeOptions.map(opt => (
               <button key={opt.value} onClick={() => update(i, 'mediaType', opt.value)}
                 className={`cursor-pointer active:scale-[0.97] flex flex-col items-center gap-1.5 py-3 px-2 rounded-none border-2 font-black text-xs transition-all ${t.mediaType === opt.value ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-slate-300 hover:bg-white dark:hover:bg-slate-700'}`}>
@@ -1304,11 +1304,11 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
           </div>
         </div>
       ))}
-      <button onClick={add} className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-2">
+      <button onClick={add} className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
         <Plus size={16} /> Tambah Ketentuan Media Alert
       </button>
       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
+        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
         <Save size={20} />
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Izin Media'}
       </button>
@@ -2065,16 +2065,16 @@ const smoothInner = (
       {isFullscreen && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed w-[100%] right-0 inset-0 z-[999999999] bg-black flex flex-col">
           <div className="flex items-center justify-between px- py-3 md:py-4 bg-black/80 backdrop-blur-sm border-b border-white/10 flex-shrink-0">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 bg-red-500 rounded-none animate-pulse" />
               <span className="text-white font-black text-sm tracking-wide">LIVE PREVIEW</span>
               <span className="px-2 py-0.5 bg-red-600 text-white text-[10px] font-black rounded-none tracking-widest">OBS SIMULATION</span>
             </div>
-            <div className="flex items-center gap-2">
-              <button onClick={triggerDemo} className="cursor-pointer active:scale-[0.97] flex items-center gap-2 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-xs transition-all">
+            <div className="flex items-center gap-3">
+              <button onClick={triggerDemo} className="cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-xs transition-all">
                 <span className="w-1.5 h-1.5 bg-red-400 rounded-none animate-pulse" /> Simulasi Donasi
               </button>
-              <button onClick={() => handleFullScreen()} className="cursor-pointer active:scale-[0.97] flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-none font-black text-xs transition-all border border-white/10">
+              <button onClick={() => handleFullScreen()} className="cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-none font-black text-xs transition-all border border-white/10">
                 ✕ Tutup
               </button>
             </div>
@@ -2151,16 +2151,16 @@ const smoothInner = (
       </div>
 
       {previewMode === 'media' && settings.theme === 'gifCard' && (
-        <div className="flex items-center gap-2 px-3 py-2 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-none text-xs font-bold text-amber-600 dark:text-amber-400">
+        <div className="flex items-center gap-3 px-3 py-2 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-none text-xs font-bold text-amber-600 dark:text-amber-400">
           <span>⚠️</span> Tema GIF Card tidak mendukung media share preview
         </div>
       )}
 
       {/* Media URL picker — hanya muncul saat tab media aktif */}
       {previewMode === 'media' && (
-        <div className="space-y-2">
+        <div className="space-y-3">
           <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Media URL (preview)</label>
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             {MEDIA_PRESETS.map((p, i) => (
               <button key={i} onClick={() => setMediaUrl(p.url)}
                 className={`flex-1 py-1.5 text-[10px] font-black rounded-none border-2 transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-purple-300'}`}>
@@ -2175,11 +2175,11 @@ const smoothInner = (
       )}
 
       <button onClick={triggerDemo}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3 rounded-none bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-2">
+        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3 rounded-none bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-3">
         <span className="w-2 h-2 bg-red-500 rounded-none animate-pulse" /> {previewMode === 'media' ? 'Simulasi Media share' : 'Simulasi Donasi Masuk'}
       </button>
       {/* <button onClick={() => handleFullScreen()}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3.5 rounded-none bg-slate-900/70 dark:bg-slate-700 hover:bg-slate-800 text-white font-black text-sm transition-all flex items-center justify-center gap-2 border border-slate-700">
+        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3.5 rounded-none bg-slate-900/70 dark:bg-slate-700 hover:bg-slate-800 text-white font-black text-sm transition-all flex items-center justify-center gap-3 border border-slate-700">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
         </svg>
@@ -2529,7 +2529,7 @@ const HistoryPage = () => {
                 className="px-4 py-2 rounded-none bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-100 dark:hover:bg-slate-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
                 ← Sebelumnya
               </button>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <span className="text-xs font-bold text-slate-400 dark:text-slate-500 flex items-center gap-1"><span className='md:flex hidden'>Halaman</span> <span className="text-blue-600 dark:text-blue-400 font-black">{page}</span> dari {pagination.totalPages}</span>
                 <span className="md:flex hidden text-xs text-slate-300 dark:text-slate-600">({pagination.total} total donasi)</span>
               </div>
@@ -2623,7 +2623,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
                 <span className="text-blue-600 dark:text-blue-400 font-black">{u.followersCount}</span> followers
               </p>
             )}
-            <div className="flex gap-2 mt-auto">
+            <div className="flex gap-3 mt-auto">
               <button onClick={() => setViewingProfile(u.username)}
                 className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-none border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:text-blue-600 transition-all cursor-pointer active:scale-[0.97]">
                 <User size={12} /> Profil
@@ -2723,9 +2723,9 @@ const ColorInput = React.memo(({ label, value, onChange, allowAlpha = false, id 
   useEffect(() => { setRaw(value); }, [value]);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       <label htmlFor={inputId} className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</label>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <div className="w-10 h-10 flex-shrink-0 rounded-none overflow-hidden border border-slate-300 dark:border-slate-600 relative group">
           <input id={`${inputId}-picker`} name={`${inputId}-picker`} type="color" value={pickerHex} onChange={handlePickerChange}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer peer z-10"
@@ -2804,7 +2804,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
           </div>
 
           <div className="space-y-3">
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               <input
                 type="text"
                 value={testText}
@@ -2814,14 +2814,14 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
                 className="flex-1 px-4 py-3 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-none text-sm font-medium outline-none focus:border-rose-400 dark:text-slate-100 transition-all"
               />
               <button onClick={handleTest} disabled={isTesting}
-                className="cursor-pointer px-5 py-2.5 bg-rose-500 hover:brightness-90 disabled:opacity-60 text-white font-black rounded-none transition-all active:scale-[0.97] flex items-center gap-2 whitespace-nowrap">
+                className="cursor-pointer px-5 py-2.5 bg-rose-500 hover:brightness-90 disabled:opacity-60 text-white font-black rounded-none transition-all active:scale-[0.97] flex items-center gap-3 whitespace-nowrap">
                 {isTesting ? <><span className="animate-spin inline-block">⏳</span> Memutar...</> : <>▶ Test</>}
               </button>
             </div>
           </div>
 
           <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 hover:brightness-90 text-white font-black rounded-none transition-all disabled:opacity-60 flex items-center justify-center gap-2">
+            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 hover:brightness-90 text-white font-black rounded-none transition-all disabled:opacity-60 flex items-center justify-center gap-3">
             <Save size={18} />
             {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan TTS'}
           </button>
@@ -2832,8 +2832,8 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
 };
 
 const PinRow = ({ label, groupKey, refs, pinForm, setPinForm, showPins, setShowPins, handlePinInputChange, handlePinKeyDown }) => (
-  <div className="space-y-2 mt-2">
-    <div className="flex items-center justify-start gap-2 mb-2.5">
+  <div className="space-y-3 mt-2">
+    <div className="flex items-center justify-start gap-3 mb-2.5">
       <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">
         {label}
       </p>
@@ -3278,7 +3278,7 @@ const handleChangePin = async () => {
             />
           </div>
         ))}
-        <button onClick={add} className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-2">
+        <button onClick={add} className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
           <Plus size={16} /> Tambah Suara per Nominal
         </button>
         <button 
@@ -3287,7 +3287,7 @@ const handleChangePin = async () => {
             saveSettingsMutation.mutate({ settings, slot: activeSlot });
           }} 
           disabled={saveSettingsMutation.isPending}
-          className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
+          className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
           <Save size={20} />
           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Audio Terbaru'}
         </button>
@@ -3363,7 +3363,7 @@ const handleChangePin = async () => {
           <audio ref={previewAudioRef} />
           <SectionHeader icon={<Music size={20} />} title="Pengaturan Suara Alert" color="bg-gradient-to-r from-emerald-500 to-blue-500" />
           <div className="md:p-5 md:bg-slate-50 md:dark:bg-slate-800/50 rounded-none md:border border-slate-200 dark:border-slate-700">
-            <h4 className="font-black text-sm text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">📢 Suara Default (Semua Donasi)</h4>
+            <h4 className="font-black text-sm text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-3">📢 Suara Default (Semua Donasi)</h4>
             <SoundPicker
               label="Pilih suara default"
               value={settings.soundUrl || ''}
@@ -3395,7 +3395,7 @@ const handleChangePin = async () => {
             />
             <div className='w-full h-[1px] bg-slate-100/10 my-4' />
             <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending || uploading}
-              className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-blue-600 to-violet-600 hover:brightness-90 text-white font-black rounded-none transition-all disabled:opacity-60 flex items-center justify-center gap-2">
+              className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-blue-600 to-violet-600 hover:brightness-90 text-white font-black rounded-none transition-all disabled:opacity-60 flex items-center justify-center gap-3">
               <Save size={20} />
               {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Suara'}
             </button>
@@ -3488,18 +3488,18 @@ const handleChangePin = async () => {
 
       {/* ── Mobile Navbar ── */}
       <div className="lg:hidden fixed top-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 z-50 px-4 py-3 md:py-4 flex justify-between items-center">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <div className="w-11.5 md:w-10 h-11.5 md:h-10 p-[6px] bg-blue-500 rounded-none flex items-center justify-center"><img src="/man1.png" className='relative left-[-0.8px]' alt="icon" /></div>
           {/* <span className="font-black text-lg tracking-tight text-slate-800 dark:text-slate-100">TTT</span> */}
         </div>
-        <div className="flex items-center gap-2">
-          <button onClick={toggle} className="h-[40px] cursor-pointer active:scale-[0.97] flex items-center gap-2 px-3 rounded-none border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
+        <div className="flex items-center gap-3">
+          <button onClick={toggle} className="h-[40px] cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 rounded-none border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
             {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
           </button>
-          <button onClick={() => setActiveTab('contact')} className={`h-[40px] cursor-pointer active:scale-[0.97] flex items-center gap-2 px-3 rounded-none border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
+          <button onClick={() => setActiveTab('contact')} className={`h-[40px] cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 rounded-none border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
             <HeadphonesIcon size={14} />
           </button>
-          <button onClick={() => setActiveTab('community')} className="h-[40px] cursor-pointer hover:brightness-90 active:scale-[0.97] relative flex items-center gap-2 px-3 py-3 rounded-none font-medium text-md overflow-hidden" style={{ background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)', backgroundSize: '300% 100%', animation: 'rainbowSlide 3s ease-in-out infinite' }}>
+          <button onClick={() => setActiveTab('community')} className="h-[40px] cursor-pointer hover:brightness-90 active:scale-[0.97] relative flex items-center gap-3 px-3 py-3 rounded-none font-medium text-md overflow-hidden" style={{ background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)', backgroundSize: '300% 100%', animation: 'rainbowSlide 3s ease-in-out infinite' }}>
             <Users size={16} className="relative z-10 text-white" />
           </button>
           <InboxBell setActiveTab={setActiveTab} />
@@ -3618,9 +3618,9 @@ const handleChangePin = async () => {
 
                   {/* Konfigurasi Alert */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
-                    <SectionHeader icon={<Settings size={20} />} title="Konfigurasi Alert" color="bg-blue-500" />
-                    <div className="mt-8 space-y-6">
-                      <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 rounded-none">
+                    <SectionHeader icon={<Settings size={20} />} title={`Konfigurasi Overlay`} color="bg-blue-500" />
+                    <div className="mt-8 space-y-3">
+                      <div className="flex items-center gap-3 rounded-none">
                         {['A', 'B'].map((slot, index) => (
                           <button
                             key={slot}
@@ -3636,22 +3636,16 @@ const handleChangePin = async () => {
                                 slot: newSlot          // ← Ubah dari 'A' menjadi newSlot
                               });
                             }}
-                            className={`flex justify-between px-5 flex-1 py-4 cursor-pointer active:scale-[0.99] font-black text-xs rounded-none transition-all ${
+                            className={`flex justify-between border-white/30 border px-5 flex-1 py-4 cursor-pointer active:scale-[0.99] font-black text-xs rounded-none transition-all ${
                               activeSlot === slot 
-                                ? 'bg-blue-600 text-white shadow-sm' 
+                                ? ' text-white shadow-sm' 
                                 : 'text-slate-400 hover:text-slate-500'
                             }`}
                           >
                             <span>OVERLAY</span>
-                            <div className="flex items-center gap-2">
-                              {/* ← pakai obsActiveSlot, bukan settings.activeSlot */}
-                              {/* {obsActiveSlot === slot && (
-                                <span className="px-1.5 py-0.5 bg-green-400 text-black text-[9px] font-black rounded-none">
-                                  LIVE
-                                </span>
-                              )} */}
-                              <span className="px-1.5 py-0.5 bg-white text-black text-[10px] font-medium rounded-none">
-                                SLOT {slot}
+                            <div className="flex items-center gap-3">
+                              <span className={`px-1.5 py-0.5 ${activeSlot === slot ? 'bg-emerald-300 text-emerald-900' : 'bg-white text-slate-900'} text-[10px] font-medium rounded-none`}>
+                                SLOT {activeSlot === slot ? `AKTIF` : `${slot}`}
                               </span>
                             </div>
                           </button>
@@ -3686,7 +3680,7 @@ const handleChangePin = async () => {
                           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Icon Alert</label>
                           
                           {/* Mode selector */}
-                          <div className="flex gap-2">
+                          <div className="flex gap-3">
                             {[{ id: 'emoji', label: '😊 Emoji' }, { id: 'gif', label: '🎬 GIF / URL' }].map(m => (
                               <button key={m.id}
                                 onClick={() => {
@@ -3704,7 +3698,7 @@ const handleChangePin = async () => {
                           </div>
 
                           {iconMode === 'emoji' ? (
-                            <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
+                            <div className="grid grid-cols-4 md:grid-cols-6 gap-2.5">
                               {ICON_PRESETS.map(({ emoji, label }) => (
                                 <button key={emoji} onClick={() => upd('customIcon', emoji === '💜' ? '' : emoji)} title={label}
                                   className={`flex flex-col items-center gap-1 p-3 rounded-none border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
@@ -3719,7 +3713,7 @@ const handleChangePin = async () => {
                             </div>
                           ) : (
                             <div className="space-y-3">
-                              <div className="flex gap-2 items-center">
+                              <div className="flex gap-3 items-center">
                                 <input
                                   type="url"
                                   value={settings.customIcon?.startsWith('http') ? settings.customIcon : ''}
@@ -3753,7 +3747,7 @@ const handleChangePin = async () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-6 mt-8">
                       <InputField label="Minimal Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
                       <InputField label="Maksimal Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
                       <div className="md:col-span-2">
@@ -3781,7 +3775,7 @@ const handleChangePin = async () => {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
                       {[
                         { key: 'primaryColor',   label: 'Background Alert',  fallback: '#6366f1' },
                         { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#a5b4fc' },
@@ -3792,7 +3786,7 @@ const handleChangePin = async () => {
                       <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
                     </div>
                     <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                      className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2 mt-8">
+                      className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
                       <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
                     </button>
                   </div>
@@ -3801,7 +3795,7 @@ const handleChangePin = async () => {
                     <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
                       Preset Warna Siap Pakai
                     </label>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                       {ALERT_PRESETS.map(preset => (
                         <button
                           key={preset.id}
@@ -3839,7 +3833,7 @@ const handleChangePin = async () => {
                       { label: 'URL VOICE NOTE - OBS',      url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
                       { label: 'URL COMBINED (ALL-IN-ONE)', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
                     ].map(({ label, url }) => (
-                      <div key={label} className="bg-slate-100 dark:bg-slate-800 p-6 rounded-none border-2 border-dashed border-slate-200 dark:border-slate-700 mb-8">
+                      <div key={label} className="bg-slate-100 dark:bg-slate-800 p-6 rounded-none border-2 border-dashed border-slate-200 dark:border-slate-700 mb-2">
                         <div className="block text-[10px] font-black bg-transparent w-max text-white mb-2 uppercase tracking-widest px-0">{label}</div>
                         <div className="flex gap-3">
                           <input readOnly value={url} className="flex-1 bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
@@ -3848,14 +3842,14 @@ const handleChangePin = async () => {
                       </div>
                     ))}
                     <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                      className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
+                      className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
                       <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
                     </button>
                   </div>
 
                   {/* Widget URLs */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4">
-                    <div className="flex justify-between items-center gap-2 mb-5">
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
+                    <div className="flex justify-between items-center gap-3 mb-5">
                       <span className="text-xl font-black text-slate-900 dark:text-slate-100">Widget URLs untuk OBS</span>
                       <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 rounded-none text-[9px] font-black uppercase tracking-widest">Browser Source</span>
                     </div>
@@ -3878,7 +3872,7 @@ const handleChangePin = async () => {
                         <div key={path} className="flex items-center gap-4 bg-white dark:bg-slate-800 rounded-none p-4 border border-slate-200 dark:border-slate-700">
                           <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-none flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-0.5">
+                            <div className="flex items-center gap-3 mb-0.5">
                               <span className="font-black text-slate-700 dark:text-slate-200 text-sm">{label}</span>
                               <span className="text-[9px] text-slate-400 dark:text-slate-500 font-bold">{size}</span>
                             </div>
@@ -3988,9 +3982,9 @@ const handleChangePin = async () => {
                           onError={(e) => { e.target.style.display = 'none'; const parent = e.target.parentElement; if (parent) parent.innerHTML = (user.username?.charAt(0) || '?').toUpperCase(); }} />
                       ) : (user.username?.charAt(0) || '?').toUpperCase()}
                     </div>
-                    <div className="flex-1 text-center md:text-left md:block flex flex-col jsutify-center items-center space-y-2">
+                    <div className="flex-1 text-center md:text-left md:block flex flex-col jsutify-center items-center space-y-3">
                       <div className="flex flex-wrap items-center justify-center md:justify-between gap-3">
-                        <div className='flex items-center gap-2'>
+                        <div className='flex items-center gap-3'>
                           <h2 className="text-3xl font-black text-white tracking-tighter">@{user.username}</h2> <Verified className='relative top-[3.9px] text-blue-400' />
                         </div>
                       </div>
@@ -4022,7 +4016,7 @@ const handleChangePin = async () => {
                             <div className="h-20 border-2 active:scale-[0.99] border-dashed border-slate-300 dark:border-slate-600 rounded-none p-4 text-center hover:border-blue-400 transition-all">
                               <input type="file" accept="image/*" onChange={handleProfilePictureUpload} className="hidden h-20" id="profile-upload" />
                               <label htmlFor="profile-upload" className="cursor-pointer flex flex-col items-center">
-                                <p className="flex items-center gap-2 mb-1 font-bold text-slate-600 dark:text-slate-300">Klik untuk upload gambar <Image size={16} /></p>
+                                <p className="flex items-center gap-3 mb-1 font-bold text-slate-600 dark:text-slate-300">Klik untuk upload gambar <Image size={16} /></p>
                                 <p className="text-[10px] text-slate-400">JPG, PNG, WebP (max 3MB)</p>
                               </label>
                             </div>
@@ -4033,7 +4027,7 @@ const handleChangePin = async () => {
 
                     <div className="md:col-span-2 mb-1 border-t border-slate-100/10 pt-5 mt-2">
                       <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Link Halaman Donasi</label>
-                      <div className="flex gap-2">
+                      <div className="flex gap-3">
                         <input readOnly value={`${window.location.origin}/donate/${user.username}`}
                           className="flex-1 bg-blue-50 dark:bg-blue-950/40 border-2 border-blue-100 dark:border-blue-900 rounded-none p-5 font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none" />
                         <button onClick={() => copyToClipboard(`${window.location.origin}/donate/${user.username}`)}
@@ -4072,7 +4066,7 @@ const handleChangePin = async () => {
 
                     <div className="md:col-span-2">
                       <button onClick={() => updateProfileMutation.mutate(profileForm)} disabled={updateProfileMutation.isPending}
-                        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-md transition-all flex items-center justify-center gap-2 disabled:opacity-70">
+                        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-md transition-all flex items-center justify-center gap-3 disabled:opacity-70">
                         <Save size={20} />
                         {updateProfileMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
                       </button>
@@ -4146,7 +4140,7 @@ const handleChangePin = async () => {
                             initial={{ opacity: 0, y: -4 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
-                            className="w-max flex items-center gap-2 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800"
+                            className="w-max flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800"
                           >
                             <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
                             <p className="text-xs font-bold text-red-600 dark:text-red-400">{pinError}</p>
@@ -4162,7 +4156,7 @@ const handleChangePin = async () => {
                           pinForm.newPin.join('').length < 4 ||
                           pinForm.confirmPin.join('').length < 4
                         }
-                        className="cursor-pointer md:mt-0 mt-2 w-full px-4 relative md:top-[7px] py-3 bg-blue-500 hover:bg-amber-600 text-white font-black text-sm transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="cursor-pointer md:mt-0 mt-2 w-full px-4 relative md:top-[7px] py-3 bg-blue-500 hover:bg-amber-600 text-white font-black text-sm transition-all active:scale-[0.99] flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
                         style={{ borderRadius: 0 }}
                       >
                         {pinLoading ? (
