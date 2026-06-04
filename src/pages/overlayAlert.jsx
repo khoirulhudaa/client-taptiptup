@@ -109,19 +109,53 @@
 
     // useEffect(() => {
     //   if (!token) return;
+    //   const slot = new URLSearchParams(window.location.search).get('slot') || 'A';
     //   axios
-    //     .get(`https://server-ttt-production.up.railway.app/api/overlay/config/${token}`)
+    //     .get(`https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${slot}`)
     //     .then((res) => { setConfig(res.data); configRef.current = res.data; })
     //     .catch(() => console.error('[Overlay] Invalid token'));
     // }, [token]);
 
     useEffect(() => {
       if (!token) return;
-      const slot = new URLSearchParams(window.location.search).get('slot') || 'A';
-      axios
-        .get(`https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${slot}`)
-        .then((res) => { setConfig(res.data); configRef.current = res.data; })
-        .catch(() => console.error('[Overlay] Invalid token'));
+
+      const slotFromUrl = new URLSearchParams(window.location.search).get('slot');
+
+      const loadConfig = async () => {
+        try {
+          // Kalau URL ada ?slot=B, pakai itu langsung (backward compat)
+          if (slotFromUrl) {
+            const res = await axios.get(
+              `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${slotFromUrl}`
+            );
+            setConfig(res.data);
+            configRef.current = res.data;
+            return;
+          }
+
+          // Tidak ada slot di URL — fetch slot A dulu untuk cek activeSlot
+          const masterRes = await axios.get(
+            `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=A`
+          );
+          const activeSlot = masterRes.data.activeSlot || 'A';
+
+          if (activeSlot === 'A') {
+            setConfig(masterRes.data);
+            configRef.current = masterRes.data;
+          } else {
+            // Fetch slot yang aktif
+            const activeRes = await axios.get(
+              `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${activeSlot}`
+            );
+            setConfig(activeRes.data);
+            configRef.current = activeRes.data;
+          }
+        } catch {
+          console.error('[Overlay] Invalid token');
+        }
+      };
+
+      loadConfig();
     }, [token]);
 
     useEffect(() => {
@@ -224,9 +258,23 @@
         }, duration);
       });
 
-      socket.on('settings-updated', (newConfig) => {
-        setConfig(newConfig);
-        configRef.current = newConfig;
+      socket.on('settings-updated', async (newConfig) => {
+        // Kalau ada activeSlot berubah, fetch ulang slot yang aktif
+        const slotFromUrl = new URLSearchParams(window.location.search).get('slot');
+        
+        if (!slotFromUrl && newConfig.activeSlot && newConfig.activeSlot !== 'A') {
+          try {
+            const res = await axios.get(
+              `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${newConfig.activeSlot}`
+            );
+            setConfig(res.data);
+            configRef.current = res.data;
+          } catch {}
+        } else {
+          setConfig(newConfig);
+          configRef.current = newConfig;
+        }
+
         if (newConfig.overlayEnabled === false) {
           setAlert(null);
           setProgress(100);

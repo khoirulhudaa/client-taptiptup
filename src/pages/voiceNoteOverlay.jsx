@@ -96,14 +96,31 @@ const VoiceNoteOverlay = () => {
   //     .catch(() => console.error('[VoiceOverlay] Invalid token'));
   // }, [token]);
 
-  const slot = new URLSearchParams(window.location.search).get('slot') || 'A';
-  axios
-    .get(`${BASE_URL}/api/overlay/config/${token}?slot=${slot}`)
-    .then((res) => {
-      setConfig(res.data);
-      configRef.current = res.data;
-    })
-    .catch(() => console.error('[VoiceOverlay] Invalid token'));
+  useEffect(() => {
+  if (!token) return;
+
+  const slotFromUrl = new URLSearchParams(window.location.search).get('slot');
+
+  const loadConfig = async () => {
+    try {
+      if (slotFromUrl) {
+        const res = await axios.get(`${BASE_URL}/api/overlay/config/${token}?slot=${slotFromUrl}`);
+        setConfig(res.data); configRef.current = res.data;
+        return;
+      }
+      const masterRes = await axios.get(`${BASE_URL}/api/overlay/config/${token}?slot=A`);
+      const activeSlot = masterRes.data.activeSlot || 'A';
+      if (activeSlot === 'A') {
+        setConfig(masterRes.data); configRef.current = masterRes.data;
+      } else {
+        const res = await axios.get(`${BASE_URL}/api/overlay/config/${token}?slot=${activeSlot}`);
+        setConfig(res.data); configRef.current = res.data;
+      }
+    } catch { console.error('[VoiceOverlay] Invalid token'); }
+  };
+
+  loadConfig();
+}, [token]);
 
   // Audio progress tracker
   const startAudioProgress = useCallback(() => {
@@ -286,9 +303,16 @@ const VoiceNoteOverlay = () => {
       }, INTRO_DELAY);
     });
 
-    socket.on('settings-updated', (newConfig) => {
-      setConfig(newConfig);
-      configRef.current = newConfig;
+    socket.on('settings-updated', async (newConfig) => {
+      const slotFromUrl = new URLSearchParams(window.location.search).get('slot');
+      if (!slotFromUrl && newConfig.activeSlot && newConfig.activeSlot !== 'A') {
+        try {
+          const res = await axios.get(`${BASE_URL}/api/overlay/config/${token}?slot=${newConfig.activeSlot}`);
+          setConfig(res.data); configRef.current = res.data;
+        } catch {}
+      } else {
+        setConfig(newConfig); configRef.current = newConfig;
+      }
     });
 
     return () => {

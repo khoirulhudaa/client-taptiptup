@@ -97,7 +97,6 @@ const fetchStats      = async () => (await api.get('/api/donations/stats')).data
 // };
 
 const saveSettings = async (s, slot = 'A') => {
-  console.log('💾 Saving settings with slot:', slot); // ← tambahkan ini
   const clean = JSON.parse(JSON.stringify(s, (key, val) => {
     if (val instanceof HTMLElement || val instanceof Element) return undefined;
     return val;
@@ -156,7 +155,7 @@ const DEFAULT_SETTINGS = {
   animation: 'bounce',
   quickAmounts: [10000, 25000, 50000, 100000, 250000],
   maxWidth: 280,
-  overlayPosition: 'bottom-right',
+  overlayPosition: 'bottom-left',
   baseDuration: 5,
   extraPerAmount: 10000,
   extraDuration: 1,
@@ -1511,8 +1510,8 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
   const posMap = {
     'top-left':      { top: '14%', left: '2%' },
     'top-right':     { top: '14%', right: '2%' },
-    'bottom-left':   { bottom: '18%', left: '2%' },
-    'bottom-right':  { bottom: '18%', right: '2%' },
+    'bottom-left':   { bottom: '28%', left: '2%' },
+    // 'bottom-left':  { bottom: '18%', right: '2%' },
     'top-center':    { top: '14%', left: '50%', transform: 'translateX(-50%)' },
     'bottom-center': { bottom: '18%', left: '50%', transform: 'translateX(-50%)' },
   };
@@ -1525,7 +1524,7 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
   };
 
   const anim  = animVariants[settings.animation] || animVariants.bounce;
-  const pos   = posMap[settings.overlayPosition || 'bottom-right'];
+  const pos   = posMap[settings.overlayPosition || 'bottom-left'];
   const bg    = settings.primaryColor || '#6366f1';
   const fg    = settings.textColor || '#ffffff';
   const maxW  = settings.maxWidth || 280;
@@ -1598,17 +1597,6 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
         position: 'relative',
         zIndex: 2,
       }}>
-        {/* <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <FrogDeco size={12} />
-          <span style={{
-            fontFamily: 'monospace',
-            fontSize: 20,
-            color: hl,
-            textTransform: 'uppercase',
-            letterSpacing: '0.18em',
-            fontWeight: 700,
-          }}>DUKUNGAN MASUK</span>
-        </div> */}
         <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
           {/* Pixel status dots */}
           {['#ff4444', '#ffaa00', hl].map((c, i) => (
@@ -1666,8 +1654,6 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
           color: hl,
           letterSpacing: '-1px',
           lineHeight: 1,
-          // borderLeft: `3px solid ${hl}`,
-          // paddingLeft: 8,
           marginBottom: 6,
           textShadow: `0 0 12px ${hl}60`,
         }}>
@@ -1680,10 +1666,10 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
             fontFamily: 'monospace',
             fontSize: 20,
             color: fg,
-            opacity: 0.75,
             background: 'rgba(255,255,255,0.04)',
             border: dimBorder,
             padding: '5px 8px',
+            width: 'max-content',
             lineHeight: 1.4,
             marginBottom: 6,
           }}>
@@ -1742,8 +1728,6 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
 
       {/* Info area */}
       <div style={{
-        // backgroundColor: bg,
-        // border: `1px solid ${settings.borderColor || hl + '40'}`,
         padding: '10px 12px',
         display: 'flex',
         textAlign: 'center',
@@ -1774,6 +1758,7 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
           <div style={{
             fontFamily: "'Poppins', sans-serif",
             fontSize: 16, color: fg, fontWeight: 400,
+            // width: 'max-content',
             background: hl + '12', border: `1px solid ${hl}25`,
             padding: '5px 8px', lineHeight: 1.5,
           }}>
@@ -1801,17 +1786,6 @@ const smoothInner = (
     {/* Icon + Nama */}
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
       <div>
-        {/* <div style={{
-          fontSize: 11,
-          fontWeight: 500,
-          color: fg,
-          opacity: 0.5,
-          letterSpacing: '0.08em',
-          textTransform: 'uppercase',
-          marginBottom: 2,
-          }}>
-          Dukungan Masuk
-          </div> */}
         <div style={{
           fontSize: 24,
           fontWeight: 700,
@@ -1858,12 +1832,9 @@ const smoothInner = (
         fontSize: 20,
         fontWeight: 400,
         color: fg,
-        opacity: 0.75,
-        // background: hl + '10',
-        // borderRadius: 10,
+        width: 'max-content',
         padding: '0px 0px',
         lineHeight: 1.5
-        // border: `1px solid ${hl}20`,
       }}>
         {currentDonor.msg}
       </div>
@@ -1938,13 +1909,6 @@ const smoothInner = (
           borderBottom: `1px dashed ${hl}30`,
           paddingBottom: 6,
         }}>
-          {/* <span style={{
-            fontFamily: 'monospace',
-            fontSize: 20,
-            color: hl,
-            opacity: 0.7,
-            letterSpacing: '0.12em',
-          }}>NAME</span> */}
           <span style={{
             fontFamily: 'monospace',
             fontSize: 20,
@@ -1973,7 +1937,8 @@ const smoothInner = (
             fontFamily: 'monospace',
             fontSize: 20,
             color: fg,
-            opacity: 0.8,
+            width: 'max-content',
+            // opacity: 0.8,
             lineHeight: 1.45,
             // borderLeft: `2px solid ${hl}`,
             // paddingLeft: 8,
@@ -2024,14 +1989,6 @@ const smoothInner = (
             gap: 6,
           }}>
             <FrogDeco size={16} />
-            {/* <span style={{
-              fontFamily: 'monospace',
-              fontSize: 8,
-              color: hl,
-              opacity: 0.55,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-            }}>DONASI</span> */}
           </div>
           <span style={{
             fontFamily: 'monospace',
@@ -2064,7 +2021,8 @@ const smoothInner = (
             fontFamily: 'monospace',
             fontSize: 24,
             color: fg,
-            opacity: 0.7,
+            width: 'max-content',
+            // opacity: 0.7,
             lineHeight: 1.4,
             marginBottom: 4,
           }}>
@@ -2082,27 +2040,6 @@ const smoothInner = (
 
   const innerMap = { modern: modernInner, classic: classicInner, minimal: minimalInner, smooth: smoothInner, gifCard: gifCardInner };
 
-  // return (
-    // <>
-    //   {/* CSS untuk blink cursor di classic */}
-    //   <style>{`
-    //     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-    //   `}</style>
-    //   <div style={{
-    //     backgroundColor: bg,
-    //     color: fg,
-    //     borderRadius: settings.theme === 'smooth' ? 20 : 0,
-    //     maxWidth: `${settings.maxWidth || 280}px`,
-    //     width: '100%',
-    //     overflow: 'hidden',
-    //     boxShadow: `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`,
-    //     border: `2px solid ${settings.borderColor || hl + '40'}`,
-    //     imageRendering: 'pixelated',
-    //   }}>
-    //     {innerMap[settings.theme] ?? modernInner}
-    //   </div>
-    // </>
-
     return (
       <>
         <style>{`@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>
@@ -2110,7 +2047,7 @@ const smoothInner = (
           backgroundColor: settings.theme === 'gifCard' ? 'transparent' : bg,
           color: fg,
           borderRadius: settings.theme === 'smooth' ? 20 : 0,
-          maxWidth: `${settings.maxWidth || 280}px`,
+          // maxWidth: `max-content`,
           width: '100%',
           // overflow: 'hidden',
           boxShadow: settings.theme === 'gifCard' ? 'none' : `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`,
@@ -2147,7 +2084,7 @@ const smoothInner = (
             <div className="absolute inset-0 pointer-events-none">
               <AnimatePresence>
                 {showAlert && (
-                  <motion.div key={animKey} initial={animVariants[settings.animation]?.initial || animVariants.bounce.initial} animate={animVariants[settings.animation]?.animate || animVariants.bounce.animate} exit={animVariants[settings.animation]?.exit || animVariants.bounce.exit} style={{ position: 'absolute', ...posMap[settings.overlayPosition || 'bottom-right'], zIndex: 10 }}>
+                  <motion.div key={animKey} initial={animVariants[settings.animation]?.initial || animVariants.bounce.initial} animate={animVariants[settings.animation]?.animate || animVariants.bounce.animate} exit={animVariants[settings.animation]?.exit || animVariants.bounce.exit} style={{ position: 'absolute', ...posMap[settings.overlayPosition || 'bottom-left'], zIndex: 10 }}>
                     {renderAlert()}
                   </motion.div>
                 )}
@@ -2188,15 +2125,10 @@ const smoothInner = (
         <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
           <span style={{ fontSize: 80, fontWeight: 800, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span>
         </div>
-        {/* <div className="absolute top-0 left-0 right-0 flex items-center gap-2 px-3 py-2" style={{ background: 'linear-gradient(to bottom,rgba(0,0,0,.65) 0%,transparent 100%)' }}>
-          <div className="w-5 h-5 rounded-none bg-red-600 flex items-center justify-center text-white text-[8px] font-black flex-shrink-0">YT</div>
-          <span className="bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-none tracking-wide">LIVE</span>
-          <span className="text-white text-[9px] font-medium opacity-80 flex-1 truncate">Ngoding Bareng | Demo</span>
-        </div> */}
         <div className="absolute inset-0 pointer-events-none">
           <AnimatePresence>
             {showAlert && previewMode === 'alert' && (
-              <motion.div className='ml-4 max-w-[80%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', ...pos, zIndex: 10 }}>
+              <motion.div className='ml-4 max-w-[80%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
                 {renderAlert()}
               </motion.div>
             )}
@@ -2209,7 +2141,6 @@ const smoothInner = (
             )}
           </AnimatePresence>
         </div>
-        {/* <div className="absolute top-2 right-3"><span className="w-1.5 h-1.5 bg-red-500 rounded-none animate-pulse block" /></div> */}
       </div>
 
       <div className="flex items-center justify-between text-[10px] text-slate-400 font-bold px-1 flex-wrap gap-1">
@@ -2952,6 +2883,7 @@ export const DashboardStreamer = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showToast, setShowToast]         = useState(false);
   const [localSettings, setLocalSettings] = useState(null);
+  const [obsActiveSlot, setObsActiveSlot] = useState('A');
   const [previewMode, setPreviewMode] = useState('alert'); 
   const [donationToasts, setDonationToasts] = useState([]);
   const [formData, setFormData] = useState({ publicSounds: [], publicSoundDefault: '' });
@@ -3084,30 +3016,32 @@ const handleChangePin = async () => {
     }
   }, [localSettings?.customIcon]);
 
-  // useEffect(() => {
-  //   if (profileData && !localSettings) {
-  //     const s = profileData.settings || profileData.overlaySetting || {};
-  //     setLocalSettings({
-  //       ...DEFAULT_SETTINGS,
-  //       ...s,
-  //       publicSounds: Array.isArray(s.publicSounds) ? s.publicSounds : DEFAULT_SETTINGS.publicSounds,
-  //     });
-  //   }
-  // }, [profileData]);
+  useEffect(() => {
+    const loadObsActiveSlot = async () => {
+      try {
+        const res = await api.get('/api/overlay/settings?slot=A');
+        const s = res.data.settings || res.data.overlaySetting || {};
+        if (s.activeSlot) {
+          setObsActiveSlot(s.activeSlot);
+        }
+      } catch {}
+    };
+    loadObsActiveSlot();
+  }, []);
 
   useEffect(() => {
-    if (profileData) {
-      const s = profileData.settings || profileData.overlaySetting || {};
+  if (profileData) {
+    const s = profileData.settings || profileData.overlaySetting || {};
 
-      setLocalSettings({
-        ...DEFAULT_SETTINGS,
-        ...s,
-        publicSounds: Array.isArray(s.publicSounds) 
-          ? s.publicSounds 
-          : DEFAULT_SETTINGS.publicSounds,
-      });
-    }
-  }, [profileData, activeSlot]);   // ← activeSlot + profileData
+    setLocalSettings({
+      ...DEFAULT_SETTINGS,
+      ...s,
+      publicSounds: Array.isArray(s.publicSounds) 
+        ? s.publicSounds 
+        : DEFAULT_SETTINGS.publicSounds,
+    });
+  }
+}, [profileData, activeSlot]);
 
   useEffect(() => {
     console.log('Current Slot:', activeSlot);
@@ -3147,15 +3081,15 @@ const handleChangePin = async () => {
 
   const saveSettingsMutation = useMutation({
     mutationFn: ({ settings, slot = 'A' }) => saveSettings(settings, slot),
-    onSuccess: () => { 
-      queryClient.invalidateQueries({ queryKey: ['profile'] }); 
-      queryClient.invalidateQueries({ queryKey: ['profile', activeSlot] });
+    onSuccess: (_, variables) => { 
+      // Hanya invalidate slot yang baru saja disave
+      queryClient.invalidateQueries({ queryKey: ['profile', variables.slot] });
       setShowToast(true); 
       setTimeout(() => setShowToast(false), 3000); 
     },
     onError: (err) => alert(err?.response?.data?.message || 'Gagal menyimpan pengaturan'),
   });
-
+  
   const updateProfileMutation = useMutation({
     mutationFn: updateProfile,
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['profile'] }); setShowToast(true); setTimeout(() => setShowToast(false), 3000); },
@@ -3693,19 +3627,34 @@ const handleChangePin = async () => {
                         {['A', 'B'].map((slot, index) => (
                           <button
                             key={slot}
-                            onClick={() => setActiveSlot(slot)}
+                            onClick={() => {
+                              setActiveSlot(slot);
+                              setObsActiveSlot(slot);
+                              // const newSettings = { ...settings, activeSlot: slot };
+                              // upd('activeSlot', slot);
+                              saveSettingsMutation.mutate({ 
+                                settings: { activeSlot: slot }, // hanya field ini saja
+                                slot: 'A' 
+                              });
+                            }}
                             className={`flex justify-between px-5 flex-1 py-4 cursor-pointer active:scale-[0.99] font-black text-xs rounded-none transition-all ${
                               activeSlot === slot 
                                 ? 'bg-blue-600 text-white shadow-sm' 
                                 : 'text-slate-400 hover:text-slate-500'
                             }`}
                           >
-                            <span>
-                              OVERLAY
-                            </span>
-                            <span className="px-1.5 py-0.5 bg-white text-black text-[10px] font-medium rounded-none">
-                              SLOT {index + 1}
-                            </span>
+                            <span>OVERLAY</span>
+                            <div className="flex items-center gap-2">
+                              {/* ← pakai obsActiveSlot, bukan settings.activeSlot */}
+                              {obsActiveSlot === slot && (
+                                <span className="px-1.5 py-0.5 bg-green-400 text-black text-[9px] font-black rounded-none">
+                                  LIVE
+                                </span>
+                              )}
+                              <span className="px-1.5 py-0.5 bg-white text-black text-[10px] font-medium rounded-none">
+                                SLOT {index + 1}
+                              </span>
+                            </div>
                           </button>
                         ))}
                       </div>
@@ -3831,16 +3780,16 @@ const handleChangePin = async () => {
                           <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
                         </select>
                       </div>
-                      <div className="md:col-span-2">
+                      {/* <div className="md:col-span-2">
                         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
                           Lebar Maks Overlay OBS <span className="text-blue-500 normal-case font-bold ml-1">({settings.maxWidth || 280}px)</span>
                         </label>
                         <input type="range" min={180} max={600} step={10} value={settings.maxWidth || 280} onChange={e => upd('maxWidth', Number(e.target.value))} className="w-full accent-blue-600" />
                         <div className="flex justify-between text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-1 px-0.5"><span>180px</span><span>390px</span><span>600px</span></div>
-                      </div>
+                      </div> */}
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
                       {[
                         { key: 'primaryColor',   label: 'Background Alert',  fallback: '#6366f1' },
                         { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#a5b4fc' },
@@ -3893,8 +3842,6 @@ const handleChangePin = async () => {
                   {/* OBS URLs */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                     {[
-                      { label: 'URL ALERT - OBS',           url: user.overlayUrl },
-                      // Slot A (existing)
                       { label: 'URL ALERT - OBS (Slot A)', url: user.overlayUrl },
                       // Slot B (baru)
                       { label: 'URL ALERT - OBS (Slot B)', url: `${user.overlayUrl}?slot=B` },
