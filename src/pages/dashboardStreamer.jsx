@@ -3417,7 +3417,7 @@ const handleChangePin = async () => {
       {showOverlay && <LoadingOverlay onDone={() => setShowOverlay(false)} />}
 
       {/* <video src="/glass.mp4" className='absolute z-[1]' autoplay={true}></video> */}
-      <img src="/glass.jpg" className='opacity-[10%] fixed top-0 left-0 w-screen h-screen z-[1]' autoPlay={true}></img>
+      <img src="/glass.jpg" className='opacity-[10%] fixed top-0 left-0 w-screen h-screen z-[1]' autoPlay={true} alt='glass-img'></img>
       {/* ── Modal Copy URL ── */}
       <AnimatePresence>
         {showCopyModal && (
@@ -3645,11 +3645,11 @@ const handleChangePin = async () => {
                             <span>OVERLAY</span>
                             <div className="flex items-center gap-2">
                               {/* ← pakai obsActiveSlot, bukan settings.activeSlot */}
-                              {obsActiveSlot === slot && (
+                              {/* {obsActiveSlot === slot && (
                                 <span className="px-1.5 py-0.5 bg-green-400 text-black text-[9px] font-black rounded-none">
                                   LIVE
                                 </span>
-                              )}
+                              )} */}
                               <span className="px-1.5 py-0.5 bg-white text-black text-[10px] font-medium rounded-none">
                                 SLOT {slot}
                               </span>
@@ -3779,13 +3779,6 @@ const handleChangePin = async () => {
                           <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
                         </select>
                       </div>
-                      {/* <div className="md:col-span-2">
-                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
-                          Lebar Maks Overlay OBS <span className="text-blue-500 normal-case font-bold ml-1">({settings.maxWidth || 280}px)</span>
-                        </label>
-                        <input type="range" min={180} max={600} step={10} value={settings.maxWidth || 280} onChange={e => upd('maxWidth', Number(e.target.value))} className="w-full accent-blue-600" />
-                        <div className="flex justify-between text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-1 px-0.5"><span>180px</span><span>390px</span><span>600px</span></div>
-                      </div> */}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
