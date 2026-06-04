@@ -149,7 +149,6 @@ export const VoiceRecorder = ({ onVoiceReady, maxSeconds = 60, disabled = false 
         ? rawUrl 
         : `${BASE_URL}${rawUrl}`;
 
-      console.log('url (absolute):', url);
       setPhase('done');
       onVoiceReady(url);
     } catch (err) {

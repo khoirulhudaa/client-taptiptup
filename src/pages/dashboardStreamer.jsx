@@ -2593,7 +2593,6 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
   };
 
   const renderUsers = (users, isLoading, showFollowBtn = true) => {
-    console.log('u', users)
     if (isLoading) return <div className="flex items-center justify-center py-20 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-none animate-spin" />Memuat...</div>;
     if (!users?.length) return <div className="text-center py-20 text-slate-400"><p className="text-4xl mb-3">👥</p><p className="font-black text-slate-500">Belum ada streamer</p></div>;
     return (
@@ -3044,11 +3043,6 @@ const handleChangePin = async () => {
 }, [profileData, activeSlot]);
 
   useEffect(() => {
-    console.log('Current Slot:', activeSlot);
-    console.log('Current Settings:', localSettings);
-  }, [activeSlot, localSettings]);
-
-  useEffect(() => {
     if (profileData && localSettings) {
       setFormData({
         publicSounds: Array.isArray(localSettings.publicSounds) ? localSettings.publicSounds : [],
@@ -3151,7 +3145,10 @@ const handleChangePin = async () => {
   const settings = localSettings || DEFAULT_SETTINGS;
 
   const upd = useCallback((key, val) => {
-    if (key === 'publicSounds' && !Array.isArray(val)) { console.warn(`[upd] publicSounds must be array`); return; }
+    if (key === 'publicSounds' && !Array.isArray(val)) { 
+      console.warn(`[upd] publicSounds must be array`); 
+      return;
+    }
     setLocalSettings(prev => ({ ...prev, [key]: val }));
     if (key === 'publicSounds') setFormData(prev => ({ ...prev, publicSounds: val }));
   }, []);

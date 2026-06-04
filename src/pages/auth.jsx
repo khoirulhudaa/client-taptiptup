@@ -1107,61 +1107,12 @@ const Auth = () => {
       }
     } catch (err) {
       // ERROR HANDLING - Jangan expose detail error ke user
-      const errorMessage = err.response?.data?.message || 'Koneksi terputus atau server error';
-      
-      // Log error ke console untuk debugging (tidak perlu expose ke user)
-      console.error('[Auth Error]:', err.response?.status, errorMessage);
-      
+      const errorMessage = err.response?.data?.message || 'Koneksi terputus atau server error';      
       notify('Gagal', errorMessage, 'error');
     } finally {
       setLoading(false);
     }
   };
-  
-  // Fungsi untuk validasi email di Forgot Password
-  // const handleForgotPassword = async (emailReset) => {
-  //   const sanitizedEmail = sanitizeInput(emailReset);
-    
-  //   if (!isValidEmail(sanitizedEmail)) {
-  //     return { success: false, message: 'Email tidak valid' };
-  //   }
-    
-  //   if (detectXSS(sanitizedEmail)) {
-  //     return { success: false, message: 'Email tidak valid' };
-  //   }
-    
-  //   try {
-  //     const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/forgot-password', { 
-  //       email: sanitizedEmail 
-  //     });
-  //     return { success: true, message: res.data.message };
-  //   } catch (err) {
-  //     return { success: false, message: err.response?.data?.message || 'Email tidak terdaftar' };
-  //   }
-  // };
-  
-  // Fungsi untuk validasi password di Reset Password
-  // const handleResetPassword = async (email, token, newPassword) => {
-  //   const sanitizedEmail = sanitizeInput(email);
-  //   const sanitizedToken = sanitizeInput(token);
-    
-  //   // Validasi password
-  //   const pwdValidation = validatePassword(newPassword);
-  //   if (!pwdValidation.isValid) {
-  //     return { success: false, message: pwdValidation.message };
-  //   }
-    
-  //   try {
-  //     const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/reset-password', {
-  //       email: sanitizedEmail,
-  //       token: sanitizedToken,
-  //       newPassword: newPassword // Password jangan disanitasi
-  //     });
-  //     return { success: true, message: res.data.message };
-  //   } catch (err) {
-  //     return { success: false, message: err.response?.data?.message || 'Token tidak valid atau kadaluarsa' };
-  //   }
-  // };
 
   const isTabActive = (i) => (isLogin && i === 0) || (!isLogin && i === 1);
 
