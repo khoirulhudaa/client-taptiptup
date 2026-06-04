@@ -3080,7 +3080,7 @@ const handleChangePin = async () => {
   // });
 
   const saveSettingsMutation = useMutation({
-    mutationFn: ({ settings, slot = 'A' }) => saveSettings(settings, slot),
+    mutationFn: ({ settings, slot }) => saveSettings(settings, slot),
     onSuccess: (_, variables) => { 
       // Hanya invalidate slot yang baru saja disave
       queryClient.invalidateQueries({ queryKey: ['profile', variables.slot] });
@@ -3634,7 +3634,7 @@ const handleChangePin = async () => {
                               // upd('activeSlot', slot);
                               saveSettingsMutation.mutate({ 
                                 settings: { activeSlot: slot }, // hanya field ini saja
-                                slot: 'A' 
+                                slot: `${slot}` 
                               });
                             }}
                             className={`flex justify-between px-5 flex-1 py-4 cursor-pointer active:scale-[0.99] font-black text-xs rounded-none transition-all ${
@@ -3652,7 +3652,7 @@ const handleChangePin = async () => {
                                 </span>
                               )}
                               <span className="px-1.5 py-0.5 bg-white text-black text-[10px] font-medium rounded-none">
-                                SLOT {index + 1}
+                                SLOT {slot}
                               </span>
                             </div>
                           </button>

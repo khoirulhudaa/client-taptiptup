@@ -116,46 +116,39 @@
     //     .catch(() => console.error('[Overlay] Invalid token'));
     // }, [token]);
 
-    useEffect(() => {
+   useEffect(() => {
       if (!token) return;
 
-      const slotFromUrl = new URLSearchParams(window.location.search).get('slot');
-
-      const loadConfig = async () => {
+      const loadActiveConfig = async () => {
         try {
-          // Kalau URL ada ?slot=B, pakai itu langsung (backward compat)
-          if (slotFromUrl) {
-            const res = await axios.get(
-              `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${slotFromUrl}`
-            );
-            setConfig(res.data);
-            configRef.current = res.data;
-            return;
-          }
-
-          // Tidak ada slot di URL — fetch slot A dulu untuk cek activeSlot
-          const masterRes = await axios.get(
+          // Selalu ambil Slot A terlebih dahulu karena activeSlot disimpan di sini
+          const resA = await axios.get(
             `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=A`
           );
-          const activeSlot = masterRes.data.activeSlot || 'A';
 
+          const activeSlot = resA.data?.activeSlot || 'A';
+
+          console.log(`[Overlay] Active Slot terdeteksi: ${activeSlot}`);
+
+          // Jika active slot adalah A, gunakan data dari Slot A
           if (activeSlot === 'A') {
-            setConfig(masterRes.data);
-            configRef.current = masterRes.data;
-          } else {
-            // Fetch slot yang aktif
-            const activeRes = await axios.get(
+            setConfig(resA.data);
+            configRef.current = resA.data;
+          } 
+          // Jika active slot adalah B, fetch data Slot B
+          else {
+            const resB = await axios.get(
               `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${activeSlot}`
             );
-            setConfig(activeRes.data);
-            configRef.current = activeRes.data;
+            setConfig(resB.data);
+            configRef.current = resB.data;
           }
-        } catch {
-          console.error('[Overlay] Invalid token');
+        } catch (err) {
+          console.error('[Overlay] Failed to load config:', err);
         }
       };
 
-      loadConfig();
+      loadActiveConfig();
     }, [token]);
 
     useEffect(() => {
@@ -258,29 +251,36 @@
         }, duration);
       });
 
-      socket.on('settings-updated', async (newConfig) => {
-        // Kalau ada activeSlot berubah, fetch ulang slot yang aktif
-        const slotFromUrl = new URLSearchParams(window.location.search).get('slot');
-        
-        if (!slotFromUrl && newConfig.activeSlot && newConfig.activeSlot !== 'A') {
-          try {
-            const res = await axios.get(
-              `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${newConfig.activeSlot}`
-            );
-            setConfig(res.data);
-            configRef.current = res.data;
-          } catch {}
-        } else {
-          setConfig(newConfig);
-          configRef.current = newConfig;
-        }
+      socket.on('settings-updated', async () => {
+        console.log('[Overlay] Settings updated → reloading active slot...');
 
-        if (newConfig.overlayEnabled === false) {
-          setAlert(null);
-          setProgress(100);
-          if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-          if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
-        }
+        const reloadActiveConfig = async () => {
+          try {
+            // Selalu cek Slot A untuk mengetahui slot mana yang aktif
+            const resA = await axios.get(
+              `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=A`
+            );
+
+            const activeSlot = resA.data?.activeSlot || 'A';
+
+            console.log(`[Overlay] Settings updated - Active Slot: ${activeSlot}`);
+
+            if (activeSlot === 'A') {
+              setConfig(resA.data);
+              configRef.current = resA.data;
+            } else {
+              const resB = await axios.get(
+                `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${activeSlot}`
+              );
+              setConfig(resB.data);
+              configRef.current = resB.data;
+            }
+          } catch (err) {
+            console.error('[Overlay] Failed to reload config after update:', err);
+          }
+        };
+
+        reloadActiveConfig();
       });
 
       return () => {
