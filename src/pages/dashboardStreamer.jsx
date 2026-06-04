@@ -258,6 +258,7 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
             <input
               type="number"
               value={amt}
+              aria-label={`Nominal ${i + 1}`}
               onChange={e => update(i, e.target.value)}
               className="flex-1 p-3 w-full bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-none font-bold"
             />
@@ -2604,7 +2605,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
                 {
                   u.profilePicture ? (
                     <>
-                      <img src={u.profilePicture} alt='🧐' />
+                      <img src={u.profilePicture} alt={`Foto profil @${u.username}`} />
                     </>
                   ):
                   u.username.charAt(0).toUpperCase()
@@ -3001,6 +3002,12 @@ const handleChangePin = async () => {
 };
 
   const { theme, toggle } = useTheme();
+
+  useEffect(() => {
+    if (user?.role === 'superAdmin' && !user.roleUpgradeNotified) {
+      setShowUpgradeModal(true);
+    }
+  }, [user]);
 
   const { data: profileData, isLoading: profileLoading } = useQuery({
     queryKey: ['profile', activeSlot],     // ← INI YANG BENAR
@@ -3493,17 +3500,17 @@ const handleChangePin = async () => {
           {/* <span className="font-black text-lg tracking-tight text-slate-800 dark:text-slate-100">TTT</span> */}
         </div>
         <div className="flex items-center gap-3">
-          <button onClick={toggle} className="h-[40px] cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 rounded-none border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
+          <button onClick={toggle} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} className="h-[40px] cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 rounded-none border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
             {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
           </button>
-          <button onClick={() => setActiveTab('contact')} className={`h-[40px] cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 rounded-none border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
+          <button onClick={() => setActiveTab('contact')} aria-label="Bantuan & Kontak" className={`h-[40px] cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 rounded-none border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
             <HeadphonesIcon size={14} />
           </button>
-          <button onClick={() => setActiveTab('community')} className="h-[40px] cursor-pointer hover:brightness-90 active:scale-[0.97] relative flex items-center gap-3 px-3 py-3 rounded-none font-medium text-md overflow-hidden" style={{ background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)', backgroundSize: '300% 100%', animation: 'rainbowSlide 3s ease-in-out infinite' }}>
+          <button onClick={() => setActiveTab('community')} aria-label="Komunitas Streamer" className="h-[40px] cursor-pointer hover:brightness-90 active:scale-[0.97] relative flex items-center gap-3 px-3 py-3 rounded-none font-medium text-md overflow-hidden" style={{ background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)', backgroundSize: '300% 100%', animation: 'rainbowSlide 3s ease-in-out infinite' }}>
             <Users size={16} className="relative z-10 text-white" />
           </button>
           <InboxBell setActiveTab={setActiveTab} />
-          <button onClick={() => setIsSidebarOpen(true)} className="h-[40px] cursor-pointer active:scale-[0.97] p-2 bg-white dark:bg-slate-800 rounded-none text-slate-600 dark:text-slate-400">
+          <button onClick={() => setIsSidebarOpen(true)} aria-label="Buka navigasi" className="h-[40px] cursor-pointer active:scale-[0.97] p-2 bg-white dark:bg-slate-800 rounded-none text-slate-600 dark:text-slate-400">
             <Menu size={24} />
           </button>
         </div>
@@ -3670,7 +3677,7 @@ const handleChangePin = async () => {
                       <div className="bg-slate-100 dark:bg-slate-800 p-5 pb-4.5 rounded-none border border-slate-100/10 mb-2">
                         <label className="block text-[10px] font-black bg-emerald-300 w-max text-slate-700 mb-2 uppercase tracking-widest px-2">DONATE URL</label>
                         <div className="flex gap-3">
-                          <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} className="flex-1 bg-transparent font-mono text-sm text-white font-bold outline-none overflow-hidden text-ellipsis" />
+                          <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="flex-1 bg-transparent font-mono text-sm text-white font-bold outline-none overflow-hidden text-ellipsis" />
                           <button onClick={() => copyToClipboard(`https://taptiptup.vercel.app/donate/${user.username}`)} className="text-slate-400 hover:text-blue-600 cursor-pointer active:scale-[0.98]"><Copy size={18} /></button>
                         </div>
                       </div>
@@ -3767,7 +3774,7 @@ const handleChangePin = async () => {
                       </div>
                       <div className="md:col-span-2 w-full flex flex-col gap-3">
                         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label>
-                        <select value={settings.animation} onChange={e => upd('animation', e.target.value)}
+                        <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
                           className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
                           <option value="bounce">Bounce</option><option value="slide-left">Slide Kiri</option>
                           <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
@@ -3836,7 +3843,7 @@ const handleChangePin = async () => {
                       <div key={label} className="bg-slate-100 dark:bg-slate-800 p-6 rounded-none border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
                         <div className="block text-[10px] font-black bg-transparent w-max text-white mb-2 uppercase tracking-widest px-0">{label}</div>
                         <div className="flex gap-3">
-                          <input readOnly value={url} className="flex-1 bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
+                          <input readOnly value={url} aria-label={`URL ${label}`} className="flex-1 bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
                           <button onClick={() => copyToClipboard(url)} className="text-white hover:text-blue-600 cursor-pointer active:scale-[0.98]"><Copy size={18} /></button>
                         </div>
                       </div>
@@ -4242,6 +4249,30 @@ const handleChangePin = async () => {
 
       {isSidebarOpen && (
         <div onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-50 lg:hidden" />
+      )}
+
+      {showUpgradeModal && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 max-w-md text-center">
+            <ShieldCheck className="w-16 h-16 mx-auto text-purple-600 mb-4" />
+            <h2 className="text-2xl font-black mb-2">Selamat! 🎉</h2>
+            <p className="text-lg font-bold text-purple-600 mb-4">
+              Akunmu telah ditingkatkan menjadi Super Admin
+            </p>
+            <p className="text-slate-600 dark:text-slate-400 mb-6">
+              Kamu sekarang memiliki akses penuh untuk mengelola semua streamer.
+            </p>
+            <button
+              onClick={async () => {
+                await api.put('/api/user/mark-role-upgrade-notified');
+                setShowUpgradeModal(false);
+              }}
+              className="bg-purple-600 hover:bg-purple-700 text-white font-black px-8 py-3 rounded-xl"
+            >
+              Terima Kasih
+            </button>
+          </div>
+        </div>
       )}
 
       <CustomerServiceWidget />

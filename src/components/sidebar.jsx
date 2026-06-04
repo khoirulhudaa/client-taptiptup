@@ -43,9 +43,11 @@ const getTokenPayload = () => {
 const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isCollapsed, setIsCollapsed }) => {
   const navigate = useNavigate();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [superMode, setSuperMode] = useState(false);
 
   const payload = getTokenPayload();
   const isSuperAdmin = payload?.role === 'superAdmin';
+  const isStreamerSuper = payload?.role === 'streamerSuper'; // ← tambah
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -341,6 +343,63 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
               <ShieldAlert size={20} />
               {!isCollapsed && <span className="whitespace-nowrap">Permintaan Penarikan</span>}
             </button>
+          )}
+
+          {isStreamerSuper && (
+            <>
+              <div className="w-full h-[1px] my-3 bg-slate-200 dark:bg-slate-800" />
+              <button
+                onClick={() => setSuperMode(v => !v)}
+                className={`cursor-pointer mb-2 w-full flex items-center rounded-none font-black text-sm transition-all
+                  ${isCollapsed ? 'justify-center px-0 py-3' : 'gap-4 px-4 py-3'}
+                  ${superMode
+                    ? 'bg-amber-500 text-white'
+                    : 'text-slate-400 bg-white/20 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700'
+                  }`}
+                title={isCollapsed ? 'Mode Super Admin' : undefined}
+              >
+                <ShieldAlert size={20} />
+                {!isCollapsed && (
+                  <span className="whitespace-nowrap flex-1 text-left">Mode Super Admin</span>
+                )}
+                {!isCollapsed && (
+                  <span className={`text-[9px] px-1.5 py-0.5 font-black rounded-none ${superMode ? 'bg-white/20' : 'bg-amber-500/20 text-amber-500'}`}>
+                    {superMode ? 'ON' : 'OFF'}
+                  </span>
+                )}
+              </button>
+
+              {/* Menu admin yang muncul jika superMode ON */}
+              {superMode && (
+                <div className="space-y-1">
+                  {[
+                    { id: 'suggestions',     label: 'Masukan Streamer', icon: <MessageSquare size={20} /> },
+                    { id: 'ghostAlert',      label: 'Notif Hantu',      icon: <Zap size={20} /> },
+                    { id: 'streamerManager', label: 'Kelola Streamer',  icon: <Users size={20} /> },
+                    { id: 'terminal',        label: 'Log Donasi',       icon: <Terminal size={20} /> },
+                    { id: 'maintenance',     label: 'Maintenance Mode', icon: <ShieldAlert size={20} /> },
+                    { id: 'announcements',   label: 'Pengumuman',       icon: <Megaphone size={20} /> },
+                  ].map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
+                      title={isCollapsed ? item.label : undefined}
+                      className={`cursor-pointer mb-1 active:scale-[0.99] w-full flex items-center gap-4 rounded-none font-black text-sm
+                        ${isCollapsed ? 'justify-center px-0 py-3' : 'px-4 py-3'}
+                        ${activeTab === item.id
+                          ? 'bg-amber-500 text-white'
+                          : 'text-slate-900 dark:text-white bg-amber-50/10 dark:bg-amber-500/10 hover:bg-amber-100 dark:hover:bg-amber-500/20 hover:text-amber-600 dark:hover:text-amber-400'
+                        }`}
+                    >
+                      <span className="flex-shrink-0">{item.icon}</span>
+                      {!isCollapsed && (
+                        <span className="whitespace-nowrap overflow-hidden">{item.label}</span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </nav>
       </aside>

@@ -14,6 +14,10 @@ import {
   UserCheck,
   UserX,
   X,
+  ShieldCheck, 
+  ShieldOff, 
+  Shield, 
+  User 
 } from 'lucide-react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -32,8 +36,59 @@ const formatDate = (d) =>
     : '-';
 
 // ─── Confirm modal ────────────────────────────────────────────────────────────
-const ConfirmModal = ({ type, user, onConfirm, onClose, loading }) => {
+const ConfirmModal = ({ type, user, newRole, onConfirm, onClose, loading }) => {
   const isDelete = type === 'delete';
+  const isRole   = type === 'role';
+  const isToggle = type === 'toggle';
+
+  // ── Icon ──
+  const icon = isDelete ? (
+    <Trash2 size={32} />
+  ) : isRole ? (
+    newRole === 'superAdmin' ? <ShieldCheck size={32} /> : <ShieldOff size={32} />
+  ) : user?.isActive === false ? (
+    <UserCheck size={32} />
+  ) : (
+    <UserX size={32} />
+  );
+
+  // ── Icon bg ──
+  const iconBg = isDelete
+    ? 'bg-red-100 dark:bg-red-950/40 text-red-600'
+    : isRole
+    ? 'bg-purple-100 dark:bg-purple-950/40 text-purple-600'
+    : user?.isActive === false
+    ? 'bg-green-100 dark:bg-green-950/40 text-green-600'
+    : 'bg-amber-100 dark:bg-amber-950/40 text-amber-600';
+
+  // ── Title ──
+  const title = isDelete
+    ? 'Hapus Permanen?'
+    : isRole
+    ? newRole === 'superAdmin'
+      ? 'Jadikan SuperAdmin?'
+      : 'Turunkan ke User?'
+    : user?.isActive === false
+    ? 'Aktifkan User?'
+    : 'Nonaktifkan User?';
+
+  // ── Description ──
+  const description = isDelete
+    ? `Akun @${user?.username} akan dihapus permanen dan tidak bisa dipulihkan.`
+    : isRole
+    ? `Role @${user?.username} akan diubah menjadi ${newRole === 'superAdmin' ? 'Super Admin' : 'User'}.`
+    : `Akun @${user?.username} akan ${user?.isActive === false ? 'diaktifkan kembali' : 'dinonaktifkan sementara'}.`;
+
+  // ── Confirm button color ──
+  const confirmBg = isDelete
+    ? 'bg-red-600 hover:bg-red-700'
+    : isRole
+    ? 'bg-purple-600 hover:bg-purple-700'
+    : 'bg-blue-600 hover:bg-blue-700';
+
+  // ── Confirm button label ──
+  const confirmLabel = isDelete ? 'Ya, Hapus' : 'Ya, Lanjutkan';
+
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
       <motion.div
@@ -50,41 +105,26 @@ const ConfirmModal = ({ type, user, onConfirm, onClose, loading }) => {
         className="relative z-10 w-full max-w-sm bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-none p-8 text-center shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div
-          className={`w-16 h-16 mx-auto mb-5 rounded-none flex items-center justify-center ${
-            isDelete
-              ? 'bg-red-100 dark:bg-red-950/40 text-red-600'
-              : user?.isActive === false
-              ? 'bg-green-100 dark:bg-green-950/40 text-green-600'
-              : 'bg-amber-100 dark:bg-amber-950/40 text-amber-600'
-          }`}
-        >
-          {isDelete ? <Trash2 size={32} /> : user?.isActive === false ? <UserCheck size={32} /> : <UserX size={32} />}
+        <div className={`w-16 h-16 mx-auto mb-5 rounded-none flex items-center justify-center ${iconBg}`}>
+          {icon}
         </div>
-        <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-2">
-          {isDelete ? 'Hapus Permanen?' : user?.isActive === false ? 'Aktifkan User?' : 'Nonaktifkan User?'}
-        </h3>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">
-          {isDelete
-            ? `Akun @${user?.username} akan dihapus permanen dan tidak bisa dipulihkan.`
-            : `Akun @${user?.username} akan ${user?.isActive === false ? 'diaktifkan kembali' : 'dinonaktifkan sementara'}.`}
-        </p>
+        <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-2">{title}</h3>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">{description}</p>
         <div className="flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-none font-black text-sm hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer active:scale-[0.98]"
+            disabled={loading}
+            className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-none font-black text-sm hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer active:scale-[0.98] disabled:opacity-60"
           >
             Batal
           </button>
           <button
             onClick={onConfirm}
             disabled={loading}
-            className={`flex-1 py-3 text-white rounded-none font-black text-sm cursor-pointer active:scale-[0.98] disabled:opacity-60 flex items-center justify-center gap-2 ${
-              isDelete ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'
-            }`}
+            className={`flex-1 py-3 text-white rounded-none font-black text-sm cursor-pointer active:scale-[0.98] disabled:opacity-60 flex items-center justify-center gap-2 ${confirmBg}`}
           >
             {loading ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
-            {isDelete ? 'Ya, Hapus' : 'Ya, Lanjutkan'}
+            {confirmLabel}
           </button>
         </div>
       </motion.div>
@@ -93,10 +133,13 @@ const ConfirmModal = ({ type, user, onConfirm, onClose, loading }) => {
 };
 
 // ─── User card (grid view) ────────────────────────────────────────────────────
-const UserCard = ({ user, onToggle, onDelete }) => {
-  const isActive = user.isActive !== false;
+const UserCard = ({ user, onToggle, onDelete, onRole }) => {
+  const isActive  = user.isActive !== false;
+  const isSuperAdmin = user.role === 'superAdmin';
+ 
   return (
     <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-none p-5 flex flex-col gap-4 hover:shadow-md transition-all">
+      {/* — Avatar + Status badge — */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-none bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-black text-lg flex-shrink-0 overflow-hidden">
@@ -121,7 +164,20 @@ const UserCard = ({ user, onToggle, onDelete }) => {
           {isActive ? 'Aktif' : 'Nonaktif'}
         </span>
       </div>
-
+ 
+      {/* — Role badge — */}
+      <div>
+        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-none text-[10px] font-black ${
+          isSuperAdmin
+            ? 'bg-purple-100 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400'
+            : 'bg-sky-100 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400'
+        }`}>
+          {isSuperAdmin ? <Shield size={10} /> : <User size={10} />}
+          {isSuperAdmin ? 'SuperAdmin' : 'User'}
+        </span>
+      </div>
+ 
+      {/* — Stats — */}
       <div className="flex justify-between w-full gap-2 text-xs text-slate-500 dark:text-slate-400">
         <div>
           <span className="font-black text-[9px] uppercase tracking-widest text-slate-300 dark:text-slate-600 block mb-0.5">Donasi</span>
@@ -129,24 +185,40 @@ const UserCard = ({ user, onToggle, onDelete }) => {
             Rp {Number(user.totalDonations || 0).toLocaleString('id-ID')}
           </span>
         </div>
-        <div className='ml-aauto'>
+        <div>
           <span className="font-black text-[9px] uppercase tracking-widest text-slate-300 dark:text-slate-600 block mb-0.5">Daftar</span>
           <span className="font-bold text-slate-700 dark:text-slate-300">{formatDate(user.createdAt)}</span>
         </div>
       </div>
-
+ 
+      {/* — Action buttons — */}
       <div className="flex gap-2 pt-1 border-t border-slate-100 dark:border-slate-800">
+        {/* Toggle aktif/nonaktif */}
         <button
           onClick={() => onToggle(user)}
           className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all border ${
             isActive
-              ? 'border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400 hover:bg-amber-900/30 dark:bg-amber-900/20'
-              : 'border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 hover:bg-green-900/30 dark:bg-green-900/20'
+              ? 'border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20'
+              : 'border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20'
           }`}
         >
           {isActive ? <UserX size={13} /> : <UserCheck size={13} />}
           {isActive ? 'Nonaktifkan' : 'Aktifkan'}
         </button>
+ 
+        <button
+          onClick={() => onRole(user, isSuperAdmin ? 'user' : 'superAdmin')}
+          title={isSuperAdmin ? 'Turunkan ke User' : 'Jadikan SuperAdmin'}
+          className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all border ${
+            isSuperAdmin
+              ? 'border-purple-200 dark:border-purple-900 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/30'
+              : 'border-sky-200 dark:border-sky-900 text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-950/30'
+          }`}
+        >
+          {isSuperAdmin ? <ShieldOff size={13} /> : <ShieldCheck size={13} />}
+        </button>
+ 
+        {/* Hapus permanen */}
         <button
           onClick={() => onDelete(user)}
           className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] border border-red-200 dark:border-red-900 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-all"
@@ -175,8 +247,27 @@ const StreamerManagerPage = () => {
     refetchInterval: 60000,
   });
 
+  const handleRoleChange = (user, newRole) => {
+    setConfirmModal({
+      type: 'role',
+      user,
+      newRole,
+    });
+  };
+
   const users = data?.users || [];
   const pagination = data?.pagination || {};
+
+  const roleMutation = useMutation({
+    mutationFn: ({ id, role }) =>
+      api.put(`/api/streamer-manage/${id}/change-role`, { role }).then((r) => r.data),
+    onSuccess: (res) => {
+      toast.success(res.message);
+      queryClient.invalidateQueries({ queryKey: ['streamer-manage'] });
+      setConfirmModal(null);
+    },
+    onError: (err) => toast.error(err.response?.data?.message || 'Gagal ubah role'),
+  });
 
   const toggleMutation = useMutation({
     mutationFn: (id) => api.put(`/api/streamer-manage/${id}/toggle-active`).then((r) => r.data),
@@ -203,7 +294,7 @@ const StreamerManagerPage = () => {
     setPage(1);
   };
 
-  const isMutating = toggleMutation.isPending || deleteMutation.isPending;
+  const isMutating = toggleMutation.isPending || deleteMutation.isPending || roleMutation.isPending;
 
   return (
     <div className="space-y-5 pb-0">
@@ -212,13 +303,21 @@ const StreamerManagerPage = () => {
           <ConfirmModal
             type={confirmModal.type}
             user={confirmModal.user}
+            newRole={confirmModal.newRole}
             loading={isMutating}
             onClose={() => !isMutating && setConfirmModal(null)}
-            onConfirm={() =>
-              confirmModal.type === 'delete'
-                ? deleteMutation.mutate(confirmModal.user._id)
-                : toggleMutation.mutate(confirmModal.user._id)
-            }
+            onConfirm={() => {                    // ← Perbaikan: oonConfirm → onConfirm
+              if (confirmModal.type === 'delete') {
+                deleteMutation.mutate(confirmModal.user._id);
+              } else if (confirmModal.type === 'toggle') {
+                toggleMutation.mutate(confirmModal.user._id);
+              } else if (confirmModal.type === 'role') {
+                roleMutation.mutate({
+                  id: confirmModal.user._id,
+                  role: confirmModal.newRole,
+                });
+              }
+            }}
           />
         )}
       </AnimatePresence>
@@ -318,6 +417,7 @@ const StreamerManagerPage = () => {
             {users.map((u) => (
               <UserCard
                 key={u._id}
+                onRole={handleRoleChange}
                 user={u}
                 onToggle={(user) => setConfirmModal({ type: 'toggle', user })}
                 onDelete={(user) => setConfirmModal({ type: 'delete', user })}
@@ -330,7 +430,7 @@ const StreamerManagerPage = () => {
             <table className="w-full text-left min-w-[800px]">
               <thead>
                 <tr className="bg-slate-50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">
-                  {['Streamer', 'Email', 'Total Donasi', 'Saldo', 'Status', 'Daftar', 'Aksi'].map((h) => (
+                  {['Streamer', 'Email', 'Role', 'Total Donasi', 'Saldo', 'Status', 'Daftar', 'Aksi'].map((h) => (
                     <th key={h} className="px-5 py-4">{h}</th>
                   ))}
                 </tr>
@@ -353,6 +453,16 @@ const StreamerManagerPage = () => {
                         </div>
                       </td>
                       <td className="px-5 py-4 text-sm text-slate-500 dark:text-slate-400">{u.email}</td>
+                      <td className="px-5 py-4">
+                        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-none text-[10px] font-black ${
+                          u.role === 'superAdmin'
+                            ? 'bg-purple-100 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400'
+                            : 'bg-sky-100 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400'
+                        }`}>
+                          {u.role === 'superAdmin' ? <Shield size={10} /> : <User size={10} />}
+                          {u.role === 'superAdmin' ? 'SuperAdmin' : 'User'}
+                        </span>
+                      </td>
                       <td className="px-5 py-4">
                         <p className="font-bold text-sm text-slate-700 dark:text-slate-300">
                           Rp {Number(u.totalDonations || 0).toLocaleString('id-ID')}
@@ -390,6 +500,21 @@ const StreamerManagerPage = () => {
                             }`}
                           >
                             {isActive ? <UserX size={16} /> : <UserCheck size={16} />}
+                          </button>
+                          <button
+                            onClick={() => setConfirmModal({
+                              type: 'role',
+                              user: u,
+                              newRole: u.role === 'superAdmin' ? 'user' : 'superAdmin',
+                            })}
+                            title={u.role === 'superAdmin' ? 'Turunkan ke User' : 'Jadikan SuperAdmin'}
+                            className={`px-2.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all ${
+                              u.role === 'superAdmin'
+                                ? 'bg-purple-50 dark:bg-purple-950/30 text-purple-600 border border-purple-200 dark:border-purple-800 hover:bg-purple-100'
+                                : 'bg-sky-50 dark:bg-sky-950/30 text-sky-600 border border-sky-200 dark:border-sky-800 hover:bg-sky-100'
+                            }`}
+                          >
+                            {u.role === 'superAdmin' ? <ShieldOff size={16} /> : <ShieldCheck size={16} />}
                           </button>
                           <button
                             onClick={() => setConfirmModal({ type: 'delete', user: u })}
