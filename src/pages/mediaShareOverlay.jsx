@@ -487,7 +487,7 @@ const calculateMediaShareDuration = (config, amount) => {
                 <div style={{
                   fontFamily: monospace, fontSize: 18, color: fg, fontWeight: 400,
                   background: 'rgba(255,255,255,0.04)', border: dimBorder,
-                  padding: '6px 10px', lineHeight: 1.5, maxWidth: 500
+                  padding: '0px 10px', lineHeight: 1.5, maxWidth: 500
                 }}>
                   {alert.message}
                 </div>
@@ -529,7 +529,7 @@ const calculateMediaShareDuration = (config, amount) => {
               {alert.message && (
                 <div style={{
                   fontSize: 18, color: fg, fontWeight: 400,
-                  background: hl + '10', borderRadius: 8, padding: '7px 12px',
+                  background: hl + '10', borderRadius: 8, padding: '0px 12px',
                   lineHeight: 1.6, border: `1px solid ${hl}20`, maxWidth: 500
                 }}>
                   {alert.message}
@@ -643,7 +643,7 @@ const calculateMediaShareDuration = (config, amount) => {
               style={{
                 backgroundColor: bg,
                 color: fg,
-                width: `${maxW}px`,
+                width: `max-content`,
                 borderRadius: theme === 'smooth' ? 20 : 0,
                 border: `1px solid ${borderColor}`,
                 boxShadow: '0 16px 40px rgba(0,0,0,0.55)',

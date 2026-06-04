@@ -637,9 +637,6 @@
                         </div>
                       : <div />
                     }
-                    {/* <div style={{ fontFamily: monospace, fontSize: 8, color: hl, letterSpacing: '0.08em' }}>
-                      [ PRESS ▲ TO CONTINUE ]
-                    </div> */}
                   </div>
 
                   <div style={{ height: 2, background: 'rgba(255,255,255,0.08)', marginTop: 8 }}>

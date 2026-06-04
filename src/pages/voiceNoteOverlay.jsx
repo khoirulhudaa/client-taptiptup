@@ -7,9 +7,9 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 const formatRp = (n) => {
-  if (n >= 1000000) return `Rp ${(n / 1000000).toFixed(n % 1000000 === 0 ? 0 : 1)}jt`;
-  if (n >= 1000) return `Rp ${(n / 1000).toFixed(0)}K`;
-  return `Rp ${Number(n).toLocaleString('id-ID')}`;
+  if (n >= 1000000) return `${(n / 1000000).toFixed(n % 1000000 === 0 ? 0 : 1)}jt`;
+  if (n >= 1000) return `${(n / 1000).toFixed(0)}K`;
+  return `${Number(n).toLocaleString('id-ID')}`;
 };
 
 const VoiceNoteOverlay = () => {
@@ -325,7 +325,7 @@ const VoiceNoteOverlay = () => {
             style={{
               backgroundColor: bg,
               color: fg,
-              width: `${maxW}px`,
+              width: `max-content`,
               borderRadius: config.theme === 'smooth' ? 20 : 0,
               border: `1px solid ${borderColor}`,
               boxShadow: '0 16px 40px rgba(0,0,0,0.6)',
@@ -359,9 +359,11 @@ const VoiceNoteOverlay = () => {
                         <div style={{ fontSize: 10, fontWeight: 500, color: fg, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
                           Voice Donation
                         </div>
-                        <div style={{ fontSize: 15, fontWeight: 700, color: fg }}>{alert.donorName}</div>
-                        <div style={{ fontSize: 18, fontWeight: 800, color: hl, letterSpacing: '-0.5px' }}>
-                          {formatRp(alert.amount)}
+                        <div className='flex items-center gap-2'>
+                          <div style={{ fontSize: 15, fontWeight: 700, color: fg, textTransform: 'lowercase' }}>{alert.donorName}</div>
+                          <div style={{ fontSize: 18, fontWeight: 800, color: hl, letterSpacing: '-0.5px' }}>
+                            {formatRp(alert.amount)}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -372,7 +374,7 @@ const VoiceNoteOverlay = () => {
                     {/* Pesan */}
                     {alert.message && (
                       <div style={{
-                        fontSize: 13, color: fg,
+                        fontSize: 20, color: fg,
                         background: hl + '10', borderRadius: 10, padding: '8px 12px',
                         lineHeight: 1.5, border: `1px solid ${hl}20`, maxWidth: 400
                       }}>
@@ -431,6 +433,7 @@ const VoiceNoteOverlay = () => {
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                     background: hl + '18', borderBottom: `2px solid ${hl}`,
                     padding: '5px 10px', position: 'relative', zIndex: 2,
+                    width: 'max-content'
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                       <span style={{ fontFamily: monospace, fontSize: 11, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
@@ -457,27 +460,28 @@ const VoiceNoteOverlay = () => {
                       <div style={{
                         width: 40, height: 40, border: `2px solid ${hl}`, flexShrink: 0,
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 26, background: hl + '12',
+                        fontSize: 22, background: hl + '12',
                       }}>
                         🎙️
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontFamily: monospace, fontSize: 26, color: fg, marginBottom: 2, letterSpacing: '0.1em' }}>{'> DONOR:'}</div>
-                        <div style={{ fontFamily: monospace, fontSize: 26, fontWeight: 900, color: fg, lineHeight: 1.1 }}>{alert.donorName}</div>
-                        <div style={{
-                          fontFamily: monospace, fontSize: 26, fontWeight: 900, color: hl,
-                          letterSpacing: '-0.5px', marginTop: 2, textShadow: `0 0 8px ${hl}55`,
-                        }}>
-                          {formatRp(alert.amount)}
+                        <div className='flex items-center gap-2 w-max relative top-1'>
+                          <div style={{ position: 'relative', top: 1, fontFamily: monospace, fontSize: 22, fontWeight: 900, color: fg, lineHeight: 1.1, textTransform: 'lowercase' }}>{alert.donorName} mengirim</div>
+                          <div style={{
+                            fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl,
+                            letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}55`,
+                          }}>
+                            {formatRp(alert.amount)}
+                          </div>
                         </div>
                       </div>
                     </div>
 
                     {alert.message && (
                       <div style={{
-                        fontFamily: monospace, fontSize: 23, color: fg,
+                        fontFamily: monospace, fontSize: 20, color: fg,
                         background: 'rgba(255,255,255,0.04)', border: `1px solid ${hl}35`,
-                        padding: '5px 8px', lineHeight: 1.4, marginBottom: 8, maxWidth: 400
+                        padding: '5px 8px', lineHeight: 1.4, marginBottom: 8, width: 500
                       }}>
                         {'>> '}{alert.message}
                       </div>
