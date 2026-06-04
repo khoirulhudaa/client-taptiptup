@@ -512,12 +512,12 @@ const calculateMediaShareDuration = (config, amount) => {
           <div style={{ fontFamily: "'Poppins', sans-serif", overflow: 'hidden' }}>
             {mediaBlock}
 
-            <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10, fontFamily: "'Poppins', sans-serif" }}>
               {/* Nama mengirim amount */}
-              <div style={{ fontSize: 20, color: fg, lineHeight: 1.6 }}>
-                <span style={{ fontWeight: 700 }}>{alert.donorName}</span>
-                <span style={{ opacity: 0.55 }}> mengirim </span>
-                <span style={{ fontWeight: 800, color: hl, letterSpacing: '-0.5px' }}>
+              <div style={{ fontSize: 20, color: fg, lineHeight: 1 }}>
+                <span style={{}}>{alert.donorName}</span>
+                <span> mengirim </span>
+                <span style={{ color: hl, letterSpacing: '-0.5px' }}>
                   Rp {Number(alert.amount).toLocaleString('id-ID')}
                 </span>
               </div>
@@ -529,8 +529,10 @@ const calculateMediaShareDuration = (config, amount) => {
               {alert.message && (
                 <div style={{
                   fontSize: 18, color: fg, fontWeight: 400,
-                  background: hl + '10', borderRadius: 8, padding: '0px 12px',
-                  lineHeight: 1.6, border: `1px solid ${hl}20`, maxWidth: 500
+                  // background: hl + '10', borderRadius: 8, padding: '0px 12px',
+                  lineHeight: 1.6, 
+                  // border: `1px solid ${hl}20`, 
+                  maxWidth: 500
                 }}>
                   {alert.message}
                 </div>
@@ -556,7 +558,7 @@ const calculateMediaShareDuration = (config, amount) => {
               {/* Nama mengirim amount */}
               <div style={{ fontFamily: monospace, fontSize: 14, color: fg, lineHeight: 1.6, marginBottom: 8, borderBottom: `1px dashed ${hl}30`, paddingBottom: 8 }}>
                 <span style={{ fontWeight: 900 }}>{alert.donorName}</span>
-                <span style={{ opacity: 0.55 }}> mengirim </span>
+                <span> mengirim </span>
                 <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}50` }}>
                   Rp {Number(alert.amount).toLocaleString('id-ID')}
                 </span>

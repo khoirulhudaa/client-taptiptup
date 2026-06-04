@@ -83,27 +83,6 @@ const QrCodeWidget = () => {
             />
           </div>
         </div>
-
-        <div style={{ textAlign: 'center' }}>
-          <p style={{
-            fontSize: '14px',
-            fontWeight: '900',
-            color: '#fff',
-            margin: 0,
-            letterSpacing: '0.02em'
-          }}>
-            @{username}
-          </p>
-          <p style={{
-            fontSize: '9px',
-            color: 'rgba(255,255,255,0.4)',
-            margin: '2px 0 0',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em'
-          }}>
-            Scan to Support
-          </p>
-        </div>
       </div>
     </div>
   );
