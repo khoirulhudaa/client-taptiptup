@@ -356,12 +356,9 @@ const VoiceNoteOverlay = () => {
                         🎙️
                       </div>
                       <div>
-                        <div style={{ fontSize: 10, fontWeight: 500, color: fg, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
-                          Voice Donation
-                        </div>
                         <div className='flex items-center gap-2'>
-                          <div style={{ fontSize: 15, fontWeight: 700, color: fg, textTransform: 'lowercase' }}>{alert.donorName}</div>
-                          <div style={{ fontSize: 18, fontWeight: 800, color: hl, letterSpacing: '-0.5px' }}>
+                          <div style={{ fontSize: 20, fontWeight: 700, color: fg, textTransform: 'lowercase' }}>{alert.donorName}</div>
+                          <div style={{ fontSize: 20, fontWeight: 800, color: hl, letterSpacing: '-0.5px' }}>
                             {formatRp(alert.amount)}
                           </div>
                         </div>
@@ -374,9 +371,9 @@ const VoiceNoteOverlay = () => {
                     {/* Pesan */}
                     {alert.message && (
                       <div style={{
-                        fontSize: 20, color: fg,
+                        fontSize: 18, color: fg,
                         background: hl + '10', borderRadius: 10, padding: '8px 12px',
-                        lineHeight: 1.5, border: `1px solid ${hl}20`, maxWidth: 400
+                        lineHeight: 1.5, border: `1px solid ${hl}20`, maxWidth: 500
                       }}>
                         {alert.message}
                       </div>
@@ -388,7 +385,7 @@ const VoiceNoteOverlay = () => {
                       border: `1px solid ${hl}20`, display: 'flex', flexDirection: 'column', gap: 6,
                     }}>
                       <div style={{ display: 'flex', alignItems: 'flex-end', gap: 3, height: 24 }}>
-                        {Array.from({ length: 16 }).map((_, i) => (
+                        {Array.from({ length: 50 }).map((_, i) => (
                           <span key={i} style={{
                             width: 4, display: 'inline-block', borderRadius: 2,
                             background: isPlaying ? hl : hl + '40',
