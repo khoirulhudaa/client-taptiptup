@@ -133,9 +133,14 @@ const ConfirmModal = ({ type, user, newRole, onConfirm, onClose, loading }) => {
 };
 
 // ─── User card (grid view) ────────────────────────────────────────────────────
-const UserCard = ({ user, onToggle, onDelete, onRole }) => {
+const UserCard = ({ user, onToggle, onDelete, onRole, currentRole }) => {
   const isActive  = user.isActive !== false;
-  const isSuperAdmin = user.role === 'streamerSuper';
+  const isSuperAdmin = user.role === 'superAdmin';
+  const isStreamerSuper = user.role === 'streamerSuper';
+
+  // Proteksi berdasarkan role yang sedang login
+  const canDelete = currentRole === 'superAdmin' && user.role !== 'superAdmin';
+  const canChangeRole = currentRole === 'superAdmin' && user.role !== 'superAdmin';
  
   return (
     <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-none p-5 flex flex-col gap-4 hover:shadow-md transition-all">
@@ -207,24 +212,39 @@ const UserCard = ({ user, onToggle, onDelete, onRole }) => {
         </button>
  
         <button
-          onClick={() => onRole(user, isSuperAdmin ? 'user' : 'streamerSuper')}
-          title={isSuperAdmin ? 'Turunkan ke User' : 'Jadikan SuperAdmin'}
-          className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all border ${
-            isSuperAdmin
-              ? 'border-purple-200 dark:border-purple-900 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/30'
-              : 'border-sky-200 dark:border-sky-900 text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-950/30'
-          }`}
-        >
-          {isSuperAdmin ? <ShieldOff size={13} /> : <ShieldCheck size={13} />}
-        </button>
- 
-        {/* Hapus permanen */}
-        <button
-          onClick={() => onDelete(user)}
-          className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] border border-red-200 dark:border-red-900 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-all"
-        >
-          <Trash2 size={13} />
-        </button>
+            onClick={() => onRole(user, isSuperAdmin ? 'user' : 'streamerSuper')}
+            disabled={!canChangeRole}
+            title={!canChangeRole 
+              ? "Hanya SuperAdmin yang dapat mengubah role" 
+              : isSuperAdmin ? 'Turunkan ke User' : 'Jadikan StreamerSuper'}
+            className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs transition-all border disabled:cursor-not-allowed disabled:opacity-50 ${
+              !canChangeRole
+                ? 'border-slate-200 dark:border-slate-700 text-slate-400 bg-slate-50 dark:bg-slate-800'
+                : isSuperAdmin
+                ? 'border-purple-200 dark:border-purple-800 text-purple-600 hover:bg-purple-50'
+                : 'border-sky-200 dark:border-sky-900 text-sky-600 hover:bg-sky-50'
+            }`}
+          >
+            {isSuperAdmin ? <ShieldOff size={15} /> : <ShieldCheck size={15} />}
+          </button>
+
+          {/* Delete Button */}
+          <button
+            onClick={() => onDelete(user)}
+            disabled={!canDelete}
+            title={!canDelete 
+              ? currentRole === 'streamerSuper' 
+                ? "StreamerSuper tidak memiliki izin menghapus akun" 
+                : "SuperAdmin tidak dapat dihapus"
+              : "Hapus permanen"}
+            className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs transition-all border disabled:cursor-not-allowed disabled:opacity-50 ${
+              !canDelete
+                ? 'border-slate-200 dark:border-slate-700 text-slate-400 bg-slate-50 dark:bg-slate-800'
+                : 'border-red-200 dark:border-red-900 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30'
+            }`}
+          >
+            <Trash2 size={15} />
+          </button>
       </div>
     </div>
   );
@@ -239,7 +259,8 @@ const StreamerManagerPage = () => {
   const [statusFilter, setStatusFilter] = useState('');
   const [viewMode, setViewMode] = useState('grid'); // 'table' | 'grid'
   const [confirmModal, setConfirmModal] = useState(null); // { type: 'toggle'|'delete', user }
-
+  const currentRole = 'streamerSuper';
+  
   const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ['streamer-manage', page, search, statusFilter],
     queryFn: () => fetchStreamers({ page, limit: 20, search, status: statusFilter }),
@@ -526,6 +547,7 @@ const StreamerManagerPage = () => {
             {users.map((u) => (
               <UserCard
                 key={u._id}
+                currentRole="streamerSuper"
                 onRole={handleRoleChange}
                 user={u}
                 onToggle={(user) => setConfirmModal({ type: 'toggle', user })}
@@ -610,37 +632,51 @@ const StreamerManagerPage = () => {
                           >
                             {isActive ? <UserX size={16} /> : <UserCheck size={16} />}
                           </button>
-                          {/* Role Toggle Button */}
                           <button
                             onClick={() => setConfirmModal({
                               type: 'role',
                               user: u,
                               newRole: u.role === 'streamerSuper' ? 'user' : 'streamerSuper',
                             })}
-                            disabled={u.role === 'streamerSuper'}   // ← Disabled jika sudah SuperAdmin
-                            title={u.role === 'streamerSuper' 
-                              ? 'Tidak dapat mengubah role SuperAdmin' 
-                              : 'Jadikan StreamerSuper / Turunkan ke User'}
-                            className={`px-2.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all disabled:cursor-not-allowed disabled:opacity-50 ${
-                              u.role === 'streamerSuper'
+                            disabled={u.role === 'superAdmin' || currentRole !== 'superAdmin'}
+                            title={
+                              u.role === 'superAdmin' 
+                                ? "SuperAdmin tidak dapat diubah rolenya" 
+                                : currentRole !== 'superAdmin'
+                                ? "Hanya SuperAdmin yang dapat mengubah role"
+                                : "Ubah Role"
+                            }
+                            className={`px-2.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.97] transition-all disabled:cursor-not-allowed disabled:opacity-50 flex items-center gap-1.5 ${
+                              u.role === 'superAdmin' || currentRole !== 'superAdmin'
                                 ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700'
-                                : u.role === 'streamerSuper'
-                                ? 'bg-purple-50 dark:bg-purple-950/30 text-purple-600 border border-purple-200 dark:border-purple-800 hover:bg-purple-100'
-                                : 'bg-sky-50 dark:bg-sky-950/30 text-sky-600 border border-sky-200 dark:border-sky-800 hover:bg-sky-100'
+                                : 'bg-violet-50 dark:bg-violet-950/30 text-violet-600 border border-violet-200 dark:border-violet-800 hover:bg-violet-100'
                             }`}
                           >
-                            {u.role === 'streamerSuper' ? (
-                              <Shield size={16} />
-                            ) : (
-                              <ShieldCheck size={16} />
-                            )}
+                            {u.role === 'superAdmin' ? <Shield size={16} /> : <ShieldCheck size={16} />}
                           </button>
+
+                          {/* Delete Button - Table View */}
                           <button
                             onClick={() => setConfirmModal({ type: 'delete', user: u })}
-                            title="Hapus permanen"
-                            className="px-2.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] bg-red-50 dark:bg-red-950/30 text-red-500 border border-red-200 dark:border-red-900 hover:bg-red-100 transition-all"
+                            disabled={
+                              u.role === 'superAdmin' || 
+                              currentRole !== 'superAdmin'
+                            }
+                            title={
+                              u.role === 'superAdmin' 
+                                ? "SuperAdmin tidak dapat dihapus" 
+                                : currentRole !== 'superAdmin'
+                                ? "StreamerSuper tidak memiliki izin menghapus akun"
+                                : "Hapus permanen"
+                            }
+                            className={`px-3 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.97] transition-all flex items-center gap-1.5 disabled:cursor-not-allowed disabled:opacity-50 ${
+                              u.role === 'superAdmin' || currentRole !== 'superAdmin'
+                                ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700'
+                                : 'bg-red-50 dark:bg-red-950/30 text-red-500 border border-red-200 dark:border-red-900 hover:bg-red-100 dark:hover:bg-red-900/50'
+                            }`}
                           >
                             <Trash2 size={16} />
+                            <span className="hidden md:inline">Hapus</span>
                           </button>
                         </div>
                       </td>

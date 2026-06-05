@@ -3315,6 +3315,22 @@ const handleChangePin = async () => {
   }, []);
 
   const isEffectiveAdmin = isStreamerSuper && adminMode;
+  useEffect(() => {
+    if (isEffectiveAdmin) return; // Jika masih admin, biarkan user bebas pilih tab
+
+    const adminRestrictedTabs = [
+      'streamerManager', 
+      'terminal', 
+      'admin', 
+      'announcements', 
+      'suggestions'
+    ];
+
+    if (adminRestrictedTabs.includes(activeTab)) {
+      console.log('🔄 Auto redirect ke Settings karena keluar dari mode Admin');
+      setActiveTab('settings');
+    }
+  }, [isEffectiveAdmin, activeTab]);
 
   const saveSettingsMutation = useMutation({
     mutationFn: ({ settings, slot }) => saveSettings(settings, slot),
