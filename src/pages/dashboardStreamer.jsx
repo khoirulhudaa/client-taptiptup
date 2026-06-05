@@ -4308,16 +4308,13 @@ const handleChangePin = async () => {
           </p>
           <button
             onClick={async () => {
+              setShowUpgradeModal(false); // ✅ tutup modal dulu, langsung
+              
               try {
                 await api.put('/api/streamer-manage/mark-role-upgrade-notified');
-                
-                // Tunggu refetch selesai
-                await isRefetchProfile();
-                
-                setShowUpgradeModal(false);
+                await isRefetchProfile(); // refetch di background
               } catch (err) {
                 console.error('Gagal update notified:', err);
-                setShowUpgradeModal(false); // tetap tutup meski error
               }
             }}
             className="cursor-pointer active:scale-[0.99] bg-blue-600 mt-4 hover:bg-blue-700 text-white font-black px-4 py-3"
