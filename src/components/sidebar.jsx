@@ -231,8 +231,8 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
       <aside
         className={`
           fixed lg:sticky top-0 left-0 h-screen overflow-y-auto overflow-x-hidden
-          bg-white/5 dark:bg-slate-900/5
-          backdrop-blur-sm
+          bg-white/5 dark:bg-slate-900
+          // backdrop-blur-sm
           border-r border-slate-100 dark:border-slate-800
           py-4 z-[99999] lg:z-[1] flex flex-col
           transition-all duration-300 ease-in-out
@@ -283,7 +283,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
               <button
                 onClick={handleAdminMode}
                 className={`relative cursor-pointer active:scale-[0.99] hover:brightness-95 w-16 h-8 rounded-none transition-colors duration-200 ease-in-out ${
-                  superMode ? 'bg-amber-500' : 'bg-blue-600'
+                  superMode ? 'bg-blue-500' : 'bg-amber-600'
                 }`}
               >
                 <motion.div
@@ -423,8 +423,8 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                       className={`cursor-pointer mb-1 active:scale-[0.99] w-full flex items-center gap-4 rounded-none font-black text-sm
                         ${isCollapsed ? 'justify-center px-0 py-3' : 'px-4 py-3'}
                         ${activeTab === item.id
-                          ? 'bg-amber-500 text-white'
-                          : 'text-slate-900 dark:text-white bg-amber-50/10 dark:bg-amber-500/10 hover:bg-amber-100 dark:hover:bg-amber-500/20 hover:text-amber-600 dark:hover:text-amber-400'
+                          ? 'bg-blue-500 text-white'
+                          : 'text-slate-900 dark:text-white bg-blue-50/10 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-500/20 hover:text-blue-600 dark:hover:text-blue-400'
                         }`}
                     >
                       <span className="flex-shrink-0">{item.icon}</span>
