@@ -112,8 +112,8 @@ export const WithdrawPage = () => {
 
   useEffect(() => {
     const handleStorageChange = () => setShowBalance(localStorage.getItem('showBalance') === 'true');
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    window.addEventListener('balanceUpdate', handleStorageChange);
+    return () => window.removeEventListener('balanceUpdate', handleStorageChange);
   }, []);
 
   const { data: profileData } = useQuery({
@@ -233,7 +233,7 @@ export const WithdrawPage = () => {
                   const next = !showBalance;
                   setShowBalance(next);
                   localStorage.setItem('showBalance', String(next));
-                  window.dispatchEvent(new Event('storage'));
+                  window.dispatchEvent(new Event('balanceUpdate'));
                 }}
                 className="relative bg-white top-[1.4px] ml-3 cursor-pointer active:scale-[0.98] flex items-center gap-1 bg-blue-500/40 hover:bg-white/90 border border-blue-400/40 rounded-none px-2 py-0.5 text-[10px] font-black text-slate-900 transition-all active:scale-95"
               >

@@ -181,14 +181,14 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
     const next = !showBalance;
     setShowBalance(next);
     localStorage.setItem('showBalance', String(next));
-    window.dispatchEvent(new Event('storage'));
+    window.dispatchEvent(new Event('balanceUpdate'));
   };
 
   const handleTransferSuccess = (newBalance) => {
     if (newBalance !== undefined) {
       setCurrentBalance(newBalance);
     }
-    window.dispatchEvent(new Event('storage'));
+    window.dispatchEvent(new Event('balanceUpdate'));
   };
 
   return (

@@ -2388,8 +2388,8 @@ const HistoryPage = () => {
       const saved = localStorage.getItem('showBalance');
       setShowAmounts(saved === null ? true : saved === 'true');
     };
-    window.addEventListener('storage', handler);
-    return () => window.removeEventListener('storage', handler);
+    window.addEventListener('balanceUpdate', handler);
+    return () => window.removeEventListener('balanceUpdate', handler);
   }, []);
 
   const { data: sentData, isLoading: sentLoading } = useQuery({
