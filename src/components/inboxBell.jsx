@@ -356,7 +356,7 @@ export const InboxPage = () => {
       </div>
 
       {/* List */}
-      {!isLoading ? (
+      {isLoading ? (
         <div className="space-y-5 pb-8 animate-pulse">
           {/* Cards */}
           <div className="space-y-3">
