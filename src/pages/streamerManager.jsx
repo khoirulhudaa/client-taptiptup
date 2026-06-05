@@ -380,7 +380,7 @@ const StreamerManagerPage = () => {
       </AnimatePresence>
 
       {/* Header */}
-      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-none p-5 md:p-6 text-white relative overflow-hidden">
+      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-none p-4 md:p-6 text-white relative overflow-hidden">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Super Admin</p>
