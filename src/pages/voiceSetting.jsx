@@ -447,14 +447,98 @@
         if (onCopyUrl) onCopyUrl(url, label);
     };
 
-    if (!localSettings) {
-        return (
-        <div className="flex items-center justify-center py-20 text-slate-400 font-bold gap-3">
-            <div className="w-5 h-5 border-4 border-slate-200 border-t-violet-500 rounded-full animate-spin" />
-            Memuat pengaturan...
+    if(!localSettings) return (
+        <div className="space-y-6 pb-6 w-full animate-pulse">
+            {/* Info card */}
+            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-none p-4 md:p-6 space-y-4">
+            <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-none flex-shrink-0" />
+                <div className="h-5 w-36 bg-slate-200 dark:bg-slate-700 rounded-none" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[...Array(4)].map((_, i) => (
+                <div key={i} className="flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-none">
+                    <div className="w-6 h-6 bg-slate-200 dark:bg-slate-600 rounded-none flex-shrink-0" />
+                    <div className="flex-1 space-y-1.5">
+                    <div className="h-3 bg-slate-200 dark:bg-slate-600 rounded-none w-3/4" />
+                    <div className="h-2.5 bg-slate-100 dark:bg-slate-700 rounded-none w-full" />
+                    <div className="h-2.5 bg-slate-100 dark:bg-slate-700 rounded-none w-5/6" />
+                    </div>
+                </div>
+                ))}
+            </div>
+            </div>
+
+            {/* URL Overlay */}
+            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-none p-4 md:p-6 space-y-4">
+            <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-none flex-shrink-0" />
+                <div className="h-5 w-28 bg-slate-200 dark:bg-slate-700 rounded-none" />
+            </div>
+            <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-none" />
+            <div className="h-2.5 w-4/5 bg-slate-100 dark:bg-slate-800 rounded-none" />
+            <div className="bg-slate-100 dark:bg-slate-800 p-5 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-none space-y-2">
+                <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-600 rounded-none" />
+                <div className="h-2.5 w-48 bg-slate-100 dark:bg-slate-700 rounded-none" />
+                <div className="h-3 w-72 bg-slate-200 dark:bg-slate-600 rounded-none mt-2" />
+            </div>
+            </div>
+
+            {/* Durasi settings */}
+            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-none p-4 md:p-6 space-y-6">
+            <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-none flex-shrink-0" />
+                <div className="h-5 w-24 bg-slate-200 dark:bg-slate-700 rounded-none" />
+            </div>
+            <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-none" />
+            <div className="h-2.5 w-3/4 bg-slate-100 dark:bg-slate-800 rounded-none" />
+            <div className="space-y-4">
+                <div className="h-2.5 w-32 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                <div className="h-12 w-full bg-slate-100 dark:bg-slate-800 rounded-none" />
+                <div className="h-2.5 w-28 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                <div className="flex gap-3">
+                <div className="flex-1 h-12 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                <div className="w-24 h-12 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                </div>
+            </div>
+            <div className="bg-slate-50 dark:bg-slate-800/70 p-5 border border-dashed border-slate-200 dark:border-slate-700 rounded-none">
+                <div className="h-2.5 w-28 bg-slate-200 dark:bg-slate-600 rounded-none mb-4" />
+                <div className="flex flex-wrap gap-2">
+                {[...Array(5)].map((_, i) => (
+                    <div key={i} className="h-8 w-28 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                ))}
+                </div>
+            </div>
+            <div className="h-12 w-full bg-slate-200 dark:bg-slate-700 rounded-none" />
+            </div>
+
+            {/* Test voice */}
+            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-none p-4 md:p-6 space-y-5">
+            <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-none flex-shrink-0" />
+                <div className="space-y-1.5">
+                <div className="h-4 w-24 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                <div className="h-2.5 w-48 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[...Array(3)].map((_, i) => (
+                <div key={i} className={`space-y-1.5 ${i === 2 ? 'md:col-span-2' : ''}`}>
+                    <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                    <div className="h-11 w-full bg-slate-100 dark:bg-slate-800 rounded-none" />
+                </div>
+                ))}
+            </div>
+            <div className="flex flex-wrap gap-2">
+                {[...Array(6)].map((_, i) => (
+                <div key={i} className="h-8 w-14 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                ))}
+            </div>
+            <div className="h-24 w-full bg-slate-100 dark:bg-slate-800 rounded-none" />
+            <div className="h-12 w-full bg-slate-200 dark:bg-slate-700 rounded-none" />
+            </div>
         </div>
         );
-    }
 
     return (
         <div className="space-y-6 pb-6 w-full">

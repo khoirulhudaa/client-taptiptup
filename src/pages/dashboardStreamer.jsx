@@ -286,6 +286,98 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
 
 // ─── InstantTestAlert ─────────────────────────────────────────────────────────
 
+const InstantTestAlertSkeleton = () => {
+  return (
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
+      {/* Header */}
+      <div className="flex items-center gap-4">
+        <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-none animate-pulse" />
+        <div className="space-y-2">
+          <div className="h-6 w-48 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
+        </div>
+      </div>
+
+      {/* Input Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="flex flex-col gap-1">
+            <div className="h-3 w-24 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
+            <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+          </div>
+        ))}
+      </div>
+
+      {/* Preset Buttons */}
+      <div className="flex flex-wrap gap-3">
+        {[...Array(5)].map((_, i) => (
+          <div key={i} className="h-8 w-16 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+        ))}
+      </div>
+
+      {/* Send Button */}
+      <div className="h-14 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+
+      {/* Last Sent Placeholder */}
+      <div className="h-12 bg-emerald-50/50 dark:bg-emerald-950/30 rounded-none animate-pulse" />
+
+      {/* Warning */}
+      <div className="h-4 w-3/4 mx-auto bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
+    </div>
+  );
+};
+
+const InstantTestMediaShareSkeleton = () => {
+  return (
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
+      {/* Header */}
+      <div className="flex items-center gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+        <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-none animate-pulse" />
+        <div className="space-y-2">
+          <div className="h-6 w-52 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
+        </div>
+      </div>
+
+      {/* Donor & Amount */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {[...Array(2)].map((_, i) => (
+          <div key={i} className="flex flex-col gap-1">
+            <div className="h-3 w-28 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
+            <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+          </div>
+        ))}
+      </div>
+
+      {/* Message */}
+      <div className="flex flex-col gap-1">
+        <div className="h-3 w-32 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
+        <div className="h-20 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+      </div>
+
+      {/* Media URL */}
+      <div className="space-y-3">
+        <div className="h-3 w-24 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
+        <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+      </div>
+
+      {/* Quick Presets */}
+      <div className="pt-2">
+        <div className="h-4 w-32 bg-slate-200 dark:bg-slate-700 rounded mb-3 animate-pulse" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="h-28 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+          ))}
+        </div>
+      </div>
+
+      {/* Send Button */}
+      <div className="h-14 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+
+      {/* Last Sent */}
+      <div className="h-12 bg-emerald-50/50 dark:bg-emerald-950/30 rounded-none animate-pulse" />
+    </div>
+  );
+};
+
 const InstantTestAlert = ({ overlayToken, settings, user }) => {
   const [isSending, setIsSending] = useState(false);
   const [lastSent, setLastSent] = useState(null);
@@ -1146,6 +1238,90 @@ const AdminWithdrawalPage = () => {
 };
 
 // ─── DurationSettings ─────────────────────────────────────────────────────────
+
+const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
+  return (
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-8 animate-pulse">
+      {/* Header */}
+      <div className="flex items-center gap-4">
+        <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-none" />
+        <div className="h-7 w-64 bg-slate-200 dark:bg-slate-700 rounded" />
+      </div>
+
+      <div className="space-y-10">
+        {/* Alert Biasa Section */}
+        {!mediaOnly && (
+          <div className="space-y-5">
+            <div className="h-7 w-40 bg-slate-200 dark:bg-slate-700 rounded" /> {/* "Alert Biasa" */}
+            
+            <div className="flex flex-col gap-4">
+              {/* Durasi Dasar */}
+              <div>
+                <div className="h-3 w-40 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
+                <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
+              </div>
+
+              {/* Tambahan */}
+              <div>
+                <div className="h-3 w-36 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Media Share Section */}
+        {!alertOnly && (
+          <div className="space-y-5">
+            <div className="h-7 w-40 bg-slate-200 dark:bg-slate-700 rounded" /> {/* "Media share" */}
+            
+            <div className="flex flex-col gap-4">
+              {/* Durasi Dasar */}
+              <div>
+                <div className="h-3 w-40 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
+                <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
+              </div>
+
+              {/* Tambahan */}
+              <div>
+                <div className="h-3 w-36 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Preview Kalkulasi */}
+      <div className="bg-slate-50 dark:bg-slate-800/70 p-5 rounded-none border border-dashed border-slate-200 dark:border-slate-700">
+        <div className="h-4 w-40 bg-slate-200 dark:bg-slate-700 rounded mb-4" />
+        <div className="space-y-4">
+          {!mediaOnly && (
+            <div className="flex justify-between items-center">
+              <div className="h-4 w-52 bg-slate-200 dark:bg-slate-700 rounded" />
+              <div className="h-5 w-24 bg-slate-200 dark:bg-slate-700 rounded" />
+            </div>
+          )}
+          {!alertOnly && (
+            <div className="flex justify-between items-center">
+              <div className="h-4 w-52 bg-slate-200 dark:bg-slate-700 rounded" />
+              <div className="h-5 w-24 bg-slate-200 dark:bg-slate-700 rounded" />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Save Button */}
+      <div className="h-14 bg-slate-200 dark:bg-slate-700 rounded-none" />
+    </div>
+  );
+};
 
 const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly = false, mediaOnly = false, activeSlot }) => {
   return (
@@ -3702,37 +3878,60 @@ const handleChangePin = async () => {
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                     <SectionHeader icon={<Settings size={20} />} title={`Konfigurasi Overlay`} color="bg-blue-500" />
                     <div className="mt-8 space-y-3">
-                      <div className="flex items-center gap-3 rounded-none">
-                        {['A', 'B'].map((slot, index) => (
-                          <button
-                            key={slot}
-                            onClick={() => {
-                              const newSlot = slot; // 'A' atau 'B'
+                    <div className="md:flex space-y-3 md:space-y-0 items-center gap-3 rounded-none bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
+                      {['A', 'B'].map((slot) => (
+                        <button
+                          key={slot}
+                          onClick={() => {
+                            const newSlot = slot;
+                            setActiveSlot(newSlot);
+                            setObsActiveSlot(newSlot);
 
-                              setActiveSlot(newSlot);
-                              setObsActiveSlot(newSlot);
+                            saveSettingsMutation.mutate({ 
+                              settings: { activeSlot: newSlot }, 
+                              slot: newSlot 
+                            });
+                          }}
+                          className={`w-full flex-1 flex items-center justify-between px-[14px] py-2.5 cursor-pointer rounded-none font-black text-sm transition-all duration-200 active:scale-[0.99] relative overflow-hidden group ${
+                            activeSlot === slot 
+                              ? 'bg-blue-600 text-white' 
+                              : 'bg-slate-700 hover:bg-slate-600 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                          }`}
+                        >
+                          {/* Background Glow Effect */}
+                          {activeSlot === slot && (
+                            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-30" />
+                          )}
 
-                              // Simpan activeSlot ke Slot A
-                              saveSettingsMutation.mutate({ 
-                                settings: { activeSlot: newSlot }, 
-                                slot: newSlot          // ← Ubah dari 'A' menjadi newSlot
-                              });
-                            }}
-                            className={`flex justify-between border-white/30 border px-5 flex-1 py-4 cursor-pointer active:scale-[0.99] font-black text-xs rounded-none transition-all ${
+                          <div className="flex items-center gap-2.5">
+                            <div className={`w-6 h-6 flex items-center justify-center rounded border transition-all ${
                               activeSlot === slot 
-                                ? ' text-white shadow-sm' 
-                                : 'text-slate-400 hover:text-slate-500'
-                            }`}
-                          >
-                            <span>OVERLAY</span>
-                            <div className="flex items-center gap-3">
-                              <span className={`px-1.5 py-0.5 ${activeSlot === slot ? 'bg-emerald-300 text-emerald-900' : 'bg-white text-slate-900'} text-[10px] font-medium rounded-none`}>
-                                SLOT {activeSlot === slot ? `AKTIF` : `${slot}`}
-                              </span>
+                                ? 'border-white/50 bg-white/20' 
+                                : 'border-slate-300 dark:border-slate-600'
+                            }`}>
+                              <span className="text-xs font-black tracking-widest">{slot}</span>
                             </div>
-                          </button>
-                        ))}
-                      </div>
+                            <div>
+                              <p className="text-base -mt-0.5">Overlay</p>
+                            </div>
+                          </div>
+
+                          {/* Status Badge */}
+                          <div className={`px-3 py-1 text-[10px] font-black rounded-none transition-all ${
+                            activeSlot === slot 
+                              ? 'bg-emerald-500 text-white shadow-inner' 
+                              : 'bg-slate-200 dark:bg-slate-500/30 text-slate-500 dark:text-slate-400 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30'
+                          }`}>
+                            {activeSlot === slot ? 'AKTIF' : 'TIDAK AKTIF'}
+                          </div>
+
+                          {/* Subtle indicator */}
+                          {activeSlot === slot && (
+                            <div className="absolute -bottom-px left-1/2 -translate-x-1/2 w-8 h-0.5 bg-white rounded-full" />
+                          )}
+                        </button>
+                      ))}
+                    </div>
                       {[
                         { key: 'overlayEnabled', label: 'Aktifkan Overlay OBS',  desc: 'Alert tidak akan muncul di OBS sama sekali' },
                         { key: 'showTimestamp',  label: 'Tampilkan Jam Donasi',  desc: 'Waktu kapan donasi diterima overlay' },
@@ -3982,21 +4181,21 @@ const handleChangePin = async () => {
             {activeTab === 'alertSettings' && (
               <motion.div key="alertSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 pb-0 w-full">
 
-                {/* Header */}
-                {/* <div className="bg-gradient-to-br from-rose-500 to-orange-500 rounded-none p-4 md:p-6 text-white relative overflow-hidden">
-                  <div className="relative z-10">
-                    <p className="text-rose-200 text-xs font-black uppercase tracking-widest mb-2">Pengaturan</p>
-                    <h2 className="text-3xl font-black tracking-tight">Alert OBS</h2>
-                    <p className="text-rose-200 text-sm font-medium mt-1">Test, durasi, suara, TTS, dan filter donasi</p>
-                  </div>
-                  <div className="absolute top-3 right-4 text-6xl opacity-10">⚡</div>
-                </div> */}
-
                 {/* Instant Test */}
-                <InstantTestAlert overlayToken={user.overlayToken} settings={settings} user={user} />
+                {profileLoading ? <InstantTestAlertSkeleton /> : <InstantTestAlert overlayToken={user.overlayToken} settings={settings} user={user} />}
 
                 {/* Durasi */}
-                <DurationSettings alertOnly={true} settings={settings} onChange={upd} saveSettingsMutation={saveSettingsMutation} activeSlot={activeSlot} />
+                {profileLoading ? (
+                  <DurationSettingsSkeleton alertOnly={true} />
+                ) : (
+                  <DurationSettings 
+                    alertOnly={true} 
+                    settings={settings} 
+                    onChange={upd} 
+                    saveSettingsMutation={saveSettingsMutation} 
+                    activeSlot={activeSlot} 
+                  />
+                )}
 
                 {/* Suara */}
                 <SoundSection activeSlot={activeSlot} />
@@ -4019,17 +4218,22 @@ const handleChangePin = async () => {
               <motion.div key="mediaSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 pb-0 w-full">
 
                 {/* Instant Test MediaShare */}
-                <InstantTestMediaShare overlayToken={user.overlayToken} settings={settings} user={user} />
+                {profileLoading ? <InstantTestMediaShareSkeleton /> : <InstantTestMediaShare overlayToken={user.overlayToken} settings={settings} user={user}/>}
 
                 {/* MediaShare Control */}
                 <MediaShareControl />
 
-                <DurationSettings
-                  settings={settings}
-                  onChange={upd}
-                  saveSettingsMutation={saveSettingsMutation}
-                  mediaOnly={true}   
-                />
+                {profileLoading ? (
+                  <DurationSettingsSkeleton mediaOnly={true} />
+                ) : (
+                  <DurationSettings 
+                    mediaOnly={true} 
+                    settings={settings} 
+                    onChange={upd} 
+                    saveSettingsMutation={saveSettingsMutation} 
+                    activeSlot={activeSlot} 
+                  />
+                )}
 
                 {/* Izin Media */}
                 <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
