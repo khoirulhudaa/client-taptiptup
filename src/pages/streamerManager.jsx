@@ -610,20 +610,30 @@ const StreamerManagerPage = () => {
                           >
                             {isActive ? <UserX size={16} /> : <UserCheck size={16} />}
                           </button>
+                          {/* Role Toggle Button */}
                           <button
                             onClick={() => setConfirmModal({
                               type: 'role',
                               user: u,
                               newRole: u.role === 'streamerSuper' ? 'user' : 'streamerSuper',
                             })}
-                            title={u.role === 'streamerSuper' ? 'Turunkan ke User' : 'Jadikan StreamerSuper'}
-                            className={`px-2.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all ${
+                            disabled={u.role === 'streamerSuper'}   // ← Disabled jika sudah SuperAdmin
+                            title={u.role === 'streamerSuper' 
+                              ? 'Tidak dapat mengubah role SuperAdmin' 
+                              : 'Jadikan StreamerSuper / Turunkan ke User'}
+                            className={`px-2.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all disabled:cursor-not-allowed disabled:opacity-50 ${
                               u.role === 'streamerSuper'
+                                ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700'
+                                : u.role === 'streamerSuper'
                                 ? 'bg-purple-50 dark:bg-purple-950/30 text-purple-600 border border-purple-200 dark:border-purple-800 hover:bg-purple-100'
                                 : 'bg-sky-50 dark:bg-sky-950/30 text-sky-600 border border-sky-200 dark:border-sky-800 hover:bg-sky-100'
                             }`}
                           >
-                            {u.role === 'streamerSuper' ? <ShieldOff size={16} /> : <ShieldCheck size={16} />}
+                            {u.role === 'streamerSuper' ? (
+                              <Shield size={16} />
+                            ) : (
+                              <ShieldCheck size={16} />
+                            )}
                           </button>
                           <button
                             onClick={() => setConfirmModal({ type: 'delete', user: u })}
