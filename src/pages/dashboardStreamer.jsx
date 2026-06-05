@@ -3313,8 +3313,14 @@ const handleChangePin = async () => {
     const payload = getTokenPayload();
     return payload?.role === 'streamerSuper';
   }, []);
+  
+  const isSuperAdmin = useMemo(() => {
+    const payload = getTokenPayload();
+    return payload?.role === 'superAdmin';
+  }, []);
 
-  const isEffectiveAdmin = isStreamerSuper && adminMode;
+  const isEffectiveAdmin = (isStreamerSuper && adminMode) || isSuperAdmin;
+
   useEffect(() => {
     if (isEffectiveAdmin) return; // Jika masih admin, biarkan user bebas pilih tab
 

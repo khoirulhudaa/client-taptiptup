@@ -19,7 +19,7 @@ import {
   Shield, 
   User 
 } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import api from '../lib/axiosInstance';
 
@@ -56,7 +56,7 @@ const ConfirmModal = ({ type, user, newRole, onConfirm, onClose, loading }) => {
   const iconBg = isDelete
     ? 'bg-red-100 dark:bg-red-950/40 text-red-600'
     : isRole
-    ? 'bg-purple-100 dark:bg-purple-950/40 text-purple-600'
+    ? 'bg-blue-100 dark:bg-blue-950/40 text-blue-500'
     : user?.isActive === false
     ? 'bg-green-100 dark:bg-green-950/40 text-green-600'
     : 'bg-amber-100 dark:bg-amber-950/40 text-amber-600';
@@ -83,7 +83,7 @@ const ConfirmModal = ({ type, user, newRole, onConfirm, onClose, loading }) => {
   const confirmBg = isDelete
     ? 'bg-red-600 hover:bg-red-700'
     : isRole
-    ? 'bg-purple-600 hover:bg-purple-700'
+    ? 'bg-blue-600 hover:bg-blue-700'
     : 'bg-blue-600 hover:bg-blue-700';
 
   // ── Confirm button label ──
@@ -147,7 +147,7 @@ const UserCard = ({ user, onToggle, onDelete, onRole, currentRole }) => {
       {/* — Avatar + Status badge — */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-none bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-black text-lg flex-shrink-0 overflow-hidden">
+          <div className="w-11 h-11 rounded-none bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-black text-lg flex-shrink-0 overflow-hidden">
             {user.profilePicture ? (
               <img src={user.profilePicture} alt={user.username} className="w-full h-full object-cover" />
             ) : (
@@ -173,12 +173,12 @@ const UserCard = ({ user, onToggle, onDelete, onRole, currentRole }) => {
       {/* — Role badge — */}
       <div>
         <span className={`inline-flex items-center gap-1 p-1 rounded-none text-[10px] font-black ${
-          isSuperAdmin
-            ? 'bg-purple-100 dark:bg-purple-950/40 text-purple-400'
+          isStreamerSuper
+            ? 'bg-orange-100 dark:bg-emerald-950/40 text-emerald-400'
             : 'bg-sky-100 dark:bg-sky-950/40 text-sky-400'
         }`}>
-          {isSuperAdmin ? <Shield size={10} /> : <User size={10} />}
-          {isSuperAdmin ? 'StreamerSuper' : 'User'}
+          {isStreamerSuper ? <Shield size={10} /> : <User size={10} />}
+          {isStreamerSuper ? 'StreamerSuper' : 'User'}
         </span>
       </div>
  
@@ -217,11 +217,11 @@ const UserCard = ({ user, onToggle, onDelete, onRole, currentRole }) => {
             title={!canChangeRole 
               ? "Hanya SuperAdmin yang dapat mengubah role" 
               : isSuperAdmin ? 'Turunkan ke User' : 'Jadikan StreamerSuper'}
-            className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs transition-all border disabled:cursor-not-allowed disabled:opacity-50 ${
+            className={`cursor-pointer active:scale-[0.99] flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs transition-all border disabled:cursor-not-allowed disabled:opacity-50 ${
               !canChangeRole
                 ? 'border-slate-200 dark:border-slate-700 text-slate-400 bg-slate-50 dark:bg-slate-800'
                 : isSuperAdmin
-                ? 'border-purple-200 dark:border-purple-800 text-purple-600 hover:bg-purple-50'
+                ? 'border-blue-200 dark:border-blue-600 text-blue-500 hover:bg-blue-50'
                 : 'border-sky-200 dark:border-sky-900 text-sky-600 hover:bg-sky-50'
             }`}
           >
@@ -237,7 +237,7 @@ const UserCard = ({ user, onToggle, onDelete, onRole, currentRole }) => {
                 ? "StreamerSuper tidak memiliki izin menghapus akun" 
                 : "SuperAdmin tidak dapat dihapus"
               : "Hapus permanen"}
-            className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs transition-all border disabled:cursor-not-allowed disabled:opacity-50 ${
+            className={`cursor-pointer active:scale-[0.99] flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs transition-all border disabled:cursor-not-allowed disabled:opacity-50 ${
               !canDelete
                 ? 'border-slate-200 dark:border-slate-700 text-slate-400 bg-slate-50 dark:bg-slate-800'
                 : 'border-red-200 dark:border-red-900 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30'
@@ -259,7 +259,7 @@ const StreamerManagerPage = () => {
   const [statusFilter, setStatusFilter] = useState('');
   const [viewMode, setViewMode] = useState('grid'); // 'table' | 'grid'
   const [confirmModal, setConfirmModal] = useState(null); // { type: 'toggle'|'delete', user }
-  const currentRole = 'streamerSuper';
+  
   
   const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ['streamer-manage', page, search, statusFilter],
@@ -275,7 +275,14 @@ const StreamerManagerPage = () => {
       newRole,
     });
   };
-
+  
+  const currentRole = useMemo(() => {
+    const token = localStorage.getItem('token');
+    if (!token) return 'user';
+    try { return JSON.parse(atob(token.split('.')[1]))?.role || 'user'; }
+    catch { return 'user'; }
+  }, []);
+  
   const users = data?.users || [];
   const pagination = data?.pagination || {};
 
@@ -290,10 +297,10 @@ const StreamerManagerPage = () => {
 
       toast.success(
         <div className="flex items-center gap-2">
-          <ShieldCheck size={18} className="text-purple-500" />
+          <ShieldCheck size={18} className="text-blue-500" />
           <span>
             Role <span className="font-bold">@{res.username || variables.user?.username}</span> 
-            berhasil diubah menjadi <span className="font-bold text-purple-600">{newRoleName}</span>
+            berhasil diubah menjadi <span className="font-bold text-blue-500">{newRoleName}</span>
           </span>
         </div>,
         {
@@ -388,7 +395,7 @@ const StreamerManagerPage = () => {
       </div>
 
       {/* Filters + Search */}
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center px-4 md:px-0 gap-2">
         {/* Search */}
         <div className="flex gap-2 flex-1 min-w-[200px]">
           <input
@@ -547,7 +554,7 @@ const StreamerManagerPage = () => {
             {users.map((u) => (
               <UserCard
                 key={u._id}
-                currentRole="streamerSuper"
+                currentRole={currentRole}
                 onRole={handleRoleChange}
                 user={u}
                 onToggle={(user) => setConfirmModal({ type: 'toggle', user })}
@@ -573,7 +580,7 @@ const StreamerManagerPage = () => {
                     <tr key={u._id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-all">
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-none bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-black flex-shrink-0 overflow-hidden text-sm">
+                          <div className="w-9 h-9 rounded-none bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-black flex-shrink-0 overflow-hidden text-sm">
                             {u.profilePicture ? (
                               <img src={u.profilePicture} alt={u.username} className="w-full h-full object-cover" />
                             ) : (
@@ -587,7 +594,7 @@ const StreamerManagerPage = () => {
                       <td className="px-5 py-4">
                         <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-none text-[10px] font-black ${
                           u.role === 'superAdmin'
-                            ? 'bg-purple-100 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400'
+                            ? 'bg-blue-100 dark:bg-blue-950/40 text-blue-500 dark:text-blue-400'
                             : 'bg-sky-100 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400'
                         }`}>
                           {u.role === 'superAdmin' ? <Shield size={10} /> : <User size={10} />}
@@ -601,7 +608,7 @@ const StreamerManagerPage = () => {
                         <p className="text-[10px] text-slate-400">{u.totalDonationCount || 0}x</p>
                       </td>
                       <td className="px-5 py-4">
-                        <p className="font-bold text-sm text-blue-600 dark:text-blue-400">
+                        <p className="font-bold text-sm text-blue-500 dark:text-blue-400">
                           Rp {Number(u.walletBalance || 0).toLocaleString('id-ID')}
                         </p>
                       </td>
@@ -649,7 +656,7 @@ const StreamerManagerPage = () => {
                             className={`px-2.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.97] transition-all disabled:cursor-not-allowed disabled:opacity-50 flex items-center gap-1.5 ${
                               u.role === 'superAdmin' || currentRole !== 'superAdmin'
                                 ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700'
-                                : 'bg-violet-50 dark:bg-violet-950/30 text-violet-600 border border-violet-200 dark:border-violet-800 hover:bg-violet-100'
+                                : 'bg-blue-50 dark:bg-blue-950/30 text-blue-500 border border-blue-200 dark:border-blue-600 hover:bg-blue-100'
                             }`}
                           >
                             {u.role === 'superAdmin' ? <Shield size={16} /> : <ShieldCheck size={16} />}
@@ -699,7 +706,7 @@ const StreamerManagerPage = () => {
               ← Sebelumnya
             </button>
             <span className="text-xs font-bold text-slate-400">
-              Halaman <span className="text-blue-600 font-black">{page}</span> dari {pagination.totalPages}
+              Halaman <span className="text-blue-500 font-black">{page}</span> dari {pagination.totalPages}
             </span>
             <button
               onClick={() => setPage((p) => Math.min(pagination.totalPages, p + 1))}
