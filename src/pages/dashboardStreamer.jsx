@@ -3763,7 +3763,11 @@ const handleChangePin = async () => {
       {/* ── Mobile Navbar ── */}
       <div className="lg:hidden fixed top-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 z-50 px-4 py-3 md:py-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <div className="w-11.5 md:w-10 h-11.5 md:h-10 p-[6px] bg-blue-500 rounded-none flex items-center justify-center"><img src="/man1.png" className='relative left-[-0.8px]' alt="icon" /></div>
+          {
+            !isSidebarOpen && (
+              <div className="w-11.5 md:w-10 h-11.5 md:h-10 p-[6px] bg-blue-500 rounded-none flex items-center justify-center"><img src="/man1.png" className='relative left-[-0.8px]' alt="icon" /></div>
+            )
+          }
           {/* <span className="font-black text-lg tracking-tight text-slate-800 dark:text-slate-100">TTT</span> */}
         </div>
         <div className="flex items-center gap-3">

@@ -246,8 +246,8 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         <div className={`flex items-center mb-8 md:mb-11 ${isCollapsed ? 'justify-center px-2' : 'px-2 justify-between md:px-[8.5px] relative top-[1px]'}`}>
           {!isCollapsed && (
             <a href='/'>
-              <div className="flex items-center gap-3">
-                <div className="ml-0 mt-[-2px] w-10 h-10 bg-blue-500 rounded-none flex items-center justify-center text-white font-black text-xl italic shadow-lg">
+              <div className="flex shadow-none items-center gap-3">
+                <div className="ml-0 mt-[-2px] w-10 h-10 bg-blue-500 rounded-none flex items-center justify-center text-white font-black text-xl italic">
                   <img src="/man1.png" alt="icon" className="w-[100%]" />
                 </div>
                 <h1 className="text-lg ml-0 font-black tracking-tight text-slate-800 dark:text-slate-100 whitespace-nowrap">TAPTIPTUP</h1>
@@ -256,7 +256,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           )}
           {isCollapsed && (
             <a href='/'>
-              <div className="w-full h-12 bg-red-200 rounded-none flex items-center justify-center shadow-lg">
+              <div className="w-full h-12 bg-red-200 shadow-none rounded-none flex items-center justify-center">
                 <img src="/man1.png" alt="icon" className={`${isCollapsed ? 'w-[30%]' : 'w-[60%]'}`} />
               </div>
             </a>
@@ -287,7 +287,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                 }`}
               >
                 <motion.div
-                  className="absolute top-1 w-7 h-6 bg-white rounded-none shadow"
+                  className="absolute top-1 w-7 h-6 bg-white rounded-none"
                   animate={{ left: superMode ? '31.7px' : '4px' }}
                   transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                 />
