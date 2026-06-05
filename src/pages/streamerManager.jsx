@@ -432,9 +432,89 @@ const StreamerManagerPage = () => {
       {/* Content */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
         {isLoading ? (
-          <div className="flex items-center justify-center py-24 text-slate-400 font-bold gap-3">
-            <div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-none animate-spin" />
-            Memuat data streamer...
+          <div className="animate-pulse">
+            {viewMode === 'grid' ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 md:p-6">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-none p-5 flex flex-col gap-4">
+                    {/* Avatar + status */}
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-11 h-11 rounded-none bg-slate-200 dark:bg-slate-700 flex-shrink-0" />
+                        <div className="space-y-1.5">
+                          <div className="h-3.5 w-24 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                          <div className="h-2.5 w-32 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                        </div>
+                      </div>
+                      <div className="h-5 w-14 bg-slate-100 dark:bg-slate-800 rounded-none flex-shrink-0" />
+                    </div>
+                    {/* Role badge */}
+                    <div className="h-5 w-28 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                    {/* Stats */}
+                    <div className="flex justify-between gap-2">
+                      <div className="space-y-1">
+                        <div className="h-2 w-12 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                        <div className="h-3 w-20 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                      </div>
+                      <div className="space-y-1">
+                        <div className="h-2 w-10 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                        <div className="h-3 w-16 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                      </div>
+                    </div>
+                    {/* Buttons */}
+                    <div className="flex gap-2 pt-1 border-t border-slate-100 dark:border-slate-800">
+                      <div className="flex-1 h-8 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                      <div className="h-8 w-10 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                      <div className="h-8 w-10 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[800px]">
+                  <thead>
+                    <tr className="bg-slate-50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700">
+                      {['Streamer','Email','Role','Total Donasi','Saldo','Status','Daftar','Aksi'].map(h => (
+                        <th key={h} className="px-5 py-4">
+                          <div className="h-2.5 w-16 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
+                    {[...Array(8)].map((_, i) => (
+                      <tr key={i}>
+                        <td className="px-5 py-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-9 h-9 rounded-none bg-slate-200 dark:bg-slate-700 flex-shrink-0" />
+                            <div className="h-3 w-20 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                          </div>
+                        </td>
+                        <td className="px-5 py-4"><div className="h-3 w-32 bg-slate-100 dark:bg-slate-800 rounded-none" /></td>
+                        <td className="px-5 py-4"><div className="h-5 w-16 bg-slate-100 dark:bg-slate-800 rounded-none" /></td>
+                        <td className="px-5 py-4">
+                          <div className="space-y-1">
+                            <div className="h-3 w-24 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                            <div className="h-2.5 w-10 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                          </div>
+                        </td>
+                        <td className="px-5 py-4"><div className="h-3 w-20 bg-slate-100 dark:bg-slate-800 rounded-none" /></td>
+                        <td className="px-5 py-4"><div className="h-5 w-14 bg-slate-100 dark:bg-slate-800 rounded-none" /></td>
+                        <td className="px-5 py-4"><div className="h-3 w-16 bg-slate-100 dark:bg-slate-800 rounded-none" /></td>
+                        <td className="px-5 py-4">
+                          <div className="flex gap-2">
+                            <div className="h-8 w-9 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                            <div className="h-8 w-9 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                            <div className="h-8 w-9 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         ) : users.length === 0 ? (
           <div className="py-20 text-center text-slate-400">

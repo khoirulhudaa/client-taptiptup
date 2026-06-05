@@ -403,10 +403,37 @@ export const AdminAnnouncementsPage = () => {
       </div>
 
       {/* List */}
-      <div className="relative space-y-0 md:space-y-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div className={`relative space-y-0 w-full md:space-y-3 grid grid-cols-1 ${isLoading || announcements.length === 0 ? 'md:grid-cols-1' : 'md:grid-cols-2'} gap-3`}>
         {isLoading ? (
-          <div className="flex items-center justify-center py-20 text-slate-400 gap-3 font-bold">
-            <Loader2 size={20} className="animate-spin" /> Memuat pengumuman...
+          <div className={`w-full grid grid-cols-1 md:grid-cols-2 gap-3 animate-pulse`}>
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-none overflow-hidden h-[200px]">
+                {/* top accent */}
+                <div className="h-[3px] bg-slate-200 dark:bg-slate-700" />
+                <div className="p-4 md:p-5 flex items-start gap-4">
+                  {/* icon */}
+                  <div className="w-9 h-9 flex-shrink-0 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                  {/* content */}
+                  <div className="flex-1 space-y-2.5">
+                    <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-none" style={{ width: `${50 + i * 7}%` }} />
+                    <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded-none w-full" />
+                    <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded-none" style={{ width: '75%' }} />
+                    {/* meta row */}
+                    <div className="flex items-center gap-3 mt-1">
+                      <div className="h-2.5 w-24 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                      <div className="h-2.5 w-20 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                      <div className="h-2.5 w-16 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                    </div>
+                  </div>
+                </div>
+                {/* bottom right badges + actions */}
+                <div className="absolute bottom-4 right-4 flex items-center gap-2">
+                  <div className="h-7 w-14 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                  <div className="h-7 w-8 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                  <div className="h-7 w-8 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                </div>
+              </div>
+            ))}
           </div>
         ) : announcements.length === 0 ? (
           <div className="py-20 text-center text-slate-400 bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-none">

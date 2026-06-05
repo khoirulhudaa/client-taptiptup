@@ -2899,11 +2899,16 @@ export const DashboardStreamer = () => {
   const [navbar, setNavbar]               = useState(false);
   const [showBalance, setShowBalance]     = useState(false);
   const [width, height] = useWindowSize();
+  const [showModeToast, setShowModeToast] = useState(false);
+  const [modeToastLabel, setModeToastLabel] = useState('');
   const [iconMode, setIconMode] = useState('emoji');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [pinStep, setPinStep] = useState('idle'); // idle | success | error
   const [overlayDone, setOverlayDone] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
+  const [adminMode, setAdminMode] = useState(() => {
+    return localStorage.getItem('adminMode') === 'true';
+  });
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showPins, setShowPins] = useState({
     currentPin: false,
@@ -3057,6 +3062,17 @@ const handleChangePin = async () => {
     }
   }, [localSettings?.customIcon]);
 
+  // Sync saat localStorage berubah (dari TopNavbar)
+  useEffect(() => {
+    const sync = () => {
+      const next = localStorage.getItem('adminMode') === 'true';
+      setAdminMode(next);
+      if (next) setActiveTab('settings'); // langsung ke dashboard super
+    };
+    window.addEventListener('storage', sync);
+    return () => window.removeEventListener('storage', sync);
+  }, []);
+
   useEffect(() => {
     const loadObsActiveSlot = async () => {
       try {
@@ -3094,6 +3110,19 @@ const handleChangePin = async () => {
   }, [localSettings]);
 
   useEffect(() => {
+    const sync = () => {
+      const next = localStorage.getItem('adminMode') === 'true';
+      setAdminMode(next);
+      setModeToastLabel(next ? 'Mode Admin Aktif' : 'Mode Streamer Aktif');
+      setShowModeToast(true);
+      setTimeout(() => setShowModeToast(false), 1300);
+      if (next) setActiveTab('settings');
+    };
+    window.addEventListener('storage', sync);
+    return () => window.removeEventListener('storage', sync);
+  }, []);
+
+  useEffect(() => {
     const tabFromUrl = searchParams.get('tab');
     if (tabFromUrl && [
       'settings','alertSettings','mediaSettings','history','wallet','community',
@@ -3104,10 +3133,12 @@ const handleChangePin = async () => {
     }
   }, [searchParams]);
 
-  const isSuperAdmin = useMemo(() => {
+  const isStreamerSuper = useMemo(() => {
     const payload = getTokenPayload();
-    return payload?.role === 'superAdmin';
-  }, [profileData]);
+    return payload?.role === 'streamerSuper';
+  }, []);
+
+  const isEffectiveAdmin = isStreamerSuper && adminMode;
 
   const saveSettingsMutation = useMutation({
     mutationFn: ({ settings, slot }) => saveSettings(settings, slot),
@@ -3587,7 +3618,7 @@ const handleChangePin = async () => {
               </motion.div>
             )}
 
-            {activeTab === 'streamerManager' && isSuperAdmin && (
+            {activeTab === 'streamerManager' && isEffectiveAdmin && (
               <motion.div
                 key="streamerManager"
                 initial={{ opacity: 0, y: 20 }}
@@ -3597,7 +3628,7 @@ const handleChangePin = async () => {
               </motion.div>
             )}
 
-            {activeTab === 'terminal' && isSuperAdmin && (
+            {activeTab === 'terminal' && isEffectiveAdmin && (
               <motion.div key="terminal" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <DonationTerminal />
               </motion.div>
@@ -3634,7 +3665,7 @@ const handleChangePin = async () => {
               </motion.div>
             )}
 
-            {activeTab === 'suggestions' && isSuperAdmin && (
+            {activeTab === 'suggestions' && isEffectiveAdmin && (
               <SuggestionsAdmin />
             )}
 
@@ -3644,7 +3675,7 @@ const handleChangePin = async () => {
               </motion.div>
             )}
 
-            {activeTab === 'settings' && isSuperAdmin && (
+            {activeTab === 'settings' && isEffectiveAdmin && (
               <motion.div key="superDashboard" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                 <DashboardSuperPage />
               </motion.div>
@@ -3656,14 +3687,14 @@ const handleChangePin = async () => {
               </motion.div>
             )}
             
-            {activeTab === 'announcements' && isSuperAdmin && (
+            {activeTab === 'announcements' && isEffectiveAdmin && (
               <motion.div key="announcements" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                 <AdminAnnouncementsPage />
               </motion.div>
             )}
 
             {/* ══════════════════════ SETTINGS (Editor Overlay) ══════════════════════ */}
-            {activeTab === 'settings' && !isSuperAdmin && (
+            {activeTab === 'settings' && !isEffectiveAdmin && (
               <motion.div key="settings" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="grid grid-cols-1 xl:grid-cols-12 gap-5">
                 <section className="xl:col-span-7 space-y-6">
 
@@ -4235,15 +4266,15 @@ const handleChangePin = async () => {
             )}
 
             {/* ══════════════════════ GHOST ALERT ══════════════════════ */}
-            {activeTab === 'ghostAlert' && isSuperAdmin && <GhostAlertPage />}
+            {activeTab === 'ghostAlert' && isEffectiveAdmin && <GhostAlertPage />}
 
             {/* ══════════════════════ ADMIN ══════════════════════ */}
-            {activeTab === 'admin' && isSuperAdmin && (
+            {activeTab === 'admin' && isEffectiveAdmin && (
               <motion.div key="admin" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full">
                 <AdminWithdrawalPage />
               </motion.div>
             )}
-            {activeTab === 'admin' && !isSuperAdmin && (
+            {activeTab === 'admin' && !isEffectiveAdmin && (
               <motion.div key="forbidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center justify-center py-32 text-slate-400">
                 <p className="text-6xl mb-4">🔒</p>
                 <p className="font-black text-xl">Akses Ditolak</p>
@@ -4295,35 +4326,64 @@ const handleChangePin = async () => {
         <div onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-50 lg:hidden" />
       )}
 
-     {showUpgradeModal && (
-      <div className="fixed inset-0 z-[99999] overlow-hidden flex items-center justify-center bg-black/60 backdrop-blur-md">
+      {showUpgradeModal && (
+        <div className="fixed inset-0 z-[99999] overlow-hidden flex items-center justify-center bg-black/60 backdrop-blur-md">
 
-        <UpgradeConfetti />
+          <UpgradeConfetti />
 
-        <div className="bg-white dark:bg-slate-900 p-8 max-w-max text-center">
-          <ShieldCheck className="w-16 h-16 mx-auto text-blue-500 mb-4" />
-          <h2 className="text-2xl font-black mb-2">Akun superStreamer</h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-6">
-            Memiliki akses penuh untuk mengelola semua akun streamer taptiptup.
-          </p>
-          <button
-            onClick={async () => {
-              setShowUpgradeModal(false); // ✅ tutup modal dulu, langsung
-              
-              try {
-                await api.put('/api/streamer-manage/mark-role-upgrade-notified');
-                await isRefetchProfile(); // refetch di background
-              } catch (err) {
-                console.error('Gagal update notified:', err);
-              }
-            }}
-            className="cursor-pointer active:scale-[0.99] bg-blue-600 mt-4 hover:bg-blue-700 text-white font-black px-4 py-3"
-          >
-            Terima Kasih
-          </button>
+          <div className="bg-white dark:bg-slate-900 p-8 max-w-max text-center">
+            <ShieldCheck className="w-16 h-16 mx-auto text-blue-500 mb-4" />
+            <h2 className="text-2xl font-black mb-2">Akun superStreamer</h2>
+            <p className="text-slate-600 dark:text-slate-400 mb-6">
+              Memiliki akses penuh untuk mengelola semua akun streamer taptiptup.
+            </p>
+            <button
+              onClick={async () => {
+                setShowUpgradeModal(false); // ✅ tutup modal dulu, langsung
+                
+                try {
+                  await api.put('/api/streamer-manage/mark-role-upgrade-notified');
+                  await isRefetchProfile(); // refetch di background
+                } catch (err) {
+                  console.error('Gagal update notified:', err);
+                }
+              }}
+              className="cursor-pointer active:scale-[0.99] bg-blue-600 mt-4 hover:bg-blue-700 text-white font-black px-4 py-3"
+            >
+              Terima Kasih
+            </button>
+          </div>
         </div>
-      </div>
-    )}
+      )}
+      
+      <AnimatePresence>
+        {showModeToast && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{duration: 0.15}}
+            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 backdrop-blur-md"
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.85, opacity: 0, y: 20 }}
+              className="flex flex-col items-center w-md gap-6 text-center p-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl"
+            >
+              <div className="w-20 h-20 rounded-none bg-blue-100 dark:bg-blue-950/40 flex items-center justify-center">
+                <ShieldCheck size={40} className="text-blue-500" />
+              </div>
+              <div>
+                <p className="text-2xl font-black text-slate-800 dark:text-slate-100">{modeToastLabel}</p>
+                <p className="text-sm text-slate-400 font-medium mt-2">
+                  {adminMode ? 'Kamu sekarang dalam mode pengelola.' : 'Kamu kembali ke mode streamer.'}
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <CustomerServiceWidget />
     </div>

@@ -356,10 +356,36 @@ export const InboxPage = () => {
       </div>
 
       {/* List */}
-      {isLoading ? (
-        <div className="flex items-center justify-center py-20 text-slate-400 gap-3">
-          <Loader2 size={20} className="animate-spin" />
-          <span className="font-bold">Memuat pengumuman...</span>
+      {!isLoading ? (
+        <div className="space-y-5 pb-8 animate-pulse">
+          {/* Cards */}
+          <div className="space-y-3">
+            {[1, 2, 3, 4].map((_, i) => (
+              <div key={i} className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-none overflow-hidden">
+                {/* top accent */}
+                <div className="h-[3px] bg-slate-200 dark:bg-slate-700" />
+                <div className="p-4 md:p-5 flex items-start gap-4">
+                  {/* icon */}
+                  <div className="w-10 h-10 flex-shrink-0 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                  {/* content */}
+                  <div className="flex-1 space-y-2.5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="space-y-1.5 flex-1">
+                        <div className="h-3.5 bg-slate-200 dark:bg-slate-700 rounded-none" style={{ width: `${55 + i * 8}%` }} />
+                        <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded-none w-full" />
+                        <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded-none" style={{ width: '70%' }} />
+                      </div>
+                      <div className="h-5 w-10 bg-slate-100 dark:bg-slate-800 rounded-none flex-shrink-0" />
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="h-4 w-16 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                      <div className="h-3 w-20 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       ) : filtered.length === 0 ? (
         <div className="py-20 text-center text-slate-400 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-none">

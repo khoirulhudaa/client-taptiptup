@@ -86,6 +86,11 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     'leaderboard'
   ];
 
+  const hideForAdminMode = [
+    'alertSettings', 'mediaSettings', 'voiceSettings', 'store',
+    'history', 'wallet', 'poll', 'feeConfig', 'subathon', 'milestones', 'leaderboard'
+  ];
+
   const menuItems = [
     { id: 'settings',      label: 'Editor Overlay',   icon: <Layout size={20} /> },
     { id: 'alertSettings', label: 'Alert OBS',         icon: <ZapIcon size={20} /> },
@@ -273,6 +278,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           {menuGroups.map((group) => {
             const visibleItems = group.items.filter(item => {
               if (isSuperAdmin && hideForSuperAdmin.includes(item.id)) return false;
+              if (isStreamerSuper && superMode && hideForAdminMode.includes(item.id)) return false; // ← tambah
               return true;
             });
             if (visibleItems.length === 0) return null;
@@ -363,8 +369,8 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
 
           {isStreamerSuper && superMode && (
             <>
-              <div className="w-full h-[1px] my-3 bg-slate-200 dark:bg-slate-800" />
-              <button
+              {/* <div className="w-full h-[1px] my-3 bg-slate-200 dark:bg-slate-800" /> */}
+              {/* <button
                 className={`cursor-pointer mb-2 w-full flex items-center rounded-none font-black text-sm transition-all
                   ${isCollapsed ? 'justify-center px-0 py-3' : 'gap-4 px-4 py-3'}
                   ${superMode
@@ -382,7 +388,11 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                     {superMode ? 'ON' : 'OFF'}
                   </span>
                 )}
-              </button>
+              </button> */}
+              <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">
+                {'Super Admin'}
+                <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
+              </div>
 
               {/* Menu admin yang muncul jika superMode ON */}
               {superMode && (

@@ -769,7 +769,7 @@ const LogEntry = ({ entry }) => (
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 const GhostAlertPage = () => {
   const payload = getTokenPayload();
-  const isSuperAdmin = payload?.role === 'superAdmin';
+  const isSuperAdmin = payload?.role === 'superAdmin' || payload?.role === 'streamerSuper';
 
   const [streamers, setStreamers]               = useState([]);
   const [loadingStreamers, setLoadingStreamers] = useState(false);

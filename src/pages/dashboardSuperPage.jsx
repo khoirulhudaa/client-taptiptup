@@ -114,17 +114,67 @@ export const DashboardSuperPage = () => {
   const retained = (stats?.totalDonation?.amount || 0) - (stats?.totalWithdrawal?.amount || 0);
 
   const lastUpdate = dataUpdatedAt ? new Date(dataUpdatedAt).toLocaleTimeString('id-ID') : '-';
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader className="w-10 h-10 animate-spin" />
-          <p className="text-slate-400 font-black text-sm tracking-widest uppercase">Memuat data</p>
+  
+  if (isLoading) return (
+    <div className="space-y-5 pb-10 px-4 md:px-0 pt-2 animate-pulse">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div className="space-y-2">
+          <div className="h-5 w-44 bg-slate-200 dark:bg-slate-800 rounded-none" />
+          <div className="h-3 w-64 bg-slate-100 dark:bg-slate-700 rounded-none" />
+        </div>
+        <div className="flex gap-2">
+          <div className="h-8 w-28 bg-slate-200 dark:bg-slate-800 rounded-none" />
+          <div className="h-8 w-8 bg-slate-200 dark:bg-slate-800 rounded-none" />
         </div>
       </div>
-    );
-  }
+
+      {/* Row 1 - 4 cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 space-y-3">
+            <div className="flex justify-between items-center">
+              <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-700 rounded-none" />
+              <div className="h-7 w-7 bg-slate-100 dark:bg-slate-800 rounded-none" />
+            </div>
+            <div className="h-6 w-28 bg-slate-200 dark:bg-slate-700 rounded-none" />
+            <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-none" />
+            <div className="h-2.5 w-24 bg-slate-100 dark:bg-slate-700 rounded-none" />
+          </div>
+        ))}
+      </div>
+
+      {/* Row 2 - 4 cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 space-y-3">
+            <div className="flex justify-between items-center">
+              <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-700 rounded-none" />
+              <div className="h-7 w-7 bg-slate-100 dark:bg-slate-800 rounded-none" />
+            </div>
+            <div className="h-6 w-16 bg-slate-200 dark:bg-slate-700 rounded-none" />
+            <div className="h-2.5 w-28 bg-slate-100 dark:bg-slate-700 rounded-none" />
+          </div>
+        ))}
+      </div>
+
+      {/* Row 3 - 3 cards */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {[70, 100, 100].map((h, i) => (
+          <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 space-y-4">
+            <div className="space-y-1.5">
+              <div className="h-3.5 w-24 bg-slate-200 dark:bg-slate-700 rounded-none" />
+              <div className="h-2.5 w-36 bg-slate-100 dark:bg-slate-700 rounded-none" />
+            </div>
+            <div className={`h-${h === 70 ? 20 : 32} w-full bg-slate-100 dark:bg-slate-800 rounded-none`} />
+            {[...Array(i === 0 ? 0 : 3)].map((_, j) => (
+              <div key={j} className="h-10 w-full bg-slate-50 dark:bg-slate-800 rounded-none" />
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <div className="h-max text-white pb-0 px-4 md:px-0 pt-2 md:pt-0 space-y-8 font-sans">
