@@ -1151,12 +1151,12 @@ const AdminWithdrawalPage = () => {
         ))}
       </div>
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm w-[91vw] mx-auto md:w-full rounded-none shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800">
+        <div className="hidden md:flex items-center justify-between px-4 md:px-6 py-5 border-b border-slate-100 dark:border-slate-800">
           <div>
             <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{statusFilter ? `Request ${statusFilter}` : 'Semua Request'}</p>
             <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{pagination.total || 0} total</p>
           </div>
-          <span className="px-4 py-2 bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-none text-[10px] font-black uppercase tracking-widest">Super Admin Only</span>
+          {/* <span className="px-4 py-2 bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-none text-[10px] font-black uppercase tracking-widest">Super Admin Only</span> */}
         </div>
         {isLoading
           ? <div className="flex items-center justify-center py-20 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-none animate-spin" />Memuat data...</div>
@@ -1167,7 +1167,7 @@ const AdminWithdrawalPage = () => {
                 <table className="w-full text-left min-w-[900px]">
                   <thead>
                     <tr className="bg-slate-50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">
-                      {['Streamer', 'Jumlah', 'Metode / Bank', 'No. Rekening', 'Status', 'Waktu', ...(statusFilter === 'PENDING' ? ['Aksi'] : [])].map(h => <th key={h} className="px-6 py-5">{h}</th>)}
+                      {['Streamer', 'Jumlah', 'Metode', 'No. Rekening', 'Status', 'Waktu', ...(statusFilter === 'PENDING' ? ['Aksi'] : [])].map(h => <th key={h} className="px-6 py-5">{h}</th>)}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
