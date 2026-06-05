@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { AlertCircle, ChevronRight, Expand, Eye, EyeOff, HeadphonesIcon, LogOut, Moon, PanelLeftClose, PanelLeftOpen, SendHorizonal, Sun, Users, Wallet } from "lucide-react";
+import { AlertCircle, ChevronRight, Expand, Eye, Shield,  EyeOff, HeadphonesIcon, LogOut, Moon, PanelLeftClose, PanelLeftOpen, SendHorizonal, Sun, Users, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InboxBell from "./inboxBell";
@@ -132,6 +132,9 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
   const [showTransfer, setShowTransfer]           = useState(false);
   const [currentBalance, setCurrentBalance]       = useState(user?.balance ?? 0);
   const { theme, toggle } = useTheme();
+  const [adminMode, setAdminMode] = useState(() => {
+    return localStorage.getItem('adminMode') === 'true';
+  });
   const navigate = useNavigate();
   const [showBalance, setShowBalance] = useState(() => {
     const saved = localStorage.getItem('showBalance');
@@ -158,6 +161,17 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
     localStorage.removeItem('token');
     navigate('/login');
   };
+
+  const handleAdminMode = () => {
+  const nextMode = !adminMode;
+
+  setAdminMode(nextMode);
+  localStorage.setItem('adminMode', String(nextMode));
+
+  window.dispatchEvent(new Event('storage'));
+
+  setShowLogout(false);
+};
 
   useEffect(() => {
     localStorage.setItem('showBalance', showBalance);
@@ -368,6 +382,23 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                         </div>
                         Profil saya
                       </button>
+                      {user?.role === 'streamerSuper' && (
+                        <>
+                          <div className="w-[92%] mx-auto h-[0.5px] bg-slate-100 dark:bg-slate-800" />
+                          <button
+                            onClick={handleAdminMode}
+                            className={`cursor-pointer w-full flex items-center gap-3 px-4 py-2.5 font-bold rounded-none text-sm transition-all active:scale-[0.99]
+                            ${
+                              adminMode
+                                ? 'text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30'
+                                : 'text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-950/30'
+                            }`}
+                          >
+                            <Shield size={16} />
+                            { adminMode ? 'Keluar Mode Streamer' : 'Mode Admin'}
+                          </button>
+                        </>
+                      )}
                       <div className="w-[92%] mx-auto h-[0.5px] bg-slate-100 dark:bg-slate-800" />
                       <button
                         onClick={() => { setShowLogout(false); setShowLogoutConfirm(true); }}

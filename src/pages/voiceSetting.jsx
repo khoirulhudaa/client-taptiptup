@@ -152,7 +152,7 @@
         const [isSending, setIsSending]         = useState(false);
         const [lastSent, setLastSent]           = useState(null);
         const [voiceUrl, setVoiceUrl]           = useState('');
-        const [customName, setCustomName]       = useState('Mas Dev');
+        const [customName, setCustomName]       = useState('Seseorang');
         const [customAmount, setCustomAmount]   = useState(50000);
         const [customMsg, setCustomMsg]         = useState('');
 
@@ -217,7 +217,7 @@
                             value={customName}
                             onChange={e => setCustomName(e.target.value)}
                             className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
-                            placeholder="Mas Dev"
+                            placeholder="Seseorang"
                         />
                     </div>
                     <div className="flex flex-col gap-1.5">

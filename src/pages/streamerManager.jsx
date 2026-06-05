@@ -135,7 +135,7 @@ const ConfirmModal = ({ type, user, newRole, onConfirm, onClose, loading }) => {
 // ─── User card (grid view) ────────────────────────────────────────────────────
 const UserCard = ({ user, onToggle, onDelete, onRole }) => {
   const isActive  = user.isActive !== false;
-  const isSuperAdmin = user.role === 'superAdmin';
+  const isSuperAdmin = user.role === 'streamerSuper';
  
   return (
     <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-none p-5 flex flex-col gap-4 hover:shadow-md transition-all">
@@ -167,13 +167,13 @@ const UserCard = ({ user, onToggle, onDelete, onRole }) => {
  
       {/* — Role badge — */}
       <div>
-        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-none text-[10px] font-black ${
+        <span className={`inline-flex items-center gap-1 p-1 rounded-none text-[10px] font-black ${
           isSuperAdmin
-            ? 'bg-purple-100 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400'
-            : 'bg-sky-100 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400'
+            ? 'bg-purple-100 dark:bg-purple-950/40 text-purple-400'
+            : 'bg-sky-100 dark:bg-sky-950/40 text-sky-400'
         }`}>
           {isSuperAdmin ? <Shield size={10} /> : <User size={10} />}
-          {isSuperAdmin ? 'SuperAdmin' : 'User'}
+          {isSuperAdmin ? 'StreamerSuper' : 'User'}
         </span>
       </div>
  
@@ -207,7 +207,7 @@ const UserCard = ({ user, onToggle, onDelete, onRole }) => {
         </button>
  
         <button
-          onClick={() => onRole(user, isSuperAdmin ? 'user' : 'superAdmin')}
+          onClick={() => onRole(user, isSuperAdmin ? 'user' : 'streamerSuper')}
           title={isSuperAdmin ? 'Turunkan ke User' : 'Jadikan SuperAdmin'}
           className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all border ${
             isSuperAdmin
@@ -261,12 +261,41 @@ const StreamerManagerPage = () => {
   const roleMutation = useMutation({
     mutationFn: ({ id, role }) =>
       api.put(`/api/streamer-manage/${id}/change-role`, { role }).then((r) => r.data),
-    onSuccess: (res) => {
-      toast.success(res.message);
+
+    onSuccess: (res, variables) => {
+      const newRoleName = variables.role === 'streamerSuper' 
+        ? 'Streamer Super Admin' 
+        : 'User Biasa';
+
+      toast.success(
+        <div className="flex items-center gap-2">
+          <ShieldCheck size={18} className="text-purple-500" />
+          <span>
+            Role <span className="font-bold">@{res.username || variables.user?.username}</span> 
+            berhasil diubah menjadi <span className="font-bold text-purple-600">{newRoleName}</span>
+          </span>
+        </div>,
+        {
+          duration: 4000,
+          position: 'top-center',
+          style: {
+            background: '#1f2937',
+            color: '#e0f2fe',
+            border: '1px solid #7c3aed',
+          },
+        }
+      );
+
       queryClient.invalidateQueries({ queryKey: ['streamer-manage'] });
       setConfirmModal(null);
     },
-    onError: (err) => toast.error(err.response?.data?.message || 'Gagal ubah role'),
+
+    onError: (err) => {
+      toast.error(
+        err.response?.data?.message || 'Gagal mengubah role',
+        { position: 'top-center' }
+      );
+    },
   });
 
   const toggleMutation = useMutation({
@@ -505,16 +534,16 @@ const StreamerManagerPage = () => {
                             onClick={() => setConfirmModal({
                               type: 'role',
                               user: u,
-                              newRole: u.role === 'superAdmin' ? 'user' : 'superAdmin',
+                              newRole: u.role === 'streamerSuper' ? 'user' : 'streamerSuper',
                             })}
-                            title={u.role === 'superAdmin' ? 'Turunkan ke User' : 'Jadikan SuperAdmin'}
+                            title={u.role === 'streamerSuper' ? 'Turunkan ke User' : 'Jadikan StreamerSuper'}
                             className={`px-2.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all ${
-                              u.role === 'superAdmin'
+                              u.role === 'streamerSuper'
                                 ? 'bg-purple-50 dark:bg-purple-950/30 text-purple-600 border border-purple-200 dark:border-purple-800 hover:bg-purple-100'
                                 : 'bg-sky-50 dark:bg-sky-950/30 text-sky-600 border border-sky-200 dark:border-sky-800 hover:bg-sky-100'
                             }`}
                           >
-                            {u.role === 'superAdmin' ? <ShieldOff size={16} /> : <ShieldCheck size={16} />}
+                            {u.role === 'streamerSuper' ? <ShieldOff size={16} /> : <ShieldCheck size={16} />}
                           </button>
                           <button
                             onClick={() => setConfirmModal({ type: 'delete', user: u })}

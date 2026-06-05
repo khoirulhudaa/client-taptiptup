@@ -27,8 +27,8 @@ import {
   Zap,
   ZapIcon
 } from 'lucide-react';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const getTokenPayload = () => {
   const token = localStorage.getItem('token');
@@ -43,7 +43,9 @@ const getTokenPayload = () => {
 const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isCollapsed, setIsCollapsed }) => {
   const navigate = useNavigate();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
-  const [superMode, setSuperMode] = useState(false);
+  const [superMode, setSuperMode] = useState(() => {
+    return localStorage.getItem('adminMode') === 'true';
+  });
 
   const payload = getTokenPayload();
   const isSuperAdmin = payload?.role === 'superAdmin';
@@ -53,6 +55,20 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     localStorage.removeItem('token');
     navigate('/login');
   };
+
+  useEffect(() => {
+    const syncAdminMode = () => {
+      setSuperMode(localStorage.getItem('adminMode') === 'true');
+    };
+
+    syncAdminMode(); // <-- tambahkan ini
+
+    window.addEventListener('storage', syncAdminMode);
+
+    return () => {
+      window.removeEventListener('storage', syncAdminMode);
+    };
+  }, []);
 
   const superAdminOnly = ['whatsapp', 'suggestions', 'ghostAlert'];
 
@@ -345,11 +361,10 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
             </button>
           )}
 
-          {isStreamerSuper && (
+          {isStreamerSuper && superMode && (
             <>
               <div className="w-full h-[1px] my-3 bg-slate-200 dark:bg-slate-800" />
               <button
-                onClick={() => setSuperMode(v => !v)}
                 className={`cursor-pointer mb-2 w-full flex items-center rounded-none font-black text-sm transition-all
                   ${isCollapsed ? 'justify-center px-0 py-3' : 'gap-4 px-4 py-3'}
                   ${superMode

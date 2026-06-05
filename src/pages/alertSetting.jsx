@@ -336,7 +336,7 @@ export const InstantTestAlert = ({ overlayToken, settings, user }) => {
   const [isSending, setIsSending]       = useState(false);
   const [lastSent, setLastSent]         = useState(null);
   const [customAmount, setCustomAmount] = useState(50000);
-  const [customName, setCustomName]     = useState('Mas Dev');
+  const [customName, setCustomName]     = useState('Seseorang');
   const [customMsg, setCustomMsg]       = useState('Ini test donasi dari dashboard! 🎉');
   const [customVoiceUrl, setCustomVoiceUrl] = useState('');
 
@@ -373,7 +373,7 @@ export const InstantTestAlert = ({ overlayToken, settings, user }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {[
-          { label: 'Nama Donor',  val: customName,     set: setCustomName,     ph: 'Mas Dev',            type: 'text' },
+          { label: 'Nama Donor',  val: customName,     set: setCustomName,     ph: 'Seseorang',            type: 'text' },
           { label: 'Nominal (Rp)', val: customAmount,  set: setCustomAmount,   ph: '50000',                type: 'number' },
           { label: 'Pesan',       val: customMsg,      set: setCustomMsg,      ph: 'Pesan test...',        type: 'text' },
         ].map(({ label, val, set, ph, type }) => (

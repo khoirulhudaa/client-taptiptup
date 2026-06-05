@@ -2,6 +2,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import StoreManager from './storeManager';           // buat file baru
 import StoreWidget from '../components/storeWidget'; // widget OBS
+import confetti from 'canvas-confetti';
+import { useWindowSize } from '@react-hook/window-size';
 import {
   AlertCircle,
   Calendar,
@@ -288,7 +290,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
   const [isSending, setIsSending] = useState(false);
   const [lastSent, setLastSent] = useState(null);
   const [customAmount, setCustomAmount] = useState(50000);
-  const [customName, setCustomName] = useState('Mas Dev');
+  const [customName, setCustomName] = useState('Seseorang');
   const [customMsg, setCustomMsg] = useState('Ini test donasi dari dashboard! 🎉');
   const [customVoiceUrl, setCustomVoiceUrl] = useState('');
 
@@ -329,7 +331,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
           <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Donor</label>
           <input value={customName} onChange={e => setCustomName(e.target.value)}
             className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
-            placeholder="Mas Dev" />
+            placeholder="Seseorang" />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nominal (Rp)</label>
@@ -397,7 +399,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
   const [isSending, setIsSending] = useState(false);
   const [lastSent, setLastSent] = useState(null);
   const [formData, setFormData] = useState({
-    donorName: 'Mas Dev',
+    donorName: 'Seseorang',
     amount: '25000',
     message: 'Terima kasih atas dukungannya! 🔥',
     mediaUrl: 'https://picsum.photos/400/300',
@@ -449,7 +451,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Donor</label>
           <input value={formData.donorName} onChange={e => updateForm('donorName', e.target.value)}
             className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm focus:border-purple-400 focus:outline-none transition-all"
-            placeholder="@Mas Dev" />
+            placeholder="@Seseorang" />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nominal</label>
@@ -2896,11 +2898,13 @@ export const DashboardStreamer = () => {
   const [followAction, setFollowAction]   = useState({ type: '', username: '' });
   const [navbar, setNavbar]               = useState(false);
   const [showBalance, setShowBalance]     = useState(false);
+  const [width, height] = useWindowSize();
   const [iconMode, setIconMode] = useState('emoji');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [pinStep, setPinStep] = useState('idle'); // idle | success | error
   const [overlayDone, setOverlayDone] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showPins, setShowPins] = useState({
     currentPin: false,
     newPin: false,
@@ -2919,6 +2923,43 @@ export const DashboardStreamer = () => {
   const { maintenance } = useMaintenance(); // ← tambah ini
   const [activeSlot, setActiveSlot] = useState('A'); // 'A' | 'B'
   const [localSettingsB, setLocalSettingsB] = useState(null);
+  const [showConfetti, setShowConfetti] = useState(true);
+  
+  const UpgradeConfetti = () => {
+  useEffect(() => {
+    const duration = 5000;
+    const end = Date.now() + duration;
+
+    const timer = setInterval(() => {
+      if (Date.now() > end) {
+        clearInterval(timer);
+        return;
+      }
+
+      confetti({
+        particleCount: 15,
+        angle: 60,
+        spread: 70,
+        startVelocity: 60,
+        zIndex: 99999,
+        origin: { x: 0, y: 1 },
+      });
+
+      confetti({
+        particleCount: 15,
+        angle: 120,
+        spread: 70,
+        startVelocity: 60,
+        zIndex: 99999,
+        origin: { x: 1, y: 1 },
+      });
+    }, 150);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return null;
+};
 
 // ─── PIN HANDLERS (dipindah ke dalam komponen) ─────────────────────────────────
 
@@ -3003,13 +3044,7 @@ const handleChangePin = async () => {
 
   const { theme, toggle } = useTheme();
 
-  useEffect(() => {
-    if (user?.role === 'superAdmin' && !user.roleUpgradeNotified) {
-      setShowUpgradeModal(true);
-    }
-  }, [user]);
-
-  const { data: profileData, isLoading: profileLoading } = useQuery({
+  const { data: profileData, isLoading: profileLoading, refetch: isRefetchProfile } = useQuery({
     queryKey: ['profile', activeSlot],     // ← INI YANG BENAR
     queryFn: () => fetchProfile(activeSlot),
     refetchInterval: 30000,
@@ -3074,12 +3109,6 @@ const handleChangePin = async () => {
     return payload?.role === 'superAdmin';
   }, [profileData]);
 
-  // const saveSettingsMutation = useMutation({
-  //   mutationFn: saveSettings,
-  //   onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['profile'] }); setShowToast(true); setTimeout(() => setShowToast(false), 3000); },
-  //   onError: (err) => alert(err || 'Gagal menyimpan pengaturan'),
-  // });
-
   const saveSettingsMutation = useMutation({
     mutationFn: ({ settings, slot }) => saveSettings(settings, slot),
     onSuccess: (_, variables) => { 
@@ -3115,6 +3144,8 @@ const handleChangePin = async () => {
         youtube:   profileData?.user?.youtube   || profileData?.User?.youtube   || '',
         twitter:   profileData?.user?.twitter   || profileData?.User?.twitter   || '',
         currentUser: profileData?.user || profileData?.User || {},
+        role: profileData?.user?.role || profileData?.User.role || {},
+        roleUpgradeNotified: profileData?.User?.roleUpgradeNotified ?? profileData?.user?.roleUpgradeNotified ?? false,
       });
     }
   }, [profileData]);
@@ -3126,6 +3157,8 @@ const handleChangePin = async () => {
     balance:      profileData?.User?.walletBalance || profileData?.walletBalance       || 0,
     overlayToken: profileData?.user?.overlayToken  || profileData?.User?.overlayToken  || '',
     overlayUrl:   `${window.location.origin}/overlay/${profileData?.user?.overlayToken || profileData?.User?.overlayToken || ''}`,
+    role:   profileData?.User?.role,
+    roleUpgradeNotified:   profileData?.user?.roleUpgradeNotified || profileData?.User?.roleUpgradeNotified,
   };
 
   useEffect(() => {
@@ -3159,6 +3192,17 @@ const handleChangePin = async () => {
     setLocalSettings(prev => ({ ...prev, [key]: val }));
     if (key === 'publicSounds') setFormData(prev => ({ ...prev, publicSounds: val }));
   }, []);
+
+  useEffect(() => {
+    // Pastikan roleUpgradeNotified sudah false secara eksplisit, bukan undefined
+    if (user?.role === 'streamerSuper' && user.roleUpgradeNotified === false) {
+      setShowUpgradeModal(true);
+    } else {
+      setShowUpgradeModal(false); // ← tutup jika sudah true
+    }
+  }, [user?.role, user?.roleUpgradeNotified]);
+
+  console.log('user', user)
 
   const copyToClipboard = (text, label = 'URL') => {
     navigator.clipboard.writeText(text);
@@ -4251,29 +4295,38 @@ const handleChangePin = async () => {
         <div onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-50 lg:hidden" />
       )}
 
-      {showUpgradeModal && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 max-w-md text-center">
-            <ShieldCheck className="w-16 h-16 mx-auto text-purple-600 mb-4" />
-            <h2 className="text-2xl font-black mb-2">Selamat! 🎉</h2>
-            <p className="text-lg font-bold text-purple-600 mb-4">
-              Akunmu telah ditingkatkan menjadi Super Admin
-            </p>
-            <p className="text-slate-600 dark:text-slate-400 mb-6">
-              Kamu sekarang memiliki akses penuh untuk mengelola semua streamer.
-            </p>
-            <button
-              onClick={async () => {
-                await api.put('/api/user/mark-role-upgrade-notified');
+     {showUpgradeModal && (
+      <div className="fixed inset-0 z-[99999] overlow-hidden flex items-center justify-center bg-black/60 backdrop-blur-md">
+
+        <UpgradeConfetti />
+
+        <div className="bg-white dark:bg-slate-900 p-8 max-w-max text-center">
+          <ShieldCheck className="w-16 h-16 mx-auto text-blue-500 mb-4" />
+          <h2 className="text-2xl font-black mb-2">Akun superStreamer</h2>
+          <p className="text-slate-600 dark:text-slate-400 mb-6">
+            Memiliki akses penuh untuk mengelola semua akun streamer taptiptup.
+          </p>
+          <button
+            onClick={async () => {
+              try {
+                await api.put('/api/streamer-manage/mark-role-upgrade-notified');
+                
+                // Tunggu refetch selesai
+                await isRefetchProfile();
+                
                 setShowUpgradeModal(false);
-              }}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-black px-8 py-3 rounded-xl"
-            >
-              Terima Kasih
-            </button>
-          </div>
+              } catch (err) {
+                console.error('Gagal update notified:', err);
+                setShowUpgradeModal(false); // tetap tutup meski error
+              }
+            }}
+            className="cursor-pointer active:scale-[0.99] bg-blue-600 mt-4 hover:bg-blue-700 text-white font-black px-4 py-3"
+          >
+            Terima Kasih
+          </button>
         </div>
-      )}
+      </div>
+    )}
 
       <CustomerServiceWidget />
     </div>
