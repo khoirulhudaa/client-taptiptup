@@ -573,7 +573,7 @@ export const WithdrawPage = () => {
           ) : (
             /* ==================== TABLE VIEW ==================== */
             <div className="overflow-x-auto">
-              <table className="w-full text-left min-w-[700px]">
+              <table className="w-full text-left md:min-w-[700px]">
                 <thead>
                   <tr className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">
                     <th className="px-5 md:px-8 py-4">Nominal</th>

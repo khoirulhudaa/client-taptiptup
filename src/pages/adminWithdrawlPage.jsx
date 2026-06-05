@@ -88,7 +88,7 @@ export const AdminWithdrawalPage = () => {
       </div>
 
       {/* Table */}
-      <div className="bg-white w-full rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+      <div className="bg-white w-[90vw] md:w-full rounded-xl shadow-sm border border-slate-100 overflow-hidden">
         <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
           <div>
             <p className="text-xs font-black text-slate-400 uppercase tracking-widest">

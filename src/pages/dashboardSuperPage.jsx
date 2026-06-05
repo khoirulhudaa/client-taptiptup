@@ -177,7 +177,7 @@ export const DashboardSuperPage = () => {
   );
 
   return (
-    <div className="h-max text-white pb-0 px-4 md:px-0 pt-2 md:pt-0 space-y-8 font-sans">
+    <div className="h-max text-white pb-4 md:pb-0 px-4 md:px-0 pt-2 md:pt-0 space-y-8 font-sans">
 
       {/* ── Header ── */}
       <motion.div {...staggerChild(0)} className="hidden md:flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -210,7 +210,7 @@ export const DashboardSuperPage = () => {
       </motion.div>
 
       {/* ── Stat Cards ── */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
         <StatCard index={1} label="Total Donasi Masuk"   value={fmtRp(stats?.totalDonation?.amount)}   sub={`${fmt(stats?.totalDonation?.count)} transaksi`}    icon={DollarSign}   accent="#6366f1" />
         <StatCard index={2} label="Total Users"           value={fmt(stats?.totalUsers)}                sub="Akun streamer aktif"                                   icon={Users}        accent="#22d3ee" />
         <StatCard index={3} label="Total Pencairan"       value={fmtRp(stats?.totalWithdrawal?.amount)} sub={`${fmt(stats?.totalWithdrawal?.count)} transaksi`}      icon={Wallet}       accent="#34d399" />

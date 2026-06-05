@@ -94,7 +94,7 @@ const MaintenancePage = () => {
           {pages.map(({ key, label, desc }) => (
             <div key={key} className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
               <div>
-                <p className="font-bold">{label}</p>
+                <p className="text-sm md:text-md font-bold">{label}</p>
                 <p className="text-xs text-slate-500">{desc}</p>
               </div>
               <button

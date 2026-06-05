@@ -1128,7 +1128,7 @@ const AdminWithdrawalPage = () => {
 
   return (
     <div className="w-full space-y-5 pb-0">
-      <div className="bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 from-blue-700 to-indigo-800  rounded-none p-6 text-white">
+      <div className="bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 from-blue-700 to-indigo-800  rounded-none p-4 md:p-6 text-white">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-blue-300 dark:text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Super Admin</p>
@@ -1142,7 +1142,7 @@ const AdminWithdrawalPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex px-5 md:px-0 gap-3 flex-wrap">
+      <div className="flex px-4 md:px-0 gap-3 flex-wrap">
         {[{ val: 'PENDING', label: '⏳ Pending' }, { val: 'COMPLETED', label: '✅ Selesai' }, { val: 'FAILED', label: '❌ Ditolak' }, { val: '', label: '📋 Semua' }].map(f => (
           <button key={f.val} onClick={() => setStatusFilter(f.val)}
             className={`cursor-pointer active:scale-[0.98] px-4 py-2 rounded-none font-black text-sm transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700'}`}>
@@ -1150,7 +1150,7 @@ const AdminWithdrawalPage = () => {
           </button>
         ))}
       </div>
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm w-full rounded-none shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm w-[91vw] mx-auto md:w-full rounded-none shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
         <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800">
           <div>
             <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{statusFilter ? `Request ${statusFilter}` : 'Semua Request'}</p>

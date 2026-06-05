@@ -397,7 +397,7 @@ const StreamerManagerPage = () => {
       {/* Filters + Search */}
       <div className="flex flex-wrap items-center px-4 md:px-0 gap-2">
         {/* Search */}
-        <div className="flex gap-2 flex-1 min-w-[200px]">
+        <div className="flex gap-2 flex-1 w-max md:min-w-[200px]">
           <input
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}

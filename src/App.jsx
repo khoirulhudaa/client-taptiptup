@@ -180,7 +180,7 @@ function App() {
         </div>
 
         {/* Teks */}
-        <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', gap: 8, animation: 'fadein 0.6s 0.1s ease both' }}>
+        <div style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', gap: 8, animation: 'fadein 0.6s 0.1s ease both' }}>
           <p className='md:text-[36px] text-[24px]' style={{ fontFamily: "'Bebas Neue', sans-serif", textAlign: 'center', letterSpacing: '0.1em', color: '#f9f9f9', margin: 0 }}>
             TIDAK ADA SINYAL 
           </p>

@@ -64,7 +64,7 @@ export default function LoadingOverlay({ onDone }) {
           {tile.word && (
             <span
               style={{
-                fontSize: "clamp(5rem, 3.5vw, 64px)",
+                fontSize: "clamp(2.5rem, 3.5vw, 64px)",
                 fontWeight: 800,
                 letterSpacing: "-0.03em",
                 fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",

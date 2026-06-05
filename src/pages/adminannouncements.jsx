@@ -460,9 +460,9 @@ export const AdminAnnouncementsPage = () => {
               >
                 <div className={`h-[3px] ${cfg.color}`} />
                 <div className="p-4 md:p-5">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-start gap-4">
                     {/* Icon */}
-                    <div className={`w-9 h-9 rounded-none flex items-center justify-center flex-shrink-0 ${cfg.color} text-white`}>
+                    <div className={`relative top-1 w-9 h-9 rounded-none flex items-center justify-center flex-shrink-0 ${cfg.color} text-white`}>
                       {cfg.icon}
                     </div>
 
@@ -471,9 +471,9 @@ export const AdminAnnouncementsPage = () => {
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 flex-wrap mb-1">
-                            <h3 className="font-black truncate max-w-[780%] overflow-hidden text-slate-800 dark:text-slate-100 truncate">{ann.title}</h3>
+                            <h3 className="text-sm md:text-md font-black max-w-[780%] overflow-hidden text-slate-800 dark:text-slate-100 truncate">{ann.title}</h3>
                           </div>
-                          <p className={`text-sm text-slate-500 dark:text-slate-400 font-medium ${isExpanded ? '' : 'line-clamp-2'}`}>
+                          <p className={`text-xs md:text-sm text-slate-500 dark:text-slate-400 font-medium ${isExpanded ? '' : 'line-clamp-2'}`}>
                             {ann.description}
                           </p>
                           {ann.description.length > 120 && (
