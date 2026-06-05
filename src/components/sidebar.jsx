@@ -117,6 +117,14 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     ] : [])
   ];
 
+  // Function to toggle Admin/Streamer mode
+  const handleAdminMode = () => {
+    const nextMode = !superMode;
+    setSuperMode(nextMode);
+    localStorage.setItem('adminMode', String(nextMode));
+    window.dispatchEvent(new Event('storage'));
+  };
+
   const menuGroups = [
     {
       groupLabel: 'OBS & Overlay',
@@ -235,7 +243,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         `}
       >
         {/* Logo */}
-        <div className={`flex items-center mb-8 md:mb-11 ${isCollapsed ? 'justify-center px-2' : 'px-4 justify-between md:px-[8.5px] relative top-[1px]'}`}>
+        <div className={`flex items-center mb-8 md:mb-11 ${isCollapsed ? 'justify-center px-2' : 'px-2 justify-between md:px-[8.5px] relative top-[1px]'}`}>
           {!isCollapsed && (
             <a href='/'>
               <div className="flex items-center gap-3">
@@ -265,6 +273,29 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           )}
         </div>
 
+        {/* Toggle Admin/Streamer Mode (Mobile Only) */}
+        {isStreamerSuper && (
+          <div className="lg:hidden mb-4 px-2">
+            <div className='relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white mb-2'>
+              {superMode ? 'Mode Admin' : 'Mode Streamer'}
+            </div>
+            <div className="flex items-center justify-stsrt gap-2 rounded-none">
+              <button
+                onClick={handleAdminMode}
+                className={`relative cursor-pointer active:scale-[0.99] hover:brightness-95 w-16 h-8 rounded-none transition-colors duration-200 ease-in-out ${
+                  superMode ? 'bg-amber-500' : 'bg-blue-600'
+                }`}
+              >
+                <motion.div
+                  className="absolute top-1 w-7 h-6 bg-white rounded-none shadow"
+                  animate={{ left: superMode ? '31.7px' : '4px' }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                />
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Section label */}
         {!isCollapsed && (
           <div className="md:flex hidden pt-2 pb-2 px-2 relative mb-4">
@@ -287,7 +318,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
               <div key={group.groupLabel}>
                 {/* Group Label */}
                 {!isCollapsed && (
-                  <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">
+                  <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white mb-2">
                     {group.groupLabel}
                     <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
                   </div>
@@ -369,26 +400,6 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
 
           {isStreamerSuper && superMode && (
             <>
-              {/* <div className="w-full h-[1px] my-3 bg-slate-200 dark:bg-slate-800" /> */}
-              {/* <button
-                className={`cursor-pointer mb-2 w-full flex items-center rounded-none font-black text-sm transition-all
-                  ${isCollapsed ? 'justify-center px-0 py-3' : 'gap-4 px-4 py-3'}
-                  ${superMode
-                    ? 'bg-amber-500 text-white'
-                    : 'text-slate-400 bg-white/20 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700'
-                  }`}
-                title={isCollapsed ? 'Mode Super Admin' : undefined}
-              >
-                <ShieldAlert size={20} />
-                {!isCollapsed && (
-                  <span className="whitespace-nowrap flex-1 text-left">Mode Super Admin</span>
-                )}
-                {!isCollapsed && (
-                  <span className={`text-[9px] px-1.5 py-0.5 font-black rounded-none ${superMode ? 'bg-white/20' : 'bg-amber-500/20 text-amber-500'}`}>
-                    {superMode ? 'ON' : 'OFF'}
-                  </span>
-                )}
-              </button> */}
               <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">
                 {'Super Admin'}
                 <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
