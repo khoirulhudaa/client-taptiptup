@@ -164,7 +164,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
       groupLabel: 'Admin',
       items: [
         { id: 'suggestions',  label: 'Masukan Streamer', icon: <MessageSquare size={20} /> },
-        { id: 'ghostAlert',   label: 'Notif Hantu',      icon: <Zap size={20} /> },
+        { id: 'ghostAlert',   label: 'Testing notif',      icon: <Zap size={20} /> },
         {
           id: 'streamerManager',
           label: 'Kelola Streamer',
@@ -410,7 +410,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                 <div className="space-y-1">
                   {[
                     { id: 'suggestions',     label: 'Masukan Streamer', icon: <MessageSquare size={20} /> },
-                    { id: 'ghostAlert',      label: 'Notif Hantu',      icon: <Zap size={20} /> },
+                    { id: 'ghostAlert',      label: 'Testing notif',      icon: <Zap size={20} /> },
                     { id: 'streamerManager', label: 'Kelola Streamer',  icon: <Users size={20} /> },
                     { id: 'terminal',        label: 'Log Donasi',       icon: <Terminal size={20} /> },
                     { id: 'maintenance',     label: 'Maintenance Mode', icon: <ShieldAlert size={20} /> },
