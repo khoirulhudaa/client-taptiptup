@@ -472,9 +472,9 @@
                     <div style={{
                       fontFamily: "'Poppins', sans-serif",
                       fontSize: 22,
-                                        width: 'max-content',
+                      width: 'max-content',
                       fontWeight: 500,
-                      color: fg,
+                      color: highlight,
                       borderBottom: `1px solid ${highlight}25`,
                     }}>
                       {alert.donorName} 
