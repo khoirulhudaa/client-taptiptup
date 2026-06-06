@@ -9,7 +9,7 @@ const MaintenanceScreen = ({ title = "Sedang dalam pemeliharaan", subtitle }) =>
       .spin { animation: spin 1.6s linear infinite; transform-origin: center; }
     `}</style>
 
-    <div className="w-full max-w-[460px] text-center">
+    <div className="w-[96%] md:max-w-[50%] text-center">
 
       {/* Icon */}
       <div className="float-icon w-16 h-16 rounded-2xl bg-[rgba(245,158,11,0.12)] border border-[rgba(245,158,11,0.25)] flex items-center justify-center mx-auto mb-6">
@@ -78,52 +78,7 @@ const MaintenanceScreen = ({ title = "Sedang dalam pemeliharaan", subtitle }) =>
           </div>
 
         </div>
-
-        {/* Status bar */}
-        <div className="mt-4 px-6 md:px-0 pt-4 border-t border-[rgba(255,255,255,0.06)] flex justify-between items-center">
-          <div className="flex items-center gap-1.5">
-            <svg className="spin" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-            </svg>
-            <span className="text-xs text-slate-500">Pembaruan sistem sedang berjalan...</span>
-          </div>
-          <span className="text-xs font-medium text-indigo-400 whitespace-nowrap">Step 3/4</span>
-        </div>
-
       </div>
-
-      {/* Actions */}
-      <div className="grid grid-cols-2 gap-3 mb-8">
-        <a
-          href="https://wa.me/6289513093406"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center justify-center gap-[7px] px-4 py-2.5 bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] rounded-lg text-[13px] text-slate-400 no-underline"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
-          Hubungi kami
-        </a>
-        <button
-          onClick={() => window.location.reload()}
-          className="flex items-center justify-center gap-[7px] px-4 py-2.5 bg-[rgba(99,102,241,0.1)] border border-[rgba(99,102,241,0.25)] rounded-lg text-[13px] text-indigo-300 cursor-pointer"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="23 4 23 10 17 10"/>
-            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-          </svg>
-          Coba lagi
-        </button>
-      </div>
-
-      {/* Footer */}
-      <div className="pt-4 border-t border-[rgba(255,255,255,0.04)]">
-        <p className="m-0 text-xs text-slate-500">
-          TapTipTup — Platform donasi streamer Indonesia
-        </p>
-      </div>
-
     </div>
   </div>
 );
