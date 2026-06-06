@@ -556,7 +556,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
             <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
               {/* Nama mengirim amount */}
-              <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 8, borderBottom: `1px dashed ${hl}30`, paddingBottom: 8 }}>
+              <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 4, borderBottom: `1px dashed ${hl}30`, paddingBottom: 8 }}>
                 <span style={{ fontWeight: 900 }}>{alert.donorName}</span>
                 <span> mengirim </span>
                 <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}50` }}>
