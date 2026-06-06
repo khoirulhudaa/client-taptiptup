@@ -497,10 +497,10 @@
                     <div style={{
                       fontFamily: "'Poppins', sans-serif",
                       fontSize: 20,
-                      color: fg,
+                      color: 'black',
                       fontWeight: 400,
                       maxWidth: 500,
-                      background: highlight + '12',
+                      background: 'white',
                       border: `1px solid ${highlight}25`,
                       padding: '5px 8px',
                       lineHeight: 1.5,

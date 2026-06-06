@@ -1271,13 +1271,27 @@ const SupporterPage = () => {
   };
 
   // Load Midtrans Snap.js
+  // useEffect(() => {
+  //   const existing = document.querySelector('script[src*="snap.js"]');
+  //   if (existing) { setSnapReady(true); return; }
+  //   const script = document.createElement('script');
+  //   script.src = SNAP_URL;
+  //   script.setAttribute('data-client-key', MIDTRANS_CLIENT_KEY);
+  //   script.onload = () => setSnapReady(true);
+  //   document.head.appendChild(script);
+  // }, []);
+
   useEffect(() => {
-    const existing = document.querySelector('script[src*="snap.js"]');
-    if (existing) { setSnapReady(true); return; }
+    const isProduction = import.meta.env.VITE_NODE_ENV === 'production';
+    const DOKU_JS = isProduction
+      ? 'https://jokul.doku.com/jokul-checkout-js/v1/jokul-checkout-1.0.0.js'
+      : 'https://sandbox.doku.com/jokul-checkout-js/v1/jokul-checkout-1.0.0.js';
+
+    const existing = document.querySelector(`script[src="${DOKU_JS}"]`);
+    if (existing) return;
+
     const script = document.createElement('script');
-    script.src = SNAP_URL;
-    script.setAttribute('data-client-key', MIDTRANS_CLIENT_KEY);
-    script.onload = () => setSnapReady(true);
+    script.src = DOKU_JS;
     document.head.appendChild(script);
   }, []);
 
@@ -1418,7 +1432,10 @@ const SupporterPage = () => {
       const res = await axios.post(`${BASE_URL}/api/doku-payment/create-invoice`, payload);
 
       if (res.data.token && snapReady && window.snap) {
-        if (res.data.url) {
+        if (res.data.url && window.loadJokulCheckout) {
+          window.loadJokulCheckout(res.data.url);
+        } else {
+          // Opsi B: Redirect (fallback) 
           window.location.href = res.data.url;
         }
         // window.snap.pay(res.data.token, {
