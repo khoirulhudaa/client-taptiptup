@@ -485,7 +485,7 @@ const calculateMediaShareDuration = (config, amount) => {
               {/* Pesan */}
               {alert.message && (
                 <div style={{
-                  fontFamily: monospace, fontSize: 18, color: fg, fontWeight: 900,
+                  fontFamily: monospace, fontSize: 18, color: fg, fontWeight: 600,
                   background: 'rgba(255,255,255,0.04)', border: dimBorder,
                   padding: '0px 10px', lineHeight: 1.5, maxWidth: 500
                 }}>
@@ -528,10 +528,9 @@ const calculateMediaShareDuration = (config, amount) => {
               {/* Pesan */}
               {alert.message && (
                 <div style={{
-                  fontSize: 18, color: fg, fontWeight: 400,
+                  fontSize: 18, color: fg, fontWeight: 600,
                   // background: hl + '10', borderRadius: 8, padding: '0px 12px',
                   lineHeight: 1.6, 
-                  fontWeight: 900, 
                   // border: `1px solid ${hl}20`, 
                   maxWidth: 500
                 }}>
@@ -567,7 +566,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
               {/* Pesan */}
               {alert.message && (
-                <div style={{ fontWeight: 900, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, marginBottom: 10, maxWidth: 500 }}>
+                <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, marginBottom: 10, maxWidth: 500 }}>
                   {alert.message}
                 </div>
               )}
@@ -601,7 +600,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
             {/* Pesan */}
             {alert.message && (
-              <div style={{ fontWeight: 900, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderBottom: `1px solid ${hl}20`, paddingBottom: 8, marginBottom: 8, maxWidth: 500 }}>
+              <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderBottom: `1px solid ${hl}20`, paddingBottom: 8, marginBottom: 8, maxWidth: 500 }}>
                 {alert.message}
               </div>
             )}

@@ -1583,7 +1583,7 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
                 </span>
               </div>
               {currentDonor.msg && (
-                <div style={{ fontFamily: monospace, fontSize: 18, color: fg, fontWeight: 400, lineHeight: 1.5 }}>
+                <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5 }}>
                   {currentDonor.msg}
                 </div>
               )}
@@ -1608,7 +1608,7 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
             </div>
             <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} />
             {currentDonor.msg && (
-              <div style={{ fontSize: 13, color: fg, fontWeight: 400, background: hl + '10', borderRadius: 8, padding: '7px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
+              <div style={{ fontWeight: 600, fontSize: 13, color: fg, background: hl + '10', borderRadius: 8, padding: '7px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
                 {currentDonor.msg}
               </div>
             )}
@@ -1634,7 +1634,7 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
                 </span>
               </div>
               {currentDonor.msg && (
-                <div style={{ fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5 }}>
+                <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5 }}>
                   {currentDonor.msg}
                 </div>
               )}
@@ -1657,7 +1657,7 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
             </span>
           </div>
           {currentDonor.msg && (
-            <div style={{ fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderTop: `1px solid ${hl}20`, paddingTop: 8 }}>
+            <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderTop: `1px solid ${hl}20`, paddingTop: 8 }}>
               {currentDonor.msg}
             </div>
           )}
