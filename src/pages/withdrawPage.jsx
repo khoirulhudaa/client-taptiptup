@@ -8,7 +8,17 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 const authHeader = () => ({ Authorization: `Bearer ${localStorage.getItem('token')}` });
 
 const fetchProfile = async () => (await axios.get(`${BASE_URL}/api/overlay/settings`, { headers: authHeader() })).data;
-const postWithdraw = async (d) => (await axios.post(`${BASE_URL}/api/midtrans/withdraw`, d, { headers: authHeader() })).data;
+// const postWithdraw = async (d) => (await axios.post(`${BASE_URL}/api/midtrans/withdraw`, d, { headers: authHeader() })).data;
+
+// Jadi ini:
+const postWithdraw = async (d) => 
+  (await axios.post(`${BASE_URL}/api/disbursement/withdraw`, d, { headers: authHeader() })).data;
+
+// Tambah fungsi cek status
+const checkWithdrawStatus = async (referenceNo) =>
+  (await axios.get(`${BASE_URL}/api/disbursement/status/${referenceNo}`, { headers: authHeader() })).data;
+
+
 const fetchWDHistory = async ({ page = 1 } = {}) =>
   (await axios.get(`${BASE_URL}/api/midtrans/withdraw/history?page=${page}&limit=10`, { headers: authHeader() })).data;
 
@@ -566,6 +576,29 @@ export const WithdrawPage = () => {
                         <span className="text-red-500 text-right text-[10px] max-w-[140px] line-clamp-2">{wd.note}</span>
                       )}
                     </div>
+                    {wd.status === 'PENDING' && wd.midtransReference && (
+                      <button
+                        onClick={async () => {
+                          try {
+                            const result = await checkWithdrawStatus(wd.midtransReference);
+                            if (result.status !== wd.status) {
+                              queryClient.invalidateQueries({ queryKey: ['withdrawHistory'] });
+                              queryClient.invalidateQueries({ queryKey: ['profile'] });
+                            }
+                            showAlert(
+                              `Status: ${result.status}`,
+                              `Doku: ${result.dokuStatus || 'Menunggu'}`,
+                              result.status === 'COMPLETED' ? 'success' : 'error'
+                            );
+                          } catch (err) {
+                            showAlert('Gagal cek status', err.message);
+                          }
+                        }}
+                        className="text-[10px] font-black text-blue-500 hover:text-blue-700 flex items-center gap-1 mt-2"
+                      >
+                        <RefreshCw size={10} /> Cek Status
+                      </button>
+                    )}
                   </div>
                 );
               })}
