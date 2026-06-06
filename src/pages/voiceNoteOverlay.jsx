@@ -385,7 +385,7 @@ const VoiceNoteOverlay = () => {
                       border: `1px solid ${hl}20`, display: 'flex', flexDirection: 'column', gap: 6,
                     }}>
                       <div style={{ display: 'flex', alignItems: 'flex-end', gap: 3, height: 24 }}>
-                        {Array.from({ length: 69 }).map((_, i) => (
+                        {Array.from({ length: 68 }).map((_, i) => (
                           <span key={i} style={{
                             width: 4, display: 'inline-block', borderRadius: 2,
                             background: isPlaying ? hl : hl + '40',
@@ -490,7 +490,7 @@ const VoiceNoteOverlay = () => {
                       padding: '7px 10px', marginBottom: 6,
                     }}>
                       <div style={{ display: 'flex', alignItems: 'flex-end', gap: 3, height: 24, marginBottom: 5 }}>
-                        {Array.from({ length: 69 }).map((_, i) => (
+                        {Array.from({ length: 68 }).map((_, i) => (
                           <span key={i} style={{
                             width: 4, display: 'inline-block',
                             background: isPlaying ? hl : hl + '30',
