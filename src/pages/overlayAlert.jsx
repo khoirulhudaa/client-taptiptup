@@ -471,17 +471,17 @@
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{
                       fontFamily: "'Poppins', sans-serif",
-                      fontSize: 22,
+                      fontSize: 20,
                       width: 'max-content',
                       fontWeight: 500,
                       color: highlight,
                       borderBottom: `1px solid ${highlight}25`,
                     }}>
-                      {alert.donorName} 
+                      {alert.donorName} mengirim
                     </div>
                     <div style={{
                       fontFamily: "'Poppins', sans-serif",
-                      fontSize: 22,
+                      fontSize: 20,
                       marginLeft: 5,
                       fontWeight: 500,
                       color: highlight,
@@ -496,7 +496,7 @@
                   {alert.message && (
                     <div style={{
                       fontFamily: "'Poppins', sans-serif",
-                      fontSize: 20,
+                      fontSize: 18,
                       color: 'black',
                       fontWeight: 400,
                       maxWidth: 500,
