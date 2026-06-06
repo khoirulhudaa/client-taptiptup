@@ -1143,38 +1143,41 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
       <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
         Tipe Donasi
       </label>
-      <div className="grid grid-cols-3 border border-slate-300/20 rounded-none overflow-hidden">
-        {tabs.map((tab, idx) => {
-          const isActive = activeTab === tab.id;
-          const Icon = tab.icon;
-          const isLocked = tab.locked;
-          const hasWarning = tab.warning && !isActive;
+      {(() => {
+        const visibleTabs = tabs.filter(tab => !tab.locked);
+        const count = visibleTabs.length;
 
-          return (
-            <button
-              key={tab.id}
-              onClick={() => !isLocked && onTabChange(tab.id)}
-              disabled={isLocked}
-              className={`
-                relative flex flex-col items-center justify-center gap-1 py-3 px-1
-                text-[10px] font-black transition-all cursor-pointer select-none
-                ${isLocked
-                  ? 'opacity-40 cursor-not-allowed bg-slate-50 dark:bg-slate-900/50'
-                  : isActive
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
-                }
-              `}
-            >
-              <Icon size={15} className={isActive ? 'text-white' : isLocked ? 'text-slate-300 dark:text-slate-600' : 'text-slate-400 dark:text-slate-500'} />
-              <span className={isActive ? 'text-white' : ''}>{tab.label}</span>
-              {isLocked && (
-                <span className="text-[8px] opacity-60 font-medium">🔒 {tab.lockMsg}</span>
-              )}
-            </button>
-          );
-        })}
-      </div>
+        return (
+          <div
+            className="border border-slate-300/20 rounded-none overflow-hidden"
+            style={{ display: 'grid', gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))` }}
+          >
+            {visibleTabs.map((tab) => {
+              const isActive = activeTab === tab.id;
+              const Icon = tab.icon;
+              const hasWarning = tab.warning && !isActive;
+
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => onTabChange(tab.id)}
+                  className={`
+                    flex items-center justify-center gap-1.5 py-5 px-3
+                    text-[10px] font-black transition-all cursor-pointer select-none rounded-none
+                    ${isActive
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
+                    }
+                  `}
+                >
+                  <Icon size={13} className={isActive ? 'text-white' : 'text-slate-400 dark:text-slate-500'} />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        );
+      })()}
     </div>
   );
 };
