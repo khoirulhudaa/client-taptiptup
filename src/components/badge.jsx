@@ -30,10 +30,10 @@ const Badge = ({ type = 'streamer', name, active = true, className = '' }) => {
     donor: {
       '1x':   'Pernah berdonasi minimal 1 kali',
       '5x':   'Sudah berdonasi minimal 5 kali',
-      '10k':  'Total donasi kamu mencapai Rp 10.000',
-      '50k':  'Total donasi kamu mencapai Rp 50.000',
-      '100k': 'Total donasi kamu mencapai Rp 100.000',
-      '1jt':  'Total donasi kamu mencapai Rp 1.000.000',
+      '10k':  'Total donasi kamu Rp 10.000',
+      '50k':  'Total donasi kamu Rp 50.000',
+      '100k': 'Total donasi kamu Rp 100.000',
+      '1jt':  'Total donasi kamu Rp 1.000.000',
     }
   };
 
