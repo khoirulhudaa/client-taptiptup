@@ -81,7 +81,7 @@ const MilestonesWidget = () => {
       }}>
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-          <span style={{ fontSize: 24 }}>🎯</span>
+          <span style={{ fontSize: 24, left: totalDonation >= m.targetAmount ? -1 : 0 }}>🎯</span>
           <span style={{
             fontSize: 24,
             fontWeight: 700,
