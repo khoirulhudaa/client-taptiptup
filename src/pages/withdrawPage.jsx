@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircle, ArrowRight, CheckCircle2, Clock, CreditCard, Eye, EyeOff, Loader2, RefreshCw, ShieldCheck, Smartphone, Wallet, XCircle, AlertTriangle, List, Grid } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import TwoFactorSetup from './TwoFactorSetup';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const authHeader = () => ({ Authorization: `Bearer ${localStorage.getItem('token')}` });
@@ -109,7 +110,13 @@ export const WithdrawPage = () => {
 
   // === Alert Modal State ===
   const [alertModal, setAlertModal] = useState(null);
+
+  // === Google Authenticator States ===
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showTotpModal, setShowTotpModal] = useState(false);
+  const [totpCode, setTotpCode] = useState('');
+  const [totpError, setTotpError] = useState('');
+
   const showAlert = (title, message = '', type = 'error') => {
     setAlertModal({ title, message, type });
   };
@@ -168,22 +175,13 @@ export const WithdrawPage = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
       queryClient.invalidateQueries({ queryKey: ['withdrawHistory'] });
-      setFormData({ amount: '', formattedAmount: '', channelCode: method === 'BANK' ? 'BCA' : method, accountNumber: '', accountName: '' });
-
-      // Tutup modal PIN & reset PIN state
-      setShowPinModal(false);
-      setPin(["", "", "", ""]);
-      setPinError("");
-      setIsSubmitting(false);
-
-      // Optional: Tampilkan alert sukses
-      showAlert(
-        'Penarikan Berhasil Diajukan!',
-        'Admin akan memproses dalam 1×24 jam hari kerja',
-        'success'
-      );
+      setFormData({ amount: '', formattedAmount: '', channelCode: 'BCA', accountNumber: '', accountName: '' });
+      setShowTotpModal(false);
+      setTotpCode('');
+      setTotpError('');
+      showAlert('Penarikan Berhasil Diajukan!', 'Admin akan memproses dalam 1×24 jam hari kerja.', 'success');
     },
-    onError: (err) => showAlert('Terjadi Kesalahan', err.response?.data?.message || 'Silakan coba lagi.'),
+    onError: (err) => showAlert('Gagal Mengajukan Penarikan', err.response?.data?.message || 'Silakan coba lagi.'),
   });
 
   // Load lock + data penarikan saat mount
@@ -433,7 +431,34 @@ export const WithdrawPage = () => {
 
   const handleConfirmWithdraw = () => {
     setShowConfirmModal(false);
-    setShowPinModal(true);   // Buka modal PIN
+    setShowTotpModal(true);
+    setTotpCode('');
+    setTotpError('');
+  };
+
+  const handleVerifyTOTP = async () => {
+    if (totpCode.length !== 6) {
+      setTotpError("Masukkan 6 digit kode dari Google Authenticator");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setTotpError("");
+
+    try {
+      await withdrawMutation.mutateAsync({
+        amount: formData.amount,
+        paymentMethod: method,
+        channelCode: formData.channelCode,
+        accountNumber: formData.accountNumber,
+        accountName: formData.accountName,
+        totpCode: totpCode,           // ← Kirim ke backend
+      });
+    } catch (err) {
+      setTotpError(err.response?.data?.message || "Kode Google Authenticator salah");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const canSubmit = 
@@ -457,7 +482,9 @@ export const WithdrawPage = () => {
 
   return (
     <motion.div className="w-full mx-auto space-y-5" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
-
+      
+      <TwoFactorSetup />
+      
       {/* Alert Modal */}
       <AlertModal modal={alertModal} onClose={closeAlert} />
 
@@ -931,6 +958,62 @@ export const WithdrawPage = () => {
           </button>
         </div>
       )}
+
+      <AnimatePresence>
+        {showConfirmModal && (
+          <div className="fixed inset-0 z-[999998] flex items-center justify-center bg-black/70 backdrop-blur-md">
+            <motion.div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-none p-8 text-center">
+              <AlertTriangle size={40} className="mx-auto text-amber-500 mb-4" />
+              <p className="font-black text-xl">Konfirmasi Penarikan</p>
+              <div className="mt-6 bg-slate-50 dark:bg-slate-800 p-5 text-left text-sm space-y-2">
+                <div className="flex justify-between"><span className="text-slate-500">Nominal</span><span>Rp {amt.toLocaleString('id-ID')}</span></div>
+                <div className="flex justify-between"><span className="text-slate-500">Biaya Admin</span><span>Rp {WITHDRAW_FEE}</span></div>
+                <div className="flex justify-between font-bold text-emerald-600 border-t pt-2"><span>Diterima</span><span>Rp {netAmount.toLocaleString('id-ID')}</span></div>
+              </div>
+              <div className="flex gap-3 mt-8">
+                <button onClick={() => setShowConfirmModal(false)} className="flex-1 py-3 border font-bold">Batal</button>
+                <button onClick={handleConfirmWithdraw} className="flex-1 py-3 bg-blue-600 text-white font-bold">Lanjut Verifikasi 2FA</button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* === GOOGLE AUTHENTICATOR MODAL === */}
+      <AnimatePresence>
+        {showTotpModal && (
+          <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/70 backdrop-blur-md">
+            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white dark:bg-slate-900 w-full max-w-md rounded-none p-8">
+              <div className="text-center">
+                <ShieldCheck size={48} className="mx-auto text-blue-600 mb-4" />
+                <p className="font-black text-xl">Verifikasi Google Authenticator</p>
+                <p className="text-sm text-slate-500 mt-1">Masukkan 6 digit kode dari aplikasi Google Authenticator kamu</p>
+              </div>
+
+              <input
+                type="text"
+                maxLength={6}
+                value={totpCode}
+                onChange={(e) => {
+                  setTotpCode(e.target.value.replace(/[^0-9]/g, ''));
+                  setTotpError('');
+                }}
+                className="w-full text-center text-4xl tracking-[12px] font-mono py-6 mt-8 bg-slate-100 dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 rounded-none focus:border-blue-500 outline-none"
+                placeholder="000000"
+              />
+
+              {totpError && <p className="text-red-500 text-center mt-3 text-sm">{totpError}</p>}
+
+              <div className="flex gap-3 mt-8">
+                <button onClick={() => { setShowTotpModal(false); setTotpCode(''); setTotpError(''); }} className="flex-1 py-4 border font-bold hover:bg-slate-100 dark:hover:bg-slate-800">Batal</button>
+                <button onClick={handleVerifyTOTP} disabled={isSubmitting || totpCode.length !== 6} className="flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black disabled:opacity-60">
+                  {isSubmitting ? 'Memverifikasi...' : 'Verifikasi & Ajukan Penarikan'}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Confirmation Modal */}
       <ConfirmWithdrawModal
