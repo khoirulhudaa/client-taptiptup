@@ -3110,11 +3110,11 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
         </button>
       </div>
 
-      {/* {settings.ttsEnabled && (
+      {settings.ttsEnabled && (
         <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
             {[
-              { label: 'Kecepatan', key: 'ttsRate',   min: 0.5, max: 2, step: 0.1, fmt: v => v.toFixed(1) + 'x' },
+              // { label: 'Kecepatan', key: 'ttsRate',   min: 0.5, max: 2, step: 0.1, fmt: v => v.toFixed(1) + 'x' },
               { label: 'Volume',    key: 'ttsVolume', min: 0.1, max: 1, step: 0.1, fmt: v => Math.round(v*100) + '%' },
             ].map(({ label, key, min, max, step, fmt }) => (
               <div key={key}>
@@ -3162,7 +3162,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
             {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan TTS'}
           </button>
         </div>
-      )} */}
+      )}
     </div>
   );
 };
