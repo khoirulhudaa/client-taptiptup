@@ -1429,21 +1429,22 @@ const SupporterPage = () => {
         voiceUrl:     activeTab === 'voice' ? (form.voiceUrl || null) : null,
       };
 
-      const res = await axios.post(`${BASE_URL}/api/doku-payment/create-invoice`, payload);
+      // const res = await axios.post(`${BASE_URL}/api/doku-payment/create-invoice`, payload);
+      const res = await axios.post(`${BASE_URL}/api/midtrans/create-invoice`, payload);
 
       if (res.data.token && snapReady && window.snap) {
-        if (res.data.url && window.loadJokulCheckout) {
-          window.loadJokulCheckout(res.data.url);
-        } else {
-          // Opsi B: Redirect (fallback) 
-          window.location.href = res.data.url;
-        }
-        // window.snap.pay(res.data.token, {
-        //   onSuccess: () => (window.location.href = `/donation/success?username=${streamer.username}`),
-        //   onPending: () => (window.location.href = `/donation/pending?username=${streamer.username}`),
-        //   onError:   () => alert('Pembayaran gagal.'),
-        //   onClose:   () => {},
-        // });
+        // if (res.data.url && window.loadJokulCheckout) {
+        //   window.loadJokulCheckout(res.data.url);
+        // } else {
+        //   // Opsi B: Redirect (fallback) 
+        //   window.location.href = res.data.url;
+        // }
+        window.snap.pay(res.data.token, {
+          onSuccess: () => (window.location.href = `/donation/success?username=${streamer.username}`),
+          onPending: () => (window.location.href = `/donation/pending?username=${streamer.username}`),
+          onError:   () => alert('Pembayaran gagal.'),
+          onClose:   () => {},
+        });
       } else {
         window.location.href = res.data.url;
       }
