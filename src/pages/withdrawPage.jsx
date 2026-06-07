@@ -10,14 +10,16 @@ const authHeader = () => ({ Authorization: `Bearer ${localStorage.getItem('token
 const fetchProfile = async () => (await axios.get(`${BASE_URL}/api/overlay/settings`, { headers: authHeader() })).data;
 // const postWithdraw = async (d) => (await axios.post(`${BASE_URL}/api/midtrans/withdraw`, d, { headers: authHeader() })).data;
 
-// Jadi ini:
+// ─────────────────────────────────────────────────────────────
+// API CALLS
+// ─────────────────────────────────────────────────────────────
 const postWithdraw = async (d) => 
-  (await axios.post(`${BASE_URL}/api/disbursement/withdraw`, d, { headers: authHeader() })).data;
+  (await axios.post(`${BASE_URL}/api/midtrans/withdraw`, d, { headers: authHeader() })).data;
 
-// Tambah fungsi cek status
+// Cek status (jika masih pakai midtransReference)
 const checkWithdrawStatus = async (referenceNo) =>
-  (await axios.get(`${BASE_URL}/api/disbursement/status/${referenceNo}`, { headers: authHeader() })).data;
-
+  (await axios.get(`${BASE_URL}/api/midtrans/withdraw/status/${referenceNo}`, { headers: authHeader() })).data;
+// Note: Jika backend belum punya endpoint /status/:referenceNo, bisa dihapus atau disesuaikan nanti
 
 const fetchWDHistory = async ({ page = 1 } = {}) =>
   (await axios.get(`${BASE_URL}/api/midtrans/withdraw/history?page=${page}&limit=10`, { headers: authHeader() })).data;
@@ -107,6 +109,7 @@ export const WithdrawPage = () => {
 
   // === Alert Modal State ===
   const [alertModal, setAlertModal] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const showAlert = (title, message = '', type = 'error') => {
     setAlertModal({ title, message, type });
   };
@@ -186,17 +189,95 @@ export const WithdrawPage = () => {
     if (value && index < 3) pinRefs[index + 1].current?.focus();
   };
 
+  const ConfirmWithdrawModal = ({ isOpen, onClose, onConfirm, formData, netAmount, method }) => {
+    if (!isOpen) return null;
+
+    return (
+      <AnimatePresence>
+        <div className="fixed inset-0 z-[999998] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="bg-white dark:bg-slate-900 w-[99%] md:max-w-lg rounded-none shadow-2xl overflow-hidden"
+          >
+            <div className="p-8 text-center space-y-6">
+              <div className="w-16 h-16 mx-auto bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center rounded-full">
+                <AlertTriangle size={32} className="text-blue-600" />
+              </div>
+
+              <div>
+                <p className="font-bold text-xl text-slate-800 dark:text-slate-100">Konfirmasi Penarikan</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                  Pastikan data berikut sudah benar
+                </p>
+              </div>
+
+              <div className="bg-slate-50 dark:bg-slate-800 p-5 text-left rounded-none space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Metode</span>
+                  <span className="font-bold">{method === 'BANK' ? 'Transfer Bank' : 'E-Wallet DANA'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Tujuan</span>
+                  <span className="font-medium text-right">
+                    {formData.channelCode} • {formData.accountNumber}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Nama Pemilik</span>
+                  <span className="font-medium">{formData.accountName}</span>
+                </div>
+                <div className="border-t pt-3 flex justify-between font-bold text-emerald-600">
+                  <span>Yang diterima</span>
+                  <span>Rp {formatRupiah(netAmount)}</span>
+                </div>
+              </div>
+
+              <div className="flex gap-3 pt-4">
+                <button
+                  onClick={onClose}
+                  className="cursor-pointer active:scale-[0.99] flex-1 py-3.5 border border-slate-300 dark:border-slate-700 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                >
+                  Batal
+                </button>
+                <button
+                  onClick={onConfirm}
+                  className="cursor-pointer active:scale-[0.99] flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all active:scale-[0.98]"
+                >
+                  Lanjutkan ke PIN
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </AnimatePresence>
+    );
+  };
+
   const handlePinKeyDown = (index, e) => {
     if (e.key === "Backspace" && !pin[index] && index > 0) pinRefs[index - 1].current?.focus();
   };
 
   const handlePinSubmit = async () => {
     const fullPin = pin.join("");
-    if (fullPin.length < 4) { setPinError("Masukkan 4 digit PIN keamanan"); return; }
+    if (fullPin.length < 4) { 
+      setPinError("Masukkan 4 digit PIN keamanan"); 
+      return; 
+    }
+
     setIsSubmitting(true);
     setPinError("");
+
     try {
-      await withdrawMutation.mutateAsync({ ...formData, paymentMethod: method, securityPin: fullPin });
+      await withdrawMutation.mutateAsync({ 
+        amount: formData.amount,
+        paymentMethod: method,
+        channelCode: formData.channelCode,
+        accountNumber: formData.accountNumber,
+        accountName: formData.accountName,
+        securityPin: fullPin 
+      });
     } catch (err) {
       setPinError(err.response?.data?.message || "PIN salah atau terjadi kesalahan");
     } finally {
@@ -207,17 +288,29 @@ export const WithdrawPage = () => {
   const handleSubmit = () => {
     if (!formData.amount || isNaN(amt) || amt <= 0)
       return showAlert('Nominal Tidak Valid', 'Masukkan nominal penarikan yang valid sebelum melanjutkan.');
+
     if (availableBalance < MIN_SALDO)
       return showAlert('Saldo Tidak Mencukupi', `Kamu membutuhkan minimal saldo tersedia Rp ${formatRupiah(MIN_SALDO)} untuk mengajukan penarikan.`);
+
     if (amt < MIN_TARIK)
       return showAlert('Di Bawah Minimal Tarik', `Nominal penarikan minimal adalah Rp ${formatRupiah(MIN_TARIK)}.`);
+
     if (amt > MAX_TARIK)
       return showAlert('Melebihi Maksimal Tarik', `Nominal penarikan maksimal adalah Rp ${formatRupiah(MAX_TARIK)} per pengajuan.`);
+
     if (amt > availableBalance)
       return showAlert('Saldo Tidak Cukup', `Saldo tersedia kamu Rp ${formatRupiah(availableBalance)}, tidak cukup untuk menarik Rp ${formatRupiah(amt)}.`);
+
     if (!formData.accountNumber || !formData.accountName)
       return showAlert('Data Rekening Belum Lengkap', 'Lengkapi nomor rekening / e-wallet dan nama pemilik akun terlebih dahulu.');
-    setShowPinModal(true);
+
+    // Tampilkan modal konfirmasi dulu
+    setShowConfirmModal(true);
+  };
+
+  const handleConfirmWithdraw = () => {
+    setShowConfirmModal(false);
+    setShowPinModal(true);   // Buka modal PIN
   };
 
   const canSubmit = 
@@ -692,6 +785,16 @@ export const WithdrawPage = () => {
           </button>
         </div>
       )}
+
+      {/* Confirmation Modal */}
+      <ConfirmWithdrawModal
+        isOpen={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={handleConfirmWithdraw}
+        formData={formData}
+        netAmount={netAmount}
+        method={method}
+      />
     </motion.div>
   );
 };
