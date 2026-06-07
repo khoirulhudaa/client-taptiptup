@@ -612,7 +612,7 @@ export const WithdrawPage = () => {
                     className="cursor-pointer active:scale-[0.98] flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold disabled:opacity-60 transition-all flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? <Loader2 className="animate-spin" size={18} /> : <ShieldCheck size={18} />}
-                    {isSubmitting ? "Memverifikasi..." : "Konfirmasi"}
+                    {isSubmitting ? "Verfikasi" : "Konfirmasi"}
                   </button>
                 </div>
               </div>
