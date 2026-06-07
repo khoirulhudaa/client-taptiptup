@@ -463,7 +463,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       {/* 4 Template Pesan Cepat */}
       <div>
         <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Template Pesan Cepat</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {messageTemplates.map((template, index) => (
             <button
               key={index}
@@ -1424,7 +1424,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                 onChange={(e) => onChange('alertBaseDuration', e.target.value === '' ? 12 : Number(e.target.value))}
                 min={5}
                 max={60}
-                className="w-full text-2xl font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none p-4"
+                className="w-full text-2xl font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none pb-2.5 p-2"
               />
               <p className="text-xs text-slate-500 mt-2">
                 Alert minimal akan bertahan selama ini. Jika TTS lebih lama, akan mengikuti TTS.
