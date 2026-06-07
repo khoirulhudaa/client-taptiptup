@@ -128,7 +128,7 @@ const LeaderboardWidget = () => {
                 width: 28,
                 height: 28,
                 borderRadius: 0,
-                background: i < 3 ? `${RANK_COLORS[i]}22` : 'rgba(255,255,255,0.20)', // ← hapus putih
+                background: i < 3 ? `${RANK_COLORS[i]}22` : '#ffffff22',
                 display: 'flex',
                 textAlign: 'center',
                 alignItems: 'center',
