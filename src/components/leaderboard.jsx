@@ -119,7 +119,7 @@ const LeaderboardWidget = () => {
                 gap: 10,
                 padding: '9px 16px',
                 background: i < 3 ? `rgba(255,255,255,0.02)` : 'transparent',
-                borderLeft: i < 3 ? `3px solid ${RANK_COLORS[i]}` : '3px solid transparent',
+                borderLeft: i < 3 ? `3px solid ${RANK_COLORS[i]}` : '3px solid rgba(255,255,255,0.25)',
                 animation: `fadeIn 0.3s ease ${i * 0.05}s both`,
               }}
             >
@@ -128,13 +128,14 @@ const LeaderboardWidget = () => {
                 width: 28,
                 height: 28,
                 borderRadius: 0,
-                background: i < 3 ? `${RANK_COLORS[i]}22` : 'rgba(255,255,255,1)',
+                background: i < 3 ? `${RANK_COLORS[i]}22` : 'transparent', // ← hapus putih
                 display: 'flex',
+                textAlign: 'center',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: i < 3 ? 14 : 11,
                 fontWeight: 800,
-                color: i < 3 ? RANK_COLORS[i] : 'rgba(255,255,255,1)',
+                color: i < 3 ? RANK_COLORS[i] : RANK_COLORS[2], // ← pakai warna posisi 3 (#f97316)
                 flexShrink: 0,
               }}>
                 {i < 3 ? MEDALS[i] : `#${i + 1}`}
