@@ -75,7 +75,7 @@ const MilestonesWidget = () => {
       <div style={{
         background: 'rgba(15, 15, 25, 1)',
         borderRadius: 0,
-        padding: '18px 20px',
+        padding: '18px 20px 18px 20.5px',
         // border: '1.5px solid rgba(255,255,255,1)',
         boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
       }}>
