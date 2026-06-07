@@ -476,7 +476,7 @@ const calculateMediaShareDuration = (config, amount) => {
               {/* Nama mengirim amount */}
               <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6 }}>
                 <span style={{ fontWeight: 900 }}>{alert.donorName}</span>
-                <span style={{ opacity: 0.6 }}> mengirim </span>
+                <span> mengirim </span>
                 <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}55` }}>
                   Rp {Number(alert.amount).toLocaleString('id-ID')}
                 </span>
@@ -515,7 +515,7 @@ const calculateMediaShareDuration = (config, amount) => {
             <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10, fontFamily: "'Poppins', sans-serif" }}>
               {/* Nama mengirim amount */}
               <div style={{ fontSize: 20, color: fg, lineHeight: 1 }}>
-                <span style={{}}>{alert.donorName}</span>
+                <span style={{ color: hl }}>{alert.donorName}</span>
                 <span> mengirim </span>
                 <span style={{ color: hl, letterSpacing: '-0.5px' }}>
                   Rp {Number(alert.amount).toLocaleString('id-ID')}
@@ -523,15 +523,15 @@ const calculateMediaShareDuration = (config, amount) => {
               </div>
 
               {/* Divider */}
-              <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} />
+              {/* <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} /> */}
 
               {/* Pesan */}
               {alert.message && (
                 <div style={{
-                  fontSize: 18, color: fg, fontWeight: 600,
-                  // background: hl + '10', borderRadius: 8, padding: '0px 12px',
-                  lineHeight: 1.6, 
-                  // border: `1px solid ${hl}20`, 
+                  fontSize: 18, color: fg, 
+                  fontWeight: 200,
+                  lineHeight: 1.6,
+                  marginTop: 3, 
                   maxWidth: 500
                 }}>
                   {alert.message}

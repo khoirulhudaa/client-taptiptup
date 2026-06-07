@@ -1577,7 +1577,7 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
             <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
               <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6 }}>
                 <span style={{ fontWeight: 900 }}>{currentDonor.name}</span>
-                <span style={{ opacity: 0.6 }}> mengirim </span>
+                <span> mengirim </span>
                 <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}55` }}>
                   Rp {currentDonor.amount.toLocaleString('id-ID')}
                 </span>
@@ -1600,8 +1600,8 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
           <MediaBlock />
           <div style={{ fontFamily: "'Poppins', sans-serif", padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
             <div style={{ fontSize: 15, color: fg, lineHeight: 1.6 }}>
-              <span style={{ fontWeight: 700 }}>{currentDonor.name}</span>
-              <span style={{ opacity: 0.55 }}> mengirim </span>
+              <span style={{ color: hl, fontWeight: 700 }}>{currentDonor.name}</span>
+              <span> mengirim </span>
               <span style={{ fontWeight: 800, color: hl, letterSpacing: '-0.5px' }}>
                 Rp {currentDonor.amount.toLocaleString('id-ID')}
               </span>
@@ -1628,7 +1628,7 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
             <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
               <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 8, borderBottom: `1px dashed ${hl}30`, paddingBottom: 8 }}>
                 <span style={{ fontWeight: 900 }}>{currentDonor.name}</span>
-                <span style={{ opacity: 0.55 }}> mengirim </span>
+                <span> mengirim </span>
                 <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}50` }}>
                   Rp {currentDonor.amount.toLocaleString('id-ID')}
                 </span>
