@@ -40,6 +40,17 @@ const SNAP_URL = isProduction
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
+axios.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (err.response?.status === 401) {
+      localStorage.removeItem('token');
+      window.dispatchEvent(new Event('session-expired'));
+    }
+    return Promise.reject(err);
+  }
+);
+
 // ============================================================
 // AUTH HELPERS
 // ============================================================
@@ -1197,6 +1208,7 @@ const SupporterPage = () => {
   const [ytChecking, setYtChecking] = useState(false);
   const [ytBlockedReason, setYtBlockedReason] = useState(null);
   const { maintenance } = useMaintenance();
+  const [sessionExpired, setSessionExpired] = useState(false);
 
   // ── Tab state ──────────────────────────────────────────────
   const [activeTab, setActiveTab] = useState('alert'); // 'alert' | 'mediashare' | 'voice'
@@ -1227,6 +1239,16 @@ const SupporterPage = () => {
     setAuthProfile(null);
     setForm((prev) => ({ ...prev, donorName: '', email: '' }));
   };
+
+  useEffect(() => {
+    const handler = () => {
+      setAuthPayload(null);
+      setAuthProfile(null);
+      setSessionExpired(true);
+    };
+    window.addEventListener('session-expired', handler);
+    return () => window.removeEventListener('session-expired', handler);
+  }, []);
 
   useEffect(() => {
     setYtBlockedReason(null);
@@ -1569,18 +1591,27 @@ const SupporterPage = () => {
             )}
 
             {isLoggedIn && (
-              <div className="w-max flex flex-wrap gap-1.5 justify-center h-max mx-auto text-center mt-6">
-                {/* {badges.streamer?.['10k'] && <Badge type="streamer" name="10k" active />}
-                {badges.streamer?.['50k'] && <Badge type="streamer" name="50k" active />}
-                {badges.streamer?.['100k'] && <Badge type="streamer" name="100k" active />}
-                {badges.streamer?.['500k'] && <Badge type="streamer" name="500k" active />}
-                {badges.streamer?.['1jt'] && <Badge type="streamer" name="1jt" active />} */}
-                {badges.donor?.['1x'] && <Badge type="donor" name="1x" active />}
-                {badges.donor?.['5x'] && <Badge type="donor" name="5x" active />}
-                {badges.donor?.['10k'] && <Badge type="donor" name="10k" active />}
-                {badges.donor?.['50k'] && <Badge type="donor" name="50k" active />}
-                {badges.donor?.['100k'] && <Badge type="donor" name="100k" active />}
-                {badges.donor?.['1jt'] && <Badge type="donor" name="1jt" active />}
+              <div className="w-max flex flex-wrap gap-2 justify-center h-max mx-auto text-center mt-6">
+                {(() => {
+                  const allBadges = [
+                    { type: 'donor', name: '1jt',  active: badges.donor?.['1jt'],  priority: 6 },
+                    { type: 'donor', name: '100k', active: badges.donor?.['100k'], priority: 5 },
+                    { type: 'donor', name: '50k',  active: badges.donor?.['50k'],  priority: 4 },
+                    { type: 'donor', name: '10k',  active: badges.donor?.['10k'],  priority: 3 },
+                    { type: 'donor', name: '5x',   active: badges.donor?.['5x'],   priority: 2 },
+                    { type: 'donor', name: '1x',   active: badges.donor?.['1x'],   priority: 1 },
+                  ].filter(b => b.active);
+
+                  return allBadges.map((b, i) => (
+                    <Badge
+                      key={b.name}
+                      type={b.type}
+                      name={b.name}
+                      active
+                      className={i > allBadges.length - 4 ? 'hidden md:flex' : ''}
+                    />
+                  ));
+                })()}
               </div>
             )}
           </motion.div>
@@ -1992,6 +2023,46 @@ const SupporterPage = () => {
           </motion.div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {sessionExpired && (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 16 }}
+              className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-none shadow-2xl overflow-hidden"
+            >
+              <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
+              <div className="p-7 flex flex-col items-center text-center gap-4">
+                <div className="w-14 h-14 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30">
+                  <span className="text-3xl">⏰</span>
+                </div>
+                <div>
+                  <p className="font-black text-slate-800 dark:text-slate-100 text-base">Sesi Login Kadaluarsa</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+                    Sesi kamu telah berakhir. Silakan login kembali untuk melanjutkan.
+                  </p>
+                </div>
+                <div className="flex gap-2 w-full">
+                  <button
+                    onClick={() => setSessionExpired(false)}
+                    className="flex-1 py-3 border border-slate-200 dark:border-slate-700 font-bold text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+                  >
+                    Lanjut sebagai tamu
+                  </button>
+                  <button
+                    onClick={() => { setSessionExpired(false); openAuth('login'); }}
+                    className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm transition-all"
+                  >
+                    Login Lagi
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

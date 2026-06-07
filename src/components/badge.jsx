@@ -63,7 +63,7 @@ const Badge = ({ type = 'streamer', name, active = true, className = '' }) => {
   return (
     // ← wrapper relative untuk posisikan tooltip
     <div
-      className="relative inline-flex"
+      className={`relative flex ${className}`}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
       onTouchStart={() => setShowTooltip(true)}
@@ -96,7 +96,6 @@ const Badge = ({ type = 'streamer', name, active = true, className = '' }) => {
         cursor-${active ? 'pointer' : 'default'}
         hover:${active ? 'scale-105 shadow-md' : ''}
         ${active ? colorClass : 'bg-slate-100/50 text-slate-500 border-slate-200/50 dark:bg-slate-800/50 dark:text-slate-400 dark:border-slate-700/50 opacity-70'}
-        ${className}
       `}>
         <span className="text-base flex-shrink-0 relative top-[-2.8px]">{icon}</span>
         <span className="font-bold tracking-tight uppercase">{label}</span>
