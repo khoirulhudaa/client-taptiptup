@@ -439,7 +439,7 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
                         </div>
                         Dashboard Saya
                       </Link>
-                      <Link to="/dashboard?tab=myDonations" onClick={() => setDropdownOpen(false)}
+                      <Link to="/dashboard?tab=history" onClick={() => setDropdownOpen(false)}
                         className="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-none transition-all text-sm font-bold text-slate-700 dark:text-slate-300">
                         <div className="w-7 h-7 bg-pink-50 dark:bg-pink-900/30 rounded-none flex items-center justify-center flex-shrink-0">
                           <Heart size={13} className="text-pink-500" />
