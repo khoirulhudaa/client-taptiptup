@@ -1570,15 +1570,17 @@ const SupporterPage = () => {
 
             {isLoggedIn && (
               <div className="w-max flex flex-wrap gap-1.5 justify-center h-max mx-auto text-center mt-6">
-                {badges.streamer?.['10k'] && <Badge type="streamer" name="10k" active />}
+                {/* {badges.streamer?.['10k'] && <Badge type="streamer" name="10k" active />}
                 {badges.streamer?.['50k'] && <Badge type="streamer" name="50k" active />}
                 {badges.streamer?.['100k'] && <Badge type="streamer" name="100k" active />}
                 {badges.streamer?.['500k'] && <Badge type="streamer" name="500k" active />}
-                {badges.streamer?.['1jt'] && <Badge type="streamer" name="1jt" active />}
+                {badges.streamer?.['1jt'] && <Badge type="streamer" name="1jt" active />} */}
                 {badges.donor?.['1x'] && <Badge type="donor" name="1x" active />}
                 {badges.donor?.['5x'] && <Badge type="donor" name="5x" active />}
                 {badges.donor?.['10k'] && <Badge type="donor" name="10k" active />}
                 {badges.donor?.['50k'] && <Badge type="donor" name="50k" active />}
+                {badges.donor?.['100k'] && <Badge type="donor" name="100k" active />}
+                {badges.donor?.['1jt'] && <Badge type="donor" name="1jt" active />}
               </div>
             )}
           </motion.div>
