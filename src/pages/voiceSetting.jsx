@@ -51,14 +51,22 @@
     }));
 
     return (
-        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-8">
-        <SectionHeader icon={<Timer size={20} />} title="Durasi VN" color="bg-violet-500" />
-        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-            Atur berapa lama voice note tampil di overlay berdasarkan nominal donasi.
-            Durasi total = durasi dasar + (nominal ÷ per-amount × tambahan detik).
-        </p>
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+         <div className="!mb-6 flex items-center gap-4">
+            <div className="bg-purple-500 p-3 rounded-none text-white shadow-lg">
+                <Timer size={20} />
+            </div>
+            <div>
+                <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                    Durasi VN
+                </h3>
+                <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+                    Atur berapa lama voice note tampil di overlay
+                </p>
+            </div>
+        </div>
 
-        <div className="space-y-6">
+        <div className="space-y-4">
             {/* Durasi Dasar */}
             <div>
             <label className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest block mb-2">
@@ -115,20 +123,18 @@
             <p className="font-black text-xs text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">
             Simulasi Durasi
             </p>
-            <div className="flex flex-wrap md:gap-0 gap-x-2 md:justify-between">
+            <div className="grid grid-cols-2 md:grid-cols-5 md:gap-0 gap-x-2 md:justify-between">
             {previewDurations.map(({ label, seconds }, index) => (
-                <div className='md:flex mb-2 md:mb-0 items-center gap-4'>
+                <div className='md:flex w-full mb-2 md:mb-0 items-center gap-4'>
                     <div 
                         key={label} 
-                        className={`w-max border border-slate-100/20 py-1 px-3 flex justify-between gap-4 items-center`}
+                        className={`w-full border border-slate-100/20 py-1 px-3 flex md:justify-between gap-1.5 md:gap-4 items-center`}
                     >
-                        <span className="text-sm text-slate-600 dark:text-slate-300">{label}</span>
+                        <span className="text-sm text-slate-600 dark:text-slate-300">{label} - </span>
                         <span className="font-black text-slate-900 dark:text-white text-sm">
                         {seconds} detik
                         </span>
                     </div>
-                    {/* <div className={`h-4 w-[1px] bg-white ${index === 4 ? 'hidden' : 'flex'}`}>
-                    </div> */}
                 </div>
                 ))}
             </div>
@@ -245,12 +251,12 @@
                 </div>
 
                 {/* Quick amount */}
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-6 gap-2">
                     {[1000, 5000, 10000, 50000, 100000, 500000].map(v => (
                         <button
                             key={v}
                             onClick={() => setCustomAmount(v)}
-                            className={`cursor-pointer active:scale-[0.97] px-3 py-1.5 rounded-none text-xs font-black transition-all border-2 ${
+                            className={`w-full cursor-pointer active:scale-[0.97] px-3 py-1.5 rounded-none text-xs font-black transition-all border-2 ${
                                 Number(customAmount) === v
                                     ? 'bg-rose-500 border-rose-500 text-white'
                                     : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
@@ -319,11 +325,19 @@
 
     return (
         <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4">
-        <SectionHeader icon={<Mic size={20} />} title="Overlay VN" color="bg-violet-500" />
-        <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">
-            Tambahkan URL ini ke OBS sebagai Browser Source. Voice note dari donatur akan
-            diputar otomatis saat donasi masuk.
-        </p>
+         <div className="!mb-6 flex items-center gap-4">
+            <div className="bg-emerald-500 p-3 rounded-none text-white shadow-lg">
+                <Mic size={20} />
+            </div>
+            <div>
+                <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                    Overlay VN
+                </h3>
+                <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+                    Tambahkan URL ini ke OBS sebagai Browser Source
+                </p>
+            </div>
+        </div>
         {urls.map(({ label, url, desc }) => (
             <div
             key={label}
@@ -357,7 +371,7 @@
     const VoiceSettingsInfo = () => (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4">
         <SectionHeader icon={<span className="text-xl">🎙️</span>} title="Tentang VN" color="bg-indigo-500" />
-        <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
+        <div className="gap-4 grid grid-cols-1 md:grid-cols-2 !mt-7">
         {[
             {
             icon: '🎤',

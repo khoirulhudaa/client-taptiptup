@@ -1364,7 +1364,7 @@ const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
 
 const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly = false, mediaOnly = false, activeSlot }) => {
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-8">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-6">
       <SectionHeader
         icon={<Timer size={22} />}
         title={mediaOnly ? 'Durasi Medshare' : alertOnly ? 'Durasi Alert' : 'Pengaturan Durasi'}
@@ -1412,7 +1412,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
 
         {!mediaOnly && (
           <div className="space-y-5">
-            <h4 className="font-black text-lg">Alert Biasa</h4>
+            {/* <h4 className="font-black text-lg">Alert Biasa</h4> */}
             <div>
               <label className="text-xs font-black text-slate-500 block mb-1.5">
                 Durasi Default Alert (detik)
@@ -1435,7 +1435,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
         {/* Media share — hanya tampil kalau bukan alertOnly */}
         {!alertOnly && (
           <div className="space-y-5">
-            <h4 className="font-black text-lg">Media share</h4>
+            {/* <h4 className="font-black text-lg">Media share</h4> */}
             <div className="flex flex-col gap-4">
               <div>
                 <label className="text-xs font-black text-slate-500 block mb-1.5">Durasi Dasar (detik)</label>
@@ -2820,7 +2820,7 @@ const HistoryPage = () => {
                     (sentData?.donations || []).map((item) => (
                       <tr key={item._id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-all">
                         <td className="px-5 md:px-8 py-5"><p className="font-black text-slate-700 dark:text-slate-200">@{item.userId?.username || item.username || '-'}</p></td>
-                        <td className="px-5 md:px-8 py-5 font-black text-blue-600">Rp {Number(item.amount).toLocaleString('id-ID')}</td>
+                        <td className="px-5 md:px-8 py-5 font-black text-sm">Rp {Number(item.amount).toLocaleString('id-ID')}</td>
                         <td className="px-5 md:px-8 py-5 max-w-[250px]"><p className="text-slate-500 dark:text-slate-400 text-sm italic truncate">{item.message || '-'}</p></td>
                         <td className="px-5 md:px-8 py-5">
                           <span className={`px-3 py-1.5 rounded-none text-[10px] font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600 dark:bg-green-950/40 dark:text-green-400' : 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400'}`}>{item.status}</span>

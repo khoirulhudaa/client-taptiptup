@@ -131,7 +131,7 @@ export const PollManager = ({ overlayToken, username }) => {
               </button>
               <button
                 onClick={() => { if (window.confirm('Hapus poll ini?')) deleteMutation.mutate(activePoll._id); }}
-                className="relative top-[-1pxpx] cursor-pointer active:scale-[0.99] text-red-500 hover:bg-red-200 dark:hover:bg-red-950/60 rounded-none transition-all">
+                className="relative top-[-1px] cursor-pointer active:scale-[0.99] text-red-500 hover:bg-red-200 dark:hover:bg-red-950/60 rounded-none transition-all">
                 <Trash2 size={24} />
               </button>
             </div>
@@ -620,7 +620,7 @@ export const SubathonManager = ({ overlayToken }) => {
                   <thead>
                     <tr className="bg-slate-50 dark:bg-slate-800/50">
                       <th className="p-2 text-left font-black text-slate-500 dark:text-slate-400 border-r border-slate-200 dark:border-slate-700">Tier Donasi</th>
-                      <th className="p-2 text-center font-black text-slate-500 dark:text-slate-400">Durasi Tambahan</th>
+                      <th className="p-2 text-left font-black text-slate-500 dark:text-slate-400">Durasi Tambahan</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -631,7 +631,7 @@ export const SubathonManager = ({ overlayToken }) => {
                           <td className="p-2 font-bold text-blue-600 dark:text-blue-400 border-r border-slate-200 dark:border-slate-700">
                             Rp {tier.amount.toLocaleString('id-ID')}
                           </td>
-                          <td className="p-2 text-center font-black text-green-600 dark:text-green-400">
+                          <td className="p-2 text-left font-black text-green-600 dark:text-green-400">
                             {formatSeconds(totalSec)}
                           </td>
                         </tr>
@@ -699,7 +699,7 @@ export const SubathonManager = ({ overlayToken }) => {
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest md:mb-2">Widget URL untuk OBS (360×200px)</p>
             <div className="flex gap-2">
               <input readOnly value={`${window.location.origin}/widget/${overlayToken}/subathon`}
-                className="flex-1 bg-transparent font-mono text:xs text-blue-600 dark:text-blue-400 font-bold outline-none truncate" />
+                className="flex-1 bg-transparent font-mono text-sm md:text-md text-blue-600 dark:text-blue-400 font-bold outline-none truncate" />
               <button onClick={() => {
                   navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/subathon`);
                   setSubCopied(true);
