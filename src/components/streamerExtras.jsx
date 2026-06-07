@@ -1072,9 +1072,9 @@ export const MilestonesManager = ({ overlayToken }) => {
                   onChange={e => upd(i, 'targetAmount', Number(e.target.value))}
                   className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100"
                 />
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">
+                {/* <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">
                   Rp {Number(m.targetAmount || 0).toLocaleString('id-ID')}
-                </p>
+                </p> */}
               </div>
             </div>
 

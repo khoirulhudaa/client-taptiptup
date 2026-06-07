@@ -109,12 +109,7 @@ const MilestonesWidget = () => {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     {achieved
                       ? <span style={{ fontSize: 24 }}>✅</span>
-                      : <span style={{
-                          width: 8, height: 8, borderRadius: '0',
-                          background: '#6366f1',
-                          display: 'inline-block',
-                          animation: !achieved ? 'pulse 1.5s ease-in-out infinite' : 'none',
-                        }} />
+                      : null
                     }
                     <span style={{
                       fontSize: 24,
