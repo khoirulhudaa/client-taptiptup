@@ -31,7 +31,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 export const useServerStatus = () => {
-  const [isOnline, setIsOnline] = useState(true);
+  const [status, setStatus] = useState('online');
   const [checking, setChecking] = useState(true);
   const intervalRef = useRef(null);
 
@@ -48,10 +48,15 @@ export const useServerStatus = () => {
         method: 'GET',
         signal: AbortSignal.timeout(5000),
       });
-      setIsOnline(res.ok);
-      scheduleNext(res.ok);
+      if (res.ok) {
+        setStatus('online');
+        scheduleNext(true);
+      } else {
+        setStatus('error'); // server nyala tapi unhealthy
+        scheduleNext(false);
+      }
     } catch {
-      setIsOnline(false);
+      setStatus('offline'); // tidak bisa reach server
       scheduleNext(false);
     } finally {
       setChecking(false);
@@ -65,5 +70,11 @@ export const useServerStatus = () => {
     };
   }, []);
 
-  return { isOnline, checking, retry: check };
+  return { 
+    isOnline: status === 'online',
+    isError: status === 'error',     // ← tambah ini
+    isOffline: status === 'offline', // ← tambah ini
+    checking, 
+    retry: check 
+  };
 };

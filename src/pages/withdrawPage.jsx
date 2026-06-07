@@ -38,9 +38,9 @@ const STATUS_CONFIG = {
   FAILED: { label: 'Ditolak', icon: <XCircle size={13} />, className: 'bg-red-50 text-red-500 border border-red-200 dark:bg-red-950/40 dark:text-red-400 dark:border-red-800' },
 };
 
-const MIN_TARIK = 10000;
+const MIN_TARIK = 15000;
 const MAX_TARIK = 10000000;
-const MIN_SALDO = 10000;
+const MIN_SALDO = 15000;
 const FEE_PERCENT = 0.025;
 const ADMIN_FEE = 0;
 
@@ -166,7 +166,7 @@ export const WithdrawPage = () => {
       // Optional: Tampilkan alert sukses
       showAlert(
         'Penarikan Berhasil Diajukan!',
-        'Admin akan memproses dalam 2×24 jam hari kerja',
+        'Admin akan memproses dalam 1×24 jam hari kerja',
         'success'
       );
     },
@@ -220,7 +220,24 @@ export const WithdrawPage = () => {
     setShowPinModal(true);
   };
 
-  const canSubmit = availableBalance >= MIN_SALDO && amt >= MIN_TARIK;
+  const canSubmit = 
+    availableBalance >= MIN_SALDO && 
+    amt >= MIN_TARIK && 
+    amt <= MAX_TARIK &&
+    amt <= availableBalance &&
+    !!formData.accountNumber && 
+    !!formData.accountName;
+
+  const getSubmitLabel = () => {
+    if (!formData.amount || isNaN(amt) || amt <= 0) return 'Masukkan nominal penarikan';
+    if (availableBalance < MIN_SALDO) return `Saldo minimal Rp ${formatRupiah(MIN_SALDO)}`;
+    if (amt < MIN_TARIK) return `Minimal tarik Rp ${formatRupiah(MIN_TARIK)}`;
+    if (amt > MAX_TARIK) return `Maksimal tarik Rp ${formatRupiah(MAX_TARIK)}`;
+    if (amt > availableBalance) return 'Saldo tidak mencukupi';
+    if (!formData.accountNumber) return 'Isi nomor rekening';
+    if (!formData.accountName) return 'Isi nama pemilik akun';
+    return 'Ajukan Penarikan Dana';
+  };
 
   return (
     <motion.div className="w-full mx-auto space-y-5" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
@@ -261,7 +278,7 @@ export const WithdrawPage = () => {
                 <>
                   <div className="w-px h-3 bg-white/40" />
                   <span className="text-amber-200">
-                    ⏳ Menunggu 24 jam:{' '}
+                    ⏳ Menunggu 2 hari:{' '}
                     <span className="font-bold text-amber-100">Rp {pendingBalance.toLocaleString('id-ID')}</span>
                   </span>
                 </>
@@ -269,7 +286,7 @@ export const WithdrawPage = () => {
             </div>
           )}
           <p className="text-blue-200 text-xs font-medium mt-2">
-            Penarikan diproses manual oleh admin dalam 1×24 jam hari kerja
+            Penarikan diproses oleh admin dalam 1×24 jam hari kerja
           </p>
         </div>
       </div>
@@ -417,11 +434,11 @@ export const WithdrawPage = () => {
           <button
             onClick={handleSubmit}
             disabled={withdrawMutation.isPending || !canSubmit}
-            className="cursor-pointer active:scale-[0.98] hover:brightness-90 w-full bg-blue-600 text-white py-4 rounded-none font-black text-base hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 dark:shadow-blue-900/20 flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed">
+            className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-blue-600 text-white py-4 rounded-none font-black text-base hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 dark:shadow-blue-900/20 flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed">
             {withdrawMutation.isPending ? (
               <><div className="w-5 h-5 border-4 border-white/30 border-t-white rounded-none animate-spin" /> Memproses...</>
             ) : (
-              <><ArrowRight size={18} /> Ajukan Penarikan Dana</>
+              <>{getSubmitLabel()} <ArrowRight size={18} className='relative top-[1px]' /></>
             )}
           </button>
 

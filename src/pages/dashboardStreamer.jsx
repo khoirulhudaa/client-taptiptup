@@ -1531,7 +1531,7 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
 
   const renderMediaAlert = () => {
     if (!currentDonor) return null;
-    if (settings.theme === 'gifCard') return null;
+    // if (settings.theme === 'gifCard') return null;
     const hl = settings.highlightColor || '#39ff14';
     const fg = settings.textColor || '#c8f5c8';
     const bg = settings.primaryColor || '#0a1f0a';
@@ -1565,6 +1565,55 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
       minWidth: '340px',
       width: '100%', overflow: 'hidden',
     };
+
+     if (theme === 'gifCard') {
+      return (
+          <div style={{
+            ...wrapperBase,
+            backgroundColor: 'transparent',
+            border: 'none',
+            boxShadow: 'none',
+            // Hapus position absolute dari sini
+            // Biarkan flow normal seperti theme lain
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            overflow: 'visible',
+          }}>   
+          {/* Media block */}
+          <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderBottom: `1px solid ${hl}25` }}>
+            {mType === 'youtube' ? (
+              <iframe src={getYouTubeEmbedUrl(mediaUrl)} width="100%" height="100%" frameBorder="0"
+                allow="autoplay; encrypted-media" allowFullScreen style={{ display: 'block', border: 'none' }} />
+            ) : mType === 'video' ? (
+              <video src={mediaUrl} autoPlay loop muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <img src={mediaUrl} alt="media" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            )}
+          </div>
+          {/* Info area */}
+          <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', textAlign: 'center', gap: 7, marginLeft: '40px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'max-content' }}>
+              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 18, fontWeight: 500, color: hl, borderBottom: `1px solid ${hl}25` }}>
+                {currentDonor.name} mengirim
+              </div>
+              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 18, marginLeft: 5, fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1, textShadow: `0 0 10px ${hl}55` }}>
+                Rp {currentDonor.amount.toLocaleString('id-ID')}
+              </div>
+            </div>
+            {currentDonor.msg && (
+              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 16, color: 'black', fontWeight: 400, background: 'white', border: `1px solid ${hl}25`, padding: '5px 8px', lineHeight: 1.5, maxWidth: 500 }}>
+                {currentDonor.msg}
+              </div>
+            )}
+            <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: '60%', background: hl }} />
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     // ── MODERN ──────────────────────────────────────────────────────────────────
     if (theme === 'modern') {
@@ -2311,12 +2360,25 @@ const smoothInner = (
                 {renderAlert()}
               </motion.div>
             )}
-           {showAlert && previewMode === 'media' && (
-              settings.theme === 'gifCard' ? null : (
-                <motion.div className='ml-4 max-w-[80%]' key={`media-${animKey}`} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', ...pos, zIndex: 10, top: 20, transform: 'scale(0.4) translateX(-50%)' }}>
-                  {renderMediaAlert()}
-                </motion.div>
-              )
+            {showAlert && previewMode === 'media' && (
+              <motion.div
+                className='ml-4 max-w-[80%]'
+                key={`media-${animKey}`}
+                initial={anim.initial}
+                animate={anim.animate}
+                exit={anim.exit}
+                style={{
+                  position: 'absolute',
+                  ...pos,
+                  zIndex: 10,
+                  top: 20,
+                  transform: settings.theme === 'gifCard'
+                    ? 'scale(0.5) translateX(-50%)'
+                    : 'scale(0.4) translateX(-50%)',
+                }}
+              >
+                {renderMediaAlert()}
+              </motion.div>
             )}
           </AnimatePresence>
         </div>
@@ -2329,11 +2391,11 @@ const smoothInner = (
         {previewMode === 'media' && <span>Durasi medser: <span className="text-purple-500">{currentDonor ? mediaShareDuration : '-'}s</span></span>}
       </div>
 
-      {previewMode === 'media' && settings.theme === 'gifCard' && (
+      {/* {previewMode === 'media' && settings.theme === 'gifCard' && (
         <div className="flex items-center gap-3 px-3 py-2 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-none text-xs font-bold text-amber-600 dark:text-amber-400">
           <span>⚠️</span> Tema GIF Card tidak mendukung media share preview
         </div>
-      )}
+      )} */}
 
       {/* Media URL picker — hanya muncul saat tab media aktif */}
       {previewMode === 'media' && (
@@ -2354,7 +2416,7 @@ const smoothInner = (
       )}
 
       <button onClick={triggerDemo}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3 rounded-none bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-3">
+        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3 rounded-none bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-950 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-3">
         <span className="w-2 h-2 bg-red-500 rounded-none animate-pulse" /> {previewMode === 'media' ? 'Simulasi Media share' : 'Simulasi Donasi Masuk'}
       </button>
       {/* <button onClick={() => handleFullScreen()}
@@ -4060,16 +4122,26 @@ const handleChangePin = async () => {
                       <div className="md:col-span-2">
                         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                         {['modern', 'classic', 'minimal', 'smooth', ...(previewMode !== 'media' ? ['gifCard'] : [])].map(t => (
+                        {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
+                          const themeLabels = {
+                            modern:  'Retro 1',
+                            // classic: 'Retro 2',
+                            minimal: 'Retro 2',
+                            smooth:  'Smooth',
+                            gifCard: 'Pop Card',
+                          };
+
+                          return (
                             <button key={t} onClick={() => upd('theme', t)}
                               className={`cursor-pointer active:scale-[0.97] py-3 md:py-4 rounded-none border-2 transition-all font-black text-sm capitalize ${
                                 settings.theme === t
                                   ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
                                   : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
                               }`}>
-                              {t === 'gifCard' ? 'GIF card' : t}
+                              {themeLabels[t] || t}
                             </button>
-                          ))}
+                          );
+                        })}
                         </div>
                       </div>
                       <div className="md:col-span-2 w-full flex flex-col gap-3">

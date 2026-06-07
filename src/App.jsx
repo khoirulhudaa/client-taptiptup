@@ -51,7 +51,7 @@ function App() {
   const path = window.location.pathname;
   const isOverlay = path.startsWith('/overlay') || path.startsWith('/widget');
 
-  const { isOnline, checking, retry } = useServerStatus(); // ✅ di dalam komponen
+  const { isOnline, isError, isOffline, checking, retry } = useServerStatus();
 
   // Saat pertama kali cek, tampilkan loading sebentar
   if (checking) {
@@ -189,20 +189,65 @@ function App() {
           </p>
         </div>
 
-        {/* Retry button */}
-        {/* <button
-          onClick={retry}
-          style={{
-            marginTop: '2rem', padding: '0.6rem 1.8rem',
-            fontFamily: "'Space Mono', monospace", fontSize: 13,
-            letterSpacing: '0.1em', textTransform: 'uppercase',
-            background: 'transparent', color: '#f87171',
-            border: '1px solid #f87171', borderRadius: 6, cursor: 'pointer',
-            animation: 'fadein 0.7s 0.2s ease both',
-          }}
-        >
-          Coba Lagi
-        </button> */}
+        {/* Bottom branding */}
+        <div style={{ position: 'absolute', bottom: 18, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ width: 20, height: 1, background: '#1e293b' }} />
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: '0.12em', color: '#1e293b', textTransform: 'uppercase' }}>
+            TapTipTup
+          </span>
+          <div style={{ width: 20, height: 1, background: '#1e293b' }} />
+        </div>
+      </div>
+    );
+  }
+
+  if (!isOverlay && isError) {
+    return (
+      <div style={{
+        minHeight: '100vh', background: '#0a0b10',
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        position: 'relative', overflow: 'hidden', padding: '2rem',
+      }}>
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono&family=Space+Grotesk:wght@400;600&display=swap');
+          @keyframes fadein { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+          @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        `}</style>
+
+        {/* Grid background */}
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.07, pointerEvents: 'none' }}>
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        {/* Icon server error */}
+        <div style={{ animation: 'fadein 0.5s ease, pulse 2s infinite', marginBottom: '1.5rem' }}>
+          <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#fb923c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+            <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+            <line x1="6" y1="6" x2="6.01" y2="6" />
+            <line x1="6" y1="18" x2="6.01" y2="18" />
+            <line x1="12" y1="10" x2="12" y2="14" stroke="#fb923c" />
+            <circle cx="12" cy="16" r="0.5" fill="#fb923c" />
+          </svg>
+        </div>
+
+        {/* Teks */}
+        <div style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', gap: 8, animation: 'fadein 0.6s 0.1s ease both' }}>
+          <p className='md:text-[36px] text-[24px]' style={{ fontFamily: "'Bebas Neue', sans-serif", textAlign: 'center', letterSpacing: '0.1em', color: '#f9f9f9', margin: 0 }}>
+            SERVER SEDANG BERMASALAH
+          </p>
+          <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, color: '#64748b', margin: 0 }}>
+            Layanan kami sedang gangguan. Silakan coba beberapa saat lagi.
+          </p>
+        </div>
 
         {/* Bottom branding */}
         <div style={{ position: 'absolute', bottom: 18, display: 'flex', alignItems: 'center', gap: 8 }}>

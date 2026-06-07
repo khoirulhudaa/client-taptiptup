@@ -547,6 +547,77 @@ const calculateMediaShareDuration = (config, amount) => {
         );
       }
 
+      // ── GIFT CARD ─────────────────────────────────────────────────────────────────
+      if (theme === 'gifCard') {
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+            {/* Media block — full width */}
+            {mediaBlock}
+
+            {/* Info area */}
+            <div style={{
+              padding: '10px 12px',
+              display: 'flex',
+              textAlign: 'center',
+              flexDirection: 'column',
+              gap: 7,
+              marginLeft: '40px',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{
+                  fontFamily: "'Poppins', sans-serif",
+                  fontSize: 20,
+                  width: 'max-content',
+                  fontWeight: 500,
+                  color: hl,
+                  borderBottom: `1px solid ${hl}25`,
+                }}>
+                  {alert.donorName} mengirim
+                </div>
+                <div style={{
+                  fontFamily: "'Poppins', sans-serif",
+                  fontSize: 20,
+                  marginLeft: 5,
+                  fontWeight: 500,
+                  color: hl,
+                  letterSpacing: '-0.5px',
+                  lineHeight: 1,
+                  textShadow: `0 0 10px ${hl}55`,
+                }}>
+                  Rp {Number(alert.amount).toLocaleString('id-ID')}
+                </div>
+              </div>
+
+              {alert.message && (
+                <div style={{
+                  fontFamily: "'Poppins', sans-serif",
+                  fontSize: 18,
+                  color: 'black',
+                  fontWeight: 400,
+                  maxWidth: 500,
+                  background: 'white',
+                  border: `1px solid ${hl}25`,
+                  padding: '5px 8px',
+                  lineHeight: 1.5,
+                }}>
+                  {alert.message}
+                </div>
+              )}
+
+              {/* Progress bar */}
+              <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+                <div style={{
+                  height: '100%',
+                  width: `${progress}%`,
+                  background: hl,
+                  transition: 'width 50ms linear',
+                }} />
+              </div>
+            </div>
+          </div>
+        );
+      }
+
       // ── CLASSIC ──────────────────────────────────────────────────────────────────
       if (theme === 'classic') {
         return (
@@ -643,13 +714,13 @@ const calculateMediaShareDuration = (config, amount) => {
               animate={anim.animate}
               exit={anim.exit}
               style={{
-                backgroundColor: bg,
+                backgroundColor: theme === 'gifCard' ? 'transparent' : bg,  // ← tambah
                 color: fg,
-                width: `max-content`,
+                width: 'max-content',
                 borderRadius: theme === 'smooth' ? 20 : 0,
-                border: `1px solid ${borderColor}`,
-                boxShadow: '0 16px 40px rgba(0,0,0,0.55)',
-                overflow: 'hidden',
+                border: theme === 'gifCard' ? 'none' : `1px solid ${borderColor}`,  // ← tambah
+                boxShadow: theme === 'gifCard' ? 'none' : '0 16px 40px rgba(0,0,0,0.55)',  // ← tambah
+                overflow: theme === 'gifCard' ? 'visible' : 'hidden',  // ← tambah
                 fontFamily: "'Inter', -apple-system, 'Segoe UI', sans-serif",
               }}
             >
