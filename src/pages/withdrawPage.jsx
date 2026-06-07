@@ -121,8 +121,18 @@ export const WithdrawPage = () => {
   const [showPin, setShowPin] = useState(false);
   const [pinError, setPinError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const pinRefs = [useRef(), useRef(), useRef(), useRef()];
+  const [pinAttempts, setPinAttempts] = useState(3);        // ← Tambahan
+  const [isLocked, setIsLocked] = useState(false);          // ← Tambahan
+  const [lockTimeLeft, setLockTimeLeft] = useState(0);      // ← Tambahan (detik)
 
+  // Simpan data penarikan saat lock
+  const [pendingWithdrawData, setPendingWithdrawData] = useState(null);
+  const WITHDRAW_DATA_KEY = 'pending_withdraw_data';
+  const pinRefs = [useRef(), useRef(), useRef(), useRef()];
+  
+  // === Persist Lock ke localStorage ===
+  const LOCK_KEY = 'withdraw_pin_lock_until';
+  
   useEffect(() => {
     const handleStorageChange = () => setShowBalance(localStorage.getItem('showBalance') === 'true');
     window.addEventListener('balanceUpdate', handleStorageChange);
@@ -176,11 +186,62 @@ export const WithdrawPage = () => {
     onError: (err) => showAlert('Terjadi Kesalahan', err.response?.data?.message || 'Silakan coba lagi.'),
   });
 
-  const amt = parseFloat(formData.amount) || 0;
+  // Load lock + data penarikan saat mount
+  useEffect(() => {
+    // Load Lock
+    const lockedUntil = localStorage.getItem(LOCK_KEY);
+    if (lockedUntil) {
+      const remaining = Math.ceil((new Date(lockedUntil) - new Date()) / 1000);
+      if (remaining > 0) {
+        setIsLocked(true);
+        setLockTimeLeft(remaining);
+        setPinAttempts(0);
+        setShowPinModal(true);
+
+        // Load data penarikan yang tersimpan
+        const savedData = localStorage.getItem(WITHDRAW_DATA_KEY);
+        if (savedData) {
+          const data = JSON.parse(savedData);
+          setPendingWithdrawData(data);
+          setFormData(data.formData || formData);
+        }
+      } else {
+        localStorage.removeItem(LOCK_KEY);
+        localStorage.removeItem(WITHDRAW_DATA_KEY);
+      }
+    }
+  }, []);
+
+  // Countdown + persist
+  useEffect(() => {
+    let timer;
+    if (isLocked && lockTimeLeft > 0) {
+      timer = setInterval(() => {
+        setLockTimeLeft(prev => {
+          const newTime = prev - 1;
+          if (newTime <= 0) {
+            setIsLocked(false);
+            setPinAttempts(3);
+            setPinError("");
+            localStorage.removeItem(LOCK_KEY);
+            localStorage.removeItem(WITHDRAW_DATA_KEY);
+            return 0;
+          }
+          const expireTime = new Date(Date.now() + newTime * 1000).toISOString();
+          localStorage.setItem(LOCK_KEY, expireTime);
+          return newTime;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [isLocked, lockTimeLeft]);
+  
   const WITHDRAW_FEE = 1500;
+  const amt = parseFloat(pendingWithdrawData?.amount || formData.amount) || 0;
   const netAmount = Math.max(0, amt - WITHDRAW_FEE);
 
   const handlePinInput = (index, value) => {
+    if (isLocked) return;
     if (!/^\d?$/.test(value)) return;
     const newPin = [...pin];
     newPin[index] = value.slice(-1);
@@ -255,15 +316,30 @@ export const WithdrawPage = () => {
     );
   };
 
+  const resetPinState = () => {
+    setPin(["", "", "", ""]);
+    setPinError("");
+    setIsSubmitting(false);
+    setPinAttempts(3);
+    setIsLocked(false);
+    setLockTimeLeft(0);
+    setPendingWithdrawData(null);
+    localStorage.removeItem(LOCK_KEY);
+    localStorage.removeItem(WITHDRAW_DATA_KEY);
+  };
+
   const handlePinKeyDown = (index, e) => {
-    if (e.key === "Backspace" && !pin[index] && index > 0) pinRefs[index - 1].current?.focus();
+    if (isLocked) return;
+    if (e.key === "Backspace" && !pin[index] && index > 0) {
+      pinRefs[index - 1].current?.focus();
+    }
   };
 
   const handlePinSubmit = async () => {
     const fullPin = pin.join("");
-    if (fullPin.length < 4) { 
-      setPinError("Masukkan 4 digit PIN keamanan"); 
-      return; 
+    if (fullPin.length < 4) {
+      setPinError("Masukkan 4 digit PIN keamanan");
+      return;
     }
 
     setIsSubmitting(true);
@@ -278,33 +354,80 @@ export const WithdrawPage = () => {
         accountName: formData.accountName,
         securityPin: fullPin 
       });
+
+      // Sukses → reset
+      resetPinState();
+      setShowPinModal(false);
+
     } catch (err) {
-      setPinError(err.response?.data?.message || "PIN salah atau terjadi kesalahan");
+      const message = err.response?.data?.message || "PIN salah";
+
+      setPinError(message);
+      
+      // Kurangi percobaan
+      const newAttempts = pinAttempts - 1;
+      setPinAttempts(newAttempts);
+
+      if (newAttempts <= 0) {
+        setIsLocked(true);
+        setLockTimeLeft(180); // 3 menit = 180 detik
+        setPinError("Terlalu banyak percobaan salah. Tunggu 3 menit.");
+      }
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleSubmit = () => {
-    if (!formData.amount || isNaN(amt) || amt <= 0)
+    const currentAmt = parseFloat(formData.amount) || 0;
+
+    // Validasi
+    if (!formData.amount || isNaN(currentAmt) || currentAmt <= 0) {
       return showAlert('Nominal Tidak Valid', 'Masukkan nominal penarikan yang valid sebelum melanjutkan.');
+    }
 
-    if (availableBalance < MIN_SALDO)
-      return showAlert('Saldo Tidak Mencukupi', `Kamu membutuhkan minimal saldo tersedia Rp ${formatRupiah(MIN_SALDO)} untuk mengajukan penarikan.`);
+    if (availableBalance < MIN_SALDO) {
+      return showAlert('Saldo Tidak Mencukupi', 
+        `Kamu membutuhkan minimal saldo tersedia Rp ${formatRupiah(MIN_SALDO)} untuk mengajukan penarikan.`);
+    }
 
-    if (amt < MIN_TARIK)
-      return showAlert('Di Bawah Minimal Tarik', `Nominal penarikan minimal adalah Rp ${formatRupiah(MIN_TARIK)}.`);
+    if (currentAmt < MIN_TARIK) {
+      return showAlert('Di Bawah Minimal Tarik', 
+        `Nominal penarikan minimal adalah Rp ${formatRupiah(MIN_TARIK)}.`);
+    }
 
-    if (amt > MAX_TARIK)
-      return showAlert('Melebihi Maksimal Tarik', `Nominal penarikan maksimal adalah Rp ${formatRupiah(MAX_TARIK)} per pengajuan.`);
+    if (currentAmt > MAX_TARIK) {
+      return showAlert('Melebihi Maksimal Tarik', 
+        `Nominal penarikan maksimal adalah Rp ${formatRupiah(MAX_TARIK)} per pengajuan.`);
+    }
 
-    if (amt > availableBalance)
-      return showAlert('Saldo Tidak Cukup', `Saldo tersedia kamu Rp ${formatRupiah(availableBalance)}, tidak cukup untuk menarik Rp ${formatRupiah(amt)}.`);
+    if (currentAmt > availableBalance) {
+      return showAlert('Saldo Tidak Cukup', 
+        `Saldo tersedia kamu Rp ${formatRupiah(availableBalance)}, tidak cukup untuk menarik Rp ${formatRupiah(currentAmt)}.`);
+    }
 
-    if (!formData.accountNumber || !formData.accountName)
-      return showAlert('Data Rekening Belum Lengkap', 'Lengkapi nomor rekening / e-wallet dan nama pemilik akun terlebih dahulu.');
+    if (!formData.accountNumber?.trim() || !formData.accountName?.trim()) {
+      return showAlert('Data Rekening Belum Lengkap', 
+        'Lengkapi nomor rekening / e-wallet dan nama pemilik akun terlebih dahulu.');
+    }
 
-    // Tampilkan modal konfirmasi dulu
+    // Simpan data penarikan (untuk berjaga-jaga jika lock aktif)
+    const withdrawData = {
+      amount: formData.amount,
+      formattedAmount: formData.formattedAmount,
+      channelCode: formData.channelCode,
+      accountNumber: formData.accountNumber,
+      accountName: formData.accountName,
+      method: method,
+      netAmount: Math.max(0, currentAmt - WITHDRAW_FEE)
+    };
+
+    setPendingWithdrawData(withdrawData); // pastikan state ini ada di atas
+
+    // Simpan ke localStorage juga
+    localStorage.setItem(WITHDRAW_DATA_KEY, JSON.stringify(withdrawData));
+
+    // Buka modal konfirmasi
     setShowConfirmModal(true);
   };
 
@@ -548,26 +671,48 @@ export const WithdrawPage = () => {
       </div>
 
       {/* ── PIN Modal ── */}
-      <AnimatePresence>
+     <AnimatePresence>
         {showPinModal && (
-          <div className="fixed inset-0 z-[999999] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
+          <div className={`fixed ${isLocked ? 'md:w-[80vw] bg-slate-80/5' : 'w-[100vw] bg-black/70'} h-screen right-0 ml-auto inset-0 z-[999999] flex items-center justify-center p-4 backdrop-blur-md`}>
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-none shadow-2xl overflow-hidden"
+              className="bg-white dark:bg-slate-900 w-full max-w-xl h-max rounded-none shadow-2xl overflow-hidden relative"
             >
+              {/* Blue Overlay saat Locked */}
+              {isLocked && (
+                <div className="absolute inset-0 bg-blue-700 flex flex-col items-center justify-center z-10 text-white p-8 text-center">
+                  <ShieldCheck size={48} className="mb-4 opacity-80" />
+                  <p className="font-black text-xl mb-2">PIN DIBLOKIR SEMENTARA</p>
+                  <p className="text-blue-100 mb-6">Terlalu banyak percobaan salah</p>
+                  <p className="text-3xl font-mono font-bold mb-1">
+                    {Math.floor(lockTimeLeft / 60)}:{(lockTimeLeft % 60).toString().padStart(2, '0')}
+                  </p>
+                  <p className="text-sm opacity-75">Silakan coba lagi setelah waktu habis</p>
+                </div>
+              )}
+
               <div className="p-4 md:p-8 text-center space-y-6">
                 <div className="w-16 h-16 mx-auto bg-amber-50 dark:bg-amber-950/40 flex items-center justify-center">
                   <ShieldCheck size={32} className="text-amber-500" />
                 </div>
+
                 <div>
                   <p className="font-bold text-xl">Konfirmasi PIN Keamanan</p>
                   <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                    Penarikan <span className="mr-1 font-bold text-emerald-500">Rp {formatRupiah(netAmount)}</span>
-                    ke {formData.channelCode} {formData.accountNumber}
+                    Penarikan <span className="font-bold text-emerald-500">Rp {formatRupiah(netAmount)}</span>
                   </p>
                 </div>
+
+                {/* Attempt Counter */}
+                <div className="flex justify-center">
+                  <div className={`px-4 text-sm font-bold
+                    ${pinAttempts <= 1 ? 'text-red-400 ' : ' text-white'}`}>
+                    Percobaan tersisa: <span className="font-mono">{pinAttempts}/3</span>
+                  </div>
+                </div>
+
                 <div className="flex justify-center gap-4">
                   {pin.map((digit, i) => (
                     <input
@@ -579,7 +724,8 @@ export const WithdrawPage = () => {
                       value={digit}
                       onChange={(e) => handlePinInput(i, e.target.value)}
                       onKeyDown={(e) => handlePinKeyDown(i, e)}
-                      className={`w-14 h-14 ${showPin ? 'pb-1' : 'pb-2'} text-center text-3xl font-black border-2 bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:border-blue-500 rounded-none outline-none`}
+                      disabled={isLocked}
+                     className={`w-14 h-14 ${showPin ? 'pb-1' : 'pb-2'} text-center text-3xl font-black border-2 bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:border-blue-500 rounded-none outline-none`}
                     />
                   ))}
                 </div>
@@ -599,20 +745,21 @@ export const WithdrawPage = () => {
                     <p className="text-sm font-medium text-red-600 dark:text-red-400">{pinError}</p>
                   </div>
                 )}
+
                 <div className="flex gap-3 pt-4">
                   <button
-                    onClick={() => { setShowPinModal(false); setPin(["", "", "", ""]); setPinError(""); }}
+                    onClick={() => { setShowPinModal(false); resetPinState(); }}
                     className="flex-1 py-3.5 border border-slate-300 dark:border-slate-700 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
                   >
                     Batal
                   </button>
                   <button
                     onClick={handlePinSubmit}
-                    disabled={isSubmitting || pin.join("").length < 4}
+                    disabled={isSubmitting || pin.join("").length < 4 || isLocked}
                     className="cursor-pointer active:scale-[0.98] flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold disabled:opacity-60 transition-all flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? <Loader2 className="animate-spin" size={18} /> : <ShieldCheck size={18} />}
-                    {isSubmitting ? "Verfikasi" : "Konfirmasi"}
+                    {isSubmitting ? "Memverifikasi..." : "Konfirmasi"}
                   </button>
                 </div>
               </div>
@@ -673,7 +820,7 @@ export const WithdrawPage = () => {
                           {wd.channelCode} {wd.accountNumber}
                         </p>
                       </div>
-                      <span className={`flex items-center gap-1.5 px-3 py-1 rounded-none text-xs font-black ${cfg.className}`}>
+                      <span className={`relative top-1 flex items-center gap-1.5 px-3 py-1 rounded-none text-xs font-black ${cfg.className}`}>
                         {cfg.icon} {cfg.label}
                       </span>
                     </div>
@@ -706,7 +853,6 @@ export const WithdrawPage = () => {
                         }}
                         className="text-[10px] font-black text-blue-500 hover:text-blue-700 flex items-center gap-1 mt-2"
                       >
-                        <RefreshCw size={10} /> Cek Status
                       </button>
                     )}
                   </div>

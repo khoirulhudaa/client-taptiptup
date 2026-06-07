@@ -3101,7 +3101,7 @@ const PinRow = ({ label, groupKey, refs, pinForm, setPinForm, showPins, setShowP
           onChange={e => handlePinInputChange(groupKey, i, e.target.value, refs, setPinForm)}
           onKeyDown={e => handlePinKeyDown(groupKey, i, e, refs)}
           onFocus={e => e.target.select()}
-          className={`w-14 h-14 text-center text-2xl font-black bg-slate-50 dark:bg-slate-800 border-2 outline-none transition-all
+          className={`${!showPins[groupKey] ? 'pb-2' : 'pb-1'} w-14 h-14 text-center text-2xl font-black bg-slate-50 dark:bg-slate-800 border-2 outline-none transition-all
             ${digit
               ? 'border-blue-500 dark:border-blue-400 text-slate-800 dark:text-slate-100'
               : 'border-slate-200 dark:border-slate-700 text-slate-300'
