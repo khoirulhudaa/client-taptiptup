@@ -201,7 +201,7 @@ export const WithdrawPage = () => {
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             className="bg-white dark:bg-slate-900 w-[99%] md:max-w-lg rounded-none shadow-2xl overflow-hidden"
           >
-            <div className="p-8 text-center space-y-6">
+            <div className="p-4 md:p-8 text-center space-y-6">
               <div className="w-16 h-16 mx-auto bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center rounded-full">
                 <AlertTriangle size={32} className="text-blue-600" />
               </div>
@@ -245,7 +245,7 @@ export const WithdrawPage = () => {
                   onClick={onConfirm}
                   className="cursor-pointer active:scale-[0.99] flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all active:scale-[0.98]"
                 >
-                  Lanjutkan ke PIN
+                  Lanjut ke PIN
                 </button>
               </div>
             </div>
@@ -557,7 +557,7 @@ export const WithdrawPage = () => {
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-none shadow-2xl overflow-hidden"
             >
-              <div className="p-8 text-center space-y-6">
+              <div className="p-4 md:p-8 text-center space-y-6">
                 <div className="w-16 h-16 mx-auto bg-amber-50 dark:bg-amber-950/40 flex items-center justify-center">
                   <ShieldCheck size={32} className="text-amber-500" />
                 </div>
@@ -579,7 +579,7 @@ export const WithdrawPage = () => {
                       value={digit}
                       onChange={(e) => handlePinInput(i, e.target.value)}
                       onKeyDown={(e) => handlePinKeyDown(i, e)}
-                      className="w-14 h-14 text-center text-3xl font-black border-2 bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:border-blue-500 rounded-none outline-none"
+                      className={`w-14 h-14 ${showPin ? 'pb-1' : 'pb-2'} text-center text-3xl font-black border-2 bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:border-blue-500 rounded-none outline-none`}
                     />
                   ))}
                 </div>
@@ -594,7 +594,7 @@ export const WithdrawPage = () => {
                   </button>
                 </div>
                 {pinError && (
-                  <div className="flex items-center gap-2 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 p-3 rounded-none">
+                  <div className="flex w-max mx-auto items-center text-center justify-center gap-2 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 p-3 rounded-none">
                     <AlertCircle size={16} className="text-red-500" />
                     <p className="text-sm font-medium text-red-600 dark:text-red-400">{pinError}</p>
                   </div>
