@@ -983,7 +983,7 @@ export const WithdrawPage = () => {
       <AnimatePresence>
         {showTotpModal && (
           <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/70 backdrop-blur-md">
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white dark:bg-slate-900 w-full max-w-md rounded-none p-8">
+            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-none p-8">
               <div className="text-center">
                 <ShieldCheck size={48} className="mx-auto text-blue-600 mb-4" />
                 <p className="font-black text-xl">Verifikasi Google Authenticator</p>
@@ -1005,9 +1005,9 @@ export const WithdrawPage = () => {
               {totpError && <p className="text-red-500 text-center mt-3 text-sm">{totpError}</p>}
 
               <div className="flex gap-3 mt-8">
-                <button onClick={() => { setShowTotpModal(false); setTotpCode(''); setTotpError(''); }} className="flex-1 py-4 border font-bold hover:bg-slate-100 dark:hover:bg-slate-800">Batal</button>
-                <button onClick={handleVerifyTOTP} disabled={isSubmitting || totpCode.length !== 6} className="flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black disabled:opacity-60">
-                  {isSubmitting ? 'Memverifikasi...' : 'Verifikasi & Ajukan Penarikan'}
+                <button onClick={() => { setShowTotpModal(false); setTotpCode(''); setTotpError(''); }} className="cursor-pointer active:scale-[0.99] flex-1 py-4 border font-bold hover:bg-slate-100 dark:hover:bg-slate-800">Batal</button>
+                <button onClick={handleVerifyTOTP} disabled={isSubmitting || totpCode.length !== 6} className="cursor-pointer active:scale-[0.99] flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black disabled:opacity-60">
+                  {isSubmitting ? 'Memverifikasi...' : 'Verifikasi'}
                 </button>
               </div>
             </motion.div>

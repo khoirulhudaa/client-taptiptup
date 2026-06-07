@@ -32,6 +32,10 @@ const QRModal = ({ isOpen, onClose, qrCodeUrl, secret, onSuccess }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const verify2FA = async (code) =>
+    (await axios.post(`${BASE_URL}/api/midtrans/verify-2fa`, { totpCode: code }, { headers: authHeader() })).data;
+
+  // Di dalam handleVerify:
   const handleVerify = async () => {
     if (verifyCode.length !== 6) {
       setError('Masukkan 6 digit kode dari Google Authenticator');
@@ -40,19 +44,15 @@ const QRModal = ({ isOpen, onClose, qrCodeUrl, secret, onSuccess }) => {
     setIsVerifying(true);
     setError('');
 
-    // Verifikasi dengan cara mencoba withdraw dummy — atau buat endpoint verify khusus.
-    // Di sini kita just mark as done karena backend sudah enable saat generate QR.
-    // Untuk production: buat endpoint POST /verify-2fa yang verifikasi token lalu set twoFactorEnabled = true.
     try {
-      // Simulasi verify (skip jika backend sudah handle di enable-2fa)
-      await new Promise(r => setTimeout(r, 1000));
+      await verify2FA(verifyCode); // ← hit endpoint verify
       setIsDone(true);
       setTimeout(() => {
         onSuccess?.();
         onClose();
       }, 1800);
     } catch (err) {
-      setError('Kode salah. Pastikan waktu di HP sudah benar.');
+      setError(err.response?.data?.message || 'Kode salah. Pastikan waktu di HP sudah benar.');
     } finally {
       setIsVerifying(false);
     }
@@ -76,7 +76,7 @@ const QRModal = ({ isOpen, onClose, qrCodeUrl, secret, onSuccess }) => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.93, y: 20 }}
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-none shadow-2xl overflow-hidden"
+          className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-none shadow-2xl overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800">
@@ -185,7 +185,7 @@ const QRModal = ({ isOpen, onClose, qrCodeUrl, secret, onSuccess }) => {
 
                 <button
                   onClick={() => setStep(2)}
-                  className="w-full py-3.5 bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-black text-sm transition-all active:scale-[0.98] cursor-pointer"
+                  className="w-full py-3.5 bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-bold text-sm transition-all active:scale-[0.98] cursor-pointer"
                 >
                   Sudah Discan → Lanjut Verifikasi
                 </button>
@@ -378,7 +378,7 @@ const TwoFactorSetup = () => {
                   <span className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0 flex items-center justify-center bg-blue-600 text-white text-[10px] md:text-[14px] font-black">
                     {i + 1}
                   </span>
-                  <p className="md:ml-0 ml-2 text-[10px] md:text-[14px] text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed px-1">
+                  <p className="md:ml-0 ml-2 text-[10px] md:text-[12px] text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed px-1">
                     {step}
                   </p>
                 </div>
