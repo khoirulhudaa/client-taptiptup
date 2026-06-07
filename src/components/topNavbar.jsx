@@ -442,7 +442,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-none p-10 z-[9999] shadow-2xl text-center"
+              className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-none p-10 z-[9999] shadow-2xl text-center"
             >
               <div className="w-20 h-20 mx-auto mb-6 bg-red-100 dark:bg-red-950/40 text-red-600 rounded-none flex items-center justify-center">
                 <AlertCircle size={40} />
