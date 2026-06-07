@@ -23,6 +23,7 @@ import {
   Loader2,
   Menu,
   MessageSquare,
+  Mic,
   Moon,
   Music,
   PanelLeft,
@@ -856,9 +857,9 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
                 <p className="text-2xl mb-2">🚫</p>
                 <p className="font-black text-sm">Belum ada kata terlarang</p>
               </div>
-            : <div className="flex flex-wrap gap-3">
+            : <div className="md:flex md:flex-wrap grid grid-cols-3 gap-3">
                 {words.map(word => (
-                  <span key={word} className="w-max flex justify-center md:justify-start items-center gap-3 px-4 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-none text-sm font-black border border-red-100 dark:border-red-900">
+                  <span key={word} className="w-full md:w-max flex justify-center md:justify-start items-center gap-3 px-4 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-none text-sm font-black border border-red-100 dark:border-red-900">
                     {word}
                     <button onClick={() => remove(word)} className="cursor-pointer hover:text-red-800 dark:hover:text-red-300 transition-colors"><Trash2 size={12} /></button>
                   </span>
@@ -3095,7 +3096,13 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
 
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
-      <SectionHeader icon={<span className="text-2xl">🔊</span>} title="Text-to-Speech Alert" color="bg-rose-500" />
+       <div className="flex items-center gap-5 mb-6">
+        <div className="p-3 w-11 h-11 bg-rose-500 rounded-none flex items-center justify-center text-white shadow-lg"><Mic size={20} /></div>
+        <div>
+          <h4 className="text-xl font-black text-slate-800 dark:text-white">Text-to-speech</h4>
+          <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Donatur bisa pilih suara ini saat donasi ke streamer</p>
+        </div>
+      </div>
 
       <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-none border border-slate-100 dark:border-slate-700">
         <div>
@@ -3816,7 +3823,7 @@ const handleChangePin = async () => {
             activeSlot={activeSlot}
           />
           <div className="pt-2 md:pt-8 md:border-t border-slate-200 dark:border-slate-700">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-4 mb-6">
               <div className="p-3 w-11 h-11 bg-emerald-500 rounded-none flex items-center justify-center text-white shadow-lg"><Music size={20} /></div>
               <div>
                 <h4 className="text-xl font-black text-slate-800 dark:text-white">Quick Soundboard</h4>

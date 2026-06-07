@@ -332,8 +332,8 @@ const TwoFactorSetup = () => {
 
                 <p className="text-slate-500 dark:text-slate-400 md:mt-1 text-xs md:text-sm leading-relaxed">
                   {isEnabled
-                    ? 'Akun kamu terlindungi untuk setiap penarikan dana.'
-                    : 'Wajib diaktifkan untuk mengajukan penarikan dana.'
+                    ? 'Akun kamu terlindungi untuk WD.'
+                    : 'Wajib diaktifkan untuk WD.'
                   }
                 </p>
               </div>

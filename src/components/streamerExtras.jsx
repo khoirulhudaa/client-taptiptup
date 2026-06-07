@@ -516,7 +516,7 @@ export const SubathonManager = ({ overlayToken }) => {
           disabled={addTimeMutation.isPending}
           className="cursor-pointer active:scale-[0.97] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-none font-black text-sm bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-60">
           <Plus size={20} />
-          +{formatSeconds(manualAdd)}
+          Waktu
         </button>
       </div>
 
