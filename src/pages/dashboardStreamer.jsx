@@ -3100,7 +3100,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
         <div className="p-3 w-11 h-11 bg-rose-500 rounded-none flex items-center justify-center text-white shadow-lg"><Mic size={20} /></div>
         <div>
           <h4 className="text-xl font-black text-slate-800 dark:text-white">Text-to-speech</h4>
-          <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Donatur bisa pilih suara ini saat donasi ke streamer</p>
+          <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Pesan dibacakan oleh sistem</p>
         </div>
       </div>
 
