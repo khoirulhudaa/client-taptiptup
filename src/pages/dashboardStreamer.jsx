@@ -4045,7 +4045,7 @@ const handleChangePin = async () => {
                       </div>
 
                       {/* Icon Alert */}
-                        <div className="space-y-3">
+                        <div className="space-y-3 mt-8">
                           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Icon Alert</label>
                           
                           {/* Mode selector */}
