@@ -1271,29 +1271,29 @@ const SupporterPage = () => {
   };
 
   // Load Midtrans Snap.js
-  // useEffect(() => {
-  //   const existing = document.querySelector('script[src*="snap.js"]');
-  //   if (existing) { setSnapReady(true); return; }
-  //   const script = document.createElement('script');
-  //   script.src = SNAP_URL;
-  //   script.setAttribute('data-client-key', MIDTRANS_CLIENT_KEY);
-  //   script.onload = () => setSnapReady(true);
-  //   document.head.appendChild(script);
-  // }, []);
-
   useEffect(() => {
-    const isProduction = import.meta.env.VITE_NODE_ENV === 'production';
-    const DOKU_JS = isProduction
-      ? 'https://jokul.doku.com/jokul-checkout-js/v1/jokul-checkout-1.0.0.js'
-      : 'https://sandbox.doku.com/jokul-checkout-js/v1/jokul-checkout-1.0.0.js';
-
-    const existing = document.querySelector(`script[src="${DOKU_JS}"]`);
-    if (existing) return;
-
+    const existing = document.querySelector('script[src*="snap.js"]');
+    if (existing) { setSnapReady(true); return; }
     const script = document.createElement('script');
-    script.src = DOKU_JS;
+    script.src = SNAP_URL;
+    script.setAttribute('data-client-key', MIDTRANS_CLIENT_KEY);
+    script.onload = () => setSnapReady(true);
     document.head.appendChild(script);
   }, []);
+
+  // useEffect(() => {
+  //   const isProduction = import.meta.env.VITE_NODE_ENV === 'production';
+  //   const DOKU_JS = isProduction
+  //     ? 'https://jokul.doku.com/jokul-checkout-js/v1/jokul-checkout-1.0.0.js'
+  //     : 'https://sandbox.doku.com/jokul-checkout-js/v1/jokul-checkout-1.0.0.js';
+
+  //   const existing = document.querySelector(`script[src="${DOKU_JS}"]`);
+  //   if (existing) return;
+
+  //   const script = document.createElement('script');
+  //   script.src = DOKU_JS;
+  //   document.head.appendChild(script);
+  // }, []);
 
   // Fetch streamer
   useEffect(() => {
@@ -1429,16 +1429,9 @@ const SupporterPage = () => {
         voiceUrl:     activeTab === 'voice' ? (form.voiceUrl || null) : null,
       };
 
-      // const res = await axios.post(`${BASE_URL}/api/doku-payment/create-invoice`, payload);
       const res = await axios.post(`${BASE_URL}/api/midtrans/create-invoice`, payload);
 
       if (res.data.token && snapReady && window.snap) {
-        // if (res.data.url && window.loadJokulCheckout) {
-        //   window.loadJokulCheckout(res.data.url);
-        // } else {
-        //   // Opsi B: Redirect (fallback) 
-        //   window.location.href = res.data.url;
-        // }
         window.snap.pay(res.data.token, {
           onSuccess: () => (window.location.href = `/donation/success?username=${streamer.username}`),
           onPending: () => (window.location.href = `/donation/pending?username=${streamer.username}`),
