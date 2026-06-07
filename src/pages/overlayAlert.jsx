@@ -40,34 +40,38 @@
       return customIcon;
     };
 
-    const getAlertDuration = (config, amount) => {
-      if (!config) return 10000;
-      // ✅ Gunakan pengaturan baru
-      if (config.alertBaseDuration != null) {
-        const base = Number(config.alertBaseDuration) || 10;
-        const perAmount = Number(config.alertExtraPerAmount) || 10000;
-        const extraDur = Number(config.alertExtraDuration) || 5;
+    // const getAlertDuration = (config, amount) => {
+    //   if (!config) return 10000;
+    //   // ✅ Gunakan pengaturan baru
+    //   if (config.alertBaseDuration != null) {
+    //     const base = Number(config.alertBaseDuration) || 10;
+    //     const perAmount = Number(config.alertExtraPerAmount) || 10000;
+    //     const extraDur = Number(config.alertExtraDuration) || 5;
 
-        const extras = perAmount > 0 ? Math.floor(amount / perAmount) : 0;
-        return (base + extras * extraDur) * 1000;
-      }
+    //     const extras = perAmount > 0 ? Math.floor(amount / perAmount) : 0;
+    //     return (base + extras * extraDur) * 1000;
+    //   }
 
-      // Fallback lama
-      if (config.alertDurationPerThousand) {
-        const seconds = Math.ceil(amount / 1000) * config.alertDurationPerThousand;
-        return seconds * 1000;
-      }
+    //   // Fallback lama
+    //   if (config.alertDurationPerThousand) {
+    //     const seconds = Math.ceil(amount / 1000) * config.alertDurationPerThousand;
+    //     return seconds * 1000;
+    //   }
 
-      if (config.durationTiers?.length > 0) {
-        const sorted = [...config.durationTiers].sort((a, b) => b.minAmount - a.minAmount);
-        for (const tier of sorted) {
-          if (amount >= tier.minAmount && (tier.maxAmount === null || amount <= tier.maxAmount)) {
-            return tier.duration * 1000;
-          }
-        }
-      }
+    //   if (config.durationTiers?.length > 0) {
+    //     const sorted = [...config.durationTiers].sort((a, b) => b.minAmount - a.minAmount);
+    //     for (const tier of sorted) {
+    //       if (amount >= tier.minAmount && (tier.maxAmount === null || amount <= tier.maxAmount)) {
+    //         return tier.duration * 1000;
+    //       }
+    //     }
+    //   }
 
-      return 10000; // default
+    //   return 10000; // default
+    // };
+
+    const getAlertDuration = (config, donation) => {
+      return (Number(config?.alertBaseDuration) || 12) * 1000;
     };
 
     const OverlayAlert = () => {
@@ -81,9 +85,36 @@
       const progressIntervalRef = useRef(null);
       const dismissTimerRef     = useRef(null);
 
-      // ==================== TEXT TO SPEECH (edge-tts via backend) ====================
+      // // ==================== TEXT TO SPEECH (edge-tts via backend) ====================
+      // const speakDonation = useCallback(async (donation) => {
+      //   if (!configRef.current?.ttsEnabled) return;
+
+      //   const text = `${donation.donorName || 'Seseorang'} mengirimkan Rp ${Number(donation.amount).toLocaleString('id-ID')}. ${donation.message || ''}`;
+
+      //   try {
+      //     const res = await fetch('https://server-ttt-production.up.railway.app/api/overlay/tts/speak', {
+      //       method: 'POST',
+      //       headers: { 'Content-Type': 'application/json' },
+      //       body: JSON.stringify({ text, voiceName: 'id-ID-GadisNeural' }),
+      //     });
+
+      //     if (!res.ok) throw new Error('TTS gagal');
+
+      //     const blob  = await res.blob();
+      //     const url   = URL.createObjectURL(blob);
+      //     const audio = new Audio(url);
+      //     audio.volume  = configRef.current.ttsVolume || 1.0;
+      //     audio.onended = () => URL.revokeObjectURL(url);
+      //     await audio.play();
+      //   } catch (err) {
+      //     console.error('[TTS]', err);
+      //   }
+      // }, []);
+
+      // ==================== TEXT TO SPEECH (Selalu jalan, tapi bisa mute) ====================
       const speakDonation = useCallback(async (donation) => {
-        if (!configRef.current?.ttsEnabled) return;
+        const config = configRef.current;
+        if (!config) return Promise.resolve();
 
         const text = `${donation.donorName || 'Seseorang'} mengirimkan Rp ${Number(donation.amount).toLocaleString('id-ID')}. ${donation.message || ''}`;
 
@@ -91,19 +122,36 @@
           const res = await fetch('https://server-ttt-production.up.railway.app/api/overlay/tts/speak', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text, voiceName: 'id-ID-GadisNeural' }),
+            body: JSON.stringify({ 
+              text, 
+              rate: 1.35,
+              voiceName: 'id-ID-GadisNeural' 
+            }),
           });
 
           if (!res.ok) throw new Error('TTS gagal');
 
-          const blob  = await res.blob();
-          const url   = URL.createObjectURL(blob);
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
           const audio = new Audio(url);
-          audio.volume  = configRef.current.ttsVolume || 1.0;
-          audio.onended = () => URL.revokeObjectURL(url);
-          await audio.play();
+
+          // TTS tetap jalan tapi bisu jika dimatikan
+          audio.volume = config.ttsEnabled ? (config.ttsVolume || 1.0) : 0;
+
+          return new Promise((resolve) => {
+            audio.onended = () => { 
+              URL.revokeObjectURL(url); 
+              resolve(); 
+            };
+            audio.onerror = () => { 
+              URL.revokeObjectURL(url); 
+              resolve(); 
+            };
+            audio.play().catch(() => resolve());
+          });
         } catch (err) {
           console.error('[TTS]', err);
+          return Promise.resolve();
         }
       }, []);
 
@@ -168,7 +216,60 @@
           socket.emit('join-room', token);
 
           // ==================== NEW DONATION ====================
-          socket.on('new-donation', (data) => {
+          // socket.on('new-donation', (data) => {
+          //   if (configRef.current?.overlayEnabled === false) return;
+
+          //   const donationWithTime = { ...data, receivedAt: data.receivedAt || new Date().toISOString() };
+          //   setAlert(donationWithTime);
+          //   setProgress(100);
+
+          //   // Sound logic
+          //   let soundToPlay = null;
+          //   const config = configRef.current;
+          //   const amount = Number(donationWithTime.amount);
+
+          //   if (config?.soundTiers && config.soundTiers.length > 0) {
+          //     const sortedTiers = [...config.soundTiers].sort((a, b) => b.minAmount - a.minAmount);
+          //     for (const tier of sortedTiers) {
+          //       if (amount >= tier.minAmount && 
+          //           (tier.maxAmount === null || amount <= tier.maxAmount)) {
+          //         soundToPlay = tier.soundUrl;
+          //         break;
+          //       }
+          //     }
+          //   }
+
+          //   if (!soundToPlay && data.voiceUrl) soundToPlay = data.voiceUrl;
+          //   if (!soundToPlay && data.soundUrl) soundToPlay = data.soundUrl;
+          //   if (!soundToPlay && config?.soundUrl) soundToPlay = config.soundUrl;
+
+          //   if (soundToPlay && audioRef.current) {
+          //     audioRef.current.src = soundToPlay;
+          //     audioRef.current.play().catch(() => {});
+          //   }
+
+          //   speakDonation(donationWithTime);
+
+          //   const duration = getAlertDuration(configRef.current, amount);
+
+          //   if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
+          //   if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
+
+          //   const startTime = Date.now();
+          //   progressIntervalRef.current = setInterval(() => {
+          //     const elapsed = Date.now() - startTime;
+          //     const remaining = Math.max(0, 100 - (elapsed / duration) * 100);
+          //     setProgress(remaining);
+          //     if (remaining <= 0) clearInterval(progressIntervalRef.current);
+          //   }, 50);
+
+          //   dismissTimerRef.current = setTimeout(() => {
+          //     setAlert(null);
+          //     setProgress(100);
+          //   }, duration);
+          // });
+
+          socket.on('new-donation', async (data) => {
             if (configRef.current?.overlayEnabled === false) return;
 
             const donationWithTime = { ...data, receivedAt: data.receivedAt || new Date().toISOString() };
@@ -178,21 +279,17 @@
             // Sound logic
             let soundToPlay = null;
             const config = configRef.current;
-            const amount = Number(donationWithTime.amount);
-
-            if (config?.soundTiers && config.soundTiers.length > 0) {
-              const sortedTiers = [...config.soundTiers].sort((a, b) => b.minAmount - a.minAmount);
-              for (const tier of sortedTiers) {
-                if (amount >= tier.minAmount && 
-                    (tier.maxAmount === null || amount <= tier.maxAmount)) {
+            if (config?.soundTiers?.length) {
+              const sorted = [...config.soundTiers].sort((a, b) => b.minAmount - a.minAmount);
+              for (const tier of sorted) {
+                if (Number(data.amount) >= tier.minAmount && 
+                    (tier.maxAmount === null || Number(data.amount) <= tier.maxAmount)) {
                   soundToPlay = tier.soundUrl;
                   break;
                 }
               }
             }
-
             if (!soundToPlay && data.voiceUrl) soundToPlay = data.voiceUrl;
-            if (!soundToPlay && data.soundUrl) soundToPlay = data.soundUrl;
             if (!soundToPlay && config?.soundUrl) soundToPlay = config.soundUrl;
 
             if (soundToPlay && audioRef.current) {
@@ -200,55 +297,39 @@
               audioRef.current.play().catch(() => {});
             }
 
-            speakDonation(donationWithTime);
+            // TTS + Durasi Fleksibel
+            const ttsPromise = speakDonation(donationWithTime);
+            const baseDurationMs = getAlertDuration(config);
 
-            const duration = getAlertDuration(configRef.current, amount);
-
+            // Clear timer lama
             if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
             if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
 
+            // Progress Bar
             const startTime = Date.now();
             progressIntervalRef.current = setInterval(() => {
               const elapsed = Date.now() - startTime;
-              const remaining = Math.max(0, 100 - (elapsed / duration) * 100);
+              const remaining = Math.max(0, 100 - (elapsed / baseDurationMs) * 100);
               setProgress(remaining);
               if (remaining <= 0) clearInterval(progressIntervalRef.current);
             }, 50);
 
-            dismissTimerRef.current = setTimeout(() => {
+            // Dismiss Alert (fleksibel mengikuti TTS)
+            dismissTimerRef.current = setTimeout(async () => {
+              await ttsPromise;   // tunggu sampai TTS selesai
               setAlert(null);
               setProgress(100);
-            }, duration);
+            }, baseDurationMs);
           });
 
-          // ==================== SETTINGS UPDATED & RECONNECT ====================
-          socket.on('reconnect', () => {
-            console.log('[Overlay] Reconnected → reload config');
-            loadActiveConfig('reconnect');
-          });
+          socket.on('reconnect', () => loadActiveConfig('reconnect'));
+          socket.on('settings-updated', () => loadActiveConfig('socket'));
 
-          socket.on('settings-updated', () => {
-            console.log('[Overlay] Settings updated via socket → reloading...');
-            
-            // Langsung reload tanpa delay
-            loadActiveConfig('socket');
-            
-            // Backup: reload lagi setelah 1 detik (jika ada race condition)
-            setTimeout(() => loadActiveConfig('socket-delay'), 1200);
-          });
-
-          // Polling backup
-          const polling = setInterval(() => {
-            loadActiveConfig('polling');
-          }, 4000);
+          const polling = setInterval(() => loadActiveConfig('polling'), 4000);
 
           return () => {
-            socket.off('new-donation');
-            socket.off('settings-updated');
-            socket.off('reconnect');
             socket.disconnect();
             clearInterval(polling);
-
             if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
             if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
           };

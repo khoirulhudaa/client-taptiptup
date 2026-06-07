@@ -152,6 +152,7 @@ const DEFAULT_SETTINGS = {
   borderColor: '#ffffff26',
   primaryColor: '#6366f1',
   textColor: '#ffffff',
+  alertBaseDuration: 12,
   publicSounds: [],
   publicSoundDefault: '',  
   animation: 'bounce',
@@ -400,12 +401,20 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         voiceUrl: customVoiceUrl.trim() || null,
       });
       setLastSent(new Date());
+      toast.success('✅ Test alert berhasil dikirim!');
     } catch (err) {
       alert(err.response?.data?.message || 'Gagal mengirim test alert');
     } finally {
       setIsSending(false);
     }
   };
+
+  // 4 Template Pesan Cepat
+  const messageTemplates = [
+    "Terima kasih banyak atas donasinya! Semangat terus kak 🔥",
+    "Mantap banget! Dukungan ini sangat berarti buat saya ❤️",
+    "Salam dari fans setia! Keep going, kamu hebat! 👏"
+  ];
 
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
@@ -421,49 +430,76 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex flex-col gap-1">
           <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Donor</label>
-          <input value={customName} onChange={e => setCustomName(e.target.value)}
+          <input 
+            value={customName} 
+            onChange={e => setCustomName(e.target.value)}
             className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
-            placeholder="Seseorang" />
+            placeholder="Seseorang" 
+          />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nominal (Rp)</label>
-          <input type="number" value={customAmount} onChange={e => setCustomAmount(e.target.value)}
-            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all" />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pesan</label>
-          <input value={customMsg} onChange={e => setCustomMsg(e.target.value)}
-            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
-            placeholder="Pesan test..." />
-        </div>
-        <div className="flex flex-col w-full gap-1">
-          <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-            Voice URL <span className="normal-case font-medium text-slate-300">(opsional)</span>
-          </label>
-          <input
-            value={customVoiceUrl}
-            onChange={e => setCustomVoiceUrl(e.target.value)}
-            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
-            placeholder="https://... (URL audio)" 
+          <input 
+            type="number" 
+            value={customAmount} 
+            onChange={e => setCustomAmount(e.target.value)}
+            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all" 
           />
+        </div>
+      </div>
+
+      {/* Textarea tetap ada */}
+      <div className="flex flex-col gap-1">
+        <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pesan</label>
+        <textarea 
+          value={customMsg} 
+          onChange={e => setCustomMsg(e.target.value)}
+          className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all h-20 resize-y"
+          placeholder="Tulis pesan donasi di sini..." 
+        />
+      </div>
+
+      {/* 4 Template Pesan Cepat */}
+      <div>
+        <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Template Pesan Cepat</p>
+        <div className="grid grid-cols-3 gap-2">
+          {messageTemplates.map((template, index) => (
+            <button
+              key={index}
+              onClick={() => setCustomMsg(template)}
+              className={`cursor-pointer active:scale-[0.99] text-left text-xs p-3 rounded-none border transition-all hover:bg-rose-50 dark:hover:bg-rose-950/30 ${
+                customMsg === template 
+                  ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 font-medium' 
+                  : 'border-slate-200 dark:border-slate-700 hover:border-rose-300'
+              }`}
+            >
+              {template}
+            </button>
+          ))}
         </div>
       </div>
 
       <div className="flex flex-wrap gap-3">
         {[10000, 50000, 100000, 500000, 1000000].map(v => (
-          <button key={v} onClick={() => setCustomAmount(v)}
+          <button 
+            key={v} 
+            onClick={() => setCustomAmount(v)}
             className={`cursor-pointer active:scale-[0.97] px-3 py-1.5 rounded-none text-xs font-black transition-all border-2 ${
               Number(customAmount) === v
                 ? 'bg-rose-500 border-rose-500 text-white'
                 : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
-            }`}>
+            }`}
+          >
             {v >= 1000000 ? `${v / 1000000}jt` : v >= 1000 ? `${v / 1000}K` : v}
           </button>
         ))}
       </div>
 
-      <button onClick={sendTest} disabled={isSending || !overlayToken}
-        className="cursor-pointer active:scale-[0.97] w-full py-3 hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60">
+      <button 
+        onClick={sendTest} 
+        disabled={isSending || !overlayToken}
+        className="cursor-pointer active:scale-[0.97] w-full py-3 hover:brightness-90 bg-slate-900/70 dark:bg-slate-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60"
+      >
         {isSending ? (
           <><RefreshCw size={18} className="animate-spin" /> Mengirim...</>
         ) : (
@@ -472,8 +508,11 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       </button>
 
       {lastSent && (
-        <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-3 text-xs text-white dark:text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-none px-4 py-3 border border-emerald-100 dark:border-emerald-900">
+        <motion.div 
+          initial={{ opacity: 0, y: 4 }} 
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-3 text-xs text-white dark:text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-none px-4 py-3 border border-emerald-100 dark:border-emerald-900"
+        >
           <CheckCircle2 size={14} /> Test terakhir dikirim: {lastSent.toLocaleTimeString('id-ID')}
         </motion.div>
       )}
@@ -1338,7 +1377,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
       <div className="space-y-10">
 
         {/* Alert Biasa — hanya tampil kalau bukan mediaOnly */}
-        {!mediaOnly && (
+        {/* {!mediaOnly && (
           <div className="space-y-5">
             <h4 className="font-black text-lg">Alert Biasa</h4>
             <div className="flex flex-col gap-4">
@@ -1367,6 +1406,28 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        )} */}
+
+        {!mediaOnly && (
+          <div className="space-y-5">
+            <h4 className="font-black text-lg">Alert Biasa</h4>
+            <div>
+              <label className="text-xs font-black text-slate-500 block mb-1.5">
+                Durasi Default Alert (detik)
+              </label>
+              <input 
+                type="number" 
+                value={settings.alertBaseDuration ?? 12}
+                onChange={(e) => onChange('alertBaseDuration', e.target.value === '' ? 12 : Number(e.target.value))}
+                min={5}
+                max={60}
+                className="w-full text-2xl font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none p-4"
+              />
+              <p className="text-xs text-slate-500 mt-2">
+                Alert minimal akan bertahan selama ini. Jika TTS lebih lama, akan mengikuti TTS.
+              </p>
             </div>
           </div>
         )}
@@ -1407,27 +1468,35 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
       </div>
 
       {/* Preview kalkulasi */}
-      <div className="bg-slate-50 dark:bg-slate-800/70 p-5 rounded-none text-sm border border-dashed border-slate-200 dark:border-slate-700">
-        <p className="font-black text-xs text-slate-400 mb-3">DURASI SAAT INI</p>
-        <div className="space-y-3">
-          {!mediaOnly && (
-            <div className="flex justify-between">
-              <span>Rp 25.000 — Alert Biasa</span>
-              <span className="font-bold text-slate-900 dark:text-white">
-                {(Number(settings.alertBaseDuration) || 0) + Math.floor(25000 / (Number(settings.alertExtraPerAmount) || 1)) * (Number(settings.alertExtraDuration) || 0)} detik
-              </span>
-            </div>
-          )}
-          {!alertOnly && (
-            <div className="flex justify-between">
-              <span>Rp 50.000 — Media share</span>
-              <span className="font-bold text-slate-900 dark:text-white">
-                {(Number(settings.mediaShareBaseDuration) || 0) + Math.floor(50000 / (Number(settings.mediaShareExtraPerAmount) || 1)) * (Number(settings.mediaShareExtraDuration) || 0)} detik
-              </span>
-            </div>
-          )}
+        <div className="bg-slate-50 dark:bg-slate-800/70 p-5 rounded-none text-sm border border-dashed border-slate-200 dark:border-slate-700">
+          <p className="font-black text-xs text-slate-400 mb-3">DURASI SAAT INI</p>
+          <div className="space-y-3">
+            {!mediaOnly && (
+              <div className="flex justify-between items-center">
+                <span>Alert Biasa (default)</span>
+                 <div className='flex items-center gap-2'>
+                  {/* <p className="text-[10px] text-slate-200">
+                    Catatan: Durasi Alert bisa lebih lama jika TTS sedang berbicara.
+                  </p> */}
+                  <span className="font-bold text-slate-900 dark:text-white">
+                    {Number(settings.alertBaseDuration) || 12} detik
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {!alertOnly && (
+              <div className="flex justify-between items-center">
+                <span>Media Share (contoh Rp 50.000)</span>
+                <span className="font-bold text-slate-900 dark:text-white">
+                  {(Number(settings.mediaShareBaseDuration) || 15) + 
+                  Math.floor(50000 / (Number(settings.mediaShareExtraPerAmount) || 10000)) * 
+                  (Number(settings.mediaShareExtraDuration) || 2)} detik
+                </span>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
         className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
@@ -2985,27 +3054,42 @@ const ColorInput = React.memo(({ label, value, onChange, allowAlpha = false, id 
   );
 });
 ColorInput.displayName = 'ColorInput';
-
 const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
   const [testText, setTestText] = useState('');
   const [isTesting, setIsTesting] = useState(false);
 
   const handleTest = async () => {
     const text = testText.trim() || `Developer berdonasi Rp 50.000. Semangat terus kak!`;
+    
     setIsTesting(true);
+    
     try {
       const res = await api.post('/api/overlay/tts/speak', {
         text,
         voiceName: 'id-ID-GadisNeural',
-      }, { responseType: 'blob' });
+        rate: settings.ttsRate || 1.0,      // ← Penting
+        volume: settings.ttsVolume || 1.0,  // ← Optional
+      }, { 
+        responseType: 'blob' 
+      });
 
-      const url   = URL.createObjectURL(res.data);
+      const url = URL.createObjectURL(res.data);
       const audio = new Audio(url);
-      audio.onended = () => { setIsTesting(false); URL.revokeObjectURL(url); };
-      audio.onerror = () => { setIsTesting(false); URL.revokeObjectURL(url); };
+      
+      audio.onended = () => { 
+        setIsTesting(false); 
+        URL.revokeObjectURL(url); 
+      };
+      audio.onerror = () => { 
+        setIsTesting(false); 
+        URL.revokeObjectURL(url); 
+      };
+
       await audio.play();
     } catch (err) {
+      console.error(err);
       setIsTesting(false);
+      toast.error('Gagal memutar TTS');
     }
   };
 
@@ -3026,7 +3110,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
         </button>
       </div>
 
-      {settings.ttsEnabled && (
+      {/* {settings.ttsEnabled && (
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
@@ -3035,10 +3119,15 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
             ].map(({ label, key, min, max, step, fmt }) => (
               <div key={key}>
                 <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">{label}</label>
-                <input type="range" min={min} max={max} step={step}
+                <input 
+                  type="range" 
+                  min={min} 
+                  max={max} 
+                  step={step}
                   value={settings[key] || 1}
                   onChange={e => upd(key, parseFloat(e.target.value))}
-                  className="w-full accent-rose-500" />
+                  className="w-full accent-rose-500" 
+                />
                 <div className="text-center text-xs text-slate-400 mt-1 font-mono">{fmt(settings[key] || 1)}</div>
               </div>
             ))}
@@ -3054,20 +3143,26 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
                 placeholder="Developer berdonasi Rp 50.000. Semangat terus kak!"
                 className="flex-1 px-4 py-3 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-none text-sm font-medium outline-none focus:border-rose-400 dark:text-slate-100 transition-all"
               />
-              <button onClick={handleTest} disabled={isTesting}
-                className="cursor-pointer px-5 py-2.5 bg-rose-500 hover:brightness-90 disabled:opacity-60 text-white font-black rounded-none transition-all active:scale-[0.97] flex items-center gap-3 whitespace-nowrap">
+              <button 
+                onClick={handleTest} 
+                disabled={isTesting}
+                className="cursor-pointer px-5 py-2.5 bg-rose-500 hover:brightness-90 disabled:opacity-60 text-white font-black rounded-none transition-all active:scale-[0.97] flex items-center gap-3 whitespace-nowrap"
+              >
                 {isTesting ? <><span className="animate-spin inline-block">⏳</span> Memutar...</> : <>▶ Test</>}
               </button>
             </div>
           </div>
 
-          <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 hover:brightness-90 text-white font-black rounded-none transition-all disabled:opacity-60 flex items-center justify-center gap-3">
+          <button 
+            onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} 
+            disabled={saveSettingsMutation.isPending}
+            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 hover:brightness-90 text-white font-black rounded-none transition-all disabled:opacity-60 flex items-center justify-center gap-3"
+          >
             <Save size={18} />
             {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan TTS'}
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
