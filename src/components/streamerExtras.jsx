@@ -122,21 +122,17 @@ export const PollManager = ({ overlayToken, username }) => {
       {activePoll ? (
         <div className="bg-white dark:bg-slate-900 rounded-none shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
           <div className="flex items-center justify-between px-6 py-3 md:py-4 border-b border-slate-100 dark:border-slate-800 bg-green-50 dark:bg-green-950/30">
-            <div className="flex items-center gap-3">
-              <span className="w-2.5 h-2.5 bg-green-500 rounded-none" />
-              <span className="font-black text-green-700 dark:text-green-400 text-sm uppercase tracking-widest">Poll Aktif</span>
-            </div>
-            <div className="flex gap-2">
+            <div className="flex w-full justify-between gap-2">
               <button
                 onClick={() => closeMutation.mutate(activePoll._id)}
                 disabled={closeMutation.isPending}
-                className="cursor-pointer active:scale-[0.97] px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-none font-black text-xs transition-all disabled:opacity-60">
+                className="cursor-pointer active:scale-[0.99] px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-none font-black text-xs transition-all disabled:opacity-60">
                 Tutup Poll
               </button>
               <button
                 onClick={() => { if (window.confirm('Hapus poll ini?')) deleteMutation.mutate(activePoll._id); }}
-                className="cursor-pointer active:scale-[0.97] p-2 bg-red-100 dark:bg-red-950/40 text-red-500 hover:bg-red-200 dark:hover:bg-red-950/60 rounded-none transition-all">
-                <Trash2 size={14} />
+                className="relative top-[-1pxpx] cursor-pointer active:scale-[0.99] text-red-500 hover:bg-red-200 dark:hover:bg-red-950/60 rounded-none transition-all">
+                <Trash2 size={24} />
               </button>
             </div>
           </div>
@@ -495,7 +491,7 @@ export const SubathonManager = ({ overlayToken }) => {
       </div>
 
       {/* Kontrol Utama */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 md:grid-cols-3 gap-3">
         <button
           onClick={() => isRunning 
             ? pauseMutation.mutate({ currentSeconds: displaySeconds }) 
@@ -779,7 +775,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
             { rank: 2, name: 'Budi Gacor',     amount: 250000, count: 7  },
             { rank: 3, name: 'Anonymous',       amount: 100000, count: 3  },
           ].slice(0, Math.min(local.leaderboardLimit, 3)).map((d, i) => (
-            <div key={i} className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-none px-4 py-2.5">
+            <div key={i} className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-none px-2 md:px-4 py-2.5">
               <span className="text-lg w-8 text-center">{['🥇','🥈','🥉'][i]}</span>
               <span className="flex-1 text-sm font-bold text-slate-900 dark:text-slate-100 truncate">{d.name}</span>
               {local.leaderboardShowAmount && (
@@ -842,7 +838,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
         </div>
 
         <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900 rounded-none p-4 text-xs text-amber-700 dark:text-amber-400 font-medium">
-          💡 Pengaturan ini memengaruhi widget leaderboard OBS dan tampilan di halaman donasi publik kamu.
+          💡 Pengaturan ini memengaruhi widget OBS
         </div>
 
         {overlayToken && (
@@ -1054,7 +1050,7 @@ export const MilestonesManager = ({ overlayToken }) => {
               <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Milestone {i + 1}</span>
               <button
                 onClick={() => remove(i)}
-                className="cursor-pointer p-2 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-none transition-all">
+                className="cursor-pointer relative top-[-2px] p-2 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-none transition-all">
                 <Trash2 size={14} />
               </button>
             </div>

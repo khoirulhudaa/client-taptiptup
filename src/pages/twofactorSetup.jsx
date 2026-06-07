@@ -295,44 +295,44 @@ const TwoFactorSetup = () => {
 
         <div className="p-4 md:p-6">
           <div className='w-full md:flex items-center justify-between'>
-            <div className="flex items-start gap-4">
+            <div className="flex items-center md:items-start gap-4">
               {/* Icon */}
-              <div className={`w-11 h-11 flex-shrink-0 flex items-center justify-center rounded-none transition-all
+              <div className={`w-12 h-11 flex-shrink-0 flex items-center justify-center rounded-none transition-all
                 ${isEnabled
-                  ? 'bg-green-50 dark:bg-green-950/40'
+                  ? 'bg-green-50 dark:bg-green-800'
                   : 'bg-slate-100 dark:bg-slate-800'
                 }`}
               >
                 {isEnabled
-                  ? <ShieldCheck size={22} className="text-green-500" />
+                  ? <ShieldCheck size={22} className="text-green-300" />
                   : <ShieldOff size={22} className="text-slate-400 dark:text-slate-500" />
                 }
               </div>
 
               {/* Text */}
               <div className="w-full md:w-max min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex items-center justify-between md:justify-normal gap-2 flex-wrap">
                   <p className="font-black text-slate-800 dark:text-slate-100 text-sm">
                     Google Authenticator (2FA)
                   </p>
                   {statusLoading ? (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-black bg-slate-100 dark:bg-slate-800 text-slate-400">
+                    <span className="relative md:top-0 top-2 inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-black bg-slate-100 dark:bg-slate-800 text-slate-400">
                       <Loader2 size={10} className="animate-spin" /> Memuat...
                     </span>
                   ) : isEnabled ? (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-black bg-green-50 dark:bg-green-950/40 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800">
+                    <span className="relative md:top-0 top-2 inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-black bg-green-50 dark:bg-green-950/40 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800">
                       <CheckCircle2 size={10} /> Aktif
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-black bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
+                    <span className="relative md:top-0 top-2 inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-black bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800">
                       Belum Aktif
                     </span>
                   )}
                 </div>
 
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                <p className="text-slate-500 dark:text-slate-400 md:mt-1 text-xs md:text-sm leading-relaxed">
                   {isEnabled
-                    ? 'Akun kamu terlindungi. Setiap penarikan dana memerlukan kode 6 digit dari aplikasi.'
+                    ? 'Akun kamu terlindungi untuk setiap penarikan dana.'
                     : 'Wajib diaktifkan untuk mengajukan penarikan dana.'
                   }
                 </p>
@@ -356,7 +356,7 @@ const TwoFactorSetup = () => {
           </div>
 
           {isEnabled && (
-            <div className="mt-5 flex items-center gap-2 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 px-4 py-3">
+            <div className="mt-5 hidden md:flex items-center gap-2 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 px-4 py-3">
               <CheckCircle2 size={14} className="text-green-500 flex-shrink-0" />
               <p className="text-xs text-green-700 dark:text-green-400 font-bold">
                 Penarikan dana sudah diamankan dengan Google Authenticator
@@ -365,7 +365,7 @@ const TwoFactorSetup = () => {
           )}
         </div>
 
-        <div className="border-t border-slate-100 dark:border-slate-800 px-5 md:px-7 pt-4 pb-2 md:pb-4 md:pt-4 bg-slate-50 dark:bg-slate-800/50">
+        <div className="border-t border-slate-100 md:block hidden dark:border-slate-800 px-5 md:px-7 pt-4 pb-2 md:pb-4 md:pt-4 bg-slate-50 dark:bg-slate-800/50">
           <div className="md:flex items-start gap-0">
             {[
               'Install Google Authenticator di HP kamu',
@@ -374,16 +374,16 @@ const TwoFactorSetup = () => {
               'Masukkan kode 6 digit untuk konfirmasi',
             ].map((step, i, arr) => (
               <div key={i} className="flex items-center flex-1 md:mb-0 mb-2">
-                <div className="flex md:flex-col items-center text-center flex-1">
+                <div className="flex items-center text-center flex-1">
                   <span className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0 flex items-center justify-center bg-blue-600 text-white text-[10px] md:text-[14px] font-black">
                     {i + 1}
                   </span>
-                  <p className="md:ml-0 ml-2 text-[10px] md:text-[12px] text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed px-1">
+                  <p className="relative top-[-3px] ml-2 text-[10px] md:text-[12px] text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed px-1">
                     {step}
                   </p>
                 </div>
                 {i < arr.length - 1 && (
-                  <span className="text-blue-400 text-xs mb-5 md:flex hidden flex-shrink-0"><ArrowRight size={20} /></span>
+                  <span className="text-blue-400 text-xs mb-0 mr-5 md:flex hidden flex-shrink-0"><ArrowRight size={20} /></span>
                 )}
               </div>
             ))}

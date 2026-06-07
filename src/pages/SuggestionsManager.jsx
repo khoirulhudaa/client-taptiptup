@@ -141,7 +141,7 @@ export const SuggestionsManager = () => {
             <MessageCircle size={20} />
             <span className="text-blue-200 text-xs font-black uppercase tracking-widest">Feedback</span>
           </div>
-          <h2 className="text-2xl font-black tracking-tight">Saran & Masukan</h2>
+          <h2 className="text-lg md:text-2xl font-black tracking-tight">Saran & Masukan</h2>
           <p className="text-blue-200 text-sm font-medium mt-1">Bantu kami improve TapTipTup lebih baik</p>
         </div>
       </div>

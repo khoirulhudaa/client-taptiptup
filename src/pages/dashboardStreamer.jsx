@@ -462,7 +462,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       {/* 4 Template Pesan Cepat */}
       <div>
         <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Template Pesan Cepat</p>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {messageTemplates.map((template, index) => (
             <button
               key={index}
@@ -3925,14 +3925,16 @@ const handleChangePin = async () => {
 
       {/* ── Mobile Navbar ── */}
       <div className="lg:hidden fixed top-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 z-50 px-[17px] py-3 md:py-4 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          {
-            !isSidebarOpen && (
-              <div className="w-[44px] md:w-10 h-11 md:h-10 p-[6px] bg-blue-500 rounded-none flex items-center justify-center"><img src="/man1.png" className='relative left-[-0.8px]' alt="icon" /></div>
-            )
-          }
-          {/* <span className="font-black text-lg tracking-tight text-slate-800 dark:text-slate-100">TTT</span> */}
-        </div>
+        <a href='/'>
+          <div className="flex items-center gap-3">
+            {
+              !isSidebarOpen && (
+                <div className="w-[44px] md:w-10 h-11 md:h-10 p-[6px] bg-blue-500 rounded-none flex items-center justify-center"><img src="/man1.png" className='relative left-[-0.8px]' alt="icon" /></div>
+              )
+            }
+            {/* <span className="font-black text-lg tracking-tight text-slate-800 dark:text-slate-100">TTT</span> */}
+          </div>
+        </a>
         <div className="flex items-center gap-3">
           <button onClick={toggle} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} className="h-[40px] cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 rounded-none border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
             {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}

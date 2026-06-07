@@ -476,8 +476,6 @@ const replyFromCS = (question) => {
               right: 0,
               bottom: 0,
               zIndex: 9998,
-            //   minWidth: 300,
-            //   maxWidth: 420,
               display: 'flex',
               flexDirection: 'column',
             }}
@@ -617,14 +615,13 @@ const replyFromCS = (question) => {
             style={{
                 position: 'fixed',
                 bottom: 16,
-                right: 27.9,
                 zIndex: 9999,
                 width: 56,
                 height: 56,
                 border: 'none',
             }}
 
-            className={`${isOpen ? 'hidden' : ''} relative p-[2px] bg-gradient-to-r from-cyan-400 via-blue-500 to-yellow-400 shadow-2xl cursor-grab active:cursor-grabbing`}
+            className={`md:!right-[20px] !right-[18px] ${isOpen ? 'hidden' : ''} relative p-[2px] bg-gradient-to-r from-cyan-400 via-blue-500 to-yellow-400 shadow-2xl cursor-grab active:cursor-grabbing`}
             >
         {/* inner button */}
         <div className="w-full h-full bg-indigo-600 hover:bg-indigo-700 flex items-center justify-center text-white  shadow-indigo-200 dark:shadow-indigo-900/40 transition-colors relative">

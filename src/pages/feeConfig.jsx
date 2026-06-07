@@ -242,7 +242,7 @@ export const FeeConfigPage = () => {
         <button
           onClick={() => saveMutation.mutate(feeBearer)}
           disabled={saveMutation.isPending}
-          className="cursor-pointer active:scale-[0.98] hover:brightness-90 w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-none transition-all active:scale-[0.98] disabled:opacity-60"
+          className="cursor-pointer active:scale-[0.98] hover:brightness-90 w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black md-text-md text-sm rounded-none transition-all active:scale-[0.98] disabled:opacity-60"
         >
           {saveMutation.isPending ? 'Menyimpan...' : 'Simpan Konfigurasi Fee'}
         </button>
