@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
-import { AlertCircle, ArrowRight, CheckCircle2, Clock, CreditCard, Eye, EyeOff, Loader2, RefreshCw, ShieldCheck, Smartphone, Wallet, XCircle, AlertTriangle, List, Grid } from 'lucide-react';
+import { AlertCircle, ArrowRight, CheckCircle2, Clock, CreditCard, Eye, EyeOff, Loader2, ShieldCheck, Smartphone, Wallet, XCircle, AlertTriangle, List, Grid } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import TwoFactorSetup from './TwoFactorSetup';
 
@@ -44,8 +44,8 @@ const STATUS_CONFIG = {
 const MIN_TARIK = 15000;
 const MAX_TARIK = 10000000;
 const MIN_SALDO = 15000;
-const FEE_PERCENT = 0.025;
-const ADMIN_FEE = 0;
+// const FEE_PERCENT = 0.025;
+// const ADMIN_FEE = 0;
 
 // ── Alert Modal ──
 // ── Alert Modal (Support Success & Error) ──
@@ -841,7 +841,7 @@ export const WithdrawPage = () => {
                     <div className="flex justify-between items-start mb-4">
                       <div>
                         <p className="text-xl font-medium text-slate-800 dark:text-slate-100">
-                          Rp {Number(wd.amount).toLocaleString('id-ID')}
+                          Rp {Number(wd.amount - 1500).toLocaleString('id-ID')}
                         </p>
                         <p className="text-xs text-slate-500 mt-1">
                           {wd.channelCode} {wd.accountNumber}
