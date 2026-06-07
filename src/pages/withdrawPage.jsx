@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircle, ArrowRight, CheckCircle2, Clock, CreditCard, Eye, EyeOff, Loader2, ShieldCheck, Smartphone, Wallet, XCircle, AlertTriangle, List, Grid } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import TwoFactorSetup from './TwoFactorSetup';
+import TwoFactorSetup from './twofactorSetup';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const authHeader = () => ({ Authorization: `Bearer ${localStorage.getItem('token')}` });
