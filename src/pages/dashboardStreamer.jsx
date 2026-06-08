@@ -82,6 +82,7 @@ import DonationTerminal from './DonationTerminal';
 import OnboardingTour from '../components/onboardingTour';
 import LoadingOverlay from '../components/overlayLoading';
 import StreamerManagerPage from './streamerManager';
+import MarqueeConfigPanel from './marqueeConfigPanel';
 
 // ─── API ──────────────────────────────────────────────────────────────────────
 const fetchBadges = async () => (await api.get('/api/midtrans/badges')).data;
@@ -3963,70 +3964,12 @@ const handleChangePin = async () => {
             )}
 
             {activeTab === 'marquee' && (
-              <motion.div key="marquee" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 pb-0">
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6">
-                  <SectionHeader icon={<Users size={20} />} title="Marquee Top Donor" color="bg-pink-500" />
-                  
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    Tambahkan sebagai Browser Source di OBS. Pilih jumlah donor yang ingin ditampilkan.
-                  </p>
-
-                  <div className="space-y-4">
-                    {[
-                      { limit: 5,  label: 'Top 5 Donor',  desc: '5 donatur terbesar' },
-                      { limit: 10, label: 'Top 10 Donor', desc: '10 donatur terbesar' },
-                      { limit: 20, label: 'Top 20 Donor', desc: '20 donatur terbesar' },
-                    ].map(({ limit, label, desc }) => {
-                      const url = `${window.location.origin}/widget/${user.overlayToken}/marquee?limit=${limit}`;
-                      return (
-                        <div key={limit} className="bg-slate-50 dark:bg-slate-800 rounded-none p-5 border border-slate-200 dark:border-slate-700 space-y-3">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <p className="font-black text-slate-800 dark:text-slate-100">{label}</p>
-                              <p className="text-xs text-slate-400 font-medium">{desc}</p>
-                            </div>
-                            <span className="px-3 py-1 bg-pink-100 dark:bg-pink-950/40 text-pink-600 dark:text-pink-400 text-[10px] font-black rounded-none">OBS READY</span>
-                          </div>
-                          <div className="flex gap-3">
-                            <input readOnly value={url}
-                              className="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-none px-3 py-2 font-mono text-xs text-blue-600 dark:text-blue-400 outline-none" />
-                            <button onClick={() => copyToClipboard(url, label)}
-                              className="cursor-pointer px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-none font-black text-xs transition-all active:scale-[0.97]">
-                              Copy
-                            </button>
-                            <a href={url} target="_blank" rel="noopener noreferrer"
-                              className="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-none font-black text-xs hover:bg-slate-300 dark:hover:bg-slate-600 transition-all flex items-center gap-1">
-                              Preview
-                            </a>
-                          </div>
-                          <p className="text-[10px] text-slate-400 font-medium">
-                            💡 Ukuran OBS: <span className="font-black text-slate-600 dark:text-slate-300">1920×60px</span> — tambah parameter: <span className="font-mono text-blue-500">&speed=40&color=%23ffffff&highlight=%234da6ff&fontSize=16</span>
-                          </p>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-none p-4 space-y-2">
-                    <p className="text-xs font-black text-amber-700 dark:text-amber-400 uppercase tracking-widest">Parameter Kustomisasi URL</p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs font-mono text-slate-600 dark:text-slate-400">
-                      {[
-                        ['limit', '5 / 10 / 20', 'Jumlah donor'],
-                        ['speed', '40', 'Kecepatan scroll (px/detik)'],
-                        ['color', '%23ffffff', 'Warna teks (hex encode)'],
-                        ['highlight', '%234da6ff', 'Warna nominal'],
-                        ['fontSize', '16', 'Ukuran font (px)'],
-                        ['bg', 'transparent', 'Background (transparent / hex)'],
-                      ].map(([key, val, desc]) => (
-                        <div key={key} className="flex gap-2">
-                          <span className="text-blue-500 font-black w-20 flex-shrink-0">{key}=</span>
-                          <span className="text-slate-500">{val}</span>
-                          <span className="text-slate-400">— {desc}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+              <motion.div
+                key="marquee"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <MarqueeConfigPanel overlayToken={user.overlayToken} />
               </motion.div>
             )}
 
