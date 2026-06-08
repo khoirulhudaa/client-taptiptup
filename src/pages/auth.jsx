@@ -275,7 +275,7 @@ const ThemeToggle = ({ isDark, onToggle }) => (
 
 // ─── RIGHT PANEL WRAPPER ──────────────────────────────────────────────────────
 const RightPanel = ({ T, isDark, setIsDark, children }) => (
-  <div className='md:min-h-[100vh] h-max mx-auto !px-4 w-[100%] !justify-center !items-center !md:flex pb-8 md:pb-[40px] md:py-[40px] md:!px-[30px] py-[20px]' 
+  <div className='md:min-h-[100vh] h-max mx-auto !px-4 w-[100%] !justify-center !items-center !bg-blue-50 !md:flex pb-8 md:pb-[40px] md:py-[40px] md:!px-[30px] py-[20px]' 
     style={{
       flex:1, position:'relative', background: T.rightBg,
       alignItems:'center', justifyContent:'center', transition:'background 0.35s',
@@ -378,7 +378,7 @@ const MainAuthForm = ({
             fontSize:28, fontWeight:900, color: T.heading, lineHeight:1.2, 
             letterSpacing:'-0.01em', transition:'color 0.35s' 
           }}>
-            {isLogin ? 'Login ke Dashboard' : 'Buat Akun Baru'}
+            {isLogin ? 'Masuk ke Dashboard' : 'Buat Akun Baru'}
           </h2>
           <p style={{ color: T.subtext, fontSize:14, marginTop:8, lineHeight:1.55 }}>
             {isLogin 
@@ -508,7 +508,7 @@ const MainAuthForm = ({
           <div style={{ flex:1, height:1, background: T.divider }} />
         </div> */}
 
-        <p className='mt-6 uppercase' style={{ textAlign:'left', color: T.switchText, fontSize:14 }}>
+        <p className='mt-6 font-bold uppercase' style={{ textAlign:'left', color: 'black', fontSize:14 }}>
           {isLogin ? 'Belum punya akun ?' : 'Sudah punya akun ?'}{' '}
           <button onClick={() => setIsLogin(!isLogin)}
             style={{ 
