@@ -220,7 +220,7 @@ const Spotlight = ({ rect }) => {
         style={{ background: 'rgba(0,0,0,0.55)' }}
       />
       <motion.div
-        className="fixed pointer-events-none z-[99991] rounded-lg"
+        className="fixed pointer-events-none z-[99991] rounded-none"
         style={{ boxShadow: '0 0 0 9999px rgba(0,0,0,0)' }}
         animate={{
           top:       rect.top  - PAD,
@@ -282,7 +282,7 @@ const TourCard = ({ step, stepIndex, total, rect, onNext, onSkip }) => {
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-3">
-        <div className="w-9 h-9 bg-blue-50 dark:bg-blue-950/40 text-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+        <div className="w-9 h-9 bg-blue-50 dark:bg-blue-950/40 text-blue-600 rounded-none flex items-center justify-center flex-shrink-0">
           {step.icon}
         </div>
         <div className="min-w-0">
@@ -323,13 +323,13 @@ const TourCard = ({ step, stepIndex, total, rect, onNext, onSkip }) => {
       <div className="flex gap-2">
         <button
           onClick={onSkip}
-          className="flex-1 py-2 text-xs font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+          className="flex-1 py-2 text-xs font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-none cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
         >
           Lewati
         </button>
         <button
           onClick={onNext}
-          className="flex-[2] py-2 text-xs font-black bg-blue-600 hover:bg-blue-700 text-white rounded-lg cursor-pointer transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]"
+          className="flex-[2] py-2 text-xs font-black bg-blue-600 hover:bg-blue-700 text-white rounded-none cursor-pointer transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]"
         >
           {isLast ? (
             <><Check size={13} /> Selesai</>
@@ -368,13 +368,13 @@ const TourStartModal = ({ onStart, onSkip }) => (
       <div className="flex flex-col gap-2">
         <button
           onClick={onStart}
-          className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl text-sm cursor-pointer transition-all active:scale-[0.99] flex items-center justify-center gap-2 shadow-lg shadow-blue-100 dark:shadow-blue-900/20"
+          className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-none text-sm cursor-pointer transition-all active:scale-[0.99] flex items-center justify-center gap-2 shadow-lg shadow-blue-100 dark:shadow-blue-900/20"
         >
           <Play size={14} /> Mulai Tur Fitur
         </button>
         <button
           onClick={onSkip}
-          className="w-full py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 font-black rounded-xl text-sm cursor-pointer transition-all active:scale-[0.99]"
+          className="w-full py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 font-black rounded-none text-sm cursor-pointer transition-all active:scale-[0.99]"
         >
           Nanti saja
         </button>
