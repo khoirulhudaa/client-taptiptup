@@ -275,9 +275,9 @@ const ThemeToggle = ({ isDark, onToggle }) => (
 
 // ─── RIGHT PANEL WRAPPER ──────────────────────────────────────────────────────
 const RightPanel = ({ T, isDark, setIsDark, children }) => (
-  <div className='md:min-h-[100vh] h-max mx-auto !px-4 w-[100%] !justify-center !items-center !bg-blue-50 !md:flex pb-8 md:pb-[40px] md:py-[40px] md:!px-[30px] py-[20px]' 
+  <div className='md:min-h-[100vh] h-max mx-auto !px-4 w-[100%] !justify-center !items-center!md:flex pb-8 md:pb-[40px] md:py-[40px] md:!px-[30px] py-[20px]' 
     style={{
-      flex:1, position:'relative', background: T.rightBg,
+      flex:1, position:'relative', rightBg: isDark ? '#13111f' : '#bfdbfe',
       alignItems:'center', justifyContent:'center', transition:'background 0.35s',
     }}
   >
@@ -487,7 +487,7 @@ const MainAuthForm = ({
               color: isFormValid ? 'white' : '#64748b', 
               opacity: loading ? 0.65 : 1, display:'flex', alignItems:'center', 
               justifyContent:'center', gap:8, 
-              boxShadow: isFormValid ? '0 8px 32px rgba(79,70,229,0.4)' : 'none',
+              // boxShadow: isFormValid ? '0 8px 32px rgba(79,70,229,0.4)' : 'none',
               transition:'all 0.2s'
             }}
           >
@@ -495,7 +495,7 @@ const MainAuthForm = ({
               <Loader2 className="w-5 h-5 animate-spin" />
             ) : (
               <>
-                {isLogin ? 'Login Dashboard' : 'Daftar Sekarang'}
+                {isLogin ? 'Masuk Dashboard' : 'Daftar Sekarang'}
                 <ArrowRight size={16}/>
               </>
             )}
@@ -508,7 +508,7 @@ const MainAuthForm = ({
           <div style={{ flex:1, height:1, background: T.divider }} />
         </div> */}
 
-        <p className='mt-6 font-bold uppercase' style={{ textAlign:'left', color: 'black', fontSize:14 }}>
+        <p className='mt-6 font-bold uppercase' style={{ textAlign:'left', color: T.heading, fontSize:14 }}>
           {isLogin ? 'Belum punya akun ?' : 'Sudah punya akun ?'}{' '}
           <button onClick={() => setIsLogin(!isLogin)}
             style={{ 
