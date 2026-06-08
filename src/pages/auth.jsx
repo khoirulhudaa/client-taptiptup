@@ -173,7 +173,7 @@ const AuthInput = ({ icon: Icon, type='text', value, onChange, placeholder, T, c
 // ─── LEFT PANEL ───────────────────────────────────────────────────────────────
 const LeftPanel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = ['/fr1.jpg', '/fr2.png', '/fr3.png', '/fr5.jpg', '/fr6.png'];
+  const slides = ['/fr1.jpg', '/fr2.png', '/fr5.jpg', '/fr6.png'];
 
   useEffect(() => {
     const interval = setInterval(() => {
