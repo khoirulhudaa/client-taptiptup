@@ -98,24 +98,8 @@ const renderIcon = (customIcon, size = 20) => {
   return customIcon;
 };
 
-const getAlertDuration = (config, amount) => {
-  if (!config) return 10000;
-  if (config.alertBaseDuration != null) {
-    const base = Number(config.alertBaseDuration) || 10;
-    const perAmount = Number(config.alertExtraPerAmount) || 10000;
-    const extraDur = Number(config.alertExtraDuration) || 5;
-    const extras = perAmount > 0 ? Math.floor(amount / perAmount) : 0;
-    return (base + extras * extraDur) * 1000;
-  }
-  if (config.durationTiers?.length > 0) {
-    const sorted = [...config.durationTiers].sort((a, b) => b.minAmount - a.minAmount);
-    for (const tier of sorted) {
-      if (amount >= tier.minAmount && (tier.maxAmount === null || amount <= tier.maxAmount)) {
-        return tier.duration * 1000;
-      }
-    }
-  }
-  return 10000;
+const getAlertDuration = (config) => {
+  return (Number(config?.alertBaseDuration) || 12) * 1000;
 };
 
 const calculateMediaShareDuration = (config, amount) => {
@@ -807,34 +791,79 @@ const CombinedOverlay = () => {
 
   // TTS
   const speakDonation = useCallback(async (donation) => {
-    if (!configRef.current?.ttsEnabled) return;
+    const config = configRef.current;
+    console.log('[TTS] config:', config?.ttsEnabled, config?.ttsVolume); // ← tambah ini
+    if (!config) return Promise.resolve();
+
     const text = `${donation.donorName || 'Seseorang'} memberikan donasi Rp ${Number(donation.amount).toLocaleString('id-ID')}. ${donation.message || ''}`;
+
     try {
       const res = await fetch(`${API_URL}/api/overlay/tts/speak`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, voiceName: 'id-ID-GadisNeural' }),
+        body: JSON.stringify({ 
+          text,
+          rate: 1.35,
+          voiceName: 'id-ID-GadisNeural',
+        }),
       });
+
       if (!res.ok) throw new Error('TTS gagal');
-      const blob  = await res.blob();
-      const url   = URL.createObjectURL(blob);
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
-      audio.volume  = configRef.current.ttsVolume || 1.0;
-      audio.onended = () => URL.revokeObjectURL(url);
-      await audio.play();
+
+      // ← selalu play, volume 0 jika disabled
+      audio.volume = config.ttsEnabled ? (config.ttsVolume || 1.0) : 0;
+
+      return new Promise((resolve) => {
+        audio.onended = () => { URL.revokeObjectURL(url); resolve(); };
+        audio.onerror = () => { URL.revokeObjectURL(url); resolve(); };
+        audio.play().catch(() => resolve());
+      });
     } catch (err) {
       console.error('[TTS]', err);
+      return Promise.resolve();
     }
   }, []);
+
+  const loadActiveConfig = useCallback(async (source = 'initial') => {
+    try {
+      const timestamp = Date.now();
+      const resA = await axios.get(
+        `${API_URL}/api/overlay/config/${token}?slot=A&t=${timestamp}`
+      );
+
+      const activeSlot = resA.data?.activeSlot || 'A';
+      console.log(`[CombinedOverlay] Active Slot terdeteksi: ${activeSlot} (from ${source})`);
+
+      let finalConfig;
+      if (activeSlot === 'A') {
+        finalConfig = resA.data;
+      } else {
+        const resB = await axios.get(
+          `${API_URL}/api/overlay/config/${token}?slot=${activeSlot}&t=${timestamp}`
+        );
+        finalConfig = resB.data;
+      }
+
+      // ← sama persis dengan alertOverlay, tanpa || source !== 'polling'
+      if (!configRef.current || finalConfig.slot !== configRef.current.slot || finalConfig.updatedAt !== configRef.current.updatedAt) {
+        console.log(`[CombinedOverlay] ✅ Config di-update ke Slot ${finalConfig.slot || 'A'}`);
+        setConfig(finalConfig);
+        configRef.current = finalConfig;
+      }
+    } catch (err) {
+      console.error('[CombinedOverlay] Failed to load config:', err);
+    }
+  }, [token]);
 
   // Fetch config
   useEffect(() => {
     if (!token) return;
-    axios
-      .get(`${API_URL}/api/overlay/config/${token}`)
-      .then((res) => { setConfig(res.data); configRef.current = res.data; })
-      .catch(() => console.error('[CombinedOverlay] Invalid token'));
-  }, [token]);
+    loadActiveConfig('initial');
+  }, [token, loadActiveConfig]);
 
   // Socket
   useEffect(() => {
@@ -861,11 +890,9 @@ const CombinedOverlay = () => {
     socket.on('connect_error', (e) => console.error(`[CombinedOverlay] ⚠️ Connect error: ${e.message}`));
 
     // ── Donasi biasa ──────────────────────────────────────────────────────────
-    socket.on('new-donation', (data) => {
+    socket.on('new-donation', async (data) => {   // ← tambah async
       if (configRef.current?.overlayEnabled === false) return;
 
-
-      // ← clear mediashare dulu
       clearMediaDisplay();
       setMediaProgress(100);
       if (mediaIntervalRef.current) clearInterval(mediaIntervalRef.current);
@@ -875,14 +902,31 @@ const CombinedOverlay = () => {
       setAlertData(donation);
       setAlertProgress(100);
 
-      const soundToPlay = data.voiceUrl || data.soundUrl || configRef.current?.soundUrl;
+      // Sound logic — cek soundTiers dulu seperti OverlayAlert
+      let soundToPlay = null;
+      const cfg = configRef.current;
+      if (cfg?.soundTiers?.length) {
+        const sorted = [...cfg.soundTiers].sort((a, b) => b.minAmount - a.minAmount);
+        for (const tier of sorted) {
+          if (Number(data.amount) >= tier.minAmount &&
+              (tier.maxAmount === null || Number(data.amount) <= tier.maxAmount)) {
+            soundToPlay = tier.soundUrl;
+            break;
+          }
+        }
+      }
+      if (!soundToPlay && data.soundUrl) soundToPlay = data.soundUrl;
+      if (!soundToPlay && cfg?.soundUrl) soundToPlay = cfg.soundUrl;
+
       if (soundToPlay && audioRef.current) {
         audioRef.current.src = soundToPlay;
         audioRef.current.play().catch(() => {});
       }
-      speakDonation(donation);
 
-      const duration = getAlertDuration(configRef.current, Number(donation.amount));
+      // TTS — jalankan paralel, tapi tunggu sebelum dismiss
+      const ttsPromise = speakDonation(donation);
+      const duration = getAlertDuration(configRef.current);
+
       if (alertIntervalRef.current) clearInterval(alertIntervalRef.current);
       if (alertTimerRef.current)    clearTimeout(alertTimerRef.current);
 
@@ -893,7 +937,10 @@ const CombinedOverlay = () => {
         setAlertProgress(remaining);
         if (remaining <= 0) clearInterval(alertIntervalRef.current);
       }, 50);
-      alertTimerRef.current = setTimeout(() => {
+
+      // ← tunggu TTS selesai sebelum dismiss, sama seperti OverlayAlert
+      alertTimerRef.current = setTimeout(async () => {
+        await ttsPromise;
         setAlertData(null);
         setAlertProgress(100);
       }, duration);
@@ -1036,19 +1083,6 @@ const CombinedOverlay = () => {
             setVoiceProgress(100 - pct); // ← sync langsung, tidak hitung terpisah
           }
         }, 100);
-
-        // // Progress bar — pakai durasi dari audio element langsung
-        // if (voiceIntervalRef.current) clearInterval(voiceIntervalRef.current);
-        // const startTime = Date.now();
-        // const dur = isFinite(audio.duration) && audio.duration > 0
-        //   ? audio.duration * 1000
-        //   : voiceDurationMsRef.current;
-
-        // voiceIntervalRef.current = setInterval(() => {
-        //   const remaining = Math.max(0, 100 - ((Date.now() - startTime) / dur) * 100);
-        //   setVoiceProgress(remaining);
-        //   if (remaining <= 0) clearInterval(voiceIntervalRef.current);
-        // }, 50);
       };
 
       audio.onended = () => {
@@ -1092,28 +1126,29 @@ const CombinedOverlay = () => {
       }
     });
 
-    socket.on('settings-updated', (newConfig) => {
-      setConfig(newConfig);
-      configRef.current = newConfig;
-      if (newConfig.overlayEnabled === false) {
-        setAlertData(null); clearMediaDisplay();
-        stopVoiceAudio();
-        setAlertProgress(100); setMediaProgress(100);
-        [alertIntervalRef, mediaIntervalRef].forEach(r => clearInterval(r.current));
-        [alertTimerRef, mediaTimerRef].forEach(r => clearTimeout(r.current));
-      }
+    socket.on('reconnect', () => {
+      joinRooms();
+      loadActiveConfig('reconnect');
     });
 
+    socket.on('settings-updated', () => {
+      loadActiveConfig('socket');
+    });
+
+    const polling = setInterval(() => loadActiveConfig('polling'), 4000);
+
     return () => {
-      ['connect','reconnect','disconnect','connect_error','new-donation','new-media-donation', 'new-voice-donation', 'mediashare-control','settings-updated']
+      ['connect','reconnect','disconnect','connect_error','new-donation','new-media-donation',
+      'new-voice-donation','mediashare-control','settings-updated']
         .forEach(ev => socket.off(ev));
       socket.disconnect();
+      clearInterval(polling);  // ← tambah ini
       [alertIntervalRef, mediaIntervalRef].forEach(r => clearInterval(r.current));
       [alertTimerRef, mediaTimerRef].forEach(r => clearTimeout(r.current));
       clearMediaDisplay();
       stopVoiceAudio();
     };
-  }, [token, speakDonation, clearMediaDisplay, stopVoiceAudio]);
+  }, [token, speakDonation, clearMediaDisplay, stopVoiceAudio, loadActiveConfig]);
 
   if (!config) return null;
   if (config.overlayEnabled === false) {
