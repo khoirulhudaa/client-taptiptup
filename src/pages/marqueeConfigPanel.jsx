@@ -160,7 +160,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
         <h3 className="text-sm font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
           Mode Tampilan
         </h3>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid md:grid-cols-2 gap-3">
           {[
             { val: 'top',    label: '🏆 Top Donor',       desc: 'Berdasarkan total donasi terbesar' },
             { val: 'recent', label: '⚡ Donasi Terbaru',   desc: 'Donasi yang baru masuk' },
@@ -188,12 +188,12 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
         <h3 className="text-sm font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
           {cfg.mode === 'top' ? 'Jumlah Top Donor' : 'Jumlah Donasi Terbaru'}
         </h3>
-        <div className="flex gap-3">
+        <div className="md:flex gap-3">
           {[5, 10, 20].map(n => (
             <button
               key={n}
               onClick={() => upd('limit', n)}
-              className={`cursor-pointer text-left pl-3.5 flex-1 py-2.5 rounded-none font-black text-sm border-2 transition-all active:scale-[0.97] ${
+              className={`w-full md:mb-0 mb-2.5 cursor-pointer text-left pl-3.5 flex-1 py-2.5 rounded-none font-black text-sm border-2 transition-all active:scale-[0.97] ${
                 cfg.limit === n
                   ? 'bg-blue-600 border-blue-600 text-white'
                   : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
