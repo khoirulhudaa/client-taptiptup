@@ -703,8 +703,8 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 5 * 1024 * 1024) {
-      setUploadError('Ukuran file maksimal 5MB');
+    if (file.size > 3 * 1024 * 1024) {
+      setUploadError('Ukuran file maksimal 3MB');
       return;
     }
 

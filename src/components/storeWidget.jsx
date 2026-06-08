@@ -57,7 +57,7 @@ const StoreWidget = () => {
         {/* Gambar Kiri */}
         <div style={{ 
           width: 'max-content', 
-          height: '220px', 
+          height: '100%', 
           flexShrink: 0,
           padding: 20,
           display: 'flex',
@@ -69,7 +69,7 @@ const StoreWidget = () => {
             <img
               src={p.imageUrl}
               alt={p.name}
-              style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '10px' }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
               onError={(e) => e.target.style.display = 'none'}
             />
           ) : (
