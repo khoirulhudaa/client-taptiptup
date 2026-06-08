@@ -171,48 +171,105 @@ const AuthInput = ({ icon: Icon, type='text', value, onChange, placeholder, T, c
 };
 
 // ─── LEFT PANEL ───────────────────────────────────────────────────────────────
-const LeftPanel = () => (
-  <div className="auth-left md:h-[100vh] h-max" style={{
-    position:'relative', width:'48%',
-    background:'linear-gradient(145deg, #312e81 0%, #2754FF 45%, #6d28d9 100%)',
-    display:'flex', flexDirection:'column', justifyContent:'space-between',
-    padding:'48px 44px', overflow:'hidden',
-  }}>
-    {/* <BgCanvas /> */}
-    <img src="/img.jpg" alt="img" className='absolute md:flex hidden top-0 left-0 w-full z-[999]' />
-    <img src="/img2.jpg" alt="img" className='md:hidden relative md:absolute h-full w-full z-[999]' />
-    {/* <div className='md:px-0 px-4 hidden md:hidden' style={{ position:'relative', zIndex:10 }}>
-      <BrandLogo />
-      <HeroJellyfish />
-      <HeroContent />
-    </div> */}
-    {/* <StatsGrid /> */}
-  </div>
-);
+const LeftPanel = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = ['/fr1.jpg', '/fr2.png', '/fr3.png', '/fr5.jpg', '/fr6.png'];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % slides.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="auth-left md:h-[100vh] h-max" style={{
+      position: 'relative', width: '37.5vw',
+      background: 'linear-gradient(145deg, #312e81 0%, #2754FF 45%, #6d28d9 100%)',
+      display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+      padding: '0', overflow: 'hidden',
+    }}>
+      {/* Desktop: carousel f1–f4 */}
+      <div className="md:flex hidden absolute inset-0 z-[999]">
+        {slides.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt={`slide ${i + 1}`}
+            style={{
+              position: 'absolute', inset: 0,
+              width: '100%', height: '100%',
+              objectFit: 'contain',
+              opacity: i === currentSlide ? 1 : 0,
+              transition: 'opacity 0.7s ease',
+            }}
+          />
+        ))}
+
+        {/* Dot navigator */}
+        <div style={{
+          position: 'absolute', bottom: 20, left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex', gap: 8, zIndex: 10,
+        }}>
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              style={{
+                width: i === currentSlide ? 24 : 8,
+                height: 8,
+                borderRadius: 4,
+                background: i === currentSlide ? 'white' : 'rgba(255,255,255,0.45)',
+                border: 'none', cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                padding: 0,
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Mobile: tetap img1 & img2 */}
+      <img src="/img2.jpg" alt="img" className='md:hidden flex relative w-full h-full object-cover z-[999]' />
+    </div>
+  );
+};
 
 // ─── THEME TOGGLE ─────────────────────────────────────────────────────────────
-const ThemeToggle = ({ isDark, onToggle, T }) => (
+const ThemeToggle = ({ isDark, onToggle }) => (
   <motion.button
     onClick={onToggle}
-    whileTap={{ scale: 0.98 }}
-    className="relative left-[0px] mb-8 !text-slate-900 dark:!text-white w-max md:right-[35px] flex items-center gap-[7px] dark:!bg-[white] !bg-slate-100 px-[18px] py-[12px] cursor-pointer z-20 rounded-none transition-colors duration-[350ms]"
+    whileTap={{ scale: 0.97 }}
+    className="relative md:top-[-12px] top-[-2px] left-[0px] mb-8 z-20"
+    style={{
+      width: 52, height: 28,
+      borderRadius: 0,
+      background: isDark ? '#4f46e5' : '#e2e8f0',
+      border: 'none', cursor: 'pointer', padding: 0,
+      outline: 'none', transition: 'background 0.3s ease',
+      display: 'flex', alignItems: 'center',
+      position: 'relative',
+    }}
   >
-    <AnimatePresence mode="wait">
-      <motion.div 
-        className='!text-slate-900 dark:!text-slate-900'
-        key={isDark ? 'moon' : 'sun'}
-        initial={{ opacity:0, rotate:-30, scale:0.7 }}
-        animate={{ opacity:1, rotate:0, scale:1 }}
-        exit={{ opacity:0, rotate:30, scale:0.7 }}
-        transition={{ duration:0.22 }}
-        style={{ display:'flex' }}
-      >
-        {isDark ? <Moon size={15}/> : <Sun size={15}/>}
-      </motion.div>
-    </AnimatePresence>
-    <span style={{ fontSize:12, fontWeight:800, letterSpacing:'0.02em' }}>
-      {isDark ? 'Dark' : 'Light'}
-    </span>
+    {/* Thumb + icon */}
+    <motion.div
+      layout
+      transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+      style={{
+        position: 'absolute',
+        top: 4,
+        left: isDark ? 24 : 5,
+        width: 20, height: 20,
+        borderRadius: '0%',
+        background: isDark ? '#818cf8' : 'white',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        transition: 'left 0.3s ease, background 0.3s ease',
+        color: isDark ? 'white' : '#f59e0b',
+      }}
+    >
+      {isDark ? <Moon size={11} /> : <Sun size={11} />}
+    </motion.div>
   </motion.button>
 );
 
