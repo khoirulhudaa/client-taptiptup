@@ -28,7 +28,7 @@
         {icon && (
         <div className={`${color} p-2 rounded-none text-white shadow-lg`}>{icon}</div>
         )}
-        <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">{title}</h3>
+        <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">{title}</h3>
     </div>
     );
 
@@ -44,7 +44,7 @@
         { label: 'Rp 50.000', amount: 50000 },
         { label: 'Rp 100.000', amount: 100000 },
         { label: 'Rp 500.000', amount: 500000 },
-        { label: 'Rp 1.000.000', amount: 1000000 },
+        // { label: 'Rp 1.000.000', amount: 1000000 },
     ].map(({ label, amount }) => ({
         label,
         seconds: base + Math.floor(amount / (perAmt || 1)) * extraDur,
@@ -57,7 +57,7 @@
                 <Timer size={20} />
             </div>
             <div>
-                <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
                     Durasi VN
                 </h3>
                 <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
@@ -119,11 +119,11 @@
         </div>
 
         {/* Preview kalkulasi */}
-        <div className="md:bg-slate-50 md:dark:bg-slate-800/70 md:p-5 md:rounded-none md:border border-dashed border-slate-200 dark:border-slate-700">
+        <div className="mt-3 md:bg-slate-50 md:dark:bg-slate-800/70 md:p-5 md:rounded-none md:border border-dashed border-slate-200 dark:border-slate-700">
             <p className="font-black text-xs text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">
             Simulasi Durasi
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-5 md:gap-0 gap-x-2 md:justify-between">
+            <div className="grid grid-cols-2 mb-2 md:grid-cols-5 md:gap-0 gap-x-2 md:justify-between">
             {previewDurations.map(({ label, seconds }, index) => (
                 <div className='md:flex w-full mb-2 md:mb-0 items-center gap-4'>
                     <div 
@@ -203,7 +203,7 @@
                         <Zap size={20} />
                     </div>
                     <div>
-                        <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                        <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
                             Testing VN
                         </h3>
                         <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
@@ -330,7 +330,7 @@
                 <Mic size={20} />
             </div>
             <div>
-                <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
                     Overlay VN
                 </h3>
                 <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">

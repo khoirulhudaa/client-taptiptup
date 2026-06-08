@@ -96,7 +96,7 @@ export const ContactPage = () => {
             </div>
             <span className="text-white/50 text-xs font-black uppercase tracking-widest">Bantuan & Kontak</span>
           </div>
-          <h1 className="text-xl md:text-4xl font-black text-white tracking-tight leading-tight mb-3">
+          <h1 className="uppercase md:capitalize text-xl md:text-4xl font-black text-white tracking-tight leading-tight mb-3">
             Apa yang perlu dibantu 🥸?
           </h1>
           <p className="text-white/50 text-sm font-medium leading-relaxed">

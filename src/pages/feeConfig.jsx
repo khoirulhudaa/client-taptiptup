@@ -181,7 +181,7 @@ export const FeeConfigPage = () => {
           <div className="bg-indigo-600 p-3 rounded-none text-white shadow-lg">
             <Settings2 size={20} />
           </div>
-          <h3 className="text-xl font-black">Penanggung 2.5%</h3>
+          <h3 className="text-sm uppercase md:text-xl font-black">Penanggung 2.5%</h3>
         </div>
 
         {isLoading ? (

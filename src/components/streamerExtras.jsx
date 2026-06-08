@@ -764,10 +764,10 @@ export const LeaderboardSettings = ({ overlayToken }) => {
       <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-none p-4 md:p-6">
         <div className="flex items-center gap-3 mb-5">
           <Trophy size={20} className="text-amber-400" />
-          <span className="font-black text-slate-900 dark:text-slate-100 text-sm">Preview Leaderboard</span>
-          <span className="ml-auto text-[10px] text-slate-400 dark:text-slate-500 font-medium">
+          <span className="font-black text-slate-900 dark:text-slate-100 text-sm md:capitalize uppercase">Preview Leaderboard</span>
+          {/* <span className="ml-auto text-[10px] text-slate-400 dark:text-slate-500 font-medium">
             {local.leaderboardPeriod === 'today' ? 'Hari ini' : 'Semua waktu'}
-          </span>
+          </span> */}
         </div>
         <div className="space-y-2">
           {[

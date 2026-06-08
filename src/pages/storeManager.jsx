@@ -83,7 +83,7 @@ const StoreManager = ({ overlayToken }) => {
         <div className="flex items-center gap-4">
             <div className="bg-rose-500 p-3 rounded-none text-white shadow-lg"><StoreIcon size={20} /></div>
             <div>
-            <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Konfigurasi Toko </h3>
+            <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Konfigurasi Toko </h3>
             </div>
         </div>
         {/* Tombol Tambah Produk - Hanya muncul jika belum ada produk */}

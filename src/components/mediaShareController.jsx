@@ -58,7 +58,7 @@ export const MediaShareControl = () => {
           <SkipForward size={18} />
         </div>
         <div>
-          <p className="font-black text-slate-800 dark:text-white text-xl">Medshare Control</p>
+          <p className="font-black text-slate-800 dark:text-white text-sm md:capitalize uppercase md:text-xl">Medshare Control</p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500">Skip atau atur volume langsung dari dashboard</p>
         </div>
       </div>

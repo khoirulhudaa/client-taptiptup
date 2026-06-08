@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Copy, CheckCircle2, ExternalLink } from 'lucide-react';
+import { Copy, CheckCircle2, ExternalLink, Text, List, View, Monitor, Cog, Link, Link2 } from 'lucide-react';
 
 const DEMO_TOP_DONORS = [
   { name: 'BudiDev',    totalAmount: 1500000, count: 12 },
@@ -157,9 +157,16 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
 
       {/* ── Mode: Top Donor vs Donasi Terbaru ─────────────────── */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
-        <h3 className="text-sm font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
-          Mode Tampilan
-        </h3>
+         <div className="flex items-center gap-4">
+          <div className="bg-cyan-500 p-3 rounded-none text-white shadow-lg">
+            <Monitor size={20} />
+          </div>
+          <div>
+            <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+              Mode Tampilan
+            </h3>
+          </div>
+        </div>
         <div className="grid md:grid-cols-2 gap-3">
           {[
             { val: 'top',    label: '🏆 Top Donor',       desc: 'Berdasarkan total donasi terbesar' },
@@ -185,9 +192,16 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
 
       {/* ── Jumlah Item ───────────────────────────────────────── */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
-        <h3 className="text-sm font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
-          {cfg.mode === 'top' ? 'Jumlah Top Donor' : 'Jumlah Donasi Terbaru'}
-        </h3>
+        <div className="flex items-center gap-4">
+          <div className="bg-emerald-500 p-3 rounded-none text-white shadow-lg">
+            <List size={20} />
+          </div>
+          <div>
+            <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+              {cfg.mode === 'top' ? 'Jumlah Top Donor' : 'Jumlah Donasi Terbaru'}
+            </h3>
+          </div>
+        </div>
         <div className="md:flex gap-3">
           {[5, 10, 20].map(n => (
             <button
@@ -207,13 +221,18 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
 
       {/* ── Tampilan Teks ─────────────────────────────────────── */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
-        <h3 className="text-sm font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
-          Tampilan Teks
-        </h3>
+        <div className="flex items-center gap-4">
+          <div className="bg-rose-500 p-3 rounded-none text-white shadow-lg">
+            <Text size={20} />
+          </div>
+          <div>
+            <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Tampilan Teks</h3>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">
+            <label className="text-[10px] font-black text-slate-400 uppercase md:capitalize tracking-widest block mb-2">
               Warna Nama Donor
             </label>
             <div className="flex items-center gap-3">
@@ -229,7 +248,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
           </div>
 
           <div>
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">
+            <label className="text-[10px] font-black text-slate-400 uppercase md:capitalize tracking-widest block mb-2">
               Warna Nominal
             </label>
             <div className="flex items-center gap-3">
@@ -247,8 +266,8 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
 
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Ukuran Font</label>
-            <span className="text-sm font-black text-slate-700 dark:text-slate-200">{cfg.fontSize}px</span>
+            <label className="text-[10px] font-black text-slate-400 uppercase md:capitalize tracking-widest">Ukuran Font</label>
+            <span className="text-sm md:text-xl font-black text-slate-700 dark:text-slate-200">{cfg.fontSize}px</span>
           </div>
           <input
             type="range" min={12} max={28} step={1}
@@ -263,8 +282,8 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
 
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Kecepatan Scroll</label>
-            <span className="text-sm font-black text-slate-700 dark:text-slate-200">{cfg.speed} px/s</span>
+            <label className="text-[10px] font-black text-slate-400 uppercase md:capitalize tracking-widest">Kecepatan Scroll</label>
+            <span className="text-sm md:text-xl font-black text-slate-700 dark:text-slate-200">{cfg.speed} px/s</span>
           </div>
           <input
             type="range" min={10} max={120} step={5}
@@ -280,9 +299,16 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
 
       {/* ── Background OBS ────────────────────────────────────── */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
-        <h3 className="text-sm font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
-          Background OBS
-        </h3>
+        <div className="flex items-center gap-4">
+          <div className="bg-pink-500 p-3 rounded-none text-white shadow-lg">
+            <Cog size={20} />
+          </div>
+          <div>
+            <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+              Background OBS
+            </h3>
+          </div>
+        </div>
         <div className="flex flex-wrap gap-2.5">
           {BG_PRESETS.map(preset => (
             <button
@@ -353,9 +379,16 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
 
       {/* ── URL OBS ───────────────────────────────────────────── */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
-        <h3 className="text-sm font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest">
-          URL Browser Source OBS
-        </h3>
+        <div className="flex items-center gap-4">
+          <div className="bg-blue-500 p-3 rounded-none text-white shadow-lg">
+            <Link2 size={20} />
+          </div>
+          <div>
+            <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+              URL Browser OBS
+            </h3>
+          </div>
+        </div>
 
         <div className="bg-slate-100 dark:bg-slate-800 rounded-none px-4 py-3 font-mono text-xs text-blue-600 dark:text-blue-400 break-all border border-slate-200 dark:border-slate-700 select-all">
           {buildUrl()}

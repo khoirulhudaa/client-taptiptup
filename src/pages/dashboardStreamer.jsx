@@ -228,7 +228,7 @@ const SectionHeader = ({ icon, title, color }) => (
     {icon && (
       <div className={`${color} p-3 rounded-none text-white shadow-lg`}>{icon}</div>
     )}
-    <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">{title}</h3>
+    <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">{title}</h3>
   </div>
 );
 
@@ -425,7 +425,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
           <Zap size={20} />
         </div>
         <div>
-          <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Testing Alert</h3>
+          <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Testing Alert</h3>
         </div>
       </div>
 
@@ -575,7 +575,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
           <Video size={20} />
         </div>
         <div>
-          <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Testing Medshare</h3>
+          <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Testing Medshare</h3>
         </div>
       </div>
 
@@ -3075,7 +3075,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
        <div className="flex items-center gap-5 mb-6">
         <div className="p-3 w-11 h-11 bg-rose-500 rounded-none flex items-center justify-center text-white shadow-lg"><Mic size={20} /></div>
         <div>
-          <h4 className="text-xl font-black text-slate-800 dark:text-white">Text-to-speech</h4>
+          <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-white">Text-to-speech</h4>
           <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Pesan dibacakan oleh sistem</p>
         </div>
       </div>
@@ -3803,7 +3803,7 @@ const handleChangePin = async () => {
             <div className="flex items-center gap-4 md:mb-6 mb-5">
               <div className="p-3 w-11 h-11 bg-emerald-500 rounded-none flex items-center justify-center text-white shadow-lg"><Music size={20} /></div>
               <div>
-                <h4 className="text-xl font-black text-slate-800 dark:text-white">Quick Soundboard</h4>
+                <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-white">Quick Soundboard</h4>
                 <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Donatur bisa pilih suara ini saat donasi ke streamer</p>
               </div>
             </div>
@@ -4320,7 +4320,7 @@ const handleChangePin = async () => {
                   {/* Widget URLs */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
                     <div className="flex justify-between items-center gap-3 mb-5">
-                      <span className="text-xl font-black text-slate-900 dark:text-slate-100">Widget URLs untuk OBS</span>
+                      <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Widget OBS</span>
                       <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 rounded-none text-[9px] font-black uppercase tracking-widest">Browser Source</span>
                     </div>
                     {[

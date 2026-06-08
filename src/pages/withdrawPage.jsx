@@ -566,7 +566,7 @@ export const WithdrawPage = () => {
 
         {/* ── Form Penarikan ── */}
         <div className="bg-white dark:bg-slate-900 rounded-none p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
-          <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-6 flex items-center gap-3">
+          <h2 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 mb-6 flex items-center gap-3">
             <CreditCard className="text-blue-600" size={20} /> Ajukan Penarikan Dana
           </h2>
 
