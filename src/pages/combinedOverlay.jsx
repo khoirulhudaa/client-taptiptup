@@ -190,7 +190,7 @@ const renderAlertInner = ({ alert, config, progress }) => {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <span style={{ fontFamily: monospace, fontSize: 23, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
-            <span style={{ fontFamily: monospace, fontSize: 16, color: hl, textTransform: 'uppercase', letterSpacing: '0.18em', fontWeight: 700 }}>
+            <span style={{ fontFamily: monospace, fontSize: 18, color: hl, textTransform: 'uppercase', letterSpacing: '0.18em', fontWeight: 700 }}>
               DUKUNGAN MASUK
             </span>
           </div>
@@ -201,25 +201,25 @@ const renderAlertInner = ({ alert, config, progress }) => {
           </div>
         </div>
         <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 8 }}>
-            <div style={{ width: 40, height: 40, border: pixelBorder, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 23, background: hl + '12' }}>
+          <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 10 }}>
+            <div style={{ width: 40, height: 40, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 21,}}>
               {renderIcon(customIcon, 20)}
             </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ marginTop: 10, fontFamily: monospace, fontSize: 18, fontWeight: 900, color: fg, lineHeight: 1.1 }}>{alert.donorName}</div>
+            <div style={{ marginTop: 5, flex: 1, width: 'max-content', display: 'flex', alignItems: 'center', gap: 3 }}>
+              <div style={{ fontFamily: monospace, fontSize: 24, fontWeight: 900, color: fg, lineHeight: 1.1 }}>{alert.donorName} mengirim</div>
+              <div style={{ marginLeft: 10, fontFamily: monospace, fontSize: 24, fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}55` }}>
+                Rp {Number(alert.amount).toLocaleString('id-ID')}
+              </div>
             </div>
           </div>
-          <div style={{ fontFamily: monospace, fontSize: 26, fontWeight: 900, color: hl, letterSpacing: '-1px', lineHeight: 1, borderLeft: `3px solid ${hl}`, paddingLeft: 8, marginBottom: 6, textShadow: `0 0 10px ${hl}55` }}>
-            Rp {Number(alert.amount).toLocaleString('id-ID')}
-          </div>
           {alert.message && (
-            <div style={{ fontFamily: monospace, fontSize: 24, color: fg, fontWeight: 900, background: 'rgba(255,255,255,0.04)', border: dimBorder, padding: '5px 8px', lineHeight: 1.4, marginBottom: 6 }}>
-              {'>> '}{alert.message}
+            <div style={{ fontFamily: monospace, fontSize: 20, color: fg, fontWeight: 900, background: 'rgba(255,255,255,0.04)', border: dimBorder, padding: '5px 8px', lineHeight: 1.4, marginBottom: 6 }}>
+              {alert.message}
             </div>
           )}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 }}>
             {showTs && alert?.receivedAt
-              ? <div style={{ fontFamily: monospace, fontSize: 16, color: 'rgba(255,255,255,0.35)' }}>{'> '}{formatTimestamp(alert.receivedAt)}</div>
+              ? <div style={{ fontFamily: monospace, fontSize: 16, color: 'rgba(255,255,255,0.7)' }}>{formatTimestamp(alert.receivedAt)}</div>
               : <div />
             }
             <div style={{ display: 'flex', gap: 2 }}>
@@ -1125,7 +1125,7 @@ const CombinedOverlay = () => {
   const borderColor = config.borderColor    || 'rgba(255,255,255,0.15)';
   const theme       = config.theme          || 'modern';
   const animation   = config.animation      || 'bounce';
-  const maxW        = config.maxWidth       || 340;
+  const maxW        = 650;
 
   const animVariants = {
     bounce: {

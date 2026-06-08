@@ -996,11 +996,11 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
       {label && <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</label>}
 
       <div className="flex gap-3">
-        {[{ id: 'preset', label: '🎵 Preset' }, { id: 'upload', label: '📤 Upload MP3' }].map(m => (
+        {[{ id: 'preset', label: 'Preset' }, { id: 'upload', label: 'Upload MP3' }].map(m => (
           <button
             key={m.id}
             onClick={() => setMode(m.id)}
-            className={`cursor-pointer active:scale-[0.97] px-4 py-2 rounded-none font-black text-xs transition-all flex-1 ${
+            className={`cursor-pointer uppercase active:scale-[0.97] text-left px-4 py-4 rounded-none font-black text-xs transition-all flex-1 ${
               mode === m.id ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
@@ -1013,7 +1013,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
       {mode === 'preset' && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <button onClick={() => { onChange(''); setPlaying(null); }}
-            className={`cursor-pointer active:scale-[0.97] flex items-center gap-1.5 p-3 rounded-none border-2 font-black text-xs transition-all ${
+            className={`cursor-pointer uppercase active:scale-[0.97] flex items-center gap-1.5 p-3 rounded-none border-2 font-black text-xs transition-all ${
               !value ? 'border-slate-600 bg-slate-800 text-white' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
             }`}>
             <span className="text-lg">🔇</span> Tanpa Suara
@@ -1371,49 +1371,11 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
         title={mediaOnly ? 'Durasi Medshare' : alertOnly ? 'Durasi Alert' : 'Pengaturan Durasi'}
         color="bg-amber-500"
       />
-      {/* <p className="md:flex hidden text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-        Atur berapa lama {mediaOnly ? 'media share' : alertOnly ? 'alert' : 'alert'} muncul berdasarkan nominal donasi.
-      </p> */}
 
       <div className="space-y-10">
 
-        {/* Alert Biasa — hanya tampil kalau bukan mediaOnly */}
-        {/* {!mediaOnly && (
-          <div className="space-y-5">
-            <h4 className="font-black text-lg">Alert Biasa</h4>
-            <div className="flex flex-col gap-4">
-              <div>
-                <label className="text-xs font-black text-slate-500 block mb-1.5">Durasi Dasar (detik)</label>
-                <input type="number" value={settings.alertBaseDuration || ''}
-                  onChange={(e) => onChange('alertBaseDuration', e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full text-lg font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none p-2" />
-              </div>
-              <div>
-                <div className="md:flex items-center gap-3">
-                  <div className='w-full'>
-                    <label className="text-xs font-black text-slate-500 block mb-1.5">Tambahan tiap Rp</label>
-                    <div className='md:flex items-center'>
-                      <input type="number" value={settings.alertExtraPerAmount || ''}
-                        onChange={(e) => onChange('alertExtraPerAmount', e.target.value === '' ? '' : Number(e.target.value))}
-                        className="w-full text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none p-2" />
-                      <span className="md:flex hidden dark:text-white ml-2 text-slate-900 font-bold"><Plus /></span>
-                    </div>
-                  </div>
-                  <div className='md:mt-0 mt-4'>
-                    <label className="text-xs font-black text-slate-500 block mb-1.5">Detik</label>
-                    <input type="number" value={settings.alertExtraDuration || ''}
-                      onChange={(e) => onChange('alertExtraDuration', e.target.value === '' ? '' : Number(e.target.value))}
-                      className="w-full md:w-20 text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none p-2" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )} */}
-
         {!mediaOnly && (
           <div className="space-y-5">
-            {/* <h4 className="font-black text-lg">Alert Biasa</h4> */}
             <div>
               <label className="text-xs font-black text-slate-500 block mb-1.5">
                 Durasi Default Alert (detik)
@@ -1424,7 +1386,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                 onChange={(e) => onChange('alertBaseDuration', e.target.value === '' ? 12 : Number(e.target.value))}
                 min={5}
                 max={60}
-                className="w-full text-2xl font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none pb-2.5 p-2"
+                className="w-full text-md font-bold text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none pb-2.5 p-2"
               />
               <p className="text-xs text-slate-500 mt-2">
                 Alert minimal akan bertahan selama ini. Jika TTS lebih lama, akan mengikuti TTS.
@@ -2552,7 +2514,20 @@ const HistoryPage = () => {
   const donations = data?.donations || [];
   const pagination = data?.pagination || {};
 
-  const maskAmount = (amount) => showAmounts ? `Rp ${Number(amount).toLocaleString('id-ID')}` : 'Rp ••••••';
+  const maskAmount = (amount) => {
+    if (!showAmounts) return '••••••';
+    
+    const num = Number(amount);
+    if (num >= 1_000_000) {
+      const val = num / 1_000_000;
+      return `${val % 1 === 0 ? val : val.toFixed(1)}Jt`;
+    }
+    if (num >= 1_000) {
+      const val = num / 1_000;
+      return `${val % 1 === 0 ? val : val.toFixed(1)}K`;
+    }
+    return String(num);
+  };
 
   const replayDonation = async (donationId) => {
     if (replayLoading.has(donationId)) return;
@@ -3823,7 +3798,7 @@ const handleChangePin = async () => {
             activeSlot={activeSlot}
           />
           <div className="pt-2 md:pt-8 md:border-t border-slate-200 dark:border-slate-700">
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center gap-4 md:mb-6 mb-5">
               <div className="p-3 w-11 h-11 bg-emerald-500 rounded-none flex items-center justify-center text-white shadow-lg"><Music size={20} /></div>
               <div>
                 <h4 className="text-xl font-black text-slate-800 dark:text-white">Quick Soundboard</h4>
@@ -4225,7 +4200,7 @@ const handleChangePin = async () => {
                       <InputField label="Maksimal Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
                       <div className="md:col-span-2">
                         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-2 gap-3">
                         {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
                           const themeLabels = {
                             modern:  'Retro 1',
@@ -4237,7 +4212,7 @@ const handleChangePin = async () => {
 
                           return (
                             <button key={t} onClick={() => upd('theme', t)}
-                              className={`cursor-pointer active:scale-[0.97] py-3 md:py-4 rounded-none border-2 transition-all font-black text-sm capitalize ${
+                              className={`cursor-pointer active:scale-[0.97] py-3 md:py-4 text-left pl-3 rounded-none border-2 transition-all font-black text-sm capitalize ${
                                 settings.theme === t
                                   ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
                                   : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
@@ -4251,7 +4226,7 @@ const handleChangePin = async () => {
                       <div className="md:col-span-2 w-full flex flex-col gap-3">
                         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label>
                         <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
-                          className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
+                          className="w-full px-2 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
                           <option value="bounce">Bounce</option><option value="slide-left">Slide Kiri</option>
                           <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
                         </select>
@@ -4337,9 +4312,9 @@ const handleChangePin = async () => {
                       <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 rounded-none text-[9px] font-black uppercase tracking-widest">Browser Source</span>
                     </div>
                     {[
-                      { label: 'Milestones',   emoji: '🎯', path: 'milestones',  desc: 'Progress bar target donasi',         size: '400×280px' },
+                      { label: 'Milestones',   emoji: '🎯', path: 'milestones',  desc: 'Progress target donasi',         size: '400×280px' },
                       { label: 'Leaderboard',  emoji: '🏆', path: 'leaderboard', desc: 'Top 10 donor terbesar',              size: '360×420px' },
-                      { label: 'QR Code',      emoji: '◼',  path: 'qrcode',      desc: 'QR scan ke halaman donasi',          size: '280×320px' },
+                      { label: 'QR Code',      emoji: '◼',  path: 'qrcode',      desc: 'QR scan halaman donasi',          size: '280×320px' },
                       { label: 'Poll',         emoji: '🗳️', path: 'poll',        desc: 'Voting poll live',                   size: '420×300px' },
                       { label: 'Subathon',     emoji: '⏱',  path: 'subathon',    desc: 'Timer subathon',                     size: '360×180px' },
                       { 
@@ -4357,7 +4332,7 @@ const handleChangePin = async () => {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-3 mb-0.5">
                               <span className="font-black text-slate-700 dark:text-slate-200 text-sm">{label}</span>
-                              <span className="text-[9px] text-slate-400 dark:text-slate-500 font-bold">{size}</span>
+                              {/* <span className="text-[9px] text-slate-400 dark:text-slate-500 font-bold">{size}</span> */}
                             </div>
                             <p className="text-sm text-slate-400 dark:text-slate-500 font-medium truncate">{desc}</p>
                             <p className="text-sm truncate max-w-[90%] font-mono text-blue-500 dark:text-blue-400 truncate mt-0.5">{widgetUrl}</p>

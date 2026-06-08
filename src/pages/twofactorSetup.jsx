@@ -289,7 +289,7 @@ const TwoFactorSetup = () => {
   return (
     <>
       {/* ── Card ── */}
-      <div className="bg-white dark:bg-slate-900 rounded-none border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+      <div className="md:block hidden bg-white dark:bg-slate-900 rounded-none border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
         {/* Top accent */}
         <div className={`h-1 w-full ${isEnabled ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-700'}`} />
 
@@ -368,23 +368,25 @@ const TwoFactorSetup = () => {
         <div className="border-t border-slate-100 md:block hidden dark:border-slate-800 px-5 md:px-7 pt-4 pb-2 md:pb-4 md:pt-4 bg-slate-50 dark:bg-slate-800/50">
           <div className="md:flex items-start gap-0">
             {[
-              'Install Google Authenticator di HP kamu',
+              'Install Google Authenticator di HP',
               'Klik tombol "Aktifkan" di atas',
               'Scan QR Code yang muncul',
               'Masukkan kode 6 digit untuk konfirmasi',
             ].map((step, i, arr) => (
-              <div key={i} className="flex items-center flex-1 md:mb-0 mb-2">
-                <div className="flex items-center text-center flex-1">
-                  <span className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0 flex items-center justify-center bg-blue-600 text-white text-[10px] md:text-[14px] font-black">
-                    {i + 1}
-                  </span>
-                  <p className="relative top-[-3px] ml-2 text-[10px] md:text-[12px] text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed px-1">
-                    {step}
-                  </p>
+              <div key={i} className="w-full justify-between flex items-center flex-1 md:mb-0 mb-2">
+                <div className="flex items-center justify-between pr-7 text-center flex-1">
+                  <div className='w-max flex items-center'>
+                    <span className="w-6 h-6 md:w-8 md:h-8 flex-shrink-0 flex items-center justify-center bg-blue-600 text-white text-[10px] md:text-[14px] font-black">
+                      {i + 1}
+                    </span>
+                    <p className="relative top-[-3px] ml-2 text-[10px] md:text-[12px] text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed px-1">
+                      {step}
+                    </p>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <span className="text-blue-400 text-xs mb-0  md:flex hidden flex-shrink-0"><ArrowRight size={20} /></span>
+                  )}
                 </div>
-                {i < arr.length - 1 && (
-                  <span className="text-blue-400 text-xs mb-0 mr-5 md:flex hidden flex-shrink-0"><ArrowRight size={20} /></span>
-                )}
               </div>
             ))}
           </div>
