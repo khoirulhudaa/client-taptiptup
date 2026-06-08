@@ -454,7 +454,7 @@ export const OBSConnectPanel = ({ overlayToken }) => {
             <div className="grid grid-cols-5 gap-2">
               {/* Port */}
               <div className="flex flex-col gap-1">
-                <label className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Port</label>
+                <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Port</label>
                 <input
                   type="text"
                   value={port}
@@ -465,7 +465,7 @@ export const OBSConnectPanel = ({ overlayToken }) => {
               </div>
               {/* Password */}
               <div className="col-span-4 flex flex-col gap-1">
-                <label className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Password WebSocket</label>
+                <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Password WebSocket</label>
                 <div className="relative">
                   <input
                     type={showPass ? 'text' : 'password'}
