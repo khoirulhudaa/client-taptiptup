@@ -83,6 +83,7 @@ import OnboardingTour from '../components/onboardingTour';
 import LoadingOverlay from '../components/overlayLoading';
 import StreamerManagerPage from './streamerManager';
 import MarqueeConfigPanel from './marqueeConfigPanel';
+import OBSConnectPanel from '../components/obsInject';
 
 // ─── API ──────────────────────────────────────────────────────────────────────
 const fetchBadges = async () => (await api.get('/api/midtrans/badges')).data;
@@ -4056,6 +4057,9 @@ const handleChangePin = async () => {
                   {/* Konfigurasi Alert */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                     <SectionHeader icon={<Settings size={20} />} title={`Konfigurasi Overlay`} color="bg-blue-500" />
+                    <br />
+                    <OBSConnectPanel />
+
                     <div className="mt-8 space-y-3">
                     <div className="md:flex space-y-3 md:space-y-0 items-center gap-3 rounded-none bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
                       {['A', 'B'].map((slot) => (
@@ -4091,7 +4095,7 @@ const handleChangePin = async () => {
                               <span className="text-xs font-black tracking-widest">{slot}</span>
                             </div>
                             <div>
-                              <p className="text-base -mt-0.5">Overlay</p>
+                              <p className="text-sm md:text-md -mt-0.5">Overlay</p>
                             </div>
                           </div>
 
