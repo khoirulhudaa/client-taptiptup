@@ -4058,9 +4058,6 @@ const handleChangePin = async () => {
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                     <SectionHeader icon={<Settings size={20} />} title={`Konfigurasi Overlay`} color="bg-blue-500" />
                     <br />
-                    <OBSConnectPanel overlayToken={user.overlayToken} />
-
-                    <div className="mt-8 space-y-3">
                     <div className="md:flex space-y-3 md:space-y-0 items-center gap-3 rounded-none bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
                       {['A', 'B'].map((slot) => (
                         <button
@@ -4115,6 +4112,9 @@ const handleChangePin = async () => {
                         </button>
                       ))}
                     </div>
+
+                    <div className="mt-5 space-y-0">
+                      <OBSConnectPanel overlayToken={user.overlayToken} />
                       {[
                         { key: 'overlayEnabled', label: 'Aktifkan Overlay OBS',  desc: 'Alert tidak akan muncul di OBS sama sekali' },
                         { key: 'showTimestamp',  label: 'Tampilkan Jam Donasi',  desc: 'Waktu kapan donasi diterima overlay' },
@@ -4140,7 +4140,7 @@ const handleChangePin = async () => {
                       </div>
 
                       {/* Icon Alert */}
-                        <div className="space-y-3 mt-8">
+                        <div className="space-y-3 mt-4.5">
                           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Icon Alert</label>
                           
                           {/* Mode selector */}
@@ -4211,7 +4211,7 @@ const handleChangePin = async () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-6 mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-2 mt-4.5">
                       <InputField label="Minimal Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
                       <InputField label="Maksimal Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
                       <div className="md:col-span-2">
