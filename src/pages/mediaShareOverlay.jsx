@@ -594,6 +594,7 @@ const calculateMediaShareDuration = (config, amount) => {
                   fontSize: 18,
                   color: 'black',
                   fontWeight: 400,
+                  minWidth: 350,
                   maxWidth: 500,
                   background: 'white',
                   border: `1px solid ${hl}25`,
