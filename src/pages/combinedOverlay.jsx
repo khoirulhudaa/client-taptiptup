@@ -147,6 +147,38 @@ const renderAlertInner = ({ alert, config, progress }) => {
     pointerEvents: 'none', zIndex: 1,
   };
 
+  if (theme === 'gifCard') {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
+        <div style={{ width: '100%', height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, overflow: 'hidden' }}>
+          {customIcon?.startsWith('http') || customIcon?.startsWith('/') ? (
+            <img src={customIcon} alt="icon" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
+          ) : (
+            <span style={{ fontSize: 72, lineHeight: 1 }}>{customIcon || '💜'}</span>
+          )}
+        </div>
+        <div style={{ padding: '10px 12px', display: 'flex', textAlign: 'center', flexDirection: 'column', alignItems: 'center', gap: 7, width: '100%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 20, fontWeight: 500, color: highlight, borderBottom: `1px solid ${highlight}25` }}>
+              {alert.donorName} mengirim
+            </div>
+            <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 20, marginLeft: 5, fontWeight: 500, color: highlight, letterSpacing: '-0.5px', lineHeight: 1, textShadow: `0 0 10px ${highlight}55` }}>
+              Rp {Number(alert.amount).toLocaleString('id-ID')}
+            </div>
+          </div>
+          {alert.message && (
+            <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 18, color: 'black', fontWeight: 400, maxWidth: 500, background: 'white', border: `1px solid ${highlight}25`, padding: '5px 8px', lineHeight: 1.5 }}>
+              {alert.message}
+            </div>
+          )}
+          <div style={{ height: 3, background: highlight + '20', overflow: 'hidden', width: '100%' }}>
+            <div style={{ height: '100%', width: `${progress}%`, background: highlight, transition: 'width 50ms linear' }} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (theme === 'modern') {
     return (
       <div style={{ position: 'relative', overflow: 'hidden' }}>
@@ -230,49 +262,50 @@ const renderAlertInner = ({ alert, config, progress }) => {
     );
   }
 
-  if (theme === 'classic') {
-    return (
-      <div style={{ position: 'relative', overflow: 'hidden' }}>
-        <div style={scanlineStyle} />
-        <div style={{ height: 3, background: hl, position: 'relative', zIndex: 2 }} />
-        <div style={{ background: hl + '15', borderBottom: `1px solid ${hl}40`, padding: '7px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-            <span style={{ fontSize: 26, lineHeight: 1 }}>{renderIcon(customIcon, 16)}</span>
-            <span style={{ fontFamily: monospace, fontSize: 10, fontWeight: 900, color: hl, textTransform: 'uppercase', letterSpacing: '0.15em' }}>★ Dukungan Masuk! ★</span>
-          </div>
-          <span style={{ fontFamily: monospace, fontSize: 24, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
-        </div>
-        <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6, borderBottom: `1px dashed ${hl}30`, paddingBottom: 6 }}>
-            <span style={{ fontFamily: monospace, fontSize: 26, fontWeight: 900, color: fg }}>{alert.donorName}</span>
-          </div>
-          <div style={{ fontFamily: monospace, fontSize: 24, fontWeight: 900, color: hl, letterSpacing: '-0.5px', marginBottom: 5, textShadow: `0 0 10px ${hl}50` }}>
-            Rp {Number(alert.amount).toLocaleString('id-ID')}
-          </div>
-          {alert.message && (
-            <div style={{ fontFamily: monospace, fontSize: 24, color: fg, lineHeight: 1.45, borderLeft: `2px solid ${hl}`, paddingLeft: 8, marginBottom: 6 }}>
-              {alert.message}<span style={{ color: hl, animation: 'blink 1s step-end infinite' }}>▮</span>
-            </div>
-          )}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
-            {showTs && alert?.receivedAt
-              ? <div style={{ fontFamily: monospace, fontSize: 16, color: 'rgba(255,255,255,0.35)' }}>{'> '}{formatTimestamp(alert.receivedAt)}</div>
-              : <div />
-            }
-            <div style={{ fontFamily: monospace, fontSize: 8, color: hl, letterSpacing: '0.08em' }}>[ PRESS ▲ TO CONTINUE ]</div>
-          </div>
-          <div style={{ height: 2, background: 'rgba(255,255,255,0.08)', marginTop: 8 }}>
-            <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
-          </div>
-        </div>
-        <div style={{ height: 1, background: 'rgba(255,255,255,0.08)' }} />
-        <div style={{ height: 3, background: hl }} />
-        <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-      </div>
-    );
-  }
+  // if (theme === 'classic') {
+  //   return (
+  //     <div style={{ position: 'relative', overflow: 'hidden' }}>
+  //       <div style={scanlineStyle} />
+  //       <div style={{ height: 3, background: hl, position: 'relative', zIndex: 2 }} />
+  //       <div style={{ background: hl + '15', borderBottom: `1px solid ${hl}40`, padding: '7px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', zIndex: 2 }}>
+  //         <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+  //           <span style={{ fontSize: 26, lineHeight: 1 }}>{renderIcon(customIcon, 16)}</span>
+  //           <span style={{ fontFamily: monospace, fontSize: 10, fontWeight: 900, color: hl, textTransform: 'uppercase', letterSpacing: '0.15em' }}>★ Dukungan Masuk! ★</span>
+  //         </div>
+  //         <span style={{ fontFamily: monospace, fontSize: 24, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
+  //       </div>
+  //       <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
+  //         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6, borderBottom: `1px dashed ${hl}30`, paddingBottom: 6 }}>
+  //           <span style={{ fontFamily: monospace, fontSize: 26, fontWeight: 900, color: fg }}>{alert.donorName}</span>
+  //         </div>
+  //         <div style={{ fontFamily: monospace, fontSize: 24, fontWeight: 900, color: hl, letterSpacing: '-0.5px', marginBottom: 5, textShadow: `0 0 10px ${hl}50` }}>
+  //           Rp {Number(alert.amount).toLocaleString('id-ID')}
+  //         </div>
+  //         {alert.message && (
+  //           <div style={{ fontFamily: monospace, fontSize: 24, color: fg, lineHeight: 1.45, borderLeft: `2px solid ${hl}`, paddingLeft: 8, marginBottom: 6 }}>
+  //             {alert.message}<span style={{ color: hl, animation: 'blink 1s step-end infinite' }}>▮</span>
+  //           </div>
+  //         )}
+  //         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
+  //           {showTs && alert?.receivedAt
+  //             ? <div style={{ fontFamily: monospace, fontSize: 16, color: 'rgba(255,255,255,0.35)' }}>{'> '}{formatTimestamp(alert.receivedAt)}</div>
+  //             : <div />
+  //           }
+  //           <div style={{ fontFamily: monospace, fontSize: 8, color: hl, letterSpacing: '0.08em' }}>[ PRESS ▲ TO CONTINUE ]</div>
+  //         </div>
+  //         <div style={{ height: 2, background: 'rgba(255,255,255,0.08)', marginTop: 8 }}>
+  //           <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
+  //         </div>
+  //       </div>
+  //       <div style={{ height: 1, background: 'rgba(255,255,255,0.08)' }} />
+  //       <div style={{ height: 3, background: hl }} />
+  //       <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
+  //     </div>
+  //   );
+  // }
 
   // minimal
+  
   return (
     <div style={{ position: 'relative', overflow: 'hidden' }}>
       <div style={scanlineStyle} />
@@ -329,7 +362,7 @@ const renderMediaInner = ({ alert, config, progress, videoRef, setMediaError }) 
     if (alert.videoBlocked) {
       return (
         <div style={{ borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
-          <div style={{ width: '100%', aspectRatio: '16/9', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0a0a0a', gap: 10 }}>
+          <div style={{ width: '100%', height: '270px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0a0a0a', gap: 10 }}>
             <span style={{ fontSize: 34 }}>⚠️</span>
             <span style={{ fontFamily: "'Courier New', monospace", fontSize: 12, fontWeight: 700, color: '#ff4444', letterSpacing: '0.1em', textTransform: 'uppercase', textAlign: 'center', padding: '0 16px' }}>
               {alert.blockReason || 'Video Melanggar Kebijakan'}
@@ -345,7 +378,7 @@ const renderMediaInner = ({ alert, config, progress, videoRef, setMediaError }) 
       : t === 'tiktok' ? getTikTokEmbedUrl(alert.mediaUrl) : null;
 
     return (
-      <div style={{ width: '100%', aspectRatio: t === 'tiktok' ? '9/16' : '16/9', overflow: 'hidden', background: '#000', borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
+      <div style={{ width: '100%', height: '270px', overflow: 'hidden', background: '#000', borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
         {t === 'youtube' && embedUrl && (
           <iframe key={embedUrl} src={embedUrl} width="100%" height="100%" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen style={{ display: 'block', border: 'none' }} />
         )}
@@ -362,6 +395,42 @@ const renderMediaInner = ({ alert, config, progress, videoRef, setMediaError }) 
       </div>
     );
   })();
+
+  if (theme === 'gifCard') {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ width: '100%' }}>
+          {mediaBlock}
+        </div>
+        <div style={{
+          padding: '10px 12px',
+          display: 'flex',
+          textAlign: 'center',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 7,
+          width: '100%',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 20, fontWeight: 500, color: hl, borderBottom: `1px solid ${hl}25` }}>
+              {alert.donorName} mengirim
+            </div>
+            <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 20, marginLeft: 5, fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1, textShadow: `0 0 10px ${hl}55` }}>
+              Rp {Number(alert.amount).toLocaleString('id-ID')}
+            </div>
+          </div>
+          {alert.message && (
+            <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 18, color: 'black', fontWeight: 400, maxWidth: 500, background: 'white', border: `1px solid ${hl}25`, padding: '5px 8px', lineHeight: 1.5 }}>
+              {alert.message}
+            </div>
+          )}
+          <div style={{ height: 3, background: hl + '20', overflow: 'hidden', width: '100%' }}>
+            <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // modern
   if (theme === 'modern') {
@@ -443,51 +512,52 @@ const renderMediaInner = ({ alert, config, progress, videoRef, setMediaError }) 
     );
   }
 
-  if (theme === 'classic') {
-    return (
-      <div style={{ position: 'relative', overflow: 'hidden' }}>
-        <div style={scanlineStyle} />
-        {mediaBlock}
-        <div style={{ height: 3, background: hl, position: 'relative', zIndex: 2 }} />
-        <div style={{ background: hl + '15', borderBottom: `1px solid ${hl}40`, padding: '7px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-            <span style={{ fontSize: 16 }}>{renderIcon(customIcon, 16)}</span>
-            <span style={{ fontFamily: monospace, fontSize: 10, fontWeight: 700, color: hl, textTransform: 'uppercase', letterSpacing: '0.15em' }}>Media share</span>
-          </div>
-          <span style={{ fontFamily: monospace, fontSize: 23, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
-        </div>
-        <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6, borderBottom: `1px dashed ${hl}30`, paddingBottom: 6 }}>
-            <span style={{ fontFamily: monospace, fontSize: 16, color: hl, letterSpacing: '0.12em' }}>NAME</span>
-            <span style={{ fontFamily: monospace, fontSize: 16, fontWeight: 900, color: fg }}>{alert.donorName}</span>
-          </div>
-          <div style={{ fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl, letterSpacing: '-0.5px', marginBottom: 5, textShadow: `0 0 10px ${hl}50` }}>
-            Rp {Number(alert.amount).toLocaleString('id-ID')}
-          </div>
-          {alert.message && (
-            <div style={{ fontFamily: monospace, fontSize: 23, color: fg, lineHeight: 1.45, borderLeft: `2px solid ${hl}`, paddingLeft: 8, marginBottom: 6 }}>
-              {alert.message}<span style={{ color: hl, animation: 'blink 1s step-end infinite' }}>▮</span>
-            </div>
-          )}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
-            {showTs && alert?.receivedAt
-              ? <div style={{ fontFamily: monospace, fontSize: 16, color: 'rgba(255,255,255,0.35)' }}>{'> '}{formatTimestamp(alert.receivedAt)}</div>
-              : <div />
-            }
-            <div style={{ fontFamily: monospace, fontSize: 8, color: hl, letterSpacing: '0.08em' }}>[ PRESS ▲ TO CONTINUE ]</div>
-          </div>
-          <div style={{ height: 2, background: 'rgba(255,255,255,0.08)', marginTop: 8 }}>
-            <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
-          </div>
-        </div>
-        <div style={{ height: 1, background: 'rgba(255,255,255,0.08)' }} />
-        <div style={{ height: 3, background: hl }} />
-        <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-      </div>
-    );
-  }
+  // if (theme === 'classic') {
+  //   return (
+  //     <div style={{ position: 'relative', overflow: 'hidden' }}>
+  //       <div style={scanlineStyle} />
+  //       {mediaBlock}
+  //       <div style={{ height: 3, background: hl, position: 'relative', zIndex: 2 }} />
+  //       <div style={{ background: hl + '15', borderBottom: `1px solid ${hl}40`, padding: '7px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative', zIndex: 2 }}>
+  //         <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+  //           <span style={{ fontSize: 16 }}>{renderIcon(customIcon, 16)}</span>
+  //           <span style={{ fontFamily: monospace, fontSize: 10, fontWeight: 700, color: hl, textTransform: 'uppercase', letterSpacing: '0.15em' }}>Media share</span>
+  //         </div>
+  //         <span style={{ fontFamily: monospace, fontSize: 23, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
+  //       </div>
+  //       <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
+  //         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6, borderBottom: `1px dashed ${hl}30`, paddingBottom: 6 }}>
+  //           <span style={{ fontFamily: monospace, fontSize: 16, color: hl, letterSpacing: '0.12em' }}>NAME</span>
+  //           <span style={{ fontFamily: monospace, fontSize: 16, fontWeight: 900, color: fg }}>{alert.donorName}</span>
+  //         </div>
+  //         <div style={{ fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl, letterSpacing: '-0.5px', marginBottom: 5, textShadow: `0 0 10px ${hl}50` }}>
+  //           Rp {Number(alert.amount).toLocaleString('id-ID')}
+  //         </div>
+  //         {alert.message && (
+  //           <div style={{ fontFamily: monospace, fontSize: 23, color: fg, lineHeight: 1.45, borderLeft: `2px solid ${hl}`, paddingLeft: 8, marginBottom: 6 }}>
+  //             {alert.message}<span style={{ color: hl, animation: 'blink 1s step-end infinite' }}>▮</span>
+  //           </div>
+  //         )}
+  //         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
+  //           {showTs && alert?.receivedAt
+  //             ? <div style={{ fontFamily: monospace, fontSize: 16, color: 'rgba(255,255,255,0.35)' }}>{'> '}{formatTimestamp(alert.receivedAt)}</div>
+  //             : <div />
+  //           }
+  //           <div style={{ fontFamily: monospace, fontSize: 8, color: hl, letterSpacing: '0.08em' }}>[ PRESS ▲ TO CONTINUE ]</div>
+  //         </div>
+  //         <div style={{ height: 2, background: 'rgba(255,255,255,0.08)', marginTop: 8 }}>
+  //           <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
+  //         </div>
+  //       </div>
+  //       <div style={{ height: 1, background: 'rgba(255,255,255,0.08)' }} />
+  //       <div style={{ height: 3, background: hl }} />
+  //       <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
+  //     </div>
+  //   );
+  // }
 
   // minimal
+  
   return (
     <div style={{ position: 'relative', overflow: 'hidden' }}>
       <div style={scanlineStyle} />
@@ -1082,13 +1152,13 @@ const CombinedOverlay = () => {
   const anim = animVariants[animation] || animVariants.bounce;
 
   const wrapperStyle = {
-    backgroundColor: bg,
+    backgroundColor: theme === 'gifCard' ? 'transparent' : bg,
     color: fg,
-    width: `${maxW}px`,
+    width: theme === 'gifCard' ? '480px' : `${maxW}px`,
     borderRadius: theme === 'smooth' ? 20 : 0,
-    border: `1px solid ${borderColor}`,
-    boxShadow: '0 16px 40px rgba(0,0,0,0.55)',
-    overflow: 'hidden',
+    border: theme === 'gifCard' ? 'none' : `1px solid ${borderColor}`,
+    boxShadow: theme === 'gifCard' ? 'none' : '0 16px 40px rgba(0,0,0,0.55)',
+    overflow: theme === 'gifCard' ? 'visible' : 'hidden',
     fontFamily: "'Inter', -apple-system, 'Segoe UI', sans-serif",
   };
 

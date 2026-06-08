@@ -663,76 +663,76 @@
           }
 
           // ── CLASSIC — RPG Dialog Box ─────────────────────────────────────────────────
-          if (theme === 'classic') {
-            return (
-              <div style={{ position: 'relative', overflow: 'hidden' }}>
-                <div style={scanlineStyle} />
-                {/* <div style={{ height: 3, background: hl, position: 'relative', zIndex: 2 }} /> */}
-                {/* <div style={{ height: 1, background: 'rgba(255,255,255,0.08)', position: 'relative', zIndex: 2 }} /> */}
+          // if (theme === 'classic') {
+          //   return (
+          //     <div style={{ position: 'relative', overflow: 'hidden' }}>
+          //       <div style={scanlineStyle} />
+          //       {/* <div style={{ height: 3, background: hl, position: 'relative', zIndex: 2 }} /> */}
+          //       {/* <div style={{ height: 1, background: 'rgba(255,255,255,0.08)', position: 'relative', zIndex: 2 }} /> */}
 
-                <div style={{
-                  background: hl + '15', borderBottom: `1px solid ${hl}40`,
-                  padding: '7px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  position: 'relative', zIndex: 2,
-                }}>
-                  {/* <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                    <span style={{ fontSize: 22, lineHeight: 1 }}>{renderIcon(customIcon, 16)}</span>
-                    <span style={{
-                      fontFamily: monospace, fontSize: 10, fontWeight: 900, color: hl,
-                      letterSpacing: '0.15em',
-                    }}>★ Dukungan Masuk! ★</span>
-                  </div> */}
-                  <span style={{ fontFamily: monospace, fontSize: 22, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
-                </div>
+          //       <div style={{
+          //         background: hl + '15', borderBottom: `1px solid ${hl}40`,
+          //         padding: '7px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          //         position: 'relative', zIndex: 2,
+          //       }}>
+          //         {/* <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+          //           <span style={{ fontSize: 22, lineHeight: 1 }}>{renderIcon(customIcon, 16)}</span>
+          //           <span style={{
+          //             fontFamily: monospace, fontSize: 10, fontWeight: 900, color: hl,
+          //             letterSpacing: '0.15em',
+          //           }}>★ Dukungan Masuk! ★</span>
+          //         </div> */}
+          //         <span style={{ fontFamily: monospace, fontSize: 22, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
+          //       </div>
 
-                <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
-                  <div style={{
-                    display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6,
-                    borderBottom: `1px dashed ${hl}30`, 
-                    paddingBottom: 6,
-                  }}>
-                    {/* <span style={{ fontFamily: monospace, fontSize: 22, color: hl, opacity: 0.65, letterSpacing: '0.12em' }}>NAME</span> */}
-                    <span style={{ fontFamily: monospace, fontSize: 22, fontWeight: 900, color: fg }}>{alert.donorName}</span>
-                  </div>
+          //       <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
+          //         <div style={{
+          //           display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6,
+          //           borderBottom: `1px dashed ${hl}30`, 
+          //           paddingBottom: 6,
+          //         }}>
+          //           {/* <span style={{ fontFamily: monospace, fontSize: 22, color: hl, opacity: 0.65, letterSpacing: '0.12em' }}>NAME</span> */}
+          //           <span style={{ fontFamily: monospace, fontSize: 22, fontWeight: 900, color: fg }}>{alert.donorName}</span>
+          //         </div>
 
-                  <div style={{
-                    fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl,
-                    letterSpacing: '-0.5px', marginBottom: 5, textShadow: `0 0 10px ${hl}50`,
-                  }}>
-                    Rp {Number(alert.amount).toLocaleString('id-ID')}
-                  </div>
+          //         <div style={{
+          //           fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl,
+          //           letterSpacing: '-0.5px', marginBottom: 5, textShadow: `0 0 10px ${hl}50`,
+          //         }}>
+          //           Rp {Number(alert.amount).toLocaleString('id-ID')}
+          //         </div>
 
-                  {alert.message && (
-                    <div style={{
-                      fontFamily: monospace, fontSize: 20, color: fg,
-                      lineHeight: 1.45, 
-                      maxWidth: 500,
-                      marginBottom: 6,
-                    }}>
-                      {alert.message}
-                    </div>
-                  )}
+          //         {alert.message && (
+          //           <div style={{
+          //             fontFamily: monospace, fontSize: 20, color: fg,
+          //             lineHeight: 1.45, 
+          //             maxWidth: 500,
+          //             marginBottom: 6,
+          //           }}>
+          //             {alert.message}
+          //           </div>
+          //         )}
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
-                    {showTs && alert?.receivedAt
-                      ? <div style={{ fontFamily: monospace, fontSize: 22, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em' }}>
-                          {'> '}{formatTimestamp(alert.receivedAt)}
-                        </div>
-                      : <div />
-                    }
-                  </div>
+          //         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
+          //           {showTs && alert?.receivedAt
+          //             ? <div style={{ fontFamily: monospace, fontSize: 22, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em' }}>
+          //                 {'> '}{formatTimestamp(alert.receivedAt)}
+          //               </div>
+          //             : <div />
+          //           }
+          //         </div>
 
-                  <div style={{ height: 2, background: 'rgba(255,255,255,0.08)', marginTop: 8 }}>
-                    <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
-                  </div>
-                </div>
+          //         <div style={{ height: 2, background: 'rgba(255,255,255,0.08)', marginTop: 8 }}>
+          //           <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
+          //         </div>
+          //       </div>
 
-                <div style={{ height: 1, background: 'rgba(255,255,255,0.08)' }} />
-                {/* <div style={{ height: 3, background: hl }} /> */}
-                <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-              </div>
-            );
-          }
+          //       <div style={{ height: 1, background: 'rgba(255,255,255,0.08)' }} />
+          //       {/* <div style={{ height: 3, background: hl }} /> */}
+          //       <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
+          //     </div>
+          //   );
+          // }
 
           // ── MINIMAL — Retro Ticker ───────────────────────────────────────────────────
           return (

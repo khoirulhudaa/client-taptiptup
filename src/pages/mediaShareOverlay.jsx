@@ -619,40 +619,40 @@ const calculateMediaShareDuration = (config, amount) => {
       }
 
       // ── CLASSIC ──────────────────────────────────────────────────────────────────
-      if (theme === 'classic') {
-        return (
-          <div style={{ position: 'relative', overflow: 'hidden' }}>
-            <div style={scanlineStyle} />
-            {mediaBlock}
+      // if (theme === 'classic') {
+      //   return (
+      //     <div style={{ position: 'relative', overflow: 'hidden' }}>
+      //       <div style={scanlineStyle} />
+      //       {mediaBlock}
 
-            <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
-              {/* Nama mengirim amount */}
-              <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 4, borderBottom: `1px dashed ${hl}30`, paddingBottom: 8 }}>
-                <span style={{ fontWeight: 900 }}>{alert.donorName}</span>
-                <span> mengirim </span>
-                <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}50` }}>
-                  Rp {Number(alert.amount).toLocaleString('id-ID')}
-                </span>
-              </div>
+      //       <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
+      //         {/* Nama mengirim amount */}
+      //         <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 4, borderBottom: `1px dashed ${hl}30`, paddingBottom: 8 }}>
+      //           <span style={{ fontWeight: 900 }}>{alert.donorName}</span>
+      //           <span> mengirim </span>
+      //           <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}50` }}>
+      //             Rp {Number(alert.amount).toLocaleString('id-ID')}
+      //           </span>
+      //         </div>
 
-              {/* Pesan */}
-              {alert.message && (
-                <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, marginBottom: 10, maxWidth: 500 }}>
-                  {alert.message}
-                </div>
-              )}
+      //         {/* Pesan */}
+      //         {alert.message && (
+      //           <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, marginBottom: 10, maxWidth: 500 }}>
+      //             {alert.message}
+      //           </div>
+      //         )}
 
-              {/* Progress bar */}
-              <div style={{ height: 2, background: 'rgba(255,255,255,0.08)' }}>
-                <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
-              </div>
-            </div>
+      //         {/* Progress bar */}
+      //         <div style={{ height: 2, background: 'rgba(255,255,255,0.08)' }}>
+      //           <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
+      //         </div>
+      //       </div>
 
-            <div style={{ height: 1, background: 'rgba(255,255,255,0.08)' }} />
-            <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-          </div>
-        );
-      }
+      //       <div style={{ height: 1, background: 'rgba(255,255,255,0.08)' }} />
+      //       <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
+      //     </div>
+      //   );
+      // }
 
       // ── MINIMAL ──────────────────────────────────────────────────────────────────
       return (
