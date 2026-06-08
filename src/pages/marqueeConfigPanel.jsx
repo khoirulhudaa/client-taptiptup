@@ -193,7 +193,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
             <button
               key={n}
               onClick={() => upd('limit', n)}
-              className={`cursor-pointer flex-1 py-2.5 rounded-none font-black text-sm border-2 transition-all active:scale-[0.97] ${
+              className={`cursor-pointer text-left pl-3.5 flex-1 py-2.5 rounded-none font-black text-sm border-2 transition-all active:scale-[0.97] ${
                 cfg.limit === n
                   ? 'bg-blue-600 border-blue-600 text-white'
                   : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
@@ -361,10 +361,10 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
           {buildUrl()}
         </div>
 
-        <div className="flex gap-3 flex-wrap">
+        <div className="gap-3 grid grid-cols-2">
           <button
             onClick={copy}
-            className={`cursor-pointer active:scale-[0.97] flex items-center gap-2 px-5 py-3 rounded-none font-black text-sm transition-all border-2 ${
+            className={`w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 rounded-none font-black text-sm transition-all border-2 ${
               copied
                 ? 'bg-green-600 border-green-600 text-white'
                 : 'bg-slate-900/70 dark:bg-slate-700 border-transparent text-white hover:brightness-90'
@@ -376,7 +376,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
             href={buildUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="cursor-pointer active:scale-[0.97] flex items-center gap-2 px-5 py-3 rounded-none font-black text-sm border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-300 transition-all"
+            className="w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 rounded-none font-black text-sm border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-300 transition-all"
           >
             <ExternalLink size={16} /> Buka Preview
           </a>
