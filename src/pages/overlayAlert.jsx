@@ -513,7 +513,7 @@
 
           if (theme === 'gifCard') {
             return (
-              <div style={{ display: 'flex', flexDirection: 'column', width: '100%', marginLeft: '40px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                 {/* GIF area — full width, transparent bg */}
                 <div style={{
                   width: '100%',
@@ -547,7 +547,9 @@
                   display: 'flex',
                   textAlign: 'center',
                   flexDirection: 'column',
+                  alignItems: 'center',
                   gap: 7,
+                  width: '100%'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{
@@ -811,7 +813,7 @@
                   style={{
                     backgroundColor: theme === 'gifCard' ? 'transparent' : bg,
                     color: fg,
-                    width: `max-content`,
+                    width: theme === 'gifCard' ? '500px' : 'max-content', 
                     borderRadius: theme === 'smooth' ? 20 : 0,
                     border: theme === 'gifCard' ? 'none' : `1px solid ${borderColor}`,
                     boxShadow: theme === 'gifCard' ? 'none' : '0 16px 40px rgba(0,0,0,0.55)',

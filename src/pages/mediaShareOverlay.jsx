@@ -403,7 +403,7 @@ const calculateMediaShareDuration = (config, amount) => {
         if (alert.videoBlocked) {
           return (
             <div style={{ borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
-              <div style={{ width: '100%', aspectRatio: '16/9', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0a0a0a', gap: 10 }}>
+              <div style={{ width: '100%', height: '270px', aspectRatio: '16/9', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0a0a0a', gap: 10 }}>
                 <span style={{ fontSize: 34 }}>⚠️</span>
                 <span style={{ fontFamily: "'Courier New', monospace", fontSize: 12, fontWeight: 700, color: '#ff4444', letterSpacing: '0.1em', textTransform: 'uppercase', textAlign: 'center', padding: '0 16px' }}>
                   {alert.blockReason || 'Video Melanggar Kebijakan'}
@@ -550,7 +550,7 @@ const calculateMediaShareDuration = (config, amount) => {
       // ── GIFT CARD ─────────────────────────────────────────────────────────────────
       if (theme === 'gifCard') {
         return (
-          <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'center', alignItems: 'center' }}> 
             {/* Media block — full width */}
             {mediaBlock}
 
@@ -561,7 +561,7 @@ const calculateMediaShareDuration = (config, amount) => {
               textAlign: 'center',
               flexDirection: 'column',
               gap: 7,
-              marginLeft: '40px',
+              // marginLeft: '40px',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{
@@ -701,7 +701,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
     return (
       <div style={{
-        width: 'max-content', height: 'max-content',
+        width: '480px', height: 'max-content',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         background: 'transparent', overflow: 'hidden',
       }}>
@@ -716,7 +716,7 @@ const calculateMediaShareDuration = (config, amount) => {
               style={{
                 backgroundColor: theme === 'gifCard' ? 'transparent' : bg,  // ← tambah
                 color: fg,
-                width: 'max-content',
+                width: '100%',
                 borderRadius: theme === 'smooth' ? 20 : 0,
                 border: theme === 'gifCard' ? 'none' : `1px solid ${borderColor}`,  // ← tambah
                 boxShadow: theme === 'gifCard' ? 'none' : '0 16px 40px rgba(0,0,0,0.55)',  // ← tambah
