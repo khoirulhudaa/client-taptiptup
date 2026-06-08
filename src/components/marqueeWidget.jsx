@@ -109,7 +109,7 @@ const MarqueeWidget = () => {
     >
       {/* Badge: medal untuk top donor, nomor urut untuk recent */}
       {item.isRecent
-        ? <span style={{ color: highlight, opacity: 0.5 }}>#{i + 1}</span>
+        ? <span style={{ color: highlight }}>#{i + 1}</span>
         : <span style={{ fontSize: fontSize * 1.1 }}>{MEDALS[i] || `#${i + 1}`}</span>
       }
 
@@ -123,7 +123,7 @@ const MarqueeWidget = () => {
 
       {/* Sub: count untuk top donor, pesan untuk recent */}
       {item.sub && (
-        <span style={{ color, opacity: item.isRecent ? 0.6 : 0.4, fontSize: fontSize * 0.85 }}>
+        <span style={{ color, fontSize: fontSize * 0.85 }}>
           {item.isRecent ? `— ${item.sub}` : `(${item.sub})`}
         </span>
       )}
