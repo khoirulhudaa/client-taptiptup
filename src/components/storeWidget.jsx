@@ -56,10 +56,10 @@ const StoreWidget = () => {
       }}>
         {/* Gambar Kiri */}
         <div style={{ 
-          width: 'max-content', 
-          height: '100%', 
+          width: '200px',       // 1. Tentukan lebar pasti pembungkus gambar
+          height: '220px',      // 2. Tentukan tinggi pasti pembungkus gambar
           flexShrink: 0,
-          padding: 20,
+          padding: '20px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -69,7 +69,13 @@ const StoreWidget = () => {
             <img
               src={p.imageUrl}
               alt={p.name}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover',   // 3. Memotong gambar secara proporsional agar tidak gepeng
+                objectPosition: 'center', // 4. Menjaga fokus gambar tetap di tengah
+                borderRadius: '10px' 
+              }}
               onError={(e) => e.target.style.display = 'none'}
             />
           ) : (
@@ -78,24 +84,27 @@ const StoreWidget = () => {
         </div>
 
         {/* Informasi Kanan */}
-        <div style={{ padding: '20px 30px 10px 6px', minWidth: '380px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <h3 style={{ 
-            fontSize: '36px', 
-            fontWeight: 700, 
-            marginBottom: '12px',
-            lineHeight: 1.3 
-          }}>
-            {p.name}
-          </h3>
+        <div style={{ padding: '20px 30px 0px 6px', minWidth: '380px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          
+          <div className='w-max'>
+            <h3 style={{ 
+              fontSize: '36px', 
+              fontWeight: 700, 
+              // marginBottom: '12px',
+              lineHeight: 1.3 
+            }}>
+              {p.name}
+            </h3>
 
-          <p style={{ 
-            fontSize: '32px', 
-            fontWeight: 800, 
-            color: '#4ade80',
-            marginBottom: '20px'
-          }}>
-            Rp {Number(p.price).toLocaleString('id-ID')}
-          </p>
+            <p style={{ 
+              fontSize: '32px', 
+              fontWeight: 500, 
+              color: '#4ade80',
+              // marginBottom: '20px'
+            }}>
+              Rp {Number(p.price).toLocaleString('id-ID')}
+            </p>
+          </div>
 
           {p.description && (
             <p style={{ 

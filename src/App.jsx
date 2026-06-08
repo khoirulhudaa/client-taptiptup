@@ -24,6 +24,7 @@ import { useServerStatus } from './hooks/useServerStatus';
 import StoreWidget from './components/storeWidget';
 import CombinedOverlay from './pages/combinedOverlay';
 import AuthSuperAdmin from './pages/authSuperAdmin';
+import MarqueeWidget from './components/marqueeWidget';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -300,6 +301,7 @@ function App() {
           <Route path="/widget/:token/leaderboard" element={<LeaderboardWidget />} />
           <Route path="/widget/:token/milestones"  element={<MilestonesWidget />} />
           <Route path="/widget/:token/qrcode"      element={<QrCodeWidget />} />
+          <Route path="/widget/:token/marquee" element={<MarqueeWidget />} />
           <Route path="/poll/:username" element={<PollDonatePage />} />
 
           <Route path="/overlay/:token" element={<OverlayAlert />} />

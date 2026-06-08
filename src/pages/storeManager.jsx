@@ -20,6 +20,12 @@ const StoreManager = ({ overlayToken }) => {
     if (data) setProducts(data);
   }, [data]);
 
+  // Fungsi validasi URL menggunakan regex (Wajib http:// atau https://)
+  const isValidUrl = (url) => {
+    if (!url) return true; // Anggap valid jika kosong karena opsional
+    return /^https?:\/\/[^\s$.?#].[^\s]*$/i.test(url);
+  };
+
   const saveMutation = useMutation({
     mutationFn: (newProducts) => 
       api.put(`/api/overlay/store/${overlayToken}`, { products: newProducts }),
@@ -91,7 +97,10 @@ const StoreManager = ({ overlayToken }) => {
         )}
 
         <div className="mt-8">
-          {products.map((p, i) => (
+          {products.map((p, i) => {
+            const isLinkValid = isValidUrl(p.link);
+
+            return (
             <div key={i} className="md:border-2 border-slate-200 md:dark:border-slate-700 p-0 md:p-6 md:py-4.5 md:bg-slate-50 md:dark:bg-slate-800 rounded-none">
               {/* <div className="flex justify-between mb-4">
                 <button onClick={() => removeProduct(i)} className="text-red-500 hover:text-red-700">
@@ -134,7 +143,7 @@ const StoreManager = ({ overlayToken }) => {
                 className="w-full p-4 border border-slate-300 dark:border-slate-600 rounded-none mb-3 font-medium"
               />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
                 <input
                   type="number"
                   placeholder="Harga (Rp)"
@@ -142,12 +151,23 @@ const StoreManager = ({ overlayToken }) => {
                   onChange={e => updateProduct(i, 'price', Number(e.target.value))}
                   className="p-4 border border-slate-300 dark:border-slate-600 rounded-none font-medium"
                 />
-                <input
-                  placeholder="Link Produk (Opsional)"
-                  value={p.link}
-                  onChange={e => updateProduct(i, 'link', e.target.value)}
-                  className="p-4 border border-slate-300 dark:border-slate-600 rounded-none font-medium"
-                />
+               <div>
+                  <input
+                    placeholder="Link Produk (Wajib https://)"
+                    value={p.link}
+                    onChange={e => updateProduct(i, 'link', e.target.value)}
+                    className={`w-full p-4 border rounded-none font-medium transition-colors ${
+                      isLinkValid 
+                        ? 'border-slate-300 dark:border-slate-600 focus:border-blue-500' 
+                        : 'border-red-500 focus:border-red-500 bg-red-50 dark:bg-red-950/20'
+                    }`}
+                  />
+                  {!isLinkValid && (
+                    <p className="text-xs text-red-500 mt-1 font-bold">
+                      ⚠️ Link tidak valid! Wajib diawali dengan http:// atau https://
+                    </p>
+                  )}
+                </div>
               </div>
 
               <textarea
@@ -157,7 +177,8 @@ const StoreManager = ({ overlayToken }) => {
                 className="w-full p-4 border border-slate-300 dark:border-slate-600 rounded-none h-24 mt-4 font-medium"
               />
             </div>
-          ))}
+            )
+          })}
         </div>
 
         {products.length > 0 && (

@@ -134,6 +134,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         { id: 'mediaSettings', label: 'Media Share',    icon: <Video size={20} /> },
         { id: 'voiceSettings', label: 'Voice Note',     icon: <Mic size={20} /> },
         { id: 'store',         label: 'Toko OBS',       icon: <ShoppingBag size={20} /> },
+        { id: 'marquee', label: 'Marquee Donor', icon: <Users size={20} /> },
       ]
     },
     {
