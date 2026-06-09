@@ -4058,7 +4058,7 @@ const handleChangePin = async () => {
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                     <SectionHeader icon={<Settings size={20} />} title={`Konfigurasi Overlay`} color="bg-blue-500" />
                     <br />
-                    <div className="md:flex space-y-3 md:space-y-0 items-center gap-3 rounded-none bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
+                    <div className="md:flex space-y-3 md:space-y-0 items-center gap-2.5 rounded-none bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
                       {['A', 'B'].map((slot) => (
                         <button
                           key={slot}
@@ -4113,7 +4113,7 @@ const handleChangePin = async () => {
                       ))}
                     </div>
 
-                    <div className="mt-5 space-y-0">
+                    <div className="mt-5 space-y-2.5">
                       <OBSConnectPanel overlayToken={user.overlayToken} />
                       {[
                         { key: 'overlayEnabled', label: 'Aktifkan Overlay OBS',  desc: 'Alert tidak akan muncul di OBS sama sekali' },
