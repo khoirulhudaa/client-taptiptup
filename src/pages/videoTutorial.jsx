@@ -171,11 +171,6 @@ export const VideoTutorialSection = () => {
               {/* Info — selalu tampil */}
               <div className="p-3 md:p-4 space-y-2">
                 <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className={`px-1.5 py-0.5 text-white text-[8px] font-black tracking-widest rounded-none ${tut.badgeColor}`}>
-                      {tut.badge}
-                    </span>
-                  </div>
                   <p className="font-black text-xs md:text-sm text-slate-800 dark:text-slate-100 leading-snug">{tut.title}</p>
                   <p className="hidden md:block text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{tut.subtitle}</p>
                 </div>
