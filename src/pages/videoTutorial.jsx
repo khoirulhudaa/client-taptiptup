@@ -132,7 +132,7 @@ export const VideoTutorialSection = () => {
   return (
     <>
       <div className="mt-3.5">
-        <div className="grid grid-cols-2 gap-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
           {TUTORIALS.map((tut) => (
             <div
               key={tut.id}
@@ -140,7 +140,7 @@ export const VideoTutorialSection = () => {
             >
               {/* Thumbnail — hanya tampil di desktop */}
               <div
-                className="hidden md:block relative w-full aspect-video bg-slate-900 overflow-hidden cursor-pointer"
+                className="relative w-full aspect-video bg-slate-900 overflow-hidden cursor-pointer"
                 onClick={() => setActiveModal(tut.id)}
               >
                 <video
@@ -149,7 +149,7 @@ export const VideoTutorialSection = () => {
                   muted
                   playsInline
                   preload="metadata"
-                  className="w-full h-full scale-70 relative left-[-10px] top-8 object-cover opacity-80 group-hover:opacity-50 transition-opacity duration-300"
+                  className="w-full h-full md:scale-70 relative left-[-10px] top-8 md:object-cover opacity-80 group-hover:opacity-50 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent pointer-events-none" />
 
@@ -169,7 +169,7 @@ export const VideoTutorialSection = () => {
 
                 <button
                   onClick={() => setActiveModal(tut.id)}
-                  className="cursor-pointer active:scale-[0.98] w-full py-2 md:py-2.5 bg-slate-800 dark:bg-slate-700 hover:bg-slate-700 dark:hover:bg-slate-600 border border-white/10 text-white font-black text-[10px] md:text-xs rounded-none flex items-center justify-center gap-1.5 transition-all"
+                  className="md:w-full px-2.5 md:px-0 w-max cursor-pointer active:scale-[0.98] !mt-2.5 py-2 md:py-2.5 bg-slate-800 dark:bg-slate-700 hover:bg-slate-700 dark:hover:bg-slate-600 border border-white/10 text-white font-black text-[10px] md:text-xs rounded-none flex items-center justify-center gap-1.5 transition-all"
                 >
                   <Play size={11} fill="white" className="md:flex hidden" />
                   Tonton Tutorial
