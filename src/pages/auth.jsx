@@ -388,9 +388,11 @@ const MainAuthForm = ({
           </p>
         </div>
 
-    <div style={{
+    <div 
+        className='md:!mb-[24px] !mb-[8px]'
+        style={{
           display: 'flex', border: `1px solid ${T.tabBorder}`,
-          borderRadius: 0, overflow: 'hidden', marginBottom: 28
+          borderRadius: 0, overflow: 'hidden'
         }}>
           {[
             { label: 'Masuk', icon: '→' },
@@ -464,7 +466,7 @@ const MainAuthForm = ({
           </div>
 
           {isLogin && (
-            <div className='uppercase' style={{ textAlign:'left', marginBottom:24 }}>
+            <div className='uppercase' style={{ textAlign:'left', marginBottom: 10 }}>
               <button className='uppercase' type="button" onClick={() => setCurrentPage('forgot-password')}
                 style={{ 
                   background:'none', border:'none', cursor:'pointer', 
@@ -501,12 +503,6 @@ const MainAuthForm = ({
             )}
           </button>
         </form>
-
-        {/* <div style={{ display:'flex', alignItems:'center', gap:12, margin:'28px 0' }}>
-          <div style={{ flex:1, height:1, background: T.divider }} />
-          <span style={{ color: T.dividerText, fontSize:12, fontWeight:600 }}>atau</span>
-          <div style={{ flex:1, height:1, background: T.divider }} />
-        </div> */}
 
         <p className='mt-6 font-bold uppercase' style={{ textAlign:'left', color: T.heading, fontSize:14 }}>
           {isLogin ? 'Belum punya akun ?' : 'Sudah punya akun ?'}{' '}
