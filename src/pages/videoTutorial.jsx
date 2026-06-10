@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Play, X, Maximize2, MonitorPlay } from 'lucide-react';
+import { Play, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const TUTORIALS = [
@@ -15,7 +15,6 @@ const TUTORIALS = [
     videoSrc: '/video1.mp4',
     poster: '/man1.png',
     duration: '35 detik',
-    // accentColor: 'from-slate-500 to-slate-400',
     borderActive: 'border-slate-500/40',
   },
   {
@@ -29,16 +28,13 @@ const TUTORIALS = [
     videoSrc: '/video2.mp4',
     poster: '/man1.png',
     duration: '75 detik',
-    // accentColor: 'from-slate-500 to-slate-400',
     borderActive: 'border-slate-500/40',
   },
 ];
 
-// ─── Modal dirender ke document.body via portal ───────────────────────────────
 const VideoModal = ({ tutorial, onClose }) => {
   const videoRef = useRef(null);
 
-  // Auto-play setelah animasi modal selesai
   useEffect(() => {
     const timer = setTimeout(() => {
       videoRef.current?.play().catch(() => {});
@@ -46,14 +42,12 @@ const VideoModal = ({ tutorial, onClose }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Close dengan keyboard Escape
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [onClose]);
 
-  // Lock scroll body saat modal terbuka
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
@@ -67,7 +61,6 @@ const VideoModal = ({ tutorial, onClose }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
-        // z-index 2147483647 = nilai integer 32-bit tertinggi, pasti di atas segalanya
         style={{ zIndex: 2147483647 }}
         className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 md:p-8"
         onClick={onClose}
@@ -82,11 +75,8 @@ const VideoModal = ({ tutorial, onClose }) => {
           onClick={e => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="relative flex items-center justify-between px-5 py-3 bg-slate-900 border-b border-white/10">
-            <div className="relative flex items-center gap-3">
-              <div className={`absolute top-5 right-5 w-7 h-7 rounded-none bg-gradient-to-br ${tutorial.accentColor} flex items-center justify-center`}>
-                <Play size={12} className="text-white relative left-0.5" fill="white" />
-              </div>
+          <div className="flex items-center justify-between px-5 py-3 bg-slate-900 border-b border-white/10">
+            <div className="flex items-center gap-3">
               <div>
                 <p className="font-black text-white text-sm">{tutorial.title}</p>
                 <p className="text-[10px] text-slate-400 font-medium">{tutorial.subtitle}</p>
@@ -132,32 +122,26 @@ const VideoModal = ({ tutorial, onClose }) => {
         </motion.div>
       </motion.div>
     </AnimatePresence>,
-    document.body  // ← render langsung ke body, keluar dari semua stacking context
+    document.body
   );
 };
 
-// ─── Komponen utama ───────────────────────────────────────────────────────────
 export const VideoTutorialSection = () => {
   const [activeModal, setActiveModal] = useState(null);
-
   const activeTutorial = TUTORIALS.find(t => t.id === activeModal);
 
   return (
     <>
       <div className="mt-3.5">
-        {/* Tutorial Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-2.5">
           {TUTORIALS.map((tut) => (
             <div
               key={tut.id}
               className={`group relative rounded-none border-2 ${tut.borderActive} bg-slate-50 dark:bg-slate-800/60 overflow-hidden transition-all hover:border-opacity-80`}
             >
-              {/* Accent bar */}
-              <div className={`h-[3px] w-full bg-gradient-to-r ${tut.accentColor}`} />
-
-              {/* Thumbnail */}
+              {/* Thumbnail — hanya tampil di desktop */}
               <div
-                className="relative w-full aspect-video bg-slate-900 overflow-hidden cursor-pointer"
+                className="hidden md:block relative w-full aspect-video bg-slate-900 overflow-hidden cursor-pointer"
                 onClick={() => setActiveModal(tut.id)}
               >
                 <video
@@ -169,6 +153,14 @@ export const VideoTutorialSection = () => {
                   className="w-full h-full object-cover opacity-80 group-hover:opacity-50 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent pointer-events-none" />
+
+                {/* Play button overlay */}
+                {/* <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                    <Play size={16} className="text-white relative left-0.5" fill="white" />
+                  </div>
+                </div> */}
+
                 <div className="absolute bottom-2 right-4 pointer-events-none">
                   <span className="px-2 py-0.5 bg-black/70 text-white text-[9px] font-black rounded-none tracking-wider">
                     {tut.duration}
@@ -176,25 +168,23 @@ export const VideoTutorialSection = () => {
                 </div>
               </div>
 
-              {/* Info */}
-              <div className="p-4 space-y-2">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex-1 min-w-0">
-                    {/* <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className={`px-2 py-0.5 text-white text-[8px] font-black tracking-widest rounded-none ${tut.badgeColor}`}>
-                        {tut.badge}
-                      </span>
-                    </div> */}
-                    <p className="font-black text-sm text-slate-800 dark:text-slate-100 leading-snug">{tut.title}</p>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{tut.subtitle}</p>
+              {/* Info — selalu tampil */}
+              <div className="p-3 md:p-4 space-y-2">
+                <div>
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className={`px-1.5 py-0.5 text-white text-[8px] font-black tracking-widest rounded-none ${tut.badgeColor}`}>
+                      {tut.badge}
+                    </span>
                   </div>
+                  <p className="font-black text-xs md:text-sm text-slate-800 dark:text-slate-100 leading-snug">{tut.title}</p>
+                  <p className="hidden md:block text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{tut.subtitle}</p>
                 </div>
-                {/* <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">{tut.desc}</p> */}
+
                 <button
                   onClick={() => setActiveModal(tut.id)}
-                  className={`cursor-pointer border border-white/15 active:scale-[0.98] w-full !mt-3.5 py-2.5 bg-gradient-to-r ${tut.accentColor} text-white font-black text-xs rounded-none flex items-center justify-center gap-2 hover:brightness-110 transition-all shadow-md`}
+                  className="cursor-pointer active:scale-[0.98] w-full py-2 md:py-2.5 bg-slate-800 dark:bg-slate-700 hover:bg-slate-700 dark:hover:bg-slate-600 border border-white/10 text-white font-black text-[10px] md:text-xs rounded-none flex items-center justify-center gap-1.5 transition-all"
                 >
-                  <Play size={13} fill="white" />
+                  <Play size={11} fill="white" />
                   Tonton Tutorial
                 </button>
               </div>
@@ -203,7 +193,6 @@ export const VideoTutorialSection = () => {
         </div>
       </div>
 
-      {/* Modal dirender via portal ke document.body */}
       {activeModal && activeTutorial && (
         <VideoModal
           tutorial={activeTutorial}
