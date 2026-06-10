@@ -75,7 +75,7 @@ const VideoModal = ({ tutorial, onClose }) => {
           onClick={e => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-3 bg-slate-900 border-b border-white/10">
+          <div className="flex items-center justify-between px-3 md:px-5 py-3 bg-slate-900 border-b border-white/10">
             <div className="flex items-center gap-3">
               <div>
                 <p className="font-black text-white text-sm">{tutorial.title}</p>
@@ -105,7 +105,7 @@ const VideoModal = ({ tutorial, onClose }) => {
           </div>
 
           {/* Footer */}
-          <div className="px-5 py-4 bg-slate-900 border-t border-white/10 flex items-center justify-between gap-4">
+          <div className="px-3 md:px-5 py-4 bg-slate-900 border-t border-white/10 md:flex items-center justify-between gap-4">
             <div className="flex items-center gap-3 flex-1 min-w-0">
               <p className="text-xs text-slate-400 font-medium leading-relaxed truncate">
                 {tutorial.desc}
@@ -113,7 +113,7 @@ const VideoModal = ({ tutorial, onClose }) => {
             </div>
             <button
               onClick={onClose}
-              className="cursor-pointer flex-shrink-0 px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-black text-xs rounded-none transition-all active:scale-[0.98]"
+              className="md:flex hidden cursor-pointer flex-shrink-0 px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-black text-xs rounded-none transition-all active:scale-[0.98]"
             >
               Tutup
             </button>
