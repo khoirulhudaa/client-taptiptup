@@ -149,7 +149,7 @@ export const VideoTutorialSection = () => {
                   muted
                   playsInline
                   preload="metadata"
-                  className="w-full h-full md:scale-70 relative left-[-10px] top-8 md:object-cover opacity-80 group-hover:opacity-50 transition-opacity duration-300"
+                  className="w-full h-full md:scale-90 relative left-[-6px] top-8 object-contain opacity-80 group-hover:opacity-50 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent pointer-events-none" />
 
