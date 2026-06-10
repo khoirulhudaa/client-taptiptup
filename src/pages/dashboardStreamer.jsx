@@ -45,6 +45,8 @@ import {
   Users,
   Verified,
   Video,
+  Maximize2, 
+  MonitorPlay,
   Vote,
   X,
   Zap
@@ -84,6 +86,7 @@ import LoadingOverlay from '../components/overlayLoading';
 import StreamerManagerPage from './streamerManager';
 import MarqueeConfigPanel from './marqueeConfigPanel';
 import OBSConnectPanel from '../components/obsInject';
+import { VideoTutorialSection } from './videoTutorial';
 
 // ─── API ──────────────────────────────────────────────────────────────────────
 const fetchBadges = async () => (await api.get('/api/midtrans/badges')).data;
@@ -257,7 +260,9 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
 
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
-      <SectionHeader icon={<Plus size={20} />} title="Quick Nominal" color="bg-emerald-500" />
+      <div className="flex justify-between items-center gap-3 mb-5">
+        <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Quick Nominal</span>
+      </div>
       <div className="gap-2.5 grid grid-cols-1 mt-5 md:grid-cols-2">
         {amounts.map((amt, i) => (
           <div key={i} className="w-[100%] flex gap-3 items-center bg-slate-50 dark:bg-slate-800 p-3 rounded-none">
@@ -1531,7 +1536,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
 
 // ─── YouTubeLivePreview ───────────────────────────────────────────────────────
 
-const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeChange }) => {
+export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeChange, autoPreviewTick }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [animKey, setAnimKey] = useState(0);
   const [currentDonor, setCurrentDonor] = useState(null);
@@ -1766,6 +1771,12 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeC
     const dur = getDuration(settings, d.amount);
     timerRef.current = setTimeout(() => setShowAlert(false), dur * 1000 + 500);
   };
+
+  useEffect(() => {
+    if (!autoPreviewTick) return;
+    triggerDemo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoPreviewTick]);
 
   useEffect(() => () => timerRef.current && clearTimeout(timerRef.current), []);
 
@@ -2383,7 +2394,7 @@ const smoothInner = (
         ))}
       </div>
 
-      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-none ${previewMode === 'alert' ? 'h-[59vh]' : 'h-[51vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
+      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-none ${previewMode === 'alert' ? 'h-[60vh]' : 'h-[52vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
         <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
           <span style={{ fontSize: 80, fontWeight: 800, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span>
         </div>
@@ -3218,6 +3229,7 @@ export const DashboardStreamer = () => {
   const [width, height] = useWindowSize();
   const [showModeToast, setShowModeToast] = useState(false);
   const [modeToastLabel, setModeToastLabel] = useState('');
+  const [autoPreviewTick, setAutoPreviewTick] = useState(0);
   const [iconMode, setIconMode] = useState('emoji');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [pinStep, setPinStep] = useState('idle'); // idle | success | error
@@ -3282,6 +3294,23 @@ export const DashboardStreamer = () => {
 
   return null;
 };
+
+useEffect(() => {
+  if (!localSettings) return;
+  // Debounce 400ms supaya tidak spam saat user drag color picker
+  const timer = setTimeout(() => {
+    setAutoPreviewTick(t => t + 1);
+  }, 400);
+  return () => clearTimeout(timer);
+}, [
+  localSettings?.theme,
+  localSettings?.primaryColor,
+  localSettings?.highlightColor,
+  localSettings?.textColor,
+  localSettings?.borderColor,
+  localSettings?.animation,
+  localSettings?.customIcon,
+]);
 
 // ─── PIN HANDLERS (dipindah ke dalam komponen) ─────────────────────────────────
 
@@ -4113,6 +4142,8 @@ const handleChangePin = async () => {
                       ))}
                     </div>
 
+                    <VideoTutorialSection />
+
                     <div className="mt-5 space-y-2.5">
                       <OBSConnectPanel overlayToken={user.overlayToken} />
                       {[
@@ -4325,7 +4356,6 @@ const handleChangePin = async () => {
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
                     <div className="flex justify-between items-center gap-3 mb-5">
                       <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Widget OBS</span>
-                      <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 rounded-none text-[9px] font-black uppercase tracking-widest">Browser Source</span>
                     </div>
                     {[
                       { label: 'Milestones',   emoji: '🎯', path: 'milestones',  desc: 'Progress target donasi',        },
@@ -4366,7 +4396,8 @@ const handleChangePin = async () => {
                 </section>
 
                 <section className="xl:col-span-5 z-[2]">
-                  <YouTubeLivePreview settings={settings} username={user.username} testFullScreen={() => setNavbar(!navbar)} onPreviewModeChange={setPreviewMode} />
+                  {/* <VideoTutorialSection /> */}
+                  <YouTubeLivePreview settings={settings} username={user.username} testFullScreen={() => setNavbar(!navbar)} onPreviewModeChange={setPreviewMode}   autoPreviewTick={autoPreviewTick} />
                 </section>
               </motion.div>
             )}
