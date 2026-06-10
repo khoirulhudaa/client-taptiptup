@@ -1,15 +1,6 @@
 // constants/alertPresets.js
 export const ALERT_PRESETS = [
   {
-    id: 'frog-forest',
-    name: '🖤 Flat Mono',
-    desc: 'Flat hitam putih minimalis',
-    primaryColor: '#171717',
-    highlightColor: '#ffffff',
-    textColor: '#e0e0e0',
-    borderColor: '#ffffff40',
-  },
-  {
     id: 'frog-swamp',
     name: '🔵 Ocean Blue',
     desc: 'Biru tenang modern',
@@ -17,6 +8,15 @@ export const ALERT_PRESETS = [
     highlightColor: '#4da6ff',
     textColor: '#ffffff',
     borderColor: '#4da6ff30',
+  },
+  {
+    id: 'frog-forest',
+    name: '🖤 Flat Mono',
+    desc: 'Flat hitam putih minimalis',
+    primaryColor: '#00000055',
+    highlightColor: '#ffffff',
+    textColor: '#e0e0e0',
+    borderColor: '#ffffff22',
   },
   {
     id: 'frog-neon',

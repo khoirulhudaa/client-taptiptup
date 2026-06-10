@@ -260,10 +260,11 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
 
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
-      <div className="flex justify-between items-center gap-3 mb-5">
+      {/* <div className="flex justify-between items-center gap-3 mb-5">
         <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Quick Nominal</span>
-      </div>
-      <div className="gap-2.5 grid grid-cols-1 mt-5 md:grid-cols-2">
+      </div> */}
+        <SectionHeader icon={<Settings size={20} />} title={`Quick Nominal`} color="bg-red-500" />
+        <div className="gap-2.5 grid grid-cols-1 mt-5 md:grid-cols-2">
         {amounts.map((amt, i) => (
           <div key={i} className="w-[100%] flex gap-3 items-center bg-slate-50 dark:bg-slate-800 p-3 rounded-none">
             <input
@@ -279,13 +280,13 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
           </div>
         ))}
       </div>
-      <button onClick={add} className="cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full mt-4 py-2.5 border-2 border-dashed border-emerald-400/30 text-white rounded-none font-black text-sm">
+      <button onClick={add} className="cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full mt-4 py-2.5 border-2 border-dashed border-cyan-400/30 text-white rounded-none font-black text-sm">
         + Tambah Nominal
       </button>
       <button
         onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })}
         disabled={saveSettingsMutation.isPending}
-        className="mt-3 md:mt-6 cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full py-3 bg-emerald-600 text-white rounded-none text-sm font-black"
+        className="mt-3 md:mt-6 cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full py-3 bg-cyan-600 text-white rounded-none text-sm font-black"
       >
         Simpan Quick Nominal
       </button>
@@ -4085,7 +4086,7 @@ const handleChangePin = async () => {
 
                   {/* Konfigurasi Alert */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
-                    <SectionHeader icon={<Settings size={20} />} title={`Konfigurasi Overlay`} color="bg-blue-500" />
+                    <SectionHeader icon={<Settings size={20} />} title={`Konfigurasi Utama`} color="bg-blue-500" />
                     <br />
                     <div className="md:flex space-y-3 md:space-y-0 items-center gap-2.5 rounded-none bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
                       {['A', 'B'].map((slot) => (
@@ -4354,8 +4355,11 @@ const handleChangePin = async () => {
 
                   {/* Widget URLs */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
-                    <div className="flex justify-between items-center gap-3 mb-5">
+                    {/* <div className="flex justify-between items-center gap-3 mb-5">
                       <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Widget OBS</span>
+                    </div> */}
+                    <div className='mb-5'>
+                      <SectionHeader icon={<Settings size={20} />} title={`URL Widget`} color="bg-rose-500" />
                     </div>
                     {[
                       { label: 'Milestones',   emoji: '🎯', path: 'milestones',  desc: 'Progress target donasi',        },
