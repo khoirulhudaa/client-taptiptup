@@ -107,7 +107,6 @@ const VideoModal = ({ tutorial, onClose }) => {
           {/* Footer */}
           <div className="px-5 py-4 bg-slate-900 border-t border-white/10 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3 flex-1 min-w-0">
-              <span className="text-lg flex-shrink-0">{tutorial.emoji}</span>
               <p className="text-xs text-slate-400 font-medium leading-relaxed truncate">
                 {tutorial.desc}
               </p>
