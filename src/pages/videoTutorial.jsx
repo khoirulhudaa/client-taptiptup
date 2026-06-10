@@ -149,16 +149,9 @@ export const VideoTutorialSection = () => {
                   muted
                   playsInline
                   preload="metadata"
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-50 transition-opacity duration-300"
+                  className="w-full h-full scale-70 relative left-[-10px] top-8 object-cover opacity-80 group-hover:opacity-50 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent pointer-events-none" />
-
-                {/* Play button overlay */}
-                {/* <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                    <Play size={16} className="text-white relative left-0.5" fill="white" />
-                  </div>
-                </div> */}
 
                 <div className="absolute bottom-2 right-4 pointer-events-none">
                   <span className="px-2 py-0.5 bg-black/70 text-white text-[9px] font-black rounded-none tracking-wider">
