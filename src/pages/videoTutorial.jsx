@@ -132,7 +132,7 @@ export const VideoTutorialSection = () => {
   return (
     <>
       <div className="mt-3.5">
-        <div className="grid grid-cols-2 md:grid-cols-2 gap-2.5">
+        <div className="grid grid-cols-2 gap-2.5">
           {TUTORIALS.map((tut) => (
             <div
               key={tut.id}
@@ -178,7 +178,7 @@ export const VideoTutorialSection = () => {
                   onClick={() => setActiveModal(tut.id)}
                   className="cursor-pointer active:scale-[0.98] w-full py-2 md:py-2.5 bg-slate-800 dark:bg-slate-700 hover:bg-slate-700 dark:hover:bg-slate-600 border border-white/10 text-white font-black text-[10px] md:text-xs rounded-none flex items-center justify-center gap-1.5 transition-all"
                 >
-                  <Play size={11} fill="white" />
+                  <Play size={11} fill="white" className="md:flex hidden" />
                   Tonton Tutorial
                 </button>
               </div>
