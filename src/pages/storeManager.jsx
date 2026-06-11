@@ -83,7 +83,7 @@ const StoreManager = ({ overlayToken }) => {
         <div className="flex items-center gap-4">
             <div className="bg-rose-500 p-3 rounded-none text-white shadow-lg"><StoreIcon size={20} /></div>
             <div>
-            <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Konfigurasi Toko </h3>
+            <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Label produk </h3>
             </div>
         </div>
         {/* Tombol Tambah Produk - Hanya muncul jika belum ada produk */}
@@ -188,7 +188,7 @@ const StoreManager = ({ overlayToken }) => {
             className="cursor-pointer active:scale-[0.99] mt-10 w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm rounded-none transition-all flex items-center justify-center gap-2"
           >
             <Save size={20} />
-            {saveMutation.isPending ? 'Menyimpan...' : 'Simpan Produk ke Toko OBS'}
+            {saveMutation.isPending ? 'Menyimpan...' : 'Simpan Produk ke OBS'}
           </button>
         )}
       </div>

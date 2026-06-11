@@ -96,7 +96,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     { id: 'alertSettings', label: 'Alert OBS',         icon: <ZapIcon size={20} /> },
     { id: 'mediaSettings', label: 'Media Share',       icon: <Video size={20} /> },
     { id: 'voiceSettings', label: 'Voice Note',        icon: <Mic size={20} /> },
-    { id: 'store',         label: 'Toko OBS',          icon: <ShoppingBag size={20} /> },
+    { id: 'store',         label: 'Label produk',          icon: <ShoppingBag size={20} /> },
     { id: 'history',       label: 'Riwayat Donasi',    icon: <History size={20} /> },
     { id: 'wallet',        label: 'Penarikan Dana',    icon: <Wallet size={20} /> },
     { id: 'poll',          label: 'Poll & Voting',     icon: <Vote size={20} /> },
@@ -134,7 +134,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         { id: 'mediaSettings', label: 'Media Share',    icon: <Video size={20} /> },
         { id: 'marquee', label: 'Marquee Donor', icon: <Users size={20} /> },
         { id: 'voiceSettings', label: 'Voice Note',     icon: <Mic size={20} /> },
-        { id: 'store',         label: 'Toko OBS',       icon: <ShoppingBag size={20} /> },
+        { id: 'store',         label: 'Label produk',       icon: <ShoppingBag size={20} /> },
       ]
     },
     {
