@@ -1136,7 +1136,8 @@ const Auth = () => {
       if (isLogin) {
         // Login success - SIMPAN TOKEN DENGAN AMAN
         localStorage.setItem('token', res.data.token);
-        
+        const today = new Date().toISOString().slice(0, 10); // "2025-06-11"
+        localStorage.setItem('loginModalShownDate', today);
         // Simpan info user (tidak sensitive)
         if (res.data.user) {
           localStorage.setItem('user', JSON.stringify(safeText(JSON.stringify({

@@ -3228,6 +3228,7 @@ export const DashboardStreamer = () => {
   const [navbar, setNavbar]               = useState(false);
   const [showBalance, setShowBalance]     = useState(false);
   const [width, height] = useWindowSize();
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [showModeToast, setShowModeToast] = useState(false);
   const [modeToastLabel, setModeToastLabel] = useState('');
   const [autoPreviewTick, setAutoPreviewTick] = useState(0);
@@ -3418,6 +3419,16 @@ const handleChangePin = async () => {
     };
     window.addEventListener('storage', sync);
     return () => window.removeEventListener('storage', sync);
+  }, []);
+
+  useEffect(() => {
+    const today = new Date().toISOString().slice(0, 10);
+    const shown = localStorage.getItem('loginModalShownDate');
+    if (shown === today) {
+      setShowLoginModal(true);
+      // Hapus key supaya tidak muncul lagi hari ini
+      localStorage.removeItem('loginModalShownDate');
+    }
   }, []);
 
   useEffect(() => {
@@ -4813,6 +4824,40 @@ const handleChangePin = async () => {
                   {adminMode ? 'Kamu sekarang dalam mode pengelola.' : 'Kamu kembali ke mode streamer.'}
                 </p>
               </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showLoginModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/70 backdrop-blur-md"
+            onClick={() => setShowLoginModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.88, opacity: 0, y: 24 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.88, opacity: 0, y: 24 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+              onClick={e => e.stopPropagation()}
+              className="relative max-w-3xl bg-slate-700 p-3 w-full mx-4 rounded-none overflow-hidden shadow-2xl border border-white/10"
+            >
+              <img
+                src="/poster.png"
+                alt="poster"
+                className="w-full h-auto block"
+              />
+              <button
+                onClick={() => setShowLoginModal(false)}
+                className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-red-600 hover:bg-black/70 text-white rounded-none transition-all cursor-pointer"
+                aria-label="Tutup"
+              >
+                ✕
+              </button>
             </motion.div>
           </motion.div>
         )}
