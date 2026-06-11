@@ -700,6 +700,7 @@ function FeeComparison({ C }) {
       {/* Header */}
       <div className="select-none text-center flex flex-col justify-center items-center !py-11 !md:py-20 !px-5 transition-colors duration-400 relative z-[2]">
         <Kicker C={C}>Transparansi Biaya</Kicker>
+        
         <BigTitle C={C}>POTONGAN TERKECIL DI{" "}
           <span style={{ color: C.lime }}>KELASNYA</span>
         </BigTitle>
