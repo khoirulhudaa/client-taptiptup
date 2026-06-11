@@ -175,7 +175,7 @@ export const PollManager = ({ overlayToken, username }) => {
       {/* Buat Poll Baru */}
       <button
         onClick={() => setShowCreate(!showCreate)}
-        className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-2">
+        className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-2">
         <Plus size={16} /> {showCreate ? 'Batal' : 'Buat Poll Baru'}
       </button>
 
@@ -221,7 +221,7 @@ export const PollManager = ({ overlayToken, username }) => {
                 </div>
               ))}
               <button onClick={addOption}
-                className="cursor-pointer active:scale-[0.97] text-sm font-black text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1.5">
+                className="cursor-pointer active:scale-[0.99] text-sm font-black text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1.5">
                 <Plus size={14} /> Tambah Opsi
               </button>
             </div>
@@ -242,7 +242,7 @@ export const PollManager = ({ overlayToken, username }) => {
             <button
               onClick={handleCreate}
               disabled={createMutation.isPending}
-              className="cursor-pointer active:scale-[0.97] w-full py-3 md:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70">
+              className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70">
               <Vote size={16} /> {createMutation.isPending ? 'Membuat...' : 'Mulai Poll Sekarang'}
             </button>
           </motion.div>
@@ -261,7 +261,7 @@ export const PollManager = ({ overlayToken, username }) => {
                 setPollCopied(true);
                 setTimeout(() => setPollCopied(false), 2000);
               }}
-              className={`cursor-pointer active:scale-[0.97] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${pollCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
+              className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${pollCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
               {pollCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
             </button>
           </div>
@@ -290,7 +290,7 @@ export const PollManager = ({ overlayToken, username }) => {
                 navigator.clipboard.writeText(pollUrl);
                 // Tambahkan state copied jika mau (opsional)
               }}
-              className="cursor-pointer active:scale-[0.97] px-3 py-2 rounded-none text-xs font-black bg-blue-600 hover:bg-blue-700 text-white transition-all"
+              className="cursor-pointer active:scale-[0.99] px-3 py-2 rounded-none text-xs font-black bg-blue-600 hover:bg-blue-700 text-white transition-all"
             >
               Salin
             </button>
@@ -498,7 +498,7 @@ export const SubathonManager = ({ overlayToken }) => {
             : startMutation.mutate()
           }
           disabled={startMutation.isPending || pauseMutation.isPending}
-          className={`cursor-pointer active:scale-[0.97] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-none font-black text-sm transition-all disabled:opacity-60 ${
+          className={`cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-none font-black text-sm transition-all disabled:opacity-60 ${
             isRunning ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-green-500 hover:bg-green-600 text-white'
           }`}>
           {isRunning ? <Pause size={20} /> : <Play size={20} />}
@@ -507,14 +507,14 @@ export const SubathonManager = ({ overlayToken }) => {
         <button
           onClick={() => { if (window.confirm('Reset timer ke waktu awal?')) resetMutation.mutate(); }}
           disabled={resetMutation.isPending}
-          className="cursor-pointer active:scale-[0.97] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-none font-black text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all disabled:opacity-60">
+          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-none font-black text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all disabled:opacity-60">
           <RotateCcw size={20} />
           Reset
         </button>
         <button
           onClick={() => addTimeMutation.mutate(manualAdd)}
           disabled={addTimeMutation.isPending}
-          className="cursor-pointer active:scale-[0.97] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-none font-black text-sm bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-60">
+          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-none font-black text-sm bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-60">
           <Plus size={20} />
           Waktu
         </button>
@@ -554,7 +554,7 @@ export const SubathonManager = ({ overlayToken }) => {
           <div className="grid grid-cols-2 gap-3">
             {[{ id: 'countdown', label: 'Countdown', desc: 'Waktu berkurang' }, { id: 'countup', label: 'Count Up', desc: 'Waktu bertambah' }].map(m => (
               <button key={m.id} onClick={() => upd('mode', m.id)}
-                className={`cursor-pointer active:scale-[0.97] p-3 rounded-none border-2 text-left font-black text-xs transition-all ${
+                className={`cursor-pointer active:scale-[0.99] p-3 rounded-none border-2 text-left font-black text-xs transition-all ${
                   localTimer.mode === m.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
                     : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
@@ -609,7 +609,7 @@ export const SubathonManager = ({ overlayToken }) => {
                 {/* Tombol Edit Tabel */}
                 <button
                   onClick={() => setShowTiersTable(!showTiersTable)}
-                  className="cursor-pointer active:scale-[0.97] px-3 py-1.5 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-none text-xs font-black hover:bg-blue-200 dark:hover:bg-blue-800 transition-all">
+                  className="cursor-pointer active:scale-[0.99] px-3 py-1.5 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-none text-xs font-black hover:bg-blue-200 dark:hover:bg-blue-800 transition-all">
                   {showTiersTable ? 'Tutup' : 'Edit'}
                 </button>
               </div>
@@ -705,7 +705,7 @@ export const SubathonManager = ({ overlayToken }) => {
                   setSubCopied(true);
                   setTimeout(() => setSubCopied(false), 2000);
                 }}
-                className={`cursor-pointer active:scale-[0.97] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${subCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
+                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${subCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
                 {subCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
               </button>
             </div>
@@ -713,7 +713,7 @@ export const SubathonManager = ({ overlayToken }) => {
         )}
 
         <button onClick={save} disabled={configMutation.isPending}
-          className={`cursor-pointer active:scale-[0.97] w-full py-3 md:py-3.5 rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 ${
+          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-3.5 rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 ${
             saved ? 'bg-green-500 text-white' : 'bg-slate-900 dark:bg-slate-100 hover:bg-blue-600 dark:hover:bg-blue-500 text-white dark:text-slate-900 dark:hover:text-white'
           } disabled:opacity-70`}>
           {saved ? <><CheckCircle2 size={16} /> Tersimpan!</> : configMutation.isPending ? 'Menyimpan...' : <><Save size={16} /> Simpan Konfigurasi</>}
@@ -798,7 +798,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
               { id: 'today',   label: '📅 Hari Ini',    desc: 'Donasi hari ini saja' },
             ].map(p => (
               <button key={p.id} onClick={() => upd('leaderboardPeriod', p.id)}
-                className={`cursor-pointer active:scale-[0.97] p-4 rounded-none border-2 text-left font-black text-xs transition-all ${
+                className={`cursor-pointer active:scale-[0.99] p-4 rounded-none border-2 text-left font-black text-xs transition-all ${
                   local.leaderboardPeriod === p.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
                     : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
@@ -856,7 +856,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
                   setLbCopied(true);
                   setTimeout(() => setLbCopied(false), 2000);
                 }}
-                className={`cursor-pointer active:scale-[0.97] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${
+                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${
                   lbCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
                 }`}>
                 {lbCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
@@ -868,7 +868,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
         <button
           onClick={() => saveMutation.mutate(local)}
           disabled={saveMutation.isPending}
-          className={`cursor-pointer active:scale-[0.97] w-full py-3 md:py-4 rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 ${
+          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 ${
             saved ? 'bg-green-500 text-white' : 'bg-slate-900 dark:bg-slate-100 hover:bg-blue-600 dark:hover:bg-blue-500 text-white dark:text-slate-900 dark:hover:text-white'
           } disabled:opacity-70`}>
           {saved ? <><CheckCircle2 size={16} /> Tersimpan!</> : saveMutation.isPending ? 'Menyimpan...' : <><Save size={16} /> Simpan Pengaturan Leaderboard</>}
@@ -1094,7 +1094,7 @@ export const MilestonesManager = ({ overlayToken }) => {
       <div className='md:w-full w-[100vw] p-5 mx-auto space-y-3 bg-white dark:bg-slate-900 rounded-none shadow-sm border border-slate-100 dark:border-slate-800'>
         <button
           onClick={add}
-          className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 rounded-none font-black text-sm hover:border-green-400 dark:hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-2">
+          className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 rounded-none font-black text-sm hover:border-green-400 dark:hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-2">
           <Plus size={16} /> Tambah Milestone
         </button>
 
@@ -1102,7 +1102,7 @@ export const MilestonesManager = ({ overlayToken }) => {
           <button
             onClick={() => mutation.mutate(list)}
             disabled={mutation.isPending}
-            className="cursor-pointer active:scale-[0.97] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70">
+            className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70">
             <Save size={16} /> {mutation.isPending ? 'Menyimpan...' : 'Simpan Milestone'}
           </button>
         )}
@@ -1122,7 +1122,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                   setMlCopied(true);
                   setTimeout(() => setMlCopied(false), 2000);
                 }}
-                className={`cursor-pointer active:scale-[0.97] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${
+                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${
                   mlCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
                 }`}>
                 {mlCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}

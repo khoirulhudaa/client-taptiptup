@@ -590,7 +590,7 @@ export const WithdrawPage = () => {
             ].map(m => (
               <button key={m.id}
                 onClick={() => { setMethod(m.id); setFormData({ ...formData, channelCode: m.id === 'BANK' ? 'BCA' : m.id }); }}
-                className={`cursor-pointer active:scale-[0.97] flex flex-col items-center gap-2 p-4 rounded-none border transition-all font-black text-sm ${
+                className={`cursor-pointer active:scale-[0.99] flex flex-col items-center gap-2 p-4 rounded-none border transition-all font-black text-sm ${
                   method === m.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-lg shadow-blue-50 dark:shadow-none'
                     : 'border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 hover:border-slate-200 dark:hover:border-slate-600'

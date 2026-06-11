@@ -493,7 +493,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
           <button 
             key={v} 
             onClick={() => setCustomAmount(v)}
-            className={`cursor-pointer active:scale-[0.97] px-3 py-1.5 rounded-none text-xs font-black transition-all border-2 ${
+            className={`cursor-pointer active:scale-[0.99] px-3 py-1.5 rounded-none text-xs font-black transition-all border-2 ${
               Number(customAmount) === v
                 ? 'bg-rose-500 border-rose-500 text-white'
                 : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
@@ -507,7 +507,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       <button 
         onClick={sendTest} 
         disabled={isSending || !overlayToken}
-        className="cursor-pointer active:scale-[0.97] w-full py-3 hover:brightness-90 bg-slate-900/70 dark:bg-slate-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60"
+        className="cursor-pointer active:scale-[0.99] w-full py-3 hover:brightness-90 bg-slate-900/70 dark:bg-slate-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60"
       >
         {isSending ? (
           <><RefreshCw size={18} className="animate-spin" /> Mengirim...</>
@@ -855,7 +855,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
           <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && add()}
             placeholder="Ketik kata lalu tekan Enter..."
             className="w-full flex-1 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-red-400 transition-all" />
-          <button onClick={add} className="md:w-max w-max mt-1 md:mt-0 cursor-pointer active:scale-[0.97] px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-none font-black text-sm transition-all flex items-center gap-3">
+          <button onClick={add} className="md:w-max w-max mt-1 md:mt-0 cursor-pointer active:scale-[0.99] px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-none font-black text-sm transition-all flex items-center gap-3">
             <Plus size={16} /> Tambah
           </button>
         </div>
@@ -875,7 +875,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
               </div>
         }
         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-          className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
           <Save size={20} />
           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
         </button>
@@ -926,15 +926,15 @@ const MilestonesEditor = () => {
                   </div>
                 ))}
               </div>
-              <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.97] text-red-400 hover:text-red-600 p-2 flex-shrink-0"><Trash2 size={16} /></button>
+              <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.99] text-red-400 hover:text-red-600 p-2 flex-shrink-0"><Trash2 size={16} /></button>
             </div>
           ))}
-          <button onClick={add} className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-900 text-green-600 dark:text-green-400 rounded-none font-black text-sm hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-3">
+          <button onClick={add} className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-900 text-green-600 dark:text-green-400 rounded-none font-black text-sm hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-3">
             <Plus size={16} /> Tambah Milestone
           </button>
           {list.length > 0 && (
             <button onClick={() => mutation.mutate(list)} disabled={mutation.isPending}
-              className="cursor-pointer active:scale-[0.97] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-70">
+              className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-70">
               <Save size={16} /> {mutation.isPending ? 'Menyimpan...' : 'Simpan Milestones'}
             </button>
           )}
@@ -1008,7 +1008,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
           <button
             key={m.id}
             onClick={() => setMode(m.id)}
-            className={`cursor-pointer uppercase active:scale-[0.97] text-left px-4 py-4 rounded-none font-black text-xs transition-all flex-1 ${
+            className={`cursor-pointer uppercase active:scale-[0.99] text-left px-4 py-4 rounded-none font-black text-xs transition-all flex-1 ${
               mode === m.id ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
@@ -1021,7 +1021,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
       {mode === 'preset' && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <button onClick={() => { onChange(''); setPlaying(null); }}
-            className={`cursor-pointer uppercase active:scale-[0.97] flex items-center gap-1.5 p-3 rounded-none border-2 font-black text-xs transition-all ${
+            className={`cursor-pointer uppercase active:scale-[0.99] flex items-center gap-1.5 p-3 rounded-none border-2 font-black text-xs transition-all ${
               !value ? 'border-slate-600 bg-slate-800 text-white' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
             }`}>
             <span className="text-lg">🔇</span> Tanpa Suara
@@ -1030,7 +1030,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
           {SOUND_PRESETS.map(preset => (
             <button key={preset.url}
               onClick={() => { playPreview(preset.url); onChange(preset.url); }}
-              className={`cursor-pointer active:scale-[0.97] flex items-center gap-1.5 p-3 rounded-none border-2 font-black text-xs transition-all ${
+              className={`cursor-pointer active:scale-[0.99] flex items-center gap-1.5 p-3 rounded-none border-2 font-black text-xs transition-all ${
                 value === preset.url ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
               }`}>
               <span className="text-lg">{preset.label.split(' ')[1]}</span>
@@ -1105,12 +1105,12 @@ const QrCodeCard = ({ username }) => {
         <p className="font-black text-slate-700 dark:text-slate-300 text-sm">{donateUrl}</p>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <button onClick={copy} className={`cursor-pointer active:scale-[0.97] flex items-center justify-center gap-3 py-3 md:py-4 rounded-none font-black text-sm transition-all ${copied ? 'bg-green-500 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'}`}>
+        <button onClick={copy} className={`cursor-pointer active:scale-[0.99] flex items-center justify-center gap-3 py-3 md:py-4 rounded-none font-black text-sm transition-all ${copied ? 'bg-green-500 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'}`}>
           {copied ? <><CheckCircle2 size={16} /> Tersalin!</> : <><Copy size={16} /> Salin URL</>}
         </button>
         <a href={`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(donateUrl)}&color=0f172a&format=png`}
           download={`qr-donasi-${username}.png`} target="_blank" rel="noreferrer"
-          className="cursor-pointer active:scale-[0.97] flex items-center justify-center gap-3 py-3 md:py-4 rounded-none font-black text-sm bg-slate-900/70 dark:bg-slate-700 text-white hover:bg-slate-800 dark:hover:bg-slate-600 transition-all">
+          className="cursor-pointer active:scale-[0.99] flex items-center justify-center gap-3 py-3 md:py-4 rounded-none font-black text-sm bg-slate-900/70 dark:bg-slate-700 text-white hover:bg-slate-800 dark:hover:bg-slate-600 transition-all">
           ↓ Download QR
         </a>
       </div>
@@ -1470,7 +1470,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
         </div>
 
       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
         <Save size={20} />
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan Durasi'}
       </button>
@@ -1501,7 +1501,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
         <div key={i} className="bg-slate-50 dark:bg-slate-800 rounded-none p-5 border border-slate-100 dark:border-slate-700 space-y-5">
           <div className="flex items-center justify-between">
             <span className="font-black text-slate-700 dark:text-slate-200 text-sm">{t.label || `Media Alert ${i + 1}`}</span>
-            <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.97] text-red-400 hover:text-red-600 transition-colors p-1"><Trash2 size={15} /></button>
+            <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.99] text-red-400 hover:text-red-600 transition-colors p-1"><Trash2 size={15} /></button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[['Label (opsional)', 'label', t.label, 'text', 'contoh: Sultan Alert'], ['Nominal Min (Rp)', 'minAmount', t.minAmount, 'number', '']].map(([lbl, key, val, type, ph]) => (
@@ -1515,7 +1515,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {mediaTypeOptions.map(opt => (
               <button key={opt.value} onClick={() => update(i, 'mediaType', opt.value)}
-                className={`cursor-pointer active:scale-[0.97] flex flex-col items-center gap-1.5 py-3 px-2 rounded-none border-2 font-black text-xs transition-all ${t.mediaType === opt.value ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-slate-300 hover:bg-white dark:hover:bg-slate-700'}`}>
+                className={`cursor-pointer active:scale-[0.99] flex flex-col items-center gap-1.5 py-3 px-2 rounded-none border-2 font-black text-xs transition-all ${t.mediaType === opt.value ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-slate-300 hover:bg-white dark:hover:bg-slate-700'}`}>
                 {opt.icon}<span>{opt.label}</span>
                 <span className="text-[9px] font-medium text-slate-300 dark:text-slate-500">{opt.desc}</span>
               </button>
@@ -1523,11 +1523,11 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
           </div>
         </div>
       ))}
-      <button onClick={add} className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
+      <button onClick={add} className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
         <Plus size={16} /> Tambah Ketentuan Media Alert
       </button>
       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
         <Save size={20} />
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Izin Media'}
       </button>
@@ -2345,10 +2345,10 @@ const smoothInner = (
               <span className="px-2 py-0.5 bg-red-600 text-white text-[10px] font-black rounded-none tracking-widest">OBS SIMULATION</span>
             </div>
             <div className="flex items-center gap-3">
-              <button onClick={triggerDemo} className="cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-xs transition-all">
+              <button onClick={triggerDemo} className="cursor-pointer active:scale-[0.99] flex items-center gap-3 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-xs transition-all">
                 <span className="w-1.5 h-1.5 bg-red-400 rounded-none animate-pulse" /> Simulasi Donasi
               </button>
-              <button onClick={() => handleFullScreen()} className="cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-none font-black text-xs transition-all border border-white/10">
+              <button onClick={() => handleFullScreen()} className="cursor-pointer active:scale-[0.99] flex items-center gap-3 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-none font-black text-xs transition-all border border-white/10">
                 ✕ Tutup
               </button>
             </div>
@@ -2462,11 +2462,11 @@ const smoothInner = (
       )}
 
       <button onClick={triggerDemo}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3 rounded-none bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-950 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-3">
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 rounded-none bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-950 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-3">
         <span className="w-2 h-2 bg-red-500 rounded-none animate-pulse" /> {previewMode === 'media' ? 'Simulasi Media share' : 'Simulasi Donasi Masuk'}
       </button>
       {/* <button onClick={() => handleFullScreen()}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3.5 rounded-none bg-slate-900/70 dark:bg-slate-700 hover:bg-slate-800 text-white font-black text-sm transition-all flex items-center justify-center gap-3 border border-slate-700">
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3.5 rounded-none bg-slate-900/70 dark:bg-slate-700 hover:bg-slate-800 text-white font-black text-sm transition-all flex items-center justify-center gap-3 border border-slate-700">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
         </svg>
@@ -2925,12 +2925,12 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
             )}
             <div className="flex gap-3 mt-auto">
               <button onClick={() => setViewingProfile(u.username)}
-                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-none border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:text-blue-600 transition-all cursor-pointer active:scale-[0.97]">
+                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-none border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:text-blue-600 transition-all cursor-pointer active:scale-[0.99]">
                 <User size={12} /> Profil
               </button>
               {showFollowBtn && u._id !== currentUserId && (
                 <button onClick={() => toggleMutation.mutate(u._id)} disabled={toggleMutation.isPending}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-none font-black text-xs transition-all disabled:opacity-60 cursor-pointer active:scale-[0.97] ${u.isFollowing ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-500 border border-slate-200 dark:border-slate-700' : 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm'}`}>
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-none font-black text-xs transition-all disabled:opacity-60 cursor-pointer active:scale-[0.99] ${u.isFollowing ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-500 border border-slate-200 dark:border-slate-700' : 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm'}`}>
                   {toggleMutation.isPending ? <RefreshCw className="w-3 h-3 animate-spin" /> : u.isFollowing ? 'Unfollow' : '+ Follow'}
                 </button>
               )}
@@ -2959,7 +2959,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
       <div className="gap-3 grid grid-cols-3 md:grid-cols-5 mb-5 md:mb-3">
         {subTabs.map(t => (
           <button key={t.id} onClick={() => setSubTab(t.id)}
-            className={`w-full cursor-pointer active:scale-[0.97] px-5 py-2.5 rounded-none font-black text-sm transition-all ${subTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700 hover:brightness-[80%]'}`}>
+            className={`w-full cursor-pointer active:scale-[0.99] px-5 py-2.5 rounded-none font-black text-sm transition-all ${subTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700 hover:brightness-[80%]'}`}>
             {t.label}
           </button>
         ))}
@@ -2968,7 +2968,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
             <input value={searchInput} onChange={e => setSearchInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && setSearch(searchInput)}
               placeholder="Cari username streamer..."
               className="flex-1 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none px-5 py-2 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
-            <button onClick={() => setSearch(searchInput)} className="cursor-pointer active:scale-[0.97] px-6 py-3.5 bg-blue-600 text-white rounded-none font-black text-sm hover:bg-blue-700 transition-all">Cari</button>
+            <button onClick={() => setSearch(searchInput)} className="cursor-pointer active:scale-[0.99] px-6 py-3.5 bg-blue-600 text-white rounded-none font-black text-sm hover:bg-blue-700 transition-all">Cari</button>
           </div>
         )}
       </div>
@@ -3142,7 +3142,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
               <button 
                 onClick={handleTest} 
                 disabled={isTesting}
-                className="cursor-pointer px-5 py-2.5 bg-rose-500 hover:brightness-90 disabled:opacity-60 text-white font-black rounded-none transition-all active:scale-[0.97] flex items-center gap-3 whitespace-nowrap"
+                className="cursor-pointer px-5 py-2.5 bg-rose-500 hover:brightness-90 disabled:opacity-60 text-white font-black rounded-none transition-all active:scale-[0.99] flex items-center gap-3 whitespace-nowrap"
               >
                 {isTesting ? <><span className="animate-spin inline-block">⏳</span> Memutar...</> : <>▶ Test</>}
               </button>
@@ -3740,7 +3740,7 @@ const handleChangePin = async () => {
             />
           </div>
         ))}
-        <button onClick={add} className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
+        <button onClick={add} className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
           <Plus size={16} /> Tambah Suara per Nominal
         </button>
         <button 
@@ -3749,7 +3749,7 @@ const handleChangePin = async () => {
             saveSettingsMutation.mutate({ settings, slot: activeSlot });
           }} 
           disabled={saveSettingsMutation.isPending}
-          className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
           <Save size={20} />
           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Audio Terbaru'}
         </button>
@@ -3910,7 +3910,7 @@ const handleChangePin = async () => {
                 </div>
                 <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-1">{followAction.type === 'follow' ? 'Berhasil Follow!' : 'Berhasil Unfollow'}</h3>
                 <p className="text-slate-600 dark:text-slate-400 mb-8">Kamu {followAction.type === 'follow' ? 'sekarang mengikuti' : 'tidak lagi mengikuti'} <span className="font-bold text-blue-600 dark:text-blue-400">@{followAction.username}</span></p>
-                <button onClick={() => setShowFollowModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-none transition-all active:scale-[0.97]">OK, Mengerti</button>
+                <button onClick={() => setShowFollowModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-none transition-all active:scale-[0.99]">OK, Mengerti</button>
               </div>
             </motion.div>
           </motion.div>
@@ -3962,17 +3962,17 @@ const handleChangePin = async () => {
           </div>
         </a>
         <div className="flex items-center gap-3">
-          <button onClick={toggle} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} className="h-[40px] cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 rounded-none border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
+          <button onClick={toggle} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} className="h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-none border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
             {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
           </button>
-          <button onClick={() => setActiveTab('contact')} aria-label="Bantuan & Kontak" className={`h-[40px] cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 rounded-none border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
+          <button onClick={() => setActiveTab('contact')} aria-label="Bantuan & Kontak" className={`h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-none border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
             <HeadphonesIcon size={14} />
           </button>
-          <button onClick={() => setActiveTab('community')} aria-label="Komunitas Streamer" className="h-[40px] cursor-pointer hover:brightness-90 active:scale-[0.97] relative flex items-center gap-3 px-3 py-3 rounded-none font-medium text-md overflow-hidden" style={{ background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)', backgroundSize: '300% 100%', animation: 'rainbowSlide 3s ease-in-out infinite' }}>
+          <button onClick={() => setActiveTab('community')} aria-label="Komunitas Streamer" className="h-[40px] cursor-pointer hover:brightness-90 active:scale-[0.99] relative flex items-center gap-3 px-3 py-3 rounded-none font-medium text-md overflow-hidden" style={{ background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)', backgroundSize: '300% 100%', animation: 'rainbowSlide 3s ease-in-out infinite' }}>
             <Users size={16} className="relative z-10 text-white" />
           </button>
           <InboxBell setActiveTab={setActiveTab} />
-          <button onClick={() => setIsSidebarOpen(true)} aria-label="Buka navigasi" className="h-[40px] cursor-pointer active:scale-[0.97] p-2 bg-white dark:bg-slate-800 rounded-none text-slate-600 dark:text-slate-400">
+          <button onClick={() => setIsSidebarOpen(true)} aria-label="Buka navigasi" className="h-[40px] cursor-pointer active:scale-[0.99] p-2 bg-white dark:bg-slate-800 rounded-none text-slate-600 dark:text-slate-400">
             <Menu size={24} />
           </button>
         </div>
@@ -4194,7 +4194,7 @@ const handleChangePin = async () => {
                                   if (m.id === 'emoji') upd('customIcon', '');
                                   setIconMode(m.id);
                                 }}
-                                className={`cursor-pointer active:scale-[0.97] px-4 py-2 rounded-none font-black text-xs transition-all ${
+                                className={`cursor-pointer active:scale-[0.99] px-4 py-2 rounded-none font-black text-xs transition-all ${
                                   iconMode === m.id
                                     ? 'bg-blue-600 text-white'
                                     : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -4245,7 +4245,7 @@ const handleChangePin = async () => {
                                   </p>
                                 </div>
                                 <a href="https://giphy.com/search/terima-kasih" target="_blank" rel="noopener noreferrer"
-                                  className="flex-shrink-0 px-3 py-1.5 bg-pink-500 hover:bg-pink-600 text-white rounded-none text-[10px] font-black transition-all active:scale-[0.97]">
+                                  className="flex-shrink-0 px-3 py-1.5 bg-pink-500 hover:bg-pink-600 text-white rounded-none text-[10px] font-black transition-all active:scale-[0.99]">
                                   Buka Giphy →
                                 </a>
                               </div>
@@ -4271,7 +4271,7 @@ const handleChangePin = async () => {
 
                           return (
                             <button key={t} onClick={() => upd('theme', t)}
-                              className={`cursor-pointer active:scale-[0.97] py-3 md:py-4 text-left pl-3 rounded-none border-2 transition-all font-black text-sm capitalize ${
+                              className={`cursor-pointer active:scale-[0.99] py-3 md:py-4 text-left pl-3 rounded-none border-2 transition-all font-black text-sm capitalize ${
                                 settings.theme === t
                                   ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
                                   : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
@@ -4303,7 +4303,7 @@ const handleChangePin = async () => {
                       <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
                     </div>
                     <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                      className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
+                      className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
                       <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
                     </button>
                   </div>
@@ -4322,7 +4322,7 @@ const handleChangePin = async () => {
                             upd('textColor',      preset.textColor);
                             upd('borderColor',    preset.borderColor);
                           }}
-                          className="cursor-pointer active:scale-[0.97] py-3 px-2 rounded-none border-2 transition-all text-left"
+                          className="cursor-pointer active:scale-[0.99] py-3 px-2 rounded-none border-2 transition-all text-left"
                           style={{
                             borderColor: preset.highlightColor + '60',
                             background: preset.primaryColor,
@@ -4359,7 +4359,7 @@ const handleChangePin = async () => {
                       </div>
                     ))}
                     <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                      className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+                      className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
                       <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
                     </button>
                   </div>
@@ -4399,7 +4399,7 @@ const handleChangePin = async () => {
                             <p className="text-sm text-slate-400 dark:text-slate-500 font-medium truncate">{desc}</p>
                             <p className="text-sm truncate max-w-[90%] font-mono text-blue-500 dark:text-blue-400 truncate mt-0.5">{widgetUrl}</p>
                           </div>
-                          <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.97] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800 hover:text-blue-300 text-slate-300 rounded-none transition-all flex-shrink-0">
+                          <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800 hover:text-blue-300 text-slate-300 rounded-none transition-all flex-shrink-0">
                             <Copy size={15} />
                           </button>
                         </div>
@@ -4592,7 +4592,7 @@ const handleChangePin = async () => {
 
                     <div className="md:col-span-2">
                       <button onClick={() => updateProfileMutation.mutate(profileForm)} disabled={updateProfileMutation.isPending}
-                        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-md transition-all flex items-center justify-center gap-3 disabled:opacity-70">
+                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-md transition-all flex items-center justify-center gap-3 disabled:opacity-70">
                         <Save size={20} />
                         {updateProfileMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
                       </button>

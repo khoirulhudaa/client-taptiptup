@@ -87,9 +87,9 @@ export const MediaShareControl = ({ overlayToken }) => {
       <button
         onClick={handleSkip}
         disabled={skipping}
-        className="cursor-pointer w-full flex items-center justify-center gap-2 py-3 rounded-none border-2 border-red-400 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 font-black text-sm transition-all hover:bg-red-100 dark:hover:bg-red-950/50 active:scale-[0.98] disabled:opacity-60"
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3"
       >
-        <SkipForward size={18} />
+        {/* <SkipForward size={18} /> */}
         {skipping ? 'Mengirim skip...' : 'Skip MediaShare Sekarang'}
       </button>
 
@@ -119,7 +119,7 @@ export const MediaShareControl = ({ overlayToken }) => {
             <button
               key={value}
               onClick={() => handleVolumeChange(value)}
-              className={`cursor-pointer flex-1 py-2 text-xs font-black rounded-none border transition-all active:scale-[0.97] ${
+              className={`cursor-pointer flex-1 py-2 text-xs font-black rounded-none border transition-all active:scale-[0.99] ${
                 volume === value
                   ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400'
                   : 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-300 hover:border-slate-400'
