@@ -1,6 +1,6 @@
 // components/MediaShareControl.jsx
 import { useState, useRef } from 'react';
-import { CheckCircle2, Copy, SkipForward, Volume2, VolumeX } from 'lucide-react';
+import { Check, Copy, SkipForward, Volume2, VolumeX, Zap } from 'lucide-react';
 import api from '../lib/axiosInstance';
 
 const PRESETS = [
@@ -15,6 +15,7 @@ export const MediaShareControl = ({ overlayToken }) => {
   const [volume, setVolume]     = useState(70);
   const [status, setStatus]     = useState('');
   const [skipping, setSkipping] = useState(false);
+  const [copiedIdx, setCopiedIdx] = useState(null);
   const volTimeout = useRef(null);
 
   const pushStatus = (msg) => {
@@ -24,13 +25,12 @@ export const MediaShareControl = ({ overlayToken }) => {
 
   const BASE = window.location.origin;
   const shortcuts = [
-    { label: 'Skip',     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/skip`,             color: 'red' },
-    { label: 'Mute',     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=0`,  color: 'slate' },
-    { label: 'Vol 50%',  url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=50`, color: 'blue' },
-    { label: 'Vol 100%', url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=100`,color: 'blue' },
+    { label: 'skip',     icon: <SkipForward size={14} />, url: `${BASE}/api/mediashare/shortcut/${overlayToken}/skip` },
+    { label: 'mute',     icon: <VolumeX size={14} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=0` },
+    { label: 'vol 50%',  icon: <Volume2 size={14} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=50` },
+    { label: 'vol 100%', icon: <Volume2 size={14} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=100` },
   ];
 
-  const [copiedIdx, setCopiedIdx] = useState(null);
   const copyShortcut = (url, idx) => {
     navigator.clipboard.writeText(url);
     setCopiedIdx(idx);
@@ -62,19 +62,24 @@ export const MediaShareControl = ({ overlayToken }) => {
     volTimeout.current = setTimeout(() => {
       sendControl('volume', val);
       pushStatus(`Volume diset ke ${val}%`);
-    }, 200); // debounce saat drag
+    }, 200);
   };
 
   return (
     <div className="bg-white dark:bg-slate-900 rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
+
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="p-2 w-10 h-10 bg-red-500 rounded-none flex items-center justify-center text-white">
           <SkipForward size={18} />
         </div>
         <div>
-          <p className="font-black text-slate-800 dark:text-white text-sm md:capitalize uppercase md:text-xl">Medshare Control</p>
-          <p className="text-[11px] text-slate-400 dark:text-white">Skip atau atur volume langsung dari dashboard</p>
+          <p className="font-black text-slate-800 dark:text-white text-sm uppercase md:capitalize md:text-xl">
+            Mediashare Control
+          </p>
+          <p className="text-[11px] text-slate-400">
+            Skip atau atur volume langsung dari dashboard
+          </p>
         </div>
       </div>
 
@@ -82,7 +87,7 @@ export const MediaShareControl = ({ overlayToken }) => {
       <button
         onClick={handleSkip}
         disabled={skipping}
-        className="cursor-pointer w-full flex items-center justify-center gap-2 py-3 rounded-none border-2 border-red-400 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 font-black text-sm transition-all hover:bg-red-950/50 active:scale-[0.98] disabled:opacity-60"
+        className="cursor-pointer w-full flex items-center justify-center gap-2 py-3 rounded-none border-2 border-red-400 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 font-black text-sm transition-all hover:bg-red-100 dark:hover:bg-red-950/50 active:scale-[0.98] disabled:opacity-60"
       >
         <SkipForward size={18} />
         {skipping ? 'Mengirim skip...' : 'Skip MediaShare Sekarang'}
@@ -91,7 +96,7 @@ export const MediaShareControl = ({ overlayToken }) => {
       {/* Volume */}
       <div className="bg-slate-50 dark:bg-slate-800 rounded-none p-4 space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-black text-slate-400 dark:text-white uppercase tracking-widest">
+          <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
             Volume Overlay
           </span>
           <span className="font-black text-slate-700 dark:text-slate-200 text-sm">{volume}%</span>
@@ -108,32 +113,6 @@ export const MediaShareControl = ({ overlayToken }) => {
           <Volume2 size={16} className="text-slate-400 flex-shrink-0" />
         </div>
 
-        <div className="bg-slate-50 dark:bg-slate-800 rounded-none p-0 py-3 space-y-3">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-[11px] font-black text-slate-400 dark:text-white uppercase tracking-widest">
-              Stream Deck / Shortcut URLs
-            </span>
-          </div>
-
-          <div className="space-y-2">
-            {shortcuts.map(({ label, url }, idx) => (
-              <div key={idx} className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-2.5">
-                <span className="text-[12px] relative top-[-1.8px] w-max font-black text-slate-500 w-16 flex-shrink-0 uppercase">{label}</span>
-                <span className="flex-1 font-mono text-[14px] text-blue-500 dark:text-blue-400 truncate">{url}</span>
-                <button
-                  onClick={() => copyShortcut(url, idx)}
-                  className="cursor-pointer flex-shrink-0 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95"
-                >
-                  {copiedIdx === idx
-                    ? <CheckCircle2 size={14} className="text-green-500" />
-                    : <Copy size={14} className="text-slate-400" />
-                  }
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Preset buttons */}
         <div className="flex gap-2">
           {PRESETS.map(({ label, value }) => (
@@ -143,7 +122,7 @@ export const MediaShareControl = ({ overlayToken }) => {
               className={`cursor-pointer flex-1 py-2 text-xs font-black rounded-none border transition-all active:scale-[0.97] ${
                 volume === value
                   ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400'
-                  : 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-white hover:border-slate-400'
+                  : 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-300 hover:border-slate-400'
               }`}
             >
               {label}
@@ -151,6 +130,70 @@ export const MediaShareControl = ({ overlayToken }) => {
           ))}
         </div>
       </div>
+
+      {/* Stream Deck Shortcuts */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-1.5 mb-2">
+          <Zap size={11} className="text-slate-400" />
+          <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
+            Stream Deck Shortcuts
+          </span>
+        </div>
+
+        <div className="space-y-1.5">
+          {shortcuts.map(({ label, url, icon }, idx) => {
+            const copied = copiedIdx === idx;
+            return (
+              <button
+                key={idx}
+                onClick={() => copyShortcut(url, idx)}
+                className={`w-full cursor-pointer flex items-center gap-3 px-3 py-2.5 border transition-all active:scale-[0.99] rounded-none text-left ${
+                  copied
+                    ? 'border-green-400 bg-green-50 dark:bg-green-950/30'
+                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                }`}
+              >
+                {/* Icon */}
+                <span className={`flex-shrink-0 w-7 h-7 rounded flex items-center justify-center ${
+                  copied
+                    ? 'bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                }`}>
+                  {copied ? <Check size={13} /> : icon}
+                </span>
+
+                {/* Label */}
+                <span className={`flex-shrink-0 text-sm font-bold w-max relative top-[-1.6px] ${
+                  copied ? 'text-green-700 dark:text-green-400' : 'text-slate-700 dark:text-slate-200'
+                }`}>
+                  {label}
+                </span>
+
+                {/* URL preview */}
+                <span className={`flex-1 font-mono text-sm truncate min-w-0 ${
+                  copied ? 'text-green-600 dark:text-green-500' : 'text-slate-400 dark:text-blue-400'
+                }`}>
+                  {url}
+                </span>
+
+                {/* Copy icon */}
+                <span className={`flex-shrink-0 transition-colors ${
+                  copied ? 'text-green-500' : 'text-slate-300 dark:text-slate-500'
+                }`}>
+                  {copied ? <Check size={18} /> : <Copy size={18} />}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Status toast */}
+      {status && (
+        <div className="text-[11px] font-black text-center text-blue-600 dark:text-blue-400 py-1.5 border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30">
+          {status}
+        </div>
+      )}
     </div>
   );
 };
