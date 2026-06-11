@@ -2402,7 +2402,7 @@ const smoothInner = (
         <div className="absolute inset-0 pointer-events-none">
           <AnimatePresence>
             {showAlert && previewMode === 'alert' && (
-              <motion.div className='ml-4 2xl:w-[90%] md:w-[87%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
+              <motion.div className='ml-4 w-[90.7%] 2xl:w-[90%] md:w-[87%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
                 {renderAlert()}
               </motion.div>
             )}
