@@ -234,7 +234,7 @@ export const WithdrawPage = () => {
     return () => clearInterval(timer);
   }, [isLocked, lockTimeLeft]);
   
-  const WITHDRAW_FEE = 2500;
+  const WITHDRAW_FEE = 3000;
   const amt = parseFloat(pendingWithdrawData?.amount || formData.amount) || 0;
   const netAmount = Math.max(0, amt - WITHDRAW_FEE);
 
@@ -574,7 +574,7 @@ export const WithdrawPage = () => {
             {[
               { label: 'Min. Tarik',  value: `Rp ${MIN_TARIK.toLocaleString('id-ID')}` },
               { label: 'Maks. Tarik', value: `Rp ${(MAX_TARIK / 1000000).toFixed(0)}jt` },
-              { label: 'Biaya Layanan', value: '2.500' },
+              { label: 'Biaya Layanan', value: '3000' },
             ].map(r => (
               <div key={r.label} className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-none p-3 text-center">
                 <p className="font-black text-blue-600 dark:text-white text-sm">{r.value}</p>
@@ -841,7 +841,7 @@ export const WithdrawPage = () => {
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <p className="text-xl font-medium text-slate-800 dark:text-slate-100">
-                            Rp {Number(wd.amount - 2500).toLocaleString('id-ID')}
+                            Rp {Number(wd.amount - 3000).toLocaleString('id-ID')}
                           </p>
                           <p className="text-xs text-slate-500 mt-1">
                             {wd.channelCode} {wd.accountNumber}
@@ -907,11 +907,11 @@ export const WithdrawPage = () => {
                         <tr key={wd._id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-all">
                           <td className="px-5 md:px-8 py-5">
                             <p className="text-sm text-slate-800 dark:text-green-300 font-medium">
-                              Rp {Number(wd.amount - 2500).toLocaleString('id-ID')}
+                              Rp {Number(wd.amount - 3000).toLocaleString('id-ID')}
                             </p>
                           </td>
                           <td className="px-5 md:px-8 py-5">
-                            <p className="text-sm text-slate-400 dark:text-red-300">Rp 2.500</p>
+                            <p className="text-sm text-slate-400 dark:text-red-300">Rp 3000</p>
                           </td>
                           <td className="px-5 md:px-8 py-5">
                             <p className="text-slate-600 dark:text-slate-300 text-sm">{wd.paymentMethod || 'BANK'}</p>

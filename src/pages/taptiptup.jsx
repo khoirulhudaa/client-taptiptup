@@ -609,7 +609,7 @@ function Marquee({ C }) {
 
 const PLATFORMS = [
   { name: "Saweria",    feeDonate: 5.0,  feeWd: 5000,  feeWdLabel: "Rp 5.000" },
-  { name: "TapTipTup", feeDonate: 2.5,  feeWd: 1500,  feeWdLabel: "Rp 2.500", winner: true },
+  { name: "TapTipTup", feeDonate: 3.0,  feeWd: 3000,  feeWdLabel: "Rp 3.000", winner: true },
   { name: "Sociabuzz",  feeDonate: 5.0,  feeWd: 4500,  feeWdLabel: "Rp 4.500" },
   { name: "TipTap",  feeDonate: 3.0,  feeWd: 6.500,  feeWdLabel: "Rp 6.500" },
 ];
