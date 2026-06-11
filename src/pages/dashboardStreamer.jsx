@@ -1633,7 +1633,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             )}
           </div>
           {/* Info area */}
-          <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', textAlign: 'center', gap: 7, marginLeft: '40px' }}>
+          <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', textAlign: 'center', gap: 7, alignItems: 'center', justifyContent: 'center'}}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'max-content' }}>
               <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 18, fontWeight: 500, color: hl, borderBottom: `1px solid ${hl}25` }}>
                 {currentDonor.name} mengirim
