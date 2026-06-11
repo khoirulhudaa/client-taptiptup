@@ -1,6 +1,6 @@
 // components/MediaShareControl.jsx
 import { useState, useRef } from 'react';
-import { SkipForward, Volume2, VolumeX } from 'lucide-react';
+import { CheckCircle2, Copy, SkipForward, Volume2, VolumeX } from 'lucide-react';
 import api from '../lib/axiosInstance';
 
 const PRESETS = [
@@ -11,7 +11,7 @@ const PRESETS = [
   { label: '100%', value: 100 },
 ];
 
-export const MediaShareControl = () => {
+export const MediaShareControl = ({ overlayToken }) => {
   const [volume, setVolume]     = useState(70);
   const [status, setStatus]     = useState('');
   const [skipping, setSkipping] = useState(false);
@@ -20,6 +20,21 @@ export const MediaShareControl = () => {
   const pushStatus = (msg) => {
     setStatus(msg);
     setTimeout(() => setStatus(''), 3000);
+  };
+
+  const BASE = window.location.origin;
+  const shortcuts = [
+    { label: 'Skip',     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/skip`,             color: 'red' },
+    { label: 'Mute',     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=0`,  color: 'slate' },
+    { label: 'Vol 50%',  url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=50`, color: 'blue' },
+    { label: 'Vol 100%', url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=100`,color: 'blue' },
+  ];
+
+  const [copiedIdx, setCopiedIdx] = useState(null);
+  const copyShortcut = (url, idx) => {
+    navigator.clipboard.writeText(url);
+    setCopiedIdx(idx);
+    setTimeout(() => setCopiedIdx(null), 2000);
   };
 
   const sendControl = async (action, vol) => {
@@ -59,7 +74,7 @@ export const MediaShareControl = () => {
         </div>
         <div>
           <p className="font-black text-slate-800 dark:text-white text-sm md:capitalize uppercase md:text-xl">Medshare Control</p>
-          <p className="text-[11px] text-slate-400 dark:text-slate-500">Skip atau atur volume langsung dari dashboard</p>
+          <p className="text-[11px] text-slate-400 dark:text-white">Skip atau atur volume langsung dari dashboard</p>
         </div>
       </div>
 
@@ -67,7 +82,7 @@ export const MediaShareControl = () => {
       <button
         onClick={handleSkip}
         disabled={skipping}
-        className="cursor-pointer w-full flex items-center justify-center gap-2 py-3 rounded-none border-2 border-red-400 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 font-black text-sm transition-all hover:bg-red-100 active:scale-[0.98] disabled:opacity-60"
+        className="cursor-pointer w-full flex items-center justify-center gap-2 py-3 rounded-none border-2 border-red-400 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 font-black text-sm transition-all hover:bg-red-950/50 active:scale-[0.98] disabled:opacity-60"
       >
         <SkipForward size={18} />
         {skipping ? 'Mengirim skip...' : 'Skip MediaShare Sekarang'}
@@ -76,7 +91,7 @@ export const MediaShareControl = () => {
       {/* Volume */}
       <div className="bg-slate-50 dark:bg-slate-800 rounded-none p-4 space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+          <span className="text-[11px] font-black text-slate-400 dark:text-white uppercase tracking-widest">
             Volume Overlay
           </span>
           <span className="font-black text-slate-700 dark:text-slate-200 text-sm">{volume}%</span>
@@ -93,6 +108,32 @@ export const MediaShareControl = () => {
           <Volume2 size={16} className="text-slate-400 flex-shrink-0" />
         </div>
 
+        <div className="bg-slate-50 dark:bg-slate-800 rounded-none p-0 py-3 space-y-3">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-[11px] font-black text-slate-400 dark:text-white uppercase tracking-widest">
+              Stream Deck / Shortcut URLs
+            </span>
+          </div>
+
+          <div className="space-y-2">
+            {shortcuts.map(({ label, url }, idx) => (
+              <div key={idx} className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-2.5">
+                <span className="text-[12px] relative top-[-1.8px] w-max font-black text-slate-500 w-16 flex-shrink-0 uppercase">{label}</span>
+                <span className="flex-1 font-mono text-[14px] text-blue-500 dark:text-blue-400 truncate">{url}</span>
+                <button
+                  onClick={() => copyShortcut(url, idx)}
+                  className="cursor-pointer flex-shrink-0 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all active:scale-95"
+                >
+                  {copiedIdx === idx
+                    ? <CheckCircle2 size={14} className="text-green-500" />
+                    : <Copy size={14} className="text-slate-400" />
+                  }
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Preset buttons */}
         <div className="flex gap-2">
           {PRESETS.map(({ label, value }) => (
@@ -102,7 +143,7 @@ export const MediaShareControl = () => {
               className={`cursor-pointer flex-1 py-2 text-xs font-black rounded-none border transition-all active:scale-[0.97] ${
                 volume === value
                   ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400'
-                  : 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 hover:border-slate-400'
+                  : 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-white hover:border-slate-400'
               }`}
             >
               {label}
@@ -110,18 +151,6 @@ export const MediaShareControl = () => {
           ))}
         </div>
       </div>
-
-      {/* Status */}
-      {status && (
-        <p className="text-[11px] text-blue-500 dark:text-blue-400 font-bold flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-500 inline-block" />
-          {status}
-        </p>
-      )}
-
-      <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed">
-        Skip langsung menutup alert di OBS. Volume berlaku untuk audio & video lokal. YouTube tidak mendukung kontrol volume dari luar iframe-nya.
-      </p>
     </div>
   );
 };

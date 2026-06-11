@@ -4461,7 +4461,7 @@ const handleChangePin = async () => {
                 {profileLoading ? <InstantTestMediaShareSkeleton /> : <InstantTestMediaShare overlayToken={user.overlayToken} settings={settings} user={user}/>}
 
                 {/* MediaShare Control */}
-                <MediaShareControl />
+                <MediaShareControl overlayToken={user.overlayToken} />
 
                 {profileLoading ? (
                   <DurationSettingsSkeleton mediaOnly={true} />
