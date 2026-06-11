@@ -484,7 +484,7 @@ export const WithdrawPage = () => {
     <motion.div className="w-full mx-auto" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
       
       <TwoFactorSetup />
-      <div className='space-y-5 md:mt-5 mt-0'>
+      <div className='space-y-5 mt-0'>
         
         {/* Alert Modal */}
         <AlertModal modal={alertModal} onClose={closeAlert} />

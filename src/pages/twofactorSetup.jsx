@@ -289,7 +289,7 @@ const TwoFactorSetup = () => {
   return (
     <>
       {/* ── Card ── */}
-      <div className="md:block hidden bg-white dark:bg-slate-900 rounded-none border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+      <div className={`${isEnabled ? 'hidden' : 'hidden md:block'} bg-white dark:bg-slate-900 rounded-none border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden`}>
         {/* Top accent */}
         <div className={`h-1 w-full ${isEnabled ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-700'}`} />
 
@@ -365,7 +365,7 @@ const TwoFactorSetup = () => {
           )}
         </div>
 
-        <div className="border-t border-slate-100 md:block hidden dark:border-slate-800 px-5 md:px-7 pt-4 pb-2 md:pb-4 md:pt-4 bg-slate-50 dark:bg-slate-800/50">
+        <div className={`border-t border-slate-100 ${isEnabled ? 'hidden' : 'hidden md:block'} dark:border-slate-800 px-5 md:px-7 pt-4 pb-2 md:pb-4 md:pt-4 bg-slate-50 dark:bg-slate-800/50`}>
           <div className="md:flex items-start gap-0">
             {[
               'Install Google Authenticator di HP',
