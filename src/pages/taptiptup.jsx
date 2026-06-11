@@ -609,8 +609,9 @@ function Marquee({ C }) {
 
 const PLATFORMS = [
   { name: "Saweria",    feeDonate: 5.0,  feeWd: 5000,  feeWdLabel: "Rp 5.000" },
-  { name: "TapTipTup", feeDonate: 2.5,  feeWd: 1500,  feeWdLabel: "Rp 1.500", winner: true },
+  { name: "TapTipTup", feeDonate: 2.5,  feeWd: 1500,  feeWdLabel: "Rp 2.500", winner: true },
   { name: "Sociabuzz",  feeDonate: 5.0,  feeWd: 4500,  feeWdLabel: "Rp 4.500" },
+  { name: "TipTap",  feeDonate: 3.0,  feeWd: 6.500,  feeWdLabel: "Rp 6.500" },
 ];
 
 function FeeComparison({ C }) {
@@ -705,7 +706,7 @@ function FeeComparison({ C }) {
       </div>
 
       {/* Grid perbandingan */}
-      <div className="select-none w-[90vw] relative grid grid-cols-1 bg-white md:grid-cols-3"
+      <div className="select-none w-[90vw] relative grid grid-cols-1 bg-white md:grid-cols-4"
         style={{ borderBottom: `1px solid ${C.line}`, zIndex: 40 }}
         >
           {PLATFORMS.map((p, i) => {
@@ -727,7 +728,7 @@ function FeeComparison({ C }) {
                   ? <span style={{ display: "inline-block", marginBottom: 10, background: "orange", color: C.bg, fontSize: 10, padding: "3px 10px", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 700 }}>Terkecil</span>
                   : <div style={{ height: 24, marginBottom: 10 }} />}
 
-                <div style={{ fontSize: 20, fontWeight: 700, color: p.winner ? "#000000" : "#000000", marginBottom: 4, fontFamily: "'Space Grotesk',sans-serif" }}>
+                <div style={{ fontSize: 24, fontWeight: 700, color: p.winner ? "#000000" : "#000000", marginBottom: 4, fontFamily: "'Space Grotesk',sans-serif" }}>
                   {p.name}
                 </div>
 
@@ -741,8 +742,8 @@ function FeeComparison({ C }) {
                   <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 26, lineHeight: 1, color: p.winner ? "#000000" : "#000000" }}>
                     {p.feeDonate.toFixed(1)}% + {p.feeWdLabel || '—'}
                   </div>
-                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 10, color: p.winner ? "#000000" : "black", letterSpacing: "0.05em", textTransform: "uppercase", marginTop: 10 }}>
-                    {p.winner ? 'potongan per donasi + WD semua metode' : 'potongan per donasi + WD Bank'}
+                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 12, color: p.winner ? "#000000" : "black", letterSpacing: "0.05em", textTransform: "uppercase", marginTop: 10 }}>
+                    {p.winner || p.name === 'TipTap' ? 'potongan per donasi + WD semua metode' : 'potongan per donasi + WD Bank'}
                   </div>
                 </div>
               </div>
