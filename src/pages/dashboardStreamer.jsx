@@ -1756,10 +1756,10 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   };
 
   const donors = [
-    { name: 'Budi Santoso', amount: 50000,  msg: 'Semangat terus ngodingnya yakk!' },
-    { name: 'Reza Gunawan',  amount: 150000, msg: 'Mantap konten-kontennya, gass!'   },
-    { name: 'Anonim',       amount: 10000,  msg: 'Seru banget streamingnya bang!'                       },
-    { name: 'RizkyDev',     amount: 200000, msg: 'Dukung terus creator Indonesia!'      },
+    { name: 'Budi Santoso', amount: 50000,  msg: 'Semangat terus ngodingnya' },
+    { name: 'Reza Gunawan',  amount: 150000, msg: 'Mantap konten-kontennya'   },
+    { name: 'Anonim',       amount: 10000,  msg: 'Seru banget streamingnya'                       },
+    { name: 'RizkyDev',     amount: 200000, msg: 'Dukung creator Indonesia'      },
   ];
 
   const triggerDemo = () => {
@@ -2402,13 +2402,13 @@ const smoothInner = (
         <div className="absolute inset-0 pointer-events-none">
           <AnimatePresence>
             {showAlert && previewMode === 'alert' && (
-              <motion.div className='ml-4 max-w-[80%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
+              <motion.div className='ml-4 2xl:w-[90%] md:w-[87%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
                 {renderAlert()}
               </motion.div>
             )}
             {showAlert && previewMode === 'media' && (
               <motion.div
-                className='ml-4 max-w-[80%]'
+                className='ml-4 w-[90%]'
                 key={`media-${animKey}`}
                 initial={anim.initial}
                 animate={anim.animate}
@@ -3955,7 +3955,7 @@ const handleChangePin = async () => {
           <div className="flex items-center gap-3">
             {
               !isSidebarOpen && (
-                <div className="w-[44px] md:w-10 h-11 md:h-10 p-[6px] bg-blue-500 rounded-none flex items-center justify-center"><img src="/man1.png" className='relative left-[-0.8px]' alt="icon" /></div>
+                <div className="w-[44px] md:w-10 h-11 md:h-10 p-[6px] bg-blue-500 rounded-none flex items-center justify-center"><img src="/logoNew.png" className='relative left-[-0.8px]' alt="icon" /></div>
               )
             }
             {/* <span className="font-black text-lg tracking-tight text-slate-800 dark:text-slate-100">TTT</span> */}
