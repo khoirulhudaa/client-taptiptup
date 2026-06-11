@@ -1660,11 +1660,11 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       return (
         <>
           <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-          <div style={{ ...wrapperBase, boxShadow: `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`, border: `2px solid ${settings.borderColor || hl + '40'}`, position: 'relative' }}>
+          <div style={{ ...wrapperBase, boxShadow: `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`, border: `2px solid ${settings.borderColor || hl + '40'}`, width: 'max-content', position: 'relative' }}>
             <div style={scanlineStyle} />
             <MediaBlock />
-            <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
-              <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6 }}>
+            <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2, width: 'max-content' }}>
+              <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6, width: 'max-content' }}>
                 <span style={{ fontWeight: 900 }}>{currentDonor.name}</span>
                 <span> mengirim </span>
                 <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}55` }}>
@@ -1756,10 +1756,10 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   };
 
   const donors = [
-    { name: 'Budi Santoso', amount: 50000,  msg: 'Semangat terus ngodingnya' },
-    { name: 'Reza Gunawan',  amount: 150000, msg: 'Mantap konten-kontennya'   },
-    { name: 'Anonim',       amount: 10000,  msg: 'Seru banget streamingnya'                       },
-    { name: 'RizkyDev',     amount: 200000, msg: 'Dukung creator Indonesia'      },
+    { name: 'Budi', amount: 50000,  msg: 'Semangat terus ngodingnya' },
+    { name: 'Reza',  amount: 150000, msg: 'Mantap konten-kontennya'   },
+    { name: 'Denis',       amount: 10000,  msg: 'Seru banget streamingnya'                       },
+    { name: 'Rizky',     amount: 200000, msg: 'Dukung creator Indonesia'      },
   ];
 
   const triggerDemo = () => {
@@ -1831,10 +1831,11 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   const ts = settings.showTimestamp !== false
     ? (
       <div style={{
-        fontSize: 20,
+        fontSize: 14,
         color: 'rgba(255,255,255,0.35)',
         fontFamily: 'monospace',
         letterSpacing: '0.05em',
+        fontWeight: 700
       }}>
         {new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
       </div>
@@ -1898,17 +1899,9 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             {renderIconPreview(settings.customIcon, 20)}
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            {/* <div style={{
-              fontFamily: 'monospace',
-              fontSize: 20,
-              color: fg,
-              opacity: 0.6,
-              marginBottom: 2,
-              letterSpacing: '0.1em',
-            }}>{'> DONOR:'}</div> */}
             <div style={{
               fontFamily: 'monospace',
-              fontSize: 18,
+              fontSize: 20,
               fontWeight: 900,
               color: fg,
               marginTop: 10,
@@ -1923,7 +1916,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         {/* Amount — big retro display */}
         <div style={{
           fontFamily: 'monospace',
-          fontSize: 28,
+          fontSize: 20,
           fontWeight: 900,
           color: hl,
           letterSpacing: '-1px',
@@ -1938,13 +1931,14 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         {currentDonor.msg && (
           <div style={{
             fontFamily: 'monospace',
-            fontSize: 20,
+            fontSize: 16,
             color: fg,
             background: 'rgba(255,255,255,0.04)',
             border: dimBorder,
             padding: '5px 8px',
             width: 'max-content',
             lineHeight: 1.4,
+            width: '100%',
             marginBottom: 6,
           }}>
             {currentDonor.msg}
@@ -1971,7 +1965,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   );
 
   const gifCardInner = (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', marginLeft: '40px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}}>
       {/* GIF area — lebar sama dengan card, transparan */}
       <div style={{
         width: '100%',
@@ -2047,87 +2041,87 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   );
 
   // ══════════════════════════════════════════
-// SMOOTH — Soft rounded card with Poppins
-// ══════════════════════════════════════════
-const smoothInner = (
-  <div style={{
-    fontFamily: "'Poppins', sans-serif",
-    padding: '14px 16px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
-  }}>
-    {/* Icon + Nama */}
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-      <div>
+  // SMOOTH — Soft rounded card with Poppins
+  // ══════════════════════════════════════════
+  const smoothInner = (
+    <div style={{
+      fontFamily: "'Poppins', sans-serif",
+      padding: '14px 16px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 10,
+    }}>
+      {/* Icon + Nama */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+        <div>
+          <div style={{
+            fontSize: 18,
+            fontWeight: 700,
+            color: fg,
+            lineHeight: 1.2,
+          }}>
+            {currentDonor.name}
+          </div>
+        </div>
         <div style={{
-          fontSize: 24,
-          fontWeight: 700,
-          color: fg,
-          lineHeight: 1.2,
+          width: 44,
+          height: 44,
+          borderRadius: 14,
+          background: hl + '22',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: 18,
+          flexShrink: 0,
+          border: `1.5px solid ${hl}40`,
         }}>
-          {currentDonor.name}
+          {renderIconPreview(settings.customIcon, 22)}
         </div>
       </div>
+
+      {/* Divider tipis */}
+      <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} />
+
+      {/* Amount */}
       <div style={{
-        width: 44,
-        height: 44,
-        borderRadius: 14,
-        background: hl + '22',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 22,
-        flexShrink: 0,
-        border: `1.5px solid ${hl}40`,
+        fontSize: 18,
+        fontWeight: 800,
+        color: hl,
+        margin: "8px 0px",
+        letterSpacing: '-0.5px',
+        lineHeight: 1,
       }}>
-        {renderIconPreview(settings.customIcon, 22)}
+        Rp {currentDonor.amount.toLocaleString('id-ID')}
       </div>
+
+      {/* Pesan */}
+      {currentDonor.msg && (
+        <div style={{
+          fontSize: 16,
+          fontWeight: 400,
+          color: fg,
+          width: 'max-content',
+          padding: '0px 0px',
+          lineHeight: 1.5
+        }}>
+          {currentDonor.msg}
+        </div>
+      )}
+
+      {/* Timestamp */}
+      {settings.showTimestamp !== false && (
+        <div style={{
+          fontSize: 14,
+          color: fg,
+          opacity: 0.35,
+          fontWeight: 400,
+          letterSpacing: '0.04em',
+        }}>
+          {new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
+        </div>
+      )}
     </div>
-
-    {/* Divider tipis */}
-    <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} />
-
-    {/* Amount */}
-    <div style={{
-      fontSize: 26,
-      fontWeight: 800,
-      color: hl,
-      margin: "8px 0px",
-      letterSpacing: '-0.5px',
-      lineHeight: 1,
-    }}>
-      Rp {currentDonor.amount.toLocaleString('id-ID')}
-    </div>
-
-    {/* Pesan */}
-    {currentDonor.msg && (
-      <div style={{
-        fontSize: 20,
-        fontWeight: 400,
-        color: fg,
-        width: 'max-content',
-        padding: '0px 0px',
-        lineHeight: 1.5
-      }}>
-        {currentDonor.msg}
-      </div>
-    )}
-
-    {/* Timestamp */}
-    {settings.showTimestamp !== false && (
-      <div style={{
-        fontSize: 20,
-        color: fg,
-        opacity: 0.35,
-        fontWeight: 400,
-        letterSpacing: '0.04em',
-      }}>
-        {new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
-      </div>
-    )}
-  </div>
-);
+  );
 
   // ══════════════════════════════════════════
   // CLASSIC — Retro game dialog box
@@ -2266,7 +2260,7 @@ const smoothInner = (
           </div>
           <span style={{
             fontFamily: 'monospace',
-            fontSize: 24,
+            fontSize: 20,
             fontWeight: 900,
             color: hl,
             letterSpacing: '-1px',
@@ -2279,7 +2273,7 @@ const smoothInner = (
         {/* Name */}
         <div style={{
           fontFamily: 'monospace',
-          fontSize: 24,
+          fontSize: 20,
           fontWeight: 900,
           color: fg,
           marginBottom: 3,
@@ -2293,7 +2287,7 @@ const smoothInner = (
         {currentDonor.msg && (
           <div style={{
             fontFamily: 'monospace',
-            fontSize: 24,
+            fontSize: 16,
             color: fg,
             width: 'max-content',
             // opacity: 0.7,
@@ -2305,7 +2299,7 @@ const smoothInner = (
         )}
 
         {/* Bottom */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', fontSize: 16, alignItems: 'center', justifyContent: 'space-between' }}>
           {ts}
         </div>
       </div>
