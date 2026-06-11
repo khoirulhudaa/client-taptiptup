@@ -574,7 +574,7 @@ export const WithdrawPage = () => {
             {[
               { label: 'Min. Tarik',  value: `Rp ${MIN_TARIK.toLocaleString('id-ID')}` },
               { label: 'Maks. Tarik', value: `Rp ${(MAX_TARIK / 1000000).toFixed(0)}jt` },
-              { label: 'Biaya Admin', value: '2.500' },
+              { label: 'Biaya Layanan', value: '2.500' },
             ].map(r => (
               <div key={r.label} className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-none p-3 text-center">
                 <p className="font-black text-blue-600 dark:text-white text-sm">{r.value}</p>
@@ -663,7 +663,7 @@ export const WithdrawPage = () => {
                     <span>Rp {formatRupiah(amt)}</span>
                   </div>
                   <div className="flex justify-between text-slate-400 text-xs">
-                    <span>Biaya admin</span>
+                    <span>Biaya layanan</span>
                     <span>Rp {formatRupiah(WITHDRAW_FEE)}</span>
                   </div>
                   <div className="border-t pt-2 flex justify-between text-emerald-400 font-bold">
@@ -967,7 +967,7 @@ export const WithdrawPage = () => {
                 <p className="font-black text-xl">Konfirmasi Penarikan</p>
                 <div className="mt-6 bg-slate-50 dark:bg-slate-800 p-5 text-left text-sm space-y-2">
                   <div className="flex justify-between"><span className="text-slate-500">Nominal</span><span>Rp {amt.toLocaleString('id-ID')}</span></div>
-                  <div className="flex justify-between"><span className="text-slate-500">Biaya Admin</span><span>Rp {WITHDRAW_FEE}</span></div>
+                  <div className="flex justify-between"><span className="text-slate-500">Biaya Layanan</span><span>Rp {WITHDRAW_FEE}</span></div>
                   <div className="flex justify-between font-bold text-emerald-600 border-t pt-2"><span>Diterima</span><span>Rp {netAmount.toLocaleString('id-ID')}</span></div>
                 </div>
                 <div className="flex gap-3 mt-8">
