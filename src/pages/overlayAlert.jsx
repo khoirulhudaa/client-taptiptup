@@ -92,7 +92,7 @@
       //   const text = `${donation.donorName || 'Seseorang'} mengirimkan Rp ${Number(donation.amount).toLocaleString('id-ID')}. ${donation.message || ''}`;
 
       //   try {
-      //     const res = await fetch('https://server-ttt-production.up.railway.app/api/overlay/tts/speak', {
+      //     const res = await fetch('https://taptiptup-server-1ee47f2895cb.herokuapp.com/api/overlay/tts/speak', {
       //       method: 'POST',
       //       headers: { 'Content-Type': 'application/json' },
       //       body: JSON.stringify({ text, voiceName: 'id-ID-GadisNeural' }),
@@ -119,7 +119,7 @@
         const text = `${donation.donorName || 'Seseorang'} mengirimkan Rp ${Number(donation.amount).toLocaleString('id-ID')}. ${donation.message || ''}`;
 
         try {
-          const res = await fetch('https://server-ttt-production.up.railway.app/api/overlay/tts/speak', {
+          const res = await fetch('https://taptiptup-server-1ee47f2895cb.herokuapp.com/api/overlay/tts/speak', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
@@ -159,7 +159,7 @@
       //   if (!token) return;
       //   const slot = new URLSearchParams(window.location.search).get('slot') || 'A';
       //   axios
-      //     .get(`https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${slot}`)
+      //     .get(`https://taptiptup-server-1ee47f2895cb.herokuapp.com/api/overlay/config/${token}?slot=${slot}`)
       //     .then((res) => { setConfig(res.data); configRef.current = res.data; })
       //     .catch(() => console.error('[Overlay] Invalid token'));
       // }, [token]);
@@ -169,7 +169,7 @@
               const timestamp = Date.now();
 
               const resA = await axios.get(
-                `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=A&t=${timestamp}`
+                `https://taptiptup-server-1ee47f2895cb.herokuapp.com/api/overlay/config/${token}?slot=A&t=${timestamp}`
               );
 
               const activeSlot = resA.data?.activeSlot || 'A';
@@ -181,7 +181,7 @@
                 finalConfig = resA.data;
               } else {
                 const resB = await axios.get(
-                  `https://server-ttt-production.up.railway.app/api/overlay/config/${token}?slot=${activeSlot}&t=${timestamp}`
+                  `https://taptiptup-server-1ee47f2895cb.herokuapp.com/api/overlay/config/${token}?slot=${activeSlot}&t=${timestamp}`
                 );
                 finalConfig = resB.data;
               }
@@ -206,7 +206,7 @@
         useEffect(() => {
           if (!token) return;
 
-          const socket = io('https://server-ttt-production.up.railway.app', {
+          const socket = io('https://taptiptup-server-1ee47f2895cb.herokuapp.com', {
             reconnection: true,
             reconnectionAttempts: Infinity,
             reconnectionDelay: 1500,
