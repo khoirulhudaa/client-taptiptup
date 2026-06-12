@@ -234,7 +234,7 @@ export const WithdrawPage = () => {
     return () => clearInterval(timer);
   }, [isLocked, lockTimeLeft]);
   
-  const WITHDRAW_FEE = 3000;
+  const WITHDRAW_FEE = 3500;
   const amt = parseFloat(pendingWithdrawData?.amount || formData.amount) || 0;
   const netAmount = Math.max(0, amt - WITHDRAW_FEE);
 
