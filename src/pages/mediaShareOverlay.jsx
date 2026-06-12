@@ -168,11 +168,13 @@ const calculateMediaShareDuration = (config, amount) => {
           finalConfig = resB.data;
         }
 
-        if (!configRef.current || finalConfig.slot !== configRef.current.slot) {
-          console.log(`[MediaShare] ✅ Config di-update ke Slot ${finalConfig.slot}`);
-          setConfig(finalConfig);
-          configRef.current = finalConfig;
-        }
+        // if (!configRef.current || finalConfig.slot !== configRef.current.slot) {
+        //   console.log(`[MediaShare] ✅ Config di-update ke Slot ${finalConfig.slot}`);
+        //   setConfig(finalConfig);
+        //   configRef.current = finalConfig;
+        // }
+        setConfig(finalConfig);
+        configRef.current = finalConfig;
       } catch (err) {
         console.error('[MediaShare] Failed to load config:', err);
       }
@@ -256,7 +258,7 @@ const calculateMediaShareDuration = (config, amount) => {
         loadActiveConfig('socket');
       });
 
-      const polling = setInterval(() => loadActiveConfig('polling'), 4000);
+      const polling = setInterval(() => loadActiveConfig('polling'), 2000);
 
       return () => {
         socket.disconnect();

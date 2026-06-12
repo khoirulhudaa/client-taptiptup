@@ -62,11 +62,12 @@ const VoiceNoteOverlay = () => {
         finalConfig = resB.data;
       }
 
-      if (!configRef.current || finalConfig.slot !== configRef.current.slot) {
-        console.log(`[VoiceNote] ✅ Config di-update ke Slot ${finalConfig.slot}`);
-        setConfig(finalConfig);
-        configRef.current = finalConfig;
-      }
+      // if (!configRef.current || finalConfig.slot !== configRef.current.slot) {
+      //   setConfig(finalConfig);
+      //   configRef.current = finalConfig;
+      // }
+      setConfig(finalConfig);
+      configRef.current = finalConfig;
     } catch (err) {
       console.error('[VoiceNote] Failed to load config:', err);
     }
@@ -245,7 +246,7 @@ const VoiceNoteOverlay = () => {
       loadActiveConfig('socket');
     });
 
-    const polling = setInterval(() => loadActiveConfig('polling'), 4000);
+    const polling = setInterval(() => loadActiveConfig('polling'), 2000);
 
     return () => {
       socket.disconnect();

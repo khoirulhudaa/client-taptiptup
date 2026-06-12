@@ -186,11 +186,14 @@
                 finalConfig = resB.data;
               }
 
-              if (!configRef.current || finalConfig.slot !== configRef.current.slot) {
-                console.log(`[Overlay] ✅ Config di-update ke Slot ${finalConfig.slot || 'A'}`);
-                setConfig(finalConfig);
-                configRef.current = finalConfig;
-              }
+              // if (!configRef.current || finalConfig.slot !== configRef.current.slot) {
+              //   console.log(`[Overlay] ✅ Config di-update ke Slot ${finalConfig.slot || 'A'}`);
+              //   setConfig(finalConfig);
+              //   configRef.current = finalConfig;
+              // }
+
+              setConfig(finalConfig);
+              configRef.current = finalConfig;
             } catch (err) {
               console.error('[Overlay] Failed to load config:', err);
             }
@@ -325,7 +328,7 @@
           socket.on('reconnect', () => loadActiveConfig('reconnect'));
           socket.on('settings-updated', () => loadActiveConfig('socket'));
 
-          const polling = setInterval(() => loadActiveConfig('polling'), 4000);
+          const polling = setInterval(() => loadActiveConfig('polling'), 2000);
 
           return () => {
             socket.disconnect();
