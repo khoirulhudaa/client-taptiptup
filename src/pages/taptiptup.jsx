@@ -940,11 +940,11 @@ function FAQ({ C }) {
   return (
     <section
       id="faq"
-      className="relative overflow-hidden w-full flex flex-col justify-center items-center"
+      className="relative overflow-hidden w-full flex flex-col justify-center !pt-[80px] md:!pt-[100px] !pb-[34px] md:!pb-[100px] items-center"
       style={{
         background: "#0a0f1e",
         borderTop: "1px solid rgba(255,255,255,0.08)",
-        padding: "100px 0 100px",
+        // padding: "100px 0 100px",
       }}
     >
       {/* Grid background */}
@@ -964,7 +964,7 @@ function FAQ({ C }) {
         <span style={{
           fontFamily: "'Space Mono', monospace",
           fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase",
-          color: "azure", marginBottom: 14, display: "block",
+          color: "azure", marginBottom: 20, display: "block",
         }}>
           Pertanyaan Umum
         </span>
@@ -975,13 +975,6 @@ function FAQ({ C }) {
         }}>
           ADA YANG <span style={{ color: "azure" }}>DITANYAKAN?</span>
         </h2>
-        <p style={{
-          fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: 14, color: "rgba(255,255,255,0.45)",
-          marginTop: 14, maxWidth: 500, lineHeight: 1.6,
-        }}>
-          Jawaban untuk pertanyaan yang paling sering kami terima dari streamer Indonesia.
-        </p>
       </div>
 
       {/* Accordion */}
@@ -1064,11 +1057,12 @@ function FAQ({ C }) {
     </div>
 
       {/* CTA bawah */}
-      <div className="relative text-center !mt-16 px-6" style={{ zIndex: 2 }}>
-        <p style={{
+      <div className="relative text-center !mt-[26px] md:!mt-16 px-6" style={{ zIndex: 2 }}>
+        <p 
+          className="!mb-[10px] md:!mb-[18px]"
+          style={{
           fontFamily: "'Space Grotesk', sans-serif",
           fontSize: 13, color: "rgba(255,255,255,0.35)",
-          marginBottom: 18,
         }}>
           Masih ada pertanyaan lain?
         </p>
