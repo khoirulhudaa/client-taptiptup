@@ -6,13 +6,13 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 ───────────────────────────────────────── */
 
 const FEATURES = [
-  { num: "01", ico: "🎨", name: "Overlay OBS Kustom", desc: "Alert donasi tampil langsung di stream. Tema modern, classic, atau minimal dengan animasi dan warna sesukamu." },
-  { num: "02", ico: "🔊", name: "Suara per Nominal", desc: "Sultan dapat sound kenceng! Atur efek suara berbeda untuk setiap tier donasi. 16+ preset siap pakai." },
+  { num: "01", ico: "🎨", name: "Overlay OBS Kustom", desc: "Alert Dukungan tampil langsung di stream. Tema modern, classic, atau minimal dengan animasi dan warna sesukamu." },
+  { num: "02", ico: "🔊", name: "Suara per Nominal", desc: "Sultan dapat sound kenceng! Atur efek suara berbeda untuk setiap tier Dukungan. 16+ preset siap pakai." },
   { num: "03", ico: "🛡️", name: "Filter Kata Terlarang", desc: "Blokir, sensor, atau ganti kata tidak pantas otomatis. Jagain konten tetap aman dan profesional." },
-  { num: "04", ico: "🎯", name: "Milestones & Goals", desc: "Tampilkan progress target donasi di OBS. Donor bisa lihat seberapa dekat goal tercapai." },
-  { num: "05", ico: "🖼️", name: "Media Alert", desc: "Izinkan donor kirim gambar atau video saat donasi mencapai nominal tertentu. Sultan alert yang epic." },
-  { num: "06", ico: "🗳️", name: "Poll & Subathon", desc: "Voting live untuk penonton dan timer subathon yang bertambah otomatis setiap ada donasi masuk." },
-  { num: "07", ico: "🏆", name: "Leaderboard", desc: "Tampilkan top donor di overlay OBS. Gamifikasi donasi bikin penonton makin kompetitif dan seru." },
+  { num: "04", ico: "🎯", name: "Milestones & Goals", desc: "Tampilkan progress target Dukungan di OBS. Donor bisa lihat seberapa dekat goal tercapai." },
+  { num: "05", ico: "🖼️", name: "Media Alert", desc: "Izinkan donor kirim gambar atau video saat Dukungan mencapai nominal tertentu. Sultan alert yang epic." },
+  { num: "06", ico: "🗳️", name: "Poll & Subathon", desc: "Voting live untuk penonton dan timer subathon yang bertambah otomatis setiap ada Dukungan masuk." },
+  { num: "07", ico: "🏆", name: "Leaderboard", desc: "Tampilkan top donor di overlay OBS. Gamifikasi Dukungan bikin penonton makin kompetitif dan seru." },
   { num: "08", ico: "👥", name: "Streamer Community", desc: "Temukan dan follow sesama streamer. Bangun network, kolaborasi, dan berkembang bersama." },
 ];
 
@@ -20,19 +20,19 @@ const HOW_IT_WORKS = [
   { num: "01", ico: "🚀", title: "Daftar Gratis", desc: "Buat akun dalam hitungan detik. Tidak perlu kartu kredit apapun." },
   { num: "02", ico: "🎨", title: "Konfigurasi Overlay", desc: "Pilih tema, warna, animasi, dan atur suara sesuai brand stream-mu." },
   { num: "03", ico: "📺", title: "Pasang di OBS", desc: "Copy URL overlay, tambahkan sebagai Browser Source di OBS Studio." },
-  { num: "04", ico: "💸", title: "Terima Donasi", desc: "Donor bayar via QRIS atau transfer — alert langsung muncul di stream!" },
+  { num: "04", ico: "💸", title: "Terima Dukungan", desc: "Donor bayar via QRIS atau transfer — alert langsung muncul di stream!" },
 ];
 
 const TESTIMONIALS = [
   { avatar: "R", avatarBg: "#7c5cbf", avatarColor: "#fff", name: "@ZulionZX", role: "Coding Streamer", text: '"Setup-nya gampang banget, 5 menit udah live. Alert-nya keren dan donatur makin semangat karena ada leaderboard!"', statNum: "2026", statLabel: "tahun ini" },
   { avatar: "S", avatarBg: "#e05a3a", avatarColor: "#fff", name: "@Krigatsu", role: "Gaming Streamer", text: '"Fitur filter kata terlarang beneran ngebantu banget. Streamku jadi lebih aman dan aku bisa fokus main."', statNum: "2026", statLabel: "tahun ini" },
-  { avatar: "B", avatarBg: 'white', avatarColor: "#080808", name: "@MinusGamdes", role: "Music Streamer", text: '"Sound tier sultan pakai efek beda — penonton jadi pengen donasi lebih gede biar dapat sound kenceng!"', statNum: "2026", statLabel: "tahun ini" },
+  { avatar: "B", avatarBg: 'white', avatarColor: "#080808", name: "@MinusGamdes", role: "Music Streamer", text: '"Sound tier sultan pakai efek beda — penonton jadi pengen Dukungan lebih gede biar dapat sound kenceng!"', statNum: "2026", statLabel: "tahun ini" },
 ];
 
 const PLANS = [
   {
     name: "Gratis", desc: "Mulai tanpa risiko", price: "Rp 0", period: "// selamanya",
-    features: ["Overlay OBS basic", "Alert donasi real-time", "1 preset suara", "QR Code donasi", "Dashboard riwayat"],
+    features: ["Overlay OBS basic", "Alert Dukungan real-time", "1 preset suara", "QR Code Dukungan", "Dashboard riwayat"],
     cta: "Mulai Gratis", hot: false,
   },
   {
@@ -325,13 +325,13 @@ function Hero({ C, isDark }) {
 
                 {/* Banner */}
                 <span className="px-2 2xl:min-w-[70vw] min-w-[64vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure] inline-block">
-                  POTONGAN HANYA 2.5% UNTUK
+                  POTONGAN HANYA 3% UNTUK
                 </span>
               </motion.div>
 
               {/* Tetap diam */}
               <span>
-                SETIAP DONASI MASUK
+                SETIAP Dukungan MASUK
               </span>
 
             </span>
@@ -353,7 +353,7 @@ function Hero({ C, isDark }) {
               textAlign: "center",
             }}
           >
-            Platform donasi streamer asal Indonesia dengan potongan terkecil yaitu 2.5%. 
+            Platform Dukungan streamer asal Indonesia dengan potongan terkecil yaitu 3%. 
           </p>
 
           {/* Container Tombol */}
@@ -744,7 +744,7 @@ function FeeComparison({ C }) {
                     {p.feeDonate.toFixed(1)}% + {p.feeWdLabel || '—'}
                   </div>
                   <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 12, color: p.winner ? "#000000" : "black", letterSpacing: "0.05em", textTransform: "uppercase", marginTop: 10 }}>
-                    {p.winner || p.name === 'TipTap' ? 'potongan per donasi + WD semua metode' : 'potongan per donasi + WD Bank'}
+                    {p.winner || p.name === 'TipTap' ? 'potongan per Dukungan + WD semua metode' : 'potongan per Dukungan + WD Bank'}
                   </div>
                 </div>
               </div>
@@ -764,7 +764,7 @@ function Footer({ C }) {
         </div>
         <div className="md:flex items-center gap-1">
           <span style={{ fontSize: 11, color: C.muted, transition: "color 0.4s" }}>
-            Platform donasi streaming terbaik untuk konten kreator Indonesia.
+            Platform Dukungan streaming terbaik untuk konten kreator Indonesia.
           </span>
           <a href="/privacy-policy" style={{ fontSize: 11, color: '#38bdf8', transition: "color 0.4s", whiteSpace: "nowrap" }}>
             Kebijakan privasi
@@ -857,39 +857,237 @@ function buildGlobalStyles(C) {
 
 const SHARE_TEMPLATES = {
   1: {
-    label: "Alert Donasi Real-Time",
+    label: "Alert Dukungan Real-Time",
     ig: [
-      { platform: "Instagram Caption", text: `🎮 Streamer Indo, dengerin dulu!\n\nTired of potongan donasi gede?\nTapTipTup cuma ambil 2.5% — sisanya buat kamu! 💸\n\n✅ Alert OBS real-time\n✅ QRIS + Transfer langsung\n✅ Sound kustom per tier\n✅ Gratis selamanya (plan basic)\n\nCoba sekarang di taptiptup.com 🔗\n\n#Streamer #StreamingIndonesia #TapTipTup` },
-      { platform: "Instagram Story", text: `Hei streamer! 👋\n\nDonasi kamu dipotong berapa?\n5%? 10%?\n\nTapTipTup: cuma 2.5% ✨\nAlert langsung di OBS-mu!\n\nLink di bio → taptiptup.com` }
+      { platform: "Instagram Caption", text: `🎮 Streamer Indo, dengerin dulu!\n\nTired of potongan Dukungan gede?\nTapTipTup cuma ambil 3% — sisanya buat kamu! 💸\n\n✅ Alert OBS real-time\n✅ QRIS + Transfer langsung\n✅ Sound kustom per tier\n✅ Gratis selamanya (plan basic)\n\nCoba sekarang di taptiptup.com 🔗\n\n#Streamer #StreamingIndonesia #TapTipTup` },
+      { platform: "Instagram Story", text: `Hei streamer! 👋\n\nDukungan kamu dipotong berapa?\n5%? 10%?\n\nTapTipTup: cuma 3% ✨\nAlert langsung di OBS-mu!\n\nLink di bio → taptiptup.com` }
     ],
     desktop: [
-      { platform: "Twitter / X", text: `Streamer Indonesia, ini buat kalian 🧵\n\nTapTipTup = platform donasi lokal dengan potongan TERKECIL. Cuma 2.5%.\n\n✅ Alert OBS real-time\n✅ Sound custom per tier\n✅ QRIS & transfer bank\n✅ Gratis untuk mulai\n\nCoba gratis → taptiptup.com` },
-      { platform: "Facebook / Komunitas", text: `Para streamer, pernah ngerasa rugi kena potongan donasi gede?\n\nSaya baru cobain TapTipTup — potongannya cuma 2.5%! Setup OBS-nya juga gampang, kurang dari 5 menit udah live.\n\nCoba gratis di taptiptup.com 🚀` }
+      { platform: "Twitter / X", text: `Streamer Indonesia, ini buat kalian 🧵\n\nTapTipTup = platform Dukungan lokal dengan potongan TERKECIL. Cuma 3%.\n\n✅ Alert OBS real-time\n✅ Sound custom per tier\n✅ QRIS & transfer bank\n✅ Gratis untuk mulai\n\nCoba gratis → taptiptup.com` },
+      { platform: "Facebook / Komunitas", text: `Para streamer, pernah ngerasa rugi kena potongan Dukungan gede?\n\nSaya baru cobain TapTipTup — potongannya cuma 3%! Setup OBS-nya juga gampang, kurang dari 5 menit udah live.\n\nCoba gratis di taptiptup.com 🚀` }
     ]
   },
   2: {
     label: "Dashboard & Fitur Lengkap",
     ig: [
-      { platform: "Instagram Caption", text: `Level up stream kamu dengan TapTipTup! 🚀\n\nBukan cuma terima donasi —\nDashboard lengkap buat manage semuanya:\n📊 Riwayat donasi real-time\n🏆 Leaderboard top donor\n🎯 Milestone & goal tracker\n🗳️ Poll langsung dari penonton\n\nGratis untuk mulai. Pro mulai 49rb/bulan.\n\ntaptiptup.com ✨\n\n#ContentCreator #StreamerIndonesia #TapTipTup` },
-      { platform: "Instagram Story", text: `Dashboard donasi streamer terlengkap 📊\n\n→ Real-time analytics\n→ Top donor leaderboard\n→ Poll & subathon timer\n→ Setup OBS < 5 menit\n\nGratis di taptiptup.com 🔥` }
+      { platform: "Instagram Caption", text: `Level up stream kamu dengan TapTipTup! 🚀\n\nBukan cuma terima Dukungan —\nDashboard lengkap buat manage semuanya:\n📊 Riwayat Dukungan real-time\n🏆 Leaderboard top donor\n🎯 Milestone & goal tracker\n🗳️ Poll langsung dari penonton\n\nGratis untuk mulai. Pro mulai 49rb/bulan.\n\ntaptiptup.com ✨\n\n#ContentCreator #StreamerIndonesia #TapTipTup` },
+      { platform: "Instagram Story", text: `Dashboard Dukungan streamer terlengkap 📊\n\n→ Real-time analytics\n→ Top donor leaderboard\n→ Poll & subathon timer\n→ Setup OBS < 5 menit\n\nGratis di taptiptup.com 🔥` }
     ],
     desktop: [
-      { platform: "Twitter / X", text: `Nggak nyangka ada platform donasi streamer lokal sekeren ini.\n\nTapTipTup punya:\n📊 Dashboard analytics real-time\n🏆 Leaderboard gamifikasi donor\n🎯 Milestone tracker di OBS\n🗳️ Live poll & subathon timer\n🖼️ Media alert dari donor\n\nDan setupnya literally 5 menit.\nGratis untuk mulai → taptiptup.com` },
-      { platform: "Facebook / Komunitas", text: `Sharing pengalaman pakai TapTipTup buat stream:\n\nFitur favoritku? Leaderboard donor langsung muncul di OBS. Penonton jadi kompetitif sendiri, malah bikin donasi naik! 😂\n\nPlus ada poll live yang bisa divotin penonton real-time, dan milestone goal yang keliatan progressnya.\n\ntaptiptup.com` }
+      { platform: "Twitter / X", text: `Nggak nyangka ada platform Dukungan streamer lokal sekeren ini.\n\nTapTipTup punya:\n📊 Dashboard analytics real-time\n🏆 Leaderboard gamifikasi donor\n🎯 Milestone tracker di OBS\n🗳️ Live poll & subathon timer\n🖼️ Media alert dari donor\n\nDan setupnya literally 5 menit.\nGratis untuk mulai → taptiptup.com` },
+      { platform: "Facebook / Komunitas", text: `Sharing pengalaman pakai TapTipTup buat stream:\n\nFitur favoritku? Leaderboard donor langsung muncul di OBS. Penonton jadi kompetitif sendiri, malah bikin Dukungan naik! 😂\n\nPlus ada poll live yang bisa divotin penonton real-time, dan milestone goal yang keliatan progressnya.\n\ntaptiptup.com` }
     ]
   },
   3: {
     label: "Community & Streamer Network",
     ig: [
-      { platform: "Instagram Caption", text: `Gabung komunitas streamer Indonesia bareng TapTipTup! 👥\n\nBukan cuma donasi —\nkamu bisa discover & follow sesama streamer,\nbangun network, dan collab bareng!\n\nMulai gratis, tanpa kartu kredit.\nLink di bio → taptiptup.com\n\nTag temen streamer kamu di sini! 👇\n\n#StreamerIndonesia #KomunitasStreamer #TapTipTup` },
-      { platform: "Instagram Story", text: `Streamer Indonesia berkembang bareng! 🤝\n\nTapTipTup punya fitur:\n✅ Temukan sesama streamer\n✅ Bangun network kolaborasi\n✅ Donasi dengan potongan 2.5% aja\n\nTag temen streamer kamu!\ntaptiptup.com` }
+      { platform: "Instagram Caption", text: `Gabung komunitas streamer Indonesia bareng TapTipTup! 👥\n\nBukan cuma Dukungan —\nkamu bisa discover & follow sesama streamer,\nbangun network, dan collab bareng!\n\nMulai gratis, tanpa kartu kredit.\nLink di bio → taptiptup.com\n\nTag temen streamer kamu di sini! 👇\n\n#StreamerIndonesia #KomunitasStreamer #TapTipTup` },
+      { platform: "Instagram Story", text: `Streamer Indonesia berkembang bareng! 🤝\n\nTapTipTup punya fitur:\n✅ Temukan sesama streamer\n✅ Bangun network kolaborasi\n✅ Dukungan dengan potongan 3% aja\n\nTag temen streamer kamu!\ntaptiptup.com` }
     ],
     desktop: [
-      { platform: "Twitter / X", text: `Shoutout buat semua streamer Indonesia 🇮🇩\n\nKalian deserve platform donasi yang:\n✅ Buatan lokal, paham kebutuhan kita\n✅ Potongan kecil (cuma 2.5%)\n✅ Ada komunitas sesama streamer\n✅ Setup OBS gampang & cepat\n\nTapTipTup hadir buat itu semua.\nGratis untuk mulai → taptiptup.com\n\nRT kalau bermanfaat! 🙏` },
-      { platform: "Facebook / Komunitas", text: `Buat semua streamer di grup ini —\n\nKalau kalian cari platform donasi yang:\n• Buatan Indonesia (paham ekosistem kita)\n• Potongan paling kecil (2.5%)\n• Ada fitur komunitas streamer\n• Setup simpel dan cepat\n\nTapTipTup jawabannya. Saya udah coba dan rekomendasinya 10/10 untuk streamer lokal.\n\nCoba gratis sekarang di taptiptup.com 🙏` }
+      { platform: "Twitter / X", text: `Shoutout buat semua streamer Indonesia 🇮🇩\n\nKalian deserve platform Dukungan yang:\n✅ Buatan lokal, paham kebutuhan kita\n✅ Potongan kecil (cuma 3%)\n✅ Ada komunitas sesama streamer\n✅ Setup OBS gampang & cepat\n\nTapTipTup hadir buat itu semua.\nGratis untuk mulai → taptiptup.com\n\nRT kalau bermanfaat! 🙏` },
+      { platform: "Facebook / Komunitas", text: `Buat semua streamer di grup ini —\n\nKalau kalian cari platform Dukungan yang:\n• Buatan Indonesia (paham ekosistem kita)\n• Potongan paling kecil (3%)\n• Ada fitur komunitas streamer\n• Setup simpel dan cepat\n\nTapTipTup jawabannya. Saya udah coba dan rekomendasinya 10/10 untuk streamer lokal.\n\nCoba gratis sekarang di taptiptup.com 🙏` }
     ]
   },
 };
+
+// Tambahkan komponen ini di file yang sama, setelah SharePromo dan sebelum export default
+
+// ─── DATA FAQ ───────────────────────────────────────────────────────────────
+const FAQ_DATA = [
+  {
+    q: "Saweria itu apa? Bedanya sama TapTipTup?",
+    a: "Saweria adalah platform Dukungan lokal yang sudah ada lebih dulu. TapTipTup hadir dengan potongan lebih kecil — hanya 3% — dibanding Saweria yang memotong 5%. Fitur kami juga lebih lengkap: leaderboard, poll live, subathon timer, dan sound tier kustom.",
+  },
+  {
+    q: "Apakah saya bisa menggunakan TapTipTup tanpa live streaming?",
+    a: "Tentu bisa! Dukungan masuk ke akun kamu meskipun kamu tidak sedang live. Semua riwayat Dukungan bisa dicek di menu Transaksi kapan saja.",
+  },
+  {
+    q: "Platform live streaming apa saja yang bisa diintegrasikan?",
+    a: "TapTipTup terintegrasi dengan semua software broadcasting yang mendukung Browser Source, seperti OBS Studio dan Streamlabs OBS (SLOBS). Bisa dipakai untuk YouTube Live, TikTok Live, Twitch, Facebook Gaming, dan Instagram Live.",
+  },
+  {
+    q: "Berapa minimal Dukungan dan minimal penarikan dana?",
+    a: "Minimal Dukungan adalah Rp 1.000. Minimal penarikan dana adalah Rp 50.000. Biaya penarikan hanya Rp 3.000 — lebih murah dari platform lain.",
+  },
+  {
+    q: "Berapa lama proses konfirmasi Dukungan sampai bisa dicairkan?",
+    a: "Memakan waktu 3 hari kerja untuk konfirmasi oleh Payment Gateway. Setelah itu saldo bertambah dan siap dicairkan. Contoh: Dukungan masuk 10 Januari jam 12.00 WIB, dana bisa dicairkan 13 Januari jam 12.00 WIB.",
+  },
+  {
+    q: "Apakah dana Dukungan yang sudah dikirim bisa ditarik kembali?",
+    a: "Tidak. Dana Dukungan yang sudah dikirimkan tidak dapat ditarik kembali. Pastikan kamu sudah yakin sebelum mengirim Dukungan.",
+  },
+  {
+    q: "Biaya apa saja yang dipotong dari Dukungan yang masuk?",
+    a: "Potongan platform TapTipTup hanya 3% dari setiap Dukungan. Biaya penarikan ke rekening bank sebesar Rp 3.000 per transaksi. Tidak ada biaya tersembunyi lainnya.",
+  },
+  {
+    q: "Bagaimana cara memasang overlay TapTipTup di OBS?",
+    a: "Masuk ke dashboard, salin URL overlay yang tersedia, lalu tambahkan sebagai Browser Source di OBS Studio. Prosesnya tidak lebih dari 5 menit. Tersedia video tutorial lengkap di halaman tutorial kami.",
+  },
+];
+
+// ─── KOMPONEN FAQ ────────────────────────────────────────────────────────────
+function FAQ({ C }) {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  function toggle(i) {
+    setOpenIndex(prev => (prev === i ? null : i));
+  }
+
+  return (
+    <section
+      id="faq"
+      className="relative overflow-hidden w-full flex flex-col justify-center items-center"
+      style={{
+        background: "#0a0f1e",
+        borderTop: "1px solid rgba(255,255,255,0.08)",
+        padding: "100px 0 100px",
+      }}
+    >
+      {/* Grid background */}
+      <div className="absolute inset-0 pointer-events-none select-none" style={{ zIndex: 0 }}>
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="faq-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#faq-grid)" />
+        </svg>
+      </div>
+
+      {/* Header */}
+      <div className="relative text-center flex flex-col items-center px-6 mb-14" style={{ zIndex: 2 }}>
+        <span style={{
+          fontFamily: "'Space Mono', monospace",
+          fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase",
+          color: "azure", marginBottom: 14, display: "block",
+        }}>
+          Pertanyaan Umum
+        </span>
+        <h2 style={{
+          fontFamily: "'Bebas Neue', sans-serif",
+          fontSize: "clamp(32px,6vw,72px)",
+          lineHeight: 1.1, color: "white", letterSpacing: "0.01em",
+        }}>
+          ADA YANG <span style={{ color: "azure" }}>DITANYAKAN?</span>
+        </h2>
+        <p style={{
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontSize: 14, color: "rgba(255,255,255,0.45)",
+          marginTop: 14, maxWidth: 500, lineHeight: 1.6,
+        }}>
+          Jawaban untuk pertanyaan yang paling sering kami terima dari streamer Indonesia.
+        </p>
+      </div>
+
+      {/* Accordion */}
+      <div
+        className="relative mx-auto grid grid-cols-2 w-[90vw] gap-10 !mt-10 px-4 md:px-0"
+        style={{ zIndex: 2 }}
+      >
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 w-[90vw]"
+        style={{
+          border: "1px solid rgba(255,255,255,0.08)", // border terluar
+        }}
+      >
+        {FAQ_DATA.map((item, i) => {
+          const isOpen = openIndex === i;
+          const isLeftCol  = i % 2 === 0;
+          const isTopRow   = i < 2;
+
+          return (
+            <div
+              key={i}
+              className="w-full cursor-pointer hover:bg-slate-100/5 active:scale-[0.99]"
+              onClick={() => toggle(i)}
+              style={{
+                // border kiri untuk kolom kanan (menghindari double border kiri+kanan)
+                borderLeft: !isLeftCol ? "1px solid rgba(255,255,255,0.08)" : "none",
+                // border atas untuk semua baris kecuali baris pertama
+                borderTop: !isTopRow ? "1px solid rgba(255,255,255,0.08)" : "none",
+                padding: "36px 20px",
+              }}
+            >
+              <button
+                style={{
+                  width: "100%", textAlign: "left", background: "none", border: "none",
+                  padding: 0, cursor: "pointer",
+                  display: "flex", justifyContent: "space-between", alignItems: "flex-start",
+                  gap: 16,
+                }}
+              >
+                <span style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: "clamp(13px,1.6vw,15px)",
+                  fontWeight: 600, color: isOpen ? "azure" : "white",
+                  lineHeight: 1.4, flex: 1,
+                  transition: "color 0.2s",
+                }}>
+                  {item.q}
+                </span>
+                <span style={{
+                  width: 26, height: 26, flexShrink: 0,
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  color: isOpen ? "azure" : "rgba(255,255,255,0.5)",
+                  fontSize: 18, lineHeight: 1,
+                  transition: "all 0.2s",
+                  background: isOpen ? "rgba(100,100,300, 1)" : "transparent",
+                }}>
+                  {isOpen ? "−" : "+"}
+                </span>
+              </button>
+
+              <div style={{
+                overflow: "hidden",
+                maxHeight: isOpen ? 400 : 0,
+                opacity: isOpen ? 1 : 0,
+                transition: "max-height 0.35s ease, opacity 0.25s ease",
+              }}>
+                <p style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: 13, color: "rgba(255,255,255,0.55)",
+                  lineHeight: 1.75, paddingTop: 12,
+                }}>
+                  {item.a}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+      {/* CTA bawah */}
+      <div className="relative text-center !mt-16 px-6" style={{ zIndex: 2 }}>
+        <p style={{
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontSize: 13, color: "rgba(255,255,255,0.35)",
+          marginBottom: 18,
+        }}>
+          Masih ada pertanyaan lain?
+        </p>
+        <a
+          href="mailto:help@taptiptup.com"
+          style={{
+            fontFamily: "'Space Mono', monospace",
+            fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase",
+            color: "azure", textDecoration: "none",
+            borderBottom: "1px solid rgba(173,216,230,0.35)",
+            paddingBottom: 2,
+          }}
+        >
+          Hubungi kami → taptiptup.support@gmail.com
+        </a>
+      </div>
+    </section>
+  );
+}
 
 function SharePromo({ C }) {
   const [format, setFormat] = useState('ig');
@@ -1107,6 +1305,8 @@ export default function TapTipTup() {
         />
       </section>
 
+      <FAQ C={C} />
+
       {/* ===== FOOTER ===== */}
      <footer className="text-center flex flex-col justify-center items-center w-full px-0 !pt-[20px] !pb-[0px] md:!pt-[90px] md:!pb-[60px]" 
         style={{
@@ -1132,7 +1332,7 @@ export default function TapTipTup() {
               fontSize: 13, color: "rgba(255,255,255,0.5)",
               lineHeight: 0.4, marginBottom: 20,
             }}>
-              Platform donasi streaming lokal terbaik untuk konten kreator Indonesia. Potongan hanya 2.5%, alert langsung di OBS, setup dalam 5 menit.
+              Platform Dukungan streaming lokal terbaik untuk konten kreator Indonesia. Potongan hanya 3%, alert langsung di OBS, setup dalam 5 menit.
             </p>
             <a href="/privacy-policy" style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "#BBDEFB", letterSpacing: "0.1em", textDecoration: "none" }}>
               KEBIJAKAN PRIVASI TAPTIPTUP
@@ -1186,7 +1386,7 @@ export default function TapTipTup() {
             {/* Kolom 2 — Overlay Tersedia */}
             <div className="flex w-max text-center justify-between m-auto items-center gap-3">
               {[
-                "Alert Donasi Real-Time",
+                "Alert Dukungan Real-Time",
                 "Leaderboard Top Donor",
                 "Milestone & Goal Bar",
                 "Subathon Timer",
@@ -1303,8 +1503,8 @@ export default function TapTipTup() {
                 maxWidth: "580px",
                 margin: "0 auto",
               }}>
-                Platform donasi lokal terbaik untuk streamer Indonesia. 
-                Potongan hanya 2.5%
+                Platform Dukungan lokal terbaik untuk streamer Indonesia. 
+                Potongan hanya 3%
               </p>
 
               <button

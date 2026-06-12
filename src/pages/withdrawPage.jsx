@@ -574,7 +574,7 @@ export const WithdrawPage = () => {
             {[
               { label: 'Min. Tarik',  value: `Rp ${MIN_TARIK.toLocaleString('id-ID')}` },
               { label: 'Maks. Tarik', value: `Rp ${(MAX_TARIK / 1000000).toFixed(0)}jt` },
-              { label: 'Biaya Layanan', value: '3000' },
+              { label: 'Biaya Layanan', value: '3.000' },
             ].map(r => (
               <div key={r.label} className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-none p-3 text-center">
                 <p className="font-black text-blue-600 dark:text-white text-sm">{r.value}</p>
@@ -911,7 +911,7 @@ export const WithdrawPage = () => {
                             </p>
                           </td>
                           <td className="px-5 md:px-8 py-5">
-                            <p className="text-sm text-slate-400 dark:text-red-300">Rp 3000</p>
+                            <p className="text-sm text-slate-400 dark:text-red-300">Rp 3.000</p>
                           </td>
                           <td className="px-5 md:px-8 py-5">
                             <p className="text-slate-600 dark:text-slate-300 text-sm">{wd.paymentMethod || 'BANK'}</p>
