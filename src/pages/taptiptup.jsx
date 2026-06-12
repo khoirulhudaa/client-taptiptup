@@ -268,7 +268,7 @@ function Hero({ C, isDark }) {
       </div>
 
       <img src="/man2.png" alt="image man" className="absolute md:flex hidden bottom-0 md:bottom-[-56px] left-[-40px] 2xl:left-[-280px] md:left-[-257px] w-[44%] md:w-[50%] z-[99999]" />
-      <img src="/woman1.png" alt="image woman" className="absolute bottom-0 md:bottom-[-40px] left-[-34px] md:left-[-22px] 2xl:left-[-32px] w-[46%] md:w-[43%] z-[99999]" />
+      <img src="/woman1.png" alt="image woman" className="absolute bottom-0 md:bottom-[-40px] left-[-34px] md:left-[-22px] 2xl:left-[-32px] w-[46%] md:w-[43.0%] z-[99999]" />
       <img src="/woman2.png" alt="image woman" className="absolute bottom-0 md:flex hidden md:bottom-[-100px] right-12 w-[32%] z-[99999]" />
       <img src="/man1.png" alt="image man" className="absolute bottom-0 md:bottom-[-40px] right-[-17px] md:right-[-208px] w-[39.5%] md:w-[40%] z-[999]" />
       <div className="absolute bottom-0 flex z-[5]">
@@ -325,7 +325,7 @@ function Hero({ C, isDark }) {
 
                 {/* Banner */}
                 <span className="px-2 2xl:min-w-[70vw] min-w-[64vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure] inline-block">
-                  POTONGAN HANYA 3% UNTUK
+                  POTONGAN HANYA 3.0% UNTUK
                 </span>
               </motion.div>
 
@@ -348,12 +348,12 @@ function Hero({ C, isDark }) {
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
               fontSize: "clamp(13px, 1.5vw, 16px)",
-              color: "rgba(255,255,255,0.6)",
+              color: "rgba(255,255,255,0.8)",
               // marginBottom: 36,
               textAlign: "center",
             }}
           >
-            Platform Dukungan streamer asal Indonesia dengan potongan terkecil yaitu 3%. 
+            Platform Dukungan streamer asal Indonesia dengan potongan terkecil yaitu 3.0%. 
           </p>
 
           {/* Container Tombol */}
@@ -859,12 +859,12 @@ const SHARE_TEMPLATES = {
   1: {
     label: "Alert Dukungan Real-Time",
     ig: [
-      { platform: "Instagram Caption", text: `🎮 Streamer Indo, dengerin dulu!\n\nTired of potongan Dukungan gede?\nTapTipTup cuma ambil 3% — sisanya buat kamu! 💸\n\n✅ Alert OBS real-time\n✅ QRIS + Transfer langsung\n✅ Sound kustom per tier\n✅ Gratis selamanya (plan basic)\n\nCoba sekarang di taptiptup.com 🔗\n\n#Streamer #StreamingIndonesia #TapTipTup` },
-      { platform: "Instagram Story", text: `Hei streamer! 👋\n\nDukungan kamu dipotong berapa?\n5%? 10%?\n\nTapTipTup: cuma 3% ✨\nAlert langsung di OBS-mu!\n\nLink di bio → taptiptup.com` }
+      { platform: "Instagram Caption", text: `🎮 Streamer Indo, dengerin dulu!\n\nTired of potongan Dukungan gede?\nTapTipTup cuma ambil 3.0% — sisanya buat kamu! 💸\n\n✅ Alert OBS real-time\n✅ QRIS + Transfer langsung\n✅ Sound kustom per tier\n✅ Gratis selamanya (plan basic)\n\nCoba sekarang di taptiptup.com 🔗\n\n#Streamer #StreamingIndonesia #TapTipTup` },
+      { platform: "Instagram Story", text: `Hei streamer! 👋\n\nDukungan kamu dipotong berapa?\n5%? 10%?\n\nTapTipTup: cuma 3.0% ✨\nAlert langsung di OBS-mu!\n\nLink di bio → taptiptup.com` }
     ],
     desktop: [
-      { platform: "Twitter / X", text: `Streamer Indonesia, ini buat kalian 🧵\n\nTapTipTup = platform Dukungan lokal dengan potongan TERKECIL. Cuma 3%.\n\n✅ Alert OBS real-time\n✅ Sound custom per tier\n✅ QRIS & transfer bank\n✅ Gratis untuk mulai\n\nCoba gratis → taptiptup.com` },
-      { platform: "Facebook / Komunitas", text: `Para streamer, pernah ngerasa rugi kena potongan Dukungan gede?\n\nSaya baru cobain TapTipTup — potongannya cuma 3%! Setup OBS-nya juga gampang, kurang dari 5 menit udah live.\n\nCoba gratis di taptiptup.com 🚀` }
+      { platform: "Twitter / X", text: `Streamer Indonesia, ini buat kalian 🧵\n\nTapTipTup = platform Dukungan lokal dengan potongan TERKECIL. Cuma 3.0%.\n\n✅ Alert OBS real-time\n✅ Sound custom per tier\n✅ QRIS & transfer bank\n✅ Gratis untuk mulai\n\nCoba gratis → taptiptup.com` },
+      { platform: "Facebook / Komunitas", text: `Para streamer, pernah ngerasa rugi kena potongan Dukungan gede?\n\nSaya baru cobain TapTipTup — potongannya cuma 3.0%! Setup OBS-nya juga gampang, kurang dari 5 menit udah live.\n\nCoba gratis di taptiptup.com 🚀` }
     ]
   },
   2: {
@@ -882,11 +882,11 @@ const SHARE_TEMPLATES = {
     label: "Community & Streamer Network",
     ig: [
       { platform: "Instagram Caption", text: `Gabung komunitas streamer Indonesia bareng TapTipTup! 👥\n\nBukan cuma Dukungan —\nkamu bisa discover & follow sesama streamer,\nbangun network, dan collab bareng!\n\nMulai gratis, tanpa kartu kredit.\nLink di bio → taptiptup.com\n\nTag temen streamer kamu di sini! 👇\n\n#StreamerIndonesia #KomunitasStreamer #TapTipTup` },
-      { platform: "Instagram Story", text: `Streamer Indonesia berkembang bareng! 🤝\n\nTapTipTup punya fitur:\n✅ Temukan sesama streamer\n✅ Bangun network kolaborasi\n✅ Dukungan dengan potongan 3% aja\n\nTag temen streamer kamu!\ntaptiptup.com` }
+      { platform: "Instagram Story", text: `Streamer Indonesia berkembang bareng! 🤝\n\nTapTipTup punya fitur:\n✅ Temukan sesama streamer\n✅ Bangun network kolaborasi\n✅ Dukungan dengan potongan 3.0% aja\n\nTag temen streamer kamu!\ntaptiptup.com` }
     ],
     desktop: [
-      { platform: "Twitter / X", text: `Shoutout buat semua streamer Indonesia 🇮🇩\n\nKalian deserve platform Dukungan yang:\n✅ Buatan lokal, paham kebutuhan kita\n✅ Potongan kecil (cuma 3%)\n✅ Ada komunitas sesama streamer\n✅ Setup OBS gampang & cepat\n\nTapTipTup hadir buat itu semua.\nGratis untuk mulai → taptiptup.com\n\nRT kalau bermanfaat! 🙏` },
-      { platform: "Facebook / Komunitas", text: `Buat semua streamer di grup ini —\n\nKalau kalian cari platform Dukungan yang:\n• Buatan Indonesia (paham ekosistem kita)\n• Potongan paling kecil (3%)\n• Ada fitur komunitas streamer\n• Setup simpel dan cepat\n\nTapTipTup jawabannya. Saya udah coba dan rekomendasinya 10/10 untuk streamer lokal.\n\nCoba gratis sekarang di taptiptup.com 🙏` }
+      { platform: "Twitter / X", text: `Shoutout buat semua streamer Indonesia 🇮🇩\n\nKalian deserve platform Dukungan yang:\n✅ Buatan lokal, paham kebutuhan kita\n✅ Potongan kecil (cuma 3.0%)\n✅ Ada komunitas sesama streamer\n✅ Setup OBS gampang & cepat\n\nTapTipTup hadir buat itu semua.\nGratis untuk mulai → taptiptup.com\n\nRT kalau bermanfaat! 🙏` },
+      { platform: "Facebook / Komunitas", text: `Buat semua streamer di grup ini —\n\nKalau kalian cari platform Dukungan yang:\n• Buatan Indonesia (paham ekosistem kita)\n• Potongan paling kecil (3.0%)\n• Ada fitur komunitas streamer\n• Setup simpel dan cepat\n\nTapTipTup jawabannya. Saya udah coba dan rekomendasinya 10/10 untuk streamer lokal.\n\nCoba gratis sekarang di taptiptup.com 🙏` }
     ]
   },
 };
@@ -897,7 +897,7 @@ const SHARE_TEMPLATES = {
 const FAQ_DATA = [
   {
     q: "Saweria itu apa? Bedanya sama TapTipTup?",
-    a: "Saweria adalah platform Dukungan lokal yang sudah ada lebih dulu. TapTipTup hadir dengan potongan lebih kecil — hanya 3% — dibanding Saweria yang memotong 5%. Fitur kami juga lebih lengkap: Auto-inject OBS, leaderboard, poll live, subathon timer, dan sound tier kustom.",
+    a: "Saweria adalah platform Dukungan lokal yang sudah ada lebih dulu. TapTipTup hadir dengan potongan lebih kecil — hanya 3.0% — dibanding Saweria yang memotong 5%. Fitur kami juga lebih lengkap: Auto-inject OBS, leaderboard, poll live, subathon timer, dan sound tier kustom.",
   },
   {
     q: "Apakah saya bisa menggunakan TapTipTup tanpa live streaming?",
@@ -921,7 +921,7 @@ const FAQ_DATA = [
   },
   {
     q: "Biaya apa saja yang dipotong dari Dukungan yang masuk?",
-    a: "Potongan platform TapTipTup hanya 3% dari setiap Dukungan. Biaya penarikan ke rekening bank sebesar Rp 3.000 per transaksi. Tidak ada biaya tersembunyi lainnya.",
+    a: "Potongan platform TapTipTup hanya 3.0% dari setiap Dukungan. Biaya penarikan ke rekening bank sebesar Rp 3.000 per transaksi. Tidak ada biaya tersembunyi lainnya.",
   },
   {
     q: "Bagaimana cara memasang overlay TapTipTup di OBS?",
@@ -1239,12 +1239,12 @@ export default function TapTipTup() {
         `}</style>
 
         {[
-          { left: "3%",  size: "30px", dur: "4.2s", delay: "0s",    rot: "-12deg", emoji: "❤️" },
+          { left: "3.0%",  size: "30px", dur: "4.2s", delay: "0s",    rot: "-12deg", emoji: "❤️" },
           { left: "8%",  size: "30px", dur: "5.1s", delay: "0.8s",  rot: "8deg",   emoji: "🔁" },
           { left: "14%", size: "30px", dur: "3.8s", delay: "1.5s",  rot: "-5deg",  emoji: "❤️" },
           { left: "20%", size: "30px", dur: "6.0s", delay: "0.3s",  rot: "15deg",  emoji: "🔁" },
           { left: "27%", size: "30px", dur: "4.5s", delay: "2.1s",  rot: "-20deg", emoji: "❤️" },
-          { left: "33%", size: "30px", dur: "5.5s", delay: "1.0s",  rot: "6deg",   emoji: "🔁" },
+          { left: "33.0%", size: "30px", dur: "5.5s", delay: "1.0s",  rot: "6deg",   emoji: "🔁" },
           { left: "40%", size: "30px", dur: "4.8s", delay: "0.5s",  rot: "-10deg", emoji: "❤️" },
           { left: "47%", size: "30px", dur: "3.6s", delay: "1.8s",  rot: "18deg",  emoji: "🔁" },
           { left: "54%", size: "30px", dur: "5.2s", delay: "0.2s",  rot: "-8deg",  emoji: "❤️" },
@@ -1260,7 +1260,7 @@ export default function TapTipTup() {
           { left: "24%", size: "30px", dur: "6.4s", delay: "2.8s",  rot: "16deg",  emoji: "❤️" },
           { left: "37%", size: "30px", dur: "3.7s", delay: "3.2s",  rot: "-7deg",  emoji: "🔁" },
           { left: "50%", size: "30px", dur: "5.6s", delay: "2.4s",  rot: "20deg",  emoji: "❤️" },
-          { left: "63%", size: "30px", dur: "4.4s", delay: "3.8s",  rot: "-14deg", emoji: "🔁" },
+          { left: "63.0%", size: "30px", dur: "4.4s", delay: "3.8s",  rot: "-14deg", emoji: "🔁" },
           { left: "76%", size: "30px", dur: "5.9s", delay: "1.1s",  rot: "7deg",   emoji: "❤️" },
           { left: "89%", size: "30px", dur: "4.6s", delay: "2.7s",  rot: "-9deg",  emoji: "🔁" },
         ].map((item, i) => (
@@ -1326,7 +1326,7 @@ export default function TapTipTup() {
               fontSize: 13, color: "rgba(255,255,255,0.5)",
               lineHeight: 0.4, marginBottom: 20,
             }}>
-              Platform Dukungan streaming lokal terbaik untuk konten kreator Indonesia. Potongan hanya 3%, alert langsung di OBS, setup dalam 5 menit.
+              Platform Dukungan streaming lokal terbaik untuk konten kreator Indonesia. Potongan hanya 3.0%, alert langsung di OBS, setup dalam 5 menit.
             </p>
             <a href="/privacy-policy" style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "#BBDEFB", letterSpacing: "0.1em", textDecoration: "none" }}>
               KEBIJAKAN PRIVASI TAPTIPTUP
@@ -1498,7 +1498,7 @@ export default function TapTipTup() {
                 margin: "0 auto",
               }}>
                 Platform Dukungan lokal terbaik untuk streamer Indonesia. 
-                Potongan hanya 3%
+                Potongan hanya 3.0%
               </p>
 
               <button
