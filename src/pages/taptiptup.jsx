@@ -897,7 +897,7 @@ const SHARE_TEMPLATES = {
 const FAQ_DATA = [
   {
     q: "Saweria itu apa? Bedanya sama TapTipTup?",
-    a: "Saweria adalah platform Dukungan lokal yang sudah ada lebih dulu. TapTipTup hadir dengan potongan lebih kecil — hanya 3% — dibanding Saweria yang memotong 5%. Fitur kami juga lebih lengkap: leaderboard, poll live, subathon timer, dan sound tier kustom.",
+    a: "Saweria adalah platform Dukungan lokal yang sudah ada lebih dulu. TapTipTup hadir dengan potongan lebih kecil — hanya 3% — dibanding Saweria yang memotong 5%. Fitur kami juga lebih lengkap: Auto-inject OBS, leaderboard, poll live, subathon timer, dan sound tier kustom.",
   },
   {
     q: "Apakah saya bisa menggunakan TapTipTup tanpa live streaming?",
@@ -913,7 +913,7 @@ const FAQ_DATA = [
   },
   {
     q: "Berapa lama proses konfirmasi Dukungan sampai bisa dicairkan?",
-    a: "Memakan waktu 3 hari kerja untuk konfirmasi oleh Payment Gateway. Setelah itu saldo bertambah dan siap dicairkan. Contoh: Dukungan masuk 10 Januari jam 12.00 WIB, dana bisa dicairkan 13 Januari jam 12.00 WIB.",
+    a: "Memakan waktu 2 hari kerja untuk konfirmasi oleh Payment Gateway. Setelah itu saldo bertambah dan siap dicairkan. Contoh: Dukungan masuk 10 Januari jam 12.00 WIB, dana bisa dicairkan 12 Januari jam 12.00 WIB.",
   },
   {
     q: "Apakah dana Dukungan yang sudah dikirim bisa ditarik kembali?",
