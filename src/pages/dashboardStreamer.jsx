@@ -152,6 +152,7 @@ const DEFAULT_SETTINGS = {
   maxDonate: 5000000,
   overlayEnabled: true,
   customIcon: '',
+  progressBarColor: '#39ff14',
   showTimestamp: true,
   theme: 'modern',
   soundTiers: [],
@@ -1622,7 +1623,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             overflow: 'visible',
           }}>   
           {/* Media block */}
-          <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderBottom: `1px solid ${hl}25` }}>
+          <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderBottom: `1px solid ${hl}25`, borderRadius: 18 }}>
             {mType === 'youtube' ? (
               <iframe src={getYouTubeEmbedUrl(mediaUrl)} width="100%" height="100%" frameBorder="0"
                 allow="autoplay; encrypted-media" allowFullScreen style={{ display: 'block', border: 'none' }} />
@@ -1635,7 +1636,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           {/* Info area */}
           <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', textAlign: 'center', gap: 7, alignItems: 'center', justifyContent: 'center'}}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'max-content' }}>
-              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 18, fontWeight: 500, color: hl, borderBottom: `1px solid ${hl}25` }}>
+              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 18, fontWeight: 500, color: 'white', borderBottom: `1px solid ${hl}25` }}>
                 {currentDonor.name} mengirim
               </div>
               <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 18, marginLeft: 5, fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1, textShadow: `0 0 10px ${hl}55` }}>
@@ -1643,7 +1644,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
               </div>
             </div>
             {currentDonor.msg && (
-              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 16, color: 'black', fontWeight: 400, background: 'white', border: `1px solid ${hl}25`, padding: '5px 8px', lineHeight: 1.5, maxWidth: 500 }}>
+              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 16, color: 'black', fontWeight: 400, background: 'white', border: `1px solid ${hl}25`, padding: '5px 8px', lineHeight: 1.5, maxWidth: 500, borderRadius: 8 }}>
                 {currentDonor.msg}
               </div>
             )}
@@ -1662,7 +1663,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
           <div style={{ ...wrapperBase, 
             // boxShadow: `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`, 
-            border: `2px solid ${settings.borderColor || hl + '40'}`, width: 'max-content', position: 'relative' }}>
+            border: `2px solid ${settings.borderColor || hl + '40'}`, width: 'max-content', position: 'relative', borderRadius: 18 }}>
             <div style={scanlineStyle} />
             <MediaBlock />
             <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2, width: 'max-content' }}>
@@ -1691,7 +1692,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           // boxShadow: `0 8px 32px ${hl}18` 
           }}>
           <MediaBlock />
-          <div style={{ fontFamily: "'Poppins', sans-serif", padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ fontFamily: "'Poppins', sans-serif", padding: '14px 14px', display: 'flex', flexDirection: 'column', gap: 10 }}>
             <div style={{ fontSize: 17, color: fg, lineHeight: 1.6 }}>
               <span style={{ color: hl, fontWeight: 600 }}>{currentDonor.name}</span>
               <span> mengirim </span>
@@ -1715,7 +1716,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       return (
         <>
           <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-          <div style={{ ...wrapperBase, border: `2px solid ${hl}`, position: 'relative' }}>
+          <div style={{ ...wrapperBase, border: `2px solid ${hl}`, position: 'relative', borderRadius: 18 }}>
             <div style={scanlineStyle} />
             <MediaBlock />
             <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
@@ -1739,7 +1740,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
 
     // ── MINIMAL ──────────────────────────────────────────────────────────────────
     return (
-      <div style={{ ...wrapperBase, border: `2px solid ${hl}40`, position: 'relative' }}>
+      <div style={{ ...wrapperBase, border: `2px solid ${hl}40`, position: 'relative', borderRadius: 18 }}>
         <div style={scanlineStyle} />
         <MediaBlock />
         <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
@@ -1779,7 +1780,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
 
   useEffect(() => {
     if (!autoPreviewTick) return;
-    // triggerDemo();
+    triggerDemo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoPreviewTick]);
 
@@ -1958,7 +1959,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
               <span key={i} style={{
                 width: 6,
                 height: 6,
-                background: i < 5 ? hl : hl + '25',
+                background: i < 5 ? (settings.progressBarColor || hl) : hl + '25',
                 display: 'inline-block',
               }} />
             ))}
@@ -2030,7 +2031,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           <div style={{
             fontFamily: "'Poppins', sans-serif",
             fontSize: 16, color: fg, fontWeight: 400,
-            // width: 'max-content',
+            borderRadius: 9,
             background: hl + '12', border: `1px solid ${hl}25`,
             padding: '5px 8px', lineHeight: 1.5,
           }}>
@@ -2038,7 +2039,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           </div>
         )}
         <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
-          <div style={{ height: '100%', width: '60%', background: hl, transition: 'width 50ms linear' }} />
+          <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl, transition: 'width 50ms linear' }} />
         </div>
       </div>
     </div>
@@ -2318,7 +2319,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         <div style={{
           backgroundColor: settings.theme === 'gifCard' ? 'transparent' : bg,
           color: fg,
-          borderRadius: settings.theme === 'smooth' ? 20 : 0,
+          borderRadius: 20,
           // maxWidth: `max-content`,
           width: '100%',
           // overflow: 'hidden',
@@ -4260,10 +4261,9 @@ const handleChangePin = async () => {
                         <div className="grid grid-cols-2 gap-3">
                         {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
                           const themeLabels = {
-                            modern:  'Retro 1',
-                            // classic: 'Retro 2',
-                            minimal: 'Retro 2',
-                            smooth:  'Smooth',
+                            modern:  'Taptip 1',
+                            minimal: 'Taptip 2',
+                            smooth:  'Taptip 3',
                             gifCard: 'Pop Card',
                           };
 
@@ -4291,15 +4291,17 @@ const handleChangePin = async () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
-                      {[
-                        { key: 'primaryColor',   label: 'Background Alert',  fallback: '#6366f1' },
-                        { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#a5b4fc' },
-                        { key: 'textColor',      label: 'Warna Teks',        fallback: '#ffffff' },
-                      ].map(({ key, label, fallback }) => (
-                        <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
-                      ))}
-                      <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
-                    </div>
+                    {[
+                      { key: 'primaryColor',   label: 'Background Alert',  fallback: '#6366f1' },
+                      { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#a5b4fc' },
+                      { key: 'textColor',      label: 'Warna Teks',        fallback: '#ffffff' },
+                    ].map(({ key, label, fallback }) => (
+                      <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
+                    ))}
+                    <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
+                    {/* TAMBAH INI: */}
+                    <ColorInput id="color-progressBarColor" label="Warna Progress Bar" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
+                  </div>
                     <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                       className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
                       <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}

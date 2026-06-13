@@ -542,7 +542,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
               {/* Progress bar */}
               <div style={{ height: 3, background: hl + '25', borderRadius: 99, overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: `${progress}%`, background: hl, borderRadius: 99, transition: 'width 50ms linear' }} />
+                <div style={{ height: '100%', width: `${progress}%`, background: config.progressBarColor || hl, borderRadius: 99, transition: 'width 50ms linear' }} />
               </div>
             </div>
           </div>
@@ -598,7 +598,7 @@ const calculateMediaShareDuration = (config, amount) => {
                   fontWeight: 400,
                   minWidth: 350,
                   maxWidth: 500,
-                  borderRadius: 14,
+                  borderRadius: 10,
                   background: 'white',
                   border: `1px solid ${hl}25`,
                   padding: '5px 8px',
@@ -613,7 +613,7 @@ const calculateMediaShareDuration = (config, amount) => {
                 <div style={{
                   height: '100%',
                   width: `${progress}%`,
-                  background: hl,
+                  background: config.progressBarColor || hl,
                   transition: 'width 50ms linear',
                 }} />
               </div>
@@ -682,7 +682,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
             {/* Progress bar */}
             <div style={{ height: 2, background: 'rgba(255,255,255,0.06)' }}>
-              <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
+              <div style={{ height: '100%', width: `${progress}%`, background: config.progressBarColor || hl, transition: 'width 50ms linear' }} />
             </div>
           </div>
         </div>

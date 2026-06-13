@@ -397,7 +397,7 @@
             <div style={{
               height: '100%',
               width: `${progress}%`,
-              background: highlight,
+              background: config.progressBarColor || highlight,
               transition: 'width 50ms linear',
             }} />
           </div>
@@ -592,7 +592,7 @@
                     <div style={{
                       height: '100%',
                       width: `${progress}%`,
-                      background: highlight,
+                      background: config.progressBarColor || highlight,
                       transition: 'width 50ms linear',
                     }} />
                   </div>
