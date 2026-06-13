@@ -249,7 +249,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
             <a href='/'>
               <div className="flex shadow-none items-center gap-3">
                 <div className="ml-0 mt-[-2px] w-10 h-10 bg-blue-500 rounded-none flex items-center justify-center text-white font-black text-xl italic">
-                  <img src="/logttt.png" alt="icon" className="w-[88%]" />
+                  <img src="/ttt2.png" alt="icon" className="w-[88%]" />
                 </div>
                 <h1 className="text-lg ml-0 font-black tracking-tight text-slate-800 dark:text-slate-100 whitespace-nowrap">TAPTIPTUP</h1>
               </div>
@@ -258,7 +258,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           {isCollapsed && ( 
             <a href='/'>
               <div className="w-full h-12 bg-red-200 shadow-none rounded-none flex items-center justify-center">
-                <img src="/logttt.png" alt="icon" className={`${isCollapsed ? 'w-[30%]' : 'w-[60%]'}`} />
+                <img src="/ttt2.png" alt="icon" className={`${isCollapsed ? 'w-[30%]' : 'w-[60%]'}`} />
               </div>
             </a>
           )}
