@@ -1494,7 +1494,7 @@ export default function TapTipTup() {
               style={{
                 lineHeight: 1.4,
                 color: C.muted,
-                maxWidth: "580px",
+                maxWidth: "590px",
                 margin: "0 auto",
               }}>
                 Platform Dukungan lokal terbaik untuk streamer Indonesia. 
