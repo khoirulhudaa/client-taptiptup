@@ -1223,7 +1223,7 @@ const AdminWithdrawalPage = () => {
                     {withdrawals.map(wd => (
                       <tr key={wd._id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all">
                         <td className="px-6 py-5"><p className="font-black text-slate-700 dark:text-slate-200 text-sm">@{wd.userId?.username || '-'}</p></td>
-                        <td className="px-6 py-5"><p className="text-white dark:text-white font-black text-sm">Rp {formatRupiah(Number(wd.amount) * 0.975)}</p></td>
+                        <td className="px-6 py-5"><p className="text-white dark:text-white font-black text-sm">Rp {formatRupiah(Number(wd.amount) - 3500)}</p></td>
                         <td className="px-6 py-5"><p className="font-bold text-slate-600 dark:text-slate-300 text-sm">{wd.paymentMethod || 'BANK'}</p></td>
                         <td className="px-6 py-5"><p className="font-mono font-bold text-slate-700 dark:text-slate-200 text-sm">{wd.accountNumber}</p></td>
                         <td className="px-6 py-5">
