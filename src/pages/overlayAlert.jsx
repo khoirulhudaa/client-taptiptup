@@ -386,7 +386,7 @@
         const renderTimestamp = () => {
           if (!showTs || !alert?.receivedAt) return null;
           return (
-            <div style={{ fontSize: 22, color: fg, right: 0, fontFamily: 'monospace', letterSpacing: '0.04em', marginTop: 4 }}>
+            <div style={{ fontSize: 14, color: fg, right: 0, fontFamily: 'monospace', letterSpacing: '0.04em', marginTop: 4 }}>
               🕐 {formatTimestamp(alert.receivedAt)}
             </div>
           );
@@ -485,7 +485,7 @@
 
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 }}>
                     {showTs && alert?.receivedAt
-                      ? <div style={{ fontFamily: monospace, fontSize: 22, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em' }}>
+                      ? <div style={{ fontFamily: monospace, fontSize: 14, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em' }}>
                           {formatTimestamp(alert.receivedAt)}
                         </div>
                       : <div />
@@ -550,7 +550,7 @@
                       fontSize: 20,
                       width: 'max-content',
                       fontWeight: 500,
-                      color: highlight,
+                      color: 'white',
                       borderBottom: `1px solid ${highlight}25`,
                     }}>
                       {alert.donorName} mengirim
@@ -576,6 +576,7 @@
                       color: 'black',
                       fontWeight: 400,
                       minWidth: 400,
+                      borderRadius: 14,
                       maxWidth: 500,
                       background: 'white',
                       border: `1px solid ${highlight}25`,
@@ -642,7 +643,7 @@
 
                 {/* Timestamp */}
                 {showTs && alert?.receivedAt && (
-                  <div style={{ fontSize: 20, color: fg, opacity: 0.7, right: 0, fontWeight: 400, letterSpacing: '0.04em' }}>
+                  <div style={{ fontSize: 14, color: fg, opacity: 0.7, right: 0, fontWeight: 400, letterSpacing: '0.04em' }}>
                     {formatTimestamp(alert.receivedAt)}
                   </div>
                 )}
@@ -688,7 +689,7 @@
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   {showTs && alert?.receivedAt
-                    ? <div style={{ fontFamily: monospace, fontSize: 22, color: 'rgba(255,255,255,0.35)' }}>
+                    ? <div style={{ fontFamily: monospace, fontSize: 14, color: 'rgba(255,255,255,0.35)' }}>
                         {formatTimestamp(alert.receivedAt)}
                       </div>
                     : <div />
@@ -734,8 +735,9 @@
                   style={{
                     backgroundColor: theme === 'gifCard' ? 'transparent' : bg,
                     color: fg,
+                    padding: 6,
                     width: theme === 'gifCard' ? '500px' : 'max-content', 
-                    borderRadius: theme === 'smooth' ? 20 : 0,
+                    borderRadius: 20,
                     border: theme === 'gifCard' ? 'none' : `1px solid ${borderColor}`,
                     boxShadow: theme === 'gifCard' ? 'none' : '0 16px 40px rgba(0,0,0,0.55)',
                     overflow: theme === 'gifCard' ? 'visible' : 'hidden',

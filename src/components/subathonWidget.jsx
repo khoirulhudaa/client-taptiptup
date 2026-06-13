@@ -82,6 +82,7 @@ const SubathonWidget = () => {
       width: '100%',
       height: '100vh',
       background: 'transparent',
+      borderRadius: 20,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -89,7 +90,7 @@ const SubathonWidget = () => {
     }}>
       <div style={{
         background: '#0f0f19',
-        borderRadius: 0,
+        borderRadius: 20,
         padding: '20px 28px',
         minWidth: 280,
         border: `2px solid ${isLow ? '#ef444460' : 'rgba(255,255,255,0.08)'}`,

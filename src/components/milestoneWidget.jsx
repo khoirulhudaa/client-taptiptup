@@ -67,6 +67,7 @@ const MilestonesWidget = () => {
       minHeight: '100vh',
       // background: 'transparent',
       display: 'flex',
+      borderRadius: 20,
       flexDirection: 'column',
       justifyContent: 'flex-start',
       fontFamily: "'Inter', 'Segoe UI', sans-serif",
@@ -74,7 +75,7 @@ const MilestonesWidget = () => {
     }}>
       <div style={{
         background: 'rgba(15, 15, 25, 1)',
-        borderRadius: 0,
+        borderRadius: 20,
         padding: '18px 20px 18px 20.5px',
         // border: '1.5px solid rgba(255,255,255,1)',
         boxShadow: '0 8px 32px rgba(0,0,0,0.5)',

@@ -598,6 +598,7 @@ const calculateMediaShareDuration = (config, amount) => {
                   fontWeight: 400,
                   minWidth: 350,
                   maxWidth: 500,
+                  borderRadius: 14,
                   background: 'white',
                   border: `1px solid ${hl}25`,
                   padding: '5px 8px',
@@ -720,7 +721,7 @@ const calculateMediaShareDuration = (config, amount) => {
                 backgroundColor: theme === 'gifCard' ? 'transparent' : bg,  // ← tambah
                 color: fg,
                 width: '100%',
-                borderRadius: theme === 'smooth' ? 20 : 0,
+                borderRadius: 20,
                 border: theme === 'gifCard' ? 'none' : `1px solid ${borderColor}`,  // ← tambah
                 boxShadow: theme === 'gifCard' ? 'none' : '0 16px 40px rgba(0,0,0,0.55)',  // ← tambah
                 overflow: theme === 'gifCard' ? 'visible' : 'hidden',  // ← tambah

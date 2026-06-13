@@ -40,13 +40,15 @@ const QrCodeWidget = () => {
       display: 'inline-flex',
       flexDirection: 'column',
       alignItems: 'center',
+      borderRadius: 20,
       padding: '12px',
       background: 'transparent',
       fontFamily: "'Inter', sans-serif",
     }}>
       <div style={{
         background: 'rgba(15, 15, 25, 0.9)',
-        padding: '20px',
+        padding: '14px',
+        borderRadius: 20,
         border: '1.5px solid rgba(255,255,255,0.1)',
         boxShadow: '0 10px 40px rgba(0,0,0,0.4)',
         display: 'flex',
@@ -59,6 +61,7 @@ const QrCodeWidget = () => {
           background: '#ffffff',
           padding: '12px',
           lineHeight: 0,
+          borderRadius: 16,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'

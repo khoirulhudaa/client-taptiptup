@@ -67,6 +67,7 @@ const LeaderboardWidget = () => {
     <div style={{
       width: '100%',
       minHeight: '100vh',
+      borderRadius: 20,
       background: 'transparent',
       fontFamily: "'Inter', 'Segoe UI', sans-serif",
     }}>
@@ -74,7 +75,7 @@ const LeaderboardWidget = () => {
         key={animKey}
         style={{
           background: 'rgba(15, 15, 25, 1)',
-          borderRadius: 0,
+          borderRadius: 20,
           overflow: 'hidden',
           border: '1.5px solid rgba(255,255,255,0.08)',
           boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
