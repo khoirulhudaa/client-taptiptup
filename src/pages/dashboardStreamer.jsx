@@ -1649,7 +1649,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
               </div>
             )}
             <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: '60%', background: hl }} />
+              <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl }} />
             </div>
           </div>
         </div>
@@ -1675,10 +1675,13 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
                 </span>
               </div>
               {currentDonor.msg && (
-                <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5 }}>
+                <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, paddingBottom: 6 }}>
                   {currentDonor.msg}
                 </div>
               )}
+              <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl }} />
+              </div>
             </div>
           </div>
         </>
@@ -1700,12 +1703,15 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
                 Rp {currentDonor.amount.toLocaleString('id-ID')}
               </span>
             </div>
-            <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} />
+            {/* <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} /> */}
             {currentDonor.msg && (
               <div style={{ fontWeight: 400, fontSize: 15, color: fg, background: hl + '10', borderRadius: 8, padding: '7px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
                 {currentDonor.msg}
               </div>
             )}
+            <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl }} />
+            </div>
           </div>
         </div>
       );
@@ -1732,6 +1738,9 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
                   {currentDonor.msg}
                 </div>
               )}
+              <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl }} />
+              </div>
             </div>
           </div>
         </>
@@ -1751,10 +1760,13 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             </span>
           </div>
           {currentDonor.msg && (
-            <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderTop: `1px solid ${hl}20`, paddingTop: 8 }}>
+            <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderTop: `1px solid ${hl}20`, paddingTop: 8, paddingBottom: 6 }}>
               {currentDonor.msg}
             </div>
           )}
+          <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+            <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl }} />
+          </div>
         </div>
       </div>
     );
@@ -2125,120 +2137,10 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           {new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
         </div>
       )}
-    </div>
-  );
 
-  // ══════════════════════════════════════════
-  // CLASSIC — Retro game dialog box
-  // ══════════════════════════════════════════
-  const classicInner = (
-    <div style={{ position: 'relative', overflow: 'hidden' }}>
-      <div style={scanlineStyle} />
-      {/* Double-border pixel frame top */}
-      <div style={{ height: 3, background: hl, position: 'relative', zIndex: 2 }} />
-      <div style={{ height: 1, background: bg, position: 'relative', zIndex: 2 }} />
-      <div style={{ height: 1, background: hl + '60', position: 'relative', zIndex: 2 }} />
-
-      {/* Title bar — RPG style */}
-      <div style={{
-        background: hl + '15',
-        borderBottom: `1px solid ${hl}40`,
-        padding: '7px 12px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        position: 'relative',
-        zIndex: 2,
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-          <span style={{
-            fontFamily: 'monospace',
-            fontSize: 20,
-            lineHeight: 1,
-            display: 'inline-block',
-          }}>
-            {renderIconPreview(settings.customIcon, 16)}
-          </span>
-          {/* <span style={{
-            fontFamily: 'monospace',
-            fontSize: 10,
-            fontWeight: 700,
-            color: hl,
-            textTransform: 'uppercase',
-            letterSpacing: '0.15em',
-          }}>★ Dukungan Masuk! ★</span> */}
-        </div>
-        <FrogDeco size={11} />
+      <div style={{ height: 3, background: hl + '25', borderRadius: 99, overflow: 'hidden' }}>
+        <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl, borderRadius: 99, transition: 'width 50ms linear' }} />
       </div>
-
-      {/* Content */}
-      <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
-        {/* Name row */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 6,
-          marginBottom: 6,
-          borderBottom: `1px dashed ${hl}30`,
-          paddingBottom: 6,
-        }}>
-          <span style={{
-            fontFamily: 'monospace',
-            fontSize: 20,
-            fontWeight: 900,
-            color: fg,
-            letterSpacing: '-0.3px',
-          }}>{currentDonor.name}</span>
-        </div>
-
-        {/* Amount */}
-        <div style={{
-          fontFamily: 'monospace',
-          fontSize: 26,
-          fontWeight: 900,
-          color: hl,
-          letterSpacing: '-0.5px',
-          marginBottom: 5,
-          textShadow: `0 0 10px ${hl}50`,
-        }}>
-          Rp {currentDonor.amount.toLocaleString('id-ID')}
-        </div>
-
-        {/* Message */}
-        {currentDonor.msg && (
-          <div style={{
-            fontFamily: 'monospace',
-            fontSize: 20,
-            color: fg,
-            width: 'max-content',
-            // opacity: 0.8,
-            lineHeight: 1.45,
-            // borderLeft: `2px solid ${hl}`,
-            // paddingLeft: 8,
-            marginBottom: 6,
-          }}>
-            {currentDonor.msg}
-          </div>
-        )}
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          {ts}
-          {/* <div style={{
-            fontFamily: 'monospace',
-            fontSize: 8,
-            color: hl,
-            opacity: 0.5,
-            letterSpacing: '0.1em',
-          }}>
-            {`[ PRESS ▲ TO CONTINUE ]`}
-          </div> */}
-        </div>
-      </div>
-
-      {/* Double-border pixel frame bottom */}
-      <div style={{ height: 1, background: hl + '60' }} />
-      <div style={{ height: 1, background: bg }} />
-      <div style={{ height: 3, background: hl }} />
     </div>
   );
 
@@ -2307,11 +2209,15 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         <div style={{ display: 'flex', fontSize: 16, alignItems: 'center', justifyContent: 'space-between' }}>
           {ts}
         </div>
+
+        <div style={{ height: 2, marginTop: 6, background: 'rgba(255,255,255,0.06)' }}>
+          <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl, transition: 'width 50ms linear' }} />
+        </div>
       </div>
     </div>
   );
 
-  const innerMap = { modern: modernInner, classic: classicInner, minimal: minimalInner, smooth: smoothInner, gifCard: gifCardInner };
+  const innerMap = { modern: modernInner, minimal: minimalInner, smooth: smoothInner, gifCard: gifCardInner };
 
     return (
       <>
@@ -2368,14 +2274,6 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       )}
     </AnimatePresence>
   );
-
-  // const mediaShareDuration = (() => {
-  //   if (!currentDonor) return 0;
-  //     const base = Number(settings.mediaShareBaseDuration) || 15;
-  //     const perAmt = Number(settings.mediaShareExtraPerAmount) || 10000;
-  //     const extra = Number(settings.mediaShareExtraDuration) || 10;
-  //     return base + Math.floor(currentDonor.amount / perAmt) * extra;
-  //   })();
 
     return (
     <div className="sticky md:p-0 p-4 md:bg-transparent bg-white/30 dark:bg-slate-900/60 md:backdrop-blur-sm rounded-none shadow-sm md:border-none border border-slate-100 dark:border-slate-800 top-26 space-y-3">

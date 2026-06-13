@@ -494,7 +494,7 @@
                       {Array.from({ length: 8 }).map((_, i) => (
                         <span key={i} style={{
                           width: 6, height: 6, display: 'inline-block',
-                          background: i < Math.round(progress / 12.5) ? hl : hl + '22',
+                          background: i < Math.round(progress / 12.5) ? (config.progressBarColor || hl) : hl + '22',
                         }} />
                       ))}
                     </div>
@@ -592,7 +592,7 @@
                     <div style={{
                       height: '100%',
                       width: `${progress}%`,
-                      background: config.progressBarColor || highlight,
+                      background: config.progressBarColor || hl,
                       transition: 'width 50ms linear',
                     }} />
                   </div>
@@ -650,7 +650,7 @@
 
                 {/* Progress bar */}
                 <div style={{ height: 3, background: hl + '25', borderRadius: 99, overflow: 'hidden' }}>
-                  <div style={{ height: '100%', width: `${progress}%`, background: hl, borderRadius: 99, transition: 'width 50ms linear' }} />
+                  <div style={{ height: '100%', width: `${progress}%`, background: config.progressBarColor || hl, borderRadius: 99, transition: 'width 50ms linear' }} />
                 </div>
               </div>
             );
@@ -697,7 +697,7 @@
                 </div>
 
                 <div style={{ height: 2, background: 'rgba(255,255,255,0.06)', marginTop: 6 }}>
-                  <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
+                  <div style={{ height: '100%', width: `${progress}%`, background: config.progressBarColor || hl, transition: 'width 50ms linear' }} />
                 </div>
               </div>
             </div>

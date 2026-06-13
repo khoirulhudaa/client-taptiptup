@@ -499,7 +499,11 @@ const calculateMediaShareDuration = (config, amount) => {
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 8 }}>
                 <div style={{ display: 'flex', gap: 2 }}>
                   {Array.from({ length: 8 }).map((_, i) => (
-                    <span key={i} style={{ width: 6, height: 6, display: 'inline-block', background: i < Math.round(progress / 12.5) ? hl : hl + '22' }} />
+                    <span key={i} style={{ width: 6, height: 6, display: 'inline-block', 
+                      // background: i < Math.round(progress / 12.5) ? hl : hl + '22' ,
+                      background: i < Math.round(progress / 12.5) ? (config.progressBarColor || hl) : hl + '22',
+                    }} 
+                  />
                   ))}
                 </div>
               </div>
