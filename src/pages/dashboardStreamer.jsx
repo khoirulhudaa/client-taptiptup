@@ -1660,7 +1660,9 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       return (
         <>
           <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-          <div style={{ ...wrapperBase, boxShadow: `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`, border: `2px solid ${settings.borderColor || hl + '40'}`, width: 'max-content', position: 'relative' }}>
+          <div style={{ ...wrapperBase, 
+            // boxShadow: `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`, 
+            border: `2px solid ${settings.borderColor || hl + '40'}`, width: 'max-content', position: 'relative' }}>
             <div style={scanlineStyle} />
             <MediaBlock />
             <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2, width: 'max-content' }}>
@@ -1685,19 +1687,21 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
     // ── SMOOTH ──────────────────────────────────────────────────────────────────
     if (theme === 'smooth') {
       return (
-        <div style={{ ...wrapperBase, borderRadius: 16, border: `1.5px solid ${hl}30`, boxShadow: `0 8px 32px ${hl}18` }}>
+        <div style={{ ...wrapperBase, borderRadius: 16, border: `1.5px solid ${hl}30`, 
+          // boxShadow: `0 8px 32px ${hl}18` 
+          }}>
           <MediaBlock />
           <div style={{ fontFamily: "'Poppins', sans-serif", padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <div style={{ fontSize: 15, color: fg, lineHeight: 1.6 }}>
-              <span style={{ color: hl, fontWeight: 700 }}>{currentDonor.name}</span>
+            <div style={{ fontSize: 17, color: fg, lineHeight: 1.6 }}>
+              <span style={{ color: hl, fontWeight: 600 }}>{currentDonor.name}</span>
               <span> mengirim </span>
-              <span style={{ fontWeight: 800, color: hl, letterSpacing: '-0.5px' }}>
+              <span style={{ fontWeight: 600, color: hl, letterSpacing: '-0.5px' }}>
                 Rp {currentDonor.amount.toLocaleString('id-ID')}
               </span>
             </div>
             <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} />
             {currentDonor.msg && (
-              <div style={{ fontWeight: 600, fontSize: 13, color: fg, background: hl + '10', borderRadius: 8, padding: '7px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
+              <div style={{ fontWeight: 400, fontSize: 15, color: fg, background: hl + '10', borderRadius: 8, padding: '7px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
                 {currentDonor.msg}
               </div>
             )}
@@ -1758,8 +1762,8 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   const donors = [
     { name: 'Budi', amount: 50000,  msg: 'Semangat terus ngodingnya' },
     { name: 'Reza',  amount: 150000, msg: 'Mantap konten-kontennya'   },
-    { name: 'Denis',       amount: 10000,  msg: 'Seru banget streamingnya'                       },
-    { name: 'Rizky',     amount: 200000, msg: 'Dukung creator Indonesia'      },
+    { name: 'Denis',       amount: 20000,  msg: 'Seru banget streamingnya'                       },
+    { name: 'Rizky',     amount: 20000, msg: 'Dukung creator Indonesia'      },
   ];
 
   const triggerDemo = () => {
@@ -1769,17 +1773,17 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
     setCurrentDonor(d);
     setShowAlert(false);
     setTimeout(() => { setAnimKey(k => k + 1); setShowAlert(true); }, 50);
-    const dur = getDuration(settings, d.amount);
-    timerRef.current = setTimeout(() => setShowAlert(false), dur * 1000 + 500);
+    // const dur = getDuration(settings, d.amount);
+    // timerRef.current = setTimeout(() => setShowAlert(false), dur * 1000 + 500);
   };
 
   useEffect(() => {
     if (!autoPreviewTick) return;
-    triggerDemo();
+    // triggerDemo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoPreviewTick]);
 
-  useEffect(() => () => timerRef.current && clearTimeout(timerRef.current), []);
+  // useEffect(() => () => timerRef.current && clearTimeout(timerRef.current), []);
 
   const posMap = {
     'top-left':      { top: '14%', left: '2%' },
@@ -1803,7 +1807,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   const fg    = settings.textColor || '#ffffff';
   const maxW  = settings.maxWidth || 280;
   const theme = settings.theme || 'modern';
-  const dur   = currentDonor ? getDuration(settings, currentDonor.amount) : 5;
+  // const dur   = currentDonor ? getDuration(settings, currentDonor.amount) : 5;
 
   const handleFullScreen = () => { testFullScreen(); setIsFullscreen(!isFullscreen); };
   
@@ -1931,7 +1935,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         {currentDonor.msg && (
           <div style={{
             fontFamily: 'monospace',
-            fontSize: 16,
+            fontSize: 18,
             color: fg,
             background: 'rgba(255,255,255,0.04)',
             border: dimBorder,
@@ -2287,7 +2291,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         {currentDonor.msg && (
           <div style={{
             fontFamily: 'monospace',
-            fontSize: 16,
+            fontSize: 18,
             color: fg,
             width: 'max-content',
             // opacity: 0.7,
@@ -2318,7 +2322,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           // maxWidth: `max-content`,
           width: '100%',
           // overflow: 'hidden',
-          boxShadow: settings.theme === 'gifCard' ? 'none' : `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`,
+          // boxShadow: settings.theme === 'gifCard' ? 'none' : `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`,
           border: settings.theme === 'gifCard' ? 'none' : `2px solid ${settings.borderColor || hl + '40'}`,
           imageRendering: 'pixelated',
         }}>
@@ -2364,13 +2368,13 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
     </AnimatePresence>
   );
 
-  const mediaShareDuration = (() => {
-    if (!currentDonor) return 0;
-      const base = Number(settings.mediaShareBaseDuration) || 15;
-      const perAmt = Number(settings.mediaShareExtraPerAmount) || 10000;
-      const extra = Number(settings.mediaShareExtraDuration) || 10;
-      return base + Math.floor(currentDonor.amount / perAmt) * extra;
-    })();
+  // const mediaShareDuration = (() => {
+  //   if (!currentDonor) return 0;
+  //     const base = Number(settings.mediaShareBaseDuration) || 15;
+  //     const perAmt = Number(settings.mediaShareExtraPerAmount) || 10000;
+  //     const extra = Number(settings.mediaShareExtraDuration) || 10;
+  //     return base + Math.floor(currentDonor.amount / perAmt) * extra;
+  //   })();
 
     return (
     <div className="sticky md:p-0 p-4 md:bg-transparent bg-white/30 dark:bg-slate-900/60 md:backdrop-blur-sm rounded-none shadow-sm md:border-none border border-slate-100 dark:border-slate-800 top-26 space-y-3">
@@ -2427,8 +2431,8 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       <div className="flex items-center justify-between text-[10px] text-slate-400 font-bold px-1 flex-wrap gap-1">
         <span>Lebar: <span className="text-blue-600">{maxW}px</span></span>
         <span>Tema: <span className="text-blue-600">{theme}</span></span>
-        {previewMode === 'alert' && <span>Durasi alert: <span className="text-blue-600">{currentDonor ? dur : '-'}s</span></span>}
-        {previewMode === 'media' && <span>Durasi medser: <span className="text-purple-500">{currentDonor ? mediaShareDuration : '-'}s</span></span>}
+        {/* {previewMode === 'alert' && <span>Durasi alert: <span className="text-blue-600">{currentDonor ? dur : '-'}s</span></span>} */}
+        {/* {previewMode === 'media' && <span>Durasi medser: <span className="text-purple-500">{currentDonor ? mediaShareDuration : '-'}s</span></span>} */}
       </div>
 
       {/* {previewMode === 'media' && settings.theme === 'gifCard' && (
