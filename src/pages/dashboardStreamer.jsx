@@ -49,7 +49,8 @@ import {
   MonitorPlay,
   Vote,
   X,
-  Zap
+  Zap,
+  ChevronDown
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
@@ -231,7 +232,7 @@ const getTokenPayload = () => {
 const SectionHeader = ({ icon, title, color }) => (
   <div className="flex items-center gap-4">
     {icon && (
-      <div className={`${color} p-3 rounded-none text-white shadow-lg`}>{icon}</div>
+      <div className={`${color} p-3 rounded-lg text-white shadow-lg`}>{icon}</div>
     )}
     <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">{title}</h3>
   </div>
@@ -241,7 +242,7 @@ const InputField = ({ label, ...props }) => (
   <div className="w-full">
     <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">{label}</label>
     <input
-      className="w-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none p-3 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all font-bold text-sm text-slate-900 dark:text-slate-100 shadow-sm"
+      className="w-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg p-3 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all font-bold text-sm text-slate-900 dark:text-slate-100 shadow-sm"
       {...props}
       onChange={e => props.onChange?.(e.target.value)}
     />
@@ -260,20 +261,20 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
   };
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
       {/* <div className="flex justify-between items-center gap-3 mb-5">
         <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Quick Nominal</span>
       </div> */}
         <SectionHeader icon={<Settings size={20} />} title={`Quick Nominal`} color="bg-red-500" />
         <div className="gap-2.5 grid grid-cols-1 mt-5 md:grid-cols-2">
         {amounts.map((amt, i) => (
-          <div key={i} className="w-[100%] flex gap-3 items-center bg-slate-50 dark:bg-slate-800 p-3 rounded-none">
+          <div key={i} className="w-[100%] flex gap-3 items-center bg-slate-50 dark:bg-slate-800 p-3 rounded-lg">
             <input
               type="number"
               value={amt}
               aria-label={`Nominal ${i + 1}`}
               onChange={e => update(i, e.target.value)}
-              className="flex-1 p-3 w-full bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-none font-bold"
+              className="flex-1 p-3 w-full bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-lg font-bold"
             />
             <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.99] hover:text-red-600 text-red-500">
               <Trash2 size={18} />
@@ -281,13 +282,13 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
           </div>
         ))}
       </div>
-      <button onClick={add} className="cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full mt-4 py-2.5 border-2 border-dashed border-cyan-400/30 text-white rounded-none font-black text-sm">
+      <button onClick={add} className="cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full mt-4 py-2.5 border-2 border-dashed border-cyan-400/30 text-white rounded-lg font-black text-sm">
         + Tambah Nominal
       </button>
       <button
         onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })}
         disabled={saveSettingsMutation.isPending}
-        className="mt-3 md:mt-6 cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full py-3 bg-cyan-600 text-white rounded-none text-sm font-black"
+        className="mt-3 md:mt-6 cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full py-3 bg-cyan-600 text-white rounded-lg text-sm font-black"
       >
         Simpan Quick Nominal
       </button>
@@ -299,10 +300,10 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
 
 const InstantTestAlertSkeleton = () => {
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-none animate-pulse" />
+        <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-lg animate-pulse" />
         <div className="space-y-2">
           <div className="h-6 w-48 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
         </div>
@@ -313,7 +314,7 @@ const InstantTestAlertSkeleton = () => {
         {[...Array(4)].map((_, i) => (
           <div key={i} className="flex flex-col gap-1">
             <div className="h-3 w-24 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
-            <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+            <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse" />
           </div>
         ))}
       </div>
@@ -321,15 +322,15 @@ const InstantTestAlertSkeleton = () => {
       {/* Preset Buttons */}
       <div className="flex flex-wrap gap-3">
         {[...Array(5)].map((_, i) => (
-          <div key={i} className="h-8 w-16 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+          <div key={i} className="h-8 w-16 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse" />
         ))}
       </div>
 
       {/* Send Button */}
-      <div className="h-14 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+      <div className="h-14 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse" />
 
       {/* Last Sent Placeholder */}
-      <div className="h-12 bg-emerald-50/50 dark:bg-emerald-950/30 rounded-none animate-pulse" />
+      <div className="h-12 bg-emerald-50/50 dark:bg-emerald-950/30 rounded-lg animate-pulse" />
 
       {/* Warning */}
       <div className="h-4 w-3/4 mx-auto bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
@@ -339,10 +340,10 @@ const InstantTestAlertSkeleton = () => {
 
 const InstantTestMediaShareSkeleton = () => {
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
       {/* Header */}
       <div className="flex items-center gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
-        <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-none animate-pulse" />
+        <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-lg animate-pulse" />
         <div className="space-y-2">
           <div className="h-6 w-52 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
         </div>
@@ -353,7 +354,7 @@ const InstantTestMediaShareSkeleton = () => {
         {[...Array(2)].map((_, i) => (
           <div key={i} className="flex flex-col gap-1">
             <div className="h-3 w-28 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
-            <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+            <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse" />
           </div>
         ))}
       </div>
@@ -361,13 +362,13 @@ const InstantTestMediaShareSkeleton = () => {
       {/* Message */}
       <div className="flex flex-col gap-1">
         <div className="h-3 w-32 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
-        <div className="h-20 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+        <div className="h-20 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse" />
       </div>
 
       {/* Media URL */}
       <div className="space-y-3">
         <div className="h-3 w-24 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
-        <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+        <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse" />
       </div>
 
       {/* Quick Presets */}
@@ -375,16 +376,16 @@ const InstantTestMediaShareSkeleton = () => {
         <div className="h-4 w-32 bg-slate-200 dark:bg-slate-700 rounded mb-3 animate-pulse" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-28 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+            <div key={i} className="h-28 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse" />
           ))}
         </div>
       </div>
 
       {/* Send Button */}
-      <div className="h-14 bg-slate-200 dark:bg-slate-700 rounded-none animate-pulse" />
+      <div className="h-14 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse" />
 
       {/* Last Sent */}
-      <div className="h-12 bg-emerald-50/50 dark:bg-emerald-950/30 rounded-none animate-pulse" />
+      <div className="h-12 bg-emerald-50/50 dark:bg-emerald-950/30 rounded-lg animate-pulse" />
     </div>
   );
 };
@@ -427,9 +428,9 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
   ];
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
       <div className="flex items-center gap-4">
-        <div className="bg-rose-500 p-3 rounded-none text-white shadow-lg">
+        <div className="bg-rose-500 p-3 rounded-lg text-white shadow-lg">
           <Zap size={20} />
         </div>
         <div>
@@ -443,7 +444,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
           <input 
             value={customName} 
             onChange={e => setCustomName(e.target.value)}
-            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
+            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
             placeholder="Seseorang" 
           />
         </div>
@@ -453,7 +454,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
             type="number" 
             value={customAmount} 
             onChange={e => setCustomAmount(e.target.value)}
-            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all" 
+            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all" 
           />
         </div>
       </div>
@@ -464,7 +465,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         <textarea 
           value={customMsg} 
           onChange={e => setCustomMsg(e.target.value)}
-          className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all h-20 resize-y"
+          className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all h-20 resize-y"
           placeholder="Tulis pesan donasi di sini..." 
         />
       </div>
@@ -477,7 +478,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
             <button
               key={index}
               onClick={() => setCustomMsg(template)}
-              className={`cursor-pointer active:scale-[0.99] text-left text-xs p-3 rounded-none border transition-all hover:bg-rose-50 dark:hover:bg-rose-950/30 ${
+              className={`cursor-pointer active:scale-[0.99] text-left text-xs p-3 rounded-lg border transition-all hover:bg-rose-50 dark:hover:bg-rose-950/30 ${
                 customMsg === template 
                   ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 font-medium' 
                   : 'border-slate-200 dark:border-slate-700 hover:border-rose-300'
@@ -494,7 +495,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
           <button 
             key={v} 
             onClick={() => setCustomAmount(v)}
-            className={`cursor-pointer active:scale-[0.99] px-3 py-1.5 rounded-none text-xs font-black transition-all border-2 ${
+            className={`cursor-pointer active:scale-[0.99] px-3 py-1.5 rounded-lg text-xs font-black transition-all border-2 ${
               Number(customAmount) === v
                 ? 'bg-rose-500 border-rose-500 text-white'
                 : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
@@ -508,7 +509,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       <button 
         onClick={sendTest} 
         disabled={isSending || !overlayToken}
-        className="cursor-pointer active:scale-[0.99] w-full py-3 hover:brightness-90 bg-slate-900/70 dark:bg-slate-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60"
+        className="cursor-pointer active:scale-[0.99] w-full py-3 hover:brightness-90 bg-slate-900/70 dark:bg-slate-700 text-white rounded-lg font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60"
       >
         {isSending ? (
           <><RefreshCw size={18} className="animate-spin" /> Mengirim...</>
@@ -521,7 +522,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         <motion.div 
           initial={{ opacity: 0, y: 4 }} 
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-3 text-xs text-white dark:text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-none px-4 py-3 border border-emerald-100 dark:border-emerald-900"
+          className="flex items-center gap-3 text-xs text-white dark:text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-lg px-4 py-3 border border-emerald-100 dark:border-emerald-900"
         >
           <CheckCircle2 size={14} /> Test terakhir dikirim: {lastSent.toLocaleTimeString('id-ID')}
         </motion.div>
@@ -577,9 +578,9 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
   const updateForm = (field, value) => setFormData(prev => ({ ...prev, [field]: value }));
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
       <div className="flex items-center gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
-        <div className="bg-cyan-600 p-3 rounded-none text-white shadow-lg">
+        <div className="bg-cyan-600 p-3 rounded-lg text-white shadow-lg">
           <Video size={20} />
         </div>
         <div>
@@ -591,7 +592,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
         <div className="flex flex-col gap-1">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Donor</label>
           <input value={formData.donorName} onChange={e => updateForm('donorName', e.target.value)}
-            className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm focus:border-purple-400 focus:outline-none transition-all"
+            className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm focus:border-purple-400 focus:outline-none transition-all"
             placeholder="@Seseorang" />
         </div>
         <div className="flex flex-col gap-1">
@@ -600,7 +601,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
             type="number" 
             value={formData.amount}
             onChange={e => updateForm('amount', e.target.value === '' ? '' : e.target.value)}
-            className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm focus:border-emerald-400 focus:outline-none transition-all"
+            className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm focus:border-emerald-400 focus:outline-none transition-all"
             placeholder="25000" />
         </div>
       </div>
@@ -608,14 +609,14 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
       <div className="flex flex-col gap-1">
         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pesan (opsional)</label>
         <textarea value={formData.message} onChange={e => updateForm('message', e.target.value)} rows={2}
-          className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-none font-medium text-sm resize-none focus:border-blue-400 focus:outline-none transition-all"
+          className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-medium text-sm resize-none focus:border-blue-400 focus:outline-none transition-all"
           placeholder="Terima kasih dukungannya!" />
       </div>
 
       <div className="space-y-3">
         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-1">Media URL</label>
         <input value={formData.mediaUrl} onChange={e => updateForm('mediaUrl', e.target.value)}
-          className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm focus:border-purple-400 focus:outline-none transition-all"
+          className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm focus:border-purple-400 focus:outline-none transition-all"
           placeholder="https://example.com/image.jpg" />
       </div>
 
@@ -624,7 +625,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {PRESET_MEDIA.map((preset, i) => (
             <button key={i} onClick={() => { updateForm('mediaUrl', preset.url); updateForm('mediaType', preset.type); }}
-              className={`cursor-pointer active:scale-[0.99] group relative p-2 rounded-none border-2 transition-all overflow-hidden hover:shadow-md ${
+              className={`cursor-pointer active:scale-[0.99] group relative p-2 rounded-lg border-2 transition-all overflow-hidden hover:shadow-md ${
                 formData.mediaUrl === preset.url
                   ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/30 shadow-md ring-2 ring-purple-200'
                   : 'border-slate-200 dark:border-slate-700 hover:border-purple-300 bg-slate-50 dark:bg-slate-800/50'
@@ -638,7 +639,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
       </div>
 
       <button onClick={sendTestMedia} disabled={isSending || !overlayToken || !formData.mediaUrl}
-        className="cursor-pointer hover:brightness-90 w-full py-3 hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white rounded-none font-black text-sm active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
+        className="cursor-pointer hover:brightness-90 w-full py-3 hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white rounded-lg font-black text-sm active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
         {isSending ? (
           <><div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" /><span>Mengirim...</span></>
         ) : (
@@ -648,7 +649,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
 
       {lastSent && (
         <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-3 text-xs text-white dark:text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-none px-4 py-3 border border-emerald-100 dark:border-emerald-900">
+          className="flex items-center gap-3 text-xs text-white dark:text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-lg px-4 py-3 border border-emerald-100 dark:border-emerald-900">
           <CheckCircle2 size={14} /> MediaShare berhasil dikirim: {lastSent.toLocaleTimeString('id-ID')}
         </motion.div>
       )}
@@ -676,11 +677,11 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
           className="fixed inset-0 bg-black/70 backdrop-blur-md z-[300] flex items-center justify-center p-4"
           onClick={onClose}>
           <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }}
-            className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-8 text-center max-w-sm w-full"
+            className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-8 text-center max-w-sm w-full"
             onClick={e => e.stopPropagation()}>
             <p className="text-red-500 text-4xl mb-4">⚠️</p>
             <p className="font-black text-xl">Gagal memuat profil</p>
-            <button onClick={onClose} className="mt-6 px-6 py-3 bg-slate-900/70 text-white rounded-none font-bold">Tutup</button>
+            <button onClick={onClose} className="mt-6 px-6 py-3 bg-slate-900/70 text-white rounded-lg font-bold">Tutup</button>
           </motion.div>
         </motion.div>
       </AnimatePresence>
@@ -696,11 +697,11 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
       >
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0 }}
-          className="z-[999999] mt-auto md:mt-0 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none h-[70vh] pb-4 md:h-max overflow-y-auto max-w-5xl w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800 relative"
+          className="z-[999999] mt-auto md:mt-0 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg h-[70vh] pb-4 md:h-max overflow-y-auto max-w-5xl w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800 relative"
           onClick={e => e.stopPropagation()}
         >
           <div className="h-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 relative">
-            <button onClick={onClose} className="absolute top-4 right-4 z-10 w-9 h-9 bg-white hover:bg-slate-100 backdrop-blur-md rounded-none flex items-center justify-center text-black cursor-pointer active:scale-[0.98] transition-all">
+            <button onClick={onClose} className="absolute top-4 right-4 z-10 w-9 h-9 bg-white hover:bg-slate-100 backdrop-blur-md rounded-lg flex items-center justify-center text-black cursor-pointer active:scale-[0.98] transition-all">
               <X size={18} />
             </button>
           </div>
@@ -708,8 +709,8 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
           <div className="flex flex-col md:flex-row">
             <div className="md:w-[40%] p-6 md:p-8 md:border-r border-slate-50 dark:border-slate-800/50 flex flex-col justify-between">
               <div className="relative mt-0 md:mt-0 mb-4">
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none ml-[-5px] mb-4 shadow-xl inline-block">
-                  <div className="w-24 h-24 md:w-28 md:h-28 rounded-none bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-4xl font-black text-blue-600 border-4 border-white dark:border-slate-900 overflow-hidden">
+                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg ml-[-5px] mb-4 shadow-xl inline-block">
+                  <div className="w-24 h-24 md:w-28 md:h-28 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-4xl font-black text-blue-600 border-4 border-white dark:border-slate-900 overflow-hidden">
                     {streamer?.profilePicture ? (
                       <img src={streamer.profilePicture} alt={username} className="w-full h-full object-cover" />
                     ) : username?.charAt(0).toUpperCase()}
@@ -717,18 +718,18 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
                 </div>
                 <h2 className="text-2xl font-black text-slate-800 dark:text-white flex items-center gap-3">
                   {streamer?.fullName || username}
-                  <div className="w-4 h-4 bg-blue-500 rounded-none flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 bg-white rounded-none" />
+                  <div className="w-4 h-4 bg-blue-500 rounded-lg flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 bg-white rounded-lg" />
                   </div>
                 </h2>
                 <p className="text-blue-600 dark:text-blue-400 font-bold text-sm">@{username}</p>
               </div>
               <div className="space-y-3">
                 <div className="flex flex-col mt-auto space-y-1 gap-3 mt-4">
-                  <button onClick={copy} className="w-full flex items-center justify-center gap-3 py-3 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-none font-bold text-xs hover:bg-slate-50 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700">
+                  <button onClick={copy} className="w-full flex items-center justify-center gap-3 py-3 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-lg font-bold text-xs hover:bg-slate-50 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700">
                     {copied ? <><CheckCircle2 size={16} /> Tersalin!</> : <><Copy size={16} /> Salin Link Profile</>}
                   </button>
-                  <button className="w-full py-3 bg-blue-600 text-white rounded-none font-black text-sm shadow-lg shadow-blue-100 dark:shadow-none hover:bg-blue-700 transition-all flex items-center justify-center gap-3">
+                  <button className="w-full py-3 bg-blue-600 text-white rounded-lg font-black text-sm shadow-lg shadow-blue-100 dark:shadow-none hover:bg-blue-700 transition-all flex items-center justify-center gap-3">
                     <Heart size={16} /> Follow
                   </button>
                 </div>
@@ -749,25 +750,25 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
                   <div className="flex flex-wrap gap-3">
                     {streamer.instagram && (
                       <a href={`https://instagram.com/${streamer.instagram.replace('@','')}`} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-3 px-4 py-2 bg-pink-50 dark:bg-pink-600 text-white rounded-none text-sm font-medium hover:bg-pink-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-2 bg-pink-50 dark:bg-pink-600 text-white rounded-lg text-sm font-medium hover:bg-pink-700 active:scale-[0.98]">
                         📷 Instagram
                       </a>
                     )}
                     {streamer.facebook && (
                       <a href={streamer.facebook.startsWith('http') ? streamer.facebook : `https://facebook.com/${streamer.facebook}`} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-3 px-4 py-2 bg-blue-50 dark:bg-blue-600 text-white rounded-none text-sm font-medium hover:bg-blue-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-2 bg-blue-50 dark:bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 active:scale-[0.98]">
                         👍 Facebook
                       </a>
                     )}
                     {streamer.youtube && (
                       <a href={streamer.youtube} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-3 px-4 py-2 bg-red-50 dark:bg-red-600 text-white rounded-none text-sm font-medium hover:bg-red-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-2 bg-red-50 dark:bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 active:scale-[0.98]">
                         ▶ YouTube
                       </a>
                     )}
                     {streamer.twitter && (
                       <a href={`https://twitter.com/${streamer.twitter.replace('@','')}`} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-3 px-4 py-2 bg-sky-50 dark:bg-emerald-600 text-white rounded-none text-sm font-medium hover:bg-emerald-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-2 bg-sky-50 dark:bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 active:scale-[0.98]">
                         𝕏 Twitter
                       </a>
                     )}
@@ -777,7 +778,7 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
 
               <div className="pt-2 space-y-3">
                 <a href={donateUrl} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-3 w-full py-3 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-none font-black text-sm shadow-xl shadow-blue-100 dark:shadow-blue-900/20 hover:brightness-110 transition-all active:scale-[0.98]">
+                  className="flex items-center justify-center gap-3 w-full py-3 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-lg font-black text-sm shadow-xl shadow-blue-100 dark:shadow-blue-900/20 hover:brightness-110 transition-all active:scale-[0.98]">
                   <Heart size={16} fill="white" /> Dukung @{username}
                 </a>
               </div>
@@ -826,7 +827,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
   ];
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
       <SectionHeader icon={<ShieldCheck size={20} />} title="Filter Kata Terlarang" color="bg-red-500" />
       <div className="space-y-3">
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Aksi saat kata terlarang terdeteksi</label>
@@ -834,7 +835,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
           {ACTION_OPTIONS.map(opt => (
             <button key={opt.id}
               onClick={() => { setLocalAction(opt.id); saveMutation.mutate({ words, action: opt.id, replacement: localReplacement }); }}
-              className={`cursor-pointer active:scale-[0.99] text-left p-4 rounded-none border-2 transition-all space-y-1.5 ${localAction === opt.id ? opt.active + ' shadow-md' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600'}`}>
+              className={`cursor-pointer active:scale-[0.99] text-left p-4 rounded-lg border-2 transition-all space-y-1.5 ${localAction === opt.id ? opt.active + ' shadow-md' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600'}`}>
               <div className="flex items-center gap-3">
                 <span className="text-xl">{opt.emoji}</span>
                 <span className="font-black text-sm text-slate-700 dark:text-slate-200">{opt.title}</span>
@@ -846,7 +847,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
         {localAction === 'replace' && (
           <input value={localReplacement} onChange={e => setLocalReplacement(e.target.value)} onBlur={() => save({ replacement: localReplacement })}
             placeholder="contoh: [dihapus], ❤️, [sensor]"
-            className="w-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
+            className="w-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
         )}
       </div>
       <div className="border-t border-slate-100 dark:border-slate-800" />
@@ -855,20 +856,20 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
         <div className="md:flex gap-3 md:space-y-0 space-y-3">
           <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && add()}
             placeholder="Ketik kata lalu tekan Enter..."
-            className="w-full flex-1 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-red-400 transition-all" />
-          <button onClick={add} className="md:w-max w-max mt-1 md:mt-0 cursor-pointer active:scale-[0.99] px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-none font-black text-sm transition-all flex items-center gap-3">
+            className="w-full flex-1 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-red-400 transition-all" />
+          <button onClick={add} className="md:w-max w-max mt-1 md:mt-0 cursor-pointer active:scale-[0.99] px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg font-black text-sm transition-all flex items-center gap-3">
             <Plus size={16} /> Tambah
           </button>
         </div>
         {isLoading ? <div className="text-slate-400 text-sm font-bold animate-pulse">Memuat...</div>
           : words.length === 0
-            ? <div className="rounded-none border-2 border-dashed border-slate-200 dark:border-slate-700 py-8 text-center text-slate-400">
+            ? <div className="rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 py-8 text-center text-slate-400">
                 <p className="text-2xl mb-2">🚫</p>
                 <p className="font-black text-sm">Belum ada kata terlarang</p>
               </div>
             : <div className="md:flex md:flex-wrap grid grid-cols-3 gap-3">
                 {words.map(word => (
-                  <span key={word} className="w-full md:w-max flex justify-center md:justify-start items-center gap-3 px-4 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-none text-sm font-black border border-red-100 dark:border-red-900">
+                  <span key={word} className="w-full md:w-max flex justify-center md:justify-start items-center gap-3 px-4 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-lg text-sm font-black border border-red-100 dark:border-red-900">
                     {word}
                     <button onClick={() => remove(word)} className="cursor-pointer hover:text-red-800 dark:hover:text-red-300 transition-colors"><Trash2 size={12} /></button>
                   </span>
@@ -876,7 +877,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
               </div>
         }
         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-lg font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
           <Save size={20} />
           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
         </button>
@@ -905,37 +906,37 @@ const MilestonesEditor = () => {
   const upd    = (i, key, val) => setLocal(list.map((m, idx) => idx === i ? { ...m, [key]: val } : m));
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6">
       <SectionHeader icon={<TrendingUp size={20} />} title="Milestones" color="bg-green-500" />
       <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Tampilkan progress target donasi di halaman publik kamu.</p>
       {isLoading ? <div className="text-slate-400 text-sm font-bold animate-pulse">Memuat...</div> : (
         <div className="space-y-3">
           {list.length === 0 && (
-            <div className="rounded-none border-2 border-dashed border-slate-200 dark:border-slate-700 py-8 text-center text-slate-400">
+            <div className="rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 py-8 text-center text-slate-400">
               <p className="text-2xl mb-2">🎯</p><p className="font-black text-sm">Belum ada milestone</p>
             </div>
           )}
           {list.map((m, i) => (
-            <div key={i} className="flex gap-3 items-end bg-slate-50 dark:bg-slate-800 rounded-none p-4 border border-slate-100 dark:border-slate-700">
+            <div key={i} className="flex gap-3 items-end bg-slate-50 dark:bg-slate-800 rounded-lg p-4 border border-slate-100 dark:border-slate-700">
               <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
                 {[['Judul Milestone', 'title', m.title, 'text', 'contoh: Beli mic baru!'], ['Target (Rp)', 'targetAmount', m.targetAmount, 'number', '']].map(([lbl, key, val, type, ph]) => (
                   <div key={key} className="flex flex-col gap-1">
                     <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{lbl}</label>
                     <input type={type} value={val} placeholder={ph}
                       onChange={e => upd(i, key, type === 'number' ? Number(e.target.value) : e.target.value)}
-                      className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-green-400" />
+                      className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-green-400" />
                   </div>
                 ))}
               </div>
               <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.99] text-red-400 hover:text-red-600 p-2 flex-shrink-0"><Trash2 size={16} /></button>
             </div>
           ))}
-          <button onClick={add} className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-900 text-green-600 dark:text-green-400 rounded-none font-black text-sm hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-3">
+          <button onClick={add} className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-900 text-green-600 dark:text-green-400 rounded-lg font-black text-sm hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-3">
             <Plus size={16} /> Tambah Milestone
           </button>
           {list.length > 0 && (
             <button onClick={() => mutation.mutate(list)} disabled={mutation.isPending}
-              className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-70">
+              className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-70">
               <Save size={16} /> {mutation.isPending ? 'Menyimpan...' : 'Simpan Milestones'}
             </button>
           )}
@@ -1009,7 +1010,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
           <button
             key={m.id}
             onClick={() => setMode(m.id)}
-            className={`cursor-pointer uppercase active:scale-[0.99] text-left px-4 py-4 rounded-none font-black text-xs transition-all flex-1 ${
+            className={`cursor-pointer uppercase active:scale-[0.99] text-left px-4 py-4 rounded-lg font-black text-xs transition-all flex-1 ${
               mode === m.id ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
@@ -1022,7 +1023,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
       {mode === 'preset' && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <button onClick={() => { onChange(''); setPlaying(null); }}
-            className={`cursor-pointer uppercase active:scale-[0.99] flex items-center gap-1.5 p-3 rounded-none border-2 font-black text-xs transition-all ${
+            className={`cursor-pointer uppercase active:scale-[0.99] flex items-center gap-1.5 p-3 rounded-lg border-2 font-black text-xs transition-all ${
               !value ? 'border-slate-600 bg-slate-800 text-white' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
             }`}>
             <span className="text-lg">🔇</span> Tanpa Suara
@@ -1031,7 +1032,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
           {SOUND_PRESETS.map(preset => (
             <button key={preset.url}
               onClick={() => { playPreview(preset.url); onChange(preset.url); }}
-              className={`cursor-pointer active:scale-[0.99] flex items-center gap-1.5 p-3 rounded-none border-2 font-black text-xs transition-all ${
+              className={`cursor-pointer active:scale-[0.99] flex items-center gap-1.5 p-3 rounded-lg border-2 font-black text-xs transition-all ${
                 value === preset.url ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
               }`}>
               <span className="text-lg">{preset.label.split(' ')[1]}</span>
@@ -1043,7 +1044,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
 
       {/* Upload MP3 */}
       {mode === 'upload' && (
-        <div className="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-none p-6 text-center">
+        <div className="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-6 text-center">
           <input
             type="file"
             accept="audio/*"
@@ -1064,10 +1065,10 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
 
       {/* Preview Suara Saat Ini */}
       {value && (
-        <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 rounded-none p-4 border border-slate-200 dark:border-slate-700">
+        <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
           <button
             onClick={() => playPreview(value)}
-            className="cursor-pointer active:scale-[0.98] w-9 h-9 bg-blue-600 rounded-none flex items-center justify-center text-white flex-shrink-0"
+            className="cursor-pointer active:scale-[0.98] w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center text-white flex-shrink-0"
           >
             {playing === value ? <Pause size={18} /> : <Play size={18} />}
           </button>
@@ -1097,21 +1098,21 @@ const QrCodeCard = ({ username }) => {
   const [copied, setCopied] = useState(false);
   const copy = () => { navigator.clipboard.writeText(donateUrl); setCopied(true); setTimeout(() => setCopied(false), 2000); };
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
       <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Tampilkan QR ini di stream / sosmed. Scan langsung ke halaman donasi kamu.</p>
       <div className="flex flex-col items-start gap-4">
-        <div className="p-4 bg-white rounded-none border-4 border-slate-900 shadow-xl inline-block">
+        <div className="p-4 bg-white rounded-lg border-4 border-slate-900 shadow-xl inline-block">
           <img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(donateUrl)}&color=0f172a&bgcolor=ffffff&format=svg&margin=0`} alt="QR Code" width={200} height={200} />
         </div>
         <p className="font-black text-slate-700 dark:text-slate-300 text-sm">{donateUrl}</p>
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <button onClick={copy} className={`cursor-pointer active:scale-[0.99] flex items-center justify-center gap-3 py-3 md:py-4 rounded-none font-black text-sm transition-all ${copied ? 'bg-green-500 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'}`}>
+        <button onClick={copy} className={`cursor-pointer active:scale-[0.99] flex items-center justify-center gap-3 py-3 md:py-4 rounded-lg font-black text-sm transition-all ${copied ? 'bg-green-500 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700'}`}>
           {copied ? <><CheckCircle2 size={16} /> Tersalin!</> : <><Copy size={16} /> Salin URL</>}
         </button>
         <a href={`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(donateUrl)}&color=0f172a&format=png`}
           download={`qr-donasi-${username}.png`} target="_blank" rel="noreferrer"
-          className="cursor-pointer active:scale-[0.99] flex items-center justify-center gap-3 py-3 md:py-4 rounded-none font-black text-sm bg-slate-900/70 dark:bg-slate-700 text-white hover:bg-slate-800 dark:hover:bg-slate-600 transition-all">
+          className="cursor-pointer active:scale-[0.99] flex items-center justify-center gap-3 py-3 md:py-4 rounded-lg font-black text-sm bg-slate-900/70 dark:bg-slate-700 text-white hover:bg-slate-800 dark:hover:bg-slate-600 transition-all">
           ↓ Download QR
         </a>
       </div>
@@ -1126,16 +1127,16 @@ const LeaderboardCard = ({ stats }) => {
   if (!topDonors.length) return null;
   const medals = ['🥇', '🥈', '🥉'];
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none pb-1.5 shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg pb-1.5 shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
       <div className="px-4 md:px-6 py-5 dark:border-slate-800 flex items-center gap-3">
-        <div className="w-9 h-9 bg-amber-500 rounded-none flex items-center justify-center text-lg">🏆</div>
+        <div className="w-9 h-9 bg-amber-500 rounded-lg flex items-center justify-center text-lg">🏆</div>
         <div><p className="font-black text-slate-800 dark:text-slate-100">Leaderboard Donor</p><p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">Semua waktu</p></div>
       </div>
       <div className="py-0 md:px-2 space-y-3">
         {topDonors.slice(0, 3).map((donor, i) => (
           <motion.div key={donor.name} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }}
             className={`flex items-center gap-4 p-4 dark:border-slate-100/10 border-t border-slate-200 dark:text-white text-black`}>
-            <div className={`w-10 h-10 rounded-none flex items-center justify-center font-black text-lg flex-shrink-0 ${i < 3 ? 'bg-white/20' : 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}>
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center font-black text-lg flex-shrink-0 ${i < 3 ? 'bg-white/20' : 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}>
               {i < 3 ? medals[i] : `#${i + 1}`}
             </div>
             <div className="flex-1 min-w-0">
@@ -1177,14 +1178,14 @@ const AdminWithdrawalPage = () => {
 
   return (
     <div className="w-full space-y-5 pb-0">
-      <div className="bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 from-blue-700 to-indigo-800  rounded-none p-4 md:p-6 text-white">
+      <div className="bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 from-blue-700 to-indigo-800  rounded-lg p-4 md:p-6 text-white">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-blue-300 dark:text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Super Admin</p>
             <h2 className="text-2xl font-black">Penarikan Dana</h2>
           </div>
           <div className="hidden md:flex items-center gap-3 text-blue-200 dark:text-slate-400 text-xs font-bold">
-            <span className="w-2 h-2 bg-green-400 rounded-none animate-pulse" /> Auto 30s
+            <span className="w-2 h-2 bg-green-400 rounded-lg animate-pulse" /> Auto 30s
             <button onClick={() => refetch()} disabled={isFetching} className="ml-1 hover:text-white transition-colors disabled:opacity-50">
               <RefreshCw size={14} className={isFetching ? 'animate-spin' : ''} />
             </button>
@@ -1194,21 +1195,21 @@ const AdminWithdrawalPage = () => {
       <div className="flex px-4 md:px-0 gap-3 flex-wrap">
         {[{ val: 'PENDING', label: '⏳ Pending' }, { val: 'COMPLETED', label: '✅ Selesai' }, { val: 'FAILED', label: '❌ Ditolak' }, { val: '', label: '📋 Semua' }].map(f => (
           <button key={f.val} onClick={() => setStatusFilter(f.val)}
-            className={`cursor-pointer active:scale-[0.98] px-4 py-2 rounded-none font-black text-sm transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700'}`}>
+            className={`cursor-pointer active:scale-[0.98] px-4 py-2 rounded-lg font-black text-sm transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700'}`}>
             {f.label}
           </button>
         ))}
       </div>
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm w-[91vw] mx-auto md:w-full rounded-none shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm w-[91vw] mx-auto md:w-full rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
         <div className="hidden md:flex items-center justify-between px-4 md:px-6 py-5 border-b border-slate-100 dark:border-slate-800">
           <div>
             <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{statusFilter ? `Request ${statusFilter}` : 'Semua Request'}</p>
             <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{pagination.total || 0} total</p>
           </div>
-          {/* <span className="px-4 py-2 bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-none text-[10px] font-black uppercase tracking-widest">Super Admin Only</span> */}
+          {/* <span className="px-4 py-2 bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-lg text-[10px] font-black uppercase tracking-widest">Super Admin Only</span> */}
         </div>
         {isLoading
-          ? <div className="flex items-center justify-center py-20 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-none animate-spin" />Memuat data...</div>
+          ? <div className="flex items-center justify-center py-20 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-lg animate-spin" />Memuat data...</div>
           : withdrawals.length === 0
             ? <div className="py-16 text-center text-slate-400"><p className="text-4xl mb-3">📭</p><p className="font-black text-slate-500">Tidak ada request</p></div>
             : (
@@ -1227,15 +1228,15 @@ const AdminWithdrawalPage = () => {
                         <td className="px-6 py-5"><p className="font-bold text-slate-600 dark:text-slate-300 text-sm">{wd.paymentMethod || 'BANK'}</p></td>
                         <td className="px-6 py-5"><p className="font-mono font-bold text-slate-700 dark:text-slate-200 text-sm">{wd.accountNumber}</p></td>
                         <td className="px-6 py-5">
-                          <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-none text-[10px] font-black ${wd.status === 'COMPLETED' ? 'bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400' : wd.status === 'FAILED' ? 'bg-red-100 dark:bg-red-950/40 text-red-500 dark:text-red-400' : 'bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400'}`}>{wd.status}</span>
+                          <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black ${wd.status === 'COMPLETED' ? 'bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400' : wd.status === 'FAILED' ? 'bg-red-100 dark:bg-red-950/40 text-red-500 dark:text-red-400' : 'bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400'}`}>{wd.status}</span>
                         </td>
                         <td className="px-6 py-5"><p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium whitespace-nowrap">{formatDate(wd.createdAt)}</p></td>
                           {statusFilter === 'PENDING' && (
                           <td className="px-6 py-5">
                             {wd.status === 'PENDING' && (
                             <div className="flex gap-3">
-                              <button onClick={() => { setSelectedId(wd._id); setShowApproveModal(true); }} className="cursor-pointer px-2.5 py-2 bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400 rounded-none text-sm font-black hover:bg-green-200 transition-all flex items-center"><Check size={18} /></button>
-                              <button onClick={() => { setSelectedId(wd._id); setRejectNote(''); setShowRejectModal(true); }} className="cursor-pointer px-2.5 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900 rounded-none text-sm font-black hover:bg-red-100 transition-all"><X size={18} /></button>
+                              <button onClick={() => { setSelectedId(wd._id); setShowApproveModal(true); }} className="cursor-pointer px-2.5 py-2 bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400 rounded-lg text-sm font-black hover:bg-green-200 transition-all flex items-center"><Check size={18} /></button>
+                              <button onClick={() => { setSelectedId(wd._id); setRejectNote(''); setShowRejectModal(true); }} className="cursor-pointer px-2.5 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900 rounded-lg text-sm font-black hover:bg-red-100 transition-all"><X size={18} /></button>
                             </div>
                           )}
                         </td>
@@ -1247,13 +1248,13 @@ const AdminWithdrawalPage = () => {
                 <AnimatePresence>
                   {showApproveModal && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowApproveModal(false)}>
-                      <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none max-w-md w-full p-8 text-center border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
-                        <div className="w-20 h-20 mx-auto mb-6 bg-green-100 dark:bg-green-950/40 rounded-none flex items-center justify-center text-5xl">✅</div>
+                      <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg max-w-md w-full p-8 text-center border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
+                        <div className="w-20 h-20 mx-auto mb-6 bg-green-100 dark:bg-green-950/40 rounded-lg flex items-center justify-center text-5xl">✅</div>
                         <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2">Konfirmasi Approve</h3>
                         <p className="text-slate-600 dark:text-slate-400 mb-8">Apakah Anda yakin sudah mentransfer dana ke streamer ini?</p>
                         <div className="flex gap-3">
-                          <button onClick={() => setShowApproveModal(false)} className="cursor-pointer flex-1 py-3 md:py-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-black rounded-none">Batal</button>
-                          <button onClick={() => updateMutation.mutate({ id: selectedId, status: 'COMPLETED' })} disabled={updateMutation.isPending} className="cursor-pointer flex-1 py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white font-black rounded-none transition-all disabled:opacity-70">
+                          <button onClick={() => setShowApproveModal(false)} className="cursor-pointer flex-1 py-3 md:py-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-black rounded-lg">Batal</button>
+                          <button onClick={() => updateMutation.mutate({ id: selectedId, status: 'COMPLETED' })} disabled={updateMutation.isPending} className="cursor-pointer flex-1 py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white font-black rounded-lg transition-all disabled:opacity-70">
                             {updateMutation.isPending ? 'Memproses...' : 'Ya, Sudah Transfer'}
                           </button>
                         </div>
@@ -1264,13 +1265,13 @@ const AdminWithdrawalPage = () => {
                 <AnimatePresence>
                   {showRejectModal && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowRejectModal(false)}>
-                      <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none max-w-md w-full p-8 border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
+                      <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg max-w-md w-full p-8 border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
                         <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2 text-center">Tolak Penarikan</h3>
                         <p className="text-slate-600 dark:text-slate-400 text-center mb-6">Berikan alasan penolakan (opsional)</p>
-                        <textarea value={rejectNote} onChange={e => setRejectNote(e.target.value)} placeholder="Contoh: Rekening tidak valid..." className="w-full h-32 p-4 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-none focus:border-red-400 outline-none resize-y font-medium" />
+                        <textarea value={rejectNote} onChange={e => setRejectNote(e.target.value)} placeholder="Contoh: Rekening tidak valid..." className="w-full h-32 p-4 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg focus:border-red-400 outline-none resize-y font-medium" />
                         <div className="flex gap-3 mt-6">
-                          <button onClick={() => setShowRejectModal(false)} className="cursor-pointer flex-1 py-3 md:py-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-black rounded-none">Batal</button>
-                          <button onClick={() => updateMutation.mutate({ id: selectedId, status: 'FAILED', note: rejectNote || 'Ditolak oleh admin' })} disabled={updateMutation.isPending} className="cursor-pointer flex-1 py-3 md:py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-none transition-all disabled:opacity-70">
+                          <button onClick={() => setShowRejectModal(false)} className="cursor-pointer flex-1 py-3 md:py-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-black rounded-lg">Batal</button>
+                          <button onClick={() => updateMutation.mutate({ id: selectedId, status: 'FAILED', note: rejectNote || 'Ditolak oleh admin' })} disabled={updateMutation.isPending} className="cursor-pointer flex-1 py-3 md:py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-lg transition-all disabled:opacity-70">
                             {updateMutation.isPending ? 'Memproses...' : 'Konfirmasi Tolak'}
                           </button>
                         </div>
@@ -1290,10 +1291,10 @@ const AdminWithdrawalPage = () => {
 
 const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-8 animate-pulse">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-8 animate-pulse">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-none" />
+        <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-lg" />
         <div className="h-7 w-64 bg-slate-200 dark:bg-slate-700 rounded" />
       </div>
 
@@ -1307,15 +1308,15 @@ const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
               {/* Durasi Dasar */}
               <div>
                 <div className="h-3 w-40 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
-                <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-lg" />
               </div>
 
               {/* Tambahan */}
               <div>
                 <div className="h-3 w-36 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
-                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-lg" />
                 </div>
               </div>
             </div>
@@ -1331,15 +1332,15 @@ const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
               {/* Durasi Dasar */}
               <div>
                 <div className="h-3 w-40 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
-                <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-lg" />
               </div>
 
               {/* Tambahan */}
               <div>
                 <div className="h-3 w-36 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
-                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+                  <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-lg" />
                 </div>
               </div>
             </div>
@@ -1348,7 +1349,7 @@ const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
       </div>
 
       {/* Preview Kalkulasi */}
-      <div className="bg-slate-50 dark:bg-slate-800/70 p-5 rounded-none border border-dashed border-slate-200 dark:border-slate-700">
+      <div className="bg-slate-50 dark:bg-slate-800/70 p-5 rounded-lg border border-dashed border-slate-200 dark:border-slate-700">
         <div className="h-4 w-40 bg-slate-200 dark:bg-slate-700 rounded mb-4" />
         <div className="space-y-4">
           {!mediaOnly && (
@@ -1367,14 +1368,14 @@ const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
       </div>
 
       {/* Save Button */}
-      <div className="h-14 bg-slate-200 dark:bg-slate-700 rounded-none" />
+      <div className="h-14 bg-slate-200 dark:bg-slate-700 rounded-lg" />
     </div>
   );
 };
 
 const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly = false, mediaOnly = false, activeSlot }) => {
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-6">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-6">
       <SectionHeader
         icon={<Timer size={22} />}
         title={mediaOnly ? 'Durasi Medshare' : alertOnly ? 'Durasi Alert' : 'Pengaturan Durasi'}
@@ -1395,7 +1396,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                 onChange={(e) => onChange('alertBaseDuration', e.target.value === '' ? 12 : Number(e.target.value))}
                 min={5}
                 max={60}
-                className="w-full text-md font-bold text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none pb-2.5 p-2"
+                className="w-full text-md font-bold text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg pb-2.5 p-2"
               />
               <p className="text-xs text-slate-500 mt-2">
                 Alert minimal akan bertahan selama ini. Jika TTS lebih lama, akan mengikuti TTS.
@@ -1413,7 +1414,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                 <label className="text-xs font-black text-slate-500 block mb-1.5">Durasi Dasar (detik)</label>
                 <input type="number" value={settings.mediaShareBaseDuration || ''}
                   onChange={(e) => onChange('mediaShareBaseDuration', e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full text-lg font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none p-2" />
+                  className="w-full text-lg font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg p-2" />
               </div>
               <div>
                 <div className="md:flex items-center gap-3">
@@ -1422,7 +1423,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                     <div className='md:flex items-center'>
                       <input type="number" value={settings.mediaShareExtraPerAmount || ''}
                         onChange={(e) => onChange('mediaShareExtraPerAmount', e.target.value === '' ? '' : Number(e.target.value))}
-                        className="w-full text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none p-2" />
+                        className="w-full text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg p-2" />
                       <span className="md:flex hidden dark:text-white ml-2 text-slate-900 font-bold"><Plus /></span>
                     </div>
                   </div>
@@ -1430,7 +1431,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                     <label className="text-xs font-black text-slate-500 block mb-1.5">Detik</label>
                     <input type="number" value={settings.mediaShareExtraDuration || ''}
                       onChange={(e) => onChange('mediaShareExtraDuration', e.target.value === '' ? '' : Number(e.target.value))}
-                      className="w-full md:w-20 text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-none p-2" />
+                      className="w-full md:w-20 text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg p-2" />
                   </div>
                 </div>
               </div>
@@ -1440,7 +1441,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
       </div>
 
       {/* Preview kalkulasi */}
-        <div className="bg-slate-50 dark:bg-slate-800/70 p-5 rounded-none text-sm border border-dashed border-slate-200 dark:border-slate-700">
+        <div className="bg-slate-50 dark:bg-slate-800/70 p-5 rounded-lg text-sm border border-dashed border-slate-200 dark:border-slate-700">
           <p className="font-black text-xs text-slate-400 mb-3">DURASI SAAT INI</p>
           <div className="space-y-3">
             {!mediaOnly && (
@@ -1471,7 +1472,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
         </div>
 
       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-lg font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
         <Save size={20} />
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan Durasi'}
       </button>
@@ -1493,13 +1494,13 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
   return (
     <div className="space-y-4">
       {triggers.length === 0 && (
-        <div className="rounded-none bg-slate-50 dark:bg-slate-800 border border-dashed border-slate-200 dark:border-slate-700 px-5 py-6 text-center">
-          <div className="w-10 h-10 rounded-none bg-slate-100 dark:bg-slate-700 flex items-center justify-center mx-auto mb-3"><ImageIcon size={18} className="text-slate-400" /></div>
+        <div className="rounded-lg bg-slate-50 dark:bg-slate-800 border border-dashed border-slate-200 dark:border-slate-700 px-5 py-6 text-center">
+          <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center mx-auto mb-3"><ImageIcon size={18} className="text-slate-400" /></div>
           <p className="text-sm font-black text-slate-500 dark:text-slate-400">Belum ada ketentuan media</p>
         </div>
       )}
       {triggers.map((t, i) => (
-        <div key={i} className="bg-slate-50 dark:bg-slate-800 rounded-none p-5 border border-slate-100 dark:border-slate-700 space-y-5">
+        <div key={i} className="bg-slate-50 dark:bg-slate-800 rounded-lg p-5 border border-slate-100 dark:border-slate-700 space-y-5">
           <div className="flex items-center justify-between">
             <span className="font-black text-slate-700 dark:text-slate-200 text-sm">{t.label || `Media Alert ${i + 1}`}</span>
             <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.99] text-red-400 hover:text-red-600 transition-colors p-1"><Trash2 size={15} /></button>
@@ -1509,14 +1510,14 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
               <div key={key} className="flex flex-col gap-1.5">
                 <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{lbl}</label>
                 <input type={type} value={val} placeholder={ph} onChange={e => update(i, key, type === 'number' ? Number(e.target.value) : e.target.value)}
-                  className="w-full p-3 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
+                  className="w-full p-3 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
               </div>
             ))}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {mediaTypeOptions.map(opt => (
               <button key={opt.value} onClick={() => update(i, 'mediaType', opt.value)}
-                className={`cursor-pointer active:scale-[0.99] flex flex-col items-center gap-1.5 py-3 px-2 rounded-none border-2 font-black text-xs transition-all ${t.mediaType === opt.value ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-slate-300 hover:bg-white dark:hover:bg-slate-700'}`}>
+                className={`cursor-pointer active:scale-[0.99] flex flex-col items-center gap-1.5 py-3 px-2 rounded-lg border-2 font-black text-xs transition-all ${t.mediaType === opt.value ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-slate-300 hover:bg-white dark:hover:bg-slate-700'}`}>
                 {opt.icon}<span>{opt.label}</span>
                 <span className="text-[9px] font-medium text-slate-300 dark:text-slate-500">{opt.desc}</span>
               </button>
@@ -1524,11 +1525,11 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
           </div>
         </div>
       ))}
-      <button onClick={add} className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
+      <button onClick={add} className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-lg font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
         <Plus size={16} /> Tambah Ketentuan Media Alert
       </button>
       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-lg font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
         <Save size={20} />
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Izin Media'}
       </button>
@@ -2245,15 +2246,15 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed w-[100%] right-0 inset-0 z-[999999999] bg-black flex flex-col">
           <div className="flex items-center justify-between px- py-3 md:py-4 bg-black/80 backdrop-blur-sm border-b border-white/10 flex-shrink-0">
             <div className="flex items-center gap-3">
-              <span className="w-2.5 h-2.5 bg-red-500 rounded-none animate-pulse" />
+              <span className="w-2.5 h-2.5 bg-red-500 rounded-lg animate-pulse" />
               <span className="text-white font-black text-sm tracking-wide">LIVE PREVIEW</span>
-              <span className="px-2 py-0.5 bg-red-600 text-white text-[10px] font-black rounded-none tracking-widest">OBS SIMULATION</span>
+              <span className="px-2 py-0.5 bg-red-600 text-white text-[10px] font-black rounded-lg tracking-widest">OBS SIMULATION</span>
             </div>
             <div className="flex items-center gap-3">
-              <button onClick={triggerDemo} className="cursor-pointer active:scale-[0.99] flex items-center gap-3 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-xs transition-all">
-                <span className="w-1.5 h-1.5 bg-red-400 rounded-none animate-pulse" /> Simulasi Donasi
+              <button onClick={triggerDemo} className="cursor-pointer active:scale-[0.99] flex items-center gap-3 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-black text-xs transition-all">
+                <span className="w-1.5 h-1.5 bg-red-400 rounded-lg animate-pulse" /> Simulasi Donasi
               </button>
-              <button onClick={() => handleFullScreen()} className="cursor-pointer active:scale-[0.99] flex items-center gap-3 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-none font-black text-xs transition-all border border-white/10">
+              <button onClick={() => handleFullScreen()} className="cursor-pointer active:scale-[0.99] flex items-center gap-3 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg font-black text-xs transition-all border border-white/10">
                 ✕ Tutup
               </button>
             </div>
@@ -2276,23 +2277,23 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   );
 
     return (
-    <div className="sticky md:p-0 p-4 md:bg-transparent bg-white/30 dark:bg-slate-900/60 md:backdrop-blur-sm rounded-none shadow-sm md:border-none border border-slate-100 dark:border-slate-800 top-26 space-y-3">
+    <div className="sticky md:p-0 p-4 md:bg-transparent bg-white/30 dark:bg-slate-900/60 md:backdrop-blur-sm rounded-lg shadow-sm md:border-none border border-slate-100 dark:border-slate-800 top-26 space-y-3">
       <FullscreenPreview />
 
       {/* Tab switcher */}
-      <div className="flex gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-none">
+      <div className="flex gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
         {[{ id: 'alert', label: '⚡ Alert OBS' }, { id: 'media', label: '🎬 Media share' }].map(tab => (
             <button key={tab.id} onClick={() => {
               setPreviewMode(tab.id);
               onPreviewModeChange?.(tab.id); // ← ini yang update state di parent
             }}
-            className={`cursor-pointer flex-1 py-2 text-xs font-black rounded-none transition-all ${previewMode === tab.id ? 'bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm text-slate-800 dark:text-slate-100 shadow-sm' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}>
+            className={`cursor-pointer flex-1 py-2 text-xs font-black rounded-lg transition-all ${previewMode === tab.id ? 'bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm text-slate-800 dark:text-slate-100 shadow-sm' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}>
             {tab.label}
           </button>
         ))}
       </div>
 
-      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-none ${previewMode === 'alert' ? 'h-[60vh]' : 'h-[52vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
+      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-lg ${previewMode === 'alert' ? 'h-[60vh]' : 'h-[52vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
         <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
           <span style={{ fontSize: 80, fontWeight: 800, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span>
         </div>
@@ -2335,7 +2336,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       </div>
 
       {/* {previewMode === 'media' && settings.theme === 'gifCard' && (
-        <div className="flex items-center gap-3 px-3 py-2 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-none text-xs font-bold text-amber-600 dark:text-amber-400">
+        <div className="flex items-center gap-3 px-3 py-2 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg text-xs font-bold text-amber-600 dark:text-amber-400">
           <span>⚠️</span> Tema GIF Card tidak mendukung media share preview
         </div>
       )} */}
@@ -2347,23 +2348,23 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           <div className="flex gap-3">
             {MEDIA_PRESETS.map((p, i) => (
               <button key={i} onClick={() => setMediaUrl(p.url)}
-                className={`flex-1 py-1.5 text-[10px] font-black rounded-none border-2 transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-purple-300'}`}>
+                className={`flex-1 py-1.5 text-[10px] font-black rounded-lg border-2 transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-purple-300'}`}>
                 {p.label}
               </button>
             ))}
           </div>
           {/* <input value={mediaUrl} onChange={e => setMediaUrl(e.target.value)}
-            className="w-full p-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-none font-mono text-[10px] text-slate-600 dark:text-slate-300 outline-none focus:border-purple-400 transition-all"
+            className="w-full p-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-mono text-[10px] text-slate-600 dark:text-slate-300 outline-none focus:border-purple-400 transition-all"
             placeholder="https://... (gambar, video, atau YouTube)" /> */}
         </div>
       )}
 
       <button onClick={triggerDemo}
-        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 rounded-none bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-950 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-3">
-        <span className="w-2 h-2 bg-red-500 rounded-none animate-pulse" /> {previewMode === 'media' ? 'Simulasi Media share' : 'Simulasi Donasi Masuk'}
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 rounded-lg bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-950 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-3">
+        <span className="w-2 h-2 bg-red-500 rounded-lg animate-pulse" /> {previewMode === 'media' ? 'Simulasi Media share' : 'Simulasi Donasi Masuk'}
       </button>
       {/* <button onClick={() => handleFullScreen()}
-        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3.5 rounded-none bg-slate-900/70 dark:bg-slate-700 hover:bg-slate-800 text-white font-black text-sm transition-all flex items-center justify-center gap-3 border border-slate-700">
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3.5 rounded-lg bg-slate-900/70 dark:bg-slate-700 hover:bg-slate-800 text-white font-black text-sm transition-all flex items-center justify-center gap-3 border border-slate-700">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
         </svg>
@@ -2469,7 +2470,7 @@ const HistoryPage = () => {
           { label: 'Hari Ini', value: statsLoading ? '...' : maskAmount(stats?.today?.total || 0), sub: `${stats?.today?.count || 0} donasi`, color: 'bg-purple-500', icon: '⚡' },
           { label: 'Top Donatur', value: statsLoading ? '...' : (stats?.topDonors?.[0]?.name || '-'), sub: stats?.topDonors?.[0] ? maskAmount(stats.topDonors[0].totalAmount) : 'Belum ada', color: 'bg-amber-500', icon: '🏆' },
         ].map((card) => (
-          <div key={card.label} className={`${card.color} rounded-none p-4 md:p-6 text-white relative overflow-hidden`}>
+          <div key={card.label} className={`${card.color} rounded-lg p-4 md:p-6 text-white relative overflow-hidden`}>
             {/* <div className="absolute top-3 right-4 text-2xl opacity-20">{card.icon}</div> */}
             <p className="text-[10px] font-black uppercase tracking-widest opacity-70 mb-1">{card.label}</p>
             <p className="text-xl font-black leading-tight">{card.value}</p>
@@ -2480,7 +2481,7 @@ const HistoryPage = () => {
 
       {stats && <LeaderboardCard stats={stats} />}
 
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 md:px-6 py-5 border-b border-slate-100 dark:border-slate-800 gap-4">
           <div>
             <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Riwayat Donasi</p>
@@ -2489,7 +2490,7 @@ const HistoryPage = () => {
             <div className="flex gap-1.5">
               {[{ id: 'received', label: 'Diterima' }, { id: 'sent', label: 'Terkirim' }].map((t) => (
                 <button key={t.id} onClick={() => { setHistoryTab(t.id); setPage(1); setStatusFilter(''); }}
-                  className={`px-4 py-1 text-xs cursor-pointer font-black rounded-none transition-all border border-slate-200 dark:border-slate-700 ${historyTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-blue-200'}`}>
+                  className={`px-4 py-1 text-xs cursor-pointer font-black rounded-lg transition-all border border-slate-200 dark:border-slate-700 ${historyTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-blue-200'}`}>
                   {t.label}
                 </button>
               ))}
@@ -2497,7 +2498,7 @@ const HistoryPage = () => {
             <div className='!text-slate-500 h-[1px] bg-slate-700 mx-[2px] !w-[10px]'>
               
             </div>
-            <div className="flex gap-1.5 rounded-none overflow-hidden">
+            <div className="flex gap-1.5 rounded-lg overflow-hidden">
               <button
                 onClick={() => setViewMode('table')}
                 className={`px-4 py-1 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
@@ -2524,18 +2525,18 @@ const HistoryPage = () => {
                 setShowAmounts(next);
                 localStorage.setItem('showBalance', String(next)); // ← sync ke localStorage
               }}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-none text-[10px] font-black transition-all border-2 ${showAmounts ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black transition-all border-2 ${showAmounts ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
                 {showAmounts ? <Eye size={12} /> : <EyeOff size={12} />} Nominal
               </button>
               <button onClick={() => setShowEmails(v => !v)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-none text-[10px] font-black transition-all border-2 ${showEmails ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black transition-all border-2 ${showEmails ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
                 {showEmails ? <Eye size={12} /> : <EyeOff size={12} />} Email
               </button>
             </div>
             <div className="flex gap-1">
               {[{ val: '', label: 'Semua' }, { val: 'PAID', label: 'PAID' }].map((f) => (
                 <button key={f.val} onClick={() => { setStatusFilter(f.val); setPage(1); }}
-                  className={`px-3 py-1.5 rounded-none text-[10px] font-black transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200'}`}>
+                  className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200'}`}>
                   {f.label}
                 </button>
               ))}
@@ -2550,7 +2551,7 @@ const HistoryPage = () => {
               /* ==================== TABLE VIEW ==================== */
               isLoading ? (
                 <div className="flex items-center justify-center py-20 text-slate-400 font-bold gap-3">
-                  <div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-none animate-spin" />
+                  <div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-lg animate-spin" />
                   Memuat riwayat...
                 </div>
               ) : (
@@ -2596,7 +2597,7 @@ const HistoryPage = () => {
                               <button
                                 onClick={() => replayDonation(item._id)}
                                 disabled={isReplaying}
-                                className={`cursor-pointer active:scale-[0.99] inline-flex items-center gap-1.5 px-4 py-2 rounded-none text-xs font-black transition-all ${isReplaying ? 'text-slate-400 cursor-not-allowed' : 'text-blue-500 hover:text-blue-300'}`}
+                                className={`cursor-pointer active:scale-[0.99] inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-black transition-all ${isReplaying ? 'text-slate-400 cursor-not-allowed' : 'text-blue-500 hover:text-blue-300'}`}
                               >
                                 {isReplaying ? (
                                   <><Loader2 size={14} className="animate-spin" /> Replay...</>
@@ -2613,7 +2614,7 @@ const HistoryPage = () => {
                               ) : <span className="text-slate-300 text-xs">-</span>}
                             </td>
                             <td className="px-5 md:px-8 py-5">
-                              <span className={`px-3 py-1 rounded-none text-[10px] font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'}`}>
+                              <span className={`px-3 py-1 rounded-lg text-[10px] font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'}`}>
                                 {item.status}
                               </span>
                             </td>
@@ -2640,7 +2641,7 @@ const HistoryPage = () => {
                     return (
                       <div
                         key={item._id}
-                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-none p-6 hover:shadow-lg transition-all duration-200"
+                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-6 hover:shadow-lg transition-all duration-200"
                       >
                         <div className="flex justify-between items-start mb-5">
                           <div>
@@ -2651,7 +2652,7 @@ const HistoryPage = () => {
                               <p className="text-xs text-slate-500 mt-1">{item.donorEmail}</p>
                             )}
                           </div>
-                          <span className={`px-3 py-1 rounded-none text-xs font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'}`}>
+                          <span className={`px-3 py-1 rounded-lg text-xs font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'}`}>
                             {item.status}
                           </span>
                         </div>
@@ -2710,7 +2711,7 @@ const HistoryPage = () => {
                         <td className="px-5 md:px-8 py-5 font-black text-sm">Rp {Number(item.amount).toLocaleString('id-ID')}</td>
                         <td className="px-5 md:px-8 py-5 max-w-[250px]"><p className="text-slate-500 dark:text-slate-400 text-sm italic truncate">{item.message || '-'}</p></td>
                         <td className="px-5 md:px-8 py-5">
-                          <span className={`px-3 py-1.5 rounded-none text-[10px] font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600 dark:bg-green-950/40 dark:text-green-400' : 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400'}`}>{item.status}</span>
+                          <span className={`px-3 py-1.5 rounded-lg text-[10px] font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600 dark:bg-green-950/40 dark:text-green-400' : 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400'}`}>{item.status}</span>
                         </td>
                         <td className="px-5 md:px-8 py-5 text-[10px] text-slate-400 dark:text-slate-500">{formatDate(item.createdAt)}</td>
                       </tr>
@@ -2723,7 +2724,7 @@ const HistoryPage = () => {
           {pagination.totalPages > 1 && (
             <div className="flex items-center justify-between px-6 py-3 md:py-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
               <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
-                className="px-4 py-2 rounded-none bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-100 dark:hover:bg-slate-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-100 dark:hover:bg-slate-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
                 ← Sebelumnya
               </button>
               <div className="flex items-center gap-3">
@@ -2731,7 +2732,7 @@ const HistoryPage = () => {
                 <span className="md:flex hidden text-xs text-slate-300 dark:text-slate-600">({pagination.total} total donasi)</span>
               </div>
               <button onClick={() => setPage(p => Math.min(pagination.totalPages, p + 1))} disabled={page === pagination.totalPages}
-                className="px-4 py-2 rounded-none bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-100 dark:hover:bg-slate-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-100 dark:hover:bg-slate-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
                 Berikutnya →
               </button>
             </div>
@@ -2790,14 +2791,14 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
   };
 
   const renderUsers = (users, isLoading, showFollowBtn = true) => {
-    if (isLoading) return <div className="flex items-center justify-center py-20 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-none animate-spin" />Memuat...</div>;
+    if (isLoading) return <div className="flex items-center justify-center py-20 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-lg animate-spin" />Memuat...</div>;
     if (!users?.length) return <div className="text-center py-20 text-slate-400"><p className="text-4xl mb-3">👥</p><p className="font-black text-slate-500">Belum ada streamer</p></div>;
     return (
       <div className="grid grid-cols-1 md:mt-0 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {users.map(u => (
-          <div key={u._id} className="md:bg-white/30 dark:md:bg-slate-900/60 md:backdrop-blur-sm rounded-none md:p-6 md:mb-0 mb-2 md:border border-slate-100 dark:border-slate-800 md:shadow-sm flex flex-col gap-4 hover:shadow-md hover:border-slate-200 dark:hover:border-slate-700 transition-all">
+          <div key={u._id} className="md:bg-white/30 dark:md:bg-slate-900/60 md:backdrop-blur-sm rounded-lg md:p-6 md:mb-0 mb-2 md:border border-slate-100 dark:border-slate-800 md:shadow-sm flex flex-col gap-4 hover:shadow-md hover:border-slate-200 dark:hover:border-slate-700 transition-all">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-none bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-black text-xl flex-shrink-0 shadow-lg">
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-black text-xl flex-shrink-0 shadow-lg">
                 {
                   u.profilePicture ? (
                     <>
@@ -2812,7 +2813,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
                 {/* <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium truncate">{u.email}</p> */}
               </div>
             </div>
-            <div className="flex flex-wrap gap-1.5 p-1 h-[44px] bg-slate-50/50 dark:bg-slate-800/50 rounded-none border border-slate-100/50 dark:border-slate-700/50">
+            <div className="flex flex-wrap gap-1.5 p-1 h-[44px] bg-slate-50/50 dark:bg-slate-800/50 rounded-lg border border-slate-100/50 dark:border-slate-700/50">
               <UserBadges userId={u._id} />
             </div>
             {u.followersCount !== undefined && (
@@ -2822,12 +2823,12 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
             )}
             <div className="flex gap-3 mt-auto">
               <button onClick={() => setViewingProfile(u.username)}
-                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-none border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:text-blue-600 transition-all cursor-pointer active:scale-[0.99]">
+                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:text-blue-600 transition-all cursor-pointer active:scale-[0.99]">
                 <User size={12} /> Profil
               </button>
               {showFollowBtn && u._id !== currentUserId && (
                 <button onClick={() => toggleMutation.mutate(u._id)} disabled={toggleMutation.isPending}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-none font-black text-xs transition-all disabled:opacity-60 cursor-pointer active:scale-[0.99] ${u.isFollowing ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-500 border border-slate-200 dark:border-slate-700' : 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm'}`}>
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg font-black text-xs transition-all disabled:opacity-60 cursor-pointer active:scale-[0.99] ${u.isFollowing ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-500 border border-slate-200 dark:border-slate-700' : 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm'}`}>
                   {toggleMutation.isPending ? <RefreshCw className="w-3 h-3 animate-spin" /> : u.isFollowing ? 'Unfollow' : '+ Follow'}
                 </button>
               )}
@@ -2844,8 +2845,8 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
         <StreamerProfileModal username={viewingProfile} currentUserId={currentUserId} onClose={() => setViewingProfile(null)} onFollow={null} />
       )}
 
-      <div className="md:flex hidden bg-gradient-to-br from-blue-600 to-purple-600 rounded-none p-4 md:p-6 text-white relative overflow-hidden">
-        <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-white/5 rounded-none" />
+      <div className="md:flex hidden bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg p-4 md:p-6 text-white relative overflow-hidden">
+        <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-white/5 rounded-lg" />
         <div className="relative z-10">
           <p className="text-blue-200 text-xs font-black uppercase tracking-widest mb-2">Jaringan Streamer</p>
           <h2 className="text-3xl font-black tracking-tight">Komunitas</h2>
@@ -2856,7 +2857,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
       <div className="gap-3 grid grid-cols-3 md:grid-cols-5 mb-5 md:mb-3">
         {subTabs.map(t => (
           <button key={t.id} onClick={() => setSubTab(t.id)}
-            className={`w-full cursor-pointer active:scale-[0.99] px-5 py-2.5 rounded-none font-black text-sm transition-all ${subTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700 hover:brightness-[80%]'}`}>
+            className={`w-full cursor-pointer active:scale-[0.99] px-5 py-2.5 rounded-lg font-black text-sm transition-all ${subTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700 hover:brightness-[80%]'}`}>
             {t.label}
           </button>
         ))}
@@ -2864,8 +2865,8 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
           <div className="flex gap-3">
             <input value={searchInput} onChange={e => setSearchInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && setSearch(searchInput)}
               placeholder="Cari username streamer..."
-              className="flex-1 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none px-5 py-2 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
-            <button onClick={() => setSearch(searchInput)} className="cursor-pointer active:scale-[0.99] px-6 py-3.5 bg-blue-600 text-white rounded-none font-black text-sm hover:bg-blue-700 transition-all">Cari</button>
+              className="flex-1 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg px-5 py-2 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
+            <button onClick={() => setSearch(searchInput)} className="cursor-pointer active:scale-[0.99] px-6 py-3.5 bg-blue-600 text-white rounded-lg font-black text-sm hover:bg-blue-700 transition-all">Cari</button>
           </div>
         )}
       </div>
@@ -2923,7 +2924,7 @@ const ColorInput = React.memo(({ label, value, onChange, allowAlpha = false, id 
     <div className="flex flex-col gap-3">
       <label htmlFor={inputId} className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</label>
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 flex-shrink-0 rounded-none overflow-hidden border border-slate-300 dark:border-slate-600 relative group">
+        <div className="w-10 h-10 flex-shrink-0 rounded-lg overflow-hidden border border-slate-300 dark:border-slate-600 relative group">
           <input id={`${inputId}-picker`} name={`${inputId}-picker`} type="color" value={pickerHex} onChange={handlePickerChange}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer peer z-10"
             style={{ width: '100%', height: '100%', padding: 0, border: 0, backgroundColor: 'transparent' }}
@@ -2932,9 +2933,9 @@ const ColorInput = React.memo(({ label, value, onChange, allowAlpha = false, id 
         </div>
         <input id={inputId} name={inputId} type="text" value={raw} onChange={handleTextChange} onBlur={handleTextBlur}
           spellCheck={false} placeholder={allowAlpha ? '#rrggbbaa' : '#rrggbb'} maxLength={allowAlpha ? 9 : 7}
-          className="w-28 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all"
+          className="w-28 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all"
           aria-label={`${label} hex value`} />
-        <div className="flex-1 h-10 rounded-none border border-slate-200 dark:border-slate-700 cursor-pointer hover:shadow-md hover:border-blue-300 transition-all" style={{ backgroundColor: previewColor }} title={previewColor} aria-hidden="true" />
+        <div className="flex-1 h-10 rounded-lg border border-slate-200 dark:border-slate-700 cursor-pointer hover:shadow-md hover:border-blue-300 transition-all" style={{ backgroundColor: previewColor }} title={previewColor} aria-hidden="true" />
       </div>
       <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate bg-slate-50/50 dark:bg-slate-800/50 px-2 py-1 rounded" aria-live="polite">{previewColor}</div>
     </div>
@@ -2981,16 +2982,16 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
   };
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
        <div className="flex items-center gap-5 mb-6">
-        <div className="p-3 w-11 h-11 bg-rose-500 rounded-none flex items-center justify-center text-white shadow-lg"><Mic size={20} /></div>
+        <div className="p-3 w-11 h-11 bg-rose-500 rounded-lg flex items-center justify-center text-white shadow-lg"><Mic size={20} /></div>
         <div>
           <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-white">Text-to-speech</h4>
           <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Pesan dibacakan oleh sistem</p>
         </div>
       </div>
 
-      <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-none border border-slate-100 dark:border-slate-700">
+      <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
         <div>
           <p className="font-black text-slate-700 dark:text-slate-200">Aktifkan Text-to-Speech</p>
           <p className="text-xs text-slate-400 dark:text-slate-500">
@@ -2998,8 +2999,8 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
           </p>
         </div>
         <button onClick={() => upd('ttsEnabled', !settings.ttsEnabled)}
-          className={`relative inline-flex h-7 w-14 items-center rounded-none transition-colors duration-300 cursor-pointer ${settings.ttsEnabled ? 'bg-rose-500' : 'bg-slate-300 dark:bg-slate-600'}`}>
-          <span className={`inline-block h-5 w-5 transform rounded-none bg-white shadow-md transition-transform ${settings.ttsEnabled ? 'translate-x-8' : 'translate-x-1'}`} />
+          className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer ${settings.ttsEnabled ? 'bg-rose-500' : 'bg-slate-300 dark:bg-slate-600'}`}>
+          <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform ${settings.ttsEnabled ? 'translate-x-8' : 'translate-x-1'}`} />
         </button>
       </div>
 
@@ -3034,12 +3035,12 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
                 onChange={e => setTestText(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && !isTesting && handleTest()}
                 placeholder="Developer berdonasi Rp 50.000. Semangat terus kak!"
-                className="flex-1 px-4 py-3 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-none text-sm font-medium outline-none focus:border-rose-400 dark:text-slate-100 transition-all"
+                className="flex-1 px-4 py-3 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium outline-none focus:border-rose-400 dark:text-slate-100 transition-all"
               />
               <button 
                 onClick={handleTest} 
                 disabled={isTesting}
-                className="cursor-pointer px-5 py-2.5 bg-rose-500 hover:brightness-90 disabled:opacity-60 text-white font-black rounded-none transition-all active:scale-[0.99] flex items-center gap-3 whitespace-nowrap"
+                className="cursor-pointer px-5 py-2.5 bg-rose-500 hover:brightness-90 disabled:opacity-60 text-white font-black rounded-lg transition-all active:scale-[0.99] flex items-center gap-3 whitespace-nowrap"
               >
                 {isTesting ? <><span className="animate-spin inline-block">⏳</span> Memutar...</> : <>▶ Test</>}
               </button>
@@ -3049,7 +3050,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
           <button 
             onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} 
             disabled={saveSettingsMutation.isPending}
-            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 hover:brightness-90 text-white font-black rounded-none transition-all disabled:opacity-60 flex items-center justify-center gap-3"
+            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 hover:brightness-90 text-white font-black rounded-lg transition-all disabled:opacity-60 flex items-center justify-center gap-3"
           >
             <Save size={18} />
             {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan TTS'}
@@ -3148,6 +3149,8 @@ export const DashboardStreamer = () => {
   const currentPinRefs = [useRef(), useRef(), useRef(), useRef()];
   const newPinRefs     = [useRef(), useRef(), useRef(), useRef()];
   const confirmPinRefs = [useRef(), useRef(), useRef(), useRef()];
+  const [showVideoTutorial, setShowVideoTutorial] = useState(false);
+  const [showOBSConnect, setShowOBSConnect] = useState(false);
   const [pinForm, setPinForm] = useState({ 
     currentPin: ['','','',''], 
     newPin: ['','','',''], 
@@ -3588,7 +3591,7 @@ const handleChangePin = async () => {
     return (
       <div className="space-y-3">
         {localTiers.map((t, i) => (
-          <div key={i} className="bg-slate-50 dark:bg-slate-800 rounded-none p-4 border border-slate-100 dark:border-slate-700 space-y-4">
+          <div key={i} className="bg-slate-50 dark:bg-slate-800 rounded-lg p-4 border border-slate-100 dark:border-slate-700 space-y-4">
             <div className="flex items-center justify-between">
               <span className="font-black text-slate-600 dark:text-slate-300 text-sm">{t.label || `Tier Suara ${i + 1}`}</span>
               <button onClick={() => remove(i)} className="cursor-pointer text-red-400 hover:text-red-600 p-1"><Trash2 size={15} /></button>
@@ -3605,7 +3608,7 @@ const handleChangePin = async () => {
                   // ✅ onBlur - sync ke parent saat focus keluar
                   onBlur={syncToParent}
                   placeholder="50000"
-                  className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400" 
+                  className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400" 
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -3616,7 +3619,7 @@ const handleChangePin = async () => {
                   onChange={(e) => handleLocalChange(i, 'maxAmount', e.target.value)}
                   onBlur={syncToParent}
                   placeholder="∞"
-                  className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400" 
+                  className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400" 
                 />
               </div>
             </div>
@@ -3627,7 +3630,7 @@ const handleChangePin = async () => {
                 onChange={(e) => handleLocalChange(i, 'label', e.target.value)}
                 onBlur={syncToParent}
                 placeholder="contoh: Sultan Alert Sound"
-                className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400" 
+                className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400" 
               />
             </div>
             <SoundPicker
@@ -3637,7 +3640,7 @@ const handleChangePin = async () => {
             />
           </div>
         ))}
-        <button onClick={add} className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
+        <button onClick={add} className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-lg font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
           <Plus size={16} /> Tambah Suara per Nominal
         </button>
         <button 
@@ -3646,7 +3649,7 @@ const handleChangePin = async () => {
             saveSettingsMutation.mutate({ settings, slot: activeSlot });
           }} 
           disabled={saveSettingsMutation.isPending}
-          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-lg font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
           <Save size={20} />
           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Audio Terbaru'}
         </button>
@@ -3719,10 +3722,10 @@ const handleChangePin = async () => {
     
     return (
       <>
-        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-8">
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-8">
           <audio ref={previewAudioRef} />
           <SectionHeader icon={<Music size={20} />} title="Pengaturan Suara Alert" color="bg-gradient-to-r from-emerald-500 to-blue-500" />
-          <div className="md:p-5 md:bg-slate-50 md:dark:bg-slate-800/50 rounded-none md:border border-slate-200 dark:border-slate-700">
+          <div className="md:p-5 md:bg-slate-50 md:dark:bg-slate-800/50 rounded-lg md:border border-slate-200 dark:border-slate-700">
             <h4 className="font-black text-sm text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-3">📢 Suara Default (Semua Donasi)</h4>
             <SoundPicker
               label="Pilih suara default"
@@ -3740,7 +3743,7 @@ const handleChangePin = async () => {
           />
           <div className="pt-2 md:pt-8 md:border-t border-slate-200 dark:border-slate-700">
             <div className="flex items-center gap-4 md:mb-6 mb-5">
-              <div className="p-3 w-11 h-11 bg-emerald-500 rounded-none flex items-center justify-center text-white shadow-lg"><Music size={20} /></div>
+              <div className="p-3 w-11 h-11 bg-emerald-500 rounded-lg flex items-center justify-center text-white shadow-lg"><Music size={20} /></div>
               <div>
                 <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-white">Quick Soundboard</h4>
                 <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Donatur bisa pilih suara ini saat donasi ke streamer</p>
@@ -3755,7 +3758,7 @@ const handleChangePin = async () => {
             />
             <div className='w-full h-[1px] bg-slate-100/10 my-4' />
             <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending || uploading}
-              className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-blue-600 to-violet-600 hover:brightness-90 text-white font-black rounded-none transition-all disabled:opacity-60 flex items-center justify-center gap-3">
+              className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-blue-600 to-violet-600 hover:brightness-90 text-white font-black rounded-lg transition-all disabled:opacity-60 flex items-center justify-center gap-3">
               <Save size={20} />
               {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Suara'}
             </button>
@@ -3782,14 +3785,14 @@ const handleChangePin = async () => {
       <AnimatePresence>
         {showCopyModal && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowCopyModal(false)}>
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none md:max-w-sm max-w-md w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
+            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg md:max-w-sm max-w-md w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
               <div className="p-4 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 mt-1 md:mt-2 bg-green-100 dark:bg-green-950/40 rounded-none flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-6 mt-1 md:mt-2 bg-green-100 dark:bg-green-950/40 rounded-lg flex items-center justify-center">
                   <CheckCircle2 size={40} className="text-green-600 dark:text-green-400" />
                 </div>
                 <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2">URL Tersalin!</h3>
                 <p className="text-slate-600 dark:text-slate-400 mb-6">Widget <span className="font-bold text-blue-600 dark:text-blue-400">{copiedLabel}</span> berhasil disalin.</p>
-                <button onClick={() => setShowCopyModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-none transition-all active:scale-[0.99]">OK, Mengerti</button>
+                <button onClick={() => setShowCopyModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-lg transition-all active:scale-[0.99]">OK, Mengerti</button>
               </div>
             </motion.div>
           </motion.div>
@@ -3800,14 +3803,14 @@ const handleChangePin = async () => {
       <AnimatePresence>
         {showFollowModal && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowFollowModal(false)}>
-            <motion.div initial={{ scale: 0.88, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.88, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none max-w-sm w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
+            <motion.div initial={{ scale: 0.88, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.88, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg max-w-sm w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
               <div className="p-8 text-center">
-                <div className={`w-20 h-20 mx-auto mb-6 rounded-none flex items-center justify-center text-5xl ${followAction.type === 'follow' ? 'bg-green-100 dark:bg-green-950/40' : 'bg-orange-100 dark:bg-orange-950/40'}`}>
+                <div className={`w-20 h-20 mx-auto mb-6 rounded-lg flex items-center justify-center text-5xl ${followAction.type === 'follow' ? 'bg-green-100 dark:bg-green-950/40' : 'bg-orange-100 dark:bg-orange-950/40'}`}>
                   {followAction.type === 'follow' ? '🤝' : '👋'}
                 </div>
                 <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-1">{followAction.type === 'follow' ? 'Berhasil Follow!' : 'Berhasil Unfollow'}</h3>
                 <p className="text-slate-600 dark:text-slate-400 mb-8">Kamu {followAction.type === 'follow' ? 'sekarang mengikuti' : 'tidak lagi mengikuti'} <span className="font-bold text-blue-600 dark:text-blue-400">@{followAction.username}</span></p>
-                <button onClick={() => setShowFollowModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-none transition-all active:scale-[0.99]">OK, Mengerti</button>
+                <button onClick={() => setShowFollowModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-lg transition-all active:scale-[0.99]">OK, Mengerti</button>
               </div>
             </motion.div>
           </motion.div>
@@ -3818,7 +3821,7 @@ const handleChangePin = async () => {
       <AnimatePresence>
         {showToast && (
           <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} exit={{ y: -50, opacity: 0 }}
-            className="fixed top-0 left-1/2 -translate-x-1/2 z-[100] bg-slate-900/70 text-white px-8 py-3 md:py-4 rounded-none shadow-2xl flex items-center gap-3 font-bold border border-white/10 backdrop-blur-md">
+            className="fixed top-0 left-1/2 -translate-x-1/2 z-[100] bg-slate-900/70 text-white px-8 py-3 md:py-4 rounded-lg shadow-2xl flex items-center gap-3 font-bold border border-white/10 backdrop-blur-md">
             <CheckCircle2 size={18} className="text-green-500" /> Pengaturan Tersimpan!
           </motion.div>
         )}
@@ -3829,10 +3832,10 @@ const handleChangePin = async () => {
         <AnimatePresence>
           {donationToasts.map(t => (
             <motion.div key={t.id} initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 100, opacity: 0 }}
-              className="bg-white dark:bg-slate-800 rounded-none p-5 shadow-2xl border border-slate-100 dark:border-slate-700 flex items-start gap-4">
+              className="bg-white dark:bg-slate-800 rounded-lg p-5 shadow-2xl border border-slate-100 dark:border-slate-700 flex items-start gap-4">
               {t.isWithdrawal
-                ? <div className={`w-12 h-12 rounded-none flex items-center justify-center text-white text-xl flex-shrink-0 ${t.status === 'COMPLETED' ? 'bg-green-500' : 'bg-red-500'}`}>{t.status === 'COMPLETED' ? '✓' : '✕'}</div>
-                : <div className="w-12 h-12 bg-blue-600 rounded-none flex items-center justify-center flex-shrink-0">{renderIconPreview(settings.customIcon, 24)}</div>
+                ? <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl flex-shrink-0 ${t.status === 'COMPLETED' ? 'bg-green-500' : 'bg-red-500'}`}>{t.status === 'COMPLETED' ? '✓' : '✕'}</div>
+                : <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">{renderIconPreview(settings.customIcon, 24)}</div>
               }
               <div className="flex-1 min-w-0">
                 <span className={`text-[10px] font-black uppercase tracking-widest ${t.isWithdrawal ? (t.status === 'COMPLETED' ? 'text-green-600 dark:text-green-400' : 'text-red-500') : 'text-blue-600 dark:text-blue-400'}`}>
@@ -3852,24 +3855,24 @@ const handleChangePin = async () => {
           <div className="flex items-center gap-3">
             {
               !isSidebarOpen && (
-                <div className="w-[44px] md:w-10 h-11 md:h-10 p-[6px] bg-blue-500 rounded-none flex items-center justify-center"><img src="/logoNew.png" className='relative left-[-0.8px]' alt="icon" /></div>
+                <div className="w-[44px] md:w-10 h-11 md:h-10 p-[6px] bg-blue-500 rounded-lg flex items-center justify-center"><img src="/logoNew.png" className='relative left-[-0.8px]' alt="icon" /></div>
               )
             }
             {/* <span className="font-black text-lg tracking-tight text-slate-800 dark:text-slate-100">TTT</span> */}
           </div>
         </a>
         <div className="flex items-center gap-3">
-          <button onClick={toggle} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} className="h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-none border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
+          <button onClick={toggle} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} className="h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-lg border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
             {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
           </button>
-          <button onClick={() => setActiveTab('contact')} aria-label="Bantuan & Kontak" className={`h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-none border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
+          <button onClick={() => setActiveTab('contact')} aria-label="Bantuan & Kontak" className={`h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-lg border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
             <HeadphonesIcon size={14} />
           </button>
-          <button onClick={() => setActiveTab('community')} aria-label="Komunitas Streamer" className="h-[40px] cursor-pointer hover:brightness-90 active:scale-[0.99] relative flex items-center gap-3 px-3 py-3 rounded-none font-medium text-md overflow-hidden" style={{ background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)', backgroundSize: '300% 100%', animation: 'rainbowSlide 3s ease-in-out infinite' }}>
+          <button onClick={() => setActiveTab('community')} aria-label="Komunitas Streamer" className="h-[40px] cursor-pointer hover:brightness-90 active:scale-[0.99] relative flex items-center gap-3 px-3 py-3 rounded-lg font-medium text-md overflow-hidden" style={{ background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)', backgroundSize: '300% 100%', animation: 'rainbowSlide 3s ease-in-out infinite' }}>
             <Users size={16} className="relative z-10 text-white" />
           </button>
           <InboxBell setActiveTab={setActiveTab} />
-          <button onClick={() => setIsSidebarOpen(true)} aria-label="Buka navigasi" className="h-[40px] cursor-pointer active:scale-[0.99] p-2 bg-white dark:bg-slate-800 rounded-none text-slate-600 dark:text-slate-400">
+          <button onClick={() => setIsSidebarOpen(true)} aria-label="Buka navigasi" className="h-[40px] cursor-pointer active:scale-[0.99] p-2 bg-white dark:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-400">
             <Menu size={24} />
           </button>
         </div>
@@ -3993,10 +3996,10 @@ const handleChangePin = async () => {
                 <section className="xl:col-span-7 space-y-6">
 
                   {/* Konfigurasi Alert */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                     <SectionHeader icon={<Settings size={20} />} title={`Konfigurasi Utama`} color="bg-blue-500" />
                     <br />
-                    <div className="md:flex space-y-3 md:space-y-0 items-center gap-2.5 rounded-none bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
+                    <div className="md:flex space-y-3 md:space-y-0 items-center gap-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
                       {['A', 'B'].map((slot) => (
                         <button
                           key={slot}
@@ -4010,7 +4013,7 @@ const handleChangePin = async () => {
                               slot: newSlot 
                             });
                           }}
-                          className={`w-full flex-1 flex items-center justify-between px-[14px] py-2.5 cursor-pointer rounded-none font-black text-sm transition-all duration-200 active:scale-[0.99] relative overflow-hidden group ${
+                          className={`w-full flex-1 flex items-center justify-between px-[14px] py-2.5 cursor-pointer rounded-lg font-black text-sm transition-all duration-200 active:scale-[0.99] relative overflow-hidden group ${
                             activeSlot === slot 
                               ? 'bg-blue-600 text-white' 
                               : 'bg-slate-700 hover:bg-slate-600 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
@@ -4035,7 +4038,7 @@ const handleChangePin = async () => {
                           </div>
 
                           {/* Status Badge */}
-                          <div className={`px-3 py-1 text-[10px] font-black rounded-none transition-all ${
+                          <div className={`px-3 py-1 text-[10px] font-black rounded-lg transition-all ${
                             activeSlot === slot 
                               ? 'bg-emerald-500 text-white shadow-inner' 
                               : 'bg-slate-200 dark:bg-slate-500/30 text-slate-500 dark:text-slate-400 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30'
@@ -4051,27 +4054,64 @@ const handleChangePin = async () => {
                       ))}
                     </div>
 
-                    <VideoTutorialSection />
+                    <div className="mt-2.5 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+                      <button
+                        onClick={() => setShowVideoTutorial(v => !v)}
+                        className="cursor-pointer w-full flex items-center justify-between px-5 py-3.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
+                      >
+                        <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
+                        Tutorial Video
+                        </span>
+                        <ChevronDown
+                          size={16}
+                          className={`text-slate-400 transition-transform duration-200 ${showVideoTutorial ? 'rotate-180' : ''}`}
+                        />
+                      </button>
+                      {showVideoTutorial && (
+                        <div className="border-t border-slate-200 dark:border-slate-700">
+                          <VideoTutorialSection />
+                        </div>
+                      )}
+                    </div>
 
-                    <div className="mt-5 space-y-2.5">
-                      <OBSConnectPanel overlayToken={user.overlayToken} />
+                    <div className="mt-2.5 space-y-2.5">
+                      <div className="mb-2.5 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+                        <button
+                          onClick={() => setShowOBSConnect(v => !v)}
+                          className="cursor-pointer w-full flex items-center justify-between px-5 py-3.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
+                        >
+                          <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
+                          OBS Auto-connection <span className="text-[10px] font-medium text-slate-400 ml-1">— opsional</span>
+                          </span>
+                          <ChevronDown
+                            size={16}
+                            className={`text-slate-400 transition-transform duration-200 ${showOBSConnect ? 'rotate-180' : ''}`}
+                          />
+                        </button>
+                        {showOBSConnect && (
+                          <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+                            <OBSConnectPanel overlayToken={user.overlayToken} />
+                          </div>
+                        )}
+                      </div>
+
                       {[
                         { key: 'overlayEnabled', label: 'Aktifkan Overlay OBS',  desc: 'Alert tidak akan muncul di OBS sama sekali' },
                         { key: 'showTimestamp',  label: 'Tampilkan Jam Donasi',  desc: 'Waktu kapan donasi diterima overlay' },
                       ].map(({ key, label, desc }) => (
-                        <div key={key} className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-none border border-slate-100 dark:border-slate-700">
+                        <div key={key} className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
                           <div>
                             <p className="font-black text-slate-700 dark:text-slate-200 text-sm">{label}</p>
                             <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{desc}</p>
                           </div>
                           <button onClick={() => upd(key, !settings[key])}
-                            className={`relative inline-flex h-7 w-14 items-center rounded-none transition-colors duration-300 cursor-pointer focus:outline-none ${settings[key] ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
-                            <span className={`inline-block h-5 w-5 transform rounded-none bg-white shadow-md transition-transform duration-300 ${settings[key] ? 'translate-x-8' : 'translate-x-1'}`} />
+                            className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer focus:outline-none ${settings[key] ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
+                            <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform duration-300 ${settings[key] ? 'translate-x-8' : 'translate-x-1'}`} />
                           </button>
                         </div>
                       ))}
 
-                      <div className="bg-slate-100 dark:bg-slate-800 p-5 pb-4.5 rounded-none border border-slate-100/10 mb-2">
+                      <div className="bg-slate-100 dark:bg-slate-800 p-5 pb-4.5 rounded-lg border border-slate-100/10 mb-2">
                         <label className="block text-[10px] font-black bg-emerald-300 w-max text-slate-700 mb-2 uppercase tracking-widest px-2">DONATE URL</label>
                         <div className="flex gap-3">
                           <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="flex-1 bg-transparent font-mono text-sm text-white font-bold outline-none overflow-hidden text-ellipsis" />
@@ -4091,7 +4131,7 @@ const handleChangePin = async () => {
                                   if (m.id === 'emoji') upd('customIcon', '');
                                   setIconMode(m.id);
                                 }}
-                                className={`cursor-pointer active:scale-[0.99] px-4 py-2 rounded-none font-black text-xs transition-all ${
+                                className={`cursor-pointer active:scale-[0.99] px-4 py-2 rounded-lg font-black text-xs transition-all ${
                                   iconMode === m.id
                                     ? 'bg-blue-600 text-white'
                                     : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -4105,7 +4145,7 @@ const handleChangePin = async () => {
                             <div className="grid grid-cols-4 md:grid-cols-6 gap-2.5">
                               {ICON_PRESETS.map(({ emoji, label }) => (
                                 <button key={emoji} onClick={() => upd('customIcon', emoji === '💜' ? '' : emoji)} title={label}
-                                  className={`flex flex-col items-center gap-1 p-3 rounded-none border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
+                                  className={`flex flex-col items-center gap-1 p-3 rounded-lg border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
                                     (settings.customIcon || '💜') === emoji || (!settings.customIcon && emoji === '💜')
                                       ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40'
                                       : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
@@ -4123,17 +4163,17 @@ const handleChangePin = async () => {
                                   value={settings.customIcon?.startsWith('http') ? settings.customIcon : ''}
                                   onChange={e => upd('customIcon', e.target.value)}
                                   placeholder="https://media.giphy.com/media/xxxx/giphy.gif"
-                                  className="flex-1 p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
+                                  className="flex-1 p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
                                 />
                                 {settings.customIcon?.startsWith('http') && (
-                                  <div className="w-12 h-12 flex-shrink-0 border-2 border-slate-200 dark:border-slate-700 rounded-none overflow-hidden bg-slate-900 flex items-center justify-center">
+                                  <div className="w-12 h-12 flex-shrink-0 border-2 border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center">
                                     <img src={settings.customIcon} alt="preview" className="w-full h-full object-contain" />
                                   </div>
                                 )}
                               </div>
 
                               {/* Giphy reference */}
-                              <div className="flex items-center gap-3 p-3 bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 rounded-none">
+                              <div className="flex items-center gap-3 p-3 bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 rounded-lg">
                                 <span className="text-lg flex-shrink-0">🎬</span>
                                 <div className="flex-1 min-w-0">
                                   <p className="text-[10px] font-black text-pink-700 dark:text-pink-400 uppercase tracking-wider mb-0.5">Cari GIF di Giphy</p>
@@ -4142,7 +4182,7 @@ const handleChangePin = async () => {
                                   </p>
                                 </div>
                                 <a href="https://giphy.com/search/terima-kasih" target="_blank" rel="noopener noreferrer"
-                                  className="flex-shrink-0 px-3 py-1.5 bg-pink-500 hover:bg-pink-600 text-white rounded-none text-[10px] font-black transition-all active:scale-[0.99]">
+                                  className="flex-shrink-0 px-3 py-1.5 bg-pink-500 hover:bg-pink-600 text-white rounded-lg text-[10px] font-black transition-all active:scale-[0.99]">
                                   Buka Giphy →
                                 </a>
                               </div>
@@ -4167,7 +4207,7 @@ const handleChangePin = async () => {
 
                           return (
                             <button key={t} onClick={() => upd('theme', t)}
-                              className={`cursor-pointer active:scale-[0.99] py-3 md:py-4 text-left pl-3 rounded-none border-2 transition-all font-black text-sm capitalize ${
+                              className={`cursor-pointer active:scale-[0.99] py-3 md:py-4 text-left pl-3 rounded-lg border-2 transition-all font-black text-sm capitalize ${
                                 settings.theme === t
                                   ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
                                   : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
@@ -4181,7 +4221,7 @@ const handleChangePin = async () => {
                       <div className="md:col-span-2 w-full flex flex-col gap-3">
                         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label>
                         <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
-                          className="w-full px-2 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
+                          className="w-full px-2 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
                           <option value="bounce">Bounce</option><option value="slide-left">Slide Kiri</option>
                           <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
                         </select>
@@ -4201,7 +4241,7 @@ const handleChangePin = async () => {
                     <ColorInput id="color-progressBarColor" label="Warna Progress Bar" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
                   </div>
                     <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                      className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
+                      className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-lg font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
                       <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
                     </button>
                   </div>
@@ -4220,7 +4260,7 @@ const handleChangePin = async () => {
                             upd('textColor',      preset.textColor);
                             upd('borderColor',    preset.borderColor);
                           }}
-                          className="cursor-pointer active:scale-[0.99] py-3 px-2 rounded-none border-2 transition-all text-left"
+                          className="cursor-pointer active:scale-[0.99] py-3 px-2 rounded-lg border-2 transition-all text-left"
                           style={{
                             borderColor: preset.highlightColor + '60',
                             background: preset.primaryColor,
@@ -4241,14 +4281,14 @@ const handleChangePin = async () => {
                   <QuickAmountsEditor amounts={settings.quickAmounts || DEFAULT_SETTINGS.quickAmounts} onChange={v => upd('quickAmounts', v)} saveSettingsMutation={saveSettingsMutation} settings={settings} activeSlot={activeSlot} />
 
                   {/* OBS URLs */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                     {[
                       { label: 'URL ALERT - OBS Slot A + B', url: user.overlayUrl },
                       { label: 'URL MEDIASHARE - OBS',      url: `${window.location.origin}/overlay/${user.overlayToken}/mediashare` },
                       { label: 'URL VOICE NOTE - OBS',      url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
                       { label: 'URL COMBINED (ALL-IN-ONE)', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
                     ].map(({ label, url }) => (
-                      <div key={label} className="bg-slate-100 dark:bg-slate-800 p-6 rounded-none border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
+                      <div key={label} className="bg-slate-100 dark:bg-slate-800 p-6 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
                         <div className="block text-[10px] font-black bg-transparent w-max text-white mb-2 uppercase tracking-widest px-0">{label}</div>
                         <div className="flex gap-3">
                           <input readOnly value={url} aria-label={`URL ${label}`} className="flex-1 bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
@@ -4257,13 +4297,13 @@ const handleChangePin = async () => {
                       </div>
                     ))}
                     <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                      className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+                      className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-lg font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
                       <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
                     </button>
                   </div>
 
                   {/* Widget URLs */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
                     {/* <div className="flex justify-between items-center gap-3 mb-5">
                       <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Widget OBS</span>
                     </div> */}
@@ -4287,8 +4327,8 @@ const handleChangePin = async () => {
                     ].map(({ label, emoji, path, desc, size }) => {
                       const widgetUrl = `${window.location.origin}/widget/${user.overlayToken}/${path}`;
                       return (
-                        <div key={path} className="flex items-center gap-4 bg-white dark:bg-slate-800 rounded-none p-4 border border-slate-200 dark:border-slate-700">
-                          <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-none flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
+                        <div key={path} className="flex items-center gap-4 bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
+                          <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-3 mb-0.5">
                               <span className="font-black text-slate-700 dark:text-slate-200 text-sm">{label}</span>
@@ -4297,7 +4337,7 @@ const handleChangePin = async () => {
                             <p className="text-sm text-slate-400 dark:text-slate-500 font-medium truncate">{desc}</p>
                             <p className="text-sm truncate max-w-[90%] font-mono text-blue-500 dark:text-blue-400 truncate mt-0.5">{widgetUrl}</p>
                           </div>
-                          <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800 hover:text-blue-300 text-slate-300 rounded-none transition-all flex-shrink-0">
+                          <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800 hover:text-blue-300 text-slate-300 rounded-lg transition-all flex-shrink-0">
                             <Copy size={15} />
                           </button>
                         </div>
@@ -4374,7 +4414,7 @@ const handleChangePin = async () => {
                 )}
 
                 {/* Izin Media */}
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
+                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
                   <SectionHeader icon={<ImageIcon size={20} />} title="Izinkan Donor Kirim Media" color="bg-purple-500" />
                   <MediaTriggersEditor saveSettingsMutation={saveSettingsMutation} settings={settings} triggers={settings.mediaTriggers || []} onChange={v => upd('mediaTriggers', v)} activeSlot={activeSlot} />
                 </div>
@@ -4398,9 +4438,9 @@ const handleChangePin = async () => {
             {/* ══════════════════════ PROFILE ══════════════════════ */}
             {activeTab === 'profile' && (
               <motion.div key="profile" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-3 pb-0">
-                <div className="relative bg-slate-900/70 backdrop-blur-sm rounded-none pt-8 pb-7 md:pl-7 pr-8 shadow-sm border border-slate-100 dark:border-slate-800 px-8 py-0 text-white relative overflow-hidden">
+                <div className="relative bg-slate-900/70 backdrop-blur-sm rounded-lg pt-8 pb-7 md:pl-7 pr-8 shadow-sm border border-slate-100 dark:border-slate-800 px-8 py-0 text-white relative overflow-hidden">
                   <div className="relative z-2 flex flex-col md:flex-row items-center gap-6">
-                    <div className="w-26 h-26 mt-[-1.6px] mx-auto rounded-none overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg border-4 border-white dark:border-slate-900">
+                    <div className="w-26 h-26 mt-[-1.6px] mx-auto rounded-lg overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg border-4 border-white dark:border-slate-900">
                       {profileForm.profilePicture || user?.profilePicture ? (
                         <img src={profileForm.profilePicture || user?.profilePicture} alt={user.username} className="w-full h-full object-cover"
                           onError={(e) => { e.target.style.display = 'none'; const parent = e.target.parentElement; if (parent) parent.innerHTML = (user.username?.charAt(0) || '?').toUpperCase(); }} />
@@ -4412,32 +4452,32 @@ const handleChangePin = async () => {
                           <h2 className="text-3xl font-black text-white tracking-tighter">@{user.username}</h2> <Verified className='relative top-[3.9px] text-blue-400' />
                         </div>
                       </div>
-                      <div className="w-max px-4 md:flex hidden py-1.5 relative bg-green-100 relative top-1 text-green-600 rounded-none text-[10px] font-black uppercase tracking-widest border border-green-200">Verified Creator</div>
+                      <div className="w-max px-4 md:flex hidden py-1.5 relative bg-green-100 relative top-1 text-green-600 rounded-lg text-[10px] font-black uppercase tracking-widest border border-green-200">Verified Creator</div>
                       <p className="text-slate-200 font-medium text-sm">{user.email}</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex w-full flex-wrap gap-1.5 justify-center md:justify-start bg-gradient-to-r from-slate-50/50 to-blue-50/30 dark:from-slate-900/50 dark:to-blue-900/20 p-3 py-2 border border-slate-100/20 dark:border-slate-700/50 backdrop-blur-sm rounded-none shadow-sm">
+                <div className="flex w-full flex-wrap gap-1.5 justify-center md:justify-start bg-gradient-to-r from-slate-50/50 to-blue-50/30 dark:from-slate-900/50 dark:to-blue-900/20 p-3 py-2 border border-slate-100/20 dark:border-slate-700/50 backdrop-blur-sm rounded-lg shadow-sm">
                   {['10k','50k','100k','500k','1jt'].map(name => (
                     <Badge key={name} type="streamer" name={name} active={profileData?.user?.donationMilestones?.[name] || false} />
                   ))}
                 </div>
 
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
+                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
                   <SectionHeader icon={<User size={18} />} title="Profil Publik" color="bg-blue-500" />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
                     <div className="md:col-span-2">
                       <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">Foto Profil</label>
                       <div className="flex flex-col sm:flex-row items-start gap-4">
-                        <div className="w-20 h-20 rounded-none border-2 border-slate-200 dark:border-slate-700 overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-5xl font-black flex-shrink-0">
+                        <div className="w-20 h-20 rounded-lg border-2 border-slate-200 dark:border-slate-700 overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-5xl font-black flex-shrink-0">
                           {profileForm.profilePicture ? (
                             <img src={profileForm.profilePicture} alt="Profile Preview" className="w-full h-full object-cover" onError={(e) => e.target.src = ''} />
                           ) : profileForm.username?.charAt(0)?.toUpperCase() || '?'}
                         </div>
                         <div className="flex-1 space-y-3 w-full">
                           <label className="cursor-pointer block">
-                            <div className="h-20 border-2 active:scale-[0.99] border-dashed border-slate-300 dark:border-slate-600 rounded-none p-4 text-center hover:border-blue-400 transition-all">
+                            <div className="h-20 border-2 active:scale-[0.99] border-dashed border-slate-300 dark:border-slate-600 rounded-lg p-4 text-center hover:border-blue-400 transition-all">
                               <input type="file" accept="image/*" onChange={handleProfilePictureUpload} className="hidden h-20" id="profile-upload" />
                               <label htmlFor="profile-upload" className="cursor-pointer flex flex-col items-center">
                                 <p className="flex items-center gap-3 mb-1 font-bold text-slate-600 dark:text-slate-300">Klik untuk upload gambar <Image size={16} /></p>
@@ -4453,9 +4493,9 @@ const handleChangePin = async () => {
                       <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Link Halaman Donasi</label>
                       <div className="flex gap-3">
                         <input readOnly value={`${window.location.origin}/donate/${user.username}`}
-                          className="flex-1 bg-blue-50 dark:bg-blue-950/40 border-2 border-blue-100 dark:border-blue-900 rounded-none p-5 font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none" />
+                          className="flex-1 bg-blue-50 dark:bg-blue-950/40 border-2 border-blue-100 dark:border-blue-900 rounded-lg p-5 font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none" />
                         <button onClick={() => copyToClipboard(`${window.location.origin}/donate/${user.username}`)}
-                          className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-none transition-all flex items-center justify-center active:scale-95">
+                          className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-lg transition-all flex items-center justify-center active:scale-95">
                           <Copy size={20} />
                         </button>
                       </div>
@@ -4467,14 +4507,14 @@ const handleChangePin = async () => {
                     <div className="md:col-span-2">
                       <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Bio Singkat</label>
                       <textarea value={profileForm.bio} onChange={e => setProfileForm(f => ({ ...f, bio: e.target.value }))}
-                        className="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-none font-bold outline-none focus:border-blue-500 h-32 transition-all"
+                        className="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-lg font-bold outline-none focus:border-blue-500 h-32 transition-all"
                         placeholder="Ceritakan tentang kontenmu..." />
                     </div>
 
                     <div className="md:col-span-2 mb-1">
                       <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Intro Halaman Donate</label>
                       <input type="text" value={profileForm.donateIntro || ''} onChange={e => setProfileForm(f => ({ ...f, donateIntro: e.target.value }))}
-                        className="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-none font-bold outline-none focus:border-blue-500 transition-all"
+                        className="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-lg font-bold outline-none focus:border-blue-500 transition-all"
                         placeholder="Support aku biar makin semangat 🚀" maxLength={120} />
                     </div>
 
@@ -4490,7 +4530,7 @@ const handleChangePin = async () => {
 
                     <div className="md:col-span-2">
                       <button onClick={() => updateProfileMutation.mutate(profileForm)} disabled={updateProfileMutation.isPending}
-                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-md transition-all flex items-center justify-center gap-3 disabled:opacity-70">
+                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-black text-md transition-all flex items-center justify-center gap-3 disabled:opacity-70">
                         <Save size={20} />
                         {updateProfileMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
                       </button>
@@ -4498,7 +4538,7 @@ const handleChangePin = async () => {
                   </div>
                 </div>
                 <QrCodeCard username={user.username} />
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
                     <SectionHeader icon={<ShieldCheck size={18} />} title="Ubah PIN Keamanan" color="bg-amber-500" />
                     <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">
                       PIN digunakan untuk konfirmasi transfer saldo. Pastikan tidak membagikannya ke siapapun.
@@ -4627,7 +4667,7 @@ const handleChangePin = async () => {
             {/* ══════════════════════ POLL ══════════════════════ */}
             {activeTab === 'poll' && (
               <motion.div key="poll" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
                   <div className='md:flex hidden'>
                     <SectionHeader icon={<Vote size={20} />} title="Poll & Voting" color="bg-violet-500" />
                   </div>
@@ -4642,7 +4682,7 @@ const handleChangePin = async () => {
             {/* ══════════════════════ SUBATHON ══════════════════════ */}
             {activeTab === 'subathon' && (
               <motion.div key="subathon" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
                   <SubathonManager overlayToken={user.overlayToken} />
                 </div>
               </motion.div>
@@ -4651,7 +4691,7 @@ const handleChangePin = async () => {
             {/* ══════════════════════ LEADERBOARD ══════════════════════ */}
             {activeTab === 'leaderboard' && (
               <motion.div key="leaderboard" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
                   <LeaderboardSettings overlayToken={user?.overlayToken} />
                 </div>
               </motion.div>
@@ -4713,7 +4753,7 @@ const handleChangePin = async () => {
               exit={{ scale: 0.85, opacity: 0, y: 20 }}
               className="flex flex-col items-center w-[95vw] md:w-md gap-6 text-center p-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl"
             >
-              <div className="w-20 h-20 rounded-none bg-blue-100 dark:bg-blue-950/40 flex items-center justify-center">
+              <div className="w-20 h-20 rounded-lg bg-blue-100 dark:bg-blue-950/40 flex items-center justify-center">
                 <ShieldCheck size={40} className="text-blue-500" />
               </div>
               <div>
@@ -4742,7 +4782,7 @@ const handleChangePin = async () => {
               exit={{ scale: 0.88, opacity: 0, y: 24 }}
               transition={{ type: 'spring', stiffness: 320, damping: 28 }}
               onClick={e => e.stopPropagation()}
-              className="relative max-w-3xl bg-slate-700 p-3 w-full mx-4 rounded-none overflow-hidden shadow-2xl border border-white/10"
+              className="relative max-w-3xl bg-slate-700 p-3 w-full mx-4 rounded-lg overflow-hidden shadow-2xl border border-white/10"
             >
               <img
                 src="/poster.png"
@@ -4751,7 +4791,7 @@ const handleChangePin = async () => {
               />
               <button
                 onClick={() => setShowLoginModal(false)}
-                className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-red-600 hover:bg-black/70 text-white rounded-none transition-all cursor-pointer"
+                className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-red-600 hover:bg-black/70 text-white rounded-lg transition-all cursor-pointer"
                 aria-label="Tutup"
               >
                 ✕

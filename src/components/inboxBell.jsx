@@ -107,7 +107,7 @@ export const InboxBell = ({ setActiveTab }) => {
       {/* Bell button */}
       <button
         onClick={handleOpen}
-        className={`cursor-pointer h-[38px] w-[38px] flex items-center justify-center rounded-none border transition-all active:scale-[0.97] relative ${
+        className={`cursor-pointer h-[38px] w-[38px] flex items-center justify-center rounded-lg border transition-all active:scale-[0.97] relative ${
           open
             ? 'bg-blue-600 border-blue-600 text-white'
             : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -118,7 +118,7 @@ export const InboxBell = ({ setActiveTab }) => {
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[9px] font-black flex items-center justify-center rounded-none"
+            className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[9px] font-black flex items-center justify-center rounded-lg"
           >
             {unread > 9 ? '9+' : unread}
           </motion.span>
@@ -135,7 +135,7 @@ export const InboxBell = ({ setActiveTab }) => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.95 }}
               transition={{ duration: 0.15 }}
-              className="absolute right-[-127%] top-full mt-2 w-[88vw] md:w-120 bg-white dark:bg-slate-900 rounded-none shadow-2xl border border-slate-100 dark:border-slate-700 overflow-hidden z-[9999]"
+              className="absolute right-[-127%] top-full mt-2 w-[88vw] md:w-120 bg-white dark:bg-slate-900 rounded-lg shadow-2xl border border-slate-100 dark:border-slate-700 overflow-hidden z-[9999]"
             >
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
@@ -143,7 +143,7 @@ export const InboxBell = ({ setActiveTab }) => {
                   <Bell size={14} className="text-blue-500" />
                   <span className="font-black text-sm text-slate-700 dark:text-slate-200">Inbox</span>
                   {unread > 0 && (
-                    <span className="px-2 py-0.5 bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 text-[10px] font-black rounded-none">
+                    <span className="px-2 py-0.5 bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 text-[10px] font-black rounded-lg">
                       {unread} baru
                     </span>
                   )}
@@ -192,7 +192,7 @@ export const InboxBell = ({ setActiveTab }) => {
                           className="w-full text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all cursor-pointer"
                         >
                           <div className="flex items-start gap-3">
-                            <div className={`w-7 h-7 rounded-none flex items-center justify-center flex-shrink-0 mt-0.5`}
+                            <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5`}
                               style={{ background: cfg.color + '20', color: cfg.color }}>
                               {cfg.icon}
                             </div>
@@ -202,14 +202,14 @@ export const InboxBell = ({ setActiveTab }) => {
                                   {ann.title}
                                 </p>
                                 {!ann.isRead && (
-                                  <span className="w-2 h-2 bg-blue-500 rounded-none flex-shrink-0 mt-1.5" />
+                                  <span className="w-2 h-2 bg-blue-500 rounded-lg flex-shrink-0 mt-1.5" />
                                 )}
                               </div>
                               <p className={`text-[11px] font-medium mt-0.5 ${isExpanded ? '' : 'line-clamp-2'} text-slate-500 dark:text-slate-400`}>
                                 {ann.description}
                               </p>
                               <div className="flex items-center justify-between mt-1.5">
-                                <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-none border ${cfg.bg} ${cfg.text} ${cfg.border}`}>
+                                <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-lg border ${cfg.bg} ${cfg.text} ${cfg.border}`}>
                                   {cfg.label}
                                 </span>
                                 <span className="text-[10px] text-slate-400 font-medium">{fmtDate(ann.createdAt)}</span>
@@ -230,7 +230,7 @@ export const InboxBell = ({ setActiveTab }) => {
                               <div className="px-4 pb-4 pt-3 space-y-3">
                                 {ann.imageUrl && (
                                   <img src={ann.imageUrl} alt={ann.title}
-                                    className="w-full max-h-40 object-cover rounded-none border border-slate-200 dark:border-slate-700" />
+                                    className="w-full max-h-40 object-cover rounded-lg border border-slate-200 dark:border-slate-700" />
                                 )}
                                 {ann.expiresAt && (
                                   <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-medium">
@@ -305,7 +305,7 @@ export const InboxPage = () => {
   return (
     <div className="space-y-5 pb-8">
       {/* Header */}
-      <div className="bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 from-blue-700 to-indigo-800 rounded-none p-4 md:p-5 text-white relative overflow-hidden">
+      <div className="bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 from-blue-700 to-indigo-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
         <div className="relative flex items-start justify-between gap-4">
           <div>
@@ -322,7 +322,7 @@ export const InboxPage = () => {
             <button
               onClick={() => readAllMutation.mutate()}
               disabled={readAllMutation.isPending}
-              className="cursor-pointer flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-none font-black text-sm border border-white/20 transition-all active:scale-[0.97] disabled:opacity-60"
+              className="cursor-pointer flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-lg font-black text-sm border border-white/20 transition-all active:scale-[0.97] disabled:opacity-60"
             >
               <CheckCheck size={15} />
               {readAllMutation.isPending ? 'Memproses...' : 'Tandai semua dibaca'}
@@ -330,11 +330,11 @@ export const InboxPage = () => {
           )}
         </div>
         <div className="relative mt-5 flex gap-3 text-sm flex-wrap">
-          <div className="px-3 py-1.5 bg-white/10 rounded-none border border-white/20 text-md">
+          <div className="px-3 py-1.5 bg-white/10 rounded-lg border border-white/20 text-md">
             {announcements.length} pengumuman
           </div>
           {unreadCount > 0 && (
-            <div className="px-3 py-1.5 bg-red-500/20 rounded-none border border-red-500/30 font-black text-red-300">
+            <div className="px-3 py-1.5 bg-red-500/20 rounded-lg border border-red-500/30 font-black text-red-300">
               {unreadCount} belum dibaca
             </div>
           )}
@@ -344,12 +344,12 @@ export const InboxPage = () => {
       {/* Type filters */}
       <div className="flex gap-2 flex-wrap px-4 md:px-5">
         <button onClick={() => setTypeFilter('')}
-          className={`px-3 py-2 rounded-none text-[11px] font-black border transition-all cursor-pointer active:scale-[0.97] ${!typeFilter ? 'bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 border-transparent' : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'}`}>
+          className={`px-3 py-2 rounded-lg text-[11px] font-black border transition-all cursor-pointer active:scale-[0.97] ${!typeFilter ? 'bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 border-transparent' : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'}`}>
           Semua
         </button>
         {Object.entries(TYPE_CONFIG).map(([key, cfg]) => (
           <button key={key} onClick={() => setTypeFilter(k => k === key ? '' : key)}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-none text-[11px] font-black border transition-all cursor-pointer active:scale-[0.97] ${typeFilter === key ? `${cfg.bg} ${cfg.text} ${cfg.border}` : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'}`}>
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[11px] font-black border transition-all cursor-pointer active:scale-[0.97] ${typeFilter === key ? `${cfg.bg} ${cfg.text} ${cfg.border}` : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'}`}>
             {cfg.icon} {cfg.label}
           </button>
         ))}
@@ -361,25 +361,25 @@ export const InboxPage = () => {
           {/* Cards */}
           <div className="space-y-3">
             {[1, 2, 3, 4].map((_, i) => (
-              <div key={i} className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-none overflow-hidden">
+              <div key={i} className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-lg overflow-hidden">
                 {/* top accent */}
                 <div className="h-[3px] bg-slate-200 dark:bg-slate-700" />
                 <div className="p-4 md:p-5 flex items-start gap-4">
                   {/* icon */}
-                  <div className="w-10 h-10 flex-shrink-0 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                  <div className="w-10 h-10 flex-shrink-0 bg-slate-200 dark:bg-slate-700 rounded-lg" />
                   {/* content */}
                   <div className="flex-1 space-y-2.5">
                     <div className="flex items-start justify-between gap-3">
                       <div className="space-y-1.5 flex-1">
-                        <div className="h-3.5 bg-slate-200 dark:bg-slate-700 rounded-none" style={{ width: `${55 + i * 8}%` }} />
-                        <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded-none w-full" />
-                        <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded-none" style={{ width: '70%' }} />
+                        <div className="h-3.5 bg-slate-200 dark:bg-slate-700 rounded-lg" style={{ width: `${55 + i * 8}%` }} />
+                        <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded-lg w-full" />
+                        <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded-lg" style={{ width: '70%' }} />
                       </div>
-                      <div className="h-5 w-10 bg-slate-100 dark:bg-slate-800 rounded-none flex-shrink-0" />
+                      <div className="h-5 w-10 bg-slate-100 dark:bg-slate-800 rounded-lg flex-shrink-0" />
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="h-4 w-16 bg-slate-100 dark:bg-slate-800 rounded-none" />
-                      <div className="h-3 w-20 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                      <div className="h-4 w-16 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                      <div className="h-3 w-20 bg-slate-100 dark:bg-slate-800 rounded-lg" />
                     </div>
                   </div>
                 </div>
@@ -388,7 +388,7 @@ export const InboxPage = () => {
           </div>
         </div>
       ) : filtered.length === 0 ? (
-        <div className="py-20 text-center text-slate-400 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-none">
+        <div className="py-20 text-center text-slate-400 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg">
           <Bell size={36} className="mx-auto mb-4 opacity-30" />
           <p className="font-black text-slate-500 text-lg">Tidak ada pengumuman</p>
           <p className="text-sm font-medium mt-1 text-slate-400">Nantikan informasi terbaru dari kami</p>
@@ -404,7 +404,7 @@ export const InboxPage = () => {
                 key={ann._id}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0, transition: { delay: i * 0.05 } }}
-                className={`bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border rounded-none overflow-hidden shadow-sm transition-all ${
+                className={`bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border rounded-lg overflow-hidden shadow-sm transition-all ${
                   !ann.isRead
                     ? 'border-blue-200 dark:border-blue-900/50 shadow-blue-50 dark:shadow-none'
                     : 'border-slate-100 dark:border-slate-800'
@@ -419,7 +419,7 @@ export const InboxPage = () => {
                 >
                   <div className="flex items-start gap-4">
                     {/* Icon */}
-                    <div className={`w-10 h-10 rounded-none flex items-center justify-center flex-shrink-0`}
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0`}
                       style={{ background: cfg.color + '20', color: cfg.color }}>
                       {cfg.icon}
                     </div>
@@ -433,7 +433,7 @@ export const InboxPage = () => {
                               {ann.title}
                             </h3>
                             {!ann.isRead && (
-                              <span className="w-2 h-2 bg-blue-500 rounded-none flex-shrink-0" />
+                              <span className="w-2 h-2 bg-blue-500 rounded-lg flex-shrink-0" />
                             )}
                           </div>
                           <p className={`text-xs md:text-sm font-medium ${isExpanded ? '' : 'line-clamp-2'} ${ann.isRead ? 'text-slate-400 dark:text-slate-500' : 'text-slate-600 dark:text-slate-400'}`}>
@@ -445,7 +445,7 @@ export const InboxPage = () => {
                           {ann.isRead ? (
                             <Check size={14} className="text-slate-300 dark:text-slate-600" />
                           ) : (
-                            <span className="px-2 py-1 bg-blue-100 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 text-[9px] font-black rounded-none border border-blue-200 dark:border-blue-900">
+                            <span className="px-2 py-1 bg-blue-100 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 text-[9px] font-black rounded-lg border border-blue-200 dark:border-blue-900">
                               BARU
                             </span>
                           )}
@@ -454,7 +454,7 @@ export const InboxPage = () => {
 
                       {/* Meta row */}
                       <div className="flex items-center gap-3 mt-2 flex-wrap">
-                        <span className={`text-[10px] font-black px-2 py-0.5 rounded-none border ${cfg.bg} ${cfg.text} ${cfg.border}`}>
+                        <span className={`text-[10px] font-black px-2 py-0.5 rounded-lg border ${cfg.bg} ${cfg.text} ${cfg.border}`}>
                           {cfg.label}
                         </span>
                         <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">{fmtDate(ann.createdAt)}</span>
@@ -488,7 +488,7 @@ export const InboxPage = () => {
                           <img
                             src={ann.imageUrl}
                             alt={ann.title}
-                            className="w-full max-h-72 object-cover rounded-none border border-slate-200 dark:border-slate-700"
+                            className="w-full max-h-72 object-cover rounded-lg border border-slate-200 dark:border-slate-700"
                           />
                         )}
                         <div className="prose prose-sm dark:prose-invert max-w-none">
@@ -497,7 +497,7 @@ export const InboxPage = () => {
                           </p>
                         </div>
                         {ann.expiresAt && (
-                          <div className="flex items-center gap-2 px-4 py-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-none">
+                          <div className="flex items-center gap-2 px-4 py-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-lg">
                             <Clock size={14} className="text-amber-500 flex-shrink-0" />
                             <p className="text-xs font-bold text-amber-600 dark:text-amber-400">
                               Pengumuman ini berlaku hingga {new Date(ann.expiresAt).toLocaleDateString('id-ID', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' })}

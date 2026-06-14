@@ -66,11 +66,11 @@ export const MediaShareControl = ({ overlayToken }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
+    <div className="bg-white dark:bg-slate-900 rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
 
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="p-2 w-10 h-10 bg-red-500 rounded-none flex items-center justify-center text-white">
+        <div className="p-2 w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center text-white">
           <SkipForward size={18} />
         </div>
         <div>
@@ -87,14 +87,14 @@ export const MediaShareControl = ({ overlayToken }) => {
       <button
         onClick={handleSkip}
         disabled={skipping}
-        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3"
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-lg font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3"
       >
         {/* <SkipForward size={18} /> */}
         {skipping ? 'Mengirim skip...' : 'Skip MediaShare Sekarang'}
       </button>
 
       {/* Volume */}
-      <div className="bg-slate-50 dark:bg-slate-800 rounded-none p-4 space-y-3">
+      <div className="bg-slate-50 dark:bg-slate-800 rounded-lg p-4 space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
             Volume Overlay
@@ -119,7 +119,7 @@ export const MediaShareControl = ({ overlayToken }) => {
             <button
               key={value}
               onClick={() => handleVolumeChange(value)}
-              className={`cursor-pointer flex-1 py-2 text-xs font-black rounded-none border transition-all active:scale-[0.99] ${
+              className={`cursor-pointer flex-1 py-2 text-xs font-black rounded-lg border transition-all active:scale-[0.99] ${
                 volume === value
                   ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400'
                   : 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-300 hover:border-slate-400'
@@ -147,7 +147,7 @@ export const MediaShareControl = ({ overlayToken }) => {
               <button
                 key={idx}
                 onClick={() => copyShortcut(url, idx)}
-                className={`w-full cursor-pointer flex items-center gap-3 px-3 py-2.5 border transition-all active:scale-[0.99] rounded-none text-left ${
+                className={`w-full cursor-pointer flex items-center gap-3 px-3 py-2.5 border transition-all active:scale-[0.99] rounded-lg text-left ${
                   copied
                     ? 'border-green-400 bg-green-50 dark:bg-green-950/30'
                     : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800/50'

@@ -62,7 +62,7 @@ const AlertModal = ({ modal, onClose }) => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.92, y: 16 }}
           transition={{ duration: 0.2 }}
-          className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-none shadow-2xl overflow-hidden"
+          className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-lg shadow-2xl overflow-hidden"
         >
           <div className="p-7 flex flex-col items-center text-center gap-4">
             <div className={`w-14 h-14 flex items-center justify-center rounded-full
@@ -258,7 +258,7 @@ export const WithdrawPage = () => {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="bg-white dark:bg-slate-900 w-[99%] md:max-w-lg rounded-none shadow-2xl overflow-hidden"
+            className="bg-white dark:bg-slate-900 w-[99%] md:max-w-lg rounded-lg shadow-2xl overflow-hidden"
           >
             <div className="p-4 md:p-8 text-center space-y-6">
               <div className="w-16 h-16 mx-auto bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center rounded-full">
@@ -272,7 +272,7 @@ export const WithdrawPage = () => {
                 </p>
               </div>
 
-              <div className="bg-slate-50 dark:bg-slate-800 p-5 text-left rounded-none space-y-3 text-sm">
+              <div className="bg-slate-50 dark:bg-slate-800 p-5 text-left rounded-lg space-y-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-slate-500">Metode</span>
                   <span className="font-bold">{method === 'BANK' ? 'Transfer Bank' : 'E-Wallet DANA'}</span>
@@ -490,7 +490,7 @@ export const WithdrawPage = () => {
         <AlertModal modal={alertModal} onClose={closeAlert} />
 
         {/* ── Balance Card ── */}
-        <div className="bg-blue-600 py-7 rounded-none p-4 md:p-6 text-white relative overflow-hidden">
+        <div className="bg-blue-600 py-7 rounded-lg p-4 md:p-6 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 p-12 opacity-10 md:flex hidden"><Wallet size={120} /></div>
           <div className="relative z-[2]">
             <div className="flex flex-col items-start gap-3 mb-2">
@@ -506,7 +506,7 @@ export const WithdrawPage = () => {
                     localStorage.setItem('showBalance', String(next));
                     window.dispatchEvent(new Event('balanceUpdate'));
                   }}
-                  className="relative bg-white top-[1.4px] ml-3 cursor-pointer active:scale-[0.98] flex items-center gap-1 bg-blue-500/40 hover:bg-white/90 border border-blue-400/40 rounded-none px-2 py-0.5 text-[10px] font-black text-slate-900 transition-all active:scale-95"
+                  className="relative bg-white top-[1.4px] ml-3 cursor-pointer active:scale-[0.98] flex items-center gap-1 bg-blue-500/40 hover:bg-white/90 border border-blue-400/40 rounded-lg px-2 py-0.5 text-[10px] font-black text-slate-900 transition-all active:scale-95"
                 >
                   {showBalance ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -537,7 +537,7 @@ export const WithdrawPage = () => {
 
         {/* ── Banner saldo tidak cukup ── */}
         {availableBalance < MIN_SALDO && (
-          <div className="flex items-start gap-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-none px-5 py-4">
+          <div className="flex items-start gap-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg px-5 py-4">
             <span className="text-amber-500 text-lg flex-shrink-0">⚠️</span>
             <div>
               <p className="font-black text-amber-700 dark:text-amber-400 text-sm">Saldo belum mencukupi untuk penarikan</p>
@@ -557,7 +557,7 @@ export const WithdrawPage = () => {
               { label: 'Berhasil', value: `${statsCompleted.toLocaleString('id-ID')}`, unit: '', color: 'text-green-600 dark:text-green-400', bg: 'bg-green-100 dark:bg-green-950/30 border-green-100 dark:border-green-900' },
               { label: 'Ditolak',  value: statsFailed,     unit: 'request', color: 'text-red-500 dark:text-red-400',    bg: 'bg-red-100 dark:bg-red-950/30 border-red-100 dark:border-red-900' },
             ].map(s => (
-              <div key={s.label} className={`${s.bg} justify-center items-center md:justify-normalp border rounded-none px-4 py-3 md:px-4 md:py-4 flex items-center text-center`}>
+              <div key={s.label} className={`${s.bg} justify-center items-center md:justify-normalp border rounded-lg px-4 py-3 md:px-4 md:py-4 flex items-center text-center`}>
                 <p className={`font-black text-sm ${s.color}`}>{s.value} <span className="text-xs font-bold relative -top-[0.3px]">{s.label}</span></p>
               </div>
             ))}
@@ -565,7 +565,7 @@ export const WithdrawPage = () => {
         )}
 
         {/* ── Form Penarikan ── */}
-        <div className="bg-white dark:bg-slate-900 rounded-none p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
+        <div className="bg-white dark:bg-slate-900 rounded-lg p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
           <h2 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 mb-6 flex items-center gap-3">
             <CreditCard className="text-blue-600" size={20} /> Ajukan Penarikan Dana
           </h2>
@@ -576,7 +576,7 @@ export const WithdrawPage = () => {
               { label: 'Maks. Tarik', value: `Rp ${(MAX_TARIK / 1000000).toFixed(0)}jt` },
               { label: 'Biaya Layanan', value: '3.500' },
             ].map(r => (
-              <div key={r.label} className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-none p-3 text-center">
+              <div key={r.label} className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-lg p-3 text-center">
                 <p className="font-black text-blue-600 dark:text-white text-sm">{r.value}</p>
                 <p className="text-[10px] text-slate-600 dark:text-slate-400 font-bold mt-0.5">{r.label}</p>
               </div>
@@ -590,7 +590,7 @@ export const WithdrawPage = () => {
             ].map(m => (
               <button key={m.id}
                 onClick={() => { setMethod(m.id); setFormData({ ...formData, channelCode: m.id === 'BANK' ? 'BCA' : m.id }); }}
-                className={`cursor-pointer active:scale-[0.99] flex flex-col items-center gap-2 p-4 rounded-none border transition-all font-black text-sm ${
+                className={`cursor-pointer active:scale-[0.99] flex flex-col items-center gap-2 p-4 rounded-lg border transition-all font-black text-sm ${
                   method === m.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-lg shadow-blue-50 dark:shadow-none'
                     : 'border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 hover:border-slate-200 dark:hover:border-slate-600'
@@ -606,7 +606,7 @@ export const WithdrawPage = () => {
                 <div className="flex flex-col gap-2">
                   <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilih Bank</label>
                   <select
-                    className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-none font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100"
+                    className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-lg font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100"
                     value={formData.channelCode}
                     onChange={e => setFormData({ ...formData, channelCode: e.target.value })}>
                     <option value="BCA">BCA (Bank Central Asia)</option>
@@ -624,7 +624,7 @@ export const WithdrawPage = () => {
                 <input
                   value={formData.accountNumber}
                   placeholder={method === 'BANK' ? '0000000000000' : '08xx-xxxx-xxxx'}
-                  className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-none font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                  className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-lg font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
                   onChange={e => setFormData({ ...formData, accountNumber: e.target.value })} />
               </div>
             </div>
@@ -634,7 +634,7 @@ export const WithdrawPage = () => {
               <input
                 value={formData.accountName}
                 placeholder="Sesuaikan dengan Buku Tabungan / Nama di App"
-                className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-none font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-lg font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
                 onChange={e => setFormData({ ...formData, accountName: e.target.value })} />
             </div>
 
@@ -646,7 +646,7 @@ export const WithdrawPage = () => {
                   type="text"
                   value={formData.formattedAmount || ''}
                   placeholder="0"
-                  className="w-full py-4 pl-14 bg-slate-900 dark:bg-slate-950 text-white ring-1 dark:ring-white/10 rounded-none font-bold text-xl outline-none focus:ring-1 dark:focus:ring-blue-900 transition-all placeholder:text-slate-600"
+                  className="w-full py-4 pl-14 bg-slate-900 dark:bg-slate-950 text-white ring-1 dark:ring-white/10 rounded-lg font-bold text-xl outline-none focus:ring-1 dark:focus:ring-blue-900 transition-all placeholder:text-slate-600"
                   onChange={(e) => {
                     let value = e.target.value.replace(/[^0-9]/g, '');
                     if (value === '') { setFormData(prev => ({ ...prev, amount: '', formattedAmount: '' })); return; }
@@ -677,16 +677,16 @@ export const WithdrawPage = () => {
             <button
               onClick={handleSubmit}
               disabled={withdrawMutation.isPending || !canSubmit}
-              className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-blue-600 text-white py-4 rounded-none font-black text-base hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 dark:shadow-blue-900/20 flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed">
+              className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-blue-600 text-white py-4 rounded-lg font-black text-base hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 dark:shadow-blue-900/20 flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed">
               {withdrawMutation.isPending ? (
-                <><div className="w-5 h-5 border-4 border-white/30 border-t-white rounded-none animate-spin" /> Memproses...</>
+                <><div className="w-5 h-5 border-4 border-white/30 border-t-white rounded-lg animate-spin" /> Memproses...</>
               ) : (
                 <>{getSubmitLabel()} <ArrowRight size={18} className='relative top-[1px]' /></>
               )}
             </button>
 
             {withdrawMutation.isSuccess && (
-              <div className="flex items-center gap-3 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-none px-5 py-4">
+              <div className="flex items-center gap-3 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg px-5 py-4">
                 <CheckCircle2 size={18} className="text-green-500 flex-shrink-0" />
                 <div>
                   <p className="font-black text-green-700 dark:text-green-400 text-sm">Pengajuan berhasil dikirim!</p>
@@ -705,7 +705,7 @@ export const WithdrawPage = () => {
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                className="bg-white dark:bg-slate-900 w-full max-w-xl h-max rounded-none shadow-2xl overflow-hidden relative"
+                className="bg-white dark:bg-slate-900 w-full max-w-xl h-max rounded-lg shadow-2xl overflow-hidden relative"
               >
                 {/* Blue Overlay saat Locked */}
                 {isLocked && (
@@ -752,7 +752,7 @@ export const WithdrawPage = () => {
                         onChange={(e) => handlePinInput(i, e.target.value)}
                         onKeyDown={(e) => handlePinKeyDown(i, e)}
                         disabled={isLocked}
-                      className={`w-14 h-14 ${showPin ? 'pb-1' : 'pb-2'} text-center text-3xl font-black border-2 bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:border-blue-500 rounded-none outline-none`}
+                      className={`w-14 h-14 ${showPin ? 'pb-1' : 'pb-2'} text-center text-3xl font-black border-2 bg-slate-50 dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:border-blue-500 rounded-lg outline-none`}
                       />
                     ))}
                   </div>
@@ -767,7 +767,7 @@ export const WithdrawPage = () => {
                     </button>
                   </div>
                   {pinError && (
-                    <div className="flex w-max mx-auto items-center text-center justify-center gap-2 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 p-3 rounded-none">
+                    <div className="flex w-max mx-auto items-center text-center justify-center gap-2 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 p-3 rounded-lg">
                       <AlertCircle size={16} className="text-red-500" />
                       <p className="text-sm font-medium text-red-600 dark:text-red-400">{pinError}</p>
                     </div>
@@ -796,13 +796,13 @@ export const WithdrawPage = () => {
         </AnimatePresence>
 
         {/* ── Riwayat Withdrawal ── */}
-        <div className="bg-white dark:bg-slate-900 rounded-none shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
           <div className="flex items-center justify-between px-5 md:px-8 py-5 border-b border-slate-100 dark:border-slate-800">
             <div>
               <p className="font-black text-slate-800 dark:text-slate-100">Riwayat Penarikan</p>
               <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{pagination.total || 0} total request</p>
             </div>
-            <div className="flex gap-1.5 rounded-none overflow-hidden">
+            <div className="flex gap-1.5 rounded-lg overflow-hidden">
                 <button
                   onClick={() => setViewMode('table')}
                   className={`px-4 py-1 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
@@ -822,7 +822,7 @@ export const WithdrawPage = () => {
 
           {historyLoading ? (
               <div className="flex items-center justify-center py-16 text-slate-400 dark:text-slate-500 font-bold gap-3">
-                <div className="w-5 h-5 border-4 border-slate-200 dark:border-slate-700 border-t-blue-600 rounded-none animate-spin" /> 
+                <div className="w-5 h-5 border-4 border-slate-200 dark:border-slate-700 border-t-blue-600 rounded-lg animate-spin" /> 
                 Memuat riwayat...
               </div>
             ) : withdrawals.length === 0 ? (
@@ -837,7 +837,7 @@ export const WithdrawPage = () => {
                 {withdrawals.map((wd) => {
                   const cfg = STATUS_CONFIG[wd.status] || STATUS_CONFIG.PENDING;
                   return (
-                    <div key={wd._id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-none p-5 hover:shadow-md transition-all">
+                    <div key={wd._id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 hover:shadow-md transition-all">
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <p className="text-xl font-medium text-slate-800 dark:text-slate-100">
@@ -847,7 +847,7 @@ export const WithdrawPage = () => {
                             {wd.channelCode} {wd.accountNumber}
                           </p>
                         </div>
-                        <span className={`relative top-1 flex items-center gap-1.5 px-3 py-1 rounded-none text-xs font-black ${cfg.className}`}>
+                        <span className={`relative top-1 flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-black ${cfg.className}`}>
                           {cfg.icon} {cfg.label}
                         </span>
                       </div>
@@ -920,7 +920,7 @@ export const WithdrawPage = () => {
                             <p className="font-mono font-bold text-slate-600 dark:text-slate-300 text-sm">{wd.accountNumber}</p>
                           </td>
                           <td className="px-5 md:px-8 py-5 text-center">
-                            <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-none text-[10px] font-black ${cfg.className}`}>
+                            <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black ${cfg.className}`}>
                               {cfg.icon} {cfg.label}
                             </span>
                           </td>
@@ -944,7 +944,7 @@ export const WithdrawPage = () => {
             <button
               onClick={() => setHistoryPage(p => Math.max(1, p - 1))}
               disabled={historyPage === 1}
-              className="px-4 py-2 rounded-none bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+              className="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
               ← Sebelumnya
             </button>
             <span className="text-xs font-bold text-slate-400 dark:text-slate-500">
@@ -953,7 +953,7 @@ export const WithdrawPage = () => {
             <button
               onClick={() => setHistoryPage(p => Math.min(pagination.totalPages, p + 1))}
               disabled={historyPage === pagination.totalPages}
-              className="px-4 py-2 rounded-none bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+              className="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
               Berikutnya →
             </button>
           </div>
@@ -962,7 +962,7 @@ export const WithdrawPage = () => {
         <AnimatePresence>
           {showConfirmModal && (
             <div className="fixed inset-0 z-[999998] flex items-center justify-center bg-black/70 backdrop-blur-md">
-              <motion.div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-none p-8 text-center">
+              <motion.div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-lg p-8 text-center">
                 <AlertTriangle size={40} className="mx-auto text-amber-500 mb-4" />
                 <p className="font-black text-xl">Konfirmasi Penarikan</p>
                 <div className="mt-6 bg-slate-50 dark:bg-slate-800 p-5 text-left text-sm space-y-2">
@@ -983,7 +983,7 @@ export const WithdrawPage = () => {
         <AnimatePresence>
           {showTotpModal && (
             <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/70 backdrop-blur-md">
-              <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-none p-8">
+              <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-lg p-8">
                 <div className="text-center">
                   <ShieldCheck size={48} className="mx-auto text-blue-600 mb-4" />
                   <p className="font-black text-xl">Verifikasi Google Authenticator</p>
@@ -998,7 +998,7 @@ export const WithdrawPage = () => {
                     setTotpCode(e.target.value.replace(/[^0-9]/g, ''));
                     setTotpError('');
                   }}
-                  className="w-full text-center text-4xl tracking-[12px] font-mono py-6 mt-8 bg-slate-100 dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 rounded-none focus:border-blue-500 outline-none"
+                  className="w-full text-center text-4xl tracking-[12px] font-mono py-6 mt-8 bg-slate-100 dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 rounded-lg focus:border-blue-500 outline-none"
                   placeholder="000000"
                 />
 

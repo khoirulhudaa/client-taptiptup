@@ -200,9 +200,9 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full md:max-w-md bg-white dark:bg-slate-900 rounded-none p-5 md:p-10 z-[9999] shadow-2xl text-center overflow-hidden border border-slate-100 dark:border-slate-800"
+              className="relative w-full md:max-w-md bg-white dark:bg-slate-900 rounded-lg p-5 md:p-10 z-[9999] shadow-2xl text-center overflow-hidden border border-slate-100 dark:border-slate-800"
             >
-              <div className="w-20 h-20 mx-auto mb-6 bg-red-100 dark:bg-red-950/40 text-red-600 rounded-none flex items-center justify-center">
+              <div className="w-20 h-20 mx-auto mb-6 bg-red-100 dark:bg-red-950/40 text-red-600 rounded-lg flex items-center justify-center">
                 <AlertCircle size={40} />
               </div>
               <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2">Konfirmasi Keluar</h3>
@@ -212,13 +212,13 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
               <div className="flex flex-col gap-3">
                 <button
                   onClick={handleLogout}
-                  className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 md:py-4 bg-red-600 text-white rounded-none font-black text-md md:text-lg shadow-xl shadow-red-200 dark:shadow-red-900/20 hover:bg-red-700"
+                  className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 md:py-4 bg-red-600 text-white rounded-lg font-black text-md md:text-lg shadow-xl shadow-red-200 dark:shadow-red-900/20 hover:bg-red-700"
                 >
                   Ya, Keluar
                 </button>
                 <button
                   onClick={() => setShowLogoutConfirm(false)}
-                  className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 md:py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-none font-black text-md md:text-lg hover:bg-slate-200 dark:hover:bg-slate-700"
+                  className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 md:py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-lg font-black text-md md:text-lg hover:bg-slate-200 dark:hover:bg-slate-700"
                 >
                   Batal
                 </button>
@@ -248,7 +248,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           {!isCollapsed && (
             <a href='/'>
               <div className="flex shadow-none items-center gap-3">
-                <div className="ml-0 mt-[-2px] w-10 h-10 bg-blue-500 rounded-none flex items-center justify-center text-white font-black text-xl italic">
+                <div className="ml-0 mt-[-2px] w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white font-black text-xl italic">
                   <img src="/tttnews.png" alt="icon" className="w-[88%]" />
                 </div>
                 <h1 className="text-lg ml-0 font-black tracking-tight text-slate-800 dark:text-slate-100 whitespace-nowrap">TAPTIPTUP</h1>
@@ -257,7 +257,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           )}
           {isCollapsed && ( 
             <a href='/'>
-              <div className="w-full h-12 bg-red-200 shadow-none rounded-none flex items-center justify-center">
+              <div className="w-full h-12 bg-red-200 shadow-none rounded-lg flex items-center justify-center">
                 <img src="/tttnews.png" alt="icon" className={`${isCollapsed ? 'w-[30%]' : 'w-[60%]'}`} />
               </div>
             </a>
@@ -280,15 +280,15 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
             <div className='relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white mb-2'>
               {superMode ? 'Mode Admin' : 'Mode Streamer'}
             </div>
-            <div className="flex items-center justify-stsrt gap-2 rounded-none">
+            <div className="flex items-center justify-stsrt gap-2 rounded-lg">
               <button
                 onClick={handleAdminMode}
-                className={`relative cursor-pointer active:scale-[0.99] hover:brightness-95 w-16 h-8 rounded-none transition-colors duration-200 ease-in-out ${
+                className={`relative cursor-pointer active:scale-[0.99] hover:brightness-95 w-16 h-8 rounded-lg transition-colors duration-200 ease-in-out ${
                   superMode ? 'bg-blue-500' : 'bg-amber-600'
                 }`}
               >
                 <motion.div
-                  className="absolute top-1 w-7 h-6 bg-white rounded-none"
+                  className="absolute top-1 w-7 h-6 bg-white rounded-lg"
                   animate={{ left: superMode ? '31.7px' : '4px' }}
                   transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                 />
@@ -339,7 +339,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                         setIsSidebarOpen(false);
                       }}
                       title={isCollapsed ? item.label : undefined}
-                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex items-center gap-4 rounded-none font-black text-sm 
+                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex items-center gap-4 rounded-lg font-black text-sm 
                         ${isCollapsed ? 'justify-center px-0 py-3' : 'px-4 py-3'}
                         ${
                           activeTab === item.id
@@ -369,7 +369,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           {!isCollapsed && (
             <button
               onClick={() => setShowLogoutConfirm(true)}
-              className="md:hidden w-full flex items-center gap-4 p-3 px-4 bg-red-100 dark:bg-red-900 text-white hover:bg-red-50 dark:hover:bg-red-950 rounded-none cursor-pointer active:scale-[0.99] font-black"
+              className="md:hidden w-full flex items-center gap-4 p-3 px-4 bg-red-100 dark:bg-red-900 text-white hover:bg-red-50 dark:hover:bg-red-950 rounded-lg cursor-pointer active:scale-[0.99] font-black"
             >
               <LogOut size={18} className='relative left-[1.2px]' />
               <span className="text-sm ml-[2.2px]">Keluar</span>
@@ -386,7 +386,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                 setIsSidebarOpen(false);
               }}
               title={isCollapsed ? 'Permintaan Penarikan' : undefined}
-              className={`cursor-pointer mb-2 w-full flex items-center rounded-none font-black text-sm
+              className={`cursor-pointer mb-2 w-full flex items-center rounded-lg font-black text-sm
                 ${isCollapsed ? 'justify-center px-0 py-3' : 'gap-4 px-4 py-3'}
                 ${
                   activeTab === 'admin'
@@ -421,7 +421,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                       key={item.id}
                       onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
                       title={isCollapsed ? item.label : undefined}
-                      className={`cursor-pointer mb-1 active:scale-[0.99] w-full flex items-center gap-4 rounded-none font-black text-sm
+                      className={`cursor-pointer mb-1 active:scale-[0.99] w-full flex items-center gap-4 rounded-lg font-black text-sm
                         ${isCollapsed ? 'justify-center px-0 py-3' : 'px-4 py-3'}
                         ${activeTab === item.id
                           ? 'bg-blue-500 text-white'

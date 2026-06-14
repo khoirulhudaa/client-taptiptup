@@ -120,18 +120,18 @@ export const PollManager = ({ overlayToken, username }) => {
     <div className="space-y-5">
       {/* Active Poll */}
       {activePoll ? (
-        <div className="bg-white dark:bg-slate-900 rounded-none shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
           <div className="flex items-center justify-between px-6 py-3 md:py-4 border-b border-slate-100 dark:border-slate-800 bg-green-50 dark:bg-green-950/30">
             <div className="flex w-full justify-between gap-2">
               <button
                 onClick={() => closeMutation.mutate(activePoll._id)}
                 disabled={closeMutation.isPending}
-                className="cursor-pointer active:scale-[0.99] px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-none font-black text-xs transition-all disabled:opacity-60">
+                className="cursor-pointer active:scale-[0.99] px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-black text-xs transition-all disabled:opacity-60">
                 Tutup Poll
               </button>
               <button
                 onClick={() => { if (window.confirm('Hapus poll ini?')) deleteMutation.mutate(activePoll._id); }}
-                className="relative top-[-1px] cursor-pointer active:scale-[0.99] text-red-500 hover:bg-red-200 dark:hover:bg-red-950/60 rounded-none transition-all">
+                className="relative top-[-1px] cursor-pointer active:scale-[0.99] text-red-500 hover:bg-red-200 dark:hover:bg-red-950/60 rounded-lg transition-all">
                 <Trash2 size={24} />
               </button>
             </div>
@@ -149,9 +149,9 @@ export const PollManager = ({ overlayToken, username }) => {
                       <span className="font-bold text-slate-700 dark:text-slate-300">{opt.text}</span>
                       <span className="font-black text-blue-600 dark:text-blue-400">{pct}% <span className="text-slate-400 dark:text-slate-500 font-medium text-xs">({opt.votes} votes)</span></span>
                     </div>
-                    <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-none overflow-hidden">
+                    <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden">
                       <motion.div
-                        className="h-full bg-blue-500 rounded-none"
+                        className="h-full bg-blue-500 rounded-lg"
                         initial={{ width: 0 }}
                         animate={{ width: `${pct}%` }}
                         transition={{ duration: 0.5 }}
@@ -165,7 +165,7 @@ export const PollManager = ({ overlayToken, username }) => {
           </div>
         </div>
       ) : (
-        <div className="rounded-none border-2 border-dashed border-slate-200 dark:border-slate-700 py-8 text-center">
+        <div className="rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 py-8 text-center">
           <p className="text-3xl mb-2">🗳️</p>
           <p className="font-black text-slate-500 dark:text-slate-400 text-sm">Tidak ada poll aktif</p>
           <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-1">Buat poll baru agar donor bisa ikut voting</p>
@@ -175,7 +175,7 @@ export const PollManager = ({ overlayToken, username }) => {
       {/* Buat Poll Baru */}
       <button
         onClick={() => setShowCreate(!showCreate)}
-        className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 rounded-none font-black text-sm hover:border-blue-400 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-2">
+        className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 rounded-lg font-black text-sm hover:border-blue-400 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-2">
         <Plus size={16} /> {showCreate ? 'Batal' : 'Buat Poll Baru'}
       </button>
 
@@ -185,10 +185,10 @@ export const PollManager = ({ overlayToken, username }) => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="bg-slate-50 dark:bg-slate-800/50 rounded-none p-6 border border-slate-100 dark:border-slate-700 space-y-5">
+            className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-6 border border-slate-100 dark:border-slate-700 space-y-5">
 
             {activePoll && (
-              <div className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-none text-xs font-bold text-amber-700 dark:text-amber-400">
+              <div className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg text-xs font-bold text-amber-700 dark:text-amber-400">
                 ⚠️ Membuat poll baru akan menutup poll yang sedang aktif secara otomatis.
               </div>
             )}
@@ -199,7 +199,7 @@ export const PollManager = ({ overlayToken, username }) => {
                 value={newQuestion}
                 onChange={e => setNewQuestion(e.target.value)}
                 placeholder="Contoh: Mau main game apa malam ini?"
-                className="w-full p-4 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                className="w-full p-4 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
               />
             </div>
 
@@ -211,7 +211,7 @@ export const PollManager = ({ overlayToken, username }) => {
                     value={opt}
                     onChange={e => updateOption(i, e.target.value)}
                     placeholder={`Opsi ${i + 1}`}
-                    className="flex-1 p-3 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                    className="flex-1 p-3 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
                   />
                   {newOptions.length > 2 && (
                     <button onClick={() => removeOption(i)} className="cursor-pointer p-3 text-red-400 hover:text-red-600 transition-colors">
@@ -227,22 +227,22 @@ export const PollManager = ({ overlayToken, username }) => {
             </div>
 
             {/* Toggle show results */}
-            <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-none border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
               <div>
                 <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Tampilkan Hasil di OBS</p>
                 <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Persentase vote terlihat live di widget OBS</p>
               </div>
               <button
                 onClick={() => setShowResults(!showResults)}
-                className={`relative inline-flex h-7 w-14 items-center rounded-none transition-colors duration-300 cursor-pointer ${showResults ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
-                <span className={`inline-block h-5 w-5 transform rounded-none bg-white shadow-md transition-transform duration-300 ${showResults ? 'translate-x-8' : 'translate-x-1'}`} />
+                className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer ${showResults ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
+                <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform duration-300 ${showResults ? 'translate-x-8' : 'translate-x-1'}`} />
               </button>
             </div>
 
             <button
               onClick={handleCreate}
               disabled={createMutation.isPending}
-              className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70">
+              className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70">
               <Vote size={16} /> {createMutation.isPending ? 'Membuat...' : 'Mulai Poll Sekarang'}
             </button>
           </motion.div>
@@ -251,7 +251,7 @@ export const PollManager = ({ overlayToken, username }) => {
 
       {/* OBS Widget URL */}
       {overlayToken && (
-        <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-none border border-slate-200 dark:border-slate-700">
+        <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
           <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Widget URL untuk OBS (420×300px)</p>
           <div className="flex gap-2">
             <input readOnly value={`${window.location.origin}/widget/${overlayToken}/poll`}
@@ -261,7 +261,7 @@ export const PollManager = ({ overlayToken, username }) => {
                 setPollCopied(true);
                 setTimeout(() => setPollCopied(false), 2000);
               }}
-              className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${pollCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
+              className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${pollCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
               {pollCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
             </button>
           </div>
@@ -269,7 +269,7 @@ export const PollManager = ({ overlayToken, username }) => {
       )}
 
       {overlayToken && (
-        <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-none border border-blue-200 dark:border-blue-800">
+        <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
           <p className="text-[10px] font-black text-blue-400 dark:text-blue-500 uppercase tracking-widest mb-1">
             Link Vote untuk Donor
           </p>
@@ -290,7 +290,7 @@ export const PollManager = ({ overlayToken, username }) => {
                 navigator.clipboard.writeText(pollUrl);
                 // Tambahkan state copied jika mau (opsional)
               }}
-              className="cursor-pointer active:scale-[0.99] px-3 py-2 rounded-none text-xs font-black bg-blue-600 hover:bg-blue-700 text-white transition-all"
+              className="cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black bg-blue-600 hover:bg-blue-700 text-white transition-all"
             >
               Salin
             </button>
@@ -308,7 +308,7 @@ export const PollManager = ({ overlayToken, username }) => {
             const total = getTotalVotes(poll);
             const winner = [...(data.options || [])].sort((a, b) => b.votes - a.votes)[0];
             return (
-              <div key={poll._id} className="bg-white dark:bg-slate-900 rounded-none p-5 border border-slate-100 dark:border-slate-800 flex items-center gap-4">
+              <div key={poll._id} className="bg-white dark:bg-slate-900 rounded-lg p-5 border border-slate-100 dark:border-slate-800 flex items-center gap-4">
                 <div className="flex-1 min-w-0">
                   <p className="font-black text-slate-700 dark:text-slate-200 text-sm truncate">{data.question}</p>
                   {winner && (
@@ -318,7 +318,7 @@ export const PollManager = ({ overlayToken, username }) => {
                   )}
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
-                  <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-none text-[10px] font-black">Closed</span>
+                  <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-lg text-[10px] font-black">Closed</span>
                   <button onClick={() => { if (window.confirm('Hapus poll ini?')) deleteMutation.mutate(poll._id); }}
                     className="cursor-pointer p-2 text-red-400 hover:text-red-600 transition-colors">
                     <Trash2 size={13} />
@@ -466,7 +466,7 @@ export const SubathonManager = ({ overlayToken }) => {
   return (
     <div className="space-y-5">
       {/* Timer Display */}
-      <div className={`rounded-none px-8 py-10 text-center relative overflow-hidden ${isRunning ? 'bg-blue-600' : 'bg-slate-800 dark:bg-slate-700'}`}>
+      <div className={`rounded-lg px-8 py-10 text-center relative overflow-hidden ${isRunning ? 'bg-blue-600' : 'bg-slate-800 dark:bg-slate-700'}`}>
         <div className="relative z-10">
           <p className="text-white/60 text-xs font-black uppercase tracking-widest mb-3">
             {localTimer.title || 'Subathon Timer'}
@@ -479,9 +479,9 @@ export const SubathonManager = ({ overlayToken }) => {
             {isRunning ? <span className="text-green-300"> Berjalan</span> : <span className="text-slate-300"> Berhenti</span>}
           </p>
           {localTimer.mode === 'countdown' && (
-            <div className="mt-5 h-2 bg-white/20 rounded-none overflow-hidden">
+            <div className="mt-5 h-2 bg-white/20 rounded-lg overflow-hidden">
               <motion.div
-                className={`h-full rounded-none ${progressColor}`}
+                className={`h-full rounded-lg ${progressColor}`}
                 animate={{ width: `${progressPct}%` }}
                 transition={{ duration: 0.5 }}
               />
@@ -498,7 +498,7 @@ export const SubathonManager = ({ overlayToken }) => {
             : startMutation.mutate()
           }
           disabled={startMutation.isPending || pauseMutation.isPending}
-          className={`cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-none font-black text-sm transition-all disabled:opacity-60 ${
+          className={`cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-lg font-black text-sm transition-all disabled:opacity-60 ${
             isRunning ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-green-500 hover:bg-green-600 text-white'
           }`}>
           {isRunning ? <Pause size={20} /> : <Play size={20} />}
@@ -507,21 +507,21 @@ export const SubathonManager = ({ overlayToken }) => {
         <button
           onClick={() => { if (window.confirm('Reset timer ke waktu awal?')) resetMutation.mutate(); }}
           disabled={resetMutation.isPending}
-          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-none font-black text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all disabled:opacity-60">
+          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-lg font-black text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all disabled:opacity-60">
           <RotateCcw size={20} />
           Reset
         </button>
         <button
           onClick={() => addTimeMutation.mutate(manualAdd)}
           disabled={addTimeMutation.isPending}
-          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-none font-black text-sm bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-60">
+          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-lg font-black text-sm bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-60">
           <Plus size={20} />
           Waktu
         </button>
       </div>
 
       {/* Slider tambah waktu manual */}
-      <div className="bg-slate-50 dark:bg-slate-800/50 rounded-none p-5 border border-slate-100 dark:border-slate-700 space-y-3">
+      <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-5 border border-slate-100 dark:border-slate-700 space-y-3">
         <div className="flex items-center justify-between">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Tambah Waktu Manual</label>
           <span className="font-black text-blue-600 dark:text-blue-400 text-sm">{formatSeconds(manualAdd)}</span>
@@ -537,7 +537,7 @@ export const SubathonManager = ({ overlayToken }) => {
       </div>
 
       {/* Konfigurasi */}
-      <div className="md:bg-white md:dark:bg-slate-900 rounded-none md:p-6 md:border border-slate-100 dark:border-slate-800 space-y-5">
+      <div className="md:bg-white md:dark:bg-slate-900 rounded-lg md:p-6 md:border border-slate-100 dark:border-slate-800 space-y-5">
         <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Konfigurasi Timer</p>
 
         <div className="space-y-1.5">
@@ -545,7 +545,7 @@ export const SubathonManager = ({ overlayToken }) => {
           <input value={localTimer.title || ''}
             onChange={e => upd('title', e.target.value)}
             placeholder="Subathon Timer"
-            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
           />
         </div>
 
@@ -554,7 +554,7 @@ export const SubathonManager = ({ overlayToken }) => {
           <div className="grid grid-cols-2 gap-3">
             {[{ id: 'countdown', label: 'Countdown', desc: 'Waktu berkurang' }, { id: 'countup', label: 'Count Up', desc: 'Waktu bertambah' }].map(m => (
               <button key={m.id} onClick={() => upd('mode', m.id)}
-                className={`cursor-pointer active:scale-[0.99] p-3 rounded-none border-2 text-left font-black text-xs transition-all ${
+                className={`cursor-pointer active:scale-[0.99] p-3 rounded-lg border-2 text-left font-black text-xs transition-all ${
                   localTimer.mode === m.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
                     : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
@@ -570,7 +570,7 @@ export const SubathonManager = ({ overlayToken }) => {
             <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Waktu Awal (detik)</label>
             <input type="number" value={localTimer.initialSeconds}
               onChange={e => upd('initialSeconds', Number(e.target.value))}
-              className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100"
+              className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100"
             />
             <p className="text-[10px] text-slate-400 dark:text-slate-500">{formatSeconds(localTimer.initialSeconds)}</p>
           </div>
@@ -578,7 +578,7 @@ export const SubathonManager = ({ overlayToken }) => {
             <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Batas Maks (kosong=∞)</label>
             <input type="number" value={localTimer.maxSeconds ?? ''} placeholder="∞"
               onChange={e => upd('maxSeconds', e.target.value === '' ? null : Number(e.target.value))}
-              className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+              className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
             />
             {localTimer.maxSeconds && <p className="text-[10px] text-slate-400 dark:text-slate-500">{formatSeconds(localTimer.maxSeconds)}</p>}
           </div>
@@ -592,8 +592,8 @@ export const SubathonManager = ({ overlayToken }) => {
             </div>
             <button
               onClick={() => upd('autoAddEnabled', !localTimer.autoAddEnabled)}
-              className={`relative inline-flex h-7 w-14 items-center rounded-none transition-colors duration-300 cursor-pointer ${localTimer.autoAddEnabled ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
-              <span className={`inline-block h-5 w-5 transform rounded-none bg-white shadow-md transition-transform duration-300 ${localTimer.autoAddEnabled ? 'translate-x-8' : 'translate-x-1'}`} />
+              className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer ${localTimer.autoAddEnabled ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
+              <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform duration-300 ${localTimer.autoAddEnabled ? 'translate-x-8' : 'translate-x-1'}`} />
             </button>
           </div>
 
@@ -609,7 +609,7 @@ export const SubathonManager = ({ overlayToken }) => {
                 {/* Tombol Edit Tabel */}
                 <button
                   onClick={() => setShowTiersTable(!showTiersTable)}
-                  className="cursor-pointer active:scale-[0.99] px-3 py-1.5 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-none text-xs font-black hover:bg-blue-200 dark:hover:bg-blue-800 transition-all">
+                  className="cursor-pointer active:scale-[0.99] px-3 py-1.5 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-black hover:bg-blue-200 dark:hover:bg-blue-800 transition-all">
                   {showTiersTable ? 'Tutup' : 'Edit'}
                 </button>
               </div>
@@ -695,7 +695,7 @@ export const SubathonManager = ({ overlayToken }) => {
         </div>
 
         {overlayToken && (
-          <div className="md:mt-0 mt-8 md:bg-slate-100 md:dark:bg-slate-800 md:p-4 rounded-none md:border border-slate-200 dark:border-slate-700">
+          <div className="md:mt-0 mt-8 md:bg-slate-100 md:dark:bg-slate-800 md:p-4 rounded-lg md:border border-slate-200 dark:border-slate-700">
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest md:mb-2">Widget URL untuk OBS (360×200px)</p>
             <div className="flex gap-2">
               <input readOnly value={`${window.location.origin}/widget/${overlayToken}/subathon`}
@@ -705,7 +705,7 @@ export const SubathonManager = ({ overlayToken }) => {
                   setSubCopied(true);
                   setTimeout(() => setSubCopied(false), 2000);
                 }}
-                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${subCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
+                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${subCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
                 {subCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
               </button>
             </div>
@@ -713,7 +713,7 @@ export const SubathonManager = ({ overlayToken }) => {
         )}
 
         <button onClick={save} disabled={configMutation.isPending}
-          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-3.5 rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 ${
+          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-3.5 rounded-lg font-black text-sm transition-all flex items-center justify-center gap-2 ${
             saved ? 'bg-green-500 text-white' : 'bg-slate-900 dark:bg-slate-100 hover:bg-blue-600 dark:hover:bg-blue-500 text-white dark:text-slate-900 dark:hover:text-white'
           } disabled:opacity-70`}>
           {saved ? <><CheckCircle2 size={16} /> Tersimpan!</> : configMutation.isPending ? 'Menyimpan...' : <><Save size={16} /> Simpan Konfigurasi</>}
@@ -761,7 +761,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
   return (
     <div className="space-y-5">
       {/* Preview */}
-      <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-none p-4 md:p-6">
+      <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-4 md:p-6">
         <div className="flex items-center gap-3 mb-5">
           <Trophy size={20} className="text-amber-400" />
           <span className="font-black text-slate-900 dark:text-slate-100 text-sm md:capitalize uppercase">Preview Leaderboard</span>
@@ -775,7 +775,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
             { rank: 2, name: 'Budi Gacor',     amount: 250000, count: 7  },
             { rank: 3, name: 'Anonymous',       amount: 100000, count: 3  },
           ].slice(0, Math.min(local.leaderboardLimit, 3)).map((d, i) => (
-            <div key={i} className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-none px-2 md:px-4 py-2.5">
+            <div key={i} className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-lg px-2 md:px-4 py-2.5">
               <span className="text-lg w-8 text-center">{['🥇','🥈','🥉'][i]}</span>
               <span className="flex-1 text-sm font-bold text-slate-900 dark:text-slate-100 truncate">{d.name}</span>
               {local.leaderboardShowAmount && (
@@ -788,7 +788,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
       </div>
 
       {/* Pengaturan */}
-      <div className="bg-white dark:bg-slate-900 rounded-none p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+      <div className="bg-white dark:bg-slate-900 rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
 
         <div className="space-y-2">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Periode Leaderboard</label>
@@ -798,7 +798,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
               { id: 'today',   label: '📅 Hari Ini',    desc: 'Donasi hari ini saja' },
             ].map(p => (
               <button key={p.id} onClick={() => upd('leaderboardPeriod', p.id)}
-                className={`cursor-pointer active:scale-[0.99] p-4 rounded-none border-2 text-left font-black text-xs transition-all ${
+                className={`cursor-pointer active:scale-[0.99] p-4 rounded-lg border-2 text-left font-black text-xs transition-all ${
                   local.leaderboardPeriod === p.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
                     : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
@@ -825,24 +825,24 @@ export const LeaderboardSettings = ({ overlayToken }) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-none border border-slate-100 dark:border-slate-700">
+        <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700">
           <div>
             <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Tampilkan Nominal Donasi</p>
             <p className="text-[11px] md:flex hidden text-slate-400 dark:text-slate-500 font-medium mt-0.5">Sembunyikan jika tidak ingin nominal terlihat publik</p>
           </div>
           <button
             onClick={() => upd('leaderboardShowAmount', !local.leaderboardShowAmount)}
-            className={`relative inline-flex h-7 w-14 items-center rounded-none transition-colors duration-300 cursor-pointer ${local.leaderboardShowAmount ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
-            <span className={`inline-block h-5 w-5 transform rounded-none bg-white shadow-md transition-transform duration-300 ${local.leaderboardShowAmount ? 'translate-x-8' : 'translate-x-1'}`} />
+            className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer ${local.leaderboardShowAmount ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
+            <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform duration-300 ${local.leaderboardShowAmount ? 'translate-x-8' : 'translate-x-1'}`} />
           </button>
         </div>
 
-        <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900 rounded-none p-4 text-xs text-amber-700 dark:text-amber-400 font-medium">
+        <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900 rounded-lg p-4 text-xs text-amber-700 dark:text-amber-400 font-medium">
           💡 Pengaturan ini memengaruhi widget OBS
         </div>
 
         {overlayToken && (
-          <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-none border border-slate-200 dark:border-slate-700">
+          <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Widget URL untuk OBS (420×300px)</p>
             <div className="flex gap-2">
               <input
@@ -856,7 +856,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
                   setLbCopied(true);
                   setTimeout(() => setLbCopied(false), 2000);
                 }}
-                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${
+                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
                   lbCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
                 }`}>
                 {lbCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
@@ -868,7 +868,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
         <button
           onClick={() => saveMutation.mutate(local)}
           disabled={saveMutation.isPending}
-          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 ${
+          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 rounded-lg font-black text-sm transition-all flex items-center justify-center gap-2 ${
             saved ? 'bg-green-500 text-white' : 'bg-slate-900 dark:bg-slate-100 hover:bg-blue-600 dark:hover:bg-blue-500 text-white dark:text-slate-900 dark:hover:text-white'
           } disabled:opacity-70`}>
           {saved ? <><CheckCircle2 size={16} /> Tersimpan!</> : saveMutation.isPending ? 'Menyimpan...' : <><Save size={16} /> Simpan Pengaturan Leaderboard</>}
@@ -932,7 +932,7 @@ const TierForm = ({
   return (
     <div className="space-y-3">
       {isEditing && (
-        <div className="flex items-center justify-between p-2 bg-slate-50 dark:bg-slate-800/50 rounded-none border">
+        <div className="flex items-center justify-between p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg border">
           <span className="text-[10px] font-black text-slate-500 dark:text-slate-400">
             Tier {index + 1} • {formatSeconds(totalSec)}
           </span>
@@ -953,7 +953,7 @@ const TierForm = ({
             value={amount}
             onChange={e => handleChange('amount', e.target.value)}
             placeholder="5000"
-            className="w-full p-2 bg-white dark:bg-slate-800 border rounded-none font-bold text-xs focus:border-blue-400 focus:outline-none pr-6"
+            className="w-full p-2 bg-white dark:bg-slate-800 border rounded-lg font-bold text-xs focus:border-blue-400 focus:outline-none pr-6"
             min="1"
           />
           <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-400">Rp</span>
@@ -963,7 +963,7 @@ const TierForm = ({
           value={hours}
           onChange={e => handleChange('hours', e.target.value)}
           placeholder="0"
-          className="p-2 bg-white dark:bg-slate-800 border rounded-none font-bold text-xs focus:border-blue-400 focus:outline-none"
+          className="p-2 bg-white dark:bg-slate-800 border rounded-lg font-bold text-xs focus:border-blue-400 focus:outline-none"
           min="0"
         />
         <input
@@ -971,7 +971,7 @@ const TierForm = ({
           value={minutes}
           onChange={e => handleChange('minutes', e.target.value)}
           placeholder="1"
-          className="p-2 bg-white dark:bg-slate-800 border rounded-none font-bold text-xs focus:border-blue-400 focus:outline-none"
+          className="p-2 bg-white dark:bg-slate-800 border rounded-lg font-bold text-xs focus:border-blue-400 focus:outline-none"
           min="0"
         />
         <input
@@ -979,7 +979,7 @@ const TierForm = ({
           value={seconds}
           onChange={e => handleChange('seconds', e.target.value)}
           placeholder="30"
-          className="p-2 bg-white dark:bg-slate-800 border rounded-none font-bold text-xs focus:border-blue-400 focus:outline-none"
+          className="p-2 bg-white dark:bg-slate-800 border rounded-lg font-bold text-xs focus:border-blue-400 focus:outline-none"
           min="0"
         />
       </div>
@@ -989,14 +989,14 @@ const TierForm = ({
       </div>
 
       {isEditing ? (
-        <div className="text-xs text-center text-green-600 dark:text-green-400 font-bold bg-green-50 dark:bg-green-950/30 p-2 rounded-none">
+        <div className="text-xs text-center text-green-600 dark:text-green-400 font-bold bg-green-50 dark:bg-green-950/30 p-2 rounded-lg">
           {formatSeconds(totalSec)}
         </div>
       ) : (
         <button
           onClick={handleAdd}
           disabled={!amount || Number(amount) <= 0}
-          className="w-full py-2 bg-green-500 hover:bg-green-600 disabled:bg-green-300 text-white rounded-none font-bold text-xs disabled:cursor-not-allowed transition-all"
+          className="w-full py-2 bg-green-500 hover:bg-green-600 disabled:bg-green-300 text-white rounded-lg font-bold text-xs disabled:cursor-not-allowed transition-all"
         >
           Tambah Tier
         </button>
@@ -1037,7 +1037,7 @@ export const MilestonesManager = ({ overlayToken }) => {
     <div className="space-y-5">
       <div className="space-y-3">
         {list.length === 0 && (
-          <div className="rounded-none border-2 border-dashed border-slate-200 dark:border-slate-700 py-10 text-center">
+          <div className="rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 py-10 text-center">
             <p className="text-3xl mb-2">🎯</p>
             <p className="font-black text-slate-500 dark:text-slate-400 text-sm">Belum ada milestone</p>
             <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-1">Tambah target donasi untuk ditampilkan ke donor</p>
@@ -1045,12 +1045,12 @@ export const MilestonesManager = ({ overlayToken }) => {
         )}
 
         {list.map((m, i) => (
-          <div key={i} className="bg-white dark:bg-slate-900 rounded-none p-5 border border-slate-100 dark:border-slate-800 space-y-4">
+          <div key={i} className="bg-white dark:bg-slate-900 rounded-lg p-5 border border-slate-100 dark:border-slate-800 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Milestone {i + 1}</span>
               <button
                 onClick={() => remove(i)}
-                className="cursor-pointer relative top-[-2px] p-2 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-none transition-all">
+                className="cursor-pointer relative top-[-2px] p-2 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg transition-all">
                 <Trash2 size={14} />
               </button>
             </div>
@@ -1061,7 +1061,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                   value={m.title}
                   onChange={e => upd(i, 'title', e.target.value)}
                   placeholder="contoh: Beli mic baru!"
-                  className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                  className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
                 />
               </div>
               <div className="space-y-1.5">
@@ -1070,7 +1070,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                   type="number"
                   value={m.targetAmount}
                   onChange={e => upd(i, 'targetAmount', Number(e.target.value))}
-                  className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100"
+                  className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100"
                 />
                 {/* <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">
                   Rp {Number(m.targetAmount || 0).toLocaleString('id-ID')}
@@ -1083,18 +1083,18 @@ export const MilestonesManager = ({ overlayToken }) => {
                 <span>Progress (preview)</span>
                 <span>0 / Rp {Number(m.targetAmount || 0).toLocaleString('id-ID')}</span>
               </div>
-              <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-none overflow-hidden">
-                <div className="h-full bg-green-400 rounded-none" style={{ width: '0%' }} />
+              <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden">
+                <div className="h-full bg-green-400 rounded-lg" style={{ width: '0%' }} />
               </div>
             </div>
           </div>
         ))}
       </div>
       
-      <div className='md:w-full w-[100vw] p-5 mx-auto space-y-3 bg-white dark:bg-slate-900 rounded-none shadow-sm border border-slate-100 dark:border-slate-800'>
+      <div className='md:w-full w-[100vw] p-5 mx-auto space-y-3 bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800'>
         <button
           onClick={add}
-          className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 rounded-none font-black text-sm hover:border-green-400 dark:hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-2">
+          className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 rounded-lg font-black text-sm hover:border-green-400 dark:hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-2">
           <Plus size={16} /> Tambah Milestone
         </button>
 
@@ -1102,13 +1102,13 @@ export const MilestonesManager = ({ overlayToken }) => {
           <button
             onClick={() => mutation.mutate(list)}
             disabled={mutation.isPending}
-            className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-none font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70">
+            className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70">
             <Save size={16} /> {mutation.isPending ? 'Menyimpan...' : 'Simpan Milestone'}
           </button>
         )}
 
         {overlayToken && (
-          <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-none border border-slate-200 dark:border-slate-700">
+          <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Widget URL untuk OBS (420×200px)</p>
             <div className="flex gap-2">
               <input
@@ -1122,7 +1122,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                   setMlCopied(true);
                   setTimeout(() => setMlCopied(false), 2000);
                 }}
-                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-none text-xs font-black transition-all flex items-center gap-1.5 ${
+                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
                   mlCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
                 }`}>
                 {mlCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
