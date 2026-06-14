@@ -1674,7 +1674,7 @@ const SupporterPage = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.15 }}
-              className="w-full lg:sticky lg:top-24 lg:self-start order-1 md:order-0"
+              className="w-full lg:sticky lg:top-24 lg:self-start md:mt-0 mt-6 order-1 md:order-0"
             >
               <div className="bg-white dark:bg-slate-900 p-5 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800 relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-400" />
