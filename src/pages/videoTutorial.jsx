@@ -131,7 +131,7 @@ export const VideoTutorialSection = () => {
 
   return (
     <>
-      <div className="mt-3.5">
+      <div className="">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
           {TUTORIALS.map((tut) => (
             <div
