@@ -318,7 +318,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                   <img
                     src={user.profilePicture}
                     alt={user.username}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-lg"
                     onError={(e) => {
                       e.target.style.display = 'none';
                       e.target.parentElement.innerHTML = user.username?.charAt(0).toUpperCase() || '?';

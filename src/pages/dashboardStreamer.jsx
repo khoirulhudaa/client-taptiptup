@@ -4785,7 +4785,7 @@ const handleChangePin = async () => {
               <img
                 src="/poster.png"
                 alt="poster"
-                className="w-full h-auto block"
+                className="w-full rounded-lg h-auto block"
               />
               <button
                 onClick={() => setShowLoginModal(false)}
