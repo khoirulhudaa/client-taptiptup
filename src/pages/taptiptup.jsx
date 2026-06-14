@@ -325,7 +325,7 @@ function Hero({ C, isDark }) {
                 <div className="absolute w-[1px] h-[40vh] bg-white rotate-30 top-[-34vh] right-[-64px] md:flex hidden" />
 
                 {/* Banner */}
-                <span className="px-2 2xl:min-w-[70vw] rounded-lg min-w-[64vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure] inline-block">
+                <span className="px-2 2xl:min-w-[70vw] rounded-xl min-w-[64vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure] inline-block">
                   POTONGAN HANYA 3.0% UNTUK
                 </span>
               </motion.div>
@@ -981,11 +981,11 @@ function FAQ({ C }) {
 
       {/* Accordion */}
       <div
-        className="relative rounded-lg mx-auto grid grid-cols-2 w-[90vw] gap-10 !mt-10 px-4 md:px-0"
+        className="relative rounded-xl mx-auto grid grid-cols-2 w-[90vw] gap-10 !mt-10 px-4 md:px-0"
         style={{ zIndex: 2 }}
       >
       <div
-        className="grid rounded-lg grid-cols-1 md:grid-cols-2 w-[90vw]"
+        className="grid rounded-xl grid-cols-1 md:grid-cols-2 w-[90vw]"
         style={{
           border: "1px solid rgba(255,255,255,0.08)", // border terluar
         }}
@@ -998,7 +998,7 @@ function FAQ({ C }) {
           return (
             <div
               key={i}
-              className="w-full rounded-lg cursor-pointer hover:bg-slate-100/5 active:scale-[0.99]"
+              className="w-full rounded-xl cursor-pointer hover:bg-slate-100/5 active:scale-[0.99]"
               onClick={() => toggle(i)}
               style={{
                 // border kiri untuk kolom kanan (menghindari double border kiri+kanan)
