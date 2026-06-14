@@ -371,7 +371,7 @@ const AuthModal = ({ isOpen, onClose, defaultTab = 'login', onAuthSuccess }) => 
 // ============================================================
 // NAVBAR
 // ============================================================
-const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, toggleTheme }) => {
+const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, toggleTheme, streamerUsername, streamerProfilePicture }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropRef = useRef(null);
   const isLoggedIn = !!authPayload;
@@ -387,19 +387,29 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-5 py-3">
-      <div className="max-w-xl mx-auto flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-9 h-9 bg-pink-200 rounded-lg p-1.5 flex items-center justify-center">
-            <img src="/jellyfish.png" alt="icon" />
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-7 2xl:px-20.5 py-3">
+      <div className="w-full flex items-center justify-between gap-3">
+        <div className="flex items-center justify-between w-full gap-2">
+          <div className='flex items-center gap-3'>
+            {streamerUsername && (
+              <div className="relative flex items-center gap-2 px-2 h-[40px] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg">
+                <div className="w-7 h-7 rounded-lg overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-black text-xs flex-shrink-0">
+                  {streamerProfilePicture ? (
+                    <img src={streamerProfilePicture} alt={streamerUsername} className="w-full h-full object-cover"
+                      onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = streamerUsername?.charAt(0).toUpperCase() || '?'; }} />
+                  ) : (streamerUsername?.charAt(0).toUpperCase() || '?')}
+                </div>
+                <span className="font-black text-sm text-slate-700 dark:text-white truncate max-w-[140px]">
+                  @{streamerUsername}
+                </span>
+              </div>
+            )}
+            <button onClick={toggleTheme}
+              className="cursor-pointer h-[40px] w-[40px] flex items-center justify-center rounded-lg border bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-50 transition-all shadow-sm">
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
           </div>
-          <span className="font-black text-sm text-slate-800 dark:text-white tracking-tight">TapTipTup</span>
-        </Link>
-        <div className="flex items-center gap-2">
-          <button onClick={toggleTheme}
-            className="cursor-pointer h-[40px] w-[40px] flex items-center justify-center rounded-lg border bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-50 transition-all shadow-sm">
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
+          {/* Profil Streamer */}
           {isLoggedIn ? (
             <div className="relative" ref={dropRef}>
               <button onClick={() => setDropdownOpen((v) => !v)}
@@ -1018,6 +1028,82 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
   );
 };
 
+const RecentDonations = ({ username }) => {
+  const [donations, setDonations] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!username) return;
+    axios.get(`${BASE_URL}/api/overlay/recent-donations/${username}?limit=5`)
+      .then(res => setDonations(res.data?.donations || []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [username]);
+
+  const timeAgo = (dateStr) => {
+    const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000);
+    if (diff < 60) return `${diff}d lalu`;
+    if (diff < 3600) return `${Math.floor(diff / 60)}m lalu`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)}j lalu`;
+    return `${Math.floor(diff / 86400)}h lalu`;
+  };
+
+  if (loading) return (
+    <div className="flex justify-center py-4">
+      <Loader2 className="animate-spin text-blue-400" size={18} />
+    </div>
+  );
+
+  if (!donations.length) return (
+    <div className="text-center py-6">
+      <p className="text-2xl mb-2">💝</p>
+      <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500">Belum ada donasi</p>
+      <p className="text-[10px] text-slate-300 dark:text-slate-600 font-medium mt-0.5">Jadilah yang pertama!</p>
+    </div>
+  );
+
+  return (
+    <div className="space-y-2">
+      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+        Donasi Terbaru 💝
+      </label>
+      <div className="space-y-2">
+        {donations.map((d, i) => (
+          <motion.div
+            key={d._id || i}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.05 }}
+            className="px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg"
+          >
+            <div className="flex items-center justify-between gap-2 mb-1">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-black text-[10px] flex-shrink-0">
+                  {(d.donorName || 'A').charAt(0).toUpperCase()}
+                </div>
+                <span className="font-black text-xs text-slate-700 dark:text-slate-200 truncate">
+                  {d.donorName || 'Anonim'}
+                </span>
+              </div>
+              <span className="font-black text-[10px] text-blue-600 dark:text-blue-400 flex-shrink-0">
+                Rp {Number(d.amount).toLocaleString('id-ID')}
+              </span>
+            </div>
+            {d.message && (
+              <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-relaxed line-clamp-2 ml-8">
+                "{d.message}"
+              </p>
+            )}
+            <p className="text-[9px] text-slate-300 dark:text-slate-600 font-medium mt-1 ml-8">
+              {timeAgo(d.createdAt)}
+            </p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // Taruh di atas SupporterPage component
 const LeaderboardMini = ({ username }) => {
   const [donors, setDonors] = useState([]);
@@ -1025,7 +1111,7 @@ const LeaderboardMini = ({ username }) => {
 
   useEffect(() => {
     if (!username) return;
-    axios.get(`${BASE_URL}/api/overlay/public/${username}?limit=5`)
+    axios.get(`${BASE_URL}/api/overlay/leaderboard/${username}?limit=5`)
       .then(res => setDonors(res.data?.donors || res.data || []))
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -1445,7 +1531,7 @@ const SupporterPage = () => {
   if (!streamer) {
     return (
       <>
-        <SupporterNavbar onOpenAuth={openAuth} authPayload={authPayload} profile={authProfile} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} />
+        <SupporterNavbar onOpenAuth={openAuth} authPayload={authPayload} profile={authProfile} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} streamerUsername={streamer?.username} streamerProfilePicture={streamer?.profilePicture} />
         <div className="min-h-screen flex items-center justify-center font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-slate-900 pt-16">
           <Loader2 className="animate-spin mr-2" size={24} /> Memuat Profil...
         </div>
@@ -1524,12 +1610,30 @@ const SupporterPage = () => {
   })();
 
   return (
-    <>
-      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} defaultTab={authModalTab} onAuthSuccess={handleAuthSuccess} />
-      <SupporterNavbar onOpenAuth={openAuth} authPayload={authPayload} profile={authProfile} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} />
+  <>
+    <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} defaultTab={authModalTab} onAuthSuccess={handleAuthSuccess} />
+    <SupporterNavbar onOpenAuth={openAuth} authPayload={authPayload} profile={authProfile} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} streamerUsername={streamer?.username} streamerProfilePicture={streamer?.profilePicture} />
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex justify-center items-start md:items-center p-4 md:p-6 font-sans pt-20 md:pt-24">
-        <div className="w-full max-w-xl space-y-5 py-4 md:py-0">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex justify-center items-start p-4 md:p-6 font-sans pt-20 md:pt-24">
+      <div className="w-full px-0 2xl:px-14 flex flex-col lg:flex-row gap-3 py-4 md:py-0 items-start">
+
+        {/* KOLOM KIRI */}
+        {overlaySetting?.showLeaderboardOnDonate && (
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15 }}
+            className="w-full lg:w-[25vw] flex-shrink-0 lg:sticky lg:top-24 order-3 lg:order-1"
+          >
+            <div className="bg-white dark:bg-slate-900 p-5 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-400" />
+              <RecentDonations username={streamer?.username} />
+            </div>
+          </motion.div>
+        )}
+
+        {/* KOLOM TENGAH */}
+        <div className="w-full flex-1 mx-auto space-y-5 min-w-0 order-1">
 
           {/* ── Header Card ── */}
           <motion.div
@@ -1537,8 +1641,8 @@ const SupporterPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="bg-white dark:bg-slate-900 px-8 pt-8 pb-8 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 text-center border border-blue-100 dark:border-slate-800 relative overflow-hidden"
           >
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-violet-500 to-purple-500" />
-            <div className="w-20 h-20 mt-2 mx-auto rounded-lg overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg mb-4 border-4 border-white dark:border-slate-900">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-500" />
+            <div className="w-20 h-20 mt-2 mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg mb-4 border-4 border-white dark:border-slate-900">
               {streamer?.profilePicture ? (
                 <img src={streamer.profilePicture} alt={streamer.username} className="w-full h-full object-cover"
                   onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = streamer.username?.charAt(0).toUpperCase() || '?'; }} />
@@ -1559,7 +1663,6 @@ const SupporterPage = () => {
                 </button>
               </div>
             )}
-
           </motion.div>
 
           {/* ── Form Card ── */}
@@ -1569,7 +1672,6 @@ const SupporterPage = () => {
             transition={{ delay: 0.1 }}
             className="bg-transparent md:bg-white dark:md:bg-slate-900 p-0 md:p-7 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:border border-blue-100 dark:border-slate-800 space-y-5"
           >
-
             {/* Quick Amounts */}
             {quickAmounts.length > 0 && (
               <div>
@@ -1609,8 +1711,6 @@ const SupporterPage = () => {
                   placeholder="Nominal Kustom..."
                 />
               </div>
-
-              {/* Trigger hints */}
               {sortedTriggers.length > 0 && (
                 <div className="mt-3 space-y-1.5">
                   {sortedTriggers.map((t, i) => {
@@ -1634,48 +1734,30 @@ const SupporterPage = () => {
               )}
             </div>
 
-            {/* ── Nama & Email ── */}
-            {
-              !isLoggedIn && (
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 ml-1">
-
-                      Nama 
-                    </label>
-                    <input
-                      type="text"
-                      disabled={form.isAnonymous || isLoggedIn}
-                      value={form.isAnonymous ? '' : form.donorName}
-                      onChange={(e) => setForm({ ...form, donorName: e.target.value })}
-                      required={!isLoggedIn && !form.isAnonymous}  // ⬅️ TAMBAHKAN INI
-                      className="w-full p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white"
-                      placeholder="Nama kamu"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 ml-1">
-
-                      Email 
-                    </label>
-                    <input
-                      type="email"
-                      disabled={isLoggedIn}
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      required={!isLoggedIn}  // ⬅️ TAMBAHKAN INI
-                      className="w-full p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white"
-                      placeholder="email@kamu.com"
-                    />
-                  </div>
+            {/* Nama & Email */}
+            {!isLoggedIn && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 ml-1">Nama</label>
+                  <input type="text" disabled={form.isAnonymous || isLoggedIn}
+                    value={form.isAnonymous ? '' : form.donorName}
+                    onChange={(e) => setForm({ ...form, donorName: e.target.value })}
+                    required={!isLoggedIn && !form.isAnonymous}
+                    className="w-full p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white"
+                    placeholder="Nama kamu" />
                 </div>
-              )
-            }
+                <div>
+                  <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 ml-1">Email</label>
+                  <input type="email" disabled={isLoggedIn} value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    required={!isLoggedIn}
+                    className="w-full p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white"
+                    placeholder="email@kamu.com" />
+                </div>
+              </div>
+            )}
 
-            {/* ═══════════════════════════════════════════════
-                TAB SELECTOR
-            ════════════════════════════════════════════════ */}
+            {/* Tab Selector */}
             <DonationTabs
               activeTab={activeTab}
               onTabChange={setActiveTab}
@@ -1684,7 +1766,7 @@ const SupporterPage = () => {
               minDonate={minDonate}
             />
 
-            {/* Message — hide kalau tab voice */}
+            {/* Message */}
             {activeTab !== 'voice' && (
               <div>
                 <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 ml-1">
@@ -1700,11 +1782,11 @@ const SupporterPage = () => {
               </div>
             )}
 
+            {/* GIF Recommendation */}
             {activeTab !== 'voice' && overlaySetting?.giphyOnDonate !== false && (
               <GifRecommendation
                 message={form.message}
                 onSelect={(gifUrl) => {
-                  // Set mediaUrl dan switch ke tab mediashare kalau ada trigger
                   if (eligibleTrigger && activeTab !== 'mediashare') {
                     setActiveTab('mediashare');
                   }
@@ -1713,33 +1795,18 @@ const SupporterPage = () => {
               />
             )}
 
-            {/* TAB CONTENT */}
+            {/* Tab Content */}
             <AnimatePresence mode="wait">
-
-              {/* ── TAB: ALERT ── */}
               {activeTab === 'alert' && (
-                <motion.div
-                  key="tab-alert"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                >
+                <motion.div key="tab-alert" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
                   {publicSounds.length > 0 && form.amount >= minDonate ? (
-                    <QuickAudioSection
-                      publicSounds={publicSounds}
-                      selectedSound={form.soundUrl}
-                      onSoundChange={(url) => setForm({ ...form, soundUrl: url })}
-                      amount={form.amount}
-                    />
+                    <QuickAudioSection publicSounds={publicSounds} selectedSound={form.soundUrl} onSoundChange={(url) => setForm({ ...form, soundUrl: url })} amount={form.amount} />
                   ) : form.amount > 0 && form.amount < minDonate ? (
                     <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-lg">
                       <Bell size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
                       <div>
                         <p className="text-xs font-black text-slate-500 dark:text-slate-400">Donasi Alert Biasa</p>
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-                          Masukkan nominal min. Rp {Number(minDonate).toLocaleString('id-ID')} untuk aktifkan pilihan suara
-                        </p>
+                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Masukkan nominal min. Rp {Number(minDonate).toLocaleString('id-ID')} untuk aktifkan pilihan suara</p>
                       </div>
                     </div>
                   ) : publicSounds.length === 0 ? (
@@ -1747,92 +1814,54 @@ const SupporterPage = () => {
                       <Bell size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
                       <div>
                         <p className="text-xs font-black text-slate-500 dark:text-slate-400">Donasi Alert Biasa</p>
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-                          Notifikasi donasi akan muncul di OBS streamer
-                        </p>
+                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Notifikasi donasi akan muncul di OBS streamer</p>
                       </div>
                     </div>
                   ) : null}
                 </motion.div>
               )}
 
-              {/* ── TAB: MEDIA SHARE ── */}
               {activeTab === 'mediashare' && (
-                <motion.div
-                  key="tab-mediashare"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                >
+                <motion.div key="tab-mediashare" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
                   {mediaTriggers.length === 0 ? (
                     <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-lg">
                       <Film size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
                       <div>
                         <p className="text-xs font-black text-slate-500 dark:text-slate-400">Media Share Tidak Tersedia</p>
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-                          Streamer belum mengaktifkan fitur Media Share
-                        </p>
+                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Streamer belum mengaktifkan fitur Media Share</p>
                       </div>
                     </div>
                   ) : !eligibleTrigger ? (
-                    // Nominal belum cukup — warning
                     <div className="flex items-center gap-3 px-4 py-4 bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-lg">
                       <span className="text-2xl flex-shrink-0">🔒</span>
                       <div>
-                        <p className="text-xs font-black text-amber-700 dark:text-amber-400">
-                          Nominal belum cukup untuk Media Share
-                        </p>
-                        <p className="text-[10px] text-amber-500 dark:text-amber-500 font-medium mt-0.5">
-                          Donasi minimal Rp {Number(minMedia).toLocaleString('id-ID')} untuk mengirim media
-                        </p>
-                        <button
-                          onClick={() => setForm({ ...form, amount: minMedia })}
-                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-lg hover:bg-amber-600 transition-all cursor-pointer"
-                        >
+                        <p className="text-xs font-black text-amber-700 dark:text-amber-400">Nominal belum cukup untuk Media Share</p>
+                        <p className="text-[10px] text-amber-500 font-medium mt-0.5">Donasi minimal Rp {Number(minMedia).toLocaleString('id-ID')} untuk mengirim media</p>
+                        <button onClick={() => setForm({ ...form, amount: minMedia })}
+                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-lg hover:bg-amber-600 transition-all cursor-pointer">
                           Set Rp {Number(minMedia).toLocaleString('id-ID')}
                         </button>
                       </div>
                     </div>
                   ) : (
-                  <>
-                    <MediaInputSection
-                      trigger={eligibleTrigger}
-                      mediaUrl={mediaUrl}
-                      setMediaUrl={setMediaUrl}
-                      startTime={startTime}
-                      setStartTime={setStartTime}
-                      />
-
+                    <>
+                      <MediaInputSection trigger={eligibleTrigger} mediaUrl={mediaUrl} setMediaUrl={setMediaUrl} startTime={startTime} setStartTime={setStartTime} />
                       <AnimatePresence>
                         {isYouTubeUrl(mediaUrl) && (ytChecking || ytBlockedReason) && (
-                          <motion.div
-                            initial={{ opacity: 0, y: -4 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -4 }}
+                          <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
                             className={`flex items-center mt-3 gap-2.5 px-4 py-3 rounded-lg border text-[10px] font-bold ${
-                              ytChecking
-                                ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400'
-                                : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-600 dark:text-red-400'
-                            }`}
-                          >
-                            {ytChecking ? (
-                              <><Loader2 size={12} className="animate-spin flex-shrink-0" /> Mengecek video YouTube...</>
-                            ) : (
-                              <><X size={12} className="flex-shrink-0" /> {ytBlockedReason}</>
-                            )}
+                              ytChecking ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400'
+                                         : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-600 dark:text-red-400'
+                            }`}>
+                            {ytChecking ? <><Loader2 size={12} className="animate-spin flex-shrink-0" /> Mengecek video YouTube...</>
+                                        : <><X size={12} className="flex-shrink-0" /> {ytBlockedReason}</>}
                           </motion.div>
                         )}
                       </AnimatePresence>
-
-                      {/* ── Disclaimer konten tidak terfilter ── */}
                       <div className="mt-8 md:mt-3 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-4 space-y-2">
                         <p className="border-b border-amber-600/30 pb-3 mb-4 text-[10px] font-black text-amber-700 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
                           Konten yang diblokir sistem
                         </p>
-                        {/* <p className="text-[10px] text-amber-600 dark:text-amber-500 font-medium leading-relaxed">
-                          Sistem kami hanya memblokir video private, age-restricted, dan yang dinonaktifkan embed-nya. Konten berikut <span className="font-black">tetap bisa lolos</span> dan menjadi tanggung jawab pengirim:
-                        </p> */}
                         <ul className="space-y-1.5">
                           {[
                             { icon: '🔞', text: 'Konten dewasa yang belum dibatasi usia oleh YouTube' },
@@ -1845,40 +1874,22 @@ const SupporterPage = () => {
                             </li>
                           ))}
                         </ul>
-                        {/* <p className="text-[10px] text-amber-500 dark:text-amber-600 font-medium pt-1 border-t border-amber-200 dark:border-amber-800">
-                          Pengirim bertanggung jawab penuh atas konten yang dikirimkan. Pelanggaran dapat berakibat pemblokiran akun.
-                        </p> */}
                       </div>
                     </>
                   )}
                 </motion.div>
               )}
 
-              {/* ── TAB: VOICE ── */}
               {activeTab === 'voice' && (
-                <motion.div
-                  key="tab-voice"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                  className="space-y-4"
-                >
+                <motion.div key="tab-voice" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }} className="space-y-4">
                   {form.amount < minDonate ? (
-                    // Nominal belum cukup — warning
                     <div className="flex items-center gap-3 px-4 py-4 bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-lg">
                       <span className="text-2xl flex-shrink-0">🔒</span>
                       <div>
-                        <p className="text-xs font-black text-amber-700 dark:text-amber-400">
-                          Voice Message belum aktif
-                        </p>
-                        <p className="text-[10px] text-amber-500 font-medium mt-0.5">
-                          Masukkan nominal minimal Rp {Number(minDonate).toLocaleString('id-ID')} untuk merekam suara
-                        </p>
-                        <button
-                          onClick={() => setForm({ ...form, amount: minDonate })}
-                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-lg hover:bg-amber-600 transition-all cursor-pointer"
-                        >
+                        <p className="text-xs font-black text-amber-700 dark:text-amber-400">Voice Message belum aktif</p>
+                        <p className="text-[10px] text-amber-500 font-medium mt-0.5">Masukkan nominal minimal Rp {Number(minDonate).toLocaleString('id-ID')} untuk merekam suara</p>
+                        <button onClick={() => setForm({ ...form, amount: minDonate })}
+                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-lg hover:bg-amber-600 transition-all cursor-pointer">
                           Set Rp {Number(minDonate).toLocaleString('id-ID')}
                         </button>
                       </div>
@@ -1887,28 +1898,19 @@ const SupporterPage = () => {
                     <div className="space-y-3">
                       <div className="flex items-center gap-2 px-3 py-2 bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-lg">
                         <Mic size={13} className="text-violet-500 flex-shrink-0" />
-                        <p className="text-[10px] font-bold text-violet-600 dark:text-violet-400">
-                          Rekam pesan suaramu — max 60 detik
-                        </p>
+                        <p className="text-[10px] font-bold text-violet-600 dark:text-violet-400">Rekam pesan suaramu — max 60 detik</p>
                       </div>
-                      <VoiceRecorder
-                        onVoiceReady={(url) => setForm(f => ({ ...f, voiceUrl: url || '' }))}
-                        maxSeconds={60}
-                        disabled={false}
-                      />
+                      <VoiceRecorder onVoiceReady={(url) => setForm(f => ({ ...f, voiceUrl: url || '' }))} maxSeconds={60} disabled={false} />
                     </div>
                   )}
                 </motion.div>
               )}
-
             </AnimatePresence>
 
             {/* Anonymous toggle */}
             <label className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
-              <div
-                onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
-                className={`w-10 h-6 rounded-lg relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}
-              >
+              <div onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
+                className={`w-10 h-6 rounded-lg relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}>
                 <div className={`absolute top-1 w-4 h-4 bg-white rounded-lg shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
               </div>
               Donasi sebagai anonim
@@ -1917,21 +1919,14 @@ const SupporterPage = () => {
             {/* Login prompt */}
             <AnimatePresence>
               {!isLoggedIn && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden"
-                >
+                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                   <div className="flex items-center justify-between px-4 py-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-lg">
                     <div>
                       <p className="text-xs font-black text-blue-700 dark:text-blue-400">Donasi kamu tidak akan tercatat</p>
                       <p className="text-[10px] text-blue-400 dark:text-blue-500 font-medium mt-0.5">Masuk atau daftar agar donasi muncul di riwayat akun</p>
                     </div>
-                    <button
-                      onClick={() => openAuth('login')}
-                      className="ml-3 flex-shrink-0 px-3 py-1.5 text-[10px] font-black text-blue-600 dark:text-blue-400 bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-700 rounded-lg hover:bg-blue-50 transition-all cursor-pointer"
-                    >
+                    <button onClick={() => openAuth('login')}
+                      className="ml-3 flex-shrink-0 px-3 py-1.5 text-[10px] font-black text-blue-600 dark:text-blue-400 bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-700 rounded-lg hover:bg-blue-50 transition-all cursor-pointer">
                       Masuk
                     </button>
                   </div>
@@ -1944,12 +1939,8 @@ const SupporterPage = () => {
             {/* Submit hint */}
             <AnimatePresence>
               {isSubmitDisabled && !loading && submitHint && (
-                <motion.div
-                  initial={{ opacity: 0, y: -4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  className="flex items-center gap-2 px-3 py-2.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-lg"
-                >
+                <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
+                  className="flex items-center gap-2 px-3 py-2.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-lg">
                   <span className="text-slate-300 dark:text-slate-600 flex-shrink-0">⚠️</span>
                   <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500">{submitHint}</p>
                 </motion.div>
@@ -1978,63 +1969,66 @@ const SupporterPage = () => {
                 </>
               )}
             </motion.button>
+          </motion.div>
 
+        </div>{/* end kolom kiri */}
+
+        {/* KOLOM KANAN */}
+        {overlaySetting?.showLeaderboardOnDonate && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="w-full lg:w-[25vw] flex-shrink-0 lg:sticky lg:top-24 order-2 lg:order-3"
+          >
+            <div className="bg-white dark:bg-slate-900 p-5 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-500" />
+              <LeaderboardMini username={streamer?.username} />
+            </div>
+          </motion.div>
+        )}
+
+      </div>
+    </div>
+
+    {/* Session Expired Modal */}
+    <AnimatePresence>
+      {sessionExpired && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: 16 }}
+            className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-lg shadow-2xl overflow-hidden"
+          >
+            <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
+            <div className="p-7 flex flex-col items-center text-center gap-4">
+              <div className="w-14 h-14 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30">
+                <span className="text-3xl">⏰</span>
+              </div>
+              <div>
+                <p className="font-black text-slate-800 dark:text-slate-100 text-base">Sesi Login Kadaluarsa</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+                  Sesi kamu telah berakhir. Silakan login kembali untuk melanjutkan.
+                </p>
+              </div>
+              <div className="flex gap-2 w-full">
+                <button onClick={() => setSessionExpired(false)}
+                  className="flex-1 py-3 border border-slate-200 dark:border-slate-700 font-bold text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                  Lanjut sebagai tamu
+                </button>
+                <button onClick={() => { setSessionExpired(false); openAuth('login'); }}
+                  className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm transition-all">
+                  Login Lagi
+                </button>
+              </div>
+            </div>
           </motion.div>
         </div>
-      </div>
-
-      <AnimatePresence>
-        {sessionExpired && (
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 16 }}
-              className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-lg shadow-2xl overflow-hidden"
-            >
-              <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
-              <div className="p-7 flex flex-col items-center text-center gap-4">
-                <div className="w-14 h-14 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30">
-                  <span className="text-3xl">⏰</span>
-                </div>
-                <div>
-                  <p className="font-black text-slate-800 dark:text-slate-100 text-base">Sesi Login Kadaluarsa</p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
-                    Sesi kamu telah berakhir. Silakan login kembali untuk melanjutkan.
-                  </p>
-                </div>
-                <div className="flex gap-2 w-full">
-                  <button
-                    onClick={() => setSessionExpired(false)}
-                    className="flex-1 py-3 border border-slate-200 dark:border-slate-700 font-bold text-sm text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
-                  >
-                    Lanjut sebagai tamu
-                  </button>
-                  <button
-                    onClick={() => { setSessionExpired(false); openAuth('login'); }}
-                    className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm transition-all"
-                  >
-                    Login Lagi
-                  </button>
-                </div>
-              </div>
-
-              {overlaySetting?.showLeaderboardOnDonate && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="bg-white dark:bg-slate-900 p-5 md:p-7 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800"
-                >
-                  <LeaderboardMini username={streamer?.username} />
-                </motion.div>
-              )}
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </>
-  );
+      )}
+    </AnimatePresence>
+  </>
+);
 };
 
 export default SupporterPage;
