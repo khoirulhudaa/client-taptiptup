@@ -76,7 +76,7 @@ const QRModal = ({ isOpen, onClose, qrCodeUrl, secret, onSuccess }) => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.93, y: 20 }}
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-none shadow-2xl overflow-hidden"
+          className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-lg shadow-2xl overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800">
@@ -215,7 +215,7 @@ const QRModal = ({ isOpen, onClose, qrCodeUrl, secret, onSuccess }) => {
                     setError('');
                   }}
                   placeholder="000000"
-                  className="w-full text-center text-4xl tracking-[14px] font-mono py-5 bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-blue-500 outline-none rounded-none transition-all"
+                  className="w-full text-center text-4xl tracking-[14px] font-mono py-5 bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-blue-500 outline-none rounded-lg transition-all"
                   autoFocus
                 />
 
@@ -289,7 +289,7 @@ const TwoFactorSetup = () => {
   return (
     <>
       {/* ── Card ── */}
-      <div className={`${isEnabled ? 'hidden' : 'hidden md:block'} bg-white dark:bg-slate-900 rounded-none border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden`}>
+      <div className={`${isEnabled ? 'hidden' : 'hidden md:block'} bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden`}>
         {/* Top accent */}
         <div className={`h-1 w-full ${isEnabled ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-700'}`} />
 
@@ -297,7 +297,7 @@ const TwoFactorSetup = () => {
           <div className='w-full md:flex items-center justify-between'>
             <div className="flex items-center md:items-start gap-4">
               {/* Icon */}
-              <div className={`w-12 h-11 flex-shrink-0 flex items-center justify-center rounded-none transition-all
+              <div className={`w-12 h-11 flex-shrink-0 flex items-center justify-center rounded-lg transition-all
                 ${isEnabled
                   ? 'bg-green-50 dark:bg-green-800'
                   : 'bg-slate-100 dark:bg-slate-800'

@@ -267,7 +267,7 @@ const DonationTerminal = () => {
   const colHeaders = ['TIMESTAMP', 'STREAMER', 'DONOR', 'NOMINAL', 'STATUS', 'PESAN'];
 
   return (
-    <div style={{ height: 'max-content', color: '#e2e8f0', fontFamily: mono }} className='bg-white dark:bg-slate-900 rounded-none border border-slate-100 dark:border-slate-800'>
+    <div style={{ height: 'max-content', color: '#e2e8f0', fontFamily: mono }} className='bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800'>
 
       {/* Scanline */}
       <div style={{

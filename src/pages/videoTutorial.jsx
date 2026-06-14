@@ -71,7 +71,7 @@ const VideoModal = ({ tutorial, onClose }) => {
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.92, opacity: 0, y: 20 }}
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-4xl rounded-none overflow-hidden shadow-2xl border border-white/10"
+          className="w-full max-w-4xl rounded-lg overflow-hidden shadow-2xl border border-white/10"
           onClick={e => e.stopPropagation()}
         >
           {/* Header */}
@@ -84,7 +84,7 @@ const VideoModal = ({ tutorial, onClose }) => {
             </div>
             <button
               onClick={onClose}
-              className="cursor-pointer p-2 rounded-none bg-white/10 hover:bg-white/20 text-white transition-colors active:scale-95"
+              className="cursor-pointer p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors active:scale-95"
               aria-label="Tutup video"
             >
               <X size={16} />
@@ -113,7 +113,7 @@ const VideoModal = ({ tutorial, onClose }) => {
             </div>
             <button
               onClick={onClose}
-              className="md:flex hidden cursor-pointer flex-shrink-0 px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-black text-xs rounded-none transition-all active:scale-[0.98]"
+              className="md:flex hidden cursor-pointer flex-shrink-0 px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-black text-xs rounded-lg transition-all active:scale-[0.98]"
             >
               Tutup
             </button>
@@ -136,7 +136,7 @@ export const VideoTutorialSection = () => {
           {TUTORIALS.map((tut) => (
             <div
               key={tut.id}
-              className={`group relative rounded-none border-2 ${tut.borderActive} bg-slate-50 dark:bg-slate-800/60 overflow-hidden transition-all hover:border-opacity-80`}
+              className={`group relative rounded-lg border-2 ${tut.borderActive} bg-slate-50 dark:bg-slate-800/60 overflow-hidden transition-all hover:border-opacity-80`}
             >
               {/* Thumbnail — hanya tampil di desktop */}
               <div
@@ -154,7 +154,7 @@ export const VideoTutorialSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent pointer-events-none" />
 
                 <div className="absolute bottom-2 right-4 pointer-events-none">
-                  <span className="px-2 py-0.5 bg-black/70 text-white text-[9px] font-black rounded-none tracking-wider">
+                  <span className="px-2 py-0.5 bg-black/70 text-white text-[9px] font-black rounded-lg tracking-wider">
                     {tut.duration}
                   </span>
                 </div>
@@ -169,7 +169,7 @@ export const VideoTutorialSection = () => {
 
                 <button
                   onClick={() => setActiveModal(tut.id)}
-                  className="md:w-full px-2.5 md:px-0 w-max cursor-pointer active:scale-[0.98] !mt-2.5 py-2 md:py-2.5 bg-slate-800 dark:bg-slate-700 hover:bg-slate-700 dark:hover:bg-slate-600 border border-white/10 text-white font-black text-[10px] md:text-xs rounded-none flex items-center justify-center gap-1.5 transition-all"
+                  className="md:w-full px-2.5 md:px-0 w-max cursor-pointer active:scale-[0.98] !mt-2.5 py-2 md:py-2.5 bg-slate-800 dark:bg-slate-700 hover:bg-slate-700 dark:hover:bg-slate-600 border border-white/10 text-white font-black text-[10px] md:text-xs rounded-lg flex items-center justify-center gap-1.5 transition-all"
                 >
                   <Play size={11} fill="white" className="md:flex hidden" />
                   Tonton Tutorial

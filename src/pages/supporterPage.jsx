@@ -150,7 +150,7 @@ const YouTubeTimePicker = ({ startTime, onChange }) => {
     <motion.div
       initial={{ opacity: 0, height: 0 }}
       animate={{ opacity: 1, height: 'auto' }}
-      className="mt-4 p-4 bg-gradient-to-r from-yellow-50/70 to-orange-50/70 dark:from-yellow-900/30 dark:to-orange-900/30 border border-yellow-200 dark:border-yellow-800 rounded-none space-y-3"
+      className="mt-4 p-4 bg-gradient-to-r from-yellow-50/70 to-orange-50/70 dark:from-yellow-900/30 dark:to-orange-900/30 border border-yellow-200 dark:border-yellow-800 rounded-lg space-y-3"
     >
       <p className="text-xs font-black text-yellow-700 dark:text-yellow-400 leading-none">
         Kustom Waktu Mulai Video
@@ -174,7 +174,7 @@ const YouTubeTimePicker = ({ startTime, onChange }) => {
               max={max}
               value={value}
               onChange={(e) => set(Math.max(0, Math.min(max, parseInt(e.target.value) || 0)))}
-              className="w-full p-2 text-center rounded-none bg-white dark:bg-slate-900 border border-yellow-200 dark:border-yellow-700 focus:border-yellow-400 font-mono text-sm font-bold text-slate-700 dark:text-white outline-none"
+              className="w-full p-2 text-center rounded-lg bg-white dark:bg-slate-900 border border-yellow-200 dark:border-yellow-700 focus:border-yellow-400 font-mono text-sm font-bold text-slate-700 dark:text-white outline-none"
             />
           </div>
         ))}
@@ -250,7 +250,7 @@ const AuthModal = ({ isOpen, onClose, defaultTab = 'login', onAuthSuccess }) => 
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
             className="fixed inset-0 z-[101] flex items-center justify-center px-4 pointer-events-none"
           >
-            <div className="relative overflow-hidden w-full md:max-w-md max-w-lg bg-white dark:bg-slate-900 rounded-none shadow-2xl border border-blue-100 dark:border-slate-800 pointer-events-auto">
+            <div className="relative overflow-hidden w-full md:max-w-md max-w-lg bg-white dark:bg-slate-900 rounded-lg shadow-2xl border border-blue-100 dark:border-slate-800 pointer-events-auto">
               <div className="relative h-1.5 bg-gradient-to-r from-blue-400 via-violet-500 to-purple-500" />
               <div className="p-7 space-y-5">
                 <div className="flex items-center justify-between">
@@ -275,14 +275,14 @@ const AuthModal = ({ isOpen, onClose, defaultTab = 'login', onAuthSuccess }) => 
                 <AnimatePresence>
                   {error && (
                     <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                      className="flex items-center gap-2 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/50 rounded-none text-xs font-bold text-red-600 dark:text-red-400"
+                      className="flex items-center gap-2 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/50 rounded-lg text-xs font-bold text-red-600 dark:text-red-400"
                     >
                       <X size={13} /> {error}
                     </motion.div>
                   )}
                   {success && (
                     <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                      className="flex items-center gap-2 px-4 py-3 bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800/50 rounded-none text-xs font-bold text-green-700 dark:text-green-400"
+                      className="flex items-center gap-2 px-4 py-3 bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800/50 rounded-lg text-xs font-bold text-green-700 dark:text-green-400"
                     >
                       ✅ {success}
                     </motion.div>
@@ -297,20 +297,20 @@ const AuthModal = ({ isOpen, onClose, defaultTab = 'login', onAuthSuccess }) => 
                         <input type="email" placeholder="Email kamu" value={loginForm.email}
                           onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
                           onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
-                          className="w-full pl-10 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 rounded-none text-sm font-bold text-slate-700 dark:text-white outline-none transition-all" />
+                          className="w-full pl-10 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 rounded-lg text-sm font-bold text-slate-700 dark:text-white outline-none transition-all" />
                       </div>
                       <div className="relative">
                         <Lock size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600" />
                         <input type={showPass ? 'text' : 'password'} placeholder="Password" value={loginForm.password}
                           onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
                           onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
-                          className="w-full pl-10 pr-10 py-3.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 rounded-none text-sm font-bold text-slate-700 dark:text-white outline-none transition-all" />
+                          className="w-full pl-10 pr-10 py-3.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 rounded-lg text-sm font-bold text-slate-700 dark:text-white outline-none transition-all" />
                         <button onClick={() => setShowPass(!showPass)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-500 hover:text-slate-500 transition-all">
                           {showPass ? <EyeOff size={14} /> : <Eye size={14} />}
                         </button>
                       </div>
                       <motion.button whileTap={{ scale: 0.97 }} onClick={handleLogin} disabled={loading}
-                        className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-none font-black text-sm cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2 transition-all hover:brightness-85">
+                        className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-lg font-black text-sm cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2 transition-all hover:brightness-85">
                         {loading ? <><Loader2 size={15} className="animate-spin" /> Masuk...</> : '→ Masuk Sekarang'}
                       </motion.button>
                     </motion.div>
@@ -320,25 +320,25 @@ const AuthModal = ({ isOpen, onClose, defaultTab = 'login', onAuthSuccess }) => 
                         <AtSign size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600" />
                         <input type="text" placeholder="Username" value={registerForm.username}
                           onChange={(e) => setRegisterForm({ ...registerForm, username: e.target.value })}
-                          className="w-full pl-10 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 rounded-none text-sm font-bold text-slate-700 dark:text-white outline-none transition-all" />
+                          className="w-full pl-10 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 rounded-lg text-sm font-bold text-slate-700 dark:text-white outline-none transition-all" />
                       </div>
                       <div className="relative">
                         <Mail size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600" />
                         <input type="email" placeholder="Email kamu" value={registerForm.email}
                           onChange={(e) => setRegisterForm({ ...registerForm, email: e.target.value })}
-                          className="w-full pl-10 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 rounded-none text-sm font-bold text-slate-700 dark:text-white outline-none transition-all" />
+                          className="w-full pl-10 pr-4 py-3.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 rounded-lg text-sm font-bold text-slate-700 dark:text-white outline-none transition-all" />
                       </div>
                       <div className="relative">
                         <Lock size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600" />
                         <input type={showPass ? 'text' : 'password'} placeholder="Password (min. 6 karakter)" value={registerForm.password}
                           onChange={(e) => setRegisterForm({ ...registerForm, password: e.target.value })}
-                          className="w-full pl-10 pr-10 py-3.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 rounded-none text-sm font-bold text-slate-700 dark:text-white outline-none transition-all" />
+                          className="w-full pl-10 pr-10 py-3.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 rounded-lg text-sm font-bold text-slate-700 dark:text-white outline-none transition-all" />
                         <button onClick={() => setShowPass(!showPass)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-500 transition-all">
                           {showPass ? <EyeOff size={14} /> : <Eye size={14} />}
                         </button>
                       </div>
                       <motion.button whileTap={{ scale: 0.97 }} onClick={handleRegister} disabled={loading}
-                        className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-none font-black text-sm disabled:opacity-60 flex items-center justify-center gap-2 transition-all hover:brightness-110">
+                        className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-lg font-black text-sm disabled:opacity-60 flex items-center justify-center gap-2 transition-all hover:brightness-110">
                         {loading ? <><Loader2 size={15} className="animate-spin" /> Mendaftar...</> : '🎉 Buat Akun Gratis'}
                       </motion.button>
                     </motion.div>
@@ -390,21 +390,21 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-5 py-3">
       <div className="max-w-xl mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-9 h-9 bg-pink-200 rounded-none p-1.5 flex items-center justify-center">
+          <div className="w-9 h-9 bg-pink-200 rounded-lg p-1.5 flex items-center justify-center">
             <img src="/jellyfish.png" alt="icon" />
           </div>
           <span className="font-black text-sm text-slate-800 dark:text-white tracking-tight">TapTipTup</span>
         </Link>
         <div className="flex items-center gap-2">
           <button onClick={toggleTheme}
-            className="cursor-pointer h-[40px] w-[40px] flex items-center justify-center rounded-none border bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-50 transition-all shadow-sm">
+            className="cursor-pointer h-[40px] w-[40px] flex items-center justify-center rounded-lg border bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-50 transition-all shadow-sm">
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           {isLoggedIn ? (
             <div className="relative" ref={dropRef}>
               <button onClick={() => setDropdownOpen((v) => !v)}
-                className="flex items-center gap-2 px-2 h-[40px] bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-none transition-all cursor-pointer border border-slate-200 dark:border-slate-700">
-                <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-violet-600 rounded-none flex items-center justify-center text-white font-black text-xs flex-shrink-0 overflow-hidden">
+                className="flex items-center gap-2 px-2 h-[40px] bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-all cursor-pointer border border-slate-200 dark:border-slate-700">
+                <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-violet-600 rounded-lg flex items-center justify-center text-white font-black text-xs flex-shrink-0 overflow-hidden">
                   {profile?.profilePicture ? (
                     <img src={profile.profilePicture} alt={displayName} className="w-full h-full object-cover"
                       onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = displayName.charAt(0).toUpperCase(); }} />
@@ -420,10 +420,10 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 mt-2 w-60 bg-white dark:bg-slate-900 rounded-none shadow-xl border border-slate-100 dark:border-slate-800 overflow-hidden"
+                    className="absolute right-0 mt-2 w-60 bg-white dark:bg-slate-900 rounded-lg shadow-xl border border-slate-100 dark:border-slate-800 overflow-hidden"
                   >
                     <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
-                      <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-violet-600 rounded-none flex items-center justify-center text-white font-black text-sm flex-shrink-0">
+                      <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-violet-600 rounded-lg flex items-center justify-center text-white font-black text-sm flex-shrink-0">
                         {displayName.charAt(0).toUpperCase()}
                       </div>
                       <div className="min-w-0">
@@ -433,15 +433,15 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
                     </div>
                     <div className="p-1.5 space-y-0.5">
                       <Link to="/dashboard" onClick={() => setDropdownOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-none transition-all text-sm font-bold text-slate-700 dark:text-slate-300">
-                        <div className="w-7 h-7 bg-blue-50 dark:bg-blue-900/30 rounded-none flex items-center justify-center flex-shrink-0">
+                        className="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all text-sm font-bold text-slate-700 dark:text-slate-300">
+                        <div className="w-7 h-7 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                           <User size={13} className="text-blue-500" />
                         </div>
                         Dashboard Saya
                       </Link>
                       <Link to="/dashboard?tab=history" onClick={() => setDropdownOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-none transition-all text-sm font-bold text-slate-700 dark:text-slate-300">
-                        <div className="w-7 h-7 bg-pink-50 dark:bg-pink-900/30 rounded-none flex items-center justify-center flex-shrink-0">
+                        className="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all text-sm font-bold text-slate-700 dark:text-slate-300">
+                        <div className="w-7 h-7 bg-pink-50 dark:bg-pink-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                           <Heart size={13} className="text-pink-500" />
                         </div>
                         Riwayat Berdonasi Saya
@@ -449,8 +449,8 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
                     </div>
                     <div className="p-1.5 border-t border-slate-100 dark:border-slate-800">
                       <button onClick={() => { setDropdownOpen(false); onLogout(); }}
-                        className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-none transition-all text-sm font-bold text-red-500 dark:text-red-400 cursor-pointer">
-                        <div className="w-7 h-7 bg-red-50 dark:bg-red-900/20 rounded-none flex items-center justify-center flex-shrink-0">
+                        className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all text-sm font-bold text-red-500 dark:text-red-400 cursor-pointer">
+                        <div className="w-7 h-7 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center flex-shrink-0">
                           <LogOut size={13} className="text-red-400" />
                         </div>
                         Keluar
@@ -462,7 +462,7 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
             </div>
           ) : (
             <button onClick={() => onOpenAuth('login')}
-              className="px-4 py-2 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-none font-black text-sm hover:brightness-110 transition-all cursor-pointer active:scale-[0.98]">
+              className="px-4 py-2 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-lg font-black text-sm hover:brightness-110 transition-all cursor-pointer active:scale-[0.98]">
               Masuk
             </button>
           )}
@@ -559,12 +559,12 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
   };
 
   return (
-    <div className="rounded-none border-2 border-blue-200 dark:border-blue-800 bg-blue-50/60 dark:bg-blue-900/30 p-5 space-y-4">
+    <div className="rounded-lg border-2 border-blue-200 dark:border-blue-800 bg-blue-50/60 dark:bg-blue-900/30 p-5 space-y-4">
 
       {/* Header — sama persis aslinya */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-none bg-blue-600 flex items-center justify-center text-white flex-shrink-0">
+          <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white flex-shrink-0">
             {allowVideo && allowImage
               ? <span className="flex items-center gap-0.5"><ImageIcon size={9} /><Video size={9} /></span>
               : allowVideo ? <Video size={13} /> : <ImageIcon size={13} />}
@@ -581,7 +581,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
         {(mediaUrl || uploadedFile) && (
           <button
             onClick={() => handleModeSwitch(inputMode)}
-            className="w-6 h-6 rounded-none bg-blue-100 dark:bg-blue-900 hover:bg-red-100 dark:hover:bg-red-900 text-blue-400 flex items-center justify-center transition-all hover:text-red-500"
+            className="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900 hover:bg-red-100 dark:hover:bg-red-900 text-blue-400 flex items-center justify-center transition-all hover:text-red-500"
           >
             <X size={12} />
           </button>
@@ -591,12 +591,12 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
       {/* Badge tipe media — sama persis aslinya */}
       <div className="flex items-center gap-2">
         {allowImage && (
-          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-blue-800 rounded-none text-[10px] font-bold text-blue-600 dark:text-blue-400">
+          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-blue-800 rounded-lg text-[10px] font-bold text-blue-600 dark:text-blue-400">
             <ImageIcon size={10} /> Animasi GIF
           </span>
         )}
         {allowVideo && (
-          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-purple-800 rounded-none text-[10px] font-bold text-purple-600 dark:text-purple-400">
+          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-purple-800 rounded-lg text-[10px] font-bold text-purple-600 dark:text-purple-400">
             <Video size={10} /> Video YouTube
           </span>
         )}
@@ -639,7 +639,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
               type="url"
               value={mediaUrl}
               onChange={(e) => { setMediaUrl(e.target.value); setStartTime(0); }}
-              className="w-full p-4 rounded-none bg-white dark:bg-slate-900 border-2 border-blue-100 dark:border-blue-800 focus:border-blue-400 outline-none font-mono text-xs text-slate-700 dark:text-white font-bold transition-all placeholder:font-sans placeholder:text-slate-400"
+              className="w-full p-4 rounded-lg bg-white dark:bg-slate-900 border-2 border-blue-100 dark:border-blue-800 focus:border-blue-400 outline-none font-mono text-xs text-slate-700 dark:text-white font-bold transition-all placeholder:font-sans placeholder:text-slate-400"
               placeholder={placeholderText}
             />
             <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium ml-1">
@@ -659,7 +659,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-3 px-3 py-2.5 bg-amber-900/30 border border-amber-800 rounded-none flex items-center gap-2"
+                className="mt-3 px-3 py-2.5 bg-amber-900/30 border border-amber-800 rounded-lg flex items-center gap-2"
               >
                 <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse flex-shrink-0" />
                 <p className="text-[10px] font-black text-amber-600 dark:text-amber-400">
@@ -677,7 +677,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.25 }}
-                className="rounded-none overflow-hidden border border-blue-100 dark:border-blue-800 bg-slate-900 relative"
+                className="rounded-lg overflow-hidden border border-blue-100 dark:border-blue-800 bg-slate-900 relative"
                 style={{ maxHeight: 200 }}
               >
                 {mediaType === 'youtube' ? (
@@ -712,7 +712,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
             )}
             {previewError && mediaUrl && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                className="rounded-none border border-red-100 dark:border-red-800 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-xs text-red-500 font-bold flex items-center gap-2">
+                className="rounded-lg border border-red-100 dark:border-red-800 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-xs text-red-500 font-bold flex items-center gap-2">
                 <X size={14} /> URL tidak valid atau media tidak dapat dimuat.
               </motion.div>
             )}
@@ -735,7 +735,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading}
-              className="w-full border-2 border-dashed border-blue-300 dark:border-blue-700 rounded-none py-8 flex flex-col items-center gap-3 cursor-pointer hover:border-blue-500 hover:bg-blue-50/80 dark:hover:bg-blue-900/20 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full border-2 border-dashed border-blue-300 dark:border-blue-700 rounded-lg py-8 flex flex-col items-center gap-3 cursor-pointer hover:border-blue-500 hover:bg-blue-50/80 dark:hover:bg-blue-900/20 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {uploading ? (
                 <>
@@ -762,7 +762,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
               >
                 {/* Preview gambar upload */}
                 <div
-                  className="relative rounded-none overflow-hidden border border-blue-200 dark:border-blue-700 bg-slate-900"
+                  className="relative rounded-lg overflow-hidden border border-blue-200 dark:border-blue-700 bg-slate-900"
                   style={{ maxHeight: 200 }}
                 >
                   <img
@@ -773,7 +773,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                   />
                   <button
                     onClick={clearUpload}
-                    className="absolute top-2 right-2 w-7 h-7 bg-black/60 hover:bg-red-600 text-white rounded-none flex items-center justify-center transition-all"
+                    className="absolute top-2 right-2 w-7 h-7 bg-black/60 hover:bg-red-600 text-white rounded-lg flex items-center justify-center transition-all"
                   >
                     <X size={13} />
                   </button>
@@ -793,7 +793,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
 
                 {/* Warning 15 menit */}
                 {uploadedFile.serverUrl && (
-                  <div className="flex items-center gap-2 px-3 py-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-none">
+                  <div className="flex items-center gap-2 px-3 py-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
                     <span className="text-amber-500 flex-shrink-0">⏱</span>
                     <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400">
                       Gambar otomatis terhapus dari server dalam 15 menit
@@ -804,7 +804,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 {/* Ganti gambar */}
                 <button
                   onClick={() => { clearUpload(); setTimeout(() => fileInputRef.current?.click(), 100); }}
-                  className="w-full py-2 text-[10px] font-black text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all cursor-pointer rounded-none"
+                  className="w-full py-2 text-[10px] font-black text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all cursor-pointer rounded-lg"
                 >
                   Ganti Gambar
                 </button>
@@ -819,7 +819,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex items-center gap-2 px-3 py-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-none text-[10px] font-bold text-red-500"
+                className="flex items-center gap-2 px-3 py-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-[10px] font-bold text-red-500"
               >
                 <X size={12} /> {uploadError}
               </motion.div>
@@ -885,7 +885,7 @@ const QuickAudioSection = ({ publicSounds = [], selectedSound, onSoundChange, am
       <div className="grid grid-cols-3 md:grid-cols-2 gap-2">
         <button
           onClick={() => { onSoundChange(''); stopPreview(); }}
-          className={`group p-2.5 rounded-none border-2 font-bold text-xs flex flex-col items-center gap-1 transition-all cursor-pointer active:scale-[0.99] hover:bg-slate-900 ${
+          className={`group p-2.5 rounded-lg border-2 font-bold text-xs flex flex-col items-center gap-1 transition-all cursor-pointer active:scale-[0.99] hover:bg-slate-900 ${
             !selectedSound
               ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 shadow-sm'
               : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 hover:border-blue-300'
@@ -902,7 +902,7 @@ const QuickAudioSection = ({ publicSounds = [], selectedSound, onSoundChange, am
               key={`${sound.url}-${i}`}
               onClick={() => { if (hasError) return; playPreview(sound.url); onSoundChange(sound.url); }}
               disabled={hasError}
-              className={`group relative p-2.5 pb-3 rounded-none border-2 font-bold text-xs flex flex-col items-center gap-1 transition-all cursor-pointer active:scale-[0.99] disabled:cursor-not-allowed overflow-hidden ${
+              className={`group relative p-2.5 pb-3 rounded-lg border-2 font-bold text-xs flex flex-col items-center gap-1 transition-all cursor-pointer active:scale-[0.99] disabled:cursor-not-allowed overflow-hidden ${
                 selectedSound === sound.url
                   ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 shadow-sm'
                   : hasError
@@ -985,7 +985,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
 
         return (
           <div
-            className="border border-slate-300/20 rounded-none overflow-hidden"
+            className="border border-slate-300/20 rounded-lg overflow-hidden"
             style={{ display: 'grid', gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))` }}
           >
             {visibleTabs.map((tab) => {
@@ -999,7 +999,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
                   onClick={() => onTabChange(tab.id)}
                   className={`
                     flex items-center justify-center gap-1.5 py-5 px-3
-                    text-[10px] font-black transition-all cursor-pointer select-none rounded-none
+                    text-[10px] font-black transition-all cursor-pointer select-none rounded-lg
                     ${isActive
                       ? 'bg-blue-600 text-white'
                       : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
@@ -1390,10 +1390,10 @@ const SupporterPage = () => {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-slate-900 px-8 pt-8 pb-8 rounded-none shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 text-center border border-blue-100 dark:border-slate-800 relative overflow-hidden"
+            className="bg-white dark:bg-slate-900 px-8 pt-8 pb-8 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 text-center border border-blue-100 dark:border-slate-800 relative overflow-hidden"
           >
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-400 via-violet-500 to-purple-500" />
-            <div className="w-20 h-20 mt-2 mx-auto rounded-none overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg mb-4 border-4 border-white dark:border-slate-900">
+            <div className="w-20 h-20 mt-2 mx-auto rounded-lg overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg mb-4 border-4 border-white dark:border-slate-900">
               {streamer?.profilePicture ? (
                 <img src={streamer.profilePicture} alt={streamer.username} className="w-full h-full object-cover"
                   onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = streamer.username?.charAt(0).toUpperCase() || '?'; }} />
@@ -1403,7 +1403,7 @@ const SupporterPage = () => {
             <p className="text-slate-400 dark:text-slate-500 text-sm mt-1">{streamer.donateIntro || 'Support aku biar makin semangat 🚀'}</p>
 
             {isLoggedIn ? (
-              <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-none text-[10px] font-black text-green-700 dark:text-green-400">
+              <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg text-[10px] font-black text-green-700 dark:text-green-400">
                 ✓ Donasi akan tercatat di riwayat akun kamu
               </div>
             ) : (
@@ -1422,7 +1422,7 @@ const SupporterPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-transparent md:bg-white dark:md:bg-slate-900 p-0 md:p-7 rounded-none shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:border border-blue-100 dark:border-slate-800 space-y-5"
+            className="bg-transparent md:bg-white dark:md:bg-slate-900 p-0 md:p-7 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:border border-blue-100 dark:border-slate-800 space-y-5"
           >
 
             {/* Quick Amounts */}
@@ -1436,7 +1436,7 @@ const SupporterPage = () => {
                     <button
                       key={val}
                       onClick={() => setForm({ ...form, amount: val })}
-                      className={`cursor-pointer py-4 rounded-none font-black text-sm transition-all border-2 active:scale-[0.99] ${
+                      className={`cursor-pointer py-4 rounded-lg font-black text-sm transition-all border-2 active:scale-[0.99] ${
                         form.amount === val
                           ? 'bg-blue-600 border-blue-600 text-white shadow-lg'
                           : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:text-blue-600 dark:hover:text-blue-400 text-slate-700 dark:text-slate-300'
@@ -1460,7 +1460,7 @@ const SupporterPage = () => {
                   type="number"
                   value={form.amount || ''}
                   onChange={(e) => setForm({ ...form, amount: Number(e.target.value) })}
-                  className="w-full p-4 pl-12 rounded-none font-black text-slate-800 dark:text-white bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-slate-700 outline-none transition-all"
+                  className="w-full p-4 pl-12 rounded-lg font-black text-slate-800 dark:text-white bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-slate-700 outline-none transition-all"
                   placeholder="Nominal Kustom..."
                 />
               </div>
@@ -1473,7 +1473,7 @@ const SupporterPage = () => {
                     const isNext = !reached && (i === 0 || form.amount >= sortedTriggers[i - 1]?.minAmount);
                     if (!reached && !isNext) return null;
                     return (
-                      <div key={i} className={`flex items-center gap-2 text-[10px] font-bold px-2 py-1.5 rounded-none ${
+                      <div key={i} className={`flex items-center gap-2 text-[10px] font-bold px-2 py-1.5 rounded-lg ${
                         reached ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'bg-slate-50 dark:bg-slate-900/50 text-slate-400 dark:text-slate-500'
                       }`}>
                         <span>{reached ? '✅' : '🔒'}</span>
@@ -1505,7 +1505,7 @@ const SupporterPage = () => {
                       value={form.isAnonymous ? '' : form.donorName}
                       onChange={(e) => setForm({ ...form, donorName: e.target.value })}
                       required={!isLoggedIn && !form.isAnonymous}  // ⬅️ TAMBAHKAN INI
-                      className="w-full p-4 rounded-none bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white"
+                      className="w-full p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white"
                       placeholder="Nama kamu"
                     />
                   </div>
@@ -1520,7 +1520,7 @@ const SupporterPage = () => {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       required={!isLoggedIn}  // ⬅️ TAMBAHKAN INI
-                      className="w-full p-4 rounded-none bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white"
+                      className="w-full p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white"
                       placeholder="email@kamu.com"
                     />
                   </div>
@@ -1549,7 +1549,7 @@ const SupporterPage = () => {
                   value={form.message}
                   rows={4}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="w-full p-4 rounded-none bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 min-h-[90px] outline-none transition-all resize-none text-slate-700 dark:text-white dark:placeholder:text-slate-500"
+                  className="w-full p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 min-h-[90px] outline-none transition-all resize-none text-slate-700 dark:text-white dark:placeholder:text-slate-500"
                   placeholder="Semangat terus bang! 🔥"
                 />
               </div>
@@ -1575,7 +1575,7 @@ const SupporterPage = () => {
                       amount={form.amount}
                     />
                   ) : form.amount > 0 && form.amount < minDonate ? (
-                    <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-none">
+                    <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-lg">
                       <Bell size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
                       <div>
                         <p className="text-xs font-black text-slate-500 dark:text-slate-400">Donasi Alert Biasa</p>
@@ -1585,7 +1585,7 @@ const SupporterPage = () => {
                       </div>
                     </div>
                   ) : publicSounds.length === 0 ? (
-                    <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-none">
+                    <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-lg">
                       <Bell size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
                       <div>
                         <p className="text-xs font-black text-slate-500 dark:text-slate-400">Donasi Alert Biasa</p>
@@ -1608,7 +1608,7 @@ const SupporterPage = () => {
                   transition={{ duration: 0.2 }}
                 >
                   {mediaTriggers.length === 0 ? (
-                    <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-none">
+                    <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-lg">
                       <Film size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
                       <div>
                         <p className="text-xs font-black text-slate-500 dark:text-slate-400">Media Share Tidak Tersedia</p>
@@ -1619,7 +1619,7 @@ const SupporterPage = () => {
                     </div>
                   ) : !eligibleTrigger ? (
                     // Nominal belum cukup — warning
-                    <div className="flex items-center gap-3 px-4 py-4 bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-none">
+                    <div className="flex items-center gap-3 px-4 py-4 bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-lg">
                       <span className="text-2xl flex-shrink-0">🔒</span>
                       <div>
                         <p className="text-xs font-black text-amber-700 dark:text-amber-400">
@@ -1630,7 +1630,7 @@ const SupporterPage = () => {
                         </p>
                         <button
                           onClick={() => setForm({ ...form, amount: minMedia })}
-                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-none hover:bg-amber-600 transition-all cursor-pointer"
+                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-lg hover:bg-amber-600 transition-all cursor-pointer"
                         >
                           Set Rp {Number(minMedia).toLocaleString('id-ID')}
                         </button>
@@ -1652,7 +1652,7 @@ const SupporterPage = () => {
                             initial={{ opacity: 0, y: -4 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -4 }}
-                            className={`flex items-center mt-3 gap-2.5 px-4 py-3 rounded-none border text-[10px] font-bold ${
+                            className={`flex items-center mt-3 gap-2.5 px-4 py-3 rounded-lg border text-[10px] font-bold ${
                               ytChecking
                                 ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400'
                                 : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-600 dark:text-red-400'
@@ -1668,7 +1668,7 @@ const SupporterPage = () => {
                       </AnimatePresence>
 
                       {/* ── Disclaimer konten tidak terfilter ── */}
-                      <div className="mt-8 md:mt-3 rounded-none border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-4 space-y-2">
+                      <div className="mt-8 md:mt-3 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-4 space-y-2">
                         <p className="border-b border-amber-600/30 pb-3 mb-4 text-[10px] font-black text-amber-700 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
                           Konten yang diblokir sistem
                         </p>
@@ -1708,7 +1708,7 @@ const SupporterPage = () => {
                 >
                   {form.amount < minDonate ? (
                     // Nominal belum cukup — warning
-                    <div className="flex items-center gap-3 px-4 py-4 bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-none">
+                    <div className="flex items-center gap-3 px-4 py-4 bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-lg">
                       <span className="text-2xl flex-shrink-0">🔒</span>
                       <div>
                         <p className="text-xs font-black text-amber-700 dark:text-amber-400">
@@ -1719,7 +1719,7 @@ const SupporterPage = () => {
                         </p>
                         <button
                           onClick={() => setForm({ ...form, amount: minDonate })}
-                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-none hover:bg-amber-600 transition-all cursor-pointer"
+                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-lg hover:bg-amber-600 transition-all cursor-pointer"
                         >
                           Set Rp {Number(minDonate).toLocaleString('id-ID')}
                         </button>
@@ -1727,7 +1727,7 @@ const SupporterPage = () => {
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      <div className="flex items-center gap-2 px-3 py-2 bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-none">
+                      <div className="flex items-center gap-2 px-3 py-2 bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-lg">
                         <Mic size={13} className="text-violet-500 flex-shrink-0" />
                         <p className="text-[10px] font-bold text-violet-600 dark:text-violet-400">
                           Rekam pesan suaramu — max 60 detik
@@ -1749,9 +1749,9 @@ const SupporterPage = () => {
             <label className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
               <div
                 onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
-                className={`w-10 h-6 rounded-none relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}
+                className={`w-10 h-6 rounded-lg relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}
               >
-                <div className={`absolute top-1 w-4 h-4 bg-white rounded-none shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
+                <div className={`absolute top-1 w-4 h-4 bg-white rounded-lg shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
               </div>
               Donasi sebagai anonim
             </label>
@@ -1765,14 +1765,14 @@ const SupporterPage = () => {
                   exit={{ opacity: 0, height: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="flex items-center justify-between px-4 py-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-none">
+                  <div className="flex items-center justify-between px-4 py-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-lg">
                     <div>
                       <p className="text-xs font-black text-blue-700 dark:text-blue-400">Donasi kamu tidak akan tercatat</p>
                       <p className="text-[10px] text-blue-400 dark:text-blue-500 font-medium mt-0.5">Masuk atau daftar agar donasi muncul di riwayat akun</p>
                     </div>
                     <button
                       onClick={() => openAuth('login')}
-                      className="ml-3 flex-shrink-0 px-3 py-1.5 text-[10px] font-black text-blue-600 dark:text-blue-400 bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-700 rounded-none hover:bg-blue-50 transition-all cursor-pointer"
+                      className="ml-3 flex-shrink-0 px-3 py-1.5 text-[10px] font-black text-blue-600 dark:text-blue-400 bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-700 rounded-lg hover:bg-blue-50 transition-all cursor-pointer"
                     >
                       Masuk
                     </button>
@@ -1790,7 +1790,7 @@ const SupporterPage = () => {
                   initial={{ opacity: 0, y: -4 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
-                  className="flex items-center gap-2 px-3 py-2.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-none"
+                  className="flex items-center gap-2 px-3 py-2.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-lg"
                 >
                   <span className="text-slate-300 dark:text-slate-600 flex-shrink-0">⚠️</span>
                   <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500">{submitHint}</p>
@@ -1803,7 +1803,7 @@ const SupporterPage = () => {
               whileTap={!isSubmitDisabled ? { scale: 0.99 } : {}}
               onClick={handleDonate}
               disabled={isSubmitDisabled}
-              className={`w-full py-4 rounded-none font-black text-sm flex items-center justify-center gap-2 transition-all ${
+              className={`w-full py-4 rounded-lg font-black text-sm flex items-center justify-center gap-2 transition-all ${
                 isSubmitDisabled
                   ? 'bg-slate-200 dark:bg-slate-900 text-slate-400 cursor-not-allowed'
                   : 'active:scale-[0.99] cursor-pointer bg-gradient-to-r from-violet-600 to-blue-600 text-white hover:brightness-110'
@@ -1832,7 +1832,7 @@ const SupporterPage = () => {
               initial={{ opacity: 0, scale: 0.92, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 16 }}
-              className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-none shadow-2xl overflow-hidden"
+              className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-lg shadow-2xl overflow-hidden"
             >
               <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
               <div className="p-7 flex flex-col items-center text-center gap-4">
