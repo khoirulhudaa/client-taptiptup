@@ -62,7 +62,7 @@ const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) =
                 </div>
                 <div>
                 <p className="font-black text-slate-700 dark:text-slate-200 text-sm">
-                    Tampilkan Donasi Terbaru
+                    Tampilkan 3 Donasi Terbaru
                 </p>
                 <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
                     Daftar donasi terbaru akan tampil di halaman donasi viewer
@@ -108,27 +108,6 @@ const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) =
             </button>
           </div>
 
-        </div>
-
-        {/* Preview info */}
-        <div className="rounded-lg border border-blue-100 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 p-4 space-y-2">
-          <p className="text-[10px] font-black text-blue-700 dark:text-blue-400 uppercase tracking-wider">
-            Preview Aktif
-          </p>
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2 text-[11px] font-bold text-blue-600 dark:text-blue-400">
-              <span>{settings.showLeaderboardOnDonate ? '✅' : '❌'}</span>
-              <span>Leaderboard {settings.showLeaderboardOnDonate ? 'akan tampil' : 'disembunyikan'} di halaman donasi</span>
-            </div>
-            <div className="flex items-center gap-2 text-[11px] font-bold text-blue-600 dark:text-blue-400">
-                <span>{settings.showRecentDonationsOnDonate ? '✅' : '❌'}</span>
-                <span>Donasi Terbaru {settings.showRecentDonationsOnDonate ? 'akan tampil' : 'disembunyikan'} di halaman donasi</span>
-            </div>
-            <div className="flex items-center gap-2 text-[11px] font-bold text-blue-600 dark:text-blue-400">
-              <span>{settings.giphyOnDonate !== false ? '✅' : '❌'}</span>
-              <span>Rekomendasi GIF {settings.giphyOnDonate !== false ? 'aktif' : 'nonaktif'} saat viewer mengetik pesan</span>
-            </div>
-          </div>
         </div>
 
         <button
