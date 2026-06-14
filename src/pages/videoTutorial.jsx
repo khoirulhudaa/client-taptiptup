@@ -136,7 +136,7 @@ export const VideoTutorialSection = () => {
           {TUTORIALS.map((tut) => (
             <div
               key={tut.id}
-              className={`group relative rounded-lg border-2 ${tut.borderActive} bg-slate-50 dark:bg-slate-800/60 overflow-hidden transition-all hover:border-opacity-80`}
+              className={`group relative rounded-md border-2 ${tut.borderActive} bg-slate-50 dark:bg-slate-800/60 overflow-hidden transition-all hover:border-opacity-80`}
             >
               {/* Thumbnail — hanya tampil di desktop */}
               <div

@@ -4080,7 +4080,7 @@ const handleChangePin = async () => {
                         />
                       </button>
                       {showVideoTutorial && (
-                        <div className="border-t border-slate-200 dark:border-slate-700">
+                        <div className="border-t border-slate-200 dark:border-slate-700 p-4">
                           <VideoTutorialSection />
                         </div>
                       )}

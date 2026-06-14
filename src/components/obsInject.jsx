@@ -400,14 +400,11 @@ export const OBSConnectPanel = ({ overlayToken }) => {
   return (
     <>
       {/* ── Panel Utama ── */}
-      <div className="bg-slate-800/60 dark:bg-slate-900/80 border border-slate-700 dark:border-slate-700 rounded-none p-4 space-y-4 mb-5">
+      <div className="bg-slate-800/60 dark:bg-slate-900/80 border border-slate-700 dark:border-slate-700 rounded-lg p-4 space-y-4">
 
         {/* Header row */}
         <div className="flex items-center justify-between border-b border-slate-100/20 pb-4">
           <div className="flex items-center gap-2.5">
-            {/* <div className="w-12 h-12 bg-slate-700 flex items-center justify-center flex-shrink-0">
-              <Monitor size={18} className="text-slate-300" />
-            </div> */}
             <div>
               <p className="font-black text-xs text-slate-200 uppercase tracking-wider">OBS Connect - opsional</p>
               <p className="text-[10px] text-slate-500 font-medium">Bikin browse secara cepat & otomatis</p>
