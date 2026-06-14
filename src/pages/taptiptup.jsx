@@ -147,7 +147,7 @@ function BtnMain({ children, href, style, C }) {
         fontSize: 13, fontWeight: 700, 
         letterSpacing: "0.05em", 
         textTransform: "uppercase",
-        padding: "17px 46px", 
+        padding: "16px 46px", 
         border: "1px solid azure", 
         cursor: "pointer", 
         textDecoration: "none",
