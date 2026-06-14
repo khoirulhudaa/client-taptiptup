@@ -2297,7 +2297,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         ))}
       </div>
 
-      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[71vh] h-[64vh]' : '2xl:h-[62.4vh] h-[53vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
+      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[70.5vh] h-[62.8vh]' : '2xl:h-[61.9vh] h-[51.8vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
         <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
           <span style={{ fontSize: 80, fontWeight: 800, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span>
         </div>
@@ -2310,7 +2310,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             )}
             {showAlert && previewMode === 'media' && (
               <motion.div
-                className='ml-4 w-[90%]'
+                className='absolute bottom-10 2xl:ml-5 md:mt-[-12px] 2xl:mt-[0] w-[90%] 2xl:scale-[1] scale-[0.85]'
                 key={`media-${animKey}`}
                 initial={anim.initial}
                 animate={anim.animate}
