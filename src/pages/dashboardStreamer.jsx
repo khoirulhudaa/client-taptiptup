@@ -2281,23 +2281,23 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   );
 
     return (
-    <div className="sticky md:p-0 p-4 md:bg-transparent bg-white/30 dark:bg-slate-900/60 md:backdrop-blur-sm rounded-lg shadow-sm md:border-none border border-slate-100 dark:border-slate-800 top-26 space-y-3">
+    <div className="sticky md:p-0 p-4 top-26 space-y-3">
       <FullscreenPreview />
 
       {/* Tab switcher */}
-      <div className="flex gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+      <div className="flex gap-1.5 bg-slate-100 dark:bg-slate-800 p-[3px] rounded-lg">
         {[{ id: 'alert', label: '⚡ Alert OBS' }, { id: 'media', label: '🎬 Media share' }].map(tab => (
             <button key={tab.id} onClick={() => {
               setPreviewMode(tab.id);
-              onPreviewModeChange?.(tab.id); // ← ini yang update state di parent
+              onPreviewModeChange?.(tab.id);
             }}
-            className={`cursor-pointer flex-1 py-2 text-xs font-black rounded-lg transition-all ${previewMode === tab.id ? 'bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm text-slate-800 dark:text-slate-100 shadow-sm' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}>
+            className={`cursor-pointer flex-1 py-3 text-xs font-black rounded-md transition-all ${previewMode === tab.id ? 'bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm text-slate-800 dark:text-slate-100 shadow-sm' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}>
             {tab.label}
           </button>
         ))}
       </div>
 
-      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-lg ${previewMode === 'alert' ? 'h-[60vh]' : 'h-[52vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
+      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[71vh] h-[64vh]' : '2xl:h-[62.4vh] h-[53vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
         <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
           <span style={{ fontSize: 80, fontWeight: 800, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span>
         </div>
@@ -2332,27 +2332,14 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         </div>
       </div>
 
-      <div className="flex items-center justify-between text-[10px] text-slate-400 font-bold px-1 flex-wrap gap-1">
-        <span>Lebar: <span className="text-blue-600">{maxW}px</span></span>
-        <span>Tema: <span className="text-blue-600">{theme}</span></span>
-        {/* {previewMode === 'alert' && <span>Durasi alert: <span className="text-blue-600">{currentDonor ? dur : '-'}s</span></span>} */}
-        {/* {previewMode === 'media' && <span>Durasi medser: <span className="text-purple-500">{currentDonor ? mediaShareDuration : '-'}s</span></span>} */}
-      </div>
-
-      {/* {previewMode === 'media' && settings.theme === 'gifCard' && (
-        <div className="flex items-center gap-3 px-3 py-2 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg text-xs font-bold text-amber-600 dark:text-amber-400">
-          <span>⚠️</span> Tema GIF Card tidak mendukung media share preview
-        </div>
-      )} */}
-
       {/* Media URL picker — hanya muncul saat tab media aktif */}
       {previewMode === 'media' && (
         <div className="space-y-3">
           <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Media URL (preview)</label>
-          <div className="flex gap-3">
+          <div className="flex gap-3 mt-1">
             {MEDIA_PRESETS.map((p, i) => (
               <button key={i} onClick={() => setMediaUrl(p.url)}
-                className={`flex-1 py-1.5 text-[10px] font-black rounded-lg border-2 transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-purple-300'}`}>
+                className={`flex-1 py-1.5 text-[10px] font-black rounded-md border-2 transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-purple-300'}`}>
                 {p.label}
               </button>
             ))}
@@ -2365,7 +2352,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
 
       <button onClick={triggerDemo}
         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 rounded-lg bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-950 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-3">
-        <span className="w-2 h-2 bg-red-500 rounded-lg animate-pulse" /> {previewMode === 'media' ? 'Simulasi Media share' : 'Simulasi Donasi Masuk'}
+        Simulasi notifikasi
       </button>
       {/* <button onClick={() => handleFullScreen()}
         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3.5 rounded-lg bg-slate-900/70 dark:bg-slate-700 hover:bg-slate-800 text-white font-black text-sm transition-all flex items-center justify-center gap-3 border border-slate-700">
@@ -4824,7 +4811,7 @@ const handleChangePin = async () => {
         )}
       </AnimatePresence>
 
-      <CustomerServiceWidget />
+      {/* <CustomerServiceWidget /> */}
     </div>
   );
 };
