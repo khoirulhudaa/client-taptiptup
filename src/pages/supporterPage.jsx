@@ -1018,6 +1018,151 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
   );
 };
 
+// Taruh di atas SupporterPage component
+const LeaderboardMini = ({ username }) => {
+  const [donors, setDonors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!username) return;
+    axios.get(`${BASE_URL}/api/overlay/public/${username}?limit=5`)
+      .then(res => setDonors(res.data?.donors || res.data || []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [username]);
+
+  if (loading) return (
+    <div className="flex justify-center py-4">
+      <Loader2 className="animate-spin text-blue-400" size={18} />
+    </div>
+  );
+
+  if (!donors.length) return null;
+
+  const medals = ['🥇','🥈','🥉'];
+
+  return (
+    <div className="space-y-2">
+      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+        Top Donor 🏆
+      </label>
+      <div className="space-y-1.5">
+        {donors.slice(0, 5).map((d, i) => (
+          <div key={i} className="flex items-center gap-3 px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg">
+            <span className="text-base w-6 text-center flex-shrink-0">
+              {medals[i] || `${i + 1}`}
+            </span>
+            <span className="flex-1 font-bold text-sm text-slate-700 dark:text-slate-200 truncate">
+              {d.donorName || 'Anonim'}
+            </span>
+            <span className="font-black text-xs text-blue-600 dark:text-blue-400 flex-shrink-0">
+              Rp {Number(d.totalAmount || d.amount || 0).toLocaleString('id-ID')}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const GifRecommendation = ({ message, onSelect }) => {
+  const [gifs, setGifs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const debounceRef = useRef(null);
+
+  // Giphy public beta key — ganti dengan API key kamu
+  const GIPHY_KEY = import.meta.env.VITE_GIPHY_API_KEY || 'dc6zaTOxFJmzC';
+
+  useEffect(() => {
+    if (!message || message.trim().length < 3) {
+      setGifs([]);
+      return;
+    }
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(
+          `https://api.giphy.com/v1/gifs/search`,
+          {
+            params: {
+              api_key: GIPHY_KEY,
+              q: message.trim(),
+              limit: 4,
+              rating: 'g',
+              lang: 'id',
+            }
+          }
+        );
+        setGifs(res.data?.data || []);
+      } catch {
+        setGifs([]);
+      } finally {
+        setLoading(false);
+      }
+    }, 700);
+
+    return () => clearTimeout(debounceRef.current);
+  }, [message]);
+
+  if (!message || message.trim().length < 3) return null;
+
+  return (
+    <AnimatePresence>
+      {(loading || gifs.length > 0) && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          className="overflow-hidden"
+        >
+          <div className="space-y-2 pt-1">
+            <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+              Rekomendasi GIF ✨
+            </label>
+            {loading ? (
+              <div className="flex gap-2">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="flex-1 aspect-square bg-slate-100 dark:bg-slate-800 rounded-lg animate-pulse" />
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-4 gap-2">
+                {gifs.map((gif) => {
+                  const url = gif.images?.fixed_height_small?.url || gif.images?.downsized?.url;
+                  const original = gif.images?.original?.url;
+                  return (
+                    <button
+                      key={gif.id}
+                      onClick={() => onSelect(original || url)}
+                      className="relative aspect-square rounded-lg overflow-hidden border-2 border-transparent hover:border-blue-400 transition-all cursor-pointer active:scale-[0.97] bg-slate-100 dark:bg-slate-800 group"
+                    >
+                      <img
+                        src={url}
+                        alt={gif.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-blue-500/0 group-hover:bg-blue-500/20 transition-all flex items-center justify-center">
+                        <span className="opacity-0 group-hover:opacity-100 text-white font-black text-[10px] bg-blue-600/80 px-2 py-1 rounded-lg transition-all">
+                          Pilih
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+            <p className="text-[9px] text-slate-300 dark:text-slate-600 font-medium ml-1">
+              Powered by GIPHY
+            </p>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 // ============================================================
 // MAIN COMPONENT
 // ============================================================
@@ -1555,6 +1700,19 @@ const SupporterPage = () => {
               </div>
             )}
 
+            {activeTab !== 'voice' && overlaySetting?.giphyOnDonate !== false && (
+              <GifRecommendation
+                message={form.message}
+                onSelect={(gifUrl) => {
+                  // Set mediaUrl dan switch ke tab mediashare kalau ada trigger
+                  if (eligibleTrigger && activeTab !== 'mediashare') {
+                    setActiveTab('mediashare');
+                  }
+                  setMediaUrl(gifUrl);
+                }}
+              />
+            )}
+
             {/* TAB CONTENT */}
             <AnimatePresence mode="wait">
 
@@ -1860,6 +2018,17 @@ const SupporterPage = () => {
                   </button>
                 </div>
               </div>
+
+              {overlaySetting?.showLeaderboardOnDonate && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="bg-white dark:bg-slate-900 p-5 md:p-7 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800"
+                >
+                  <LeaderboardMini username={streamer?.username} />
+                </motion.div>
+              )}
             </motion.div>
           </div>
         )}

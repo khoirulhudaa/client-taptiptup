@@ -88,6 +88,7 @@ import StreamerManagerPage from './streamerManager';
 import MarqueeConfigPanel from './marqueeConfigPanel';
 import OBSConnectPanel from '../components/obsInject';
 import { VideoTutorialSection } from './videoTutorial';
+import DonatePageConfig from './donateConfig';
 
 // ─── API ──────────────────────────────────────────────────────────────────────
 const fetchBadges = async () => (await api.get('/api/midtrans/badges')).data;
@@ -3681,6 +3682,7 @@ const handleChangePin = async () => {
     voiceSettings: 'Voice Note',
     marquee: 'Marquee Donor',
     mediaSettings: 'Media share',
+    donatePageConfig: 'Halaman Donasi',
     store: 'Toko OBS',
     streamerManager: 'Kelola Streamer',
     history:       'Riwayat',
@@ -3901,6 +3903,17 @@ const handleChangePin = async () => {
             {activeTab === 'maintenance' && (
               <motion.div key="maintenance" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                 <MaintenancePage />
+              </motion.div>
+            )}
+
+            {activeTab === 'donatePageConfig' && (
+              <motion.div key="donatePageConfig" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                <DonatePageConfig
+                  settings={settings}
+                  upd={upd}
+                  saveSettingsMutation={saveSettingsMutation}
+                  activeSlot={activeSlot}
+                />
               </motion.div>
             )}
 

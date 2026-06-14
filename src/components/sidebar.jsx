@@ -151,13 +151,15 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         { id: 'poll',        label: 'Poll & Voting', icon: <Vote size={20} /> },
         { id: 'subathon',    label: 'Subathon',      icon: <Timer size={20} /> },
         { id: 'milestones',  label: 'Milestones',    icon: <TrendingUp size={20} /> },
+        { id: 'donatePageConfig', label: 'Halaman Donasi', icon: <Heart size={20} /> },
         { id: 'leaderboard', label: 'Leaderboard',   icon: <Trophy size={20} /> },
       ]
     },
     {
       groupLabel: 'Konfigurasi',
       items: [
-        { id: 'feeConfig', label: 'Konfigurasi Fee', icon: <ReceiptText size={20} /> },
+        { id: 'feeConfig',        label: 'Konfigurasi Fee',    icon: <ReceiptText size={20} /> },
+        { id: 'donatePageConfig', label: 'Halaman Donasi',     icon: <Heart size={20} /> }, // ← BARU
       ]
     },
 
