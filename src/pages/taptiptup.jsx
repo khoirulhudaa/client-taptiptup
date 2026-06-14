@@ -141,7 +141,7 @@ function BtnMain({ children, href, style, C }) {
     <Link 
       to={href || "/"} 
       draggable={false}
-      className="hover:bg-[azure] active:scale-[0.98] opacity-100 text-[azure] hover:text-blue-900 select-none w-[90vw] relative flex justify-center items-center md:w-max text-center" // Tambahkan class ini
+      className="rounded-xl hover:bg-[azure] active:scale-[0.98] opacity-100 text-[azure] hover:text-blue-900 select-none w-[90vw] relative flex justify-center items-center md:w-max text-center" // Tambahkan class ini
       style={{
         fontFamily: "'Space Grotesk', sans-serif",
         fontSize: 13, fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase",
@@ -324,7 +324,7 @@ function Hero({ C, isDark }) {
                 <div className="absolute w-[1px] h-[40vh] bg-white rotate-30 top-[-34vh] right-[-64px] md:flex hidden" />
 
                 {/* Banner */}
-                <span className="px-2 2xl:min-w-[70vw] min-w-[64vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure] inline-block">
+                <span className="px-2 2xl:min-w-[70vw] rounded-lg min-w-[64vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure] inline-block">
                   POTONGAN HANYA 3.0% UNTUK
                 </span>
               </motion.div>
@@ -377,7 +377,7 @@ function Hero({ C, isDark }) {
                 width: "28px",
                 height: "48px",
                 border: `2px solid azure`,
-                // borderRadius: "9999px",
+                borderRadius: "9999px",
                 position: "relative",
                 display: "flex",
                 justifyContent: "center",
@@ -389,7 +389,7 @@ function Hero({ C, isDark }) {
                   width: "5px",
                   height: "10px",
                   background: 'azure',
-                  // borderRadius: "9999px",
+                  borderRadius: "9999px",
                   position: "absolute",
                   top: "8px",
                   animation: "mouseScroll 2s infinite ease-in-out",
@@ -596,7 +596,7 @@ function Marquee({ C }) {
             display: "inline-flex", alignItems: "center", gap: 10, whiteSpace: "nowrap",
             transition: "color 0.4s, border-color 0.4s",
           }}>
-            {/* <span style={{ width: 4, height: 4, borderRadius: "0%", background: C.lime, display: "inline-block", flexShrink: 0, transition: "background 0.4s" }} /> */}
+            <span style={{ width: 4, height: 4, borderRadius: "0%", background: C.lime, display: "inline-block", flexShrink: 0, transition: "background 0.4s" }} />
             <span style={{ color: C.text, fontWeight: 700 }}>{item.name}</span>
             <span>mengirim</span>
             <span style={{ color: C.lime, fontWeight: 700 }}>Rp.{item.amount}</span>
@@ -663,7 +663,7 @@ function FeeComparison({ C }) {
         <div style={{
           position: "absolute", top: "-20%", left: "-10%",
           width: "50vw", height: "50vw",
-          borderRadius: "0%",
+          // borderRadius: "0%",
           background: "radial-gradient(circle, rgba(99,102,241,0.15), transparent 70%)",
           filter: "blur(60px)",
           animation: "aurora-drift 15s ease-in-out infinite alternate",
@@ -671,7 +671,7 @@ function FeeComparison({ C }) {
         <div style={{
           position: "absolute", top: "-20%", right: "-10%",
           width: "50vw", height: "50vw",
-          borderRadius: "0%",
+          // borderRadius: "0%",
           background: "radial-gradient(circle, rgba(168,85,247,0.12), transparent 70%)",
           filter: "blur(60px)",
           animation: "aurora-drift 18s ease-in-out infinite alternate-reverse",
@@ -708,7 +708,7 @@ function FeeComparison({ C }) {
 
       {/* Grid perbandingan */}
       <div className="select-none w-[90vw] relative grid grid-cols-1 bg-white md:grid-cols-4"
-        style={{ borderBottom: `1px solid ${C.line}`, zIndex: 40 }}
+        style={{ borderBottom: `1px solid ${C.line}`, zIndex: 40, borderRadius: 10, }}
         >
           {PLATFORMS.map((p, i) => {
             const barWidth = Math.round((p.feeDonate / maxFee) * 100);
@@ -720,6 +720,7 @@ function FeeComparison({ C }) {
                 className={`${p.winner ? "bg-blue-900" : "bg-transparent"}`}
                 style={{
                   padding: "32px 24px",
+                  borderRadius: 10,
                   borderRight: !isLast ? `1px solid ${C.line}` : "none",
                   borderBottom: isMobile ? `1px solid ${C.line}` : "none",
                   background: p.winner ? '#99FFFF' : "transparent",
@@ -735,7 +736,7 @@ function FeeComparison({ C }) {
 
                 {/* Progress bar */}
                 <div style={{ height: 1, background: C.line2, borderRadius: 2, marginBottom: 16, marginTop: 14 }}>
-                  <div style={{ height: 1, width: `${barWidth}%`, background: p.winner ? "#000000" : C.dim, borderRadius: 2 }} />
+                  {/* <div style={{ height: 1, width: `${barWidth}%`, background: p.winner ? "#000000" : C.dim, borderRadius: 2 }} /> */}
                 </div>
 
                 {/* Fee donate */}
@@ -979,11 +980,11 @@ function FAQ({ C }) {
 
       {/* Accordion */}
       <div
-        className="relative mx-auto grid grid-cols-2 w-[90vw] gap-10 !mt-10 px-4 md:px-0"
+        className="relative rounded-lg mx-auto grid grid-cols-2 w-[90vw] gap-10 !mt-10 px-4 md:px-0"
         style={{ zIndex: 2 }}
       >
       <div
-        className="grid grid-cols-1 md:grid-cols-2 w-[90vw]"
+        className="grid rounded-lg grid-cols-1 md:grid-cols-2 w-[90vw]"
         style={{
           border: "1px solid rgba(255,255,255,0.08)", // border terluar
         }}
@@ -996,7 +997,7 @@ function FAQ({ C }) {
           return (
             <div
               key={i}
-              className="w-full cursor-pointer hover:bg-slate-100/5 active:scale-[0.99]"
+              className="w-full rounded-lg cursor-pointer hover:bg-slate-100/5 active:scale-[0.99]"
               onClick={() => toggle(i)}
               style={{
                 // border kiri untuk kolom kanan (menghindari double border kiri+kanan)
@@ -1289,13 +1290,12 @@ export default function TapTipTup() {
 
         {/* Video */}
         <video
-          className="!w-[90vw] md:!w-[80vw] h-[100%] !border !p-4 !border-white"
+          className="!w-[90vw] rounded-xl md:!w-[80vw] h-[100%] !border !p-4 !border-white"
           src="/live2.mp4"
           autoPlay
           muted
           loop
           playsInline
-          style={{ borderRadius: 0, border: "1px solid black", position: "relative", zIndex: 2 }}
         />
       </section>
 
@@ -1350,7 +1350,7 @@ export default function TapTipTup() {
                 borderBottom: "1px solid rgba(255,255,255,0.05)",
                 display: "flex", alignItems: "center", gap: 8,
               }}>
-                <span style={{ width: 4, height: 4, borderRadius: "0%", background: "azure", display: "inline-block", flexShrink: 0, opacity: 0.7 }} />
+                {/* <span style={{ width: 4, height: 4, borderRadius: "0%", background: "azure", display: "inline-block", flexShrink: 0, opacity: 0.7 }} /> */}
                 {item}
               </div>
             ))}
@@ -1372,7 +1372,7 @@ export default function TapTipTup() {
                   borderBottom: "1px solid rgba(255,255,255,0.05)",
                   display: "flex", alignItems: "center", gap: 8,
                 }}>
-                  <span style={{ width: 4, height: 4, borderRadius: "0%", background: "azure", display: "inline-block", flexShrink: 0, opacity: 0.7 }} />
+                  {/* <span style={{ width: 4, height: 4, borderRadius: "0%", background: "azure", display: "inline-block", flexShrink: 0, opacity: 0.7 }} /> */}
                   {item}
                 </div>
               ))}
@@ -1395,7 +1395,7 @@ export default function TapTipTup() {
                   borderBottom: "1px solid rgba(255,255,255,0.05)",
                   display: "flex", alignItems: "center", gap: 8,
                 }}>
-                  <span style={{ width: 4, height: 4, borderRadius: "0%", background: "azure", display: "inline-block", flexShrink: 0, opacity: 0.7 }} />
+                  {/* <span style={{ width: 4, height: 4, borderRadius: "0%", background: "azure", display: "inline-block", flexShrink: 0, opacity: 0.7 }} /> */}
                   {item}
                 </div>
               ))}
@@ -1435,7 +1435,7 @@ export default function TapTipTup() {
           <div style={{
             background: C.bg2,
             border: `1px solid ${C.line}`,
-            // borderRadius: "16px",
+            borderRadius: "16px",
             maxWidth: "860px",
             width: "100%",
             overflow: "hidden",
@@ -1465,7 +1465,7 @@ export default function TapTipTup() {
                 loop
                 style={{
                   width: "100%",
-                  // borderRadius: "12px",
+                  borderRadius: "12px",
                   background: "#000",
                   height: '40vh'
                 }}
@@ -1509,7 +1509,7 @@ export default function TapTipTup() {
                   background: C.lime,
                   color: C.bg,
                   border: "none",
-                  // borderRadius: "8px",
+                  borderRadius: "8px",
                   fontSize: "14px",
                   fontWeight: 700,
                   letterSpacing: "0.05em",

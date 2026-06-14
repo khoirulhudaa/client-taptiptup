@@ -77,7 +77,9 @@ const NotifModal = ({ notification, onClose }) => (
           style={{ position:'fixed', zIndex:101, transform:'translate(-50%,-50%)', width:'92vw', maxWidth:400 }}
         >
           <div style={{ 
-            background:'rgba(255,255,255,0.97)', padding:'36px 32px', 
+            background:'rgba(255,255,255,0.97)',
+            borderRadius: 10,
+            padding:'36px 32px', 
             boxShadow:'0 32px 80px rgba(0,0,0,0.22)', textAlign:'center' 
           }}>
             <motion.div initial={{ scale:0 }} animate={{ scale:1 }} 
@@ -85,6 +87,7 @@ const NotifModal = ({ notification, onClose }) => (
               style={{ 
                 width:68, height:68, margin:'0 auto 20px', display:'flex', 
                 alignItems:'center', justifyContent:'center', 
+                borderRadius: 10,
                 background: notification.type==='success' ? '#ecfdf5' : '#fff1f2', 
                 color: notification.type==='success' ? '#059669' : '#e11d48' 
               }}
