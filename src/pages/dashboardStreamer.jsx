@@ -4069,7 +4069,7 @@ const handleChangePin = async () => {
                     <div className="mt-2.5 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
                       <button
                         onClick={() => setShowVideoTutorial(v => !v)}
-                        className="cursor-pointer w-full flex items-center justify-between px-5 py-3.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
+                        className="cursor-pointer w-full flex items-center justify-between px-5 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
                       >
                         <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
                         Tutorial Video
@@ -4090,10 +4090,10 @@ const handleChangePin = async () => {
                       <div className="mb-2.5 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
                         <button
                           onClick={() => setShowOBSConnect(v => !v)}
-                          className="cursor-pointer w-full flex items-center justify-between px-5 py-3.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
+                          className="cursor-pointer w-full flex items-center justify-between px-5 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
                         >
                           <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
-                          OBS Auto-connection <span className="text-[10px] font-medium text-slate-400 ml-1">— opsional</span>
+                          OBS Auto-connection 
                           </span>
                           <ChevronDown
                             size={16}
