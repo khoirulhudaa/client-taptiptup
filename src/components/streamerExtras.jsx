@@ -11,6 +11,7 @@ import {
   Trash2,
   Trophy,
   Vote,
+  Milestone,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
@@ -120,13 +121,13 @@ export const PollManager = ({ overlayToken, username }) => {
     <div className="space-y-5">
       {/* Active Poll */}
       {activePoll ? (
-        <div className="bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
-          <div className="flex items-center justify-between px-6 py-3 md:py-4 border-b border-slate-100 dark:border-slate-800 bg-green-50 dark:bg-green-950/30">
+        <div className="mt-5 bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 md:py-4 border-b border-slate-100 dark:border-slate-800 bg-green-50 dark:bg-green-950/30">
             <div className="flex w-full justify-between gap-2">
               <button
                 onClick={() => closeMutation.mutate(activePoll._id)}
                 disabled={closeMutation.isPending}
-                className="cursor-pointer active:scale-[0.99] px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-black text-xs transition-all disabled:opacity-60">
+                className="cursor-pointer active:scale-[0.99] px-4 py-2 hover:bg-slate-600/20 border border-slate-200/20 text-white rounded-lg font-black text-xs transition-all disabled:opacity-60">
                 Tutup Poll
               </button>
               <button
@@ -137,7 +138,7 @@ export const PollManager = ({ overlayToken, username }) => {
             </div>
           </div>
 
-          <div className="p-6 space-y-4">
+          <div className="p-5 space-y-4">
             <h3 className="font-black text-slate-800 dark:text-slate-100 text-md md:text-lg">{getPollData(activePoll).question}</h3>
             <div className="space-y-3">
               {(getPollData(activePoll).options || []).map((opt) => {
@@ -464,7 +465,7 @@ export const SubathonManager = ({ overlayToken }) => {
   const progressColor = progressPct > 50 ? 'bg-green-500' : progressPct > 20 ? 'bg-amber-500' : 'bg-red-500';
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5">
       {/* Timer Display */}
       <div className={`rounded-lg px-8 py-10 text-center relative overflow-hidden ${isRunning ? 'bg-blue-600' : 'bg-slate-800 dark:bg-slate-700'}`}>
         <div className="relative z-10">
@@ -760,14 +761,27 @@ export const LeaderboardSettings = ({ overlayToken }) => {
 
   return (
     <div className="space-y-5">
-      {/* Preview */}
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+        <div className="relative flex items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-4">
+              <div className="bg-rose-500 p-3 rounded-lg text-white shadow-lg">
+                  <Milestone size={20} />
+              </div>
+              <div>
+                  <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                      Leaderboard
+                  </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-4 md:p-6">
         <div className="flex items-center gap-3 mb-5">
           <Trophy size={20} className="text-amber-400" />
           <span className="font-black text-slate-900 dark:text-slate-100 text-sm md:capitalize uppercase">Preview Leaderboard</span>
-          {/* <span className="ml-auto text-[10px] text-slate-400 dark:text-slate-500 font-medium">
-            {local.leaderboardPeriod === 'today' ? 'Hari ini' : 'Semua waktu'}
-          </span> */}
         </div>
         <div className="space-y-2">
           {[
@@ -1043,6 +1057,24 @@ export const MilestonesManager = ({ overlayToken }) => {
             <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-1">Tambah target donasi untuk ditampilkan ke donor</p>
           </div>
         )}
+
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden !mb-5">
+          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+          <div className="relative flex items-start justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-4">
+                <div className="bg-purple-500 p-3 rounded-lg text-white shadow-lg">
+                    <Milestone size={20} />
+                </div>
+                <div>
+                    <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                        Milestone
+                    </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {list.map((m, i) => (
           <div key={i} className="bg-white dark:bg-slate-900 rounded-lg p-5 border border-slate-100 dark:border-slate-800 space-y-4">

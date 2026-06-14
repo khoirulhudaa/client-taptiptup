@@ -60,9 +60,9 @@
                 <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
                     Durasi VN
                 </h3>
-                <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-                    Atur berapa lama voice note tampil di overlay
-                </p>
+                {/* <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+                    Atur berapa lama voice note overlay
+                </p> */}
             </div>
         </div>
 
@@ -206,9 +206,9 @@
                         <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
                             Testing VN
                         </h3>
-                        <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+                        {/* <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
                             Rekam suara → kirim langsung ke OBS overlay
-                        </p>
+                        </p> */}
                     </div>
                 </div>
 
@@ -333,9 +333,9 @@
                 <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
                     Overlay VN
                 </h3>
-                <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-                    Tambahkan URL ini ke OBS sebagai Browser Source
-                </p>
+                {/* <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+                    Tambahkan URL ini ke OBS sebagai Browser
+                </p> */}
             </div>
         </div>
         {urls.map(({ label, url, desc }) => (
@@ -370,7 +370,19 @@
 
     const VoiceSettingsInfo = () => (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4">
-        <SectionHeader icon={<span className="text-xl">🎙️</span>} title="Tentang VN" color="bg-indigo-500" />
+        <div className="!mb-6 flex items-center gap-4">
+            <div className="bg-rose-500 p-3 rounded-lg text-white shadow-lg">
+                <Mic size={20} />
+            </div>
+            <div>
+                <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                    Tentang VN
+                </h3>
+                {/* <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+                    Kirim pesan suara saat memberi dukungan
+                </p> */}
+            </div>
+        </div>
         <div className="gap-4 grid grid-cols-1 md:grid-cols-2 !mt-7">
         {[
             {

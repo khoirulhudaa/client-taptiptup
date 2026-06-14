@@ -1,7 +1,7 @@
 // feeConfigPage.jsx
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2, Info, Save, Settings2, ShieldCheck, Users, Wallet } from 'lucide-react';
+import { BadgeDollarSignIcon, CheckCircle2, Disc, DollarSign, Info, Save, Settings2, ShieldCheck, Users, Wallet } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import api from '../lib/axiosInstance';
 
@@ -45,7 +45,7 @@ const FeeSimulator = ({ feeBearer }) => {
           <button
             key={v}
             onClick={() => setNominal(v)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all border-2 cursor-pointer active:scale-[0.97] ${
+            className={`px-3 py-3 rounded-lg text-xs font-black transition-all border-2 cursor-pointer active:scale-[0.97] ${
               nominal === v
                 ? 'bg-indigo-600 border-indigo-600 text-white'
                 : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 hover:border-indigo-300'
@@ -140,7 +140,7 @@ export const FeeConfigPage = () => {
   const OPTIONS = [
     {
       id: 'streamer',
-      icon: <Wallet size={22} />,
+      icon: <Wallet size={19} />,
       title: 'Streamer Menanggung',
       subtitle: '2.5% dipotong dari saldo streamer',
       desc: 'Donor hanya membayar sesuai nominal yang diketik. Biaya 2.5% akan dipotong otomatis dari saldo kamu saat donasi masuk. Biaya tetap Rp1.500 dibebankan saat penarikan.',
@@ -152,7 +152,7 @@ export const FeeConfigPage = () => {
     },
     {
       id: 'donor',
-      icon: <Users size={22} />,
+      icon: <Users size={19} />,
       title: 'Donatur Menanggung',
       subtitle: '2.5% ditambahkan ke nominal donasi',
       desc: 'Donor akan membayar nominal + 2.5%. Streamer menerima persis sesuai nominal yang diinput donor. Biaya tetap Rp1.500 tetap ditanggung streamer saat penarikan.',
@@ -166,15 +166,24 @@ export const FeeConfigPage = () => {
 
   return (
     <motion.div className="w-full space-y-5 pb-10" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-      {/* Pilihan Mode */}
-      <div className="bg-white dark:bg-slate-900 rounded-lg p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
-        <div className="flex items-center gap-4">
-          <div className="bg-indigo-600 p-3 rounded-lg text-white shadow-lg">
-            <Settings2 size={20} />
+      <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+        <div className="relative flex items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-4">
+              <div className="bg-blue-500 p-3 rounded-lg text-white shadow-lg">
+                  <BadgeDollarSignIcon size={20} />
+              </div>
+              <div>
+                  <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                      Biaya layanan
+                  </h3>
+              </div>
+            </div>
           </div>
-          <h3 className="text-sm uppercase md:text-xl font-black">Penanggung 2.5%</h3>
         </div>
-
+      </div>
+      <div className="bg-white dark:bg-slate-900 rounded-lg p-4 md:p-5 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
         {isLoading ? (
           <div className="py-12 text-center text-slate-400">Memuat konfigurasi...</div>
         ) : (

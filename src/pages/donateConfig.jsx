@@ -12,18 +12,15 @@ const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) =
     >
       {/* Header */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-pink-500 rounded-lg flex items-center justify-center text-white">
-            <Heart size={20} />
-          </div>
-          <div>
-            <h2 className="font-black text-slate-800 dark:text-white text-base">
-              Konfigurasi Halaman Donasi
-            </h2>
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-              Atur tampilan dan fitur yang muncul di halaman donasi viewer
-            </p>
-          </div>
+        <div className="flex items-center gap-4">
+            <div className="bg-rose-500 p-3 rounded-lg text-white shadow-lg">
+                <Heart size={20} />
+            </div>
+            <div>
+                <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                    Testing VN
+                </h3>
+            </div>
         </div>
 
         <div className="space-y-3">

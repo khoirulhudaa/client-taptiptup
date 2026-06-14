@@ -584,7 +584,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
       <div className="flex items-center gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
-        <div className="bg-cyan-600 p-3 rounded-lg text-white shadow-lg">
+        <div className="bg-blue-600 p-3 rounded-lg text-white shadow-lg">
           <Video size={20} />
         </div>
         <div>
@@ -2978,7 +2978,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
         <div className="p-3 w-11 h-11 bg-rose-500 rounded-lg flex items-center justify-center text-white shadow-lg"><Mic size={20} /></div>
         <div>
           <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-white">Text-to-speech</h4>
-          <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Pesan dibacakan oleh sistem</p>
+          {/* <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Pesan dibacakan oleh sistem</p> */}
         </div>
       </div>
 
@@ -3737,7 +3737,7 @@ const handleChangePin = async () => {
               <div className="p-3 w-11 h-11 bg-emerald-500 rounded-lg flex items-center justify-center text-white shadow-lg"><Music size={20} /></div>
               <div>
                 <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-white">Quick Soundboard</h4>
-                <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Donatur bisa pilih suara ini saat donasi ke streamer</p>
+                {/* <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Donatur bisa pilih suara ini saat donasi ke streamer</p> */}
               </div>
             </div>
             <AudioManager
@@ -4677,10 +4677,24 @@ const handleChangePin = async () => {
             {/* ══════════════════════ POLL ══════════════════════ */}
             {activeTab === 'poll' && (
               <motion.div key="poll" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
-                  <div className='md:flex hidden'>
-                    <SectionHeader icon={<Vote size={20} />} title="Poll & Voting" color="bg-violet-500" />
+                 <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+                    <div className="relative flex items-start justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-4">
+                          <div className="bg-orange-500 p-3 rounded-lg text-white shadow-lg">
+                              <Vote size={20} />
+                          </div>
+                          <div>
+                              <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                                  Polling
+                              </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                <div className="space-y-6 mt-4">
                   <PollManager overlayToken={user.overlayToken} username={user.username} />
                 </div>
               </motion.div>
@@ -4692,18 +4706,33 @@ const handleChangePin = async () => {
             {/* ══════════════════════ SUBATHON ══════════════════════ */}
             {activeTab === 'subathon' && (
               <motion.div key="subathon" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
-                  <SubathonManager overlayToken={user.overlayToken} />
+                 <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+                  <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+                  <div className="relative flex items-start justify-between gap-4">
+                    <div>
+                      <div className="flex items-center gap-4">
+                        <div className="bg-blue-500 p-3 rounded-lg text-white shadow-lg">
+                            <Vote size={20} />
+                        </div>
+                        <div>
+                            <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                                Subathon
+                            </h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <SubathonManager overlayToken={user.overlayToken} />
               </motion.div>
             )}
 
             {/* ══════════════════════ LEADERBOARD ══════════════════════ */}
             {activeTab === 'leaderboard' && (
               <motion.div key="leaderboard" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
-                  <LeaderboardSettings overlayToken={user?.overlayToken} />
-                </div>
+                <LeaderboardSettings overlayToken={user?.overlayToken} />
+                {/* <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                </div> */}
               </motion.div>
             )}
 

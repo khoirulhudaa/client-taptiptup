@@ -70,16 +70,16 @@ export const MediaShareControl = ({ overlayToken }) => {
 
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="p-2 w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center text-white">
+        <div className="p-2 w-10 h-10 bg-rose-500 rounded-lg flex items-center justify-center text-white">
           <SkipForward size={18} />
         </div>
         <div>
           <p className="font-black text-slate-800 dark:text-white text-sm uppercase md:capitalize md:text-xl">
             Mediashare Control
           </p>
-          <p className="text-[11px] text-slate-400">
+          {/* <p className="text-[11px] text-slate-400">
             Skip atau atur volume langsung dari dashboard
-          </p>
+          </p> */}
         </div>
       </div>
 

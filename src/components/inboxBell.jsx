@@ -11,6 +11,8 @@ import {
   CheckCheck,
   Clock,
   ImageIcon,
+  Inbox,
+  InboxIcon,
   Info,
   Loader2,
   Megaphone,
@@ -305,18 +307,20 @@ export const InboxPage = () => {
   return (
     <div className="space-y-5 pb-8">
       {/* Header */}
-      <div className="bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 from-blue-700 to-indigo-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
         <div className="relative flex items-start justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <Bell size={14} className="text-blue-200 dark:text-slate-400" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-300 dark:text-slate-400">Notifikasi</span>
-            </div>
-            <h1 className="text-lg md:text-lg font-black tracking-tight">Inbox</h1>
-            <p className="text-blue-200 dark:text-slate-400 text-sm font-medium mt-1">
-              Pengumuman & informasi terbaru dari tim TAPTIPTUP
-            </p>
+             <div className="flex items-center gap-4">
+              <div className="bg-orange-500 p-3 rounded-lg text-white shadow-lg">
+                  <Inbox size={20} />
+              </div>
+              <div>
+                  <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                      Pesan masuk
+                  </h3>
+              </div>
+          </div>
           </div>
           {unreadCount > 0 && (
             <button
@@ -327,16 +331,6 @@ export const InboxPage = () => {
               <CheckCheck size={15} />
               {readAllMutation.isPending ? 'Memproses...' : 'Tandai semua dibaca'}
             </button>
-          )}
-        </div>
-        <div className="relative mt-5 flex gap-3 text-sm flex-wrap">
-          <div className="px-3 py-1.5 bg-white/10 rounded-lg border border-white/20 text-md">
-            {announcements.length} pengumuman
-          </div>
-          {unreadCount > 0 && (
-            <div className="px-3 py-1.5 bg-red-500/20 rounded-lg border border-red-500/30 font-black text-red-300">
-              {unreadCount} belum dibaca
-            </div>
           )}
         </div>
       </div>

@@ -158,7 +158,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
       {/* ── Mode: Top Donor vs Donasi Terbaru ─────────────────── */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
          <div className="flex items-center gap-4">
-          <div className="bg-cyan-500 p-3 rounded-lg text-white shadow-lg">
+          <div className="bg-cyan-600 p-3 rounded-lg text-white shadow-lg">
             <Monitor size={20} />
           </div>
           <div>
@@ -178,7 +178,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
               className={`cursor-pointer text-left p-4 rounded-lg border-2 transition-all active:scale-[0.99] space-y-1 ${
                 cfg.mode === m.val
                   ? 'bg-blue-600 border-blue-600 text-white'
-                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
+                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 hover:border-blue-300'
               }`}
             >
               <p className="font-black text-sm relative left-[-3px]">{m.label}</p>
@@ -193,7 +193,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
       {/* ── Jumlah Item ───────────────────────────────────────── */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
         <div className="flex items-center gap-4">
-          <div className="bg-emerald-500 p-3 rounded-lg text-white shadow-lg">
+          <div className="bg-emerald-600 p-3 rounded-lg text-white shadow-lg">
             <List size={20} />
           </div>
           <div>
