@@ -72,12 +72,12 @@ const Badge = ({ type = 'streamer', name, active = true, className = '' }) => {
       {/* Tooltip */}
       {showTooltip && tooltip && (
         <div className="
-          absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50
+          absolute rounded-lg bottom-full left-1/2 -translate-x-1/2 mb-2 z-50
           w-max max-w-[180px]
           px-2.5 py-1.5
           bg-slate-800 dark:bg-slate-700
           text-white text-[10px] font-medium leading-snug
-          rounded-none shadow-lg
+         shadow-lg
           pointer-events-none
           text-center
         ">
@@ -92,7 +92,7 @@ const Badge = ({ type = 'streamer', name, active = true, className = '' }) => {
 
       {/* Badge itu sendiri — sama persis */}
       <div className={`
-        inline-flex items-center gap-1.5 px-3 py-1.5 h-full rounded-none text-xs font-bold border transition-all
+        inline-flex items-center gap-1.5 px-3 py-1.5 h-full rounded-lg text-xs font-bold border transition-all
         cursor-${active ? 'pointer' : 'default'}
         hover:${active ? 'scale-105 shadow-md' : ''}
         ${active ? colorClass : 'bg-slate-100/50 text-slate-500 border-slate-200/50 dark:bg-slate-800/50 dark:text-slate-400 dark:border-slate-700/50 opacity-70'}

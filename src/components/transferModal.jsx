@@ -157,13 +157,13 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.92, y: 24 }}
         transition={{ type: "spring", stiffness: 420, damping: 32 }}
-        className="relative w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl z-[9999] overflow-hidden"
-        style={{ borderRadius: 0 }}
+        className="rounded-lg relative w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl z-[9999] overflow-hidden"
+        
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-blue-100 dark:bg-blue-950/60 flex items-center justify-center">
+        <div className="rounded-lg flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800">
+          <div className="rounded-lg flex items-center gap-2.5">
+            <div className="rounded-lg w-8 h-8 bg-blue-100 dark:bg-blue-950/60 flex items-center justify-center">
               <SendHorizonal size={16} className="text-blue-600 dark:text-blue-400" />
             </div>
             <div>
@@ -181,7 +181,7 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
           </div>
           <button
             onClick={onClose}
-            className="cursor-pointer w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-red-600 transition-all"
+            className="rounded-lg cursor-pointer w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-red-600 transition-all"
           >
             <X size={16} />
           </button>
@@ -197,18 +197,17 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
               exit={{ opacity: 0, x: 16 }}
               transition={{ duration: 0.18 }}
             >
-              <div className="px-6 pt-4 pb-2">
-                <div className="relative">
+              <div className="rounded-lg px-6 pt-4 pb-2">
+                <div className="relative rounded-lg">
                   <Search
                     size={14}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                    className="rounded-lg absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                   />
                   <input
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Cari username streamer..."
-                    className="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 placeholder-slate-400 outline-none focus:border-blue-400 dark:focus:border-blue-600 transition-all font-medium"
-                    style={{ borderRadius: 0 }}
+                    className="rounded-lg w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 placeholder-slate-400 outline-none focus:border-blue-400 dark:focus:border-blue-600 transition-all font-medium"
                   />
                 </div>
               </div>
@@ -237,14 +236,14 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                     <button
                       key={u._id}
                       onClick={() => handleSelectUser(u)}
-                      className="cursor-pointer w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all active:scale-[0.99] group"
+                      className="rounded-lg cursor-pointer w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all active:scale-[0.99] group"
                     >
-                      <div className="w-9 h-9 bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 overflow-hidden">
+                      <div className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 overflow-hidden">
                         {u.profilePicture ? (
                           <img
                             src={u.profilePicture}
                             alt={u.username}
-                            className="w-full h-full object-cover"
+                            className="w-full rounded-lg h-full object-cover"
                             onError={(e) => {
                               e.target.style.display = "none";
                               e.target.parentElement.innerText =
@@ -284,8 +283,8 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
               className="px-6 py-5 space-y-5"
             >
               {/* Penerima */}
-              <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                <div className="w-10 h-10 bg-blue-600 flex items-center justify-center text-white font-bold text-md flex-shrink-0 overflow-hidden">
+              <div className="rounded-lg flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                <div className="rounded-lg w-10 h-10 bg-blue-600 flex items-center justify-center text-white font-bold text-md flex-shrink-0 overflow-hidden">
                   {selected?.profilePicture ? (
                     <img
                       src={selected.profilePicture}
@@ -314,7 +313,7 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                 <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wider">
                   Jumlah Transfer
                 </label>
-                <div className="relative">
+                <div className="relative rounded-lg">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400">
                     Rp
                   </span>
@@ -325,8 +324,8 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                     value={amount ? Number(amount).toLocaleString("id-ID") : ""}
                     onChange={handleAmountInput}
                     placeholder="0"
-                    className="w-full pl-10 pr-4 py-3 text-lg font-bold bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 placeholder-slate-300 outline-none focus:border-blue-400 dark:focus:border-blue-600 transition-all"
-                    style={{ borderRadius: 0 }}
+                    className="rounded-lg w-full pl-10 pr-4 py-3 text-lg font-bold bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 placeholder-slate-300 outline-none focus:border-blue-400 dark:focus:border-blue-600 transition-all"
+                    
                   />
                 </div>
                 <div className="flex justify-between mt-1.5">
@@ -345,12 +344,12 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                   <button
                     key={v}
                     onClick={() => { setAmount(String(v)); setError(""); }}
-                    className={`cursor-pointer py-1.5 text-xs font-bold border transition-all active:scale-[0.97] ${
+                    className={`rounded-lg cursor-pointer py-1.5 text-xs font-bold border transition-all active:scale-[0.97] ${
                       numAmount === v
                         ? "bg-blue-600 border-blue-600 text-white"
                         : "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-400 hover:text-blue-600"
                     }`}
-                    style={{ borderRadius: 0 }}
+                    
                   >
                     {formatRp(v)}
                   </button>
@@ -367,8 +366,8 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                   onChange={(e) => setNote(e.target.value)}
                   maxLength={60}
                   placeholder="Tulis catatan..."
-                  className="w-full px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 placeholder-slate-400 outline-none focus:border-blue-400 dark:focus:border-blue-600 transition-all font-medium"
-                  style={{ borderRadius: 0 }}
+                  className="rounded-lg w-full px-3 py-2.5 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 placeholder-slate-400 outline-none focus:border-blue-400 dark:focus:border-blue-600 transition-all font-medium"
+                  
                 />
               </div>
 
@@ -382,86 +381,19 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
               <div className="flex gap-2 pt-1">
                 <button
                   onClick={() => { setStep("list"); setSelected(null); }}
-                  className="cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-[0.99]"
-                  style={{ borderRadius: 0 }}
+                  className="rounded-lg cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-[0.99]"
+                  
                 >
                   Kembali
                 </button>
                 <button
                   onClick={handleConfirm}
                   disabled={!amountValid}
-                  className="cursor-pointer flex-[2] py-3 bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-[0.99] flex items-center justify-center gap-2"
-                  style={{ borderRadius: 0 }}
+                  className="rounded-lg cursor-pointer flex-[2] py-3 bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-[0.99] flex items-center justify-center gap-2"
+                  
                 >
                   <SendHorizonal size={15} />
                   Lanjutkan
-                </button>
-              </div>
-            </motion.div>
-          )}
-
-          {/* ── STEP: CONFIRM ──────────────────────────────────────────────── */}
-          {step === "confirm" && (
-            <motion.div
-              key="confirm"
-              initial={{ opacity: 0, x: 16 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -16 }}
-              transition={{ duration: 0.18 }}
-              className="px-6 py-6 text-center space-y-5"
-            >
-              <div className="w-16 h-16 mx-auto bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center">
-                <SendHorizonal size={28} className="text-blue-600 dark:text-blue-400" />
-              </div>
-
-              <div>
-                <p className="text-3xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
-                  {formatRp(numAmount)}
-                </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">
-                  akan dikirim ke{" "}
-                  <span className="font-bold text-slate-700 dark:text-slate-200">
-                    @{selected?.username}
-                  </span>
-                </p>
-                {note && (
-                  <p className="text-xs text-slate-400 mt-2 italic">"{note}"</p>
-                )}
-              </div>
-
-              {error && (
-                <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
-                  <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
-                  <p className="text-xs font-bold text-red-600 dark:text-red-400">{error}</p>
-                </div>
-              )}
-
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setStep("form")}
-                  disabled={submitting}
-                  className="cursor-pointer flex-1 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-200 transition-all active:scale-[0.99] disabled:opacity-40"
-                  style={{ borderRadius: 0 }}
-                >
-                  Ubah
-                </button>
-                <button
-                  onClick={() => setStep("pin")}  
-                  disabled={submitting}
-                  className="cursor-pointer flex-[2] py-3.5 bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-70"
-                  style={{ borderRadius: 0 }}
-                >
-                  {submitting ? (
-                    <>
-                      <Loader2 size={15} className="animate-spin" />
-                      Memproses...
-                    </>
-                  ) : (
-                    <>
-                      <CheckCircle2 size={15} />
-                      Ya, Kirim Sekarang
-                    </>
-                  )}
                 </button>
               </div>
             </motion.div>
@@ -477,7 +409,7 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                 className="px-6 py-8 text-center space-y-6"
               >
                 <div>
-                  <div className="w-12 h-12 mx-auto bg-amber-50 dark:bg-amber-950/40 flex items-center justify-center mb-4">
+                  <div className="rounded-lg w-12 h-12 mx-auto bg-amber-50 dark:bg-amber-950/40 flex items-center justify-center mb-4">
                     <ShieldCheck size={22} className="text-amber-500" />
                   </div>
                   <p className="font-bold text-slate-800 dark:text-slate-100 text-base">
@@ -501,7 +433,7 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                   <button
                     type="button"
                     onClick={() => setShowPin(v => !v)}
-                    className="cursor-pointer flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-blue-500 transition-colors"
+                    className="rounded-lg cursor-pointer flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-blue-500 transition-colors"
                   >
                     {showPin ? <EyeOff size={13} /> : <Eye size={13} />}
                     {showPin ? 'Sembunyikan PIN' : 'Tampilkan PIN'}
@@ -521,13 +453,13 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                       onChange={(e) => handlePinInput(i, e.target.value)}
                       onKeyDown={(e) => handlePinKeyDown(i, e)}
                       onFocus={(e) => e.target.select()}  // ← select saat focus agar langsung replace
-                      className={`w-14 h-14 text-center text-2xl font-black bg-slate-50 dark:bg-slate-800 border-2 outline-none transition-all
+                      className={`rounded-lg pb-1 w-14 h-14 text-center text-2xl font-black bg-slate-50 dark:bg-slate-800 border-2 outline-none transition-all
                         ${digit
                           ? "border-blue-500 dark:border-blue-400 text-slate-800 dark:text-slate-100"
                           : "border-slate-200 dark:border-slate-700 text-slate-300"
                         }
                         focus:border-blue-500 dark:focus:border-blue-400`}
-                      style={{ borderRadius: 0 }}
+                      
                     />
                   ))}
                 </div>
@@ -541,18 +473,18 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
 
                 <div className="flex gap-2">
                   <button
-                    onClick={() => { setStep("confirm"); setPin(["", "", "", ""]); setError(""); }}
+                    onClick={() => { setStep("form"); setPin(["", "", "", ""]); setError(""); }}
                     disabled={submitting}
-                    className="cursor-pointer flex-1 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-200 transition-all active:scale-[0.99] disabled:opacity-40"
-                    style={{ borderRadius: 0 }}
+                    className="rounded-lg cursor-pointer flex-1 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-700 transition-all active:scale-[0.99] disabled:opacity-40"
+                    
                   >
                     Kembali
                   </button>
                   <button
                     onClick={handlePinSubmit}
                     disabled={submitting || pin.join("").length < 4}
-                    className="cursor-pointer flex-[2] py-3.5 bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
-                    style={{ borderRadius: 0 }}
+                    className="rounded-lg cursor-pointer flex-[2] py-3.5 bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                    
                   >
                     {submitting ? (
                       <><Loader2 size={15} className="animate-spin" /> Memproses...</>
@@ -595,7 +527,7 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
               <button
                 onClick={onClose}
                 className="cursor-pointer w-full py-3.5 bg-slate-800 dark:bg-slate-700 text-white font-bold text-sm hover:bg-slate-700 dark:hover:bg-slate-600 transition-all active:scale-[0.99]"
-                style={{ borderRadius: 0 }}
+                
               >
                 Selesai
               </button>

@@ -151,13 +151,6 @@ export const SuggestionsAdmin = () => {
             <h2 className="text-md md:text-lg font-black tracking-tight">Kelola Masukan Streamer</h2>
             <p className="text-blue-300 dark:text-slate-400 text-sm font-medium mt-1">{pagination.total || 0} total saran masuk</p>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-green-400 rounded-lg animate-pulse" />
-            <span className="text-xs font-bold text-blue-200 dark:text-slate-400">Auto 30s</span>
-            <button onClick={() => refetch()} disabled={isFetching} className="cursor-pointer p-2 hover:bg-white/10 rounded-lg transition-all">
-              <RefreshCw size={16} className={isFetching ? 'animate-spin' : ''} />
-            </button>
-          </div>
         </div>
       </div>
 

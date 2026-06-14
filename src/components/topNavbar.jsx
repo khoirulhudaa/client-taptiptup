@@ -212,7 +212,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
             id="tour-sidebar-toggle"
             onClick={() => setIsCollapsed(v => !v)}
             title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            className="cursor-pointer flex-shrink-0 h-[40px] border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 w-max px-2 mx-[1px] flex items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:brightness-110 transition-all"
+            className="rounded-lg cursor-pointer flex-shrink-0 h-[40px] border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 w-max px-2 mx-[1px] flex items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:brightness-110 transition-all"
           >
             <AnimatePresence mode="wait">
               {isCollapsed ? (
@@ -339,7 +339,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
             <AnimatePresence>
               {showLogout && (
                 <>
-                  <div className="fixed inset-0 z-10" onClick={() => setShowLogout(false)} />
+                  <div className="fixed inset-0 z-[999999999999]" onClick={() => setShowLogout(false)} />
                   <motion.div
                     initial={{ opacity: 0, y: -8, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -372,7 +372,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                       <ThemeToggle theme={theme} onToggle={toggle} />
                     </div>
 
-                    <div className="p-1 space-y-1">
+                    <div className="p-1 space-y-1 z-[9999]">
                       <button
                         onClick={onProfile}
                         className="cursor-pointer w-full flex items-center gap-3 px-4 py-2.5 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold rounded-lg text-sm transition-all active:scale-[0.99]"

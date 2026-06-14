@@ -7,7 +7,6 @@ import {
   Grid,
   List,
   Loader2,
-  RefreshCw,
   Search,
   ShieldAlert,
   Trash2,
@@ -102,10 +101,10 @@ const ConfirmModal = ({ type, user, newRole, onConfirm, onClose, loading }) => {
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        className="relative z-10 w-full max-w-sm bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-none p-8 text-center shadow-2xl"
+        className="relative z-10 w-full max-w-sm bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg p-8 text-center shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className={`w-16 h-16 mx-auto mb-5 rounded-none flex items-center justify-center ${iconBg}`}>
+        <div className={`w-16 h-16 mx-auto mb-5 rounded-lg flex items-center justify-center ${iconBg}`}>
           {icon}
         </div>
         <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-2">{title}</h3>
@@ -114,14 +113,14 @@ const ConfirmModal = ({ type, user, newRole, onConfirm, onClose, loading }) => {
           <button
             onClick={onClose}
             disabled={loading}
-            className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-none font-black text-sm hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer active:scale-[0.98] disabled:opacity-60"
+            className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-lg font-black text-sm hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer active:scale-[0.98] disabled:opacity-60"
           >
             Batal
           </button>
           <button
             onClick={onConfirm}
             disabled={loading}
-            className={`flex-1 py-3 text-white rounded-none font-black text-sm cursor-pointer active:scale-[0.98] disabled:opacity-60 flex items-center justify-center gap-2 ${confirmBg}`}
+            className={`flex-1 py-3 text-white rounded-lg font-black text-sm cursor-pointer active:scale-[0.98] disabled:opacity-60 flex items-center justify-center gap-2 ${confirmBg}`}
           >
             {loading ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
             {confirmLabel}
@@ -143,11 +142,11 @@ const UserCard = ({ user, onToggle, onDelete, onRole, currentRole }) => {
   const canChangeRole = currentRole === 'superAdmin' && user.role !== 'superAdmin';
  
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-none p-5 flex flex-col gap-4 hover:shadow-md transition-all">
+    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 flex flex-col gap-4 hover:shadow-md transition-all">
       {/* — Avatar + Status badge — */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-none bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-black text-lg flex-shrink-0 overflow-hidden">
+          <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-black text-lg flex-shrink-0 overflow-hidden">
             {user.profilePicture ? (
               <img src={user.profilePicture} alt={user.username} className="w-full h-full object-cover" />
             ) : (
@@ -160,7 +159,7 @@ const UserCard = ({ user, onToggle, onDelete, onRole, currentRole }) => {
           </div>
         </div>
         <span
-          className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-none flex-shrink-0 ${
+          className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg flex-shrink-0 ${
             isActive
               ? 'bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400'
               : 'bg-red-100 dark:bg-red-950/40 text-red-500 dark:text-red-400'
@@ -172,7 +171,7 @@ const UserCard = ({ user, onToggle, onDelete, onRole, currentRole }) => {
  
       {/* — Role badge — */}
       <div>
-        <span className={`inline-flex items-center gap-1 p-1 rounded-none text-[10px] font-black ${
+        <span className={`inline-flex items-center gap-1 p-1 rounded-lg text-[10px] font-black ${
           isStreamerSuper
             ? 'bg-orange-100 dark:bg-emerald-950/40 text-emerald-400'
             : 'bg-sky-100 dark:bg-sky-950/40 text-sky-400'
@@ -201,7 +200,7 @@ const UserCard = ({ user, onToggle, onDelete, onRole, currentRole }) => {
         {/* Toggle aktif/nonaktif */}
         <button
           onClick={() => onToggle(user)}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all border ${
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg font-black text-xs cursor-pointer active:scale-[0.99] transition-all border ${
             isActive
               ? 'border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20'
               : 'border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20'
@@ -217,7 +216,7 @@ const UserCard = ({ user, onToggle, onDelete, onRole, currentRole }) => {
             title={!canChangeRole 
               ? "Hanya SuperAdmin yang dapat mengubah role" 
               : isSuperAdmin ? 'Turunkan ke User' : 'Jadikan StreamerSuper'}
-            className={`cursor-pointer active:scale-[0.99] flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs transition-all border disabled:cursor-not-allowed disabled:opacity-50 ${
+            className={`cursor-pointer active:scale-[0.99] flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg font-black text-xs transition-all border disabled:cursor-not-allowed disabled:opacity-50 ${
               !canChangeRole
                 ? 'border-slate-200 dark:border-slate-700 text-slate-400 bg-slate-50 dark:bg-slate-800'
                 : isSuperAdmin
@@ -237,7 +236,7 @@ const UserCard = ({ user, onToggle, onDelete, onRole, currentRole }) => {
                 ? "StreamerSuper tidak memiliki izin menghapus akun" 
                 : "SuperAdmin tidak dapat dihapus"
               : "Hapus permanen"}
-            className={`cursor-pointer active:scale-[0.99] flex items-center justify-center gap-1.5 px-3 py-2 rounded-none font-black text-xs transition-all border disabled:cursor-not-allowed disabled:opacity-50 ${
+            className={`cursor-pointer active:scale-[0.99] flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg font-black text-xs transition-all border disabled:cursor-not-allowed disabled:opacity-50 ${
               !canDelete
                 ? 'border-slate-200 dark:border-slate-700 text-slate-400 bg-slate-50 dark:bg-slate-800'
                 : 'border-red-200 dark:border-red-900 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30'
@@ -380,7 +379,7 @@ const StreamerManagerPage = () => {
       </AnimatePresence>
 
       {/* Header */}
-      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-none p-4 md:p-6 text-white relative overflow-hidden">
+      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg p-4 md:p-6 text-white relative overflow-hidden">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-slate-400 text-xs font-black uppercase tracking-widest mb-1">Super Admin</p>
@@ -403,12 +402,12 @@ const StreamerManagerPage = () => {
             onChange={(e) => setSearchInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             placeholder="Cari username / email..."
-            className="flex-1 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
+            className="flex-1 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
           />
           {search && (
             <button
               onClick={() => { setSearch(''); setSearchInput(''); setPage(1); }}
-              className="px-1 py-2 text-slate-500 rounded-none font-black text-xs cursor-pointer active:scale-[0.99]"
+              className="px-1 py-2 text-slate-500 rounded-lg font-black text-xs cursor-pointer active:scale-[0.99]"
             >
               <X size={20} />
             </button>
@@ -419,7 +418,7 @@ const StreamerManagerPage = () => {
         <div className="flex gap-2">
           <button
             onClick={() => setViewMode('grid')}
-            className={`px-3 py-2 rounded-none border font-black text-xs cursor-pointer active:scale-[0.99] transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-2 rounded-lg border font-black text-xs cursor-pointer active:scale-[0.99] transition-all flex items-center gap-1.5 ${
               viewMode === 'grid'
                 ? 'bg-blue-600 text-white border-blue-600'
                 : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700'
@@ -429,7 +428,7 @@ const StreamerManagerPage = () => {
           </button>
           <button
             onClick={() => setViewMode('table')}
-            className={`px-3 py-2 rounded-none border font-black text-xs cursor-pointer active:scale-[0.99] transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-2 rounded-lg border font-black text-xs cursor-pointer active:scale-[0.99] transition-all flex items-center gap-1.5 ${
               viewMode === 'table'
                 ? 'bg-blue-600 text-white border-blue-600'
                 : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700'
@@ -445,7 +444,7 @@ const StreamerManagerPage = () => {
             <button
               key={f.val}
               onClick={() => { setStatusFilter(f.val); setPage(1); }}
-              className={`px-4 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all border ${
+              className={`px-4 py-2 rounded-lg font-black text-xs cursor-pointer active:scale-[0.99] transition-all border ${
                 statusFilter === f.val
                   ? 'bg-blue-600 text-white border-blue-600'
                   : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700'
@@ -458,42 +457,42 @@ const StreamerManagerPage = () => {
       </div>
 
       {/* Content */}
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-none border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
         {isLoading ? (
           <div className="animate-pulse">
             {viewMode === 'grid' ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 md:p-6">
                 {[...Array(6)].map((_, i) => (
-                  <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-none p-5 flex flex-col gap-4">
+                  <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 flex flex-col gap-4">
                     {/* Avatar + status */}
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-11 h-11 rounded-none bg-slate-200 dark:bg-slate-700 flex-shrink-0" />
+                        <div className="w-11 h-11 rounded-lg bg-slate-200 dark:bg-slate-700 flex-shrink-0" />
                         <div className="space-y-1.5">
-                          <div className="h-3.5 w-24 bg-slate-200 dark:bg-slate-700 rounded-none" />
-                          <div className="h-2.5 w-32 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                          <div className="h-3.5 w-24 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+                          <div className="h-2.5 w-32 bg-slate-100 dark:bg-slate-800 rounded-lg" />
                         </div>
                       </div>
-                      <div className="h-5 w-14 bg-slate-100 dark:bg-slate-800 rounded-none flex-shrink-0" />
+                      <div className="h-5 w-14 bg-slate-100 dark:bg-slate-800 rounded-lg flex-shrink-0" />
                     </div>
                     {/* Role badge */}
-                    <div className="h-5 w-28 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                    <div className="h-5 w-28 bg-slate-100 dark:bg-slate-800 rounded-lg" />
                     {/* Stats */}
                     <div className="flex justify-between gap-2">
                       <div className="space-y-1">
-                        <div className="h-2 w-12 bg-slate-100 dark:bg-slate-800 rounded-none" />
-                        <div className="h-3 w-20 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                        <div className="h-2 w-12 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                        <div className="h-3 w-20 bg-slate-200 dark:bg-slate-700 rounded-lg" />
                       </div>
                       <div className="space-y-1">
-                        <div className="h-2 w-10 bg-slate-100 dark:bg-slate-800 rounded-none" />
-                        <div className="h-3 w-16 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                        <div className="h-2 w-10 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                        <div className="h-3 w-16 bg-slate-200 dark:bg-slate-700 rounded-lg" />
                       </div>
                     </div>
                     {/* Buttons */}
                     <div className="flex gap-2 pt-1 border-t border-slate-100 dark:border-slate-800">
-                      <div className="flex-1 h-8 bg-slate-100 dark:bg-slate-800 rounded-none" />
-                      <div className="h-8 w-10 bg-slate-100 dark:bg-slate-800 rounded-none" />
-                      <div className="h-8 w-10 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                      <div className="flex-1 h-8 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                      <div className="h-8 w-10 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                      <div className="h-8 w-10 bg-slate-100 dark:bg-slate-800 rounded-lg" />
                     </div>
                   </div>
                 ))}
@@ -505,7 +504,7 @@ const StreamerManagerPage = () => {
                     <tr className="bg-slate-50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700">
                       {['Streamer','Email','Role','Total Donasi','Saldo','Status','Daftar','Aksi'].map(h => (
                         <th key={h} className="px-5 py-4">
-                          <div className="h-2.5 w-16 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                          <div className="h-2.5 w-16 bg-slate-200 dark:bg-slate-700 rounded-lg" />
                         </th>
                       ))}
                     </tr>
@@ -515,26 +514,26 @@ const StreamerManagerPage = () => {
                       <tr key={i}>
                         <td className="px-5 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-none bg-slate-200 dark:bg-slate-700 flex-shrink-0" />
-                            <div className="h-3 w-20 bg-slate-200 dark:bg-slate-700 rounded-none" />
+                            <div className="w-9 h-9 rounded-lg bg-slate-200 dark:bg-slate-700 flex-shrink-0" />
+                            <div className="h-3 w-20 bg-slate-200 dark:bg-slate-700 rounded-lg" />
                           </div>
                         </td>
-                        <td className="px-5 py-4"><div className="h-3 w-32 bg-slate-100 dark:bg-slate-800 rounded-none" /></td>
-                        <td className="px-5 py-4"><div className="h-5 w-16 bg-slate-100 dark:bg-slate-800 rounded-none" /></td>
+                        <td className="px-5 py-4"><div className="h-3 w-32 bg-slate-100 dark:bg-slate-800 rounded-lg" /></td>
+                        <td className="px-5 py-4"><div className="h-5 w-16 bg-slate-100 dark:bg-slate-800 rounded-lg" /></td>
                         <td className="px-5 py-4">
                           <div className="space-y-1">
-                            <div className="h-3 w-24 bg-slate-100 dark:bg-slate-800 rounded-none" />
-                            <div className="h-2.5 w-10 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                            <div className="h-3 w-24 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                            <div className="h-2.5 w-10 bg-slate-100 dark:bg-slate-800 rounded-lg" />
                           </div>
                         </td>
-                        <td className="px-5 py-4"><div className="h-3 w-20 bg-slate-100 dark:bg-slate-800 rounded-none" /></td>
-                        <td className="px-5 py-4"><div className="h-5 w-14 bg-slate-100 dark:bg-slate-800 rounded-none" /></td>
-                        <td className="px-5 py-4"><div className="h-3 w-16 bg-slate-100 dark:bg-slate-800 rounded-none" /></td>
+                        <td className="px-5 py-4"><div className="h-3 w-20 bg-slate-100 dark:bg-slate-800 rounded-lg" /></td>
+                        <td className="px-5 py-4"><div className="h-5 w-14 bg-slate-100 dark:bg-slate-800 rounded-lg" /></td>
+                        <td className="px-5 py-4"><div className="h-3 w-16 bg-slate-100 dark:bg-slate-800 rounded-lg" /></td>
                         <td className="px-5 py-4">
                           <div className="flex gap-2">
-                            <div className="h-8 w-9 bg-slate-100 dark:bg-slate-800 rounded-none" />
-                            <div className="h-8 w-9 bg-slate-100 dark:bg-slate-800 rounded-none" />
-                            <div className="h-8 w-9 bg-slate-100 dark:bg-slate-800 rounded-none" />
+                            <div className="h-8 w-9 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                            <div className="h-8 w-9 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                            <div className="h-8 w-9 bg-slate-100 dark:bg-slate-800 rounded-lg" />
                           </div>
                         </td>
                       </tr>
@@ -580,7 +579,7 @@ const StreamerManagerPage = () => {
                     <tr key={u._id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-all">
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-none bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-black flex-shrink-0 overflow-hidden text-sm">
+                          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-black flex-shrink-0 overflow-hidden text-sm">
                             {u.profilePicture ? (
                               <img src={u.profilePicture} alt={u.username} className="w-full h-full object-cover" />
                             ) : (
@@ -592,7 +591,7 @@ const StreamerManagerPage = () => {
                       </td>
                       <td className="px-5 py-4 text-sm text-slate-500 dark:text-slate-400">{u.email}</td>
                       <td className="px-5 py-4">
-                        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-none text-[10px] font-black ${
+                        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-lg text-[10px] font-black ${
                           u.role === 'superAdmin'
                             ? 'bg-blue-100 dark:bg-blue-950/40 text-blue-500 dark:text-blue-400'
                             : 'bg-sky-100 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400'
@@ -614,7 +613,7 @@ const StreamerManagerPage = () => {
                       </td>
                       <td className="px-5 py-4">
                         <span
-                          className={`inline-flex items-center px-3 py-1 rounded-none text-[10px] font-black ${
+                          className={`inline-flex items-center px-3 py-1 rounded-lg text-[10px] font-black ${
                             isActive
                               ? 'bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400'
                               : 'bg-red-100 dark:bg-red-950/40 text-red-500 dark:text-red-400'
@@ -631,7 +630,7 @@ const StreamerManagerPage = () => {
                           <button
                             onClick={() => setConfirmModal({ type: 'toggle', user: u })}
                             title={isActive ? 'Nonaktifkan' : 'Aktifkan'}
-                            className={`px-2.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.99] transition-all ${
+                            className={`px-2.5 py-2 rounded-lg font-black text-xs cursor-pointer active:scale-[0.99] transition-all ${
                               isActive
                                 ? 'bg-amber-50 dark:bg-amber-950/30 text-amber-600 border border-amber-200 dark:border-amber-800 hover:bg-amber-100'
                                 : 'bg-green-50 dark:bg-green-950/30 text-green-600 border border-green-200 dark:border-green-800 hover:bg-green-100'
@@ -653,7 +652,7 @@ const StreamerManagerPage = () => {
                                 ? "Hanya SuperAdmin yang dapat mengubah role"
                                 : "Ubah Role"
                             }
-                            className={`px-2.5 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.97] transition-all disabled:cursor-not-allowed disabled:opacity-50 flex items-center gap-1.5 ${
+                            className={`px-2.5 py-2 rounded-lg font-black text-xs cursor-pointer active:scale-[0.97] transition-all disabled:cursor-not-allowed disabled:opacity-50 flex items-center gap-1.5 ${
                               u.role === 'superAdmin' || currentRole !== 'superAdmin'
                                 ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700'
                                 : 'bg-blue-50 dark:bg-blue-950/30 text-blue-500 border border-blue-200 dark:border-blue-600 hover:bg-blue-100'
@@ -676,7 +675,7 @@ const StreamerManagerPage = () => {
                                 ? "StreamerSuper tidak memiliki izin menghapus akun"
                                 : "Hapus permanen"
                             }
-                            className={`px-3 py-2 rounded-none font-black text-xs cursor-pointer active:scale-[0.97] transition-all flex items-center gap-1.5 disabled:cursor-not-allowed disabled:opacity-50 ${
+                            className={`px-3 py-2 rounded-lg font-black text-xs cursor-pointer active:scale-[0.97] transition-all flex items-center gap-1.5 disabled:cursor-not-allowed disabled:opacity-50 ${
                               u.role === 'superAdmin' || currentRole !== 'superAdmin'
                                 ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700'
                                 : 'bg-red-50 dark:bg-red-950/30 text-red-500 border border-red-200 dark:border-red-900 hover:bg-red-100 dark:hover:bg-red-900/50'
@@ -701,7 +700,7 @@ const StreamerManagerPage = () => {
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="px-4 py-2 rounded-none bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs cursor-pointer disabled:opacity-40 hover:bg-slate-100 transition-all"
+              className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs cursor-pointer disabled:opacity-40 hover:bg-slate-100 transition-all"
             >
               ← Sebelumnya
             </button>
@@ -711,7 +710,7 @@ const StreamerManagerPage = () => {
             <button
               onClick={() => setPage((p) => Math.min(pagination.totalPages, p + 1))}
               disabled={page === pagination.totalPages}
-              className="px-4 py-2 rounded-none bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs cursor-pointer disabled:opacity-40 hover:bg-slate-100 transition-all"
+              className="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs cursor-pointer disabled:opacity-40 hover:bg-slate-100 transition-all"
             >
               Berikutnya →
             </button>

@@ -3071,7 +3071,7 @@ const PinRow = ({ label, groupKey, refs, pinForm, setPinForm, showPins, setShowP
       <button
         type="button"
         onClick={() => setShowPins(prev => ({ ...prev, [groupKey]: !prev[groupKey] }))}
-        className="uppercase cursor-pointer flex items-center gap-1 text-[10px] font-black text-slate-400 hover:text-blue-500 transition-colors"
+        className="rounded-lg uppercase cursor-pointer flex items-center gap-1 text-[10px] font-black text-slate-400 hover:text-blue-500 transition-colors"
       >
         {showPins[groupKey]
           ? <><EyeOff size={11} /> Sembunyikan</>
@@ -3090,13 +3090,12 @@ const PinRow = ({ label, groupKey, refs, pinForm, setPinForm, showPins, setShowP
           onChange={e => handlePinInputChange(groupKey, i, e.target.value, refs, setPinForm)}
           onKeyDown={e => handlePinKeyDown(groupKey, i, e, refs)}
           onFocus={e => e.target.select()}
-          className={`${!showPins[groupKey] ? 'pb-2' : 'pb-1'} w-14 h-14 text-center text-2xl font-black bg-slate-50 dark:bg-slate-800 border-2 outline-none transition-all
+          className={`${!showPins[groupKey] ? 'pb-2' : 'pb-1'} rounded-lg w-14 h-14 text-center text-2xl font-black bg-slate-50 dark:bg-slate-800 border-2 outline-none transition-all
             ${digit
-              ? 'border-blue-500 dark:border-blue-400 text-slate-800 dark:text-slate-100'
-              : 'border-slate-200 dark:border-slate-700 text-slate-300'
+              ? 'rounded-lg border-blue-500 dark:border-blue-400 text-slate-800 dark:text-slate-100'
+              : 'rounded-lg border-slate-200 dark:border-slate-700 text-slate-300'
             }
-            focus:border-blue-500 dark:focus:border-blue-400`}
-          style={{ borderRadius: 0 }}
+            rounded-lg focus:border-blue-500 dark:focus:border-blue-400`}
         />
       ))}
     </div>
@@ -4458,7 +4457,7 @@ const handleChangePin = async () => {
                   </div>
                 </div>
 
-                <div className="flex w-full flex-wrap gap-1.5 justify-center md:justify-start bg-gradient-to-r from-slate-50/50 to-blue-50/30 dark:from-slate-900/50 dark:to-blue-900/20 p-3 py-2 border border-slate-100/20 dark:border-slate-700/50 backdrop-blur-sm rounded-lg shadow-sm">
+                <div className="flex w-full flex-wrap gap-2 justify-center md:justify-start bg-gradient-to-r from-slate-50/50 to-blue-50/30 dark:from-slate-900/50 dark:to-blue-900/20 p-3 py-2 border border-slate-100/20 dark:border-slate-700/50 backdrop-blur-sm rounded-lg shadow-sm">
                   {['10k','50k','100k','500k','1jt'].map(name => (
                     <Badge key={name} type="streamer" name={name} active={profileData?.user?.donationMilestones?.[name] || false} />
                   ))}
@@ -4560,7 +4559,7 @@ const handleChangePin = async () => {
                           <p className="text-sm text-slate-400 font-medium">Gunakan PIN baru untuk konfirmasi transfer berikutnya.</p>
                         </motion.div>
                       ) : (
-                        <motion.div key="pin-form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full grid grid-cols-1 gap-4 md:gap-14 items-center justify-center md:grid-cols-3 space-y-0">
+                        <motion.div key="pin-form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-lg w-full grid grid-cols-1 gap-4 md:gap-14 items-center justify-center md:grid-cols-3 space-y-0">
                           <PinRow
                             label="PIN Saat Ini"
                             groupKey="currentPin"
@@ -4604,7 +4603,7 @@ const handleChangePin = async () => {
                             initial={{ opacity: 0, y: -4 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
-                            className="w-max flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800"
+                            className="rounded-lg w-max flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800"
                           >
                             <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
                             <p className="text-xs font-bold text-red-600 dark:text-red-400">{pinError}</p>
@@ -4620,8 +4619,7 @@ const handleChangePin = async () => {
                           pinForm.newPin.join('').length < 4 ||
                           pinForm.confirmPin.join('').length < 4
                         }
-                        className="cursor-pointer md:mt-0 mt-2 w-full px-4 relative md:top-[7px] py-3 bg-blue-500 hover:bg-amber-600 text-white font-black text-sm transition-all active:scale-[0.99] flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
-                        style={{ borderRadius: 0 }}
+                        className="rounded-lg cursor-pointer md:mt-0 mt-2 w-full px-4 relative md:top-[7px] py-3 bg-blue-500 hover:bg-amber-600 text-white font-black text-sm transition-all active:scale-[0.99] flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         {pinLoading ? (
                           <><Loader2 size={16} className="animate-spin" /> Memproses...</>

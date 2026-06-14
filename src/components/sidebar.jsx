@@ -248,7 +248,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           {!isCollapsed && (
             <a href='/'>
               <div className="flex shadow-none items-center gap-3">
-                <div className="ml-0 mt-[-2px] w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white font-black text-xl italic">
+                <div className="ml-0 mt-[-2px] w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black text-xl italic">
                   <img src="/tttnews.png" alt="icon" className="w-[88%]" />
                 </div>
                 <h1 className="text-lg ml-0 font-black tracking-tight text-slate-800 dark:text-slate-100 whitespace-nowrap">TAPTIPTUP</h1>
@@ -257,8 +257,8 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           )}
           {isCollapsed && ( 
             <a href='/'>
-              <div className="w-full h-12 bg-red-200 shadow-none rounded-lg flex items-center justify-center">
-                <img src="/tttnews.png" alt="icon" className={`${isCollapsed ? 'w-[30%]' : 'w-[60%]'}`} />
+              <div className="w-full h-12 bg-blue-600 shadow-none rounded-lg flex items-center justify-center">
+                <img src="/tttnews.png" alt="icon" className={`${isCollapsed ? 'w-[40%]' : 'w-[60%]'}`} />
               </div>
             </a>
           )}
@@ -284,7 +284,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
               <button
                 onClick={handleAdminMode}
                 className={`relative cursor-pointer active:scale-[0.99] hover:brightness-95 w-16 h-8 rounded-lg transition-colors duration-200 ease-in-out ${
-                  superMode ? 'bg-blue-500' : 'bg-amber-600'
+                  superMode ? 'bg-blue-600' : 'bg-amber-600'
                 }`}
               >
                 <motion.div
@@ -421,11 +421,11 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                       key={item.id}
                       onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
                       title={isCollapsed ? item.label : undefined}
-                      className={`cursor-pointer mb-1 active:scale-[0.99] w-full flex items-center gap-4 rounded-lg font-black text-sm
+                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex items-center gap-4 rounded-lg font-black text-sm
                         ${isCollapsed ? 'justify-center px-0 py-3' : 'px-4 py-3'}
                         ${activeTab === item.id
-                          ? 'bg-blue-500 text-white'
-                          : 'text-slate-900 dark:text-white bg-blue-50/10 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-500/20 hover:text-blue-600 dark:hover:text-blue-400'
+                          ? 'bg-blue-600 text-white'
+                          : 'text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-600 dark:hover:text-slate-300'
                         }`}
                     >
                       <span className="flex-shrink-0">{item.icon}</span>

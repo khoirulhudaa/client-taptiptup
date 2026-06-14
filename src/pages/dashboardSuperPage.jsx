@@ -35,13 +35,13 @@ const staggerChild = (i) => ({
 const StatCard = ({ label, value, sub, icon: Icon, accent, index }) => (
   <motion.div
     {...staggerChild(index)}
-    className="relative overflow-hidden rounded-none border dark:border-slate-800 bg-white dark:bg-slate-900 p-6 flex flex-col gap-3"
+    className="relative overflow-hidden rounded-lg border dark:border-slate-800 bg-white dark:bg-slate-900 p-6 flex flex-col gap-3"
   >
     {/* accent line */}
     <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: accent }} />
     <div className="flex items-start justify-between">
       <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-500">{label}</p>
-      <div className="w-9 h-9 rounded-none flex items-center justify-center" style={{ background: accent + '18', border: `1px solid ${accent}30` }}>
+      <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: accent + '18', border: `1px solid ${accent}30` }}>
         <Icon size={16} style={{ color: accent }} />
       </div>
     </div>
@@ -55,7 +55,7 @@ const StatCard = ({ label, value, sub, icon: Icon, accent, index }) => (
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-slate-900 border border-slate-700 rounded-none px-4 py-3 shadow-2xl">
+    <div className="bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 shadow-2xl">
       <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mb-1">{label}</p>
       {payload.map((p, i) => (
         <p key={i} className="text-sm font-black" style={{ color: p.color }}>
@@ -75,7 +75,7 @@ const HealthBadge = ({ latency, status }) => {
   const label = ok ? 'Healthy' : warn ? 'Degraded' : 'Down';
   return (
     <div className="flex items-center gap-2">
-      <span className="w-2 h-2 rounded-none animate-pulse" style={{ background: color }} />
+      <span className="w-2 h-2 rounded-lg animate-pulse" style={{ background: color }} />
       <span className="text-xs font-black" style={{ color }}>{label}</span>
       <span className="text-[10px] text-slate-500 font-mono">{latency}ms</span>
     </div>
@@ -120,12 +120,12 @@ export const DashboardSuperPage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="space-y-2">
-          <div className="h-5 w-44 bg-slate-200 dark:bg-slate-800 rounded-none" />
-          <div className="h-3 w-64 bg-slate-100 dark:bg-slate-700 rounded-none" />
+          <div className="h-5 w-44 bg-slate-200 dark:bg-slate-800 rounded-lg" />
+          <div className="h-3 w-64 bg-slate-100 dark:bg-slate-700 rounded-lg" />
         </div>
         <div className="flex gap-2">
-          <div className="h-8 w-28 bg-slate-200 dark:bg-slate-800 rounded-none" />
-          <div className="h-8 w-8 bg-slate-200 dark:bg-slate-800 rounded-none" />
+          <div className="h-8 w-28 bg-slate-200 dark:bg-slate-800 rounded-lg" />
+          <div className="h-8 w-8 bg-slate-200 dark:bg-slate-800 rounded-lg" />
         </div>
       </div>
 
@@ -134,12 +134,12 @@ export const DashboardSuperPage = () => {
         {[...Array(4)].map((_, i) => (
           <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 space-y-3">
             <div className="flex justify-between items-center">
-              <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-700 rounded-none" />
-              <div className="h-7 w-7 bg-slate-100 dark:bg-slate-800 rounded-none" />
+              <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+              <div className="h-7 w-7 bg-slate-100 dark:bg-slate-800 rounded-lg" />
             </div>
-            <div className="h-6 w-28 bg-slate-200 dark:bg-slate-700 rounded-none" />
-            <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-none" />
-            <div className="h-2.5 w-24 bg-slate-100 dark:bg-slate-700 rounded-none" />
+            <div className="h-6 w-28 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+            <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-lg" />
+            <div className="h-2.5 w-24 bg-slate-100 dark:bg-slate-700 rounded-lg" />
           </div>
         ))}
       </div>
@@ -149,11 +149,11 @@ export const DashboardSuperPage = () => {
         {[...Array(4)].map((_, i) => (
           <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 space-y-3">
             <div className="flex justify-between items-center">
-              <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-700 rounded-none" />
-              <div className="h-7 w-7 bg-slate-100 dark:bg-slate-800 rounded-none" />
+              <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+              <div className="h-7 w-7 bg-slate-100 dark:bg-slate-800 rounded-lg" />
             </div>
-            <div className="h-6 w-16 bg-slate-200 dark:bg-slate-700 rounded-none" />
-            <div className="h-2.5 w-28 bg-slate-100 dark:bg-slate-700 rounded-none" />
+            <div className="h-6 w-16 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+            <div className="h-2.5 w-28 bg-slate-100 dark:bg-slate-700 rounded-lg" />
           </div>
         ))}
       </div>
@@ -163,12 +163,12 @@ export const DashboardSuperPage = () => {
         {[70, 100, 100].map((h, i) => (
           <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 space-y-4">
             <div className="space-y-1.5">
-              <div className="h-3.5 w-24 bg-slate-200 dark:bg-slate-700 rounded-none" />
-              <div className="h-2.5 w-36 bg-slate-100 dark:bg-slate-700 rounded-none" />
+              <div className="h-3.5 w-24 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+              <div className="h-2.5 w-36 bg-slate-100 dark:bg-slate-700 rounded-lg" />
             </div>
-            <div className={`h-${h === 70 ? 20 : 32} w-full bg-slate-100 dark:bg-slate-800 rounded-none`} />
+            <div className={`h-${h === 70 ? 20 : 32} w-full bg-slate-100 dark:bg-slate-800 rounded-lg`} />
             {[...Array(i === 0 ? 0 : 3)].map((_, j) => (
-              <div key={j} className="h-10 w-full bg-slate-50 dark:bg-slate-800 rounded-none" />
+              <div key={j} className="h-10 w-full bg-slate-50 dark:bg-slate-800 rounded-lg" />
             ))}
           </div>
         ))}
@@ -189,7 +189,7 @@ export const DashboardSuperPage = () => {
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           {/* Server Health */}
-          <div className="flex items-center gap-3 bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-none">
+          <div className="flex items-center gap-3 bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-lg">
             <Server size={14} className="text-slate-400" />
             {healthLoading
               ? <span className="text-xs text-slate-500 font-bold animate-pulse">Checking...</span>
@@ -201,7 +201,7 @@ export const DashboardSuperPage = () => {
             <button
               onClick={() => { refetch(); refetchHealth(); }}
               disabled={isFetching}
-              className="cursor-pointer p-1.5 bg-slate-800 hover:bg-slate-700 rounded-none transition-all disabled:opacity-50"
+              className="cursor-pointer p-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg transition-all disabled:opacity-50"
             >
               <RefreshCw size={12} className={isFetching ? 'animate-spin text-indigo-400' : 'text-slate-400'} />
             </button>
@@ -223,9 +223,9 @@ export const DashboardSuperPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
         {/* Top Donatur */}
-        <motion.div {...staggerChild(10)} className="md:bg-white md:dark:bg-slate-900 md:border dark:border-slate-800 rounded-none p-0 md:p-6">
+        <motion.div {...staggerChild(10)} className="md:bg-white md:dark:bg-slate-900 md:border dark:border-slate-800 rounded-lg p-0 md:p-6">
           <div className="flex items-center gap-2 mb-5">
-            <div className="w-8 h-8 bg-amber-500/10 border border-amber-500/20 rounded-none flex items-center justify-center">
+            <div className="w-8 h-8 bg-amber-500/10 border border-amber-500/20 rounded-lg flex items-center justify-center">
               <Trophy size={14} className="text-amber-400" />
             </div>
             <div>
@@ -240,7 +240,7 @@ export const DashboardSuperPage = () => {
               const medals = ['🥇', '🥈', '🥉'];
               const accents = ['#f59e0b', '#94a3b8', '#b45309'];
               return (
-                <div key={i} className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 border border-slate-700/50 rounded-none">
+                <div key={i} className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 border border-slate-700/50 rounded-lg">
                   <span className="text-xl flex-shrink-0">{medals[i]}</span>
                   <div className="flex-1 min-w-0">
                     <p className="font-black text-sm text-slate-900 dark:text-white truncate">{d.name}</p>
@@ -256,7 +256,7 @@ export const DashboardSuperPage = () => {
         </motion.div>
 
         {/* Pending Withdrawals Alert */}
-        <motion.div {...staggerChild(11)} className="w-full md:bg-white md:dark:bg-slate-900 md:border dark:border-slate-800 rounded-none p-0 md:my-0 my-2 md:p-6 flex justify-center md:items-center text-center flex-col">
+        <motion.div {...staggerChild(11)} className="w-full md:bg-white md:dark:bg-slate-900 md:border dark:border-slate-800 rounded-lg p-0 md:my-0 my-2 md:p-6 flex justify-center md:items-center text-center flex-col">
           {/* <div className="flex justify-center items-center gap-2 pt-0 mb-5">
             <div>
               <p className="font-black text-sm text-slate-900 dark:text-white">Pending Withdraw</p>
@@ -266,7 +266,7 @@ export const DashboardSuperPage = () => {
           <div className="w-full flex-1 flex flex-col items-center justify-center gap-4">
             <div className="w-full h-full flex justify-center items-center relative">
               <div
-                className="w-full h-full md:py-4 py-6 rounded-none border-[3.5px] flex items-center justify-center"
+                className="w-full h-full md:py-4 py-6 rounded-lg border-[3.5px] flex items-center justify-center"
                 style={{
                   borderColor: stats?.pendingWithdrawals > 0 ? '#ef4444' : '#22c55e',
                   background: stats?.pendingWithdrawals > 0 ? '#ef444410' : '#22c55e10',
@@ -291,7 +291,7 @@ export const DashboardSuperPage = () => {
           </div>
 {/* 
           {stats?.pendingWithdrawals > 0 && (
-            <div className="mt-4 hidden md:flex items-center gap-2 px-4 py-2.5 bg-red-500/10 border border-red-500/20 rounded-none">
+            <div className="mt-4 hidden md:flex items-center gap-2 px-4 py-2.5 bg-red-500/10 border border-red-500/20 rounded-lg">
               <Clock size={12} className="text-red-400 flex-shrink-0" />
               <p className="text-[11px] text-red-400 font-bold">Buka tab "Admin" untuk memproses</p>
             </div>
@@ -299,9 +299,9 @@ export const DashboardSuperPage = () => {
         </motion.div>
 
         {/* Donasi Terbaru */}
-        <motion.div {...staggerChild(12)} className="md:bg-white md:dark:bg-slate-900 md:border dark:border-slate-800 rounded-none p-0 md:p-6">
+        <motion.div {...staggerChild(12)} className="md:bg-white md:dark:bg-slate-900 md:border dark:border-slate-800 rounded-lg p-0 md:p-6">
           <div className="flex items-center gap-2 mb-5">
-            <div className="w-8 h-8 bg-indigo-500/10 border border-indigo-500/20 rounded-none flex items-center justify-center">
+            <div className="w-8 h-8 bg-indigo-500/10 border border-indigo-500/20 rounded-lg flex items-center justify-center">
               <ArrowUpRight size={14} className="text-indigo-400" />
             </div>
             <div>
@@ -314,7 +314,7 @@ export const DashboardSuperPage = () => {
             )}
             {(stats?.recentDonations || []).map((d, i) => (
               <div key={d._id || i} className="flex items-center gap-3 py-2.5 border-b border-slate-800 last:border-0">
-                <div className="w-7 h-7 bg-indigo-500/10 rounded-none flex items-center justify-center flex-shrink-0 text-xs font-black text-indigo-400">
+                <div className="w-7 h-7 bg-indigo-500/10 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-black text-indigo-400">
                   {d.donorName?.charAt(0)?.toUpperCase() || '?'}
                 </div>
                 <div className="flex-1 min-w-0">

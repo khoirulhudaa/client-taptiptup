@@ -89,21 +89,21 @@ const MaintenancePage = () => {
 
       <CustomToast toastState={toastState} />
 
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-100/10 p-4 md:p-5 rounded-none">
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-100/10 p-4 md:p-5 rounded-lg">
         <div className="grid gap-4">
           {pages.map(({ key, label, desc }) => (
-            <div key={key} className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+            <div key={key} className="rounded-lg flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
               <div>
                 <p className="text-sm md:text-md font-bold">{label}</p>
                 <p className="text-xs text-slate-500">{desc}</p>
               </div>
               <button
                 onClick={() => toggle(key)}
-                className={`cursor-pointer active:scale-[0.99] hover:brightness-90 relative w-14 h-8 rounded-none transition-all ${
+                className={`cursor-pointer active:scale-[0.99] hover:brightness-90 relative w-14 h-8 rounded-lg transition-all ${
                   settings[key] ? 'bg-red-500' : 'bg-slate-300 dark:bg-slate-600'
                 }`}
               >
-                <div className={`absolute top-1 w-6 h-6 bg-white rounded-none shadow transition-all ${settings[key] ? 'translate-x-7' : 'translate-x-1'}`} />
+                <div className={`absolute top-1 w-6 h-6 bg-white rounded-lg shadow transition-all ${settings[key] ? 'translate-x-7' : 'translate-x-1'}`} />
               </button>
             </div>
           ))}
@@ -112,7 +112,7 @@ const MaintenancePage = () => {
         <button
           onClick={saveSettings}
           disabled={saving}
-          className="cursor-pointer active:scale-[0.99] mt-8 w-full py-3 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-black text-sm flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98]"
+          className="cursor-pointer active:scale-[0.99] mt-8 w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black  rounded-lg text-sm flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98]"
         >
           {saving ? <RefreshCw className="animate-spin" /> : <Save size={20} />}
           {saving ? 'Menyimpan...' : 'Simpan Pengaturan Maintenance'}
