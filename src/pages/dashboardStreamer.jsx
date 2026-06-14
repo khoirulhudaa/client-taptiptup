@@ -1878,7 +1878,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   // MODERN — Retro terminal HUD
   // ══════════════════════════════════════════
   const modernInner = (
-    <div style={{ position: 'relative', overflow: 'hidden' }}>
+    <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 10, }}>
       <div style={scanlineStyle} />
       {/* Header bar */}
       <div style={{

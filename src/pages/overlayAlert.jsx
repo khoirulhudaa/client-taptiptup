@@ -425,14 +425,14 @@
           // ── MODERN — Terminal HUD ────────────────────────────────────────────────────
           if (theme === 'modern') {
             return (
-              <div style={{ position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 10 }}>
                 <div style={scanlineStyle} />
 
                 {/* Header bar */}
                 <div style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                   background: hl + '18', borderBottom: pixelBorder,
-                  padding: '5px 10px', position: 'relative', zIndex: 2,
+                  padding: '5px 7px', position: 'relative', zIndex: 2,
                 }}>
                   <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
                     {['#ff4444', '#ffaa00', hl].map((c, i) => (
@@ -442,7 +442,7 @@
                 </div>
 
                 {/* Body */}
-                <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
+                <div style={{ padding: '10px 6px', position: 'relative', zIndex: 2 }}>
                   <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 0 }}>
                     <div style={{ flex: 1, minWidth: 0, display: 'flex', alignItems: 'center' }}>
                       <div style={{ fontFamily: monospace, fontSize: 22, fontWeight: 900, color: fg }}>
@@ -536,7 +536,7 @@
 
                 {/* Info area */}
                 <div style={{
-                  padding: '10px 12px',
+                  padding: '10px 0px',
                   display: 'flex',
                   textAlign: 'center',
                   flexDirection: 'column',
@@ -604,7 +604,7 @@
           // ── SMOOTH — Soft rounded card ────────────────────────────────────────────────
           if (theme === 'smooth') {
             return (
-              <div style={{ fontFamily: "'Poppins', sans-serif", padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ fontFamily: "'Poppins', sans-serif", padding: '14px 6px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {/* Icon + Nama */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
                   <div className='w-max flex items-center gap-2' style={{width: 'max-content'}}>
@@ -660,7 +660,7 @@
           return (
             <div style={{ position: 'relative', overflow: 'hidden' }}>
               <div style={scanlineStyle} />
-              <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
+              <div style={{ padding: '10px 6px', position: 'relative', zIndex: 2 }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
                   <span style={{
                     fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl,
