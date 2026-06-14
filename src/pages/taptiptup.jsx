@@ -144,15 +144,16 @@ function BtnMain({ children, href, style, C }) {
       className="rounded-xl hover:bg-[azure] active:scale-[0.98] opacity-100 text-[azure] hover:text-blue-900 select-none w-[90vw] relative flex justify-center items-center md:w-max text-center" // Tambahkan class ini
       style={{
         fontFamily: "'Space Grotesk', sans-serif",
-        fontSize: 13, fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase",
-        padding: "16px 46px", 
-        // background: 'transparent', 
-        // color: 'azure',
-        border: "1px solid azure", cursor: "pointer", textDecoration: "none",
-        display: "inline-block", // Penting agar width: 100% bekerja
-        // transition: "background 0.15s, opacity 0.15s",
+        fontSize: 13, fontWeight: 700, 
+        letterSpacing: "0.05em", 
+        textTransform: "uppercase",
+        padding: "17px 46px", 
+        border: "1px solid azure", 
+        cursor: "pointer", 
+        textDecoration: "none",
+        display: "inline-block", 
         opacity: 1,
-        boxSizing: "border-box", // Pastikan padding tidak merusak lebar
+        boxSizing: "border-box", 
         ...style,
       }}
       onMouseOver={e => e.currentTarget.style.opacity = "1"}
