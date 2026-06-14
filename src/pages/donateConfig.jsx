@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Heart, Save, Trophy, Sparkles } from 'lucide-react';
+import { Heart, Save, Trophy, Sparkles, History } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) => {
@@ -55,6 +55,32 @@ const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) =
             </button>
           </div>
 
+          <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-pink-100 dark:bg-pink-900/30 rounded-lg flex items-center justify-center">
+                <History size={16} className="text-pink-500" />
+                </div>
+                <div>
+                <p className="font-black text-slate-700 dark:text-slate-200 text-sm">
+                    Tampilkan Donasi Terbaru
+                </p>
+                <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+                    Daftar donasi terbaru akan tampil di halaman donasi viewer
+                </p>
+                </div>
+            </div>
+            <button
+                onClick={() => upd('showRecentDonationsOnDonate', !settings.showRecentDonationsOnDonate)}
+                className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer focus:outline-none ${
+                settings.showRecentDonationsOnDonate ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'
+                }`}
+            >
+                <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform duration-300 ${
+                settings.showRecentDonationsOnDonate ? 'translate-x-8' : 'translate-x-1'
+                }`} />
+            </button>
+            </div>
+
           {/* Toggle: GIF Recommendation */}
           <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
             <div className="flex items-center gap-3">
@@ -93,6 +119,10 @@ const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) =
             <div className="flex items-center gap-2 text-[11px] font-bold text-blue-600 dark:text-blue-400">
               <span>{settings.showLeaderboardOnDonate ? '✅' : '❌'}</span>
               <span>Leaderboard {settings.showLeaderboardOnDonate ? 'akan tampil' : 'disembunyikan'} di halaman donasi</span>
+            </div>
+            <div className="flex items-center gap-2 text-[11px] font-bold text-blue-600 dark:text-blue-400">
+                <span>{settings.showRecentDonationsOnDonate ? '✅' : '❌'}</span>
+                <span>Donasi Terbaru {settings.showRecentDonationsOnDonate ? 'akan tampil' : 'disembunyikan'} di halaman donasi</span>
             </div>
             <div className="flex items-center gap-2 text-[11px] font-bold text-blue-600 dark:text-blue-400">
               <span>{settings.giphyOnDonate !== false ? '✅' : '❌'}</span>
