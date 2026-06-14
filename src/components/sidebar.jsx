@@ -130,8 +130,8 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
       groupLabel: 'OBS & Overlay',
       items: [
         { id: 'settings',      label: isSuperAdmin ? 'Statistik Overall' : 'Editor Overlay', icon: <Layout size={20} /> },
-        { id: 'alertSettings', label: 'Alert OBS',      icon: <ZapIcon size={20} /> },
-        { id: 'mediaSettings', label: 'Media Share',    icon: <Video size={20} /> },
+        { id: 'alertSettings', label: 'Notifikasi Alert',      icon: <ZapIcon size={20} /> },
+        { id: 'mediaSettings', label: 'Mediashare',    icon: <Video size={20} /> },
         { id: 'marquee', label: 'Marquee Donor', icon: <Users size={20} /> },
         { id: 'voiceSettings', label: 'Voice Note',     icon: <Mic size={20} /> },
         { id: 'store',         label: 'Label produk',       icon: <ShoppingBag size={20} /> },
@@ -147,18 +147,18 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     {
       groupLabel: 'Interaksi',
       items: [
-        { id: 'inbox',       label: 'Inbox',        icon: <Mail size={20} /> },
+        { id: 'inbox',       label: 'Pesan Masuk',        icon: <Mail size={20} /> },
         { id: 'poll',        label: 'Poll & Voting', icon: <Vote size={20} /> },
         { id: 'subathon',    label: 'Subathon',      icon: <Timer size={20} /> },
         { id: 'milestones',  label: 'Milestones',    icon: <TrendingUp size={20} /> },
-        { id: 'donatePageConfig', label: 'Halaman Donasi', icon: <Heart size={20} /> },
         { id: 'leaderboard', label: 'Leaderboard',   icon: <Trophy size={20} /> },
       ]
     },
     {
       groupLabel: 'Konfigurasi',
       items: [
-        { id: 'feeConfig',        label: 'Konfigurasi Fee',    icon: <ReceiptText size={20} /> },
+        { id: 'donatePageConfig', label: 'Halaman Donasi', icon: <Heart size={20} /> },
+        { id: 'feeConfig',        label: 'Biaya layanan',    icon: <ReceiptText size={20} /> },
       ]
     },
 
