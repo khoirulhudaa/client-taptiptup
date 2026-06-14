@@ -372,9 +372,9 @@ const calculateMediaShareDuration = (config, amount) => {
       }}>
         <span style={{ fontSize: 34 }}>⚠️</span>
         <span style={{
-          fontFamily: "'Courier New', monospace",
+          fontFamily: "'Poppins', sans-serif",
           fontSize: 12,
-          fontWeight: 700,
+          fontWeight: 500,
           color: '#ff4444',
           letterSpacing: '0.1em',
           textTransform: 'uppercase',
@@ -388,7 +388,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
     const renderInner = () => {
       const hl = highlight;
-      const monospace = "'Courier New', 'Lucida Console', monospace";
+      const monospace = "'Inter', 'Poppins', sans-serif";
       const pixelBorder = `2px solid ${hl}`;
       const dimBorder = `1px solid ${hl}35`;
 
@@ -407,7 +407,7 @@ const calculateMediaShareDuration = (config, amount) => {
             <div style={{ borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
               <div style={{ width: '100%', height: '270px', aspectRatio: '16/9', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0a0a0a', gap: 10 }}>
                 <span style={{ fontSize: 34 }}>⚠️</span>
-                <span style={{ fontFamily: "'Courier New', monospace", fontSize: 12, fontWeight: 700, color: '#ff4444', letterSpacing: '0.1em', textTransform: 'uppercase', textAlign: 'center', padding: '0 16px' }}>
+                <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: 12, fontWeight: 500, color: '#ff4444', letterSpacing: '0.1em', textTransform: 'uppercase', textAlign: 'center', padding: '0 16px' }}>
                   {alert.blockReason || 'Video Melanggar Kebijakan'}
                 </span>
               </div>
@@ -477,9 +477,9 @@ const calculateMediaShareDuration = (config, amount) => {
             <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
               {/* Nama mengirim amount */}
               <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6 }}>
-                <span style={{ fontWeight: 900 }}>{alert.donorName}</span>
+                <span style={{ fontWeight: 500 }}>{alert.donorName}</span>
                 <span> mengirim </span>
-                <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}55` }}>
+                <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}55` }}>
                   Rp {Number(alert.amount).toLocaleString('id-ID')}
                 </span>
               </div>
@@ -515,10 +515,10 @@ const calculateMediaShareDuration = (config, amount) => {
       // ── SMOOTH ───────────────────────────────────────────────────────────────────
       if (theme === 'smooth') {
         return (
-          <div style={{ fontFamily: "'Poppins', sans-serif", overflow: 'hidden' }}>
+          <div style={{ fontFamily: "'Inter', sans-serif", overflow: 'hidden' }}>
             {mediaBlock}
 
-            <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10, fontFamily: "'Poppins', sans-serif" }}>
+            <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10, fontFamily: "'Inter', sans-serif" }}>
               {/* Nama mengirim amount */}
               <div style={{ fontSize: 20, color: fg, lineHeight: 1 }}>
                 <span style={{ color: hl }}>{alert.donorName}</span>
@@ -571,7 +571,7 @@ const calculateMediaShareDuration = (config, amount) => {
             }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{
-                  fontFamily: "'Poppins', sans-serif",
+                  fontFamily: "'Inter', sans-serif",
                   fontSize: 20,
                   width: 'max-content',
                   fontWeight: 500,
@@ -581,7 +581,7 @@ const calculateMediaShareDuration = (config, amount) => {
                   {alert.donorName} mengirim
                 </div>
                 <div style={{
-                  fontFamily: "'Poppins', sans-serif",
+                  fontFamily: "'Inter', sans-serif",
                   fontSize: 20,
                   marginLeft: 5,
                   fontWeight: 500,
@@ -596,7 +596,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
               {alert.message && (
                 <div style={{
-                  fontFamily: "'Poppins', sans-serif",
+                  fontFamily: "'Inter', sans-serif",
                   fontSize: 18,
                   color: 'black',
                   fontWeight: 400,
@@ -636,9 +636,9 @@ const calculateMediaShareDuration = (config, amount) => {
       //       <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
       //         {/* Nama mengirim amount */}
       //         <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 4, borderBottom: `1px dashed ${hl}30`, paddingBottom: 8 }}>
-      //           <span style={{ fontWeight: 900 }}>{alert.donorName}</span>
+      //           <span style={{ fontWeight: 500 }}>{alert.donorName}</span>
       //           <span> mengirim </span>
-      //           <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}50` }}>
+      //           <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}50` }}>
       //             Rp {Number(alert.amount).toLocaleString('id-ID')}
       //           </span>
       //         </div>
@@ -671,8 +671,8 @@ const calculateMediaShareDuration = (config, amount) => {
           <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
             {/* Nama mengirim amount */}
             <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 6 }}>
-              <span style={{ fontWeight: 900 }}>{alert.donorName} - </span>
-              <span style={{ fontWeight: 900, color: hl, letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}50` }}>
+              <span style={{ fontWeight: 500 }}>{alert.donorName} - </span>
+              <span style={{ fontWeight: 500, color: hl, letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}50` }}>
                 Rp {Number(alert.amount).toLocaleString('id-ID')}
               </span>
             </div>

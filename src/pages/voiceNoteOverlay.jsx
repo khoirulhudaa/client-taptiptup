@@ -336,7 +336,7 @@ const VoiceNoteOverlay = () => {
           >
             {/* ↓↓↓ GANTI SEMUA KONTEN DI SINI ↓↓↓ */}
             {(() => {
-              const monospace = "'Courier New', 'Lucida Console', monospace";
+              const monospace = "'Inter', 'Courier New', monospace";
               const hl = highlight;
               const scanlineStyle = {
                 position: 'absolute', inset: 0,
@@ -346,20 +346,20 @@ const VoiceNoteOverlay = () => {
 
               if (config.theme === 'smooth') {
                 return (
-                  <div style={{ fontFamily: "'Poppins', sans-serif", padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <div style={{ fontFamily: "'Inter', sans-serif", padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {/* Icon + Nama + Amount */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                       <div style={{
                         width: 44, height: 44, borderRadius: 14,
                         background: hl + '22', border: `1.5px solid ${hl}40`,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0,
                       }}>
                         🎙️
                       </div>
                       <div>
                         <div className='flex items-center gap-2'>
-                          <div style={{ fontSize: 20, fontWeight: 700, color: fg, textTransform: 'lowercase' }}>{alert.donorName}</div>
-                          <div style={{ fontSize: 20, fontWeight: 800, color: hl, letterSpacing: '-0.5px' }}>
+                          <div style={{ fontSize: 20, fontWeight: 500, color: fg, textTransform: 'lowercase' }}>{alert.donorName}</div>
+                          <div style={{ fontSize: 20, fontWeight: 500, color: hl, letterSpacing: '-0.5px' }}>
                             {formatRp(alert.amount)}
                           </div>
                         </div>
@@ -435,7 +435,7 @@ const VoiceNoteOverlay = () => {
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                       <span style={{ fontFamily: monospace, fontSize: 11, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
-                      <span style={{ fontFamily: monospace, fontSize: 9, color: hl, textTransform: 'uppercase', letterSpacing: '0.18em', fontWeight: 700 }}>
+                      <span style={{ fontFamily: monospace, fontSize: 9, color: hl, textTransform: 'uppercase', letterSpacing: '0.18em', fontWeight: 500 }}>
                         VOICE DONATION
                       </span>
                     </div>
@@ -458,15 +458,15 @@ const VoiceNoteOverlay = () => {
                       <div style={{
                         width: 40, height: 40, border: `2px solid ${hl}`, flexShrink: 0,
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 22, background: hl + '12',
+                        fontSize: 20, background: hl + '12',
                       }}>
                         🎙️
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div className='flex items-center gap-2 w-max relative top-1'>
-                          <div style={{ position: 'relative', top: 1, fontFamily: monospace, fontSize: 22, fontWeight: 900, color: fg, lineHeight: 1.1, textTransform: 'lowercase' }}>{alert.donorName} mengirim</div>
+                          <div style={{ position: 'relative', top: 1, fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg, lineHeight: 1.1, textTransform: 'lowercase' }}>{alert.donorName} mengirim</div>
                           <div style={{
-                            fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl,
+                            fontFamily: monospace, fontSize: 20, fontWeight: 500, color: hl,
                             letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}55`,
                           }}>
                             {formatRp(alert.amount)}

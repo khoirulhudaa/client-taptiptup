@@ -1581,7 +1581,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
     const hl = settings.highlightColor || '#39ff14';
     const fg = settings.textColor || '#c8f5c8';
     const bg = settings.primaryColor || '#0a1f0a';
-    const monospace = "'Courier New', 'Lucida Console', monospace";
+    const monospace = "'Inter', 'Courier New', monospace";
     const scanlineStyle = {
       position: 'absolute', inset: 0,
       backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)',
@@ -1641,15 +1641,15 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           {/* Info area */}
           <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', textAlign: 'center', gap: 7, alignItems: 'center', justifyContent: 'center'}}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'max-content' }}>
-              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 18, fontWeight: 500, color: 'white', borderBottom: `1px solid ${hl}25` }}>
+              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 18, fontWeight: 500, color: 'white', borderBottom: `1px solid ${hl}25` }}>
                 {currentDonor.name} mengirim
               </div>
-              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 18, marginLeft: 5, fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1, textShadow: `0 0 10px ${hl}55` }}>
+              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 18, marginLeft: 5, fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1, textShadow: `0 0 10px ${hl}55` }}>
                 Rp {currentDonor.amount.toLocaleString('id-ID')}
               </div>
             </div>
             {currentDonor.msg && (
-              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: 16, color: 'black', fontWeight: 400, background: 'white', border: `1px solid ${hl}25`, padding: '5px 8px', lineHeight: 1.5, maxWidth: 500, borderRadius: 8 }}>
+              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: 'black', fontWeight: 400, background: 'white', border: `1px solid ${hl}25`, padding: '5px 8px', lineHeight: 1.5, maxWidth: 500, borderRadius: 8 }}>
                 {currentDonor.msg}
               </div>
             )}
@@ -1673,14 +1673,14 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             <MediaBlock />
             <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2, width: 'max-content' }}>
               <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6, width: 'max-content' }}>
-                <span style={{ fontWeight: 900 }}>{currentDonor.name}</span>
+                <span style={{ fontWeight: 500 }}>{currentDonor.name}</span>
                 <span> mengirim </span>
-                <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}55` }}>
+                <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}55` }}>
                   Rp {currentDonor.amount.toLocaleString('id-ID')}
                 </span>
               </div>
               {currentDonor.msg && (
-                <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, paddingBottom: 6 }}>
+                <div style={{ fontWeight: 500, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, paddingBottom: 6 }}>
                   {currentDonor.msg}
                 </div>
               )}
@@ -1700,17 +1700,17 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           // boxShadow: `0 8px 32px ${hl}18` 
           }}>
           <MediaBlock />
-          <div style={{ fontFamily: "'Poppins', sans-serif", padding: '14px 14px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <div style={{ fontSize: 17, color: fg, lineHeight: 1.6 }}>
-              <span style={{ color: hl, fontWeight: 600 }}>{currentDonor.name}</span>
+          <div style={{ fontFamily: "'Inter', sans-serif", padding: '14px 14px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ fontSize: 20, color: fg, lineHeight: 1.6 }}>
+              <span style={{ color: hl, fontWeight: 500 }}>{currentDonor.name}</span>
               <span> mengirim </span>
-              <span style={{ fontWeight: 600, color: hl, letterSpacing: '-0.5px' }}>
+              <span style={{ fontWeight: 500, color: hl, letterSpacing: '-0.5px' }}>
                 Rp {currentDonor.amount.toLocaleString('id-ID')}
               </span>
             </div>
             {/* <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} /> */}
             {currentDonor.msg && (
-              <div style={{ fontWeight: 400, fontSize: 15, color: fg, background: hl + '10', borderRadius: 8, padding: '7px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
+              <div style={{ fontWeight: 400, fontSize: 18, color: fg, background: hl + '10', borderRadius: 8, padding: '7px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
                 {currentDonor.msg}
               </div>
             )}
@@ -1732,14 +1732,14 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             <MediaBlock />
             <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
               <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 8, borderBottom: `1px dashed ${hl}30`, paddingBottom: 8 }}>
-                <span style={{ fontWeight: 900 }}>{currentDonor.name}</span>
+                <span style={{ fontWeight: 500 }}>{currentDonor.name}</span>
                 <span> mengirim </span>
-                <span style={{ fontWeight: 900, color: hl, textShadow: `0 0 10px ${hl}50` }}>
+                <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}50` }}>
                   Rp {currentDonor.amount.toLocaleString('id-ID')}
                 </span>
               </div>
               {currentDonor.msg && (
-                <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5 }}>
+                <div style={{ fontWeight: 500, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5 }}>
                   {currentDonor.msg}
                 </div>
               )}
@@ -1759,13 +1759,13 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         <MediaBlock />
         <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
           <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 6 }}>
-            <span style={{ fontWeight: 900 }}>{currentDonor.name} - </span>
-            <span style={{ fontWeight: 900, color: hl, letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}50` }}>
+            <span style={{ fontWeight: 500 }}>{currentDonor.name} - </span>
+            <span style={{ fontWeight: 500, color: hl, letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}50` }}>
               Rp {currentDonor.amount.toLocaleString('id-ID')}
             </span>
           </div>
           {currentDonor.msg && (
-            <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderTop: `1px solid ${hl}20`, paddingTop: 8, paddingBottom: 6 }}>
+            <div style={{ fontWeight: 500, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderTop: `1px solid ${hl}20`, paddingTop: 8, paddingBottom: 6 }}>
               {currentDonor.msg}
             </div>
           )}
@@ -1857,7 +1857,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         color: 'rgba(255,255,255,0.35)',
         fontFamily: 'monospace',
         letterSpacing: '0.05em',
-        fontWeight: 700
+        fontWeight: 500
       }}>
         {new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}
       </div>
@@ -1906,25 +1906,11 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
         {/* Icon + info */}
         <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 8 }}>
-          <div style={{
-            width: 40,
-            height: 40,
-            border: pixelBorder,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 20,
-            flexShrink: 0,
-            background: hl + '12',
-            imageRendering: 'pixelated',
-          }}>
-            {renderIconPreview(settings.customIcon, 20)}
-          </div>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{
               fontFamily: 'monospace',
               fontSize: 20,
-              fontWeight: 900,
+              fontWeight: 500,
               color: fg,
               marginTop: 10,
               lineHeight: 1.1,
@@ -1933,13 +1919,27 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
               {currentDonor.name}
             </div>
           </div>
+          <div style={{
+            width: 40,
+            height: 40,
+            // border: pixelBorder,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 20,
+            flexShrink: 0,
+            // background: hl + '12',
+            imageRendering: 'pixelated',
+          }}>
+            {renderIconPreview(settings.customIcon, 20)}
+          </div>
         </div>
 
         {/* Amount — big retro display */}
         <div style={{
           fontFamily: 'monospace',
           fontSize: 20,
-          fontWeight: 900,
+          fontWeight: 500,
           color: hl,
           letterSpacing: '-1px',
           lineHeight: 1,
@@ -2026,7 +2026,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       }}>
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <div style={{
-            fontFamily: "'Poppins', sans-serif",
+            fontFamily: "'Inter', sans-serif",
             fontSize: 18, fontWeight: 500, color: fg,
             borderBottom: `1px solid ${hl}25`, 
             // paddingBottom: 7,
@@ -2034,7 +2034,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             {currentDonor.name} mengirim
           </div>
           <div style={{
-            fontFamily: "'Poppins', sans-serif",
+            fontFamily: "'Inter', sans-serif",
             fontSize: 18,
             marginLeft: 5,
             fontWeight: 500, color: hl,
@@ -2046,7 +2046,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         </div>
         {currentDonor.msg && (
           <div style={{
-            fontFamily: "'Poppins', sans-serif",
+            fontFamily: "'Inter', sans-serif",
             fontSize: 16, color: fg, fontWeight: 400,
             borderRadius: 9,
             background: hl + '12', border: `1px solid ${hl}25`,
@@ -2067,7 +2067,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   // ══════════════════════════════════════════
   const smoothInner = (
     <div style={{
-      fontFamily: "'Poppins', sans-serif",
+      fontFamily: "'Inter', sans-serif",
       padding: '14px 16px',
       display: 'flex',
       flexDirection: 'column',
@@ -2078,7 +2078,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         <div>
           <div style={{
             fontSize: 18,
-            fontWeight: 700,
+            fontWeight: 500,
             color: fg,
             lineHeight: 1.2,
           }}>
@@ -2107,7 +2107,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       {/* Amount */}
       <div style={{
         fontSize: 18,
-        fontWeight: 800,
+        fontWeight: 500,
         color: hl,
         margin: "8px 0px",
         letterSpacing: '-0.5px',
@@ -2163,17 +2163,10 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           justifyContent: 'space-between',
           marginBottom: 4,
         }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-          }}>
-            <FrogDeco size={16} />
-          </div>
           <span style={{
             fontFamily: 'monospace',
             fontSize: 20,
-            fontWeight: 900,
+            fontWeight: 500,
             color: hl,
             letterSpacing: '-1px',
             textShadow: `0 0 8px ${hl}50`,
@@ -2186,7 +2179,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         <div style={{
           fontFamily: 'monospace',
           fontSize: 20,
-          fontWeight: 900,
+          fontWeight: 500,
           color: fg,
           marginBottom: 3,
           borderBottom: `1px solid ${hl}20`,
@@ -2299,7 +2292,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
 
       <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[70.5vh] h-[62.8vh]' : '2xl:h-[61.9vh] h-[51.8vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
         <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
-          <span style={{ fontSize: 80, fontWeight: 800, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span>
+          <span style={{ fontSize: 80, fontWeight: 500, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span>
         </div>
         <div className="absolute inset-0 pointer-events-none">
           <AnimatePresence>
@@ -4264,7 +4257,7 @@ const handleChangePin = async () => {
                             background: preset.primaryColor,
                           }}
                         >
-                          <div className='uppercase relative top-[1.2px] md:text-center' style={{ color: preset.highlightColor, fontFamily: 'monospace', fontSize: 13, fontWeight: 900, marginBottom: 2 }}>
+                          <div className='uppercase relative top-[1.2px] md:text-center' style={{ color: preset.highlightColor, fontFamily: 'monospace', fontSize: 13, fontWeight: 500, marginBottom: 2 }}>
                             {preset.name}
                           </div>
                           {/* <div style={{ color: preset.textColor, fontSize: 11, opacity: 0.7, fontFamily: 'monospace' }}>

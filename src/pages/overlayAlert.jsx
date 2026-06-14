@@ -405,7 +405,7 @@
 
         const renderInner = () => {
           const hl = highlight;
-          const monospace = "'Courier New', 'Lucida Console', monospace";
+          const monospace = "'Inter'";
 
           const scanlineStyle = {
             position: 'absolute',
@@ -416,7 +416,7 @@
           };
 
           const FrogDeco = () => (
-            <span style={{ fontFamily: monospace, fontSize: 22, color: hl, letterSpacing: '-1px' }}>(o_o)</span>
+            <span style={{ fontFamily: monospace, fontSize: 20, color: hl, }}>(o_o)</span>
           );
 
           const pixelBorder = `2px solid ${hl}`;
@@ -445,14 +445,14 @@
                 <div style={{ padding: '10px 6px', position: 'relative', zIndex: 2 }}>
                   <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 0 }}>
                     <div style={{ flex: 1, minWidth: 0, display: 'flex', alignItems: 'center' }}>
-                      <div style={{ fontFamily: monospace, fontSize: 22, fontWeight: 900, color: fg }}>
+                      <div style={{ fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg }}>
                         {alert.donorName} mengirim
                       </div>
                       <div style={{
                         marginLeft: 12,
                         position: 'relative',
                         top: 1,
-                        fontFamily: monospace, fontSize: 20, fontWeight: 900, color: hl,
+                        fontFamily: monospace, fontSize: 20, fontWeight: 500, color: hl,
                         textShadow: `0 0 10px ${hl}55`,
                       }}>
                         Rp {Number(alert.amount).toLocaleString('id-ID')}
@@ -546,7 +546,7 @@
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{
-                      fontFamily: "'Poppins', sans-serif",
+                      fontFamily: "'Inter', sans-serif",
                       fontSize: 20,
                       width: 'max-content',
                       fontWeight: 500,
@@ -556,7 +556,7 @@
                       {alert.donorName} mengirim
                     </div>
                     <div style={{
-                      fontFamily: "'Poppins', sans-serif",
+                      fontFamily: "'Inter', sans-serif",
                       fontSize: 20,
                       marginLeft: 5,
                       fontWeight: 500,
@@ -571,7 +571,7 @@
 
                   {alert.message && (
                     <div style={{
-                      fontFamily: "'Poppins', sans-serif",
+                      fontFamily: "'Inter', sans-serif",
                       fontSize: 18,
                       color: 'black',
                       fontWeight: 400,
@@ -604,21 +604,21 @@
           // ── SMOOTH — Soft rounded card ────────────────────────────────────────────────
           if (theme === 'smooth') {
             return (
-              <div style={{ fontFamily: "'Poppins', sans-serif", padding: '14px 6px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ fontFamily: "'Inter', sans-serif", padding: '14px 6px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {/* Icon + Nama */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
                   <div className='w-max flex items-center gap-2' style={{width: 'max-content'}}>
-                    <div style={{ display: 'flex', gap: '6px', justifyContent: 'center', alignItems: 'center', fontSize: 20, fontWeight: 900, color: fg, lineHeight: 1.2, top: 1.5, position: 'relative' }}>
+                    <div style={{ display: 'flex', gap: '6px', justifyContent: 'center', alignItems: 'center', fontSize: 20, fontWeight: 500, color: fg, lineHeight: 1.2, top: 1.5, position: 'relative' }}>
                       {alert.donorName} mengirim
                     </div>
-                    <div style={{ fontSize: 20, padding: '0px 0px', fontWeight: 800, color: hl, letterSpacing: '-0.5px', lineHeight: 1 }}>
+                    <div style={{ fontSize: 20, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1 }}>
                       Rp {Number(alert.amount).toLocaleString('id-ID')}
                     </div>
                   </div>
                   <div style={{
                     width: 44, height: 44, borderRadius: 14,
                     background: hl + '22', border: `1.5px solid ${hl}40`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0,
                   }}>
                     {renderIcon(customIcon, 22)}
                   </div>
@@ -663,15 +663,15 @@
               <div style={{ padding: '10px 6px', position: 'relative', zIndex: 2 }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
                   <span style={{
-                    fontFamily: monospace, fontSize: 22, fontWeight: 900, color: hl,
-                    letterSpacing: '-1px', textShadow: `0 0 8px ${hl}50`,
+                    fontFamily: monospace, fontSize: 20, fontWeight: 500, color: hl,
+                     textShadow: `0 0 8px ${hl}50`,
                   }}>
                     Rp {Number(alert.amount).toLocaleString('id-ID')}
                   </span>
                 </div>
 
                 <div style={{
-                  fontFamily: monospace, fontSize: 22, fontWeight: 900, color: fg,
+                  fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg,
                   marginBottom: 3, borderBottom: `1px solid ${hl}20`, paddingBottom: 5,
                 }}>
                   {alert.donorName}
