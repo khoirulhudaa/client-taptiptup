@@ -50,7 +50,10 @@ import {
   Vote,
   X,
   Zap,
-  ChevronDown
+  ChevronDown,
+  Link,
+  CopyIcon,
+  CopyCheck
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
@@ -4074,10 +4077,12 @@ const handleChangePin = async () => {
                         <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
                         Tutorial Video
                         </span>
-                        <ChevronDown
-                          size={16}
-                          className={`text-slate-400 transition-transform duration-200 ${showVideoTutorial ? 'rotate-180' : ''}`}
-                        />
+                        <div className='w-6 h-6 border p-[1.4px] hover:bg-blue-600 border-slate-600 rounded-md'>
+                          <ChevronDown
+                            size={20}
+                            className={`text-white transition-transform duration-200 ${showVideoTutorial ? 'rotate-180' : ''}`}
+                          />
+                        </div>
                       </button>
                       {showVideoTutorial && (
                         <div className="border-t border-slate-200 dark:border-slate-700 p-4">
@@ -4095,10 +4100,12 @@ const handleChangePin = async () => {
                           <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
                           OBS Auto-connection 
                           </span>
-                          <ChevronDown
-                            size={16}
-                            className={`text-slate-400 transition-transform duration-200 ${showOBSConnect ? 'rotate-180' : ''}`}
-                          />
+                          <div className='w-6 h-6 border p-[1.4px] group hover:bg-blue-600 hover:text-white border-slate-600 rounded-md'>
+                            <ChevronDown
+                              size={20}
+                              className={`text-white transition-transform duration-200 ${showOBSConnect ? 'rotate-180' : ''}`}
+                            />
+                          </div>
                         </button>
                         {showOBSConnect && (
                           <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
@@ -4122,14 +4129,6 @@ const handleChangePin = async () => {
                           </button>
                         </div>
                       ))}
-
-                      <div className="bg-slate-100 dark:bg-slate-800 p-5 pb-4.5 rounded-lg border border-slate-100/10 mb-2">
-                        <label className="block text-[10px] font-black bg-emerald-300 w-max text-slate-700 mb-2 uppercase tracking-widest px-2">DONATE URL</label>
-                        <div className="flex gap-3">
-                          <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="flex-1 bg-transparent font-mono text-sm text-white font-bold outline-none overflow-hidden text-ellipsis" />
-                          <button onClick={() => copyToClipboard(`https://taptiptup.vercel.app/donate/${user.username}`)} className="text-slate-400 hover:text-blue-600 cursor-pointer active:scale-[0.98]"><Copy size={18} /></button>
-                        </div>
-                      </div>
 
                       {/* Icon Alert */}
                         <div className="space-y-3 mt-4.5">
@@ -4294,17 +4293,32 @@ const handleChangePin = async () => {
 
                   {/* OBS URLs */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+                    <div className="bg-slate-100 dark:bg-slate-800 flex items-center justify-between p-3 py-4 rounded-lg border border-slate-100/10 mb-3">
+                      <div className='w-[80%]'>
+                        <label className="block text-[10px] font-bold rounded-sm bg-emerald-300 w-max text-slate-800 mb-3 uppercase tracking-widest px-2">DONATE URL</label>
+                        <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="w-full bg-transparent font-mono text-sm text-white font-bold outline-none overflow-hidden truncate" />
+                      </div>
+                      <div className="flex gap-3">
+                        <button onClick={() => copyToClipboard(`https://taptiptup.vercel.app/donate/${user.username}`)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
+                            <Copy size={15} />
+                          </button>
+                      </div>
+                    </div>
                     {[
                       { label: 'URL ALERT - OBS Slot A + B', url: user.overlayUrl },
                       { label: 'URL MEDIASHARE - OBS',      url: `${window.location.origin}/overlay/${user.overlayToken}/mediashare` },
                       { label: 'URL VOICE NOTE - OBS',      url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
                       { label: 'URL COMBINED (ALL-IN-ONE)', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
                     ].map(({ label, url }) => (
-                      <div key={label} className="bg-slate-100 dark:bg-slate-800 p-6 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
-                        <div className="block text-[10px] font-black bg-transparent w-max text-white mb-2 uppercase tracking-widest px-0">{label}</div>
+                      <div key={label} className="flex items-center justify-between bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
+                        <div className='w-[80%]'>
+                          <label className="block text-[10px] font-bold rounded-sm bg-emerald-300 w-max text-slate-800 mb-3 uppercase tracking-widest px-2">{label}</label>
+                          <input readOnly value={url} aria-label={`URL ${label}`} className="w-full bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
+                        </div>
                         <div className="flex gap-3">
-                          <input readOnly value={url} aria-label={`URL ${label}`} className="flex-1 bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
-                          <button onClick={() => copyToClipboard(url)} className="text-white hover:text-blue-600 cursor-pointer active:scale-[0.98]"><Copy size={18} /></button>
+                          <button onClick={() => copyToClipboard(url)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
+                            <Copy size={15} />
+                          </button>
                         </div>
                       </div>
                     ))}
@@ -4339,17 +4353,15 @@ const handleChangePin = async () => {
                     ].map(({ label, emoji, path, desc, size }) => {
                       const widgetUrl = `${window.location.origin}/widget/${user.overlayToken}/${path}`;
                       return (
-                        <div key={path} className="flex items-center gap-4 bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
+                        <div key={path} className="flex items-center gap-4 bg-white dark:bg-slate-800 rounded-lg p-4 px-3 border border-slate-200 dark:border-slate-700">
                           <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-3 mb-0.5">
+                            <div className="flex items-center gap-3 mb-1.5">
                               <span className="font-black text-slate-700 dark:text-slate-200 text-sm">{label}</span>
-                              {/* <span className="text-[9px] text-slate-400 dark:text-slate-500 font-bold">{size}</span> */}
                             </div>
-                            <p className="text-sm text-slate-400 dark:text-slate-500 font-medium truncate">{desc}</p>
                             <p className="text-sm truncate max-w-[90%] font-mono text-blue-500 dark:text-blue-400 truncate mt-0.5">{widgetUrl}</p>
                           </div>
-                          <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800 hover:text-blue-300 text-slate-300 rounded-lg transition-all flex-shrink-0">
+                          <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
                             <Copy size={15} />
                           </button>
                         </div>
