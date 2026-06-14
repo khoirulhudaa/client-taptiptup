@@ -4749,7 +4749,7 @@ const handleChangePin = async () => {
               initial={{ scale: 0.85, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.85, opacity: 0, y: 20 }}
-              className="flex flex-col items-center w-[95vw] md:w-md gap-6 text-center p-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl"
+              className="flex rounded-lg flex-col items-center w-[95vw] md:w-md gap-6 text-center p-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl"
             >
               <div className="w-20 h-20 rounded-lg bg-blue-100 dark:bg-blue-950/40 flex items-center justify-center">
                 <ShieldCheck size={40} className="text-blue-500" />

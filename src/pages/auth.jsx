@@ -99,7 +99,7 @@ const NotifModal = ({ notification, onClose }) => (
             </p>
             <button className='cursor-pointer active:scale-[0.99]' onClick={onClose}
               style={{ 
-                width:'100%', padding:'14px 0', borderRadius:0, fontWeight:900, fontSize:14, 
+                width:'100%', padding:'14px 0', borderRadius:10, fontWeight:900, fontSize:14, 
                 border:'none',  
                 background: notification.type==='success' ? '#2754FF' : '#e11d48', 
                 color:'white', transition:'opacity 0.2s' 
@@ -131,7 +131,9 @@ const AuthInput = ({ icon: Icon, type='text', value, onChange, placeholder, T, c
 
   return (
     <div style={{ position:'relative' }}>
-      <div style={{ 
+      <div 
+        className='rounded-lg'
+        style={{ 
         position:'absolute', left:16, top:'50%', transform:'translateY(-50%)', 
         color: focused ? '#2754FF' : T.iconDefault, transition:'color 0.2s', 
         zIndex:1, display:'flex' 
@@ -149,14 +151,14 @@ const AuthInput = ({ icon: Icon, type='text', value, onChange, placeholder, T, c
           width:'100%', boxSizing:'border-box',
           background: focused ? T.inputBgFocus : T.inputBg,
           border: `1.5px solid ${focused ? T.inputBorderFocus : T.inputBorder}`,
-          borderRadius:0, padding:'15px 48px',
+          borderRadius:10, padding:'15px 48px',
           color: T.inputText, fontSize:15, fontWeight:600,
           outline:'none', transition:'all 0.2s',
         }}
-        className={`auth-input-field ${className}`}
+        className={`rounded-lg auth-input-field ${className}`}
       />
       {isPassword && (
-        <button type="button" onClick={() => setShowPassword(v => !v)}
+        <button className='rounded-lg' type="button" onClick={() => setShowPassword(v => !v)}
           style={{ 
             position:'absolute', right:16, top:'50%', transform:'translateY(-50%)', 
             background:'none', border:'none', cursor:'pointer', color: T.iconDefault, 
@@ -244,7 +246,7 @@ const ThemeToggle = ({ isDark, onToggle }) => (
     className="relative md:top-[-12px] top-[-2px] left-[0px] mb-8 z-20"
     style={{
       width: 52, height: 28,
-      borderRadius: 0,
+      borderRadius: 7,
       background: isDark ? '#4f46e5' : '#e2e8f0',
       border: 'none', cursor: 'pointer', padding: 0,
       outline: 'none', transition: 'background 0.3s ease',
@@ -261,7 +263,7 @@ const ThemeToggle = ({ isDark, onToggle }) => (
         top: 4,
         left: isDark ? 24 : 5,
         width: 20, height: 20,
-        borderRadius: '0%',
+        borderRadius: 4,
         background: isDark ? '#818cf8' : 'white',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         transition: 'left 0.3s ease, background 0.3s ease',
@@ -391,18 +393,20 @@ const MainAuthForm = ({
     <div 
         className='md:!mb-[24px] !mb-[8px]'
         style={{
-          display: 'flex', border: `1px solid ${T.tabBorder}`,
-          borderRadius: 0, overflow: 'hidden'
+          display: 'flex', 
+          // border: `1px solid ${T.tabBorder}`,
+          borderRadius: 10, overflow: 'hidden'
         }}>
           {[
             { label: 'Masuk', icon: '→' },
             { label: 'Daftar', icon: '+' },
           ].map(({ label }, i) => (
             <button key={label} onClick={() => setIsLogin(i === 0)} style={{
-              flex: 1, padding: '12px 0', fontSize: 14, fontWeight: 800,
+              flex: 1, padding: '14px 0', fontSize: 14, fontWeight: 800,
               border: 'none', cursor: 'pointer', transition: 'all 0.15s',
               borderLeft: i > 0 ? `1px solid ${T.tabBorder}` : 'none',
               background: isTabActive(i) ? '#2754FF' : 'transparent',
+              borderRadius: 10,
               color: isTabActive(i) ? 'white' : T.tabInactive,
             }}>{label}</button>
           ))}
@@ -483,7 +487,7 @@ const MainAuthForm = ({
 
           <button type="submit" disabled={!isFormValid || loading} className="submit-btn"
             style={{ 
-              width:'100%', padding:'16px 0', borderRadius:0, fontWeight:900, fontSize:15, 
+              width:'100%', padding:'16px 0', borderRadius:10, fontWeight:900, fontSize:15, 
               border:'none', cursor:'pointer', 
               background: isFormValid ? 'linear-gradient(135deg, #2754FF 0%, #7c3aed 100%)' : '#e2e8f0',
               color: isFormValid ? 'white' : '#64748b', 
@@ -649,7 +653,7 @@ const ForgotPasswordPage = ({
               disabled={loading || !emailReset}
               className='text-center flex justify-center items-center active:scale-[0.99]'
               style={{ 
-                width:'100%', padding:'16px 0', borderRadius:0, fontWeight:900, fontSize:14, 
+                width:'100%', padding:'16px 0', borderRadius:10, fontWeight:900, fontSize:14, 
                 border:'none', cursor:'pointer', 
                 background: emailReset ? 'linear-gradient(135deg, #2754FF, #7c3aed)' : '#e2e8f0', 
                 color: emailReset ? 'white' : '#64748b', 
@@ -687,7 +691,7 @@ const ForgotPasswordPage = ({
               disabled={loading || pin.length !== 4}
               className='flex justify-center items-center active:scale-[0.99] text-center'
               style={{ 
-                width:'100%', padding:'16px 0', borderRadius:0, fontWeight:900, fontSize:14, 
+                width:'100%', padding:'16px 0', borderRadius:10, fontWeight:900, fontSize:14, 
                 border:'none', cursor:'pointer', 
                 background: pin.length === 4 ? 'linear-gradient(135deg, #10b981, #059669)' : '#e2e8f0', 
                 color: pin.length === 4 ? 'white' : '#64748b', 
