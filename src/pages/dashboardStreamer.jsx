@@ -4439,7 +4439,7 @@ const handleChangePin = async () => {
               <motion.div key="profile" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-3 pb-0">
                 <div className="relative bg-slate-900/70 backdrop-blur-sm rounded-lg pt-8 pb-7 md:pl-7 pr-8 shadow-sm border border-slate-100 dark:border-slate-800 px-8 py-0 text-white relative overflow-hidden">
                   <div className="relative z-2 flex flex-col md:flex-row items-center gap-6">
-                    <div className="w-26 h-26 mt-[-1.6px] mx-auto rounded-lg overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg border-4 border-white dark:border-slate-900">
+                    <div className="rounded-xl w-26 h-26 mt-[-1.6px] mx-auto rounded-lg overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg border-4 border-white dark:border-slate-900">
                       {profileForm.profilePicture || user?.profilePicture ? (
                         <img src={profileForm.profilePicture || user?.profilePicture} alt={user.username} className="w-full h-full object-cover"
                           onError={(e) => { e.target.style.display = 'none'; const parent = e.target.parentElement; if (parent) parent.innerHTML = (user.username?.charAt(0) || '?').toUpperCase(); }} />
