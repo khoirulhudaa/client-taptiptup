@@ -387,7 +387,7 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-7 2xl:px-20.5 py-3">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-6.5 2xl:px-30 py-3">
       <div className="w-full flex items-center justify-between gap-3">
         <div className="flex items-center justify-between w-full gap-2">
           <div className='flex items-center gap-3'>
@@ -1034,7 +1034,7 @@ const RecentDonations = ({ username }) => {
 
   useEffect(() => {
     if (!username) return;
-    axios.get(`${BASE_URL}/api/overlay/recent-donations/${username}?limit=5`)
+    axios.get(`${BASE_URL}/api/overlay/recent-donations/${username}?limit=3`)
       .then(res => setDonations(res.data?.donations || []))
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -1111,7 +1111,7 @@ const LeaderboardMini = ({ username }) => {
 
   useEffect(() => {
     if (!username) return;
-    axios.get(`${BASE_URL}/api/overlay/leaderboard/${username}?limit=5`)
+    axios.get(`${BASE_URL}/api/overlay/leaderboard/${username}?limit=3`)
       .then(res => setDonors(res.data?.donors || res.data || []))
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -1159,6 +1159,40 @@ const GifRecommendation = ({ message, onSelect }) => {
   // Giphy public beta key — ganti dengan API key kamu
   const GIPHY_KEY = import.meta.env.VITE_GIPHY_API_KEY || 'dc6zaTOxFJmzC';
 
+  const GIF_STOP_WORDS = [
+    'aku','ku','kamu','kau','mu','dia','nya','kita','kami','mereka','aja','saja',
+    'deh','dong','sih','ya','yah','lah','kok','nih','dan','atau','tapi','dengan',
+    'untuk','dari','ke','di','pada','ini','itu','bang','abang','kak','kakak',
+    'mas','mbak','gan','sis','bro','min','admin','banget','bgt','sangat','sekali',
+    'terus','udah','sudah','belum','lagi','mau','akan','bisa','harus','jangan',
+    'tolong','please','plis','semoga','moga','ok','oke','iya','yang',
+  ];
+
+  // Hilangkan huruf yang berulang berturut-turut → "dongggg" jadi "dong", "yaaa" jadi "ya"
+  const normalizeWord = (w) => w.replace(/(.)\1+/g, '$1');
+
+  const cleanMessageForGif = (msg) => {
+    if (!msg) return '';
+    const cleaned = msg
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}\s]/gu, ' ') // hapus emoji & simbol
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const words = cleaned.split(' ').filter(Boolean);
+
+    const filtered = words.filter((w) => {
+      const norm = normalizeWord(w);
+      // Cek baik bentuk asli maupun bentuk normalized (huruf berulang dihilangkan)
+      if (GIF_STOP_WORDS.includes(w) || GIF_STOP_WORDS.includes(norm)) return false;
+      if (norm.length <= 2) return false; // kata terlalu pendek, kemungkinan partikel
+      return true;
+    });
+
+    const result = (filtered.length > 0 ? filtered : words).slice(0, 2).join(' ');
+    return result || cleaned;
+  };
+
   useEffect(() => {
     if (!message || message.trim().length < 3) {
       setGifs([]);
@@ -1166,31 +1200,34 @@ const GifRecommendation = ({ message, onSelect }) => {
     }
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get(
-          `https://api.giphy.com/v1/gifs/search`,
-          {
-            params: {
-              api_key: GIPHY_KEY,
-              q: message.trim(),
-              limit: 4,
-              rating: 'g',
-              lang: 'id',
-            }
-          }
-        );
-        setGifs(res.data?.data || []);
-      } catch {
-        setGifs([]);
-      } finally {
-        setLoading(false);
-      }
-    }, 700);
+      debounceRef.current = setTimeout(async () => {
+        setLoading(true);
+        try {
+          const search = async (q) => {
+            const res = await axios.get(`https://api.giphy.com/v1/gifs/search`, {
+              params: { api_key: GIPHY_KEY, q, limit: 4, rating: 'g', lang: 'id' },
+            });
+            return res.data?.data || [];
+          };
 
-    return () => clearTimeout(debounceRef.current);
-  }, [message]);
+          const query = cleanMessageForGif(message);
+          let results = await search(query);
+
+          // Fallback: kalau hasil kosong & ada lebih dari 1 kata, coba kata pertama saja
+          if (results.length === 0 && query.includes(' ')) {
+            results = await search(query.split(' ')[0]);
+          }
+
+          setGifs(results);
+        } catch {
+          setGifs([]);
+        } finally {
+          setLoading(false);
+        }
+      }, 700);
+
+      return () => clearTimeout(debounceRef.current);
+    }, [message]);
 
   if (!message || message.trim().length < 3) return null;
 
@@ -1615,25 +1652,11 @@ const SupporterPage = () => {
     <SupporterNavbar onOpenAuth={openAuth} authPayload={authPayload} profile={authProfile} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} streamerUsername={streamer?.username} streamerProfilePicture={streamer?.profilePicture} />
 
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex justify-center items-start p-4 md:p-6 font-sans pt-20 md:pt-24">
-      <div className="w-full px-0 2xl:px-14 flex flex-col lg:flex-row gap-3 py-4 md:py-0 items-start">
+      <div className="w-full md:flex gap-3 2xl:px-24">
 
-        {/* KOLOM KIRI */}
-        {overlaySetting?.showLeaderboardOnDonate && (
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.15 }}
-            className="w-full lg:w-[25vw] flex-shrink-0 lg:sticky lg:top-24 order-3 lg:order-1"
-          >
-            <div className="bg-white dark:bg-slate-900 p-5 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800 relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-400" />
-              <RecentDonations username={streamer?.username} />
-            </div>
-          </motion.div>
-        )}
-
+        
         {/* KOLOM TENGAH */}
-        <div className="w-full flex-1 mx-auto space-y-5 min-w-0 order-1">
+        <div className="relative w-full md:w-[60vw] space-y-5 order-0">
 
           {/* ── Header Card ── */}
           <motion.div
@@ -1973,20 +1996,37 @@ const SupporterPage = () => {
 
         </div>{/* end kolom kiri */}
 
-        {/* KOLOM KANAN */}
-        {overlaySetting?.showLeaderboardOnDonate && (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="w-full lg:w-[25vw] flex-shrink-0 lg:sticky lg:top-24 order-2 lg:order-3"
-          >
-            <div className="bg-white dark:bg-slate-900 p-5 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800 relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-500" />
-              <LeaderboardMini username={streamer?.username} />
-            </div>
-          </motion.div>
-        )}
+        <div className='relative w-full md:w-[40vw] order-1 space-y-4'>
+
+          {/* KOLOM KANAN */}
+          {overlaySetting?.showLeaderboardOnDonate && (
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="w-full lg:relative order-2 md:mt-0 mt-6 lg:order-3"
+            >
+              <div className="bg-white dark:bg-slate-900 p-5 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800 relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-500" />
+                <LeaderboardMini username={streamer?.username} />
+              </div>
+            </motion.div>
+          )}
+          {/* KOLOM KIRI */}
+          {overlaySetting?.showLeaderboardOnDonate && (
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.15 }}
+              className="w-full lg:relative order-3 lg:order-1"
+            >
+              <div className="bg-white dark:bg-slate-900 p-5 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800 relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-400" />
+                <RecentDonations username={streamer?.username} />
+              </div>
+            </motion.div>
+          )}
+        </div>
 
       </div>
     </div>

@@ -159,7 +159,6 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
       groupLabel: 'Konfigurasi',
       items: [
         { id: 'feeConfig',        label: 'Konfigurasi Fee',    icon: <ReceiptText size={20} /> },
-        { id: 'donatePageConfig', label: 'Halaman Donasi',     icon: <Heart size={20} /> }, // ← BARU
       ]
     },
 
