@@ -1081,20 +1081,20 @@ const RecentDonations = ({ username }) => {
                 <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-black text-[10px] flex-shrink-0">
                   {(d.donorName || 'A').charAt(0).toUpperCase()}
                 </div>
-                <span className="font-black text-xs text-slate-700 dark:text-slate-200 truncate">
+                <span className="font-black text-sm text-slate-700 dark:text-slate-200 truncate">
                   {d.donorName || 'Anonim'}
                 </span>
               </div>
-              <span className="font-black text-[10px] text-blue-600 dark:text-blue-400 flex-shrink-0">
+              <span className="font-black text-[12px] text-blue-600 dark:text-blue-400 flex-shrink-0">
                 Rp {Number(d.amount).toLocaleString('id-ID')}
               </span>
             </div>
             {d.message && (
-              <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-relaxed line-clamp-2 ml-8">
-                "{d.message}"
+              <p className="text-[12px] text-slate-400 dark:text-slate-400 font-medium leading-relaxed line-clamp-2 ml-8">
+                {d.message}
               </p>
             )}
-            <p className="text-[9px] text-slate-300 dark:text-slate-600 font-medium mt-1 ml-8">
+            <p className="text-[11px] text-slate-300 dark:text-slate-500 font-medium mt-1 ml-8">
               {timeAgo(d.createdAt)}
             </p>
           </motion.div>
@@ -1652,11 +1652,29 @@ const SupporterPage = () => {
     <SupporterNavbar onOpenAuth={openAuth} authPayload={authPayload} profile={authProfile} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} streamerUsername={streamer?.username} streamerProfilePicture={streamer?.profilePicture} />
 
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex justify-center items-start p-4 md:p-6 font-sans pt-20 md:pt-24">
-      <div className="w-full md:flex gap-3 2xl:px-24">
+      <div className={`w-full grid grid-cols-1 gap-3 2xl:px-24 ${
+          overlaySetting?.showLeaderboardOnDonate
+            ? 'md:grid-cols-[1.1fr_1.8fr_1.1fr]'
+            : 'md:grid-cols-1 max-w-3xl 2xl:max-w-4xl mx-auto'
+        }`}>
 
+        {/* KOLOM KIRI */}
+        {overlaySetting?.showLeaderboardOnDonate && (
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15 }}
+            className="w-full lg:sticky lg:top-24 lg:self-start order-1 md:order-0"
+          >
+            <div className="bg-white dark:bg-slate-900 p-5 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-400" />
+              <RecentDonations username={streamer?.username} />
+            </div>
+          </motion.div>
+        )}
         
         {/* KOLOM TENGAH */}
-        <div className="relative w-full md:w-[60vw] space-y-5 order-0">
+        <div className="relative space-y-5 order-0 md:order-1">
 
           {/* ── Header Card ── */}
           <motion.div
@@ -1977,7 +1995,7 @@ const SupporterPage = () => {
               disabled={isSubmitDisabled}
               className={`w-full py-4 rounded-lg font-black text-sm flex items-center justify-center gap-2 transition-all ${
                 isSubmitDisabled
-                  ? 'bg-slate-200 dark:bg-slate-900 text-slate-400 cursor-not-allowed'
+                  ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
                   : 'active:scale-[0.99] cursor-pointer bg-gradient-to-r from-violet-600 to-blue-600 text-white hover:brightness-110'
               }`}
             >
@@ -1996,37 +2014,20 @@ const SupporterPage = () => {
 
         </div>{/* end kolom kiri */}
 
-        <div className='relative w-full md:w-[40vw] order-1 space-y-4'>
-
-          {/* KOLOM KANAN */}
-          {overlaySetting?.showLeaderboardOnDonate && (
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="w-full lg:relative order-2 md:mt-0 mt-6 lg:order-3"
-            >
-              <div className="bg-white dark:bg-slate-900 p-5 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800 relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-500" />
-                <LeaderboardMini username={streamer?.username} />
-              </div>
-            </motion.div>
-          )}
-          {/* KOLOM KIRI */}
-          {overlaySetting?.showLeaderboardOnDonate && (
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.15 }}
-              className="w-full lg:relative order-3 lg:order-1"
-            >
-              <div className="bg-white dark:bg-slate-900 p-5 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800 relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-400" />
-                <RecentDonations username={streamer?.username} />
-              </div>
-            </motion.div>
-          )}
-        </div>
+        {/* KOLOM KANAN */}
+        {overlaySetting?.showLeaderboardOnDonate && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="w-full lg:sticky lg:top-24 lg:self-start md:mt-0 mt-6 order-2 md:order-2"
+          >
+            <div className="bg-white dark:bg-slate-900 p-5 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-800 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-500" />
+              <LeaderboardMini username={streamer?.username} />
+            </div>
+          </motion.div>
+        )}
 
       </div>
     </div>
