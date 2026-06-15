@@ -2123,7 +2123,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         fontSize: 18,
         fontWeight: 500,
         color: hl,
-        margin: "8px 0px",
+        margin: "2px 0px",
         letterSpacing: '-0.5px',
         lineHeight: 1,
       }}>
@@ -2133,7 +2133,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       {/* Pesan */}
       {currentDonor.msg && (
         <div style={{
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: 400,
           color: fg,
           width: 'max-content',

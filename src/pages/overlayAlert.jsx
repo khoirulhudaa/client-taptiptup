@@ -54,7 +54,7 @@
       const configRef           = useRef(null);
       const progressIntervalRef = useRef(null);
       const dismissTimerRef     = useRef(null);
-      
+
       // ==================== TEXT TO SPEECH (Selalu jalan, tapi bisa mute) ====================
       const speakDonation = useCallback(async (donation) => {
         const config = configRef.current;
@@ -487,28 +487,28 @@
           // ── SMOOTH — Soft rounded card ────────────────────────────────────────────────
           if (theme === 'smooth') {
             return (
-              <div style={{ fontFamily: "'Inter', sans-serif", padding: '14px 6px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ fontFamily: "'Inter', sans-serif", padding: '7px 6px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {/* Icon + Nama */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
-                  <div className='w-max flex items-center gap-2' style={{width: 'max-content'}}>
-                    <div style={{ display: 'flex', gap: '6px', justifyContent: 'center', alignItems: 'center', fontSize: 20, fontWeight: 500, color: fg, lineHeight: 1.2, top: 1.5, position: 'relative' }}>
-                      {alert.donorName} mengirim
+                <div style={{ justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+                  <div className='w-max  md:flex items-center gap-2' style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <div style={{ display: 'flex', gap: '6px', justifyContent: 'center', alignItems: 'center', fontSize: 20, fontWeight: 500, color: fg, position: 'relative' }}>
+                      {alert.donorName}
                     </div>
-                    <div style={{ fontSize: 20, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1 }}>
-                      Rp {Number(alert.amount).toLocaleString('id-ID')}
+                    <div style={{
+                      width: 40, height: 40, borderRadius: 14,
+                      background: hl + '22', border: `1.5px solid ${hl}40`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0,
+                    }}>
+                      {renderIcon(customIcon, 20)}
                     </div>
-                  </div>
-                  <div style={{
-                    width: 44, height: 44, borderRadius: 14,
-                    background: hl + '22', border: `1.5px solid ${hl}40`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0,
-                  }}>
-                    {renderIcon(customIcon, 22)}
                   </div>
                 </div>
                 
                 {/* Divider */}
                 <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} />
+                <div style={{ fontSize: 18, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1 }}>
+                  Rp {Number(alert.amount).toLocaleString('id-ID')}
+                </div>
 
                 {/* Pesan */}
                 {alert.message && (
