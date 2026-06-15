@@ -33,42 +33,12 @@
     };
 
     const renderIcon = (customIcon, size = 20) => {
-      if (!customIcon) return '💜';
+      if (!customIcon) return '❤️';
       if (customIcon.startsWith('http') || customIcon.startsWith('/')) {
         return <img src={customIcon} alt="icon" style={{ width: size, height: size, objectFit: 'contain', borderRadius: 0 }} />;
       }
       return customIcon;
     };
-
-    // const getAlertDuration = (config, amount) => {
-    //   if (!config) return 10000;
-    //   // ✅ Gunakan pengaturan baru
-    //   if (config.alertBaseDuration != null) {
-    //     const base = Number(config.alertBaseDuration) || 10;
-    //     const perAmount = Number(config.alertExtraPerAmount) || 10000;
-    //     const extraDur = Number(config.alertExtraDuration) || 5;
-
-    //     const extras = perAmount > 0 ? Math.floor(amount / perAmount) : 0;
-    //     return (base + extras * extraDur) * 1000;
-    //   }
-
-    //   // Fallback lama
-    //   if (config.alertDurationPerThousand) {
-    //     const seconds = Math.ceil(amount / 1000) * config.alertDurationPerThousand;
-    //     return seconds * 1000;
-    //   }
-
-    //   if (config.durationTiers?.length > 0) {
-    //     const sorted = [...config.durationTiers].sort((a, b) => b.minAmount - a.minAmount);
-    //     for (const tier of sorted) {
-    //       if (amount >= tier.minAmount && (tier.maxAmount === null || amount <= tier.maxAmount)) {
-    //         return tier.duration * 1000;
-    //       }
-    //     }
-    //   }
-
-    //   return 10000; // default
-    // };
 
     const getAlertDuration = (config, donation) => {
       return (Number(config?.alertBaseDuration) || 12) * 1000;
@@ -84,33 +54,7 @@
       const configRef           = useRef(null);
       const progressIntervalRef = useRef(null);
       const dismissTimerRef     = useRef(null);
-
-      // // ==================== TEXT TO SPEECH (edge-tts via backend) ====================
-      // const speakDonation = useCallback(async (donation) => {
-      //   if (!configRef.current?.ttsEnabled) return;
-
-      //   const text = `${donation.donorName || 'Seseorang'} mengirimkan Rp ${Number(donation.amount).toLocaleString('id-ID')}. ${donation.message || ''}`;
-
-      //   try {
-      //     const res = await fetch('https://taptiptup-server-1ee47f2895cb.herokuapp.com/api/overlay/tts/speak', {
-      //       method: 'POST',
-      //       headers: { 'Content-Type': 'application/json' },
-      //       body: JSON.stringify({ text, voiceName: 'id-ID-GadisNeural' }),
-      //     });
-
-      //     if (!res.ok) throw new Error('TTS gagal');
-
-      //     const blob  = await res.blob();
-      //     const url   = URL.createObjectURL(blob);
-      //     const audio = new Audio(url);
-      //     audio.volume  = configRef.current.ttsVolume || 1.0;
-      //     audio.onended = () => URL.revokeObjectURL(url);
-      //     await audio.play();
-      //   } catch (err) {
-      //     console.error('[TTS]', err);
-      //   }
-      // }, []);
-
+      
       // ==================== TEXT TO SPEECH (Selalu jalan, tapi bisa mute) ====================
       const speakDonation = useCallback(async (donation) => {
         const config = configRef.current;
@@ -154,15 +98,6 @@
           return Promise.resolve();
         }
       }, []);
-
-      // useEffect(() => {
-      //   if (!token) return;
-      //   const slot = new URLSearchParams(window.location.search).get('slot') || 'A';
-      //   axios
-      //     .get(`https://taptiptup-server-1ee47f2895cb.herokuapp.com/api/overlay/config/${token}?slot=${slot}`)
-      //     .then((res) => { setConfig(res.data); configRef.current = res.data; })
-      //     .catch(() => console.error('[Overlay] Invalid token'));
-      // }, [token]);
 
       const loadActiveConfig = useCallback(async (source = 'initial') => {
             try {
@@ -217,60 +152,6 @@
           });
 
           socket.emit('join-room', token);
-
-          // ==================== NEW DONATION ====================
-          // socket.on('new-donation', (data) => {
-          //   if (configRef.current?.overlayEnabled === false) return;
-
-          //   const donationWithTime = { ...data, receivedAt: data.receivedAt || new Date().toISOString() };
-          //   setAlert(donationWithTime);
-          //   setProgress(100);
-
-          //   // Sound logic
-          //   let soundToPlay = null;
-          //   const config = configRef.current;
-          //   const amount = Number(donationWithTime.amount);
-
-          //   if (config?.soundTiers && config.soundTiers.length > 0) {
-          //     const sortedTiers = [...config.soundTiers].sort((a, b) => b.minAmount - a.minAmount);
-          //     for (const tier of sortedTiers) {
-          //       if (amount >= tier.minAmount && 
-          //           (tier.maxAmount === null || amount <= tier.maxAmount)) {
-          //         soundToPlay = tier.soundUrl;
-          //         break;
-          //       }
-          //     }
-          //   }
-
-          //   if (!soundToPlay && data.voiceUrl) soundToPlay = data.voiceUrl;
-          //   if (!soundToPlay && data.soundUrl) soundToPlay = data.soundUrl;
-          //   if (!soundToPlay && config?.soundUrl) soundToPlay = config.soundUrl;
-
-          //   if (soundToPlay && audioRef.current) {
-          //     audioRef.current.src = soundToPlay;
-          //     audioRef.current.play().catch(() => {});
-          //   }
-
-          //   speakDonation(donationWithTime);
-
-          //   const duration = getAlertDuration(configRef.current, amount);
-
-          //   if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-          //   if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
-
-          //   const startTime = Date.now();
-          //   progressIntervalRef.current = setInterval(() => {
-          //     const elapsed = Date.now() - startTime;
-          //     const remaining = Math.max(0, 100 - (elapsed / duration) * 100);
-          //     setProgress(remaining);
-          //     if (remaining <= 0) clearInterval(progressIntervalRef.current);
-          //   }, 50);
-
-          //   dismissTimerRef.current = setTimeout(() => {
-          //     setAlert(null);
-          //     setProgress(100);
-          //   }, duration);
-          // });
 
           socket.on('new-donation', async (data) => {
             if (configRef.current?.overlayEnabled === false) return;
@@ -444,15 +325,16 @@
                 {/* Body */}
                 <div style={{ padding: '10px 6px', position: 'relative', zIndex: 2 }}>
                   <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 0 }}>
-                    <div style={{ flex: 1, minWidth: 0, display: 'flex', alignItems: 'center' }}>
-                      <div style={{ fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg }}>
-                        {alert.donorName} mengirim
+                    <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
+                      <div style={{ fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg, marginBottom: 8 }}>
+                        {alert.donorName}
                       </div>
                       <div style={{
-                        marginLeft: 12,
+                        marginLeft: 0,
                         position: 'relative',
                         top: 1,
-                        fontFamily: monospace, fontSize: 20, fontWeight: 500, color: hl,
+                        fontFamily: monospace, fontSize: 18, fontWeight: 500, color: hl,
+                        marginBottom: 6,
                         textShadow: `0 0 10px ${hl}55`,
                       }}>
                         Rp {Number(alert.amount).toLocaleString('id-ID')}
@@ -460,7 +342,6 @@
                     </div>
                     <div style={{
                       width: 40, height: 40, 
-                      // border: pixelBorder, flexShrink: 0,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontSize: 20,
                       position: 'relative',
@@ -475,6 +356,8 @@
                     <div style={{
                       fontFamily: monospace, fontSize: 18, color: fg,
                       fontWeight: 400,
+                      marginTop: 0,
+                      borderRadius: 8,
                       maxWidth: 500,
                       background: 'rgba(255,255,255,0.04)', border: dimBorder,
                       padding: '5px 8px', lineHeight: 1.4, marginBottom: 6,

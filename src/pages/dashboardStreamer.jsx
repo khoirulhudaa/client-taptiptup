@@ -164,7 +164,7 @@ const DEFAULT_SETTINGS = {
   theme: 'modern',
   soundTiers: [],
   borderColor: '#ffffff26',
-  primaryColor: '#6366f1',
+  primaryColor: '#2e2f42',
   textColor: '#ffffff',
   alertBaseDuration: 12,
   publicSounds: [],
@@ -186,7 +186,7 @@ const DEFAULT_SETTINGS = {
 };
 
 const ICON_PRESETS = [
-  { emoji: '💜', label: 'Default' }, { emoji: '❤️',  label: 'Merah'  },
+  { emoji: '❤️', label: 'Default' }, { emoji: '💜',  label: 'Ungu'  },
   { emoji: '🐧', label: 'Penguin' },
   { emoji: '🔥',  label: 'Api'    }, { emoji: '⭐',  label: 'Bintang'},
   { emoji: '🎮',  label: 'Gamer'  }, { emoji: '🎵',  label: 'Musik'  },
@@ -199,7 +199,7 @@ const ICON_PRESETS = [
 ];
 
 const renderIconPreview = (customIcon, size = 20) => {
-  if (!customIcon) return '💜';
+  if (!customIcon) return '❤️';
   if (customIcon.startsWith('http') || customIcon.startsWith('/')) {
     return <img src={customIcon} alt="icon" style={{ width: size, height: size, objectFit: 'contain', borderRadius: 4, display: 'inline-block' }} />;
   }
@@ -1592,7 +1592,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
     // if (settings.theme === 'gifCard') return null;
     const hl = settings.highlightColor || '#39ff14';
     const fg = settings.textColor || '#c8f5c8';
-    const bg = settings.primaryColor || '#0a1f0a';
+    const bg = settings.primaryColor || '#2e2f42';
     const monospace = "'Inter', 'Courier New', monospace";
     const scanlineStyle = {
       position: 'absolute', inset: 0,
@@ -1833,7 +1833,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
 
   const anim  = animVariants[settings.animation] || animVariants.bounce;
   const pos   = posMap[settings.overlayPosition || 'bottom-left'];
-  const bg    = settings.primaryColor || '#6366f1';
+  const bg    = settings.primaryColor || '#2e2f42';
   const fg    = settings.textColor || '#ffffff';
   const maxW  = settings.maxWidth || 280;
   const theme = settings.theme || 'modern';
@@ -1969,6 +1969,8 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             color: fg,
             background: 'rgba(255,255,255,0.04)',
             border: dimBorder,
+            marginTop: 10,
+            borderRadius: 8,
             padding: '5px 8px',
             width: 'max-content',
             lineHeight: 1.4,
@@ -2024,7 +2026,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             }}
           />
         ) : (
-          <span style={{ fontSize: 72, lineHeight: 1 }}>{settings.customIcon || '💜'}</span>
+          <span style={{ fontSize: 72, lineHeight: 1 }}>{settings.customIcon || '❤️'}</span>
         )}
       </div>
 
@@ -2461,7 +2463,7 @@ const HistoryPage = () => {
     <div className="space-y-6 pb-0">
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Total Semua Waktu', value: statsLoading ? '...' : maskAmount(stats?.allTime?.total || 0), sub: `${stats?.allTime?.count || 0} donasi`, color: 'bg-blue-600', icon: '💜' },
+          { label: 'Total Semua Waktu', value: statsLoading ? '...' : maskAmount(stats?.allTime?.total || 0), sub: `${stats?.allTime?.count || 0} donasi`, color: 'bg-blue-600', icon: '❤️' },
           { label: 'Bulan Ini', value: statsLoading ? '...' : maskAmount(stats?.thisMonth?.total || 0), sub: `${stats?.thisMonth?.count || 0} donasi`, color: 'bg-violet-500', icon: '📅' },
           { label: 'Hari Ini', value: statsLoading ? '...' : maskAmount(stats?.today?.total || 0), sub: `${stats?.today?.count || 0} donasi`, color: 'bg-purple-500', icon: '⚡' },
           { label: 'Top Donatur', value: statsLoading ? '...' : (stats?.topDonors?.[0]?.name || '-'), sub: stats?.topDonors?.[0] ? maskAmount(stats.topDonors[0].totalAmount) : 'Belum ada', color: 'bg-amber-500', icon: '🏆' },
@@ -2851,7 +2853,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
       </div>
 
       <div className="flex md:hidden mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #2e2f42 0%, transparent 50%)' }} />
         <div className="relative flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-4">
@@ -4166,9 +4168,9 @@ const handleChangePin = async () => {
                           {iconMode === 'emoji' ? (
                             <div className="grid grid-cols-4 md:grid-cols-6 gap-2.5">
                               {ICON_PRESETS.map(({ emoji, label }) => (
-                                <button key={emoji} onClick={() => upd('customIcon', emoji === '💜' ? '' : emoji)} title={label}
+                                <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
                                   className={`flex flex-col items-center gap-1 p-3 rounded-lg border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
-                                    (settings.customIcon || '💜') === emoji || (!settings.customIcon && emoji === '💜')
+                                    (settings.customIcon || '❤️') === emoji || (!settings.customIcon && emoji === '❤️')
                                       ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40'
                                       : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
                                   }`}>
@@ -4252,8 +4254,8 @@ const handleChangePin = async () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
                     {[
-                      { key: 'primaryColor',   label: 'Background Alert',  fallback: '#6366f1' },
-                      { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#a5b4fc' },
+                      { key: 'primaryColor',   label: 'Background Alert',  fallback: '#2e2f42' },
+                      { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#ffffff' },
                       { key: 'textColor',      label: 'Warna Teks',        fallback: '#ffffff' },
                     ].map(({ key, label, fallback }) => (
                       <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
@@ -4699,7 +4701,7 @@ const handleChangePin = async () => {
             {activeTab === 'poll' && (
               <motion.div key="poll" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+                    <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #2e2f42 0%, transparent 50%)' }} />
                     <div className="relative flex items-start justify-between gap-4">
                       <div>
                         <div className="flex items-center gap-4">
@@ -4728,7 +4730,7 @@ const handleChangePin = async () => {
             {activeTab === 'subathon' && (
               <motion.div key="subathon" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                  <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
-                  <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+                  <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #2e2f42 0%, transparent 50%)' }} />
                   <div className="relative flex items-start justify-between gap-4">
                     <div>
                       <div className="flex items-center gap-4">
