@@ -1631,8 +1631,6 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             backgroundColor: 'transparent',
             border: 'none',
             boxShadow: 'none',
-            // Hapus position absolute dari sini
-            // Biarkan flow normal seperti theme lain
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -1665,7 +1663,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
                 {currentDonor.msg}
               </div>
             )}
-            <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+            <div style={{ height: 4, background: hl + '20', overflow: 'hidden', width: '100%' }}>
               <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl }} />
             </div>
           </div>

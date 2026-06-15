@@ -353,7 +353,7 @@ const calculateMediaShareDuration = (config, amount) => {
     const renderTimestamp = () => {
       if (!showTs || !alert?.receivedAt) return null;
       return (
-        <div style={{ fontSize: 26, color: 'rgba(255,255,255,0.4)', fontFamily: 'monospace' }}>
+        <div style={{ fontSize: 26, color: 'rgba(255,255,255,0.4)', fontFamily: "'Inter', sans-serif" }}>
           🕐 {formatTimestamp(alert.receivedAt)}
         </div>
       );
@@ -372,7 +372,7 @@ const calculateMediaShareDuration = (config, amount) => {
       }}>
         <span style={{ fontSize: 34 }}>⚠️</span>
         <span style={{
-          fontFamily: "'Poppins', sans-serif",
+          fontFamily: "'Inter', sans-serif",
           fontSize: 12,
           fontWeight: 500,
           color: '#ff4444',
@@ -388,7 +388,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
     const renderInner = () => {
       const hl = highlight;
-      const monospace = "'Inter', 'Poppins', sans-serif";
+      const monospace = "'Inter', sans-serif";
       const pixelBorder = `2px solid ${hl}`;
       const dimBorder = `1px solid ${hl}35`;
 
@@ -407,7 +407,7 @@ const calculateMediaShareDuration = (config, amount) => {
             <div style={{ borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
               <div style={{ width: '100%', height: '270px', aspectRatio: '16/9', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0a0a0a', gap: 10 }}>
                 <span style={{ fontSize: 34 }}>⚠️</span>
-                <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: 12, fontWeight: 500, color: '#ff4444', letterSpacing: '0.1em', textTransform: 'uppercase', textAlign: 'center', padding: '0 16px' }}>
+                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, fontWeight: 500, color: '#ff4444', letterSpacing: '0.1em', textTransform: 'uppercase', textAlign: 'center', padding: '0 16px' }}>
                   {alert.blockReason || 'Video Melanggar Kebijakan'}
                 </span>
               </div>
@@ -488,15 +488,15 @@ const calculateMediaShareDuration = (config, amount) => {
               {alert.message && (
                 <div style={{
                   fontFamily: monospace, fontSize: 18, color: fg, fontWeight: 600,
-                  background: 'rgba(255,255,255,0.04)', border: dimBorder,
-                  padding: '0px 10px', lineHeight: 1.5, maxWidth: 500
+                  lineHeight: 1.5, 
+                  maxWidth: 500
                 }}>
                   {alert.message}
                 </div>
               )}
 
               {/* Progress dots */}
-              <div style={{ height: 3, background: hl + '25', borderRadius: 99, overflow: 'hidden' }}>
+              <div style={{ height: 3, background: hl + '25', borderRadius: 99, overflow: 'hidden', marginTop: 10 }}>
                 <div style={{ height: '100%', width: `${progress}%`, background: config.progressBarColor || hl, borderRadius: 99, transition: 'width 50ms linear' }} />
               </div>
             </div>
@@ -526,11 +526,9 @@ const calculateMediaShareDuration = (config, amount) => {
               {/* Pesan */}
               {alert.message && (
                 <div style={{
-                  fontSize: 18, color: fg, 
-                  fontWeight: 200,
-                  lineHeight: 1.6,
-                  marginTop: 3, 
-                  maxWidth: 500
+                  fontFamily: monospace, fontSize: 18, color: fg, fontWeight: 600,
+                  background: 'rgba(255,255,255,0.04)', border: dimBorder,
+                  padding: '4px 10px', lineHeight: 1.5, maxWidth: 500, borderRadius: 8
                 }}>
                   {alert.message}
                 </div>
@@ -654,7 +652,7 @@ const calculateMediaShareDuration = (config, amount) => {
       //   );
       // }
 
-      // ── MINIMAL ──────────────────────────────────────────────────────────────────
+      // ── minimal ──────────────────────────────────────────────────────────────────
       return (
         <div style={{ position: 'relative', overflow: 'hidden' }}>
           <div style={scanlineStyle} />
@@ -671,13 +669,13 @@ const calculateMediaShareDuration = (config, amount) => {
 
             {/* Pesan */}
             {alert.message && (
-              <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderBottom: `1px solid ${hl}20`, paddingBottom: 8, marginBottom: 8, maxWidth: 500 }}>
+              <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderTop: `1px solid ${hl}30`, paddingTop: 8, maxWidth: 500 }}>
                 {alert.message}
               </div>
             )}
 
             {/* Progress bar */}
-            <div style={{ height: 2, background: 'rgba(255,255,255,0.06)' }}>
+            <div style={{ height: 2, background: 'rgba(255,255,255,0.06)', marginTop: 10 }}>
               <div style={{ height: '100%', width: `${progress}%`, background: config.progressBarColor || hl, transition: 'width 50ms linear' }} />
             </div>
           </div>
@@ -692,7 +690,7 @@ const calculateMediaShareDuration = (config, amount) => {
         alignItems: 'center', justifyContent: 'center',
         background: 'transparent', gap: 12,
         color: 'rgba(255,255,255,0.5)',
-        fontFamily: 'monospace',
+        fontFamily: "'Inter', sans-serif",
       }}>
         <span style={{ fontSize: 32 }}>📶</span>
         <span style={{ fontSize: 18 }}>Menghubungkan...</span>
@@ -721,7 +719,7 @@ const calculateMediaShareDuration = (config, amount) => {
                 border: theme === 'gifCard' ? 'none' : `1px solid ${borderColor}`,  // ← tambah
                 boxShadow: theme === 'gifCard' ? 'none' : '0 16px 40px rgba(0,0,0,0.55)',  // ← tambah
                 overflow: theme === 'gifCard' ? 'visible' : 'hidden',  // ← tambah
-                fontFamily: "'Inter', -apple-system, 'Segoe UI', sans-serif",
+                fontFamily: "'Inter', sans-serif",
               }}
             >
               {renderInner()}
