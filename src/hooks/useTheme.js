@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('sawer-theme') || 'dark';
-  });
+  const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
     const root = document.documentElement;

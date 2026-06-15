@@ -4044,7 +4044,7 @@ const handleChangePin = async () => {
                           className={`w-full flex-1 flex items-center justify-between px-[14px] py-2.5 cursor-pointer rounded-sm font-black text-sm transition-all duration-200 active:scale-[0.99] relative overflow-hidden group ${
                             activeSlot === slot 
                               ? 'bg-blue-600 text-white' 
-                              : 'bg-slate-700 hover:bg-slate-600 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                              : 'dark:bg-slate-700 hover:bg-slate-600 bg-white text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                           }`}
                         >
                           {/* Background Glow Effect */}
