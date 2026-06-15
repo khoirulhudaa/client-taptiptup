@@ -4309,7 +4309,7 @@ const handleChangePin = async () => {
                         <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="w-full bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden truncate" />
                       </div>
                       <div className="flex gap-3">
-                        <button onClick={() => copyToClipboard(`https://taptiptup.vercel.app/donate/${user.username}`)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
+                        <button onClick={() => copyToClipboard(`https://taptiptup.vercel.app/donate/${user.username}`)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
                             <Copy size={15} />
                           </button>
                       </div>
@@ -4326,7 +4326,7 @@ const handleChangePin = async () => {
                           <input readOnly value={url} aria-label={`URL ${label}`} className="w-full bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
                         </div>
                         <div className="flex gap-3">
-                          <button onClick={() => copyToClipboard(url)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
+                          <button onClick={() => copyToClipboard(url)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
                             <Copy size={15} />
                           </button>
                         </div>
@@ -4371,7 +4371,7 @@ const handleChangePin = async () => {
                             </div>
                             <p className="text-sm truncate max-w-[90%] font-mono text-blue-500 dark:text-blue-400 truncate mt-0.5">{widgetUrl}</p>
                           </div>
-                          <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
+                          <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
                             <Copy size={15} />
                           </button>
                         </div>

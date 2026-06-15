@@ -496,16 +496,8 @@ const calculateMediaShareDuration = (config, amount) => {
               )}
 
               {/* Progress dots */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 8 }}>
-                <div style={{ display: 'flex', gap: 2 }}>
-                  {Array.from({ length: 8 }).map((_, i) => (
-                    <span key={i} style={{ width: 6, height: 6, display: 'inline-block', 
-                      // background: i < Math.round(progress / 12.5) ? hl : hl + '22' ,
-                      background: i < Math.round(progress / 12.5) ? (config.progressBarColor || hl) : hl + '22',
-                    }} 
-                  />
-                  ))}
-                </div>
+              <div style={{ height: 3, background: hl + '25', borderRadius: 99, overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${progress}%`, background: config.progressBarColor || hl, borderRadius: 99, transition: 'width 50ms linear' }} />
               </div>
             </div>
           </div>
