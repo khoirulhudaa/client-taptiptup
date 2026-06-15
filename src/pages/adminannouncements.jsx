@@ -330,7 +330,7 @@ export const AdminAnnouncementsPage = () => {
           >
             <Plus size={16} /> Buat Pengumuman
           </button>
-          <div>
+          <div className='md:mt-0 mt-2 md:flex hidden'>
             <p className="relative top-[1.2px] text-white text-sm font-medium">Kirim info, update, & promo ke semua streamer</p>
           </div>
         </div>
@@ -489,13 +489,13 @@ export const AdminAnnouncementsPage = () => {
                           <p className={`text-xs md:text-sm text-slate-500 dark:text-slate-400 font-medium ${isExpanded ? '' : 'line-clamp-1'}`}>
                             {ann.description}
                           </p>
-                          {ann.description.length > 120 && (
+                          {/* {ann.description.length > 120 && (
                             <button onClick={() => toggleExpand(ann._id)}
                               className="text-[11px] font-black text-blue-500 hover:text-blue-600 mt-0.5 cursor-pointer flex items-center gap-1">
                               {isExpanded ? 'Sembunyikan' : 'Lihat selengkapnya'}
                               <ChevronDown size={11} className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
                             </button>
-                          )}
+                          )} */}
                         </div>
 
                         {/* Actions */}

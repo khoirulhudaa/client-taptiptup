@@ -33,9 +33,9 @@ const CATEGORIES = [
 
 const STATUS_OPTIONS = [
   { value: 'new', label: 'Baru' },
-  { value: 'reviewed', label: 'Di Review' },
-  { value: 'planned', label: 'Direncanakan' },
-  { value: 'implemented', label: 'Sudah Dibuat' },
+  { value: 'reviewed', label: 'Direview' },
+  { value: 'planned', label: 'Rencana' },
+  { value: 'implemented', label: 'Dibuat' },
   { value: 'rejected', label: 'Ditolak' },
 ];
 
@@ -160,7 +160,7 @@ export const SuggestionsAdmin = () => {
         </div>
       </div>
 
-      <div className='bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6'>
+      <div className='bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 px-0 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6'>
         {/* Filters */}
         <div className="flex gap-2 flex-wrap px-5 md:px-0">
           <button

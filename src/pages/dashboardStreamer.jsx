@@ -53,7 +53,8 @@ import {
   ChevronDown,
   Link,
   CopyIcon,
-  CopyCheck
+  CopyCheck,
+  Users2
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
@@ -1020,7 +1021,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
     <div className="space-y-3">
       {label && <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</label>}
 
-      <div className="flex gap-3">
+      <div className="flex md:gap-3 gap-2">
         {[{ id: 'preset', label: 'Preset' }, { id: 'upload', label: 'Upload MP3' }].map(m => (
           <button
             key={m.id}
@@ -1036,7 +1037,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
 
       {/* Preset */}
       {mode === 'preset' && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 md:gap-3 gap-2">
           <button onClick={() => { onChange(''); setPlaying(null); }}
             className={`cursor-pointer uppercase active:scale-[0.99] flex items-center gap-1.5 p-3 rounded-lg border-2 font-black text-xs transition-all ${
               !value ? 'border-slate-600 bg-slate-800 text-white' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
@@ -2666,18 +2667,18 @@ const HistoryPage = () => {
                           <p className="text-slate-400 text-xs">{formatDate(item.createdAt)}</p>
 
                           <div className="flex items-center gap-4">
-                            {item.mediaUrl && (
+                            {/* {item.mediaUrl && (
                               <a href={item.mediaUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600">
-                                <ImageIcon size={20} />
+                                <ImageIcon size={18} />
                               </a>
-                            )}
+                            )} */}
                             <button
                               onClick={() => replayDonation(item._id)}
                               disabled={isReplaying}
                               className={`flex relative mt-[1.3px] items-center gap-1.5 font-black text-blue-600 hover:text-blue-500 transition-all ${isReplaying ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
-                              {isReplaying ? <Loader2 size={18} className="animate-spin" /> : <Video className='relative top-[-1px]' size={22} />}
-                              REPLAY
+                              {isReplaying ? <Loader2 size={18} className="animate-spin" /> : <Video className='relative top-[-1px]' size={20} />}
+                              Replay
                             </button>
                           </div>
                         </div>
@@ -2835,7 +2836,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
   };
 
   return (
-    <div className="space-y-3 pb-0 min-h-[90vh] md:bg-transparent bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm shadow-sm md:border-none border border-slate-100 dark:border-slate-800 md:p-0 p-4">
+    <div className="space-y-3 pb-0 min-h-[90vh] md:bg-transparent bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm shadow-sm md:border-none border border-slate-100 dark:border-slate-800 md:p-0 p-4 px-0">
       {viewingProfile && (
         <StreamerProfileModal username={viewingProfile} currentUserId={currentUserId} onClose={() => setViewingProfile(null)} onFollow={null} />
       )}
@@ -2849,7 +2850,25 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
         </div>
       </div>
 
-      <div className="gap-3 grid grid-cols-3 md:grid-cols-5 mb-5 md:mb-3">
+      <div className="flex md:hidden mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+        <div className="relative flex items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-4">
+              <div className="bg-blue-500 p-3 rounded-lg text-white shadow-lg">
+                  <Users2 size={20} />
+              </div>
+              <div>
+                  <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                      Komunitas
+                  </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="gap-3 grid grid-cols-3 md:grid-cols-5 mb-5 mt-5 md:px-0 px-4">
         {subTabs.map(t => (
           <button key={t.id} onClick={() => setSubTab(t.id)}
             className={`w-full cursor-pointer active:scale-[0.99] px-5 py-2.5 rounded-lg font-black text-sm transition-all ${subTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700 hover:brightness-[80%]'}`}>
@@ -2866,9 +2885,11 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
         )}
       </div>
 
-      {subTab === 'discover'  && renderUsers(discoverData?.users,  discoverLoading,  true)}
-      {subTab === 'followers' && renderUsers(followersData?.users, followersLoading, false)}
-      {subTab === 'following' && renderUsers(followingData?.users, followingLoading, true)}
+      <div className='md:px-0 px-4'>
+        {subTab === 'discover'  && renderUsers(discoverData?.users,  discoverLoading,  true)}
+        {subTab === 'followers' && renderUsers(followersData?.users, followersLoading, false)}
+        {subTab === 'following' && renderUsers(followingData?.users, followingLoading, true)}
+      </div>
     </div>
   );
 };

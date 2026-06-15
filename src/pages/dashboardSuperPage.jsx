@@ -181,7 +181,7 @@ export const DashboardSuperPage = () => {
   );
 
   return (
-    <div className="h-max text-white pb-4 md:pb-0 px-4 md:px-0 pt-2 md:pt-0 space-y-8 font-sans">
+    <div className="h-max text-white pb-4 md:pb-0 px-0 md:px-0 pt-2 md:pt-0 space-y-8 font-sans">
 
       <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
@@ -199,7 +199,7 @@ export const DashboardSuperPage = () => {
                 </div>
             </div>
 
-            <div className="flex items-center gap-3 relative top-[3.5px] flex-wrap">
+            <div className="hidden md:flex items-center gap-3 relative top-[3.5px] flex-wrap">
               {/* Server Health */}
               <div className="flex items-center gap-3 bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-lg">
                 <Server size={14} className="text-slate-400" />

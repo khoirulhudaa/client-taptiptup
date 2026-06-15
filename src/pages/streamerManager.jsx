@@ -398,7 +398,7 @@ const StreamerManagerPage = () => {
           </div>
       </div>
 
-      <div className='bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6'>
+      <div className='bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-0 py-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6'>
         {/* Filters + Search */}
         <div className="flex flex-wrap items-center px-4 md:px-0 gap-2">
           {/* Search */}
