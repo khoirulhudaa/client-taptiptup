@@ -281,14 +281,16 @@ function Hero({ C, isDark }) {
         className="select-none relative top-[-40px] hero-main-grid relative h-full flex items-center"
       >
         <div
-          className="select-none text-center mx-auto w-full flex flex-col justify-center items-center px-6"
-          style={{ paddingBottom: "0px", paddingTop: 40 }}
+          className="select-none text-center mx-auto w-full flex flex-col !pt-0 md:!pt-[40px] justify-center items-center px-6"
+          style={{ paddingBottom: "0px" }}
         >
+
+        <img src="/logttt.png" alt="img" className="w-[90%] md:hidden 2xl:hidden !mt-[-60px]" />
         {/* Judul Hero */}
-         <h1 className="select-none hero-title md:!mt-[-10px] 2xl:!mt-[-34px] font-['Bebas_Neue'] leading-[0.85] tracking-[-0.01em] text-white mb-4 text-center flex flex-wrap items-center justify-center gap-[0.1em] transition-colors duration-400">
+         <h1 className="select-none hero-title md:!mt-[-10px] 2xl:!mt-[-34px] font-['Bebas_Neue'] leading-[0.85] tracking-[-0.01em] text-white mb-4 text-center hidden md:flex flex-wrap items-center justify-center gap-[0.1em] transition-colors duration-400">
             
-          <span className="relative top-[-10px] text-4xl lg:text-8xl 2xl:text-[7rem] w-[90vw] md:w-[80vw] select-none hidden md:flex items-center justify-center">
-            <span className="flex gap-x-5 flex-wrap w-[90vw] md:w-[80vw] relative mt-10 text-center justify-center items-center">
+          <span className="relative top-[-10px] text-[2.81rem] lg:text-8xl 2xl:text-[7rem] w-[100vw] md:w-[80vw] select-none hidden md:flex items-center justify-center">
+            <span className="flex md:gap-x-5 flex-wrap w-[100vw] md:w-[80vw] relative mt-10 text-center justify-center items-center">
 
               {/* Banner + tali */}
               <motion.div
@@ -321,14 +323,20 @@ function Hero({ C, isDark }) {
                 <div className="absolute w-[1px] h-[40vh] bg-white rotate-30 top-[-34vh] right-[-64px] md:flex hidden" />
 
                 {/* Banner */}
-                <span className="px-2 2xl:min-w-[70vw] rounded-xl min-w-[64vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure] inline-block">
+                <span className="md:!inline-block !hidden md:!px-2 2xl:min-w-[68vw] rounded-xl min-w-[100vw] md:min-w-[69vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure]">
                   POTONGAN HANYA 3.0% UNTUK
+                </span>
+                <span className="!inline-block md:!hidden md:!px-2 2xl:min-w-[70vw] rounded-xl min-w-[100vw] md:min-w-[64vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure]">
+                  POTONGAN HANYA 3.0%
                 </span>
               </motion.div>
 
               {/* Tetap diam */}
-              <span>
-                SETIAP Dukungan MASUK
+              <span className="md:!inline-block !hidden">
+                SETIAP DUKUNGAN MASUK
+              </span>
+              <span className="!inline-block md:!hidden">
+                UNTUK SETIAP DUKUNGAN MASUK
               </span>
 
             </span>
@@ -336,7 +344,7 @@ function Hero({ C, isDark }) {
 
           </h1>
 
-          <br className="md:hidden flex" />
+          {/* <br className="md:hidden flex" /> */}
           <br className="hidden 2xl:!flex md:hidden" />
 
           {/* Deskripsi */}
@@ -1060,7 +1068,7 @@ function FAQ({ C }) {
           className="!mb-[10px] md:!mb-[18px]"
           style={{
           fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: 13, color: "rgba(255,255,255,0.35)",
+          fontSize: 15.5, color: "rgba(255,255,255,0.70)",
         }}>
           Masih ada pertanyaan lain?
         </p>
@@ -1068,7 +1076,7 @@ function FAQ({ C }) {
           href="mailto:taptiptup.support@gmail.com"
           style={{
             fontFamily: "'Space Mono', monospace",
-            fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase",
+            fontSize: 13, letterSpacing: "0.1em", textTransform: "uppercase",
             color: "azure", textDecoration: "none",
             borderBottom: "1px solid rgba(173,216,230,0.35)",
             paddingBottom: 2,
@@ -1320,12 +1328,12 @@ export default function TapTipTup() {
             </div>
             <p className="md:flex hidden w-full mx-auto !justify-center" style={{
               fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: 13, color: "rgba(255,255,255,0.5)",
+              fontSize: 15, color: "rgba(255,255,255,0.5)",
               lineHeight: 0.4, marginBottom: 20,
             }}>
               Platform Dukungan streaming lokal terbaik untuk konten kreator Indonesia. Potongan hanya 3.0%, alert langsung di OBS, setup dalam 5 menit.
             </p>
-            <a href="/privacy-policy" style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "#BBDEFB", letterSpacing: "0.1em", textDecoration: "none" }}>
+            <a href="/privacy-policy" style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, color: "#BBDEFB", letterSpacing: "0.1em", textDecoration: "none" }}>
               KEBIJAKAN PRIVASI TAPTIPTUP
             </a>
           </div>
@@ -1342,7 +1350,7 @@ export default function TapTipTup() {
             ].map((item, i) => (
               <div key={i} style={{
                 fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: 13, color: "rgba(255,255,255,0.55)",
+                fontSize: 15, color: "rgba(255,255,255,0.55)",
                 padding: "6px 0",
                 borderBottom: "1px solid rgba(255,255,255,0.05)",
                 display: "flex", alignItems: "center", gap: 8,
@@ -1364,7 +1372,7 @@ export default function TapTipTup() {
               ].map((item, i) => (
                 <div key={i} style={{
                   fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: 13, color: "rgba(255,255,255,0.55)",
+                  fontSize: 15, color: "rgba(255,255,255,0.55)",
                   padding: "6px 0",
                   borderBottom: "1px solid rgba(255,255,255,0.05)",
                   display: "flex", alignItems: "center", gap: 8,
@@ -1387,7 +1395,7 @@ export default function TapTipTup() {
               ].map((item, i) => (
                 <div key={i} style={{
                   fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: 13, color: "rgba(255,255,255,0.55)",
+                  fontSize: 15, color: "rgba(255,255,255,0.55)",
                   padding: "6px 0",
                   borderBottom: "1px solid rgba(255,255,255,0.05)",
                   display: "flex", alignItems: "center", gap: 8,

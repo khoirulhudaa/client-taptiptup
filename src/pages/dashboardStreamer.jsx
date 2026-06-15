@@ -4309,10 +4309,11 @@ const handleChangePin = async () => {
 
                   {/* OBS URLs */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
-                    <div className="bg-slate-100 dark:bg-slate-800 flex items-center justify-between p-3 py-4 rounded-lg border border-slate-100/10 mb-3">
-                      <div className='w-[80%]'>
+                    <div className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-3 py-4 rounded-lg border border-slate-100/10 mb-3">
+                      <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">💝</div>
+                      <div className='flex-1 min-w-0'>
                         <label className="block text-[10px] font-bold rounded-sm bg-emerald-300 w-max text-slate-800 mb-3 uppercase tracking-widest px-2">DONATE URL</label>
-                        <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="w-full bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden truncate" />
+                        <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="w-[86%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden truncate" />
                       </div>
                       <div className="flex gap-3">
                         <button onClick={() => copyToClipboard(`https://taptiptup.vercel.app/donate/${user.username}`)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
@@ -4321,15 +4322,16 @@ const handleChangePin = async () => {
                       </div>
                     </div>
                     {[
-                      { label: 'URL ALERT - OBS Slot A + B', url: user.overlayUrl },
-                      { label: 'URL MEDIASHARE - OBS',      url: `${window.location.origin}/overlay/${user.overlayToken}/mediashare` },
-                      { label: 'URL VOICE NOTE - OBS',      url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
-                      { label: 'URL COMBINED (ALL-IN-ONE)', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
-                    ].map(({ label, url }) => (
-                      <div key={label} className="flex items-center justify-between bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
-                        <div className='w-[80%]'>
+                      { label: 'URL ALERT - OBS Slot A + B', emoji: '🔔', url: user.overlayUrl },
+                      { label: 'URL MEDIASHARE - OBS',      emoji: '🎬', url: `${window.location.origin}/overlay/${user.overlayToken}/mediashare` },
+                      { label: 'URL VOICE NOTE - OBS',      emoji: '🎙️', url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
+                      { label: 'URL COMBINED (ALL-IN-ONE)', emoji: '🧩', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
+                    ].map(({ label, emoji, url }) => (
+                      <div key={label} className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
+                        <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
+                        <div className='flex-1 min-w-0'>
                           <label className="block text-[10px] font-bold rounded-sm bg-emerald-300 w-max text-slate-800 mb-3 uppercase tracking-widest px-2">{label}</label>
-                          <input readOnly value={url} aria-label={`URL ${label}`} className="w-full bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
+                          <input readOnly value={url} aria-label={`URL ${label}`} className="w-[90%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
                         </div>
                         <div className="flex gap-3">
                           <button onClick={() => copyToClipboard(url)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
@@ -4384,8 +4386,6 @@ const handleChangePin = async () => {
                       );
                     })}
                   </div>
-
-                  {/* <MilestonesEditor /> */}
                 </section>
 
                 <section className="xl:col-span-5 z-[2]">
