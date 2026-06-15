@@ -209,7 +209,7 @@
           socket.on('reconnect', () => loadActiveConfig('reconnect'));
           socket.on('settings-updated', () => loadActiveConfig('socket'));
 
-          const polling = setInterval(() => loadActiveConfig('polling'), 2000);
+          const polling = setInterval(() => loadActiveConfig('polling'), 5000);
 
           return () => {
             socket.disconnect();
