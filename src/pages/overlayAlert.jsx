@@ -143,6 +143,7 @@
         // ==================== SOCKET CONNECTION ====================
         useEffect(() => {
           if (!token) return;
+
           const socket = io('https://taptiptup-server-1ee47f2895cb.herokuapp.com', {
             reconnection: true,
             reconnectionAttempts: Infinity,
@@ -208,7 +209,7 @@
           socket.on('reconnect', () => loadActiveConfig('reconnect'));
           socket.on('settings-updated', () => loadActiveConfig('socket'));
 
-          const polling = setInterval(() => loadActiveConfig('polling'), 5000);
+          const polling = setInterval(() => loadActiveConfig('polling'), 2000);
 
           return () => {
             socket.disconnect();

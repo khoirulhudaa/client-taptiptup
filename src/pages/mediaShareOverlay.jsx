@@ -3,7 +3,7 @@
   import { useParams } from 'react-router-dom';
   import { io } from 'socket.io-client';
   import axios from 'axios';
-  
+
   const API_URL = 'https://taptiptup-server-1ee47f2895cb.herokuapp.com';
 
   const isTikTokUrl = (url) => {
@@ -258,7 +258,7 @@ const calculateMediaShareDuration = (config, amount) => {
         loadActiveConfig('socket');
       });
 
-      const polling = setInterval(() => loadActiveConfig('polling'), 5000);
+      const polling = setInterval(() => loadActiveConfig('polling'), 2000);
 
       return () => {
         socket.disconnect();
