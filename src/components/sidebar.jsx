@@ -232,7 +232,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
       {/* ── SIDEBAR ── */}
       <aside
         className={`
-          fixed lg:sticky top-0 left-0 h-screen overscroll-contain overflow-x-hidden
+          fixed lg:sticky top-0 left-0 h-[100dvh] lg:h-screen overflow-y-auto overflow-x-hidden
           bg-white/5 dark:bg-slate-900
           // backdrop-blur-sm
           border-r border-slate-100 dark:border-slate-800
