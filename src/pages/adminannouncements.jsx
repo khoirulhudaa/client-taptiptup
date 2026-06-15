@@ -302,24 +302,37 @@ export const AdminAnnouncementsPage = () => {
 
   return (
     <div className="space-y-0 pb-8">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-blue-700 to-indigo-800 rounded-lg p-4 md:p-5 md:p-6 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }} />
-        <div className="relative md:flex items-start justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <Megaphone size={14} className="text-blue-300" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-300">Super Admin</span>
+      <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+          <div className="relative flex items-start justify-between gap-4">
+            <div>
+                <div className="flex items-center gap-4">
+                <div className="bg-blue-600 p-3 rounded-lg text-white shadow-lg">
+                    <Megaphone size={20} />
+                </div>
+                <div>
+                    <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                      Kelola pengumuman
+                    </h3>
+                </div>
+                </div>
             </div>
-            <h1 className="text-md md:text-lg font-black tracking-tight">Manajemen Pengumuman</h1>
-            <p className="text-blue-200 text-sm font-medium mt-1">Kirim info, update, & promo ke semua streamer</p>
           </div>
+      </div>
+
+      {/* Header */}
+      <div className="bg-gradient-to-br from-blue-700 to-indigo-800 rounded-lg p-4 md:p-5 md:p-4 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }} />
+        <div className="relative md:flex items-center justify-between gap-4">
           <button
             onClick={() => { setEditItem(null); setShowForm(true); }}
-            className="cursor-pointer flex-shrink-0 mt-3 md:mt-4 flex items-center gap-2 px-2 md:pl-2 md:pr-2.5 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-black text-sm border border-white/30 backdrop-blur-sm transition-all active:scale-[0.97]"
+            className="cursor-pointer flex-shrink-0 flex items-center gap-2 px-2 md:pl-2 md:pr-2.5 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-black text-sm border border-white/30 backdrop-blur-sm transition-all active:scale-[0.97]"
           >
             <Plus size={16} /> Buat Pengumuman
           </button>
+          <div>
+            <p className="relative top-[1.2px] text-white text-sm font-medium">Kirim info, update, & promo ke semua streamer</p>
+          </div>
         </div>
       </div>
 
@@ -452,7 +465,7 @@ export const AdminAnnouncementsPage = () => {
                 key={ann._id}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0, transition: { delay: i * 0.04 } }}
-                className={`relative bg-white h-[210px] md:h-[200px] dark:bg-slate-900 border rounded-lg overflow-hidden shadow-sm transition-all ${
+                className={`relative bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm h-[210px] md:h-[200px] dark:bg-slate-900 border rounded-lg overflow-hidden shadow-sm transition-all ${
                   !ann.isActive || expired
                     ? 'border-slate-200 dark:border-slate-800 opacity-60'
                     : 'border-slate-200 dark:border-slate-800 hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700'

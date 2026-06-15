@@ -1,10 +1,14 @@
 // pages/DonationTerminal.jsx
-// Khusus superAdmin — terminal log aktivitas donasi real-time
+// Khusus superAdmin — log aktivitas donasi real-time
 
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../lib/axiosInstance';
+import {
+  Activity, Search, RefreshCw, Play, Pause, Calendar, X,
+  CheckCircle2, Clock, XCircle, Wallet, Image, Mic, Sparkles, Users
+} from 'lucide-react';
 
 const fetchLogs = async ({ streamer = 'all', limit = 50, page = 1, status = '', startDate = '', endDate = '' }) => {
   const params = new URLSearchParams({
@@ -22,184 +26,153 @@ const formatRp = (n) => `Rp ${Number(n).toLocaleString('id-ID')}`;
 
 const formatTs = (d) =>
   new Date(d).toLocaleString('id-ID', {
-    day: '2-digit', month: '2-digit', year: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit',
-    hour12: false,
-  }).replace(',', '');
+    day: '2-digit', month: 'short', year: 'numeric',
+    hour: '2-digit', minute: '2-digit',
+  });
 
-const STATUS_COLOR = {
-  PAID:    { bg: '#052e1688', border: '#22c55e40', dot: '#22c55e', text: '#86efac' },
-  PENDING: { bg: '#42200488', border: '#facc1540', dot: '#facc15', text: '#fde68a' },
-  EXPIRED: { bg: '#450a0a88', border: '#ef444440', dot: '#ef4444', text: '#fca5a5' },
+const STATUS_CONFIG = {
+  PAID:    { label: 'Berhasil', icon: <CheckCircle2 size={12} />, className: 'bg-green-100 text-green-600 dark:bg-green-950/40 dark:text-green-400' },
+  PENDING: { label: 'Pending',  icon: <Clock size={12} />,        className: 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400' },
+  EXPIRED: { label: 'Expired',  icon: <XCircle size={12} />,      className: 'bg-red-100 text-red-600 dark:bg-red-950/40 dark:text-red-400' },
 };
 
-const TYPE_ICON = (d) => {
-  if (d.voiceUrl) return '🎙️';
-  if (d.mediaUrl) return '🎬';
-  return '💜';
-};
-
-const mono = "'JetBrains Mono', 'Fira Code', 'Courier New', monospace";
-
-// ── Stat Card ────────────────────────────────────────────────────────────────
-const StatCard = ({ label, value, color }) => (
-  <div className="relative overflow-hidden bg-white/[0.03] md:px-4.5 px-3.5 py-2.5">
-    <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-white mb-1">
-      {label}
-    </div>
-    <div 
-      className="font-mono font-black text-[16px] leading-none"
-      style={{ color }}
-    >
-      {value}
-    </div>
-  </div>
-);
-
-// ── Log Row Desktop ───────────────────────────────────────────────────────────
-const LogRowDesktop = ({ d, idx, highlight }) => {
-  const s = STATUS_COLOR[d.status] || STATUS_COLOR.PENDING;
+const StatusBadge = ({ status }) => {
+  const cfg = STATUS_CONFIG[status] || STATUS_CONFIG.PENDING;
   return (
-    <motion.div
-      initial={highlight ? { opacity: 0, x: -10, backgroundColor: '#22c55e15' } : { opacity: 0, y: 3 }}
-      animate={{ opacity: 1, x: 0, y: 0, backgroundColor: 'transparent' }}
-      transition={{ duration: highlight ? 0.45 : 0.1, delay: highlight ? 0 : idx * 0.005 }}
-      className="log-row"
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(5, 1fr) 2fr',
-        alignItems: 'center',
-        borderBottom: '1px solid rgba(255,255,255,0.03)',
-        fontFamily: mono, fontSize: 12, cursor: 'default',
-        transition: 'background 0.15s',
-      }}
-    >
-      <div style={{ padding: '9px 20px', color: 'white' }}>{formatTs(d.createdAt)}</div>
-      <div style={{ padding: '9px 20px', color: 'white', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>@{d.userId?.username || '—'}</div>
-      <div style={{ padding: '9px 20px', color: '#e2e8f0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{d.donorName}</div>
-      <div style={{ padding: '9px 20px', color: '#34d399', fontWeight: 700 }}>{formatRp(d.amount)}</div>
-      <div style={{ padding: '9px 10px' }}>
-        <span style={{
-          display: 'inline-flex', alignItems: 'center', gap: 5,
-          background: s.bg, border: `1px solid ${s.border}`,
-          padding: '2px 7px', fontSize: 9, fontWeight: 700,
-          letterSpacing: '0.1em', color: s.text,
-        }}>
-          <span style={{ width: 5, height: 5, background: s.dot, display: 'inline-block', flexShrink: 0 }} />
-          {d.status}
-        </span>
-      </div>
-      <div style={{ padding: '9px 20px', color: 'white', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{d.message || '—'}</div>
-    </motion.div>
-  );
-};
-
-// ── Log Row Mobile (card) ─────────────────────────────────────────────────────
-const LogRowMobile = ({ d, idx, highlight }) => {
-  const s = STATUS_COLOR[d.status] || STATUS_COLOR.PENDING;
-  return (
-    <motion.div
-      initial={highlight ? { opacity: 0, x: -10, backgroundColor: '#22c55e15' } : { opacity: 0, y: 4 }}
-      animate={{ opacity: 1, x: 0, y: 0, backgroundColor: 'transparent' }}
-      transition={{ duration: highlight ? 0.45 : 0.1, delay: highlight ? 0 : idx * 0.005 }}
-      style={{
-        borderBottom: '1px solid rgba(255,255,255,0.05)',
-        padding: '12px 14px',
-        fontFamily: mono,
-        display: 'flex', flexDirection: 'column', gap: 6,
-      }}
-    >
-      {/* Row 1: donor + amount */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: 13, fontWeight: 700, color: '#e2e8f0' }}>{d.donorName}</span>
-        <span style={{ fontSize: 13, fontWeight: 900, color: '#34d399' }}>{formatRp(d.amount)}</span>
-      </div>
-      {/* Row 2: streamer + status */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: 11, color: '#818cf8' }}>@{d.userId?.username || '—'}</span>
-        <span style={{
-          display: 'inline-flex', alignItems: 'center', gap: 4,
-          background: s.bg, border: `1px solid ${s.border}`,
-          padding: '2px 7px', fontSize: 9, fontWeight: 700,
-          letterSpacing: '0.1em', color: s.text,
-        }}>
-          <span style={{ width: 4, height: 4, background: s.dot, display: 'inline-block' }} />
-          {d.status}
-        </span>
-      </div>
-      {/* Row 3: message */}
-      {d.message && (
-        <div style={{
-          fontSize: 11, color: 'white',
-          background: 'rgba(255,255,255,0.03)',
-          padding: '5px 8px',
-          borderLeft: '2px solid rgba(255,255,255,0.08)',
-          overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-        }}>{d.message}</div>
-      )}
-      {/* Row 4: timestamp + icon */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: 10, color: 'white' }}>{formatTs(d.createdAt)}</span>
-        <span style={{ fontSize: 13 }}>{TYPE_ICON(d)}</span>
-      </div>
-    </motion.div>
-  );
-};
-
-// ── Filter Input ─────────────────────────────────────────────────────────────
-const FilterInput = ({ label, children }) => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-    <span style={{ fontSize: 10, color: 'white', letterSpacing: '0.13em', textTransform: 'uppercase', fontFamily: mono, flexShrink: 0 }}>
-      {label}
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black ${cfg.className}`}>
+      {cfg.icon} {cfg.label}
     </span>
-    {children}
+  );
+};
+
+const TypeIcon = ({ d }) => {
+  if (d.voiceUrl) return <Mic size={14} className="text-pink-500" />;
+  if (d.mediaUrl) return <Image size={14} className="text-purple-500" />;
+  return <Sparkles size={14} className="text-slate-300" />;
+};
+
+// ── Stat Card ───────────────────────────────────────────────────────────────
+const StatCard = ({ label, value, icon, color }) => (
+  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-3 md:p-4 flex flex-col gap-2">
+    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${color}`}>
+      {icon}
+    </div>
+    <div>
+      <p className="text-base md:text-lg font-black text-slate-800 dark:text-slate-100 leading-tight truncate">{value}</p>
+      <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-0.5">{label}</p>
+    </div>
   </div>
 );
 
-const inputStyle = {
-  background: '#0d1117', border: '1px solid #1f2937',
-  color: '#e2e8f0', fontFamily: mono, fontSize: 11.5,
-  padding: '5px 10px', outline: 'none', transition: 'border-color 0.15s',
-};
+// ── Log Card (semua ukuran layar) ──────────────────────────────────────────
+const LogCard = ({ d, idx, highlight }) => (
+  <motion.div
+    initial={highlight ? { backgroundColor: '#22c55e22', opacity: 0 } : { opacity: 0, y: 6 }}
+    animate={{ opacity: 1, y: 0, backgroundColor: 'transparent' }}
+    transition={{ duration: highlight ? 0.6 : 0.15, delay: highlight ? 0 : idx * 0.005 }}
+    className="border border-slate-100 dark:border-slate-800 rounded-lg p-4 flex flex-col gap-2 hover:shadow-md hover:border-slate-200 dark:hover:border-slate-700 transition-all"
+  >
+    <div className="flex items-center justify-between">
+      <p className="font-black text-sm text-slate-800 dark:text-slate-100 truncate">{d.donorName}</p>
+      <p className="font-black text-sm text-emerald-600 dark:text-emerald-400 whitespace-nowrap ml-2">{formatRp(d.amount)}</p>
+    </div>
+    <div className="flex items-center justify-between">
+      <p className="text-xs font-bold text-blue-600 dark:text-blue-400">@{d.userId?.username || '—'}</p>
+      <StatusBadge status={d.status} />
+    </div>
+    {d.message && (
+      <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/60 rounded-lg px-3 py-2">
+        <TypeIcon d={d} />
+        <p className="text-xs text-slate-600 dark:text-slate-300 truncate">{d.message}</p>
+      </div>
+    )}
+    <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">{formatTs(d.createdAt)}</p>
+  </motion.div>
+);
 
-// ── Pagination ────────────────────────────────────────────────────────────────
+// ── Log Row (Desktop table) ────────────────────────────────────────────────
+const LogRowDesktop = ({ d, idx, highlight }) => (
+  <motion.tr
+    initial={highlight ? { backgroundColor: '#22c55e22' } : { opacity: 0, y: 4 }}
+    animate={{ opacity: 1, y: 0, backgroundColor: 'transparent' }}
+    transition={{ duration: highlight ? 0.6 : 0.15, delay: highlight ? 0 : idx * 0.005 }}
+    className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+  >
+    <td className="px-6 py-4 text-xs text-slate-400 dark:text-slate-500 whitespace-nowrap">{formatTs(d.createdAt)}</td>
+    <td className="px-6 py-4 font-black text-sm text-slate-700 dark:text-slate-200 whitespace-nowrap">@{d.userId?.username || '—'}</td>
+    <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-300 whitespace-nowrap">{d.donorName}</td>
+    <td className="px-6 py-4 font-black text-sm text-emerald-600 dark:text-emerald-400 whitespace-nowrap">{formatRp(d.amount)}</td>
+    <td className="px-6 py-4"><StatusBadge status={d.status} /></td>
+    <td className="px-6 py-4 max-w-[220px]">
+      <div className="flex items-center gap-2">
+        <TypeIcon d={d} />
+        <p className="text-sm text-slate-500 dark:text-slate-400 truncate">{d.message || '—'}</p>
+      </div>
+    </td>
+  </motion.tr>
+);
+
+// ── Log Row (Mobile card) ──────────────────────────────────────────────────
+const LogRowMobile = ({ d, idx, highlight }) => (
+  <motion.div
+    initial={highlight ? { backgroundColor: '#22c55e22', opacity: 0 } : { opacity: 0, y: 6 }}
+    animate={{ opacity: 1, y: 0, backgroundColor: 'transparent' }}
+    transition={{ duration: highlight ? 0.6 : 0.15, delay: highlight ? 0 : idx * 0.005 }}
+    className="border border-slate-100 dark:border-slate-800 rounded-lg p-4 flex flex-col gap-2"
+  >
+    <div className="flex items-center justify-between">
+      <p className="font-black text-sm text-slate-800 dark:text-slate-100">{d.donorName}</p>
+      <p className="font-black text-sm text-emerald-600 dark:text-emerald-400">{formatRp(d.amount)}</p>
+    </div>
+    <div className="flex items-center justify-between">
+      <p className="text-xs font-bold text-blue-600 dark:text-blue-400">@{d.userId?.username || '—'}</p>
+      <StatusBadge status={d.status} />
+    </div>
+    {d.message && (
+      <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/60 rounded-lg px-3 py-2">
+        <TypeIcon d={d} />
+        <p className="text-xs text-slate-600 dark:text-slate-300 truncate">{d.message}</p>
+      </div>
+    )}
+    <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">{formatTs(d.createdAt)}</p>
+  </motion.div>
+);
+
+// ── Pagination ──────────────────────────────────────────────────────────────
 const Pagination = ({ page, totalPages, onPage, isFetching }) => {
   const pages = [];
-  const WINDOW = 2;
+  const WINDOW = 1;
   for (let i = 1; i <= totalPages; i++) {
     if (i === 1 || i === totalPages || (i >= page - WINDOW && i <= page + WINDOW)) pages.push(i);
     else if (pages[pages.length - 1] !== '...') pages.push('...');
   }
-  const btn = {
-    padding: '5px 10px', fontFamily: mono, fontSize: 11,
-    fontWeight: 700, border: '1px solid #1f2937',
-    cursor: 'pointer', transition: 'all 0.12s', letterSpacing: '0.06em',
-  };
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap' }}>
+    <div className="flex items-center gap-1.5 flex-wrap">
       <button onClick={() => onPage(page - 1)} disabled={page <= 1 || isFetching}
-        style={{ ...btn, background: 'transparent', color: page <= 1 ? '#1f2937' : 'white', cursor: page <= 1 ? 'not-allowed' : 'pointer' }}>
-        ← PREV
+        className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+        ←
       </button>
       {pages.map((p, i) =>
         p === '...' ? (
-          <span key={`e${i}`} style={{ color: 'white', fontFamily: mono, fontSize: 11, padding: '0 4px' }}>···</span>
+          <span key={`e${i}`} className="px-1 text-slate-300 dark:text-slate-600 text-xs font-bold">···</span>
         ) : (
           <button key={p} onClick={() => onPage(p)} disabled={isFetching}
-            style={{ ...btn, background: p === page ? '#1e1b4b' : 'transparent', color: p === page ? '#818cf8' : 'white', borderColor: p === page ? '#3730a3' : '#1f2937' }}>
+            className={`px-3 py-1.5 rounded-lg font-black text-xs transition-all ${
+              p === page ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+            }`}>
             {p}
           </button>
         )
       )}
       <button onClick={() => onPage(page + 1)} disabled={page >= totalPages || isFetching}
-        style={{ ...btn, background: 'transparent', color: page >= totalPages ? '#1f2937' : 'white', cursor: page >= totalPages ? 'not-allowed' : 'pointer' }}>
-        NEXT →
+        className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+        →
       </button>
     </div>
   );
 };
 
-// ── Main ──────────────────────────────────────────────────────────────────────
+// ── Main ────────────────────────────────────────────────────────────────────
 const DonationTerminal = () => {
   const [selectedStreamer, setSelectedStreamer] = useState('all');
   const [statusFilter, setStatusFilter]         = useState('');
@@ -210,15 +183,7 @@ const DonationTerminal = () => {
   const [newIds, setNewIds]                     = useState(new Set());
   const [startDate, setStartDate]               = useState('');
   const [endDate, setEndDate]                   = useState('');
-  const [isMobile, setIsMobile]                 = useState(false);
   const prevIdsRef = useRef(new Set());
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
 
   useEffect(() => { setPage(1); }, [selectedStreamer, statusFilter, limit, startDate, endDate, searchDonor]);
 
@@ -264,296 +229,153 @@ const DonationTerminal = () => {
 
   const handlePage = (p) => { if (p >= 1 && p <= totalPages) setPage(p); };
 
-  const colHeaders = ['TIMESTAMP', 'STREAMER', 'DONOR', 'NOMINAL', 'STATUS', 'PESAN'];
+  const statusFilters = [
+    { val: '', label: 'Semua' },
+    { val: 'PAID', label: 'Berhasil' },
+    { val: 'PENDING', label: 'Pending' },
+    { val: 'EXPIRED', label: 'Expired' },
+  ];
+
+  const inputClass = "px-4 py-2.5 bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-lg font-bold text-xs text-slate-700 dark:text-slate-200 outline-none focus:border-blue-500 transition-all";
 
   return (
-    <div style={{ height: 'max-content', color: '#e2e8f0', fontFamily: mono }} className='bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800'>
-
-      {/* Scanline */}
-      <div style={{
-        position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0,
-        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px)',
-      }} />
-
-      <div style={{ position: 'relative', zIndex: 1 }}>
-
-        {/* ══ HEADER ══════════════════════════════════════════════════════════ */}
-        <div 
-        style={{
-          padding: isMobile ? '12px 14px' : '14px 19px',
-          borderBottom: '1px solid rgba(99,102,241,0.18)',
-          // background: 'rgba(99,102,241,0.04)',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          flexWrap: 'wrap', gap: 8,
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ display: 'flex', gap: 5 }}>
-              {['#ef4444', '#facc15', '#22c55e'].map((c, i) => (
-                <div key={i} style={{ width: 10, height: 10, background: c }} />
-              ))}
+    <div className="space-y-4">
+      {/* ── Header ── */}
+      <div className="bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 from-blue-700 to-indigo-800 rounded-lg p-4 md:p-6 text-white relative overflow-hidden">
+        <div className="relative z-10 flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <span className="text-blue-200 dark:text-slate-400 text-xs font-black uppercase tracking-widest">Super Admin</span>
+            <h2 className="text-md md:text-lg font-black tracking-tight mt-1">Riwayat Pembayaran</h2>
+            <p className="text-blue-300 dark:text-slate-400 text-sm font-medium mt-1">{totalCount} total transaksi tercatat</p>
+          </div>
+          {isFetching && (
+            <div className="flex items-center gap-2 bg-white/10 rounded-lg px-3 py-1.5">
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-[10px] font-black uppercase tracking-widest text-green-200">Live</span>
             </div>
-            <span style={{ fontSize: isMobile ? 12 : 14, fontWeight: 900, letterSpacing: '0.18em', color: 'white' }}>
-              DONATION_TERMINAL
-            </span>
-            {!isMobile && (
-              <span style={{ fontSize: 11, letterSpacing: '0.1em', color: 'white', background: '#111827', padding: '2px 8px', border: '1px solid #1f2937' }}>
-                v1.0 · SUPERADMIN
-              </span>
-            )}
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 11 }}>
-            {isFetching && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                <div style={{ width: 8, height: 8, background: '#22c55e', animation: 'blink 0.8s step-end infinite' }} />
-                <span style={{ color: '#22c55e', letterSpacing: '0.1em', fontSize: 10 }}>LIVE</span>
-              </div>
-            )}
-            <span style={{ color: 'white', fontSize: 10 }}>
-              {dataUpdatedAt ? new Date(dataUpdatedAt).toLocaleTimeString('id-ID') : '—'}
-            </span>
-          </div>
-        </div>
-
-        {/* ══ STATS BAR ════════════════════════════════════════════════════════ */}
-        <div className="grid grid-cols-3 md:grid-cols-7 gap-px p-3 md:p-0 border-b border-white/[0.04] bg-white/[0.02]">
-          <StatCard label="Total"      value={donations.length}                          color="#818cf8" />
-          <StatCard label="Paid"       value={paid.length}                               color="#22c55e" />
-          <StatCard label="Pending"    value={pending.length}                            color="#facc15" />
-          <StatCard label="Expired"    value={expired.length}                            color="#ef4444" />
-          <StatCard label="Total Paid" value={`Rp ${totalPaid.toLocaleString('id-ID')}`} color="#34d399" />
-          <StatCard label="W/Media"    value={withMedia}                                 color="#a78bfa" />
-          <StatCard label="W/Voice"    value={withVoice}                                 color="#f472b6" />
-        </div>
-
-        {/* ══ CONTROLS ════════════════════════════════════════════════════════ */}
-        <div style={{
-          padding: isMobile ? '12px 12px' : '12px 19px',
-          borderBottom: '1px solid rgba(255,255,255,0.04)',
-          // background: 'rgba(0,0,0,0.35)',
-          display: 'flex', flexDirection: 'column', gap: 10,
-        }}>
-
-          {isMobile ? (
-            // ── Mobile controls ──
-            <>
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                <select value={selectedStreamer} onChange={e => setSelectedStreamer(e.target.value)}
-                  style={{ ...inputStyle, flex: 1, minWidth: 0, cursor: 'pointer', fontSize: 11 }}>
-                  <option value="all">[ ALL ]</option>
-                  {streamers.map(u => <option key={u._id} value={u.username}>@{u.username}</option>)}
-                </select>
-                <div style={{ display: 'flex' }}>
-                  {[{ val: '', label: 'ALL' }, { val: 'PAID', label: 'PAID' }, { val: 'PENDING', label: 'PND' }, { val: 'EXPIRED', label: 'EXP' }].map(f => (
-                    <button key={f.val} onClick={() => setStatusFilter(f.val)} style={{
-                      padding: '5px 9px', fontFamily: mono, fontSize: 9, fontWeight: 700,
-                      letterSpacing: '0.08em', border: '1px solid #1f2937', borderRight: 'none',
-                      cursor: 'pointer', outline: 'none',
-                      background: statusFilter === f.val ? '#3730a3' : 'transparent',
-                      color: statusFilter === f.val ? '#c7d2fe' : 'white',
-                    }}>{f.label}</button>
-                  ))}
-                  <div style={{ width: 1, background: '#1f2937' }} />
-                </div>
-              </div>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <input value={searchDonor} onChange={e => setSearchDonor(e.target.value)}
-                  placeholder="donor name..." style={{ ...inputStyle, flex: 1, fontSize: 11 }} />
-                <button onClick={() => setAutoRefresh(v => !v)} style={{
-                  ...inputStyle, cursor: 'pointer', fontSize: 9, fontWeight: 900,
-                  background: autoRefresh ? '#052e16' : 'transparent',
-                  color: autoRefresh ? '#86efac' : 'white',
-                  border: `1px solid ${autoRefresh ? '#14532d' : '#1f2937'}`,
-                  whiteSpace: 'nowrap',
-                }}>{autoRefresh ? '⏸ AUTO' : '▶ AUTO'}</button>
-                <button onClick={() => refetch()} style={{
-                  ...inputStyle, cursor: 'pointer', fontSize: 9, fontWeight: 900,
-                  background: 'transparent', color: 'white',
-                }}>↺</button>
-              </div>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)}
-                  style={{ ...inputStyle, flex: 1, fontSize: 11 }} />
-                <span style={{ color: 'white', fontSize: 10 }}>–</span>
-                <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)}
-                  style={{ ...inputStyle, flex: 1, fontSize: 11 }} />
-                {(startDate || endDate) && (
-                  <button onClick={() => { setStartDate(''); setEndDate(''); }} style={{
-                    ...inputStyle, cursor: 'pointer', background: '#1a0a0a',
-                    color: '#f87171', border: '1px solid #7f1d1d', fontSize: 9, fontWeight: 700,
-                  }}>✕</button>
-                )}
-              </div>
-              <div className='ml-[1.5px] md:ml-[2px]' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <FilterInput label="Rows">
-                  <div style={{ display: 'flex' }}>
-                    {[25, 50, 100].map(n => (
-                      <button key={n} onClick={() => setLimit(n)} style={{
-                        padding: '4px 8px', fontFamily: mono, fontSize: 9, fontWeight: 700,
-                        border: '1px solid #1f2937', borderRight: 'none', cursor: 'pointer', outline: 'none',
-                        background: limit === n ? '#1e1b4b' : 'transparent',
-                        color: limit === n ? '#818cf8' : 'white',
-                      }}>{n}</button>
-                    ))}
-                    <div style={{ width: 1, background: '#1f2937' }} />
-                  </div>
-                </FilterInput>
-                <span style={{ fontSize: 10, color: 'white' }}>
-                  {donations.length} of {totalCount}
-                </span>
-              </div>
-            </>
-          ) : (
-            // ── Desktop controls ──
-            <>
-              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center'}}>
-                <FilterInput label="Streamer">
-                  <select value={selectedStreamer} onChange={e => setSelectedStreamer(e.target.value)}
-                    style={{ ...inputStyle, width: 210, cursor: 'pointer' }}>
-                    <option value="all">[ ALL STREAMERS ]</option>
-                    {streamers.map(u => (
-                      <option key={u._id} value={u.username}>
-                        @{u.username} · Rp{Number(u.totalDonations || 0).toLocaleString('id-ID')}
-                      </option>
-                    ))}
-                  </select>
-                </FilterInput>
-                <FilterInput label="Status">
-                  <div style={{ display: 'flex' }}>
-                    {[{ val: '', label: 'ALL' }, { val: 'PAID', label: 'PAID' }, { val: 'PENDING', label: 'PND' }, { val: 'EXPIRED', label: 'EXP' }].map(f => (
-                      <button key={f.val} onClick={() => setStatusFilter(f.val)} style={{
-                        padding: '5px 12px', fontFamily: mono, fontSize: 10,
-                        fontWeight: 700, letterSpacing: '0.1em', border: '1px solid #1f2937',
-                        borderRight: 'none', cursor: 'pointer', transition: 'all 0.12s', outline: 'none',
-                        background: statusFilter === f.val ? '#3730a3' : 'transparent',
-                        color: statusFilter === f.val ? '#c7d2fe' : 'white',
-                      }}>{f.label}</button>
-                    ))}
-                    <div style={{ width: 1, background: '#1f2937' }} />
-                  </div>
-                </FilterInput>
-                <FilterInput label="Search">
-                  <input value={searchDonor} onChange={e => setSearchDonor(e.target.value)}
-                    placeholder="donor name..." style={{ ...inputStyle, width: 150 }} />
-                </FilterInput>
-                <FilterInput label="From">
-                  <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} style={inputStyle} />
-                </FilterInput>
-                <FilterInput label="To">
-                  <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} style={inputStyle} />
-                </FilterInput>
-              </div>
-              <div className='mt-1' style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-                <FilterInput label="Rows/Page">
-                  <div style={{ display: 'flex' }}>
-                    {[25, 50, 100, 200].map(n => (
-                      <button key={n} onClick={() => setLimit(n)} style={{
-                        padding: '5px 10px', fontFamily: mono, fontSize: 10,
-                        fontWeight: 700, border: '1px solid #1f2937', borderRight: 'none',
-                        cursor: 'pointer', outline: 'none',
-                        background: limit === n ? '#1e1b4b' : 'transparent',
-                        color: limit === n ? '#818cf8' : 'white',
-                      }}>{n}</button>
-                    ))}
-                    <div style={{ width: 1, background: '#1f2937' }} />
-                  </div>
-                </FilterInput>
-                <div style={{ display: 'flex', gap: 6 }}>
-                  <button onClick={() => setAutoRefresh(v => !v)} style={{
-                    ...inputStyle, cursor: 'pointer', fontSize: 10, fontWeight: 900,
-                    background: autoRefresh ? '#052e16' : 'transparent',
-                    color: autoRefresh ? '#86efac' : 'white',
-                    border: `1px solid ${autoRefresh ? '#14532d' : '#1f2937'}`,
-                  }}>{autoRefresh ? '⏸ AUTO:ON' : '▶ AUTO:OFF'}</button>
-                  <button onClick={() => refetch()} style={{
-                    ...inputStyle, cursor: 'pointer', background: 'transparent',
-                    color: 'white', fontSize: 10, fontWeight: 900,
-                  }}>↺ REFRESH</button>
-                  {(startDate || endDate) && (
-                    <button onClick={() => { setStartDate(''); setEndDate(''); }} style={{
-                      ...inputStyle, cursor: 'pointer', background: '#1a0a0a',
-                      color: '#f87171', border: '1px solid #7f1d1d', fontSize: 10, fontWeight: 700,
-                    }}>✕ CLEAR DATE</button>
-                  )}
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-
-        {/* ══ COL HEADERS (desktop only) ══════════════════════════════════════ */}
-        {!isMobile && (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(5, 1fr) 2fr',
-            background: 'rgba(99,102,241,0.07)',
-            borderBottom: '1px solid rgba(99,102,241,0.15)',
-          }}>
-            {colHeaders.map(h => (
-              <div
-                className='py-[7px] px-[14px] md:px-[19px]'
-                key={h} style={{
-                // padding: '7px 14px',
-                fontFamily: mono, fontSize: 11, fontWeight: 900,
-                color: '#6366f1', letterSpacing: '0.13em', textTransform: 'uppercase',
-              }}>{h}</div>
-            ))}
-          </div>
-        )}
-
-        {/* ══ ROWS ════════════════════════════════════════════════════════════ */}
-        <div style={{ minHeight: 200, opacity: isFetching ? 0.65 : 1, transition: 'opacity 0.2s' }}>
-          {isLoading ? (
-            <div style={{
-              padding: 50, textAlign: 'center', color: '#22c55e',
-              fontSize: 11, letterSpacing: '0.15em', fontFamily: mono,
-              animation: 'blink 1s step-end infinite',
-            }}>{'> '} FETCHING LOGS...</div>
-          ) : donations.length === 0 ? (
-            <div style={{
-              padding: 50, textAlign: 'center',
-              color: '#1f2937', fontSize: 11, letterSpacing: '0.12em', fontFamily: mono,
-            }}>{'> '} NO RECORDS FOUND</div>
-          ) : (
-            <AnimatePresence initial={false}>
-              {donations.map((d, i) =>
-                isMobile
-                  ? <LogRowMobile key={d._id} d={d} idx={i} highlight={newIds.has(d._id)} />
-                  : <LogRowDesktop key={d._id} d={d} idx={i} highlight={newIds.has(d._id)} />
-              )}
-            </AnimatePresence>
-          )}
-        </div>
-
-        {/* ══ FOOTER / PAGINATION ═════════════════════════════════════════════ */}
-        <div style={{
-          padding: isMobile ? '12px 16px' : '12px 15px',
-          borderTop: '1px solid rgba(255,255,255,0.04)',
-          display: 'flex', alignItems: 'center',
-          justifyContent: totalPages > 1 ? 'space-between' : 'flex-start',
-          flexWrap: 'wrap', gap: 10,
-          background: 'rgba(0,0,0,0.3)',
-        }}>
-          <span style={{ fontSize: 9, color: 'white', letterSpacing: '0.08em', fontFamily: mono }}>
-            PAGE {page}/{totalPages} · {donations.length}/{totalCount}
-            {autoRefresh ? ' · AUTO:8s' : ''}
-          </span>
-          {totalPages > 1 && (
-            <Pagination page={page} totalPages={totalPages} onPage={handlePage} isFetching={isFetching} />
           )}
         </div>
       </div>
 
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;900&display=swap');
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-        * { box-sizing: border-box; }
-        select option { background: #0d1117; }
-        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.3); cursor: pointer; }
-        button:focus { outline: none; }
-        ::-webkit-scrollbar { width: 6px; background: #0d1117; }
-        ::-webkit-scrollbar-thumb { background: #1f2937; }
-        .log-row:hover { background: rgba(255,255,255,0.025) !important; }
-      `}</style>
+      {/* ── Stats ── */}
+      <div className="grid grid-cols-3 md:grid-cols-7 gap-2 md:gap-3">
+        <StatCard label="Total"      value={donations.length}                          icon={<Activity size={16} className="text-indigo-500" />}     color="bg-indigo-50 dark:bg-indigo-950/40" />
+        <StatCard label="Berhasil"   value={paid.length}                               icon={<CheckCircle2 size={16} className="text-green-500" />}  color="bg-green-50 dark:bg-green-950/40" />
+        <StatCard label="Pending"    value={pending.length}                            icon={<Clock size={16} className="text-amber-500" />}         color="bg-amber-50 dark:bg-amber-950/40" />
+        <StatCard label="Expired"    value={expired.length}                            icon={<XCircle size={16} className="text-red-500" />}         color="bg-red-50 dark:bg-red-950/40" />
+        <StatCard label="Total Masuk" value={formatRp(totalPaid)}                      icon={<Wallet size={16} className="text-emerald-500" />}      color="bg-emerald-50 dark:bg-emerald-950/40" />
+        <StatCard label="W/ Media"    value={withMedia}                                icon={<Image size={16} className="text-purple-500" />}        color="bg-purple-50 dark:bg-purple-950/40" />
+        <StatCard label="W/ Voice"    value={withVoice}                                icon={<Mic size={16} className="text-pink-500" />}            color="bg-pink-50 dark:bg-pink-950/40" />
+      </div>
+
+      {/* ── Filters ── */}
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg border border-slate-100 dark:border-slate-800 p-4 space-y-3">
+        <div className="flex flex-wrap gap-2">
+          <select value={selectedStreamer} onChange={e => setSelectedStreamer(e.target.value)}
+            className={`${inputClass} cursor-pointer flex-1 min-w-[140px] md:max-w-[260px]`}>
+            <option value="all">Semua Streamer</option>
+            {streamers.map(u => (
+              <option key={u._id} value={u.username}>@{u.username}</option>
+            ))}
+          </select>
+
+          <div className="relative flex-1 min-w-[160px]">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input value={searchDonor} onChange={e => setSearchDonor(e.target.value)}
+              placeholder="Cari nama donatur..."
+              className={`${inputClass} w-full pl-9`} />
+          </div>
+
+          <button onClick={() => setAutoRefresh(v => !v)}
+            className={`${inputClass} cursor-pointer flex items-center gap-2 ${autoRefresh ? 'bg-green-100 text-green-600 dark:bg-green-950/40 dark:text-green-400 border-green-200 dark:border-green-800' : ''}`}>
+            {autoRefresh ? <Pause size={13} /> : <Play size={13} />} Auto
+          </button>
+
+          <button onClick={() => refetch()}
+            className={`${inputClass} cursor-pointer flex items-center gap-2`}>
+            <RefreshCw size={13} className={isFetching ? 'animate-spin' : ''} /> Refresh
+          </button>
+        </div>
+
+        <div className="flex flex-wrap gap-2 items-center justify-between">
+          <div className="flex gap-1.5 flex-wrap">
+            {statusFilters.map(f => (
+              <button key={f.val} onClick={() => setStatusFilter(f.val)}
+                className={`px-3.5 py-2 rounded-lg font-black text-[11px] transition-all ${
+                  statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                }`}>
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 flex-wrap">
+            <Calendar size={14} className="text-slate-400" />
+            <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className={inputClass} />
+            <span className="text-slate-300 dark:text-slate-600 text-xs">–</span>
+            <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className={inputClass} />
+            {(startDate || endDate) && (
+              <button onClick={() => { setStartDate(''); setEndDate(''); }}
+                className="p-2 rounded-lg bg-red-50 dark:bg-red-950/40 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/40 transition-all">
+                <X size={14} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between flex-wrap gap-2 pt-1">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Rows</span>
+            <div className="flex gap-1">
+              {[25, 50, 100, 200].map(n => (
+                <button key={n} onClick={() => setLimit(n)}
+                  className={`px-2.5 py-1 rounded-lg font-black text-[11px] transition-all ${
+                    limit === n ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  }`}>
+                  {n}
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* <span className="text-[10px] font-bold text-slate-400">
+            Menampilkan {donations.length} dari {totalCount}
+            {autoRefresh ? ' · auto refresh 8s' : ''}
+          </span> */}
+        </div>
+      </div>
+
+      {/* ── Data List ── */}
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg border border-slate-100 dark:border-slate-800 overflow-hidden">
+        {isLoading ? (
+          <div className="flex items-center justify-center py-16 text-slate-400 font-bold gap-3">
+            <div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-lg animate-spin" />
+            Memuat data...
+          </div>
+        ) : donations.length === 0 ? (
+          <div className="text-center py-16 text-slate-400">
+            <Activity size={40} className="mx-auto mb-3 opacity-30" />
+            <p className="font-black text-sm">Belum ada transaksi</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4" style={{ opacity: isFetching ? 0.65 : 1, transition: 'opacity 0.2s' }}>
+            <AnimatePresence initial={false}>
+              {donations.map((d, i) => (
+                <LogCard key={d._id} d={d} idx={i} highlight={newIds.has(d._id)} />
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
+      </div>
+
+      {/* ── Pagination ── */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between flex-wrap gap-3 px-1">
+          <span className="text-[11px] font-bold text-slate-400">
+            Halaman <span className="text-blue-600 dark:text-blue-400 font-black">{page}</span> dari {totalPages}
+          </span>
+          <Pagination page={page} totalPages={totalPages} onPage={handlePage} isFetching={isFetching} />
+        </div>
+      )}
     </div>
   );
 };

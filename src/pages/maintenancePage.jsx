@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldAlert, Save, RefreshCw, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
+import { ShieldAlert, Save, RefreshCw, AlertTriangle, CheckCircle, XCircle, Cog } from 'lucide-react';
 import api from '../lib/axiosInstance';
 import toast from 'react-hot-toast';
 
@@ -89,6 +89,24 @@ const MaintenancePage = () => {
 
       <CustomToast toastState={toastState} />
 
+      <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+          <div className="relative flex items-start justify-between gap-4">
+            <div>
+                <div className="flex items-center gap-4">
+                <div className="bg-blue-600 p-3 rounded-lg text-white shadow-lg">
+                    <Cog size={20} />
+                </div>
+                <div>
+                    <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                      Sesi perbaikan
+                    </h3>
+                </div>
+                </div>
+            </div>
+          </div>
+      </div>
+
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-100/10 p-4 md:p-5 rounded-lg">
         <div className="grid gap-4">
           {pages.map(({ key, label, desc }) => (
@@ -112,7 +130,7 @@ const MaintenancePage = () => {
         <button
           onClick={saveSettings}
           disabled={saving}
-          className="cursor-pointer active:scale-[0.99] mt-8 w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black  rounded-lg text-sm flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98]"
+          className="cursor-pointer active:scale-[0.99] mt-8 w-full py-3 bg-slate-600 text-white font-black  rounded-lg text-sm flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98]"
         >
           {saving ? <RefreshCw className="animate-spin" /> : <Save size={20} />}
           {saving ? 'Menyimpan...' : 'Simpan Pengaturan Maintenance'}

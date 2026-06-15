@@ -92,6 +92,7 @@ import MarqueeConfigPanel from './marqueeConfigPanel';
 import OBSConnectPanel from '../components/obsInject';
 import { VideoTutorialSection } from './videoTutorial';
 import DonatePageConfig from './donateConfig';
+import { createPortal } from 'react-dom';
 
 // ─── API ──────────────────────────────────────────────────────────────────────
 const fetchBadges = async () => (await api.get('/api/midtrans/badges')).data;
@@ -664,6 +665,12 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
 // ─── StreamerProfileModal ─────────────────────────────────────────────────────
 
 const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const { data: streamer, isLoading, error } = useQuery({
     queryKey: ['publicProfile', username],
     queryFn: () => fetchPublicProfile(username),
@@ -674,8 +681,10 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
   const [copied, setCopied] = useState(false);
   const copy = () => { navigator.clipboard.writeText(donateUrl); setCopied(true); setTimeout(() => setCopied(false), 2000); };
 
+  if (!mounted) return null;
+
   if (error) {
-    return (
+    return createPortal(
       <AnimatePresence>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           className="fixed inset-0 bg-black/70 backdrop-blur-md z-[300] flex items-center justify-center p-4"
@@ -688,11 +697,12 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
             <button onClick={onClose} className="mt-6 px-6 py-3 bg-slate-900/70 text-white rounded-lg font-bold">Tutup</button>
           </motion.div>
         </motion.div>
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body  // ← tambahkan ini
     );
   }
 
-  return (
+  return createPortal(
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -701,12 +711,12 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
       >
         <motion.div
           initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0 }}
-          className="z-[999999] mt-auto md:mt-0 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg h-[70vh] pb-4 md:h-max overflow-y-auto max-w-5xl w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800 relative"
+          className="z-[999999] mt-auto md:mt-0 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg min-h-[60vh] max-h-[90vh] pb-4 md:h-max overflow-y-auto max-w-5xl w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800 relative"
           onClick={e => e.stopPropagation()}
         >
           <div className="h-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 relative">
-            <button onClick={onClose} className="absolute top-4 right-4 z-10 w-9 h-9 bg-white hover:bg-slate-100 backdrop-blur-md rounded-lg flex items-center justify-center text-black cursor-pointer active:scale-[0.98] transition-all">
-              <X size={18} />
+            <button onClick={onClose} className="absolute top-6 md:top-4 right-4 z-10 w-9 h-9 bg-slate-100/20 hover:bg-slate-100/30 rounded-lg flex items-center justify-center text-white cursor-pointer active:scale-[0.98] transition-all">
+              <X size={18} className='text-white' />
             </button>
           </div>
 
@@ -790,7 +800,8 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
           </div>
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 
@@ -2786,7 +2797,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
                 {
                   u.profilePicture ? (
                     <>
-                      <img src={u.profilePicture} alt={`Foto profil @${u.username}`} />
+                      <img src={u.profilePicture} alt={`-`} />
                     </>
                   ):
                   u.username.charAt(0).toUpperCase()

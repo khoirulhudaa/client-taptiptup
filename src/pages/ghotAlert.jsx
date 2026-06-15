@@ -2,6 +2,7 @@ import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   AlertCircle,
+  AlertOctagon,
   CheckCircle2,
   ChevronDown,
   HeadphonesIcon,
@@ -166,12 +167,12 @@ const StreamerSelect = ({ streamers, value, onChange, loading }) => {
       <button
         type="button"
         onClick={() => setOpen((p) => !p)}
-        className="cursor-pointer w-full flex items-center justify-between gap-3 px-4 py-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 hover:border-indigo-200 dark:hover:border-indigo-700 focus:border-indigo-400 dark:focus:border-indigo-500 outline-none transition-all font-bold text-sm text-slate-700 dark:text-slate-200"
+        className="cursor-pointer w-full flex items-center justify-between gap-3 px-4 py-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 hover:border-rose-200 dark:hover:border-rose-700 focus:border-rose-400 dark:focus:border-rose-500 outline-none transition-all font-bold text-sm text-slate-700 dark:text-slate-200"
       >
         <div className="flex items-center gap-3 min-w-0">
           {selected ? (
             <>
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-black flex-shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-rose-500 to-violet-600 flex items-center justify-center text-white text-xs font-black flex-shrink-0">
                 {selected.username?.charAt(0).toUpperCase()}
               </div>
               <span className="truncate">@{selected.username}</span>
@@ -207,18 +208,18 @@ const StreamerSelect = ({ streamers, value, onChange, loading }) => {
                   key={s._id}
                   type="button"
                   onClick={() => { onChange(s._id); setOpen(false); }}
-                  className={`cursor-pointer w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-colors ${
-                    s._id === value ? 'bg-indigo-50 dark:bg-indigo-950/30' : ''
+                  className={`cursor-pointer w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors ${
+                    s._id === value ? 'bg-rose-50 dark:bg-rose-950/30' : ''
                   }`}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-black flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-rose-500 to-violet-600 flex items-center justify-center text-white text-xs font-black flex-shrink-0">
                     {s.username?.charAt(0).toUpperCase()}
                   </div>
                   <div className="min-w-0">
                     <p className="font-bold text-sm text-slate-800 dark:text-slate-100 truncate">@{s.username}</p>
                     {s.email && <p className="text-xs text-slate-400 dark:text-slate-500 truncate">{s.email}</p>}
                   </div>
-                  {s._id === value && <CheckCircle2 size={14} className="ml-auto flex-shrink-0 text-indigo-500" />}
+                  {s._id === value && <CheckCircle2 size={14} className="ml-auto flex-shrink-0 text-rose-500" />}
                 </button>
               ))
             )}
@@ -389,6 +390,24 @@ const GhostAlertPage = () => {
         </AnimatePresence>
       </div>
 
+      <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+          <div className="relative flex items-start justify-between gap-4">
+            <div>
+                <div className="flex items-center gap-4">
+                <div className="bg-rose-600 p-3 rounded-lg text-white shadow-lg">
+                    <AlertOctagon size={20} />
+                </div>
+                <div>
+                    <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                      Notif Superadmin
+                    </h3>
+                </div>
+                </div>
+            </div>
+          </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
 
         {/* ── Form Panel ── */}
@@ -396,7 +415,7 @@ const GhostAlertPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className="lg:col-span-3 bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-100/50 dark:shadow-none p-4 md:p-4.5 space-y-6"
+          className="lg:col-span-3 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-100/50 dark:shadow-none p-4 md:p-4.5 space-y-6"
         >
           {/* Streamer Target */}
           <div>
@@ -420,7 +439,7 @@ const GhostAlertPage = () => {
               type="text"
               value={form.donorName}
               onChange={(e) => setForm({ ...form, donorName: e.target.value })}
-              className="w-full p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-indigo-300 dark:focus:border-indigo-600 focus:bg-white dark:focus:bg-slate-800 outline-none font-bold text-sm text-slate-700 dark:text-slate-200 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600"
+              className="w-full p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-rose-300 dark:focus:border-rose-600 focus:bg-white dark:focus:bg-slate-800 outline-none font-bold text-sm text-slate-700 dark:text-slate-200 transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600"
               placeholder="Nama yang muncul di overlay..."
             />
           </div>
@@ -438,8 +457,8 @@ const GhostAlertPage = () => {
                   onClick={() => setForm({ ...form, amount: p.value })}
                   className={`cursor-pointer active:scale-[0.96] py-2.5 rounded-lg font-black text-sm transition-all border-2 ${
                     form.amount === p.value
-                      ? 'bg-indigo-600 border-indigo-600 text-white'
-                      : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-indigo-200 dark:hover:border-indigo-700 hover:text-indigo-600 dark:hover:text-indigo-400'
+                      ? 'bg-rose-600 border-rose-600 text-white'
+                      : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-rose-200 dark:hover:border-rose-700 hover:text-rose-600 dark:hover:text-rose-400'
                   }`}
                 >
                   {p.label}
@@ -447,12 +466,12 @@ const GhostAlertPage = () => {
               ))}
             </div>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 font-black text-indigo-600 dark:text-indigo-400 text-sm pointer-events-none">Rp</span>
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 font-black text-rose-600 dark:text-rose-400 text-sm pointer-events-none">Rp</span>
               <input
                 type="number"
                 value={form.amount || ''}
                 onChange={(e) => setForm({ ...form, amount: Number(e.target.value) })}
-                className="w-full p-4 pl-12 rounded-lg font-black text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-indigo-300 dark:focus:border-indigo-600 focus:bg-white dark:focus:bg-slate-800 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                className="w-full p-4 pl-12 rounded-lg font-black text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-rose-300 dark:focus:border-rose-600 focus:bg-white dark:focus:bg-slate-800 outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600"
                 placeholder="Custom nominal..."
               />
             </div>
@@ -469,7 +488,7 @@ const GhostAlertPage = () => {
                   key={msg}
                   type="button"
                   onClick={() => setForm({ ...form, message: msg })}
-                  className="cursor-pointer px-3 py-1 bg-slate-50 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 border border-slate-100 dark:border-slate-700 hover:border-indigo-200 dark:hover:border-indigo-700 rounded-lg text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all"
+                  className="cursor-pointer px-3 py-1 bg-slate-50 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950/30 border border-slate-100 dark:border-slate-700 hover:border-rose-200 dark:hover:border-rose-700 rounded-lg text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-all"
                 >
                   {msg}
                 </button>
@@ -478,7 +497,7 @@ const GhostAlertPage = () => {
             <textarea
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="w-full p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-indigo-300 dark:focus:border-indigo-600 focus:bg-white dark:focus:bg-slate-800 outline-none min-h-[80px] font-medium text-sm text-slate-700 dark:text-slate-200 transition-all resize-none placeholder:text-slate-400 dark:placeholder:text-slate-600"
+              className="w-full p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-rose-300 dark:focus:border-rose-600 focus:bg-white dark:focus:bg-slate-800 outline-none min-h-[80px] font-medium text-sm text-slate-700 dark:text-slate-200 transition-all resize-none placeholder:text-slate-400 dark:placeholder:text-slate-600"
               placeholder="Isi pesan overlay (opsional)..."
             />
           </div>
@@ -501,8 +520,8 @@ const GhostAlertPage = () => {
                   onClick={() => setForm({ ...form, mediaType: mt.value })}
                   className={`cursor-pointer py-2 rounded-lg font-bold text-xs transition-all border-2 ${
                     form.mediaType === mt.value
-                      ? 'bg-purple-600 border-purple-600 text-white'
-                      : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-purple-200 dark:hover:border-purple-700 hover:text-purple-600 dark:hover:text-purple-400'
+                      ? 'bg-rose-600 border-rose-600 text-white'
+                      : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-rose-200 dark:hover:border-rose-700 hover:text-rose-600 dark:hover:text-rose-400'
                   }`}
                 >
                   {mt.value === 'image' ? '🖼️' : '📺'} {mt.label}
@@ -515,7 +534,7 @@ const GhostAlertPage = () => {
               type="url"
               value={form.mediaUrl}
               onChange={(e) => setForm({ ...form, mediaUrl: e.target.value })}
-              className="w-full p-3.5 rounded-lg bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-purple-300 dark:focus:border-purple-600 outline-none font-mono text-xs text-slate-700 dark:text-slate-300 transition-all placeholder:font-sans placeholder:text-slate-400 dark:placeholder:text-slate-600"
+              className="w-full p-3.5 rounded-lg bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-rose-300 dark:focus:border-rose-600 outline-none font-mono text-xs text-slate-700 dark:text-slate-300 transition-all placeholder:font-sans placeholder:text-slate-400 dark:placeholder:text-slate-600"
               placeholder={
                 form.mediaType === 'youtube'
                   ? 'https://youtu.be/xxxx atau https://youtube.com/watch?v=xxxx'
@@ -600,7 +619,7 @@ const GhostAlertPage = () => {
             type="button"
             onClick={handleSend}
             disabled={sending || !form.targetUserId || !form.amount}
-            className="active:scale-[0.99] cursor-pointer w-full py-3 text-sm bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-lg font-black text-base shadow-xl shadow-indigo-200 dark:shadow-indigo-900/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 transition-all"
+            className="active:scale-[0.99] cursor-pointer w-full py-3 text-sm bg-gradient-to-r from-rose-600 to-violet-600 text-white rounded-lg font-black text-base shadow-xl shadow-rose-200 dark:shadow-rose-900/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 transition-all"
           >
             {sending ? (
               <><Loader2 size={18} className="animate-spin" /> Mengirim Alert...</>
@@ -618,11 +637,11 @@ const GhostAlertPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="md:flex flex-col hidden bg-gradient-to-br from-indigo-600 to-violet-700 rounded-lg p-4 md:p-6 text-white shadow-xl shadow-indigo-200 dark:shadow-indigo-900/30"
+            className="md:flex flex-col hidden bg-gradient-to-br from-rose-600 to-rose-700 rounded-lg p-4 md:p-6 text-white shadow-xl shadow-rose-200 dark:shadow-rose-900/30"
           >
             <div className="flex items-center gap-2.5 mb-4">
-              <Radio size={16} className="text-indigo-200" />
-              <p className="text-xs font-black uppercase tracking-widest text-indigo-200">Cara Kerja</p>
+              <Radio size={16} className="text-rose-200" />
+              <p className="text-xs font-black uppercase tracking-widest text-rose-200">Cara Kerja</p>
             </div>
             <div className="space-y-3">
               {[
@@ -633,8 +652,8 @@ const GhostAlertPage = () => {
                 { step: '05', text: 'Alert langsung dikirim ke OBS via Socket.IO tanpa transaksi Midtrans' },
               ].map((item) => (
                 <div key={item.step} className="flex items-start gap-3">
-                  <span className="text-[10px] font-black text-indigo-300 mt-0.5 flex-shrink-0 w-5">{item.step}</span>
-                  <p className="text-xs text-indigo-100 font-medium leading-relaxed">{item.text}</p>
+                  <span className="text-[10px] font-black text-rose-300 mt-0.5 flex-shrink-0 w-5">{item.step}</span>
+                  <p className="text-xs text-rose-100 font-medium leading-relaxed">{item.text}</p>
                 </div>
               ))}
             </div>
@@ -645,7 +664,7 @@ const GhostAlertPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-100/50 dark:shadow-none overflow-hidden"
+            className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-100/50 dark:shadow-none overflow-hidden"
           >
             <div className="flex items-center justify-between px-5 py-4 border-b border-slate-50 dark:border-slate-800">
               <p className="text-xs font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest">Log Aktivitas</p>

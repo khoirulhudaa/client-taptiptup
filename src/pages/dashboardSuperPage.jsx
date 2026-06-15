@@ -2,7 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import {
     Activity, AlertTriangle, ArrowUpRight,
-    Clock, DollarSign,
+    ChartBar,
+    Clock, Coins, DollarSign,
+    HandFist,
     Loader,
     RefreshCw, Server, Shield, TrendingUp,
     Trophy, Users, Wallet
@@ -35,7 +37,7 @@ const staggerChild = (i) => ({
 const StatCard = ({ label, value, sub, icon: Icon, accent, index }) => (
   <motion.div
     {...staggerChild(index)}
-    className="relative overflow-hidden rounded-lg border dark:border-slate-800 bg-white dark:bg-slate-900 p-6 flex flex-col gap-3"
+    className="relative overflow-hidden rounded-lg border dark:border-slate-800 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm p-6 flex flex-col gap-3"
   >
     {/* accent line */}
     <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: accent }} />
@@ -90,6 +92,8 @@ export const DashboardSuperPage = () => {
     queryFn: fetchSuperStats,
     refetchInterval: 30000,
   });
+
+  console.log('stats', stats)
 
   const { data: health, isLoading: healthLoading, refetch: refetchHealth } = useQuery({
     queryKey: ['serverHealth'],
@@ -179,35 +183,44 @@ export const DashboardSuperPage = () => {
   return (
     <div className="h-max text-white pb-4 md:pb-0 px-4 md:px-0 pt-2 md:pt-0 space-y-8 font-sans">
 
-      {/* ── Header ── */}
-      <motion.div {...staggerChild(0)} className="hidden md:flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-[18px] text-slate-900  dark:text-white md:text-[20px] font-black tracking-tight">
-            Pusat <span className="text-indigo-400">Statistik</span>
-          </h1>
-          <p className="text-slate-500 text-sm font-medium mt-1">Platform overview — semua data real-time</p>
-        </div>
-        <div className="flex items-center gap-3 flex-wrap">
-          {/* Server Health */}
-          <div className="flex items-center gap-3 bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-lg">
-            <Server size={14} className="text-slate-400" />
-            {healthLoading
-              ? <span className="text-xs text-slate-500 font-bold animate-pulse">Checking...</span>
-              : <HealthBadge latency={health?.latency ?? 9999} status={health?.status ?? 'error'} />
-            }
+      <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+          <div className="relative flex items-start justify-between gap-4">
+            <div>
+                <div className="flex items-center gap-4">
+                <div className="bg-blue-600 p-3 rounded-lg text-white shadow-lg">
+                    <ChartBar size={20} />
+                </div>
+                <div>
+                    <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                      Pusat Statistik
+                    </h3>
+                </div>
+                </div>
+            </div>
+
+            <div className="flex items-center gap-3 relative top-[3.5px] flex-wrap">
+              {/* Server Health */}
+              <div className="flex items-center gap-3 bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-lg">
+                <Server size={14} className="text-slate-400" />
+                {healthLoading
+                  ? <span className="text-xs text-slate-500 font-bold animate-pulse">Checking...</span>
+                  : <HealthBadge latency={health?.latency ?? 9999} status={health?.status ?? 'error'} />
+                }
+              </div>
+              <div className="flex items-center gap-2 text-[10px] text-slate-500 font-bold">
+                <span>Update: {lastUpdate}</span>
+                <button
+                  onClick={() => { refetch(); refetchHealth(); }}
+                  disabled={isFetching}
+                  className="cursor-pointer p-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg transition-all disabled:opacity-50"
+                >
+                  <RefreshCw size={12} className={isFetching ? 'animate-spin text-indigo-400' : 'text-slate-400'} />
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-2 text-[10px] text-slate-500 font-bold">
-            <span>Update: {lastUpdate}</span>
-            <button
-              onClick={() => { refetch(); refetchHealth(); }}
-              disabled={isFetching}
-              className="cursor-pointer p-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg transition-all disabled:opacity-50"
-            >
-              <RefreshCw size={12} className={isFetching ? 'animate-spin text-indigo-400' : 'text-slate-400'} />
-            </button>
-          </div>
-        </div>
-      </motion.div>
+      </div>
 
       {/* ── Stat Cards ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -215,7 +228,7 @@ export const DashboardSuperPage = () => {
         <StatCard index={2} label="Total Users"           value={fmt(stats?.totalUsers)}                sub="Akun streamer aktif"                                   icon={Users}        accent="#22d3ee" />
         <StatCard index={3} label="Total Pencairan"       value={fmtRp(stats?.totalWithdrawal?.amount)} sub={`${fmt(stats?.totalWithdrawal?.count)} transaksi`}      icon={Wallet}       accent="#34d399" />
         <StatCard index={4} label="Dana Tertahan"         value={fmtRp(retained)}                       sub="Belum dicairkan"                                        icon={TrendingUp}   accent="#f59e0b" />
-        <StatCard index={5} label="Pending Withdraw"      value={fmt(stats?.pendingWithdrawals)}         sub="Menunggu diproses"                                     icon={Clock}        accent="#ef4444" />
+        <StatCard index={5} label="Pending Withdraw"      value={fmt(stats?.pendingWithdrawalsCount)}  sub="Menunggu diproses"                                     icon={Clock}        accent="#ef4444" />
         <StatCard index={6} label="Status Server"         value={healthLoading ? '—' : health?.status === 'ok' ? 'Online' : 'Offline'} sub={healthLoading ? 'checking...' : `${health?.latency}ms latency`} icon={Activity} accent="#a78bfa" />
       </div>
 
@@ -223,7 +236,7 @@ export const DashboardSuperPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
         {/* Top Donatur */}
-        <motion.div {...staggerChild(10)} className="md:bg-white md:dark:bg-slate-900 md:border dark:border-slate-800 rounded-lg p-0 md:p-6">
+        <motion.div {...staggerChild(10)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-lg p-0 md:p-6">
           <div className="flex items-center gap-2 mb-5">
             <div className="w-8 h-8 bg-amber-500/10 border border-amber-500/20 rounded-lg flex items-center justify-center">
               <Trophy size={14} className="text-amber-400" />
@@ -256,72 +269,66 @@ export const DashboardSuperPage = () => {
         </motion.div>
 
         {/* Pending Withdrawals Alert */}
-        <motion.div {...staggerChild(11)} className="w-full md:bg-white md:dark:bg-slate-900 md:border dark:border-slate-800 rounded-lg p-0 md:my-0 my-2 md:p-6 flex justify-center md:items-center text-center flex-col">
-          {/* <div className="flex justify-center items-center gap-2 pt-0 mb-5">
-            <div>
-              <p className="font-black text-sm text-slate-900 dark:text-white">Pending Withdraw</p>
-            </div>
-          </div> */}
-
-          <div className="w-full flex-1 flex flex-col items-center justify-center gap-4">
-            <div className="w-full h-full flex justify-center items-center relative">
-              <div
-                className="w-full h-full md:py-4 py-6 rounded-lg border-[3.5px] flex items-center justify-center"
-                style={{
-                  borderColor: stats?.pendingWithdrawals > 0 ? '#ef4444' : '#22c55e',
-                  background: stats?.pendingWithdrawals > 0 ? '#ef444410' : '#22c55e10',
-                }}
-              >
-                <div className="text-center">
-                  <p
-                    className="text-4xl font-black leading-none"
-                    style={{ color: stats?.pendingWithdrawals > 0 ? '#ef4444' : '#22c55e' }}
-                  >
-                    {fmt(stats?.pendingWithdrawals)}
-                  </p>
-                  <p className="mt-4 text-[10px] text-slate-500 w-max font-black uppercase tracking-wider mt-1">request penarikan</p>
-                </div>
+        <motion.div {...staggerChild(11)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-lg p-0 md:p-6">
+          <div className="flex items-center justify-between gap-2 mb-5">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center justify-center">
+                <Clock size={14} className="text-red-400" />
+              </div>
+              <div>
+                <p className="font-black text-sm text-slate-900 dark:text-white">Pending Withdrawal</p>
               </div>
             </div>
-            {/* <p className="text-xs text-slate-500 font-medium text-center">
-              {stats?.pendingWithdrawals > 0
-                ? 'Segera proses permintaan penarikan'
-                : 'Semua penarikan sudah diproses'}
-            </p> */}
+            {stats?.pendingWithdrawalsCount > 0 && (
+              <span className="text-[10px] font-black px-2 py-1 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20">
+                {fmt(stats?.pendingWithdrawalsCount)} pending
+              </span>
+            )}
           </div>
-{/* 
-          {stats?.pendingWithdrawals > 0 && (
-            <div className="mt-4 hidden md:flex items-center gap-2 px-4 py-2.5 bg-red-500/10 border border-red-500/20 rounded-lg">
-              <Clock size={12} className="text-red-400 flex-shrink-0" />
-              <p className="text-[11px] text-red-400 font-bold">Buka tab "Admin" untuk memproses</p>
-            </div>
-          )} */}
+
+          <div className="space-y-3">
+            {(stats?.pendingWithdrawals || []).length === 0 && (
+              <p className="text-slate-600 text-sm font-bold text-center py-6">Tidak ada pending</p>
+            )}
+            {(stats?.pendingWithdrawals || []).slice(0, 3).map((w, i) => (
+              <div key={w.id || i} className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 border border-slate-700/50 rounded-lg">
+                <div className="w-7 h-7 bg-red-500/10 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-black text-red-400">
+                  {w.accountName?.charAt(0)?.toUpperCase() || '?'}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-black text-slate-900 dark:text-white truncate">{w.accountName || '-'}</p>
+                  <p className="text-[10px] text-slate-400 font-medium truncate uppercase">{w.paymentMethod || '-'}</p>
+                </div>
+                <p className="font-black text-sm flex-shrink-0 text-red-400">{fmtRp(w.amount)}</p>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Donasi Terbaru */}
-        <motion.div {...staggerChild(12)} className="md:bg-white md:dark:bg-slate-900 md:border dark:border-slate-800 rounded-lg p-0 md:p-6">
+        <motion.div {...staggerChild(12)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-lg p-0 md:p-6">
           <div className="flex items-center gap-2 mb-5">
             <div className="w-8 h-8 bg-indigo-500/10 border border-indigo-500/20 rounded-lg flex items-center justify-center">
-              <ArrowUpRight size={14} className="text-indigo-400" />
+              <Coins size={14} className="relative left-[0.1px] text-indigo-400" />
             </div>
             <div>
               <p className="font-black text-sm text-slate-900 dark:text-white">Donasi Terbaru</p>
             </div>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-3">
             {(stats?.recentDonations || []).length === 0 && (
               <p className="text-slate-600 text-sm font-bold text-center py-6">Belum ada donasi</p>
             )}
-            {(stats?.recentDonations || []).map((d, i) => (
-              <div key={d._id || i} className="flex items-center gap-3 py-2.5 border-b border-slate-800 last:border-0">
+            {(stats?.recentDonations || []).slice(0, 3).map((d, i) => (
+              <div key={d._id || i} className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 border border-slate-700/50 rounded-lg">
                 <div className="w-7 h-7 bg-indigo-500/10 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-black text-indigo-400">
                   {d.donorName?.charAt(0)?.toUpperCase() || '?'}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-black text-slate-900 dark:text-white truncate">{d.donorName || 'Anonim'}</p>
-                  <p className="text-[10px] text-slate-500 font-medium truncate">→ @{d.userId?.username || '?'}</p>
+                  <p className="text-sm font-black text-slate-900 dark:text-white truncate">{d.donorName || 'Anonim'}</p>
+                  <p className="text-[10px] text-slate-400 font-medium truncate">@{d.userId?.username || '?'}</p>
                 </div>
-                <p className="text-xs font-black text-emerald-400 flex-shrink-0">{fmtRp(d.amount)}</p>
+                <p className="font-black text-sm flex-shrink-0">{fmtRp(d.amount)}</p>
               </div>
             ))}
           </div>

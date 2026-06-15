@@ -10,23 +10,23 @@ const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) =
       animate={{ opacity: 1, y: 0 }}
       className="space-y-5 pb-0 w-full"
     >
-        <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
-            <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
-            <div className="relative flex items-start justify-between gap-4">
-            <div>
-                <div className="flex items-center gap-4">
-                <div className="bg-blue-500 p-3 rounded-lg text-white shadow-lg">
-                    <HandCoins size={20} />
-                </div>
-                <div>
-                    <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
-                        Halaman donasi
-                    </h3>
-                </div>
-                </div>
-            </div>
-            </div>
+      <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+          <div className="relative flex items-start justify-between gap-4">
+          <div>
+              <div className="flex items-center gap-4">
+              <div className="bg-blue-500 p-3 rounded-lg text-white shadow-lg">
+                  <HandCoins size={20} />
+              </div>
+              <div>
+                  <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                      Halaman donasi
+                  </h3>
+              </div>
+              </div>
+          </div>
         </div>
+      </div>
       {/* Header */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6">
 
