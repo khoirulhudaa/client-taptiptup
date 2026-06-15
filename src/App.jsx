@@ -99,27 +99,7 @@ function App() {
           </svg>
         </div>
 
-        {/* TTT Glitch */}
-        {/* <div style={{ position: 'relative', marginBottom: '0.9rem', animation: 'fadein 0.5s ease' }}>
-          {[
-            { color: '#f87171', anim: 'glitch1 0.7s infinite', opacity: 0.6 },
-            { color: '#818cf8', anim: 'glitch2 0.7s infinite 0.15s', opacity: 0.45 },
-          ].map((g, i) => (
-            <div key={i} style={{
-              position: 'absolute', inset: 0,
-              fontFamily: "'Bebas Neue', sans-serif", fontSize: 96,
-              letterSpacing: '0.08em', color: g.color, lineHeight: 1,
-              animation: g.anim, opacity: g.opacity,
-            }}>TTT</div>
-          ))}
-          <div style={{
-            fontFamily: "'Bebas Neue', sans-serif", fontSize: 96,
-            letterSpacing: '0.08em', color: '#fda4af', lineHeight: 1,
-            animation: 'flicker 1s infinite', position: 'relative',
-          }}>TTT</div>
-        </div> */}
-
-        <img src="/logttt.png" alt="img" loading="lazy" className="animate animate-pulse ease duration-100 w-[43%] md:w-[15%] 2xl:w-[12%] !mt-[-60px]" />
+        <img src="/logttt.png" alt="img" loading="lazy" className="animate animate-pulse ease duration-100 w-[43%] md:w-[15%] 2xl:w-[12%] !mt-[0px]" />
 
         {/* Text */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, marginBottom: '2rem', animation: 'fadein 0.6s 0.1s ease both' }}>
