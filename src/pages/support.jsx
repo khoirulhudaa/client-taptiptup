@@ -117,59 +117,7 @@ export const ContactPage = () => {
 
       <SuggestionsManager />
 
-      <div className="space-y-8">
-
-        {/* ── Developer Section ── */}
-        <motion.div {...fadeUp(0.05)} className="bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 overflow-hidden">
-
-          <div className="px-4 md:px-8 pt-8 pb-6 border-b border-slate-50 dark:border-slate-800">
-            <div className="flex items-start gap-5">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="text-lg font-black text-slate-800 dark:text-slate-100">{DEVELOPER.name}</h3>
-                  <span className="md:px-2.5 py-1 md:bg-blue-50 dark:md:bg-blue-950/40 text-blue-600 dark:text-blue-400 md:rounded-lg text-[10px] font-black uppercase tracking-widest">
-                    Developer
-                  </span>
-                </div>
-                <p className="text-xs font-bold text-blue-500 dark:text-blue-400 mt-0.5">{DEVELOPER.role}</p>
-                <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-2 leading-relaxed max-w-full">{DEVELOPER.bio}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="px-4 md:px-8 py-7 space-y-7">
-
-            <div>
-              <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Kontak Langsung</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <ContactCard icon={<Mail size={16} />}          label="Email"    value={DEVELOPER.email}    href={`mailto:${DEVELOPER.email}`} />
-                <ContactCard icon={<MessageCircle size={16} />} label="WhatsApp" value={DEVELOPER.whatsapp} href={`https://wa.me/${DEVELOPER.whatsapp.replace(/\D/g, '')}`} />
-                <ContactCard icon={<Phone size={16} />}         label="Telepon"  value={DEVELOPER.phone}    href={`tel:${DEVELOPER.phone.replace(/\D/g, '')}`} />
-                <ContactCard icon={<Globe size={16} />}         label="Website"  value={DEVELOPER.website}  href={`https://${DEVELOPER.website}`} />
-              </div>
-            </div>
-
-            <div>
-              <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Media Sosial</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <ContactCard icon={<GitBranch size={16} />} label="GitHub"    value={DEVELOPER.github}    href={`https://${DEVELOPER.github}`} mono />
-                <ContactCard icon={<Link2 size={16} />}     label="Link"      value={DEVELOPER.Link}      href={`https://${DEVELOPER.Link}`} />
-                <ContactCard icon={<AtSign size={16} />}    label="Instagram" value={DEVELOPER.instagram} href={`https://instagram.com/${DEVELOPER.instagram.replace('@', '')}`} />
-              </div>
-            </div>
-
-            <div>
-              <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Informasi Lain</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <ContactCard icon={<MapPin size={16} />} label="Lokasi"       value={DEVELOPER.location} />
-                <ContactCard icon={<Clock size={16} />}  label="Timezone"     value={DEVELOPER.timezone} />
-                <ContactCard icon={<Clock size={16} />}  label="Jam Tersedia" value={DEVELOPER.availableHours} />
-                <ContactCard icon={<Code2 size={16} />}  label="Spesialisasi" value="Fullstack · React · Node.js" />
-              </div>
-            </div>
-
-          </div>
-        </motion.div>
+      <div className="space-y-8 mt-6">
 
         {/* ── Platform Section ── */}
         <motion.div {...fadeUp(0.1)} className="bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 overflow-hidden">
@@ -252,7 +200,7 @@ export const ContactPage = () => {
         {/* ── Bottom CTA — gradient stays dark by design ── */}
         <motion.div
           {...fadeUp(0.2)}
-          className="rounded-lg px-6 md:px-8 py-8 text-center"
+          className="rounded-lg px-4 md:px-8 py-8 text-center"
           style={{ background: 'linear-gradient(135deg, #0f0c29 0%, #302b63 100%)' }}
         >
           <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center mx-auto mb-4">

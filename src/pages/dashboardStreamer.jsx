@@ -1464,9 +1464,6 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
               <div className="flex justify-between items-center">
                 <span>Alert (default)</span>
                  <div className='flex items-center gap-2'>
-                  {/* <p className="text-[10px] text-slate-200">
-                    Catatan: Durasi Alert bisa lebih lama jika TTS sedang berbicara.
-                  </p> */}
                   <span className="font-bold text-slate-900 dark:text-white">
                     {Number(settings.alertBaseDuration) || 12} detik
                   </span>

@@ -115,7 +115,7 @@ export const SuggestionsManager = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="md:space-y-6">
       {/* Toast */}
       <AnimatePresence>
         {toast && (
@@ -134,7 +134,7 @@ export const SuggestionsManager = () => {
       </AnimatePresence>
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-violet-600 rounded-lg p-6 text-white relative overflow-hidden">
+      <div className="bg-gradient-to-r from-blue-600 to-violet-600 md:flex flex-col hidden rounded-lg p-4 md:p-8 text-white relative overflow-hidden">
         <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/10 rounded-lg" />
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-2">
@@ -147,10 +147,10 @@ export const SuggestionsManager = () => {
       </div>
 
       {/* Form Kirim Saran */}
-      <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 overflow-hidden">
+      <div className="bg-white dark:bg-slate-900 rouded-tl-lg rounded-tr-lg md:rounded-lg md:border border-slate-100 dark:border-slate-800 overflow-hidden">
         <button
           onClick={() => setShowForm(!showForm)}
-          className="w-full flex items-center justify-between px-6 py-5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer"
+          className="w-full flex items-center justify-between px-4 md:px-6 py-5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer"
         >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-blue-100 dark:bg-blue-950/40 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400">
@@ -255,7 +255,7 @@ export const SuggestionsManager = () => {
 
       {/* Riwayat Saran */}
       <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 overflow-hidden">
-        <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+        <div className="px-4 md:px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <div>
             <p className="font-black text-slate-700 dark:text-slate-200">Riwayat Saran</p>
             <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">{mySuggestions.length} saran terkirim</p>

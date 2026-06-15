@@ -94,7 +94,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
 
   const menuItems = [
     { id: 'settings',      label: 'Editor Overlay',   icon: <Layout size={20} /> },
-    { id: 'alertSettings', label: 'Alert OBS',         icon: <ZapIcon size={20} /> },
+    { id: 'alertSettings', label: 'Notif Alert',         icon: <ZapIcon size={20} /> },
     { id: 'mediaSettings', label: 'Media Share',       icon: <Video size={20} /> },
     { id: 'voiceSettings', label: 'Voice Note',        icon: <Mic size={20} /> },
     { id: 'store',         label: 'Label produk',          icon: <ShoppingBag size={20} /> },
@@ -102,7 +102,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     { id: 'wallet',        label: 'Penarikan Dana',    icon: <Wallet size={20} /> },
     { id: 'poll',          label: 'Poll & Voting',     icon: <Vote size={20} /> },
     { id: 'feeConfig',     label: 'Konfigurasi Fee',   icon: <ReceiptText size={20} /> },
-    { id: 'subathon',      label: 'Subathon',          icon: <Timer size={20} /> },
+    { id: 'subathon',      label: 'Subathon timer',          icon: <Timer size={20} /> },
     { id: 'milestones',    label: 'Milestones',        icon: <TrendingUp size={20} /> },
     { id: 'leaderboard',   label: 'Leaderboard',       icon: <Trophy size={20} /> },
 
