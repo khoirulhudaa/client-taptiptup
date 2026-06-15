@@ -367,15 +367,17 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
             );
           })}
 
-          {!isCollapsed && (
-            <button
-              onClick={() => setShowLogoutConfirm(true)}
-              className="md:hidden w-full flex items-center gap-4 p-3 px-4 bg-red-100 dark:bg-red-900 text-white hover:bg-red-50 dark:hover:bg-red-950 rounded-lg cursor-pointer active:scale-[0.99] font-black"
-            >
-              <LogOut size={18} className='relative left-[1.2px]' />
-              <span className="text-sm ml-[2.2px]">Keluar</span>
-            </button>
-          )}
+          {/* {!isCollapsed && (
+            <div className="pt-4 mt-2 border-t border-slate-200 dark:border-slate-800">
+              <button
+                onClick={() => setShowLogoutConfirm(true)}
+                className="md:hidden w-full flex items-center gap-4 p-3 px-4 bg-red-100 dark:bg-red-900 text-white hover:bg-red-50 dark:hover:bg-red-950 rounded-lg cursor-pointer active:scale-[0.99] font-black"
+              >
+                <LogOut size={18} className='relative left-[1.2px]' />
+                <span className="text-sm ml-[2.2px]">Keluar</span>
+              </button>
+            </div>
+          )} */}
 
           <div className="w-full h-[1px] my-3 bg-slate-200 dark:bg-slate-800" />
 
@@ -438,6 +440,18 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                 </div>
               )}
             </>
+          )}
+
+          {!isCollapsed && (
+            <div className="pt-4 mt-2 border-t border-slate-200 dark:border-slate-800">
+              <button
+                onClick={() => setShowLogoutConfirm(true)}
+                className="md:hidden w-full flex items-center gap-4 p-3 px-4 bg-red-100 dark:bg-red-900 text-white hover:bg-red-50 dark:hover:bg-red-950 rounded-lg cursor-pointer active:scale-[0.99] font-black"
+              >
+                <LogOut size={18} className='relative left-[1.2px]' />
+                <span className="text-sm ml-[2.2px]">Keluar</span>
+              </button>
+            </div>
           )}
         </nav>
       </aside>
