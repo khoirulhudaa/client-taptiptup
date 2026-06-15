@@ -553,8 +553,8 @@ export const WithdrawPage = () => {
         {withdrawals.length > 0 && (
           <div className="px-4 md:px-0 grid grid-cols-3 gap-3">
             {[
-              { label: 'Menunggu', value: statsPending,    unit: 'request', color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-100 dark:bg-amber-950/30 border-amber-100 dark:border-amber-900' },
-              { label: 'Berhasil', value: `${statsCompleted.toLocaleString('id-ID')}`, unit: '', color: 'text-green-600 dark:text-green-400', bg: 'bg-green-100 dark:bg-green-950/30 border-green-100 dark:border-green-900' },
+              { label: 'Diproses', value: statsPending,    unit: 'request', color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-100 dark:bg-amber-950/30 border-amber-100 dark:border-amber-900' },
+              { label: 'Diterima', value: `${statsCompleted.toLocaleString('id-ID')}`, unit: '', color: 'text-green-600 dark:text-green-400', bg: 'bg-green-100 dark:bg-green-950/30 border-green-100 dark:border-green-900' },
               { label: 'Ditolak',  value: statsFailed,     unit: 'request', color: 'text-red-500 dark:text-red-400',    bg: 'bg-red-100 dark:bg-red-950/30 border-red-100 dark:border-red-900' },
             ].map(s => (
               <div key={s.label} className={`${s.bg} justify-center items-center md:justify-normalp border rounded-lg px-4 py-3 md:px-4 md:py-4 flex items-center text-center`}>

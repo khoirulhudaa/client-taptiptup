@@ -2971,14 +2971,13 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
         <div className="p-3 w-11 h-11 bg-rose-500 rounded-lg flex items-center justify-center text-white shadow-lg"><Mic size={20} /></div>
         <div>
           <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-white">Text-to-speech</h4>
-          {/* <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Pesan dibacakan oleh sistem</p> */}
         </div>
       </div>
 
       <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
         <div>
-          <p className="font-black text-slate-700 dark:text-slate-200">Aktifkan Text-to-Speech</p>
-          <p className="text-xs text-slate-400 dark:text-slate-500">
+          <p className="font-black text-slate-700 dark:text-slate-200">Aktifkan TTS</p>
+          <p className="md:flex hidden text-xs text-slate-400 dark:text-slate-500">
             Otomatis membaca: Nama + Nominal + Pesan donasi
           </p>
         </div>
@@ -4167,8 +4166,8 @@ const handleChangePin = async () => {
                               <div className="flex items-center gap-3 p-3 bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 rounded-lg">
                                 <span className="text-lg flex-shrink-0">🎬</span>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-[10px] font-black text-pink-700 dark:text-pink-400 uppercase tracking-wider mb-0.5">Cari GIF di Giphy</p>
-                                  <p className="text-[10px] text-pink-500 dark:text-pink-500 font-medium">
+                                  <p className="text-[11px] md:text-[10px] font-black text-pink-700 dark:text-pink-400 uppercase tracking-wider md:mb-0.5">Cari GIF di Giphy</p>
+                                  <p className="text-[10px] text-pink-500 dark:text-pink-500 md:flex hidden font-medium">
                                     Buka Giphy → klik GIF → Share → Copy GIF Link → paste di atas
                                   </p>
                                 </div>
@@ -4241,7 +4240,7 @@ const handleChangePin = async () => {
                     <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
                       Preset Warna Siap Pakai
                     </label>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 md:grid-cols-3 gap-3">
                       {ALERT_PRESETS.map(preset => (
                         <button
                           key={preset.id}
@@ -4251,13 +4250,13 @@ const handleChangePin = async () => {
                             upd('textColor',      preset.textColor);
                             upd('borderColor',    preset.borderColor);
                           }}
-                          className="cursor-pointer active:scale-[0.99] py-3 px-2 rounded-lg border-2 transition-all text-left"
+                          className="cursor-pointer active:scale-[0.99] py-3 px-2 rounded-lg border-2 transition-all text-center md:text-left"
                           style={{
                             borderColor: preset.highlightColor + '60',
                             background: preset.primaryColor,
                           }}
                         >
-                          <div className='uppercase relative top-[1.2px] md:text-center' style={{ color: preset.highlightColor, fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 600, marginBottom: 2 }}>
+                          <div className='uppercase text-[12px] md:text-[13px] relative top-[1.2px] md:text-center' style={{ color: preset.highlightColor, fontFamily: "'Inter', sans-serif", fontWeight: 600, marginBottom: 2 }}>
                             {preset.name}
                           </div>
                         </button>
@@ -4273,7 +4272,7 @@ const handleChangePin = async () => {
                     <div className="bg-slate-100 dark:bg-slate-800 flex items-center justify-between p-3 py-4 rounded-lg border border-slate-100/10 mb-3">
                       <div className='w-[80%]'>
                         <label className="block text-[10px] font-bold rounded-sm bg-emerald-300 w-max text-slate-800 mb-3 uppercase tracking-widest px-2">DONATE URL</label>
-                        <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="w-full bg-transparent font-mono text-sm text-white font-bold outline-none overflow-hidden truncate" />
+                        <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="w-full bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden truncate" />
                       </div>
                       <div className="flex gap-3">
                         <button onClick={() => copyToClipboard(`https://taptiptup.vercel.app/donate/${user.username}`)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-blue-100 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">

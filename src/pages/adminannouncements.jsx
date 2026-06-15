@@ -452,7 +452,7 @@ export const AdminAnnouncementsPage = () => {
                 key={ann._id}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0, transition: { delay: i * 0.04 } }}
-                className={`relative bg-white h-[200px] dark:bg-slate-900 border rounded-lg overflow-hidden shadow-sm transition-all ${
+                className={`relative bg-white h-[210px] md:h-[200px] dark:bg-slate-900 border rounded-lg overflow-hidden shadow-sm transition-all ${
                   !ann.isActive || expired
                     ? 'border-slate-200 dark:border-slate-800 opacity-60'
                     : 'border-slate-200 dark:border-slate-800 hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700'
@@ -473,7 +473,7 @@ export const AdminAnnouncementsPage = () => {
                           <div className="flex items-center gap-2 flex-wrap mb-1">
                             <h3 className="text-sm md:text-md font-black max-w-[780%] overflow-hidden text-slate-800 dark:text-slate-100 truncate">{ann.title}</h3>
                           </div>
-                          <p className={`text-xs md:text-sm text-slate-500 dark:text-slate-400 font-medium ${isExpanded ? '' : 'line-clamp-2'}`}>
+                          <p className={`text-xs md:text-sm text-slate-500 dark:text-slate-400 font-medium ${isExpanded ? '' : 'line-clamp-1'}`}>
                             {ann.description}
                           </p>
                           {ann.description.length > 120 && (
@@ -516,29 +516,29 @@ export const AdminAnnouncementsPage = () => {
                       </div>
                     </div>
                   </div>
-                    <div className="absolute bottom-4 right-4 flex items-center gap-2 mt-6 flex-shrink-0">
-                        <span className={`px-2 py-2.5 rounded-lg text-[9px] font-black uppercase tracking-wider border ${cfg.badge}`}>
-                          {cfg.label}
+                  <div className="absolute bottom-4 right-4 flex items-center gap-2 mt-6 flex-shrink-0">
+                      <span className={`px-2 py-2.5 rounded-lg text-[9px] font-black uppercase tracking-wider border ${cfg.badge}`}>
+                        {cfg.label}
+                      </span>
+                      {!ann.isActive && (
+                        <span className="px-2 py-2.5 rounded-lg text-[9px] font-black bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700">
+                          Non-aktif
                         </span>
-                        {!ann.isActive && (
-                          <span className="px-2 py-2.5 rounded-lg text-[9px] font-black bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700">
-                            Non-aktif
-                          </span>
-                        )}
-                        {expired && (
-                          <span className="px-2 py-2.5 rounded-lg text-[9px] font-black bg-red-100 dark:bg-red-950/40 text-red-500 border border-red-200 dark:border-red-900">
-                            Kedaluwarsa
-                          </span>
-                        )}
-                        <button onClick={() => openEdit(ann)}
-                        className="border border-white/20 active:scale-[0.98] cursor-pointer p-2 text-white hover:text-white/80 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition-all">
-                        <PenLine size={16} />
-                        </button>
-                        <button onClick={() => setDeleteId(ann._id)}
-                        className="cursor-pointer p-2 border border-white/20 active:scale-[0.98]  text-white hover:text-white/80 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-all">
-                        <Trash2 size={16} />
-                        </button>
-                    </div>
+                      )}
+                      {expired && (
+                        <span className="px-2 py-2.5 rounded-lg text-[9px] font-black bg-red-100 dark:bg-red-950/40 text-red-500 border border-red-200 dark:border-red-900">
+                          Kedaluwarsa
+                        </span>
+                      )}
+                      <button onClick={() => openEdit(ann)}
+                      className="border border-white/20 active:scale-[0.98] cursor-pointer p-2 text-white hover:text-white/80 hover:bg-blue-50 dark:hover:bg-blue-950/40 rounded-lg transition-all">
+                      <PenLine size={16} />
+                      </button>
+                      <button onClick={() => setDeleteId(ann._id)}
+                      className="cursor-pointer p-2 border border-white/20 active:scale-[0.98]  text-white hover:text-white/80 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-lg transition-all">
+                      <Trash2 size={16} />
+                      </button>
+                  </div>
                 </div>
               </motion.div>
             );

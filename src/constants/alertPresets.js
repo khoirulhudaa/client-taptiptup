@@ -2,7 +2,7 @@
 export const ALERT_PRESETS = [
   {
     id: 'frog-swamp',
-    name: '🔵 Ocean Blue',
+    name: 'Ocean Blue',
     desc: 'Biru tenang modern',
     primaryColor: '#0a0f1f',
     highlightColor: '#4da6ff',
@@ -11,7 +11,7 @@ export const ALERT_PRESETS = [
   },
   {
     id: 'frog-forest',
-    name: '🖤 Flat Mono',
+    name: 'Flat Mono',
     desc: 'Flat hitam putih minimalis',
     primaryColor: '#00000055',
     highlightColor: '#ffffff',
@@ -20,7 +20,7 @@ export const ALERT_PRESETS = [
   },
   {
     id: 'frog-neon',
-    name: '⚡ Neon Frog',
+    name: 'Neon Frog',
     desc: 'Katak arcade neon retro',
     primaryColor: '#050f0a',
     highlightColor: '#00ffaa',
