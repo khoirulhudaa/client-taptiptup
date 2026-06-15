@@ -418,7 +418,18 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         voiceUrl: customVoiceUrl.trim() || null,
       });
       setLastSent(new Date());
-      toast.success('✅ Test alert berhasil dikirim!');
+      toast.success('Test alert berhasil dikirim!', {
+        icon: <CheckCircle2 size={18} className="text-green-500" />,
+        style: {
+          background: 'rgba(15, 23, 42, 0.7)',
+          color: '#fff',
+          fontWeight: 'bold',
+          borderRadius: '0.5rem',
+          border: '1px solid rgba(255,255,255,0.1)',
+          backdropFilter: 'blur(12px)',
+          padding: '12px 16px',
+        },
+      });
     } catch (err) {
       alert(err.response?.data?.message || 'Gagal mengirim test alert');
     } finally {
@@ -808,7 +819,7 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
 
 // ─── BannedWordsEditor ────────────────────────────────────────────────────────
 
-const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
+const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
   const queryClient = useQueryClient();
   const [input, setInput] = useState('');
   const [localAction, setLocalAction] = useState('censor');
@@ -2955,7 +2966,7 @@ const ColorInput = React.memo(({ label, value, onChange, allowAlpha = false, id 
   );
 });
 ColorInput.displayName = 'ColorInput';
-const TTSSection = ({ settings, upd, saveSettingsMutation, api }) => {
+const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) => {
   const [testText, setTestText] = useState('');
   const [isTesting, setIsTesting] = useState(false);
 
@@ -3833,14 +3844,14 @@ const handleChangePin = async () => {
       <AnimatePresence>
         {showToast && (
           <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} exit={{ y: -50, opacity: 0 }}
-            className="fixed top-0 left-1/2 -translate-x-1/2 z-[100] bg-slate-900/70 text-white px-8 py-3 md:py-4 rounded-lg shadow-2xl flex items-center gap-3 font-bold border border-white/10 backdrop-blur-md">
+            className="fixed bottom-10 right-11 shadow-2xl z-[100] bg-slate-900/70 text-white px-8 py-3 md:py-4 rounded-lg flex items-center gap-3 font-bold border border-white/10 backdrop-blur-md">
             <CheckCircle2 size={18} className="text-green-500" /> Pengaturan Tersimpan!
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* ── Donation Toasts ── */}
-      <div className="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 max-w-sm w-full">
+      <div className="fixed bottom-6 right-11 z-[100] flex flex-col gap-3 max-w-sm w-full">
         <AnimatePresence>
           {donationToasts.map(t => (
             <motion.div key={t.id} initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 100, opacity: 0 }}
@@ -4413,10 +4424,11 @@ const handleChangePin = async () => {
                   upd={upd}
                   saveSettingsMutation={saveSettingsMutation}
                   api={api}
+                  activeSlot={activeSlot}
                 />
 
                 {/* Filter kata */}
-                <BannedWordsEditor saveSettingsMutation={saveSettingsMutation} settings={settings} />
+                <BannedWordsEditor saveSettingsMutation={saveSettingsMutation} settings={settings} activeSlot={activeSlot} />
               </motion.div>
             )}
 
@@ -4426,6 +4438,12 @@ const handleChangePin = async () => {
 
                 {/* Instant Test MediaShare */}
                 {profileLoading ? <InstantTestMediaShareSkeleton /> : <InstantTestMediaShare overlayToken={user.overlayToken} settings={settings} user={user}/>}
+
+                {/* Izin Media */}
+                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
+                  <SectionHeader icon={<ImageIcon size={20} />} title="Izinkan Donor Kirim Media" color="bg-purple-500" />
+                  <MediaTriggersEditor saveSettingsMutation={saveSettingsMutation} settings={settings} triggers={settings.mediaTriggers || []} onChange={v => upd('mediaTriggers', v)} activeSlot={activeSlot} />
+                </div>
 
                 {/* MediaShare Control */}
                 <MediaShareControl overlayToken={user.overlayToken} />
@@ -4441,12 +4459,6 @@ const handleChangePin = async () => {
                     activeSlot={activeSlot} 
                   />
                 )}
-
-                {/* Izin Media */}
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
-                  <SectionHeader icon={<ImageIcon size={20} />} title="Izinkan Donor Kirim Media" color="bg-purple-500" />
-                  <MediaTriggersEditor saveSettingsMutation={saveSettingsMutation} settings={settings} triggers={settings.mediaTriggers || []} onChange={v => upd('mediaTriggers', v)} activeSlot={activeSlot} />
-                </div>
               </motion.div>
             )}
 
