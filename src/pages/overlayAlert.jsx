@@ -143,7 +143,6 @@
         // ==================== SOCKET CONNECTION ====================
         useEffect(() => {
           if (!token) return;
-
           const socket = io('https://taptiptup-server-1ee47f2895cb.herokuapp.com', {
             reconnection: true,
             reconnectionAttempts: Infinity,

@@ -11,7 +11,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
   const [customMsg, setCustomMsg] = useState('Ini test donasi dari dashboard! 🎉');
   const [customVoiceUrl, setCustomVoiceUrl] = useState('');
 
-  const sendTest = async () => {
+  const    = async () => {
     if (!overlayToken) return;
     setIsSending(true);
     try {

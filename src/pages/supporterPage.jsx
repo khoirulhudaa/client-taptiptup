@@ -260,7 +260,7 @@ const AuthModal = ({ isOpen, onClose, defaultTab = 'login', onAuthSuccess }) => 
                     </h2>
                     <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
                       {tab === 'login'
-                        ? 'Login agar donasi tercatat di riwayat kamu'
+                        ? 'Login agar dukungan tercatat di riwayat kamu'
                         : 'Buat akun gratis dan mulai mendukung kreator'}
                     </p>
                   </div>
@@ -454,7 +454,7 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
                         <div className="w-7 h-7 bg-pink-50 dark:bg-pink-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                           <Heart size={13} className="text-pink-500" />
                         </div>
-                        Riwayat Berdonasi
+                        Riwayat Berdukungan
                       </Link>
                     </div>
                     <div className="p-1.5 border-t border-slate-100 dark:border-slate-800">
@@ -960,7 +960,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
       icon: Bell,
       locked: false,
       lockMsg: null,
-      desc: 'Donasi + suara notif',
+      desc: 'Dukungan + suara notif',
     },
     {
       id: 'mediashare',
@@ -987,7 +987,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
   return (
     <div className="space-y-1">
       <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
-        Tipe Donasi
+        Tipe Dukungan
       </label>
       {(() => {
         const visibleTabs = tabs.filter(tab => !tab.locked);
@@ -1057,7 +1057,7 @@ const RecentDonations = ({ username }) => {
   if (!donations.length) return (
     <div className="text-center py-6">
       <p className="text-2xl mb-2">💝</p>
-      <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500">Belum ada donasi</p>
+      <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500">Belum ada dukungan</p>
       <p className="text-[10px] text-slate-300 dark:text-slate-600 font-medium mt-0.5">Jadilah yang pertama!</p>
     </div>
   );
@@ -1065,7 +1065,7 @@ const RecentDonations = ({ username }) => {
   return (
     <div className="space-y-2">
       <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
-        Donasi Terbaru 💝
+        Dukungan Terbaru 💝
       </label>
       <div className="space-y-2">
         {donations.map((d, i) => (
@@ -1367,7 +1367,7 @@ const SupporterPage = () => {
   }, [mediaUrl]);
 
   // if (maintenance?.supporter) return (
-  //   <MaintenanceScreen title="Halaman donasi - maintenance" subtitle="Sementara kamu tidak bisa mengirim donasi. Coba lagi beberapa saat lagi." />
+  //   <MaintenanceScreen title="Halaman dukungan - maintenance" subtitle="Sementara kamu tidak bisa mengirim dukungan. Coba lagi beberapa saat lagi." />
   // );
 
   const handleAuthSuccess = async (data) => {
@@ -1471,7 +1471,7 @@ const SupporterPage = () => {
   // Update tombol submit
   const submitButtonText = loading 
     ? "Memproses..." 
-    : `Kirim Donasi Rp ${donorTotalAmount.toLocaleString('id-ID')}`;
+    : `Kirim Dukungan Rp ${donorTotalAmount.toLocaleString('id-ID')}`;
 
   // ── Handle Donate ──────────────────────────────────────────
   const handleDonate = async () => {
@@ -1480,10 +1480,10 @@ const SupporterPage = () => {
     const maxDonate = overlaySetting?.maxDonate || 10000000;
     if (!isLoggedIn) {
       if (!form.donorName?.trim()) {
-        return alert('Nama wajib diisi untuk donasi sebagai tamu');
+        return alert('Nama wajib diisi untuk dukungan sebagai tamu');
       }
       if (!form.email?.trim()) {
-        return alert('Email wajib diisi untuk donasi sebagai tamu');
+        return alert('Email wajib diisi untuk dukungan sebagai tamu');
       }
       // Validasi format email
       const emailRegex = /^\S+@\S+\.\S+$/;
@@ -1493,9 +1493,9 @@ const SupporterPage = () => {
     }
 
     if (!form.amount || form.amount < minDonate)
-      return alert(`Minimal donasi Rp ${minDonate.toLocaleString('id-ID')}`);
+      return alert(`Minimal dukungan Rp ${minDonate.toLocaleString('id-ID')}`);
     if (form.amount > maxDonate)
-      return alert(`Maksimal donasi Rp ${maxDonate.toLocaleString('id-ID')}`);
+      return alert(`Maksimal dukungan Rp ${maxDonate.toLocaleString('id-ID')}`);
     if (!form.message.trim() && activeTab !== 'voice')
       return alert('Pesan dukungan tidak boleh kosong');
     if (!streamer?._id) return alert('Data streamer belum siap.');
@@ -1582,7 +1582,7 @@ const SupporterPage = () => {
   const maxDonate  = overlaySetting?.maxDonate  || 10000000;
 
   if (maintenance?.supporter) return (
-    <MaintenanceScreen title="Halaman donasi - maintenance" subtitle="Sementara kamu tidak bisa mengirim donasi. Coba lagi beberapa saat lagi." />
+    <MaintenanceScreen title="Halaman dukungan - maintenance" subtitle="Sementara kamu tidak bisa mengirim dukungan. Coba lagi beberapa saat lagi." />
   );
 
   const quickAmounts = (
@@ -1704,7 +1704,7 @@ const SupporterPage = () => {
 
             {isLoggedIn ? (
               <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg text-[10px] font-black text-green-700 dark:text-green-400">
-                ✓ Donasi akan tercatat di riwayat akun kamu
+                ✓ Dukungan akan tercatat di riwayat akun kamu
               </div>
             ) : (
               <div className="mt-4 flex items-center justify-center gap-1.5">
@@ -1776,7 +1776,7 @@ const SupporterPage = () => {
                         <span>
                           {reached
                             ? <>{t.label || 'Media Alert'} unlocked!</>
-                            : <>Donasi Rp {Number(t.minAmount).toLocaleString('id-ID')} untuk unlock {t.label}</>}
+                            : <>Dukungan Rp {Number(t.minAmount).toLocaleString('id-ID')} untuk unlock {t.label}</>}
                         </span>
                       </div>
                     );
@@ -1856,7 +1856,7 @@ const SupporterPage = () => {
                     <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-lg">
                       <Bell size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
                       <div>
-                        <p className="text-xs font-black text-slate-500 dark:text-slate-400">Donasi Alert Biasa</p>
+                        <p className="text-xs font-black text-slate-500 dark:text-slate-400">Dukungan Alert Biasa</p>
                         <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Masukkan nominal min. Rp {Number(minDonate).toLocaleString('id-ID')} untuk aktifkan pilihan suara</p>
                       </div>
                     </div>
@@ -1864,8 +1864,8 @@ const SupporterPage = () => {
                     <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-lg">
                       <Bell size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
                       <div>
-                        <p className="text-xs font-black text-slate-500 dark:text-slate-400">Donasi Alert Biasa</p>
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Notifikasi donasi akan muncul di OBS streamer</p>
+                        <p className="text-xs font-black text-slate-500 dark:text-slate-400">Dukungan Alert Biasa</p>
+                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Notifikasi dukungan akan muncul di OBS streamer</p>
                       </div>
                     </div>
                   ) : null}
@@ -1887,7 +1887,7 @@ const SupporterPage = () => {
                       <span className="text-2xl flex-shrink-0">🔒</span>
                       <div>
                         <p className="text-xs font-black text-amber-700 dark:text-amber-400">Nominal belum cukup untuk Media Share</p>
-                        <p className="text-[10px] text-amber-500 font-medium mt-0.5">Donasi minimal Rp {Number(minMedia).toLocaleString('id-ID')} untuk mengirim media</p>
+                        <p className="text-[10px] text-amber-500 font-medium mt-0.5">Dukungan minimal Rp {Number(minMedia).toLocaleString('id-ID')} untuk mengirim media</p>
                         <button onClick={() => setForm({ ...form, amount: minMedia })}
                           className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-lg hover:bg-amber-600 transition-all cursor-pointer">
                           Set Rp {Number(minMedia).toLocaleString('id-ID')}
@@ -1964,7 +1964,7 @@ const SupporterPage = () => {
                 className={`w-10 h-6 rounded-lg relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}>
                 <div className={`absolute top-1 w-4 h-4 bg-white rounded-lg shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
               </div>
-              Donasi sebagai anonim
+              Dukungan sebagai anonim
             </label>
 
             {/* Login prompt */}
@@ -1973,8 +1973,8 @@ const SupporterPage = () => {
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                   <div className="flex items-center justify-between px-4 py-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-lg">
                     <div>
-                      <p className="text-xs font-black text-blue-700 dark:text-blue-400">Donasi kamu tidak akan tercatat</p>
-                      <p className="text-[10px] text-blue-400 dark:text-blue-500 font-medium mt-0.5">Masuk atau daftar agar donasi muncul di riwayat akun</p>
+                      <p className="text-xs font-black text-blue-700 dark:text-blue-400">Dukungan kamu tidak akan tercatat</p>
+                      <p className="text-[10px] text-blue-400 dark:text-blue-500 font-medium mt-0.5">Masuk atau daftar agar dukungan muncul di riwayat akun</p>
                     </div>
                     <button onClick={() => openAuth('login')}
                       className="ml-3 flex-shrink-0 px-3 py-1.5 text-[10px] font-black text-blue-600 dark:text-blue-400 bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-700 rounded-lg hover:bg-blue-50 transition-all cursor-pointer">
