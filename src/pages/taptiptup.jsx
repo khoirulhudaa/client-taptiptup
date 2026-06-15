@@ -285,7 +285,7 @@ function Hero({ C, isDark }) {
           style={{ paddingBottom: "0px" }}
         >
 
-        <img src="/logttt.png" alt="img" className="w-[90%] md:hidden 2xl:hidden !mt-[-60px]" />
+        <img src="/logttt.png" alt="img" loading="lazy" className="w-[90%] md:hidden 2xl:hidden !mt-[-60px]" />
         {/* Judul Hero */}
          <h1 className="select-none hero-title md:!mt-[-10px] 2xl:!mt-[-34px] font-['Bebas_Neue'] leading-[0.85] tracking-[-0.01em] text-white mb-4 text-center hidden md:flex flex-wrap items-center justify-center gap-[0.1em] transition-colors duration-400">
             
