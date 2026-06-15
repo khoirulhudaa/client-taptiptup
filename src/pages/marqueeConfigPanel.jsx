@@ -390,7 +390,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
           </div>
         </div>
 
-        <div className="bg-slate-100 dark:bg-slate-800 rounded-lg px-4 py-3 font-mono text-xs text-blue-600 dark:text-blue-400 break-all border border-slate-200 dark:border-slate-700 select-all">
+        <div className="bg-slate-100 truncate max-w-[100%] dark:bg-slate-800 rounded-lg px-4 py-3 font-mono text-xs text-blue-600 dark:text-blue-400 break-all border border-slate-200 dark:border-slate-700 select-all">
           {buildUrl()}
         </div>
 

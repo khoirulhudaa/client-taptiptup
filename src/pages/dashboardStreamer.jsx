@@ -532,8 +532,8 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         </motion.div>
       )}
 
-      <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium text-center">
-        ⚠️ Pastikan OBS overlay kamu sudah dibuka di browser source sebelum test
+      <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium text-left">
+        Pastikan OBS overlay kamu sudah dibuka di browser source
       </p>
     </div>
   );
@@ -626,7 +626,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
 
       <div className="pt-2">
         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 pb-1">Quick Presets</p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
           {PRESET_MEDIA.map((preset, i) => (
             <button key={i} onClick={() => { updateForm('mediaUrl', preset.url); updateForm('mediaType', preset.type); }}
               className={`cursor-pointer active:scale-[0.99] group relative p-2 rounded-lg border-2 transition-all overflow-hidden hover:shadow-md ${
@@ -1403,7 +1403,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                 className="w-full text-md font-bold text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg pb-2.5 p-2"
               />
               <p className="text-xs text-slate-500 mt-2">
-                Alert minimal akan bertahan selama ini. Jika TTS lebih lama, akan mengikuti TTS.
+                Jika TTS lebih lama, akan mengikuti TTS
               </p>
             </div>
           </div>
@@ -1445,12 +1445,12 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
       </div>
 
       {/* Preview kalkulasi */}
-        <div className="bg-slate-50 dark:bg-slate-800/70 p-5 rounded-lg text-sm border border-dashed border-slate-200 dark:border-slate-700">
-          <p className="font-black text-xs text-slate-400 mb-3">DURASI SAAT INI</p>
+        <div className={`${!mediaOnly ? 'hidden' : ''} bg-slate-50 dark:bg-slate-800/70 p-4 md:p-5 rounded-lg text-sm border border-dashed border-slate-200 dark:border-slate-700`}>
+          {/* <p className="font-black text-xs text-slate-400 mb-3">DURASI SAAT INI</p> */}
           <div className="space-y-3">
             {!mediaOnly && (
               <div className="flex justify-between items-center">
-                <span>Alert Biasa (default)</span>
+                <span>Alert (default)</span>
                  <div className='flex items-center gap-2'>
                   {/* <p className="text-[10px] text-slate-200">
                     Catatan: Durasi Alert bisa lebih lama jika TTS sedang berbicara.
@@ -2474,15 +2474,15 @@ const HistoryPage = () => {
             <div className="flex gap-1.5">
               {[{ id: 'received', label: 'Diterima' }, { id: 'sent', label: 'Terkirim' }].map((t) => (
                 <button key={t.id} onClick={() => { setHistoryTab(t.id); setPage(1); setStatusFilter(''); }}
-                  className={`px-4 py-1 text-xs cursor-pointer font-black rounded-lg transition-all border border-slate-200 dark:border-slate-700 ${historyTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-blue-200'}`}>
+                  className={`px-4 py-1 text-xs cursor-pointer font-black rounded-md transition-all border border-slate-200 dark:border-slate-700 ${historyTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-blue-200'}`}>
                   {t.label}
                 </button>
               ))}
             </div>
-            <div className='!text-slate-500 h-[1px] bg-slate-700 mx-[2px] !w-[10px]'>
+            {/* <div className='!text-slate-500 h-[1px] bg-slate-700 mx-[2px] !w-[10px]'>
               
-            </div>
-            <div className="flex gap-1.5 rounded-lg overflow-hidden">
+            </div> */}
+            <div className="flex gap-1.5 rounded-md overflow-hidden">
               <button
                 onClick={() => setViewMode('table')}
                 className={`px-4 py-1 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}

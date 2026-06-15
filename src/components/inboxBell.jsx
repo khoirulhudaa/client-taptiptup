@@ -430,12 +430,12 @@ export const InboxPage = () => {
                               <span className="w-2 h-2 bg-blue-500 rounded-lg flex-shrink-0" />
                             )}
                           </div>
-                          <p className={`text-xs md:text-sm font-medium ${isExpanded ? '' : 'line-clamp-2'} ${ann.isRead ? 'text-slate-400 dark:text-slate-500' : 'text-slate-600 dark:text-slate-400'}`}>
+                          <p className={`text-xs md:text-sm font-medium ${isExpanded ? '' : 'line-clamp-1'} ${ann.isRead ? 'text-slate-400 dark:text-slate-500' : 'text-slate-600 dark:text-slate-400'}`}>
                             {ann.description}
                           </p>
                         </div>
 
-                        <div className="flex-shrink-0 flex items-center gap-2">
+                        {/* <div className="flex-shrink-0 flex items-center gap-2">
                           {ann.isRead ? (
                             <Check size={14} className="text-slate-300 dark:text-slate-600" />
                           ) : (
@@ -443,7 +443,7 @@ export const InboxPage = () => {
                               BARU
                             </span>
                           )}
-                        </div>
+                        </div> */}
                       </div>
 
                       {/* Meta row */}

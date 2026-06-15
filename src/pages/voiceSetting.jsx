@@ -123,7 +123,7 @@
             <p className="font-black text-xs text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">
             Simulasi Durasi
             </p>
-            <div className="grid grid-cols-2 mb-2 md:grid-cols-5 md:gap-0 gap-x-2 md:justify-between">
+            <div className="grid grid-cols-1 mb-2 md:grid-cols-5 md:gap-0 gap-x-2 md:justify-between">
             {previewDurations.map(({ label, seconds }, index) => (
                 <div className='md:flex w-full mb-2 md:mb-0 items-center gap-4'>
                     <div 
