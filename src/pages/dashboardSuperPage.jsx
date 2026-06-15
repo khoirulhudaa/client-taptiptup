@@ -276,14 +276,9 @@ export const DashboardSuperPage = () => {
                 <Clock size={14} className="text-red-400" />
               </div>
               <div>
-                <p className="font-black text-sm text-slate-900 dark:text-white">Pending Withdrawal</p>
+                <p className="font-black text-sm text-slate-900 dark:text-white">{fmt(stats?.pendingWithdrawalsCount)} Pending WD</p>
               </div>
             </div>
-            {stats?.pendingWithdrawalsCount > 0 && (
-              <span className="text-[10px] font-black px-2 py-1 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20">
-                {fmt(stats?.pendingWithdrawalsCount)} pending
-              </span>
-            )}
           </div>
 
           <div className="space-y-3">
