@@ -426,9 +426,9 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
 
   // 4 Template Pesan Cepat
   const messageTemplates = [
-    "Terima kasih banyak atas donasinya! Semangat terus kak 🔥",
-    "Mantap banget! Dukungan ini sangat berarti buat saya ❤️",
-    "Salam dari fans setia! Keep going, kamu hebat! 👏"
+    "Terima kasih banyak atas donasinya! Semangat 🔥",
+    "Mantap banget! Dukungan ini sangat berarti ❤️",
+    "Salam dari fans setia! Keep going 👏"
   ];
 
   return (
@@ -1838,7 +1838,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   // Pixel frog ASCII art kecil sebagai dekorasi
   const FrogDeco = ({ size = 14 }) => (
     <span style={{
-      fontFamily: 'monospace',
+      fontFamily: "Inter', sans-serif",
       fontSize: size,
       color: hl,
       lineHeight: 1,
@@ -1855,7 +1855,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       <div style={{
         fontSize: 14,
         color: 'rgba(255,255,255,0.35)',
-        fontFamily: 'monospace',
+        fontFamily: "Inter', sans-serif",
         letterSpacing: '0.05em',
         fontWeight: 500
       }}>
@@ -1908,7 +1908,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 8 }}>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{
-              fontFamily: 'monospace',
+              fontFamily: "Inter', sans-serif",
               fontSize: 20,
               fontWeight: 500,
               color: fg,
@@ -1937,7 +1937,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
 
         {/* Amount — big retro display */}
         <div style={{
-          fontFamily: 'monospace',
+          fontFamily: "Inter', sans-serif",
           fontSize: 20,
           fontWeight: 500,
           color: hl,
@@ -1952,7 +1952,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         {/* Message */}
         {currentDonor.msg && (
           <div style={{
-            fontFamily: 'monospace',
+            fontFamily: "Inter', sans-serif",
             fontSize: 18,
             color: fg,
             background: 'rgba(255,255,255,0.04)',
@@ -2164,7 +2164,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           marginBottom: 4,
         }}>
           <span style={{
-            fontFamily: 'monospace',
+            fontFamily: "Inter', sans-serif",
             fontSize: 20,
             fontWeight: 500,
             color: hl,
@@ -2177,7 +2177,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
 
         {/* Name */}
         <div style={{
-          fontFamily: 'monospace',
+          fontFamily: "Inter', sans-serif",
           fontSize: 20,
           fontWeight: 500,
           color: fg,
@@ -2191,7 +2191,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         {/* Message */}
         {currentDonor.msg && (
           <div style={{
-            fontFamily: 'monospace',
+            fontFamily: "Inter', sans-serif",
             fontSize: 18,
             color: fg,
             width: 'max-content',
@@ -2297,7 +2297,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         <div className="absolute inset-0 pointer-events-none">
           <AnimatePresence>
             {showAlert && previewMode === 'alert' && (
-              <motion.div className='ml-4 w-[90.7%] 2xl:w-[90%] md:w-[87%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
+              <motion.div className='ml-1.5 md:ml-4 w-[90.7%] 2xl:w-[90%] md:w-[87%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
                 {renderAlert()}
               </motion.div>
             )}
@@ -4257,12 +4257,9 @@ const handleChangePin = async () => {
                             background: preset.primaryColor,
                           }}
                         >
-                          <div className='uppercase relative top-[1.2px] md:text-center' style={{ color: preset.highlightColor, fontFamily: 'monospace', fontSize: 13, fontWeight: 500, marginBottom: 2 }}>
+                          <div className='uppercase relative top-[1.2px] md:text-center' style={{ color: preset.highlightColor, fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 600, marginBottom: 2 }}>
                             {preset.name}
                           </div>
-                          {/* <div style={{ color: preset.textColor, fontSize: 11, opacity: 0.7, fontFamily: 'monospace' }}>
-                            {preset.desc}
-                          </div> */}
                         </button>
                       ))}
                     </div>

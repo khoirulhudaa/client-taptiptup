@@ -33,8 +33,8 @@ const StatusBadge = ({ status }) => {
   };
   const s = map[status] || map.idle;
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-none text-[10px] font-black uppercase tracking-widest ${s.color}`}>
-      <span className={`w-1.5 h-1.5 rounded-full ${s.dot}`} />
+    <span className={`hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-none text-[10px] font-black uppercase tracking-widest ${s.color}`}>
+      {/* <span className={`w-1.5 h-1.5 rounded-full ${s.dot}`} /> */}
       {s.label}
     </span>
   );

@@ -33,7 +33,7 @@ const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) =
         <div className="space-y-3">
 
           {/* Toggle: Tampilkan Leaderboard */}
-          <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+          <div className="md:flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center">
                 <Trophy size={16} className="text-yellow-500" />
@@ -49,17 +49,17 @@ const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) =
             </div>
             <button
               onClick={() => upd('showLeaderboardOnDonate', !settings.showLeaderboardOnDonate)}
-              className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer focus:outline-none ${
+              className={`md:mt-0 mt-5 relative inline-flex h-8 md:h-7 w-full md:w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer focus:outline-none ${
                 settings.showLeaderboardOnDonate ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'
               }`}
             >
-              <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform duration-300 ${
-                settings.showLeaderboardOnDonate ? 'translate-x-8' : 'translate-x-1'
+              <span className={`inline-block h-5 w-[30%] transform rounded-lg bg-white shadow-md transition-transform duration-300 ${
+                settings.showLeaderboardOnDonate ? 'translate-x-54' : 'translate-x-1'
               }`} />
             </button>
           </div>
 
-          <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+          <div className="md:flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
             <div className="flex items-center gap-3">
                 <div className="w-9 h-9 bg-pink-100 dark:bg-pink-900/30 rounded-lg flex items-center justify-center">
                 <History size={16} className="text-pink-500" />
@@ -75,18 +75,18 @@ const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) =
             </div>
             <button
                 onClick={() => upd('showRecentDonationsOnDonate', !settings.showRecentDonationsOnDonate)}
-                className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer focus:outline-none ${
+                className={`md:mt-0 mt-5 relative inline-flex h-8 md:h-7 w-full md:w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer focus:outline-none ${
                 settings.showRecentDonationsOnDonate ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'
                 }`}
             >
-                <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform duration-300 ${
-                settings.showRecentDonationsOnDonate ? 'translate-x-8' : 'translate-x-1'
+                <span className={`inline-block h-5 w-[30%] transform rounded-lg bg-white shadow-md transition-transform duration-300 ${
+                settings.showRecentDonationsOnDonate ? 'translate-x-54' : 'translate-x-1'
                 }`} />
             </button>
             </div>
 
           {/* Toggle: GIF Recommendation */}
-          <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+          <div className="md:flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
                 <Sparkles size={16} className="text-purple-500" />
@@ -102,12 +102,12 @@ const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) =
             </div>
             <button
               onClick={() => upd('giphyOnDonate', !settings.giphyOnDonate)}
-              className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer focus:outline-none ${
+              className={`md:mt-0 mt-5 relative inline-flex h-8 md:h-7 w-full md:w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer focus:outline-none ${
                 settings.giphyOnDonate !== false ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'
               }`}
             >
-              <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform duration-300 ${
-                settings.giphyOnDonate !== false ? 'translate-x-8' : 'translate-x-1'
+              <span className={`inline-block h-5 w-[30%] transform rounded-lg bg-white shadow-md transition-transform duration-300 ${
+                settings.giphyOnDonate !== false ? 'translate-x-54' : 'translate-x-1'
               }`} />
             </button>
           </div>

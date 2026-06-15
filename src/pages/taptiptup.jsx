@@ -251,7 +251,7 @@ function Hero({ C, isDark }) {
 
 
       {/* Grid Background (Mobile) */}
-      <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+      <div className="select-none hidden md:flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="crossgrid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -287,12 +287,8 @@ function Hero({ C, isDark }) {
         {/* Judul Hero */}
          <h1 className="select-none hero-title md:!mt-[-10px] 2xl:!mt-[-34px] font-['Bebas_Neue'] leading-[0.85] tracking-[-0.01em] text-white mb-4 text-center flex flex-wrap items-center justify-center gap-[0.1em] transition-colors duration-400">
             
-            {/* <span className="text-[3.1rem] md:text-8xl select-none md:hidden flex items-center justify-center gap-[0.1em]">
-              AMBIL UNTUNG LEBIH BANYAK BERSAMA TAPTIPTUP
-              </span> */}
-
-          <span className="relative top-[-10px] text-5xl lg:text-8xl 2xl:text-[7rem] w-[80vw] select-none hidden md:flex items-center justify-center">
-            <span className="flex gap-x-5 flex-wrap w-[80vw] relative mt-10 text-center justify-center items-center">
+          <span className="relative top-[-10px] text-4xl lg:text-8xl 2xl:text-[7rem] w-[90vw] md:w-[80vw] select-none hidden md:flex items-center justify-center">
+            <span className="flex gap-x-5 flex-wrap w-[90vw] md:w-[80vw] relative mt-10 text-center justify-center items-center">
 
               {/* Banner + tali */}
               <motion.div
@@ -911,7 +907,7 @@ const FAQ_DATA = [
   },
   {
     q: "Berapa minimal Dukungan dan minimal penarikan dana?",
-    a: "Minimal Dukungan adalah Rp 1.000. Minimal penarikan dana adalah Rp 50.000. Biaya penarikan hanya Rp 3.000 — lebih murah dari platform lain.",
+    a: "Minimal Dukungan adalah Rp 1.000. Minimal penarikan dana adalah Rp 50.000. Biaya penarikan hanya Rp 3.500 — lebih murah dari platform lain.",
   },
   {
     q: "Berapa lama proses konfirmasi Dukungan sampai bisa dicairkan?",
@@ -923,7 +919,7 @@ const FAQ_DATA = [
   },
   {
     q: "Biaya apa saja yang dipotong dari Dukungan yang masuk?",
-    a: "Potongan platform TapTipTup hanya 3.0% dari setiap Dukungan. Biaya penarikan ke rekening bank sebesar Rp 3.000 per transaksi. Tidak ada biaya tersembunyi lainnya.",
+    a: "Potongan platform TapTipTup hanya 3.0% dari setiap Dukungan. Biaya penarikan ke rekening bank sebesar Rp 3.500 saja. Tidak ada biaya tersembunyi lainnya.",
   },
   {
     q: "Bagaimana cara memasang overlay TapTipTup di OBS?",
@@ -1032,7 +1028,7 @@ function FAQ({ C }) {
                   color: isOpen ? "azure" : "rgba(255,255,255,0.5)",
                   fontSize: 18, lineHeight: 1,
                   transition: "all 0.2s",
-                  background: isOpen ? "rgba(100,100,300, 1)" : "transparent",
+                  background: isOpen ? "#1C398E" : "transparent",
                 }}>
                   {isOpen ? "−" : "+"}
                 </span>
@@ -1069,7 +1065,7 @@ function FAQ({ C }) {
           Masih ada pertanyaan lain?
         </p>
         <a
-          href="mailto:help@taptiptup.com"
+          href="mailto:taptiptup.support@gmail.com"
           style={{
             fontFamily: "'Space Mono', monospace",
             fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase",
