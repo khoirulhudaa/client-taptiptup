@@ -3851,7 +3851,7 @@ const handleChangePin = async () => {
       </AnimatePresence>
 
       {/* ── Donation Toasts ── */}
-      <div className="fixed bottom-6 right-11 z-[100] flex flex-col gap-3 max-w-sm w-full">
+      <div className="fixed bottom-6 right-4.5 md:right-11 z-[100] flex flex-col gap-3 max-w-sm w-full">
         <AnimatePresence>
           {donationToasts.map(t => (
             <motion.div key={t.id} initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 100, opacity: 0 }}
