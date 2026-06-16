@@ -91,7 +91,7 @@ const SubathonWidget = () => {
       <div style={{
         background: '#0f0f19',
         borderRadius: 20,
-        padding: '20px 28px',
+        padding: '16px 16px 14px 16px',
         minWidth: 280,
         border: `2px solid ${isLow ? '#ef444460' : 'rgba(255,255,255,0.08)'}`,
         boxShadow: isLow
@@ -121,7 +121,7 @@ const SubathonWidget = () => {
           fontVariantNumeric: 'tabular-nums',
           fontFamily: 'monospace',
           lineHeight: 1,
-          margin: '4px 0 12px',
+          margin: '0px 0 12px',
           transition: 'color 0.5s',
           animation: isLow ? 'pulse 1s ease-in-out infinite' : 'none',
         }}>
