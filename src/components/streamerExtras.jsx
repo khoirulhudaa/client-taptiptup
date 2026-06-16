@@ -311,7 +311,7 @@ export const PollManager = ({ overlayToken, username }) => {
             const total = getTotalVotes(poll);
             const winner = [...(data.options || [])].sort((a, b) => b.votes - a.votes)[0];
             return (
-              <div key={poll._id} className="bg-white dark:bg-slate-900 rounded-lg p-5 border border-slate-100 dark:border-slate-800 flex items-center gap-3">
+              <div key={poll._id} className="bg-white dark:bg-slate-900 rounded-lg p-5 border border-slate-100 dark:border-slate-800 flex items-center gap-4">
                 <div className="flex-1 min-w-0">
                   <p className="font-black text-slate-700 dark:text-slate-200 text-sm truncate">{data.question}</p>
                   {winner && (
@@ -571,7 +571,7 @@ export const SubathonManager = ({ overlayToken }) => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-3">
+        <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Waktu Awal (detik)</label>
             <input type="number" value={localTimer.initialSeconds}
@@ -621,7 +621,7 @@ export const SubathonManager = ({ overlayToken }) => {
               </div>
 
               {/* **PREVIEW Tiers** */}
-              <div className="grid grid-cols-2 md:flex flex-wrap gap-3">
+              <div className="grid grid-cols-2 md:flex flex-wrap gap-2">
                 {(localTimer.durationTiers || []).length === 0 && (
                   <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Belum ada tier</p>
                 )}
@@ -699,12 +699,12 @@ export const SubathonManager = ({ overlayToken }) => {
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Widget URL OBS</p>
 
             {/* Color pickers */}
-            <div className="md:flex gap-3 w-full">
+            <div className="md:flex gap-1.5 w-full">
               {[
                 { label: 'Warna Timer', value: subTimerColor, onChange: setSubTimerColor, default: 'ffffff' },
                 { label: 'Warna Overlay', value: subBgColor, onChange: setSubBgColor, default: '0f0f19' },
               ].map(({ label, value, onChange, default: def }) => (
-                <div key={label} className="w-full flex items-center md:mb-0 mb-2.5 gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
                   <input
                     type="color"
                     value={`#${value}`}
@@ -721,42 +721,41 @@ export const SubathonManager = ({ overlayToken }) => {
             {/* ─── PREVIEW SUBATHON ─── */}
             <div className="space-y-2 md:mt-0 mt-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {[
-                  {
-                    key: 'subath1',
-                    label: 'Subath 1',
-                    Component: Subath1,
-                    props: {
-                      timer: { ...localTimer, title: localTimer.title || 'Subathon Timer' },
-                      displaySeconds,
-                      timerColor: subTimerColor,
-                      bgColor: subBgColor,
-                    }
-                  },
-                  {
-                    key: 'subath2',
-                    label: 'Subath 2',
-                    Component: Subath2,
-                    props: {
-                      displaySeconds,
-                      isRunning: localTimer.isRunning,
-                      timerColor: subTimerColor,
-                      bgColor: subBgColor,
-                    }
-                  },
-                ].map(({ key, label, Component, props }) => (
-                  <div key={key} className="space-y-1">
-                    <p className="text-[10px] mb-2.5 font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
-                    <div
-                      className="bg-slate-500/20 min-h-[250px] py-10 rounded-lg overflow-hidden relative flex justify-center items-center"
-                    >
-                      <div 
-                        className='flex justify-center items-center scale-[0.8] md:scale-[1]'>
-                        <Component {...props} />
-                    </div>
+                           {[
+              {
+                key: 'subath1',
+                label: 'Subath 1',
+                Component: Subath1,
+                scale: 'scale-[1.16] md:scale-[1]',  // ← custom scale
+                props: {
+                  timer: { ...localTimer, title: localTimer.title || 'Subathon Timer' },
+                  displaySeconds,
+                  timerColor: subTimerColor,
+                  bgColor: subBgColor,
+                }
+              },
+              {
+                key: 'subath2',
+                label: 'Subath 2',
+                Component: Subath2,
+                scale: 'scale-[0.93] md:scale-[1]',    // ← scale lama
+                props: {
+                  displaySeconds,
+                  isRunning: localTimer.isRunning,
+                  timerColor: subTimerColor,
+                  bgColor: subBgColor,
+                }
+              },
+            ].map(({ key, label, Component, props, scale }) => (
+              <div key={key} className="space-y-1">
+                <p className="text-[10px] mb-2.5 font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
+                <div className="bg-slate-500/20 min-h-[250px] py-10 rounded-lg overflow-hidden relative flex justify-center items-center">
+                  <div className={`flex justify-center items-center ${scale}`}>
+                    <Component {...props} />
                   </div>
-                  </div>
-                ))}
+                </div>
+              </div>
+            ))}
               </div>
             </div>
             {/* ─── END PREVIEW ─── */}
@@ -833,9 +832,9 @@ export const LeaderboardSettings = ({ overlayToken }) => {
     <div className="space-y-5">
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
-        <div className="relative flex items-start justify-between gap-3">
+        <div className="relative flex items-start justify-between gap-4">
           <div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <div className="bg-rose-500 p-3 rounded-lg text-white shadow-lg">
                   <Milestone size={20} />
               </div>
@@ -1132,9 +1131,9 @@ export const MilestonesManager = ({ overlayToken }) => {
 
         <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden !mb-5">
           <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
-          <div className="relative flex items-start justify-between gap-3">
+          <div className="relative flex items-start justify-between gap-4">
             <div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
                 <div className="bg-purple-500 p-3 rounded-lg text-white shadow-lg">
                     <Milestone size={20} />
                 </div>
@@ -1215,12 +1214,12 @@ export const MilestonesManager = ({ overlayToken }) => {
           <div className="space-y-2">
             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Widget URL OBS</p>
             {/* Color pickers */}
-              <div className="space-y-2 md:flex gap-3 w-full">
+              <div className="space-y-2 md:flex gap-1.5 w-full">
                 {[
                   { label: 'Warna Progres', value: mlColor, onChange: setMlColor, default: '6366f1' },
                   { label: 'Warna Overlay',  value: mlBgcolor, onChange: setMlBgcolor, default: '0f0f19' },
                 ].map(({ label, value, onChange, default: def }) => (
-                  <div key={label} className="w-full flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-2.5 bg-slate-500/20 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-2.5 bg-slate-500/20 rounded-lg border border-slate-200 dark:border-slate-700">
                     <input
                       type="color"
                       value={`#${value}`}
@@ -1248,7 +1247,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                           className="bg-slate-500/20 h-max md:min-h-[300px] py-10 rounded-lg overflow-hidden relative flex justify-center items-center"
                         >
                           <div 
-                            className='flex justify-center items-center scale-[0.55] md:scale-[0.8] 2xl:scale-[1]'>
+                            className='flex justify-center items-center scale-[0.55] md:scale-[0.8] 2xl: 2xl:scale-[]scale-[1]'>
                             <Component {...props} />
                           </div>
                         </div>

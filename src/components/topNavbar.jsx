@@ -196,7 +196,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
       <div className={`hidden md:flex sticky top-0 ${navbar ? 'z-[1]' : 'z-[3]'} w-full bg-white dark:bg-transparent backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-4 py-4 flex items-center justify-between gap-4`}>
 
         {/* Kiri: Breadcrumb */}
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="md:hidden 2xl:flex items-center gap-3 min-w-0">
           <div className="flex ml-[2.9px] items-center gap-1.5 min-w-0">
             <span className="flex md:hidden 2xl:flex text-md font-bold text-slate-400 dark:text-slate-500 whitespace-nowrap">Dashboard</span>
             <ChevronRight size={16} className="text-slate-400 dark:text-slate-600 flex-shrink-0" />
@@ -207,7 +207,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
         </div>
 
         {/* Kanan */}
-        <div className="flex items-center gap-2.5 md:pr-[7px] flex-shrink-0">
+        <div className="flex items-center gap-2.5 md:pr-[7px] md:justify-end 2xl:w-max w-full flex-shrink-0">
           <button
             id="tour-sidebar-toggle"
             onClick={() => setIsCollapsed(v => !v)}
