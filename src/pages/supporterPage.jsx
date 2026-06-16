@@ -1478,7 +1478,7 @@ const SupporterPage = () => {
     const overlaySetting = streamer?.overlaySetting || streamer?.OverlaySetting || {};
     const minDonate = overlaySetting?.minDonate || 1000;
     const maxDonate = overlaySetting?.maxDonate || 10000000;
-    if (!isLoggedIn) {
+    if (!isLoggedIn && !form.isAnonymous) {
       if (!form.donorName?.trim()) {
         return alert('Nama wajib diisi untuk dukungan sebagai tamu');
       }
@@ -1529,10 +1529,10 @@ const SupporterPage = () => {
 
       const payload = {
         amount:       Math.round(Number(form.amount)),     // nominal input
-        donorName:    form.isAnonymous ? 'Anonim' : form.donorName || 'Anonim',
+        donorName: form.isAnonymous ? 'Anonim' : form.donorName || 'Anonim',
         message:      form.message,
         userId:       streamer._id,
-        email:        form.email.trim() || 'guest@mail.com',
+        email:     form.email.trim() || 'guest@mail.com',
         donorUserId:  authPayload?.id,
         mediaUrl:     hasMedia ? mediaUrl.trim() : null,
         mediaType:    detectedMediaType,
@@ -1610,7 +1610,7 @@ const SupporterPage = () => {
     if (!form.message.trim() && activeTab !== 'voice') return true;
 
     // ⬅️ TAMBAHKAN INI - Validasi nama & email kalau belum login
-    if (!isLoggedIn) {
+    if (!isLoggedIn && !form.isAnonymous) {
       if (!form.donorName?.trim()) return true;
       if (!form.email?.trim()) return true;
     }
@@ -1753,12 +1753,12 @@ const SupporterPage = () => {
                 Nominal Kustom
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 font-black text-blue-600 dark:text-blue-400 text-sm">Rp</span>
+                <span className={`absolute left-4 top-1/2 -translate-y-1/2 font-black ${!eligibleTrigger ? 'text-red-400' : 'text-blue-600 dark:text-blue-400'} text-sm`}>Rp</span>
                 <input
                   type="number"
                   value={form.amount || ''}
                   onChange={(e) => setForm({ ...form, amount: Number(e.target.value) })}
-                  className="w-full p-4 pl-12 rounded-lg font-black text-slate-800 dark:text-white bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-slate-700 outline-none transition-all"
+                  className={`w-full p-4 pl-12 rounded-lg font-black  border-2 ${!eligibleTrigger ? 'border-red-500 focus:border-red-300 dark:focus:border-red-500 text-red-400 dark:text-red-400 bg-red-400 dark:bg-red-500/20 focus:bg-red-500/10 dark:focus:bg-red-500/20' : 'focus:bg-white dark:focus:bg-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500' } outline-none transition-all`}
                   placeholder="Nominal Kustom..."
                 />
               </div>
@@ -1769,14 +1769,14 @@ const SupporterPage = () => {
                     const isNext = !reached && (i === 0 || form.amount >= sortedTriggers[i - 1]?.minAmount);
                     if (!reached && !isNext) return null;
                     return (
-                      <div key={i} className={`flex items-center gap-2 text-[10px] font-bold px-2 py-1.5 rounded-lg ${
-                        reached ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'bg-slate-50 dark:bg-slate-900/50 text-slate-400 dark:text-slate-500'
+                      <div key={i} className={`flex items-center gap-2 text-[10px] font-bold px-2 py-1.5 rounded-md ${
+                        reached ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'bg-slate-50 dark:bg-slate-900/50 text-slate-400 dark:text-red-400'
                       }`}>
                         <span>{reached ? '✅' : '🔒'}</span>
                         <span>
                           {reached
                             ? <>{t.label || 'Media Alert'} unlocked!</>
-                            : <>Dukungan Rp {Number(t.minAmount).toLocaleString('id-ID')} untuk unlock {t.label}</>}
+                            : <>Minimal dukungan Rp {Number(t.minAmount).toLocaleString('id-ID')}</>}
                         </span>
                       </div>
                     );

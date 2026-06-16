@@ -393,30 +393,57 @@ const MainAuthForm = ({
           </p>
         </div>
 
-    <div 
-        className='md:!mb-[24px] !mb-[8px]'
-        style={{
-          display: 'flex', 
-          // border: `1px solid ${T.tabBorder}`,
-          borderRadius: 10, overflow: 'hidden'
-        }}>
-          {[
-            { label: 'Masuk', icon: '→' },
-            { label: 'Daftar', icon: '+' },
-          ].map(({ label }, i) => (
+        <div
+          className='md:!mb-[24px] !mb-[8px]'
+          style={{
+            display: 'flex',
+            border: `1px solid ${T.tabBorder}`,
+            borderRadius: 10,
+            overflow: 'hidden',
+            position: 'relative',
+            background: T.tabTrack,  // warna track, misal '#f5f5f5'
+            padding: 4,
+          }}>
+
+          {/* slider indicator */}
+          <div style={{
+            position: 'absolute',
+            top: 4, bottom: 4,
+            left: 4,
+            width: 'calc(50% - 4px)',
+            background: '#2754FF',
+            borderRadius: 7,
+            transform: isLogin ? 'translateX(0)' : 'translateX(calc(100%))',
+            transition: 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+            pointerEvents: 'none',
+          }} />
+
+          {[{ label: 'Masuk' }, { label: 'Daftar' }].map(({ label }, i) => (
             <button key={label} onClick={() => setIsLogin(i === 0)} style={{
-              flex: 1, padding: '14px 0', fontSize: 14, fontWeight: 800,
-              border: 'none', cursor: 'pointer', transition: 'all 0.15s',
-              borderLeft: i > 0 ? `1px solid ${T.tabBorder}` : 'none',
-              background: isTabActive(i) ? '#2754FF' : 'transparent',
-              borderRadius: 10,
-              color: isTabActive(i) ? 'white' : T.tabInactive,
+              flex: 1,
+              padding: '12px 0',
+              fontSize: 14,
+              fontWeight: 800,
+              border: 'none',
+              cursor: 'pointer',
+              background: 'transparent',
+              borderRadius: 7,
+              position: 'relative',
+              zIndex: 1,
+              color: isLogin === (i === 0) ? 'white' : T.tabInactive,
+              transition: 'color 0.2s',
             }}>{label}</button>
           ))}
         </div>
-
+        
         <form onSubmit={handleFormSubmit}>
-          <div style={{ display:'flex', flexDirection:'column', gap:16, marginBottom:20 }}>
+          <motion.div 
+            key={`main-form-${isLogin}`}  // ← tambah isLogin di sini
+            initial={{ opacity:0, x: isLogin ? -24 : 24 }} 
+            animate={{ opacity:1, x:0 }} 
+            exit={{ opacity:0, x: isLogin ? 24 : -24 }}
+            transition={{ duration:0.22 }}
+            style={{ display:'flex', flexDirection:'column', gap:16, marginBottom:20 }}>
             <div className={`grid ${isLogin ? 'grid-cols-1' : ' grid-cols-1 md:grid-cols-2'} gap-4`}>
                 {!isLogin && (
                   <motion.div 
@@ -470,23 +497,21 @@ const MainAuthForm = ({
                 T={T} 
               />
             </div>
-          </div>
+          </motion.div>
 
-          {isLogin && (
-            <div className='uppercase' style={{ textAlign:'left', marginBottom: 10 }}>
-              <button className='uppercase' type="button" onClick={() => setCurrentPage('forgot-password')}
-                style={{ 
-                  background:'none', border:'none', cursor:'pointer', 
-                  color: T.forgotColor, fontSize:13, fontWeight:700, 
-                  transition:'color 0.2s' 
-                }}
-                onMouseEnter={e => e.currentTarget.style.color=T.forgotHover}
-                onMouseLeave={e => e.currentTarget.style.color=T.forgotColor}
-              >
-                Lupa Password?
-              </button>
-            </div>
-          )}
+          <div className={`${isLogin ? '' : 'opacity-0'} uppercase`} style={{ textAlign:'left', marginBottom: 10 }}>
+            <button className='uppercase' type="button" onClick={() => setCurrentPage('forgot-password')}
+              style={{ 
+                background:'none', border:'none', cursor:'pointer', 
+                color: T.forgotColor, fontSize:13, fontWeight:700, 
+                transition:'color 0.2s' 
+              }}
+              onMouseEnter={e => e.currentTarget.style.color=T.forgotHover}
+              onMouseLeave={e => e.currentTarget.style.color=T.forgotColor}
+            >
+              Lupa Password?
+            </button>
+          </div>
 
           <button type="submit" disabled={!isFormValid || loading} className="submit-btn"
             style={{ 
