@@ -354,6 +354,7 @@ export const SubathonManager = ({ overlayToken }) => {
   const [newTierSeconds, setNewTierSeconds] = useState(0);
   const [subTimerColor, setSubTimerColor] = useState('ffffff');
   const [subBgColor, setSubBgColor] = useState('0f0f19');
+  const [subLabelColor, setSubLabelColor] = useState('ffffff');
 
   const { data, isLoading } = useQuery({
     queryKey: ['subathon'],
@@ -703,6 +704,7 @@ export const SubathonManager = ({ overlayToken }) => {
               {[
                 { label: 'Warna Timer', value: subTimerColor, onChange: setSubTimerColor, default: 'ffffff' },
                 { label: 'Warna Overlay', value: subBgColor, onChange: setSubBgColor, default: '0f0f19' },
+                { label: 'Warna Label', value: subLabelColor, onChange: setSubLabelColor, default: 'ffffff' },
               ].map(({ label, value, onChange, default: def }) => (
                 <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
                   <input
@@ -732,6 +734,7 @@ export const SubathonManager = ({ overlayToken }) => {
                   displaySeconds,
                   timerColor: subTimerColor,
                   bgColor: subBgColor,
+                  labelColor: subLabelColor
                 }
               },
               {
@@ -744,6 +747,7 @@ export const SubathonManager = ({ overlayToken }) => {
                   isRunning: localTimer.isRunning,
                   timerColor: subTimerColor,
                   bgColor: subBgColor,
+                  labelColor: subLabelColor
                 }
               },
             ].map(({ key, label, Component, props, scale }) => (
@@ -761,14 +765,16 @@ export const SubathonManager = ({ overlayToken }) => {
             {/* ─── END PREVIEW ─── */}
 
             {['subath1', 'subath2'].map(t => (
-              <div key={t} className="flex gap-2 items-center bg-slate-500/20 px-3 p-2 rounded-lg">
-                <span className="text-[12px] font-black text-slate-400 w-14 flex-shrink-0">{t === 'subath1' ? 'Subath 1' : 'Subath 2'}</span>
-                <input readOnly
-                  value={`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}`}
-                  className="flex-1 max-w-[] bg-transparent font-mono text-[12px] text-blue-600 dark:text-blue-400 font-bold outline-none truncate" />
+              <div key={t} className="w-full justify-between flex gap-2 items-center bg-slate-500/20 px-3 p-2 rounded-lg">
+                <div className='flex items-center w-full'>
+                  <span className="text-[12px] font-black text-slate-400 w-14 flex-shrink-0">{t === 'subath1' ? 'Subath 1' : 'Subath 2'}</span>
+                  <input readOnly
+                    value={`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}&labelcolor=${subLabelColor}`}
+                    className="flex-1 max-w-[70%] truncate bg-transparent font-mono text-[12px] text-blue-600 dark:text-blue-400 font-bold outline-none" />
+                </div>
                 <button
                   onClick={() => {
-                    navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}`);
+                    navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}&labelcolor=${subLabelColor}`);
                     setSubCopied(prev => ({ ...prev, [t]: true }));
                     setTimeout(() => setSubCopied(prev => ({ ...prev, [t]: false })), 500);
                   }}

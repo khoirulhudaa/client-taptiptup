@@ -15,7 +15,7 @@ const formatSeconds = (s) => {
 };
 
 // ── Subath 1 (default) ─────────────────────────────────────
-export const Subath1 = ({ timer, displaySeconds, timerColor, bgColor }) => {
+export const Subath1 = ({ timer, displaySeconds, timerColor, bgColor, labelColor }) => {
   const progressPct = timer.initialSeconds > 0
     ? Math.min(100, (displaySeconds / timer.initialSeconds) * 100) : 0;
   const progressColor = progressPct > 50 ? '#22c55e' : progressPct > 20 ? '#f59e0b' : '#ef4444';
@@ -30,7 +30,7 @@ export const Subath1 = ({ timer, displaySeconds, timerColor, bgColor }) => {
       boxShadow: isLow ? '0 0 30px rgba(239,68,68,0.3)' : '0 8px 32px rgba(0,0,0,0.5)',
       transition: 'border 0.5s, box-shadow 0.5s',
     }}>
-      <p style={{ color: 'white', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 6px 0' }}>
+      <p style={{ color: labelColor ? `#${labelColor}` : 'white', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 6px 0' }}>
         {timer.title || 'Subathon Timer'}
       </p>
       <div style={{
@@ -57,7 +57,7 @@ export const Subath1 = ({ timer, displaySeconds, timerColor, bgColor }) => {
 };
 
 // ── Subath 2 (LCD digital merah) ───────────────────────────
-export const Subath2 = ({ displaySeconds, isRunning, timerColor, bgColor }) => {
+export const Subath2 = ({ displaySeconds, isRunning, timerColor, bgColor, labelColor }) => {
   const time = formatSeconds(displaySeconds);
 
   return (
@@ -72,13 +72,13 @@ export const Subath2 = ({ displaySeconds, isRunning, timerColor, bgColor }) => {
         display: 'inline-block',
         background: bgColor ? `#${bgColor}` : '#080808',
         borderRadius: 16,
-        padding: '20px 5px 20px 14px',
+        padding: '14px 5px 20px 14px',
         width: 'max-content',
         border: '1.5px solid rgba(255,60,0,0.15)',
       }}>
         {/* Ghost digits (bayangan segmen mati) */}
         <div style={{ position: 'relative', display: 'inline-block' }}>
-          <p style={{ color: 'white', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 22px 0' }}>
+          <p style={{ fontSize: 12, color: labelColor ? `#${labelColor}` : 'white', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 30px 0' }}>
             {'Subathon Timer'}
           </p>
           {/* Digit aktif */}
@@ -118,12 +118,14 @@ const SubathonWidget = () => {
   const intervalRef = useRef(null);
   const [timerColor, setTimerColor] = useState(null);
   const [bgColor, setBgColor] = useState(null);
+  const [labelColor, setLabelColor] = useState(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setTheme(params.get('theme') || 'subath1');
     setTimerColor(params.get('timercolor') || null);
     setBgColor(params.get('bgcolor') || null);
+    setLabelColor(params.get('labelcolor') || null);
   }, []);
 
   useEffect(() => {
@@ -160,8 +162,8 @@ const SubathonWidget = () => {
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
       `}</style>
       {theme === 'subath2'
-        ? <Subath2 displaySeconds={displaySeconds} isRunning={timer.isRunning} timerColor={timerColor} bgColor={bgColor} />
-        : <Subath1 timer={timer} displaySeconds={displaySeconds} timerColor={timerColor} bgColor={bgColor} />
+        ? <Subath2 displaySeconds={displaySeconds} isRunning={timer.isRunning} timerColor={timerColor} bgColor={bgColor} labelColor={labelColor} />
+        : <Subath1 timer={timer} displaySeconds={displaySeconds} timerColor={timerColor} bgColor={bgColor} labelColor={labelColor} />
       }
     </>
   );
