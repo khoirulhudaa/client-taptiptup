@@ -88,7 +88,7 @@ export const Subath2 = ({ displaySeconds, isRunning, timerColor, bgColor, labelC
             fontWeight: 400,
             color: timerColor ? `#${timerColor}` : (isRunning ? '#ff3200' : '#7a1800'),
             width: '100%',
-            letterSpacing: 8,
+            // letterSpacing: 0,
             lineHeight: 1,
             textShadow: timerColor ? 'none' : (isRunning ? '0 0 10px ...' : '...'),
             transition: 'color 0.5s, text-shadow 0.5s',
