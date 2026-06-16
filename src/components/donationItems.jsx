@@ -13,6 +13,7 @@ const EMOJI_PRESETS = [
   { emoji: '🍜', label: 'Mie' },
   { emoji: '🧋', label: 'Boba' },
   { emoji: '🎵', label: 'Musik' },
+  { emoji: '🔥', label: 'Fire' },
   { emoji: '⭐', label: 'Bintang' },
   { emoji: '🍣', label: 'Sushi' },
   { emoji: '🍰', label: 'Kue' },
@@ -26,6 +27,9 @@ const EMOJI_PRESETS = [
   // Tambahan
   { emoji: '👑', label: 'Mahkota' },
   { emoji: '❤️', label: 'Love' },
+  { emoji: '🎤', label: 'Mic' },
+  { emoji: '🎸', label: 'Gitar' },
+  { emoji: '🏎️', label: 'Mobil Balap' },
   { emoji: '✈️', label: 'Pesawat' },
   { emoji: '🌹', label: 'Mawar' },
   { emoji: '🦋', label: 'Kupu-kupu' },
@@ -37,6 +41,7 @@ const EMOJI_PRESETS = [
   { emoji: '🎊', label: 'Party' },
   { emoji: '🎇', label: 'Kembang Api' },
   { emoji: '🛥️', label: 'Yacht' },
+  { emoji: '🚁', label: 'Helikopter' },
   { emoji: '🦁', label: 'Singa' },
   { emoji: '🐻', label: 'Beruang' },
   { emoji: '🌙', label: 'Bulan' },
@@ -92,9 +97,9 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
                   initial={{ opacity: 0, scale: 0.9, y: -4 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  className="absolute shadow-2xl left-[-2.1px] top-13 z-[99999] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-3 md:w-max w-[82vw] h-max overflow-y-auto"
+                  className="absolute shadow-2xl left-[-2.1px] top-13 z-[99999] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 md:w-max w-[83.5vw] h-max overflow-y-auto"
                 >
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Pilih Ikon Item</p>
+                  {/* <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Pilih Ikon Item</p> */}
                   <div className="grid grid-cols-7 md:grid-cols-10 gap-1.5">
                     {EMOJI_PRESETS.map(({ emoji, label }) => (
                       <button
@@ -118,7 +123,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
                       value={item.emoji || ''}
                       onChange={(e) => onChange(index, 'emoji', e.target.value.slice(0, 2))}
                       placeholder="😊"
-                      className="w-full p-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-center font-bold text-lg outline-none"
+                      className="w-full py-2.5 px-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-center font-bold text-lg outline-none"
                     />
                   </div>
                 </motion.div>
