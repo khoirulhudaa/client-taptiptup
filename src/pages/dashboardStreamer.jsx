@@ -2381,6 +2381,21 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   );
 }
 
+const getDonationItemDisplay = (donation) => {
+  if (!donation.donationItem?.name) return null;
+
+  const item = donation.donationItem;
+
+  const qty = item.quantity ||
+    Math.max(1, Math.floor((donation.amount || 0) / (item.price || 1)));
+
+  return {
+    display: `${item.emoji || '🎁'} ${item.name}`,
+    qty: qty > 1 ? ` ×${qty}` : '',
+    total: donation.amount || 0
+  };
+};
+
 // ─── HistoryPage ──────────────────────────────────────────────────────────────
 
 const HistoryPage = () => {
@@ -2591,9 +2606,16 @@ const HistoryPage = () => {
                               )}
                             </td>
                             <td className="px-5 md:px-8 py-5">
-                              <p className={`font-medium ${showAmounts ? 'text-white' : 'text-slate-300'}`}>
-                                {maskAmount(item.amount)}
-                              </p>
+                             {getDonationItemDisplay(item) ? (
+                                <p className="font-medium">
+                                  {getDonationItemDisplay(item).display}
+                                  {getDonationItemDisplay(item).qty}
+                                </p>
+                              ) : (
+                                <p className={`font-medium ${showAmounts ? 'text-white' : 'text-slate-300'}`}>
+                                  {maskAmount(item.amount)}
+                                </p>
+                              )}
                             </td>
                             <td className="px-5 md:px-8 py-5 max-w-[220px]">
                               <p className="text-slate-500 dark:text-slate-400 text-sm font-medium italic line-clamp-2">
@@ -2664,9 +2686,16 @@ const HistoryPage = () => {
                           </span>
                         </div>
 
-                        <p className={`text-xl font-medium mb-4 ${showAmounts ? 'text-white' : 'text-slate-300'}`}>
-                          {maskAmount(item.amount)}
-                        </p>
+                        {getDonationItemDisplay(item) ? (
+                          <p className="text-xl font-medium mb-4">
+                            {getDonationItemDisplay(item).display}
+                            {getDonationItemDisplay(item).qty}
+                          </p>
+                        ) : (
+                          <p className={`text-xl font-medium mb-4 ${showAmounts ? 'text-white' : 'text-slate-300'}`}>
+                            {maskAmount(item.amount)}
+                          </p>
+                        )}
 
                         {item.message && (
                           <p className="text-slate-600 dark:text-slate-400 italic text-sm mb-6 line-clamp-4">
