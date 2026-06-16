@@ -621,7 +621,7 @@ export const SubathonManager = ({ overlayToken }) => {
               </div>
 
               {/* **PREVIEW Tiers** */}
-              <div className="grid grid-cols-2 md:flex flex-wrap gap-2">
+              <div className="grid grid-cols-2 md:flex flex-wrap gap-3">
                 {(localTimer.durationTiers || []).length === 0 && (
                   <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Belum ada tier</p>
                 )}
@@ -699,12 +699,12 @@ export const SubathonManager = ({ overlayToken }) => {
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Widget URL OBS</p>
 
             {/* Color pickers */}
-            <div className="md:flex gap-1.5 w-full">
+            <div className="md:flex gap-3 w-full">
               {[
                 { label: 'Warna Timer', value: subTimerColor, onChange: setSubTimerColor, default: 'ffffff' },
                 { label: 'Warna Overlay', value: subBgColor, onChange: setSubBgColor, default: '0f0f19' },
               ].map(({ label, value, onChange, default: def }) => (
-                <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                <div key={label} className="w-full flex items-center md:mb-0 mb-2.5 gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
                   <input
                     type="color"
                     value={`#${value}`}
@@ -1215,12 +1215,12 @@ export const MilestonesManager = ({ overlayToken }) => {
           <div className="space-y-2">
             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Widget URL OBS</p>
             {/* Color pickers */}
-              <div className="space-y-2 md:flex gap-1.5 w-full">
+              <div className="space-y-2 md:flex gap-3 w-full">
                 {[
                   { label: 'Warna Progres', value: mlColor, onChange: setMlColor, default: '6366f1' },
                   { label: 'Warna Overlay',  value: mlBgcolor, onChange: setMlBgcolor, default: '0f0f19' },
                 ].map(({ label, value, onChange, default: def }) => (
-                  <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-2.5 bg-slate-500/20 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <div key={label} className="w-full flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-2.5 bg-slate-500/20 rounded-lg border border-slate-200 dark:border-slate-700">
                     <input
                       type="color"
                       value={`#${value}`}
