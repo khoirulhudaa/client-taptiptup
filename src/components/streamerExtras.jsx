@@ -621,14 +621,14 @@ export const SubathonManager = ({ overlayToken }) => {
               </div>
 
               {/* **PREVIEW Tiers** */}
-              <div className="flex flex-wrap gap-2">
+              <div className="grid grid-cols-2 md:flex flex-wrap gap-2">
                 {(localTimer.durationTiers || []).length === 0 && (
                   <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Belum ada tier</p>
                 )}
                 {(localTimer.durationTiers || []).map((tier, i) => {
                   const totalSec = (tier.hours * 3600) + (tier.minutes * 60) + tier.seconds;
                   return (
-                    <div key={i} className="w-max flex items-center gap-1.5 px-3 py-3 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <div key={i} className="w-full justify-between md:w-max flex items-center gap-1.5 px-3 py-3 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
                       <span className="font-black text-blue-600 dark:text-blue-400 text-xs">
                         Rp {tier.amount.toLocaleString('id-ID')}
                       </span>
@@ -695,16 +695,16 @@ export const SubathonManager = ({ overlayToken }) => {
         </div>
 
         {overlayToken && (
-          <div className="md:mt-0 mt-8 md:bg-slate-100 md:dark:bg-slate-800 md:p-4 rounded-lg md:border border-slate-200 dark:border-slate-700 space-y-3">
+          <div className="md:mt-0 mt-8 rounded-lg space-y-3">
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Widget URL OBS</p>
 
             {/* Color pickers */}
-            <div className="flex gap-1.5 w-full">
+            <div className="md:flex gap-1.5 w-full">
               {[
                 { label: 'Warna Timer', value: subTimerColor, onChange: setSubTimerColor, default: 'ffffff' },
                 { label: 'Warna Overlay', value: subBgColor, onChange: setSubBgColor, default: '0f0f19' },
               ].map(({ label, value, onChange, default: def }) => (
-                <div key={label} className="w-max flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
                   <input
                     type="color"
                     value={`#${value}`}
@@ -719,8 +719,8 @@ export const SubathonManager = ({ overlayToken }) => {
             </div>
 
             {/* ─── PREVIEW SUBATHON ─── */}
-            <div className="space-y-2">
-              <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-2 md:mt-0 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {[
                   {
                     key: 'subath1',
@@ -746,12 +746,12 @@ export const SubathonManager = ({ overlayToken }) => {
                   },
                 ].map(({ key, label, Component, props }) => (
                   <div key={key} className="space-y-1">
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
+                    <p className="text-[10px] mb-2.5 font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
                     <div
                       className="bg-slate-500/20 min-h-[250px] py-10 rounded-lg overflow-hidden relative flex justify-center items-center"
                     >
                       <div 
-                        className='flex justify-center items-center'>
+                        className='flex justify-center items-center scale-[0.8] md:scale-[1]'>
                         <Component {...props} />
                     </div>
                   </div>
@@ -762,11 +762,11 @@ export const SubathonManager = ({ overlayToken }) => {
             {/* ─── END PREVIEW ─── */}
 
             {['subath1', 'subath2'].map(t => (
-              <div key={t} className="flex gap-2 items-center bg-slate-500/20 px-4 p-2 rounded-lg">
+              <div key={t} className="flex gap-2 items-center bg-slate-500/20 px-3 p-2 rounded-lg">
                 <span className="text-[12px] font-black text-slate-400 w-14 flex-shrink-0">{t === 'subath1' ? 'Subath 1' : 'Subath 2'}</span>
                 <input readOnly
                   value={`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}`}
-                  className="flex-1 bg-transparent font-mono text-[12px] text-blue-600 dark:text-blue-400 font-bold outline-none truncate" />
+                  className="flex-1 max-w-[] bg-transparent font-mono text-[12px] text-blue-600 dark:text-blue-400 font-bold outline-none truncate" />
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}`);
@@ -1212,15 +1212,15 @@ export const MilestonesManager = ({ overlayToken }) => {
         )}
 
         {overlayToken && (
-          <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2">
+          <div className="space-y-2">
             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Widget URL OBS</p>
             {/* Color pickers */}
-              <div className="space-y-0 flex gap-1.5 w-full">
+              <div className="space-y-2 md:flex gap-1.5 w-full">
                 {[
                   { label: 'Warna Progres', value: mlColor, onChange: setMlColor, default: '6366f1' },
                   { label: 'Warna Overlay',  value: mlBgcolor, onChange: setMlBgcolor, default: '0f0f19' },
                 ].map(({ label, value, onChange, default: def }) => (
-                  <div key={label} className="w-max flex items-center gap-3 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-2.5 bg-slate-500/20 rounded-lg border border-slate-200 dark:border-slate-700">
                     <input
                       type="color"
                       value={`#${value}`}
@@ -1237,7 +1237,7 @@ export const MilestonesManager = ({ overlayToken }) => {
               {list.length > 0 && (
                 <div className="space-y-2 mt-3">
                   {/* <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Preview</p> */}
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {[
                       { key: 'miles1', label: 'Miles 1', Component: Miles1, props: { displayList: list.slice(0, 3), totalDonation: 0, activeIdx: 0, color: mlColor, bgcolor: mlBgcolor } },
                       { key: 'miles2', label: 'Miles 2', Component: Miles2, props: { displayList: list.slice(0, 2), totalDonation: 0, color: mlColor, bgcolor: mlBgcolor } },
@@ -1245,10 +1245,10 @@ export const MilestonesManager = ({ overlayToken }) => {
                       <div key={key} className="space-y-1">
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
                         <div
-                          className="bg-slate-500/20 min-h-[300px] py-10 rounded-lg overflow-hidden relative flex justify-center items-center"
+                          className="bg-slate-500/20 h-max md:min-h-[300px] py-10 rounded-lg overflow-hidden relative flex justify-center items-center"
                         >
                           <div 
-                            className='flex justify-center items-center scale-[0.8] 2xl:scale-[1]'>
+                            className='flex justify-center items-center scale-[0.55] md:scale-[0.8] 2xl:scale-[1]'>
                             <Component {...props} />
                           </div>
                         </div>

@@ -72,12 +72,15 @@ export const Subath2 = ({ displaySeconds, isRunning, timerColor, bgColor }) => {
         display: 'inline-block',
         background: bgColor ? `#${bgColor}` : '#080808',
         borderRadius: 16,
-        padding: '20px 40px 20px 32px',
+        padding: '20px 5px 20px 14px',
         width: 'max-content',
         border: '1.5px solid rgba(255,60,0,0.15)',
       }}>
         {/* Ghost digits (bayangan segmen mati) */}
         <div style={{ position: 'relative', display: 'inline-block' }}>
+          <p style={{ color: 'white', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 22px 0' }}>
+            {'Subathon Timer'}
+          </p>
           {/* Digit aktif */}
           <div style={{
             fontFamily: "'Share Tech Mono', monospace",
