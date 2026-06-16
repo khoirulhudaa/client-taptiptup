@@ -18,6 +18,8 @@ import { io } from 'socket.io-client';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const authHeader = () => ({ Authorization: `Bearer ${localStorage.getItem('token')}` });
+import { Subath1, Subath2 } from './subathonWidget';
+import { Miles1, Miles2 } from './milestoneWidget';
 
 // ─── API Calls ────────────────────────────────────────────────────────────────
 
@@ -262,7 +264,7 @@ export const PollManager = ({ overlayToken, username }) => {
                 setPollCopied(true);
                 setTimeout(() => setPollCopied(false), 2000);
               }}
-              className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${pollCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
+              className={`cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${pollCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
               {pollCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
             </button>
           </div>
@@ -291,7 +293,7 @@ export const PollManager = ({ overlayToken, username }) => {
                 navigator.clipboard.writeText(pollUrl);
                 // Tambahkan state copied jika mau (opsional)
               }}
-              className="cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black bg-blue-600 hover:bg-blue-700 text-white transition-all"
+              className="cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-2 rounded-lg text-xs font-black bg-blue-600 hover:bg-blue-700 text-white transition-all"
             >
               Salin
             </button>
@@ -336,6 +338,7 @@ export const PollManager = ({ overlayToken, username }) => {
 
 // ─── SubathonManager ──────────────────────────────────────────────────────────
 
+
 export const SubathonManager = ({ overlayToken }) => {
   const queryClient = useQueryClient();
   const [localTimer, setLocalTimer] = useState(null);
@@ -349,6 +352,8 @@ export const SubathonManager = ({ overlayToken }) => {
   const [newTierHours, setNewTierHours] = useState(0);
   const [newTierMinutes, setNewTierMinutes] = useState(1);
   const [newTierSeconds, setNewTierSeconds] = useState(0);
+  const [subTimerColor, setSubTimerColor] = useState('ffffff');
+  const [subBgColor, setSubBgColor] = useState('0f0f19');
 
   const { data, isLoading } = useQuery({
     queryKey: ['subathon'],
@@ -615,31 +620,25 @@ export const SubathonManager = ({ overlayToken }) => {
                 </button>
               </div>
 
-              {/* **PREVIEW Tabel (selalu tampil)** */}
-              <div className="overflow-x-auto">
-                <table className="w-full text-xs border-collapse">
-                  <thead>
-                    <tr className="bg-slate-50 dark:bg-slate-800/50">
-                      <th className="p-2 text-left font-black text-slate-500 dark:text-slate-400 border-r border-slate-200 dark:border-slate-700">Tier Donasi</th>
-                      <th className="p-2 text-left font-black text-slate-500 dark:text-slate-400">Durasi Tambahan</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(localTimer.durationTiers || []).map((tier, i) => {
-                      const totalSec = (tier.hours * 3600) + (tier.minutes * 60) + tier.seconds;
-                      return (
-                        <tr key={i} className="hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-colors">
-                          <td className="p-2 font-bold text-blue-600 dark:text-blue-400 border-r border-slate-200 dark:border-slate-700">
-                            Rp {tier.amount.toLocaleString('id-ID')}
-                          </td>
-                          <td className="p-2 text-left font-black text-green-600 dark:text-green-400">
-                            {formatSeconds(totalSec)}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+              {/* **PREVIEW Tiers** */}
+              <div className="flex flex-wrap gap-2">
+                {(localTimer.durationTiers || []).length === 0 && (
+                  <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Belum ada tier</p>
+                )}
+                {(localTimer.durationTiers || []).map((tier, i) => {
+                  const totalSec = (tier.hours * 3600) + (tier.minutes * 60) + tier.seconds;
+                  return (
+                    <div key={i} className="w-max flex items-center gap-1.5 px-3 py-3 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                      <span className="font-black text-blue-600 dark:text-blue-400 text-xs">
+                        Rp {tier.amount.toLocaleString('id-ID')}
+                      </span>
+                      <span className="text-slate-300 dark:text-slate-600 text-xs">→</span>
+                      <span className="font-black text-green-600 dark:text-green-400 text-xs font-mono">
+                        {formatSeconds(totalSec)}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
 
               {/* **EDIT Tabel (toggle)** */}
@@ -696,20 +695,91 @@ export const SubathonManager = ({ overlayToken }) => {
         </div>
 
         {overlayToken && (
-          <div className="md:mt-0 mt-8 md:bg-slate-100 md:dark:bg-slate-800 md:p-4 rounded-lg md:border border-slate-200 dark:border-slate-700">
-            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest md:mb-2">Widget URL untuk OBS (360×200px)</p>
-            <div className="flex gap-2">
-              <input readOnly value={`${window.location.origin}/widget/${overlayToken}/subathon`}
-                className="flex-1 bg-transparent font-mono text-sm md:text-md text-blue-600 dark:text-blue-400 font-bold outline-none truncate" />
-              <button onClick={() => {
-                  navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/subathon`);
-                  setSubCopied(true);
-                  setTimeout(() => setSubCopied(false), 2000);
-                }}
-                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${subCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
-                {subCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
-              </button>
+          <div className="md:mt-0 mt-8 md:bg-slate-100 md:dark:bg-slate-800 md:p-4 rounded-lg md:border border-slate-200 dark:border-slate-700 space-y-3">
+            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Widget URL untuk OBS (360×200px)</p>
+
+            {/* Color pickers */}
+            <div className="flex gap-1.5 w-full">
+              {[
+                { label: 'Warna Timer', value: subTimerColor, onChange: setSubTimerColor, default: 'ffffff' },
+                { label: 'Warna Overlay', value: subBgColor, onChange: setSubBgColor, default: '0f0f19' },
+              ].map(({ label, value, onChange, default: def }) => (
+                <div key={label} className="flex-1 flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <input
+                    type="color"
+                    value={`#${value}`}
+                    onChange={e => onChange(e.target.value.replace('#', ''))}
+                    className="w-7 h-7 rounded cursor-pointer border-0 bg-transparent flex-shrink-0"
+                  />
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400 flex-1">#{value}</span>
+                  <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase whitespace-nowrap">{label}</span>
+                  <button onClick={() => onChange(def)} className="text-[10px] font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-all flex-shrink-0">↺</button>
+                </div>
+              ))}
             </div>
+
+            {/* ─── PREVIEW SUBATHON ─── */}
+            <div className="space-y-2">
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  {
+                    key: 'subath1',
+                    label: 'Subath 1',
+                    Component: Subath1,
+                    props: {
+                      timer: { ...localTimer, title: localTimer.title || 'Subathon Timer' },
+                      displaySeconds,
+                      timerColor: subTimerColor,
+                      bgColor: subBgColor,
+                    }
+                  },
+                  {
+                    key: 'subath2',
+                    label: 'Subath 2',
+                    Component: Subath2,
+                    props: {
+                      displaySeconds,
+                      isRunning: localTimer.isRunning,
+                      timerColor: subTimerColor,
+                      bgColor: subBgColor,
+                    }
+                  },
+                ].map(({ key, label, Component, props }) => (
+                  <div key={key} className="space-y-1">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
+                    <div
+                      className="bg-slate-500/20 min-h-[250px] py-10 rounded-lg overflow-hidden relative flex justify-center items-center"
+                    >
+                      <div 
+                        className='flex justify-center items-center'>
+                        <Component {...props} />
+                    </div>
+                  </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* ─── END PREVIEW ─── */}
+
+            {['subath1', 'subath2'].map(t => (
+              <div key={t} className="flex gap-2 items-center bg-slate-500/20 px-4 p-2 rounded-lg">
+                <span className="text-[12px] font-black text-slate-400 w-14 flex-shrink-0">{t === 'subath1' ? 'Subath 1' : 'Subath 2'}</span>
+                <input readOnly
+                  value={`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}`}
+                  className="flex-1 bg-transparent font-mono text-[12px] text-blue-600 dark:text-blue-400 font-bold outline-none truncate" />
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}`);
+                    setSubCopied(prev => ({ ...prev, [t]: true }));
+                    setTimeout(() => setSubCopied(prev => ({ ...prev, [t]: false })), 500);
+                  }}
+                  className={`cursor-pointer active:scale-[0.98] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 flex-shrink-0 ${
+                    subCopied[t] ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  }`}>
+                  {subCopied[t] ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
+                </button>
+              </div>
+            ))}
           </div>
         )}
 
@@ -868,9 +938,9 @@ export const LeaderboardSettings = ({ overlayToken }) => {
                 onClick={() => {
                   navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/leaderboard`);
                   setLbCopied(true);
-                  setTimeout(() => setLbCopied(false), 2000);
+                  setTimeout(() => setLbCopied(false), 500);
                 }}
-                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
+                className={`cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
                   lbCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
                 }`}>
                 {lbCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
@@ -1026,6 +1096,8 @@ export const MilestonesManager = ({ overlayToken }) => {
   const { data: raw, isLoading } = useQuery({ queryKey: ['milestones'], queryFn: fetchMilestones });
   const [local, setLocal] = useState(null);
   const [mlCopied, setMlCopied] = useState(false);
+  const [mlColor, setMlColor] = useState('6366f1'); 
+  const [mlBgcolor, setMlBgcolor] = useState('0f0f19'); 
 
   useEffect(() => {
     if (raw && !local) setLocal(Array.isArray(raw) ? raw : []);
@@ -1140,25 +1212,74 @@ export const MilestonesManager = ({ overlayToken }) => {
         )}
 
         {overlayToken && (
-          <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
-            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Widget URL untuk OBS (420×200px)</p>
-            <div className="flex gap-2">
-              <input
-                readOnly
-                value={`${window.location.origin}/widget/${overlayToken}/milestones`}
-                className="flex-1 bg-transparent font-mono text-xs text-blue-600 dark:text-blue-400 font-bold outline-none truncate"
-              />
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/milestones`);
-                  setMlCopied(true);
-                  setTimeout(() => setMlCopied(false), 2000);
-                }}
-                className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
-                  mlCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
-                }`}>
-                {mlCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
-              </button>
+          <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Widget URL OBS</p>
+            {/* Color pickers */}
+              <div className="space-y-0 flex gap-1.5 w-full">
+                {[
+                  { label: 'Warna Progres', value: mlColor, onChange: setMlColor, default: '6366f1' },
+                  { label: 'Warna Overlay',  value: mlBgcolor, onChange: setMlBgcolor, default: '0f0f19' },
+                ].map(({ label, value, onChange, default: def }) => (
+                  <div key={label} className="w-[25%] flex items-center gap-3 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <input
+                      type="color"
+                      value={`#${value}`}
+                      onChange={e => onChange(e.target.value.replace('#', ''))}
+                      className="w-10 h-7 rounded cursor-pointer border-0 bg-transparent flex-shrink-0"
+                    />
+                    <span className="font-mono text-xs text-slate-500 dark:text-slate-400 flex-1">#{value}</span>
+                    <label className="text-[10px] ml-4 min-w-max font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest w-16 flex-shrink-0">{label}</label>
+                  </div>
+                ))}
+              </div>
+
+              {/* ─── PREVIEW MILES ─── */}
+              {list.length > 0 && (
+                <div className="space-y-2 mt-3">
+                  {/* <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Preview</p> */}
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { key: 'miles1', label: 'Miles 1', Component: Miles1, props: { displayList: list.slice(0, 3), totalDonation: 0, activeIdx: 0, color: mlColor, bgcolor: mlBgcolor } },
+                      { key: 'miles2', label: 'Miles 2', Component: Miles2, props: { displayList: list.slice(0, 2), totalDonation: 0, color: mlColor, bgcolor: mlBgcolor } },
+                    ].map(({ key, label, Component, props }) => (
+                      <div key={key} className="space-y-1">
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
+                        <div
+                          className="bg-slate-500/20 min-h-[300px] py-10 rounded-lg overflow-hidden relative flex justify-center items-center"
+                        >
+                          <div 
+                            className='flex justify-center items-center'>
+                            <Component {...props} />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            <div className="space-y-3 mt-8">
+              {['miles1', 'miles2'].map(t => (
+                <div key={t} className="flex gap-2 items-center bg-slate-500/20 px-4 p-2 rounded-lg">
+                  <span className="text-[12px] font-black text-slate-400 w-14 flex-shrink-0">{t === 'miles1' ? 'Miles 1' : 'Miles 2'}</span>
+                  <input
+                    readOnly
+                    value={`${window.location.origin}/widget/${overlayToken}/milestones?theme=${t}&color=${mlColor}&bgcolor=${mlBgcolor}`}
+                    className="flex-1 bg-transparent font-mono text-[12px] text-blue-600 dark:text-blue-400 font-bold outline-none truncate"
+                  />
+                 <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/milestones?theme=${t}&color=${mlColor}&bgcolor=${mlBgcolor}`);
+                      setMlCopied(prev => ({ ...prev, [t]: true }));
+                      setTimeout(() => setMlCopied(prev => ({ ...prev, [t]: false })), 500);
+                    }}
+                    className={`cursor-pointer active:scale-[0.98] px-3 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 flex-shrink-0 ${
+                      mlCopied[t] ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
+                    }`}>
+                    {mlCopied[t] ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
         )}
