@@ -134,8 +134,7 @@ export const MediaShareControl = ({ overlayToken }) => {
       {/* Stream Deck Shortcuts */}
       <div className="space-y-2">
         <div className="flex items-center gap-1.5 mb-2">
-          <Zap size={11} className="text-slate-400" />
-          <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
+          <span className="text-xs font-black text-slate-500 block">
             Stream Deck Shortcuts
           </span>
         </div>

@@ -41,9 +41,9 @@ const STATUS_CONFIG = {
   FAILED: { label: 'Ditolak', icon: <XCircle size={13} />, className: 'bg-red-50 text-red-500 border border-red-200 dark:bg-red-950/40 dark:text-red-400 dark:border-red-800' },
 };
 
-const MIN_TARIK = 15000;
+const MIN_TARIK = 20000;
 const MAX_TARIK = 10000000;
-const MIN_SALDO = 15000;
+const MIN_SALDO = 20000;
 // const FEE_PERCENT = 0.025;
 // const ADMIN_FEE = 0;
 
@@ -234,7 +234,7 @@ export const WithdrawPage = () => {
     return () => clearInterval(timer);
   }, [isLocked, lockTimeLeft]);
   
-  const WITHDRAW_FEE = 3500;
+  const WITHDRAW_FEE = 4000;
   const amt = parseFloat(pendingWithdrawData?.amount || formData.amount) || 0;
   const netAmount = Math.max(0, amt - WITHDRAW_FEE);
 
@@ -275,7 +275,7 @@ export const WithdrawPage = () => {
               <div className="bg-slate-50 dark:bg-slate-800 p-5 text-left rounded-lg space-y-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-slate-500">Metode</span>
-                  <span className="font-bold">{method === 'BANK' ? 'Transfer Bank' : 'E-Wallet DANA'}</span>
+                  <span className="font-bold">{method === 'BANK' ? 'Transfer Bank' : `E-Wallet ${formData.channelCode}`}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-500">Tujuan</span>
@@ -346,7 +346,7 @@ export const WithdrawPage = () => {
     try {
       await withdrawMutation.mutateAsync({ 
         amount: formData.amount,
-        paymentMethod: method,
+        paymentMethod: method === 'EWALLET' ? 'EWALLET' : 'BANK',
         channelCode: formData.channelCode,
         accountNumber: formData.accountNumber,
         accountName: formData.accountName,
@@ -448,7 +448,7 @@ export const WithdrawPage = () => {
     try {
       await withdrawMutation.mutateAsync({
         amount: formData.amount,
-        paymentMethod: method,
+        paymentMethod: method === 'EWALLET' ? 'EWALLET' : 'BANK',
         channelCode: formData.channelCode,
         accountNumber: formData.accountNumber,
         accountName: formData.accountName,
@@ -479,6 +479,14 @@ export const WithdrawPage = () => {
     if (!formData.accountName) return 'Isi nama pemilik akun';
     return 'Ajukan Penarikan Dana';
   };
+
+  const EWALLET_OPTIONS = [
+    { value: 'DANA',      label: 'DANA' },
+    { value: 'GOPAY',     label: 'GoPay' },
+    { value: 'OVO',       label: 'OVO' },
+    { value: 'SHOPEEPAY', label: 'ShopeePay' },
+    { value: 'LINKAJA',   label: 'LinkAja' },
+  ];
 
   return (
     <motion.div className="w-full mx-auto" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
@@ -537,13 +545,18 @@ export const WithdrawPage = () => {
 
         {/* ── Banner saldo tidak cukup ── */}
         {availableBalance < MIN_SALDO && (
-          <div className="flex items-start gap-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg px-5 py-4">
-            <span className="text-amber-500 text-lg flex-shrink-0">⚠️</span>
+          <div className="flex items-center gap-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg px-5 py-4">
+            <p className="text-amber-500 text-lg flex-shrink-0">
+              <AlertCircle size={17} /> 
+            </p>
             <div>
-              <p className="font-black text-amber-700 dark:text-amber-400 text-sm">Saldo belum mencukupi untuk penarikan</p>
-              <p className="text-xs text-amber-600 dark:text-amber-500 font-medium mt-0.5">
-                Kamu perlu minimal saldo tersedia <strong>Rp {MIN_SALDO.toLocaleString('id-ID')}</strong> untuk mengajukan penarikan.
+              <p className="md:flex hidden font-black text-amber-700 dark:text-amber-400 text-sm">Saldo belum mencukupi untuk penarikan</p>
+              <p className="md:flex hidden text-xs text-amber-600 dark:text-amber-500 font-medium mt-0.5">
+                Kamu perlu minimal saldo tersedia <strong>Rp {MIN_SALDO.toLocaleString('id-ID')}</strong> untuk mengajukan penarikan
                 Saldo tersedia kamu saat ini: <strong>Rp {availableBalance.toLocaleString('id-ID')}</strong>
+              </p>
+              <p className="flex md:hidden text-xs text-amber-600 dark:text-amber-500 font-medium">
+                Kamu perlu minimal saldo tersedia <strong>Rp {MIN_SALDO.toLocaleString('id-ID')}</strong>
               </p>
             </div>
           </div>
@@ -573,8 +586,8 @@ export const WithdrawPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
             {[
               { label: 'Min. Tarik',  value: `Rp ${MIN_TARIK.toLocaleString('id-ID')}` },
-              { label: 'Maks. Tarik', value: `Rp ${(MAX_TARIK / 1000000).toFixed(0)}jt` },
-              { label: 'Biaya Layanan', value: '3.500' },
+              { label: 'Maks. Tarik', value: `Rp 10.000.000` },
+              { label: 'Biaya Layanan', value: 'Rp 4.000' },
             ].map(r => (
               <div key={r.label} className="bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-lg p-3 text-center">
                 <p className="font-black text-blue-600 dark:text-white text-sm">{r.value}</p>
@@ -583,13 +596,16 @@ export const WithdrawPage = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+          <div className="grid grid-cols-2 gap-3 mb-6">
             {[
-              { id: 'BANK',  label: 'Transfer Bank',  icon: <CreditCard size={18} /> },
-              { id: 'DANA',  label: 'E-Wallet DANA',  icon: <Smartphone size={18} /> },
+              { id: 'BANK',    label: 'Transfer Bank',  icon: <CreditCard size={18} /> },
+              { id: 'EWALLET', label: 'E-Wallet',       icon: <Smartphone size={18} /> },
             ].map(m => (
               <button key={m.id}
-                onClick={() => { setMethod(m.id); setFormData({ ...formData, channelCode: m.id === 'BANK' ? 'BCA' : m.id }); }}
+                onClick={() => {
+                  setMethod(m.id);
+                  setFormData({ ...formData, channelCode: m.id === 'BANK' ? 'BCA' : 'DANA' });
+                }}
                 className={`cursor-pointer active:scale-[0.99] flex flex-col items-center gap-2 p-4 rounded-lg border transition-all font-black text-sm ${
                   method === m.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-lg shadow-blue-50 dark:shadow-none'
@@ -601,7 +617,7 @@ export const WithdrawPage = () => {
           </div>
 
           <div className="space-y-5">
-            <div className={`grid grid-cols-1 ${method === 'BANK' ? 'md:grid-cols-2' : ''} gap-3`}>
+            <div className={`grid grid-cols-1 ${method === 'BANK' || method === 'EWALLET' ? 'md:grid-cols-2' : ''} gap-3`}>
               {method === 'BANK' && (
                 <div className="flex flex-col gap-2">
                   <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilih Bank</label>
@@ -614,9 +630,30 @@ export const WithdrawPage = () => {
                     <option value="MANDIRI">Mandiri</option>
                     <option value="BRI">BRI (Bank Rakyat Indonesia)</option>
                     <option value="BSI">BSI (Bank Syariah Indonesia)</option>
+                    <option value="CIMB">CIMB Niaga</option>
+                    <option value="PERMATA">Permata</option>
+                    <option value="BTN">BTN (Bank Tabungan Negara)</option>
+                    <option value="DANAMON">Danamon</option>
+                    <option value="MAYBANK">Maybank Indonesia</option>
+                    <option value="BJB">Bank BJB</option>
                   </select>
                 </div>
               )}
+
+              {method === 'EWALLET' && (
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilih E-Wallet</label>
+                  <select
+                    className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-lg font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100"
+                    value={formData.channelCode}
+                    onChange={e => setFormData({ ...formData, channelCode: e.target.value })}>
+                    {EWALLET_OPTIONS.map(o => (
+                      <option key={o.value} value={o.value}>{o.label}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
               <div className="flex flex-col gap-2">
                 <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                   {method === 'BANK' ? 'Nomor Rekening' : 'Nomor Handphone'}
@@ -657,7 +694,7 @@ export const WithdrawPage = () => {
               </div>
 
               {amt > 0 && (
-                <div className="bg-slate-50 dark:bg-slate-800/60 border p-4 space-y-2 text-sm">
+                <div className="bg-slate-50 dark:bg-slate-800/60 rounded-lg border border-slate-500/20 p-4 space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-slate-500">Nominal penarikan</span>
                     <span>Rp {formatRupiah(amt)}</span>
@@ -841,7 +878,7 @@ export const WithdrawPage = () => {
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <p className="text-xl font-medium text-slate-800 dark:text-slate-100">
-                            Rp {Number(wd.amount - 3500).toLocaleString('id-ID')}
+                            Rp {Number(wd.amount - 4000).toLocaleString('id-ID')}
                           </p>
                           <p className="text-xs text-slate-500 mt-1">
                             {wd.channelCode} {wd.accountNumber}
@@ -907,11 +944,11 @@ export const WithdrawPage = () => {
                         <tr key={wd._id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-all">
                           <td className="px-5 md:px-8 py-5">
                             <p className="text-sm text-slate-800 dark:text-green-300 font-medium">
-                              Rp {Number(wd.amount - 3500).toLocaleString('id-ID')}
+                              Rp {Number(wd.amount - 4000).toLocaleString('id-ID')}
                             </p>
                           </td>
                           <td className="px-5 md:px-8 py-5">
-                            <p className="text-sm text-slate-400 dark:text-red-300">Rp 3.500</p>
+                            <p className="text-sm text-slate-400 dark:text-red-300">Rp 4.000</p>
                           </td>
                           <td className="px-5 md:px-8 py-5">
                             <p className="text-slate-600 dark:text-slate-300 text-sm">{wd.paymentMethod || 'BANK'}</p>
