@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import axios from 'axios';
+import { Target } from 'lucide-react';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -149,13 +150,18 @@ const MilestonesWidget = () => {
 
                 {/* Target amount */}
                 <div style={{
-                  marginTop: 4,
+                  marginTop: 10,
                   fontSize: 24,
+                  marginRight: 1.8,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  justifyContent: 'end',
                   color: 'rgba(255,255,255,1)',
                   fontWeight: 600,
                   textAlign: 'right',
                 }}>
-                  Target: Rp {Number(m.targetAmount).toLocaleString('id-ID')}
+                  <Target className='relative top-[0.5px]' />: Rp {Number(m.targetAmount).toLocaleString('id-ID')}
                 </div>
               </div>
             );
