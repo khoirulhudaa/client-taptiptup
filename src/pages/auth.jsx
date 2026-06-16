@@ -444,7 +444,7 @@ const MainAuthForm = ({
             exit={{ opacity:0, x: isLogin ? 24 : -24 }}
             transition={{ duration:0.22 }}
             style={{ display:'flex', flexDirection:'column', gap:16, marginBottom:20 }}>
-            <div className={`grid ${isLogin ? 'grid-cols-1' : ' grid-cols-1 md:grid-cols-2'} gap-4`}>
+            <div className={`grid ${isLogin ? 'grid-cols-1' : ' grid-cols-1 md:grid-cols-2 mt-5.5'} gap-4`}>
                 {!isLogin && (
                   <motion.div 
                     key="username" 

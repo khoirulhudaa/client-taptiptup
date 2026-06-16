@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import StoreManager from './storeManager';           // buat file baru
 import StoreWidget from '../components/storeWidget'; // widget OBS
+import DonationItemsEditor from '../components/donationItems'; // widget OBS
 import confetti from 'canvas-confetti';
 import { useWindowSize } from '@react-hook/window-size';
 import {
@@ -158,6 +159,8 @@ const DEFAULT_SETTINGS = {
   minDonate: 10000,
   maxDonate: 5000000,
   overlayEnabled: true,
+  donationItems: [],
+  donationItemsEnabled: false,
   customIcon: '',
   progressBarColor: '#39ff14',
   showTimestamp: true,
@@ -4305,6 +4308,14 @@ const handleChangePin = async () => {
 
                   {/* Quick Nominal */}
                   <QuickAmountsEditor amounts={settings.quickAmounts || DEFAULT_SETTINGS.quickAmounts} onChange={v => upd('quickAmounts', v)} saveSettingsMutation={saveSettingsMutation} settings={settings} activeSlot={activeSlot} />
+
+                  <DonationItemsEditor
+                    items={settings.donationItems || []}
+                    onChange={v => upd('donationItems', v)}
+                    saveSettingsMutation={saveSettingsMutation}
+                    settings={settings}
+                    activeSlot={activeSlot}
+                  />
 
                   {/* OBS URLs */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">

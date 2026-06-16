@@ -324,6 +324,26 @@
 
                 {/* Body */}
                 <div style={{ padding: '10px 6px', position: 'relative', zIndex: 2 }}>
+
+                  {/* {alert.donationItem && (
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      background: highlight + '22',
+                      border: `1px solid ${highlight}40`,
+                      borderRadius: 999,
+                      padding: '2px 10px',
+                      marginTop: 6,
+                      fontSize: 15,
+                    }}>
+                      <span style={{ fontSize: 18 }}>{alert.donationItem.emoji}</span>
+                      <span style={{ fontWeight: 600, color: hl }}>
+                        {alert.donationItem.name}
+                      </span>
+                    </div>
+                  )}
+                   */}
                   <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 0 }}>
                     <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
                       <div style={{ fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg, marginBottom: 8 }}>

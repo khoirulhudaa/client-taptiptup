@@ -127,6 +127,15 @@ const getEligibleTrigger = (mediaTriggers = [], amount) => {
   return eligible[0] || null;
 };
 
+// ── Tier color untuk item card (sama persis dengan DonationItemsEditor) ──────
+const getItemTierColor = (amount) => {
+  if (amount >= 500000) return { bg: 'from-yellow-400 to-amber-500',  badge: 'bg-amber-500',   text: 'LEGENDARY' };
+  if (amount >= 100000) return { bg: 'from-purple-400 to-violet-600', badge: 'bg-violet-500',  text: 'EPIC'      };
+  if (amount >= 50000)  return { bg: 'from-blue-400 to-cyan-500',     badge: 'bg-blue-500',    text: 'RARE'      };
+  if (amount >= 10000)  return { bg: 'from-emerald-400 to-green-500', badge: 'bg-emerald-500', text: 'UNCOMMON'  };
+  return                       { bg: 'from-slate-300 to-slate-400',   badge: 'bg-slate-400',   text: 'COMMON'    };
+};
+
 // ============================================================
 // YouTubeTimePicker
 // ============================================================
@@ -1151,6 +1160,113 @@ const LeaderboardMini = ({ username }) => {
   );
 };
 
+// ============================================================
+// DONATION ITEM PICKER
+// ============================================================
+const DonationItemPicker = ({ items = [], selectedItem, onSelect }) => {
+  if (!items.length) return null;
+
+  const sorted = [...items]
+    .filter(i => i.name && i.price > 0)
+    .sort((a, b) => a.price - b.price);
+
+  if (!sorted.length) return null;
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between">
+        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+          Pilih Item Dukungan 🎁
+        </label>
+        {selectedItem && (
+          <button
+            onClick={() => onSelect(null)}
+            className="text-[10px] font-black text-slate-400 hover:text-red-500 transition-colors cursor-pointer px-2 py-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
+          >
+            ✕ Batal
+          </button>
+        )}
+      </div>
+
+      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
+        {sorted.map((item, i) => {
+          const tier   = getItemTierColor(item.price);
+          const active = selectedItem?.id === item.id || selectedItem?.name === item.name;
+
+          return (
+            <motion.button
+              key={item.id || i}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => onSelect(active ? null : item)}
+              className={`relative rounded-xl border-2 overflow-hidden text-left transition-all cursor-pointer ${
+                active
+                  ? 'border-blue-500 shadow-lg shadow-blue-200/50 dark:shadow-blue-900/30'
+                  : 'border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600'
+              }`}
+            >
+              {/* tier top bar */}
+              <div className={`h-0.5 w-full bg-gradient-to-r ${tier.bg}`} />
+
+              <div className={`p-2.5 text-center space-y-1.5 transition-colors ${
+                active
+                  ? 'bg-blue-50 dark:bg-blue-950/40'
+                  : 'bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800'
+              }`}>
+                <div className="text-2xl leading-none">{item.emoji || '🎁'}</div>
+                <p className={`font-black text-[11px] leading-tight ${
+                  active ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'
+                }`}>
+                  {item.name}
+                </p>
+                {item.description && (
+                  <p className="text-[9px] text-slate-400 font-medium leading-tight line-clamp-2">
+                    {item.description}
+                  </p>
+                )}
+                <p className={`font-black text-[11px] ${
+                  active ? 'text-blue-600 dark:text-blue-400' : 'text-blue-600 dark:text-blue-400'
+                }`}>
+                  Rp {Number(item.price).toLocaleString('id-ID')}
+                </p>
+
+                {/* checkmark overlay */}
+                {active && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute top-1.5 right-1.5 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center"
+                  >
+                    <span className="text-white text-[8px] font-black">✓</span>
+                  </motion.div>
+                )}
+              </div>
+            </motion.button>
+          );
+        })}
+      </div>
+
+      {selectedItem && (
+        <motion.div
+          initial={{ opacity: 0, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-xl"
+        >
+          <span className="text-2xl">{selectedItem.emoji || '🎁'}</span>
+          <div className="flex-1 min-w-0">
+            <p className="font-black text-sm text-blue-700 dark:text-blue-300 truncate">{selectedItem.name}</p>
+            <p className="text-[10px] text-blue-500 font-medium">
+              Nominal otomatis disetel ke Rp {Number(selectedItem.price).toLocaleString('id-ID')}
+            </p>
+          </div>
+          <span className={`px-2 py-1 rounded-lg text-[9px] font-black text-white ${getItemTierColor(selectedItem.price).badge}`}>
+            {getItemTierColor(selectedItem.price).text}
+          </span>
+        </motion.div>
+      )}
+    </div>
+  );
+};
+
 const GifRecommendation = ({ message, onSelect }) => {
   const [gifs, setGifs] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -1302,9 +1418,11 @@ const SupporterPage = () => {
   const [ytBlockedReason, setYtBlockedReason] = useState(null);
   const { maintenance } = useMaintenance();
   const [sessionExpired, setSessionExpired] = useState(false);
+  // 'alert' | 'mediashare' | 'voice'
+  const [activeTab, setActiveTab] = useState('alert'); 
+  const [selectedDonationItem, setSelectedDonationItem] = useState(null);
 
   // ── Tab state ──────────────────────────────────────────────
-  const [activeTab, setActiveTab] = useState('alert'); // 'alert' | 'mediashare' | 'voice'
 
   const [form, setForm] = useState({
     donorName: '',
@@ -1323,6 +1441,13 @@ const SupporterPage = () => {
   const [badges, setBadges] = useState({ streamer: {}, donor: {} });
 
   const isLoggedIn = !!authPayload;
+  // Saat pilih item → auto-set amount
+  const handleSelectItem = (item) => {
+    setSelectedDonationItem(item);
+    if (item) {
+      setForm(prev => ({ ...prev, amount: item.price }));
+    }
+  };
 
   const openAuth = (tab = 'login') => { setAuthModalTab(tab); setAuthModalOpen(true); };
 
@@ -1395,20 +1520,6 @@ const SupporterPage = () => {
     script.onload = () => setSnapReady(true);
     document.head.appendChild(script);
   }, []);
-
-  // useEffect(() => {
-  //   const isProduction = import.meta.env.VITE_NODE_ENV === 'production';
-  //   const DOKU_JS = isProduction
-  //     ? 'https://jokul.doku.com/jokul-checkout-js/v1/jokul-checkout-1.0.0.js'
-  //     : 'https://sandbox.doku.com/jokul-checkout-js/v1/jokul-checkout-1.0.0.js';
-
-  //   const existing = document.querySelector(`script[src="${DOKU_JS}"]`);
-  //   if (existing) return;
-
-  //   const script = document.createElement('script');
-  //   script.src = DOKU_JS;
-  //   document.head.appendChild(script);
-  // }, []);
 
   // Fetch streamer
   useEffect(() => {
@@ -1542,6 +1653,9 @@ const SupporterPage = () => {
           : 0,
         soundUrl:     activeTab === 'alert' ? (form.soundUrl || null) : null,
         voiceUrl:     activeTab === 'voice' ? (form.voiceUrl || null) : null,
+        donationItem: selectedDonationItem
+          ? { name: selectedDonationItem.name, emoji: selectedDonationItem.emoji, price: selectedDonationItem.price }
+          : null,
       };
 
       const res = await axios.post(`${BASE_URL}/api/midtrans/create-invoice`, payload);
@@ -1584,6 +1698,9 @@ const SupporterPage = () => {
   if (maintenance?.supporter) return (
     <MaintenanceScreen title="Halaman dukungan - maintenance" subtitle="Sementara kamu tidak bisa mengirim dukungan. Coba lagi beberapa saat lagi." />
   );
+
+  const donationItems     = overlaySetting?.donationItems     || [];
+  const donationItemsMode = overlaySetting?.donationItemsEnabled ?? false;
 
   const quickAmounts = (
     streamer?.overlaySetting?.quickAmounts ||
@@ -1723,6 +1840,26 @@ const SupporterPage = () => {
             transition={{ delay: 0.1 }}
             className="bg-transparent md:bg-white dark:md:bg-slate-900 p-0 md:p-7 rounded-lg shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:border border-blue-100 dark:border-slate-800 space-y-5"
           >
+
+            {donationItemsMode && donationItems.length > 0 && (
+              <div>
+                <DonationItemPicker
+                  items={donationItems}
+                  selectedItem={selectedDonationItem}
+                  onSelect={handleSelectItem}
+                />
+                {donationItems.filter(i => i.name && i.price > 0).length > 0 && (
+                  <div className="mt-3 flex items-center gap-2">
+                    <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
+                    <span className="text-[10px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-widest">
+                      atau nominal langsung
+                    </span>
+                    <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Quick Amounts */}
             {quickAmounts.length > 0 && (
               <div>

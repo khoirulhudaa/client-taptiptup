@@ -494,7 +494,7 @@ export const InboxPage = () => {
                           <div className="flex items-center gap-2 px-4 py-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-lg">
                             <Clock size={14} className="text-amber-500 flex-shrink-0" />
                             <p className="text-xs font-bold text-amber-600 dark:text-amber-400">
-                              Pengumuman ini berlaku hingga {new Date(ann.expiresAt).toLocaleDateString('id-ID', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' })}
+                              Kadaluwarsa : {new Date(ann.expiresAt).toLocaleDateString('id-ID', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' })}
                             </p>
                           </div>
                         )}
