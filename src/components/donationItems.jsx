@@ -256,8 +256,8 @@ const DonationItemsEditor = ({
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="p-3 w-11 h-11 bg-gradient-to-br from-pink-500 to-orange-500 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
-            🎁
+          <div className="p-3 w-11 h-11 text-xl bg-white rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+            💎
           </div>
           <div>
             <h4 className="text-sm uppercase md:capitalize md:text-base font-black text-slate-800 dark:text-white">
