@@ -156,8 +156,8 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
     <div className="space-y-5 pb-6">
 
       {/* ── Mode: Top Donor vs Donasi Terbaru ─────────────────── */}
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
-         <div className="flex items-center gap-4">
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+         <div className="flex items-center gap-4 pb-[2px]">
           <div className="bg-cyan-600 p-3 rounded-lg text-white shadow-lg">
             <Monitor size={20} />
           </div>
@@ -191,8 +191,8 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
       </div>
 
       {/* ── Jumlah Item ───────────────────────────────────────── */}
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
-        <div className="flex items-center gap-4">
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+        <div className="flex items-center gap-4 pb-[2px]">
           <div className="bg-emerald-600 p-3 rounded-lg text-white shadow-lg">
             <List size={20} />
           </div>
@@ -221,7 +221,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
 
       {/* ── Tampilan Teks ─────────────────────────────────────── */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 pb-[0px]">
           <div className="bg-rose-500 p-3 rounded-lg text-white shadow-lg">
             <Text size={20} />
           </div>
@@ -298,8 +298,8 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
       </div>
 
       {/* ── Background OBS ────────────────────────────────────── */}
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
-        <div className="flex items-center gap-4">
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+        <div className="flex items-center gap-4 pb-[2px]">
           <div className="bg-pink-500 p-3 rounded-lg text-white shadow-lg">
             <Cog size={20} />
           </div>
@@ -378,8 +378,8 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
       </div>
 
       {/* ── URL OBS ───────────────────────────────────────────── */}
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
-        <div className="flex items-center gap-4">
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+        <div className="flex items-center gap-4 pb-[2px]">
           <div className="bg-blue-500 p-3 rounded-lg text-white shadow-lg">
             <Link2 size={20} />
           </div>

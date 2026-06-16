@@ -311,7 +311,7 @@ export const PollManager = ({ overlayToken, username }) => {
             const total = getTotalVotes(poll);
             const winner = [...(data.options || [])].sort((a, b) => b.votes - a.votes)[0];
             return (
-              <div key={poll._id} className="bg-white dark:bg-slate-900 rounded-lg p-5 border border-slate-100 dark:border-slate-800 flex items-center gap-4">
+              <div key={poll._id} className="bg-white dark:bg-slate-900 rounded-lg p-5 border border-slate-100 dark:border-slate-800 flex items-center gap-3">
                 <div className="flex-1 min-w-0">
                   <p className="font-black text-slate-700 dark:text-slate-200 text-sm truncate">{data.question}</p>
                   {winner && (
@@ -571,7 +571,7 @@ export const SubathonManager = ({ overlayToken }) => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-3">
           <div className="space-y-1.5">
             <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Waktu Awal (detik)</label>
             <input type="number" value={localTimer.initialSeconds}
@@ -833,9 +833,9 @@ export const LeaderboardSettings = ({ overlayToken }) => {
     <div className="space-y-5">
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
-        <div className="relative flex items-start justify-between gap-4">
+        <div className="relative flex items-start justify-between gap-3">
           <div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <div className="bg-rose-500 p-3 rounded-lg text-white shadow-lg">
                   <Milestone size={20} />
               </div>
@@ -1132,9 +1132,9 @@ export const MilestonesManager = ({ overlayToken }) => {
 
         <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden !mb-5">
           <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
-          <div className="relative flex items-start justify-between gap-4">
+          <div className="relative flex items-start justify-between gap-3">
             <div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <div className="bg-purple-500 p-3 rounded-lg text-white shadow-lg">
                     <Milestone size={20} />
                 </div>

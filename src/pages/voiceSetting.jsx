@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
             {/* Durasi Dasar */}
             <div>
             <label className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest block mb-2">
@@ -143,7 +143,7 @@
         <button
             onClick={() => saveSettingsMutation.mutate(settings)}
             disabled={saveSettingsMutation.isPending}
-            className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-violet-600 hover:bg-violet-700 text-white py-4 rounded-lg font-black text-sm transition-all disabled:opacity-70 flex items-center justify-center gap-2"
+            className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-violet-600 hover:bg-violet-700 text-white py-4 rounded-lg font-black text-sm transition-all disabled:opacity-70 flex items-center justify-center gap-2 mt-3"
         >
             <Save size={20} />
             {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Durasi Voice'}
@@ -324,7 +324,7 @@
     ];
 
     return (
-        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4">
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
          <div className="!mb-6 flex items-center gap-4">
             <div className="bg-emerald-500 p-3 rounded-lg text-white shadow-lg">
                 <Mic size={20} />
@@ -369,8 +369,8 @@
     // ─── VoiceSettingsInfo ────────────────────────────────────────────────────────
 
     const VoiceSettingsInfo = () => (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4">
-        <div className="!mb-6 flex items-center gap-4">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
+        <div className="!mb-5.5 flex items-center gap-4">
             <div className="bg-rose-500 p-3 rounded-lg text-white shadow-lg">
                 <Mic size={20} />
             </div>
@@ -383,7 +383,7 @@
                 </p> */}
             </div>
         </div>
-        <div className="gap-4 grid grid-cols-1 md:grid-cols-2 !mt-7">
+        <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
         {[
             {
             icon: '🎤',
@@ -476,7 +476,7 @@
     if(!localSettings) return (
         <div className="space-y-6 pb-6 w-full animate-pulse">
             {/* Info card */}
-            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-6 space-y-4">
+            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-6 space-y-5">
             <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-lg flex-shrink-0" />
                 <div className="h-5 w-36 bg-slate-200 dark:bg-slate-700 rounded-lg" />
@@ -496,7 +496,7 @@
             </div>
 
             {/* URL Overlay */}
-            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-6 space-y-4">
+            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-6 space-y-5">
             <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-lg flex-shrink-0" />
                 <div className="h-5 w-28 bg-slate-200 dark:bg-slate-700 rounded-lg" />
@@ -518,7 +518,7 @@
             </div>
             <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-lg" />
             <div className="h-2.5 w-3/4 bg-slate-100 dark:bg-slate-800 rounded-lg" />
-            <div className="space-y-4">
+            <div className="space-y-5">
                 <div className="h-2.5 w-32 bg-slate-200 dark:bg-slate-700 rounded-lg" />
                 <div className="h-12 w-full bg-slate-100 dark:bg-slate-800 rounded-lg" />
                 <div className="h-2.5 w-28 bg-slate-200 dark:bg-slate-700 rounded-lg" />

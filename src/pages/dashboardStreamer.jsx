@@ -596,7 +596,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
 
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
-      <div className="flex items-center gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+      <div className="flex items-center gap-4 pb-[3px]">
         <div className="bg-blue-600 p-3 rounded-lg text-white shadow-lg">
           <Video size={20} />
         </div>
@@ -4724,7 +4724,7 @@ const handleChangePin = async () => {
                       </div>
                     </div>
                   </div>
-                <div className="space-y-6 mt-4">
+                <div className="space-y-6 mt-5">
                   <PollManager overlayToken={user.overlayToken} username={user.username} />
                 </div>
               </motion.div>
