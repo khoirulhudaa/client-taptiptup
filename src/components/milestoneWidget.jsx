@@ -64,8 +64,7 @@ const MilestonesWidget = () => {
   return (
     <div style={{
       width: '100%',
-      minHeight: '100vh',
-      // background: 'transparent',
+      minHeight: 'max-content',
       display: 'flex',
       borderRadius: 20,
       flexDirection: 'column',
