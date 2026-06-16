@@ -269,9 +269,9 @@ function Hero({ C, isDark }) {
       </div>
 
       <img src="/man2.png" alt="image man" className="absolute md:flex hidden bottom-0 md:bottom-[-56px] left-[-40px] 2xl:left-[-280px] md:left-[-257px] w-[44%] md:w-[50%] z-[99999]" />
-      <img src="/woman1.png" alt="image woman" className="absolute bottom-0 md:bottom-[-40px] left-[-34px] md:left-[-22px] 2xl:left-[-32px] w-[46%] md:w-[43.0%] z-[99999]" />
-      <img src="/woman2.png" alt="image woman" className="absolute bottom-0 md:flex hidden md:bottom-[-100px] right-12 w-[32%] z-[99999]" />
-      <img src="/man1.png" alt="image man" className="absolute bottom-0 md:bottom-[-40px] right-[-17px] md:right-[-208px] w-[39.5%] md:w-[40%] z-[999]" />
+      <img src="/woman1.png" alt="image woman" className="absolute bottom-0 md:flex hidden md:bottom-[-40px] left-[-34px] md:left-[-22px] 2xl:left-[-32px] w-[46%] md:w-[43.0%] z-[99999]" />
+      <img src="/woman2.png" alt="image woman" className="absolute bottom-0  md:flex hidden md:bottom-[-100px] right-12 w-[32%] z-[99999]" />
+      <img src="/man1.png" alt="image man" className="absolute bottom-0 md:flex hidden md:bottom-[-40px] right-[-17px] md:right-[-208px] w-[39.5%] md:w-[40%] z-[999]" />
       <div className="absolute bottom-0 flex z-[5]">
         <Marquee C={C} />
       </div>
@@ -376,7 +376,7 @@ function Hero({ C, isDark }) {
           <br />
 
           {/* BOUNCING MOUSE */}
-          <div className="select-none flex flex-col items-center">
+          <div className="select-none hidden md:flex flex-col items-center">
             <div 
               style={{
                 width: "28px",
@@ -712,7 +712,7 @@ function FeeComparison({ C }) {
       </div>
 
       {/* Grid perbandingan */}
-      <div className="select-none w-[90vw] relative grid grid-cols-1 bg-white md:grid-cols-4"
+      <div className="select-none h-max w-[90vw] relative grid grid-cols-1 bg-white md:grid-cols-4"
         style={{ borderBottom: `1px solid ${C.line}`, zIndex: 40, borderRadius: 10, }}
         >
           {PLATFORMS.map((p, i) => {
@@ -733,7 +733,7 @@ function FeeComparison({ C }) {
                 }}>
                 {p.winner
                   ? <span style={{ display: "inline-block", marginBottom: 10, background: "orange", color: C.bg, fontSize: 10, padding: "3px 10px", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 700 }}>Terkecil</span>
-                  : <div style={{ height: 24, marginBottom: 10 }} />}
+                  : <div style={{ height: 24, marginBottom: 0 }} />}
 
                 <div style={{ fontSize: 24, fontWeight: 700, color: p.winner ? "#000000" : "#000000", marginBottom: 4, fontFamily: "'Space Grotesk',sans-serif" }}>
                   {p.name}
@@ -1073,10 +1073,11 @@ function FAQ({ C }) {
           Masih ada pertanyaan lain?
         </p>
         <a
+          className="text-[10.5px] md:text-[13px]"
           href="mailto:taptiptup.support@gmail.com"
           style={{
             fontFamily: "'Space Mono', monospace",
-            fontSize: 13, letterSpacing: "0.1em", textTransform: "uppercase",
+            letterSpacing: "0.1em", textTransform: "uppercase",
             color: "azure", textDecoration: "none",
             borderBottom: "1px solid rgba(173,216,230,0.35)",
             paddingBottom: 2,
