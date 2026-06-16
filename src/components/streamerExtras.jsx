@@ -696,7 +696,7 @@ export const SubathonManager = ({ overlayToken }) => {
 
         {overlayToken && (
           <div className="md:mt-0 mt-8 md:bg-slate-100 md:dark:bg-slate-800 md:p-4 rounded-lg md:border border-slate-200 dark:border-slate-700 space-y-3">
-            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Widget URL untuk OBS (360×200px)</p>
+            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Widget URL OBS</p>
 
             {/* Color pickers */}
             <div className="flex gap-1.5 w-full">
@@ -704,7 +704,7 @@ export const SubathonManager = ({ overlayToken }) => {
                 { label: 'Warna Timer', value: subTimerColor, onChange: setSubTimerColor, default: 'ffffff' },
                 { label: 'Warna Overlay', value: subBgColor, onChange: setSubBgColor, default: '0f0f19' },
               ].map(({ label, value, onChange, default: def }) => (
-                <div key={label} className="flex-1 flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                <div key={label} className="w-max flex items-center gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
                   <input
                     type="color"
                     value={`#${value}`}
@@ -712,8 +712,8 @@ export const SubathonManager = ({ overlayToken }) => {
                     className="w-7 h-7 rounded cursor-pointer border-0 bg-transparent flex-shrink-0"
                   />
                   <span className="font-mono text-xs text-slate-500 dark:text-slate-400 flex-1">#{value}</span>
-                  <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase whitespace-nowrap">{label}</span>
-                  <button onClick={() => onChange(def)} className="text-[10px] font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-all flex-shrink-0">↺</button>
+                  <span className="text-[10px] ml-5 font-black text-slate-400 dark:text-slate-500 uppercase whitespace-nowrap">{label}</span>
+                  {/* <button onClick={() => onChange(def)} className="text-[10px] font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-all flex-shrink-0">↺</button> */}
                 </div>
               ))}
             </div>
@@ -1220,7 +1220,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                   { label: 'Warna Progres', value: mlColor, onChange: setMlColor, default: '6366f1' },
                   { label: 'Warna Overlay',  value: mlBgcolor, onChange: setMlBgcolor, default: '0f0f19' },
                 ].map(({ label, value, onChange, default: def }) => (
-                  <div key={label} className="w-[25%] flex items-center gap-3 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <div key={label} className="w-max flex items-center gap-3 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
                     <input
                       type="color"
                       value={`#${value}`}
@@ -1248,7 +1248,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                           className="bg-slate-500/20 min-h-[300px] py-10 rounded-lg overflow-hidden relative flex justify-center items-center"
                         >
                           <div 
-                            className='flex justify-center items-center'>
+                            className='flex justify-center items-center scale-[0.8] 2xl:scale-[1]'>
                             <Component {...props} />
                           </div>
                         </div>
