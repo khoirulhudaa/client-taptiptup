@@ -378,14 +378,14 @@ const MainAuthForm = ({
         exit={{ opacity:0, y:-20 }}
         transition={{ duration:0.22 }}
       >
-        <div style={{ marginBottom:28 }}>
+        <div className='mb-[24px] md:mb-[28px] leading-0 md:leading-[1.2]'>
           <h2 style={{ 
-            fontSize:28, fontWeight:900, color: T.heading, lineHeight:1.2, 
+            fontSize:28, fontWeight:900, color: T.heading, 
             letterSpacing:'-0.01em', transition:'color 0.35s' 
           }}>
             {isLogin ? 'Masuk ke Dashboard' : 'Buat Akun Baru'}
           </h2>
-          <p style={{ color: T.subtext, fontSize:14, marginTop:8, lineHeight:1.55 }}>
+          <p className='md:mt-[8px] mt-[24px]' style={{ color: T.subtext, fontSize:14, lineHeight:1.55 }}>
             {isLogin 
               ? 'Masuk untuk mengelola overlay mu.' 
               : 'Daftar mulai kustom alert mu.'
@@ -511,7 +511,7 @@ const MainAuthForm = ({
           </button>
         </form>
 
-        <p className='mt-6 font-bold uppercase' style={{ textAlign:'left', color: T.heading, fontSize:14 }}>
+        <p className='mt-3 md:mt-6 font-bold uppercase' style={{ textAlign:'left', color: T.heading, fontSize:14 }}>
           {isLogin ? 'Belum punya akun ?' : 'Sudah punya akun ?'}{' '}
           <button onClick={() => setIsLogin(!isLogin)}
             style={{ 
