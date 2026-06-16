@@ -4032,8 +4032,7 @@ const handleChangePin = async () => {
                   {/* Konfigurasi Alert */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                     <SectionHeader icon={<Settings size={20} />} title={`Konfigurasi Utama`} color="bg-blue-500" />
-                    <br />
-                    <div className="md:flex space-y-3 md:space-y-0 items-center gap-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
+                    <div className="md:flex mt-5.5 space-y-3 md:space-y-0 items-center gap-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
                       {['A', 'B'].map((slot) => (
                         <button
                           key={slot}
