@@ -4607,6 +4607,7 @@ const handleChangePin = async () => {
                         animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
                         transition={{ duration: 0.2 }}
                       >
+                        
                       <YouTubeLivePreview
                         settings={settings}
                         username={user.username}
