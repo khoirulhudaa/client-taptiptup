@@ -56,7 +56,8 @@ import {
   CopyIcon,
   CopyCheck,
   Users2,
-  Monitor
+  Monitor,
+  Link2
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
@@ -4757,8 +4758,8 @@ const handleChangePin = async () => {
                   
                       {/* Info box: URL saat ini */}
                       <div className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-                        <div className="w-9 h-9 flex-shrink-0 rounded-lg bg-violet-100 dark:bg-violet-950/40 flex items-center justify-center">
-                          <Link size={15} className="text-violet-500" />
+                        <div className="w-9 h-9 flex-shrink-0 rounded-lg bg-violet-100 dark:bg-slate-500/30 flex items-center justify-center">
+                          <Link2 size={17} className="text-white relative left-[-0.2px]" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-0.5">Token Aktif</p>
@@ -4776,7 +4777,7 @@ const handleChangePin = async () => {
                   
                       {/* Warning card */}
                       <div className="flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/50 rounded-lg">
-                        <AlertCircle size={15} className="text-amber-500 flex-shrink-0 mt-0.5" />
+                        {/* <AlertCircle size={15} className="text-amber-500 flex-shrink-0 mt-0.5" /> */}
                         <div className="space-y-1">
                           <p className="text-xs font-black text-amber-700 dark:text-amber-400 uppercase tracking-wide">Perhatian</p>
                           <ul className="text-[11px] text-amber-600 dark:text-amber-500 font-medium space-y-0.5 list-disc list-inside">
@@ -4863,7 +4864,7 @@ const handleChangePin = async () => {
                     <div className="space-y-4">
                       <p className="text-xs text-slate-400 dark:text-slate-500 font-medium leading-relaxed">
                         Menghapus akun bersifat <span className="font-black text-red-400">permanen dan tidak dapat dibatalkan</span>.
-                        Seluruh data, riwayat donasi, saldo, dan konfigurasi overlay akan dihapus selamanya.
+                        Seluruh data akan dihapus selamanya.
                       </p>
                   
                       {/* Daftar konsekuensi */}
