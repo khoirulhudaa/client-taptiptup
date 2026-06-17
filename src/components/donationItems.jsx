@@ -252,6 +252,15 @@ const DonationItemsEditor = ({
   );
 
   useEffect(() => {
+    if (settings.donationItemsMode) {
+      setLocalMode(settings.donationItemsMode);
+    } else {
+      setLocalMode(settings.donationItemsEnabled ? 'both' : 'amount_only');
+    }
+  }, [settings.donationItemsMode, settings.donationItemsEnabled]);
+
+
+  useEffect(() => {
     setLocalItems(items.map(i => ({ ...i })));
   }, [items]);
 

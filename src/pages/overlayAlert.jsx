@@ -284,6 +284,40 @@
           </div>
         );
 
+        const renderDonationItem = (alert, hl, fg) => {
+          if (!alert?.donationItem?.name) return null;
+          const qty = alert.donationItem.quantity || 1;
+          return (
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              background: hl + '20', border: `1px solid ${hl}40`,
+              borderRadius: 8, padding: '3px 10px', marginBottom: 6,
+              fontSize: 15,
+            }}>
+              <span style={{ fontSize: 18 }}>{alert.donationItem.emoji || '🎁'}</span>
+              <span style={{ fontWeight: 600, color: hl }}>
+                {alert.donationItem.name}{qty > 1 ? ` ×${qty}` : ''}
+              </span>
+            </div>
+          );
+        };
+
+        const renderAmountOrItem = (alert, hl, style = {}) => {
+          if (alert?.donationItem?.name) {
+            const qty = alert.donationItem.quantity || 1;
+            return (
+              <span style={style}>
+                {alert.donationItem.emoji || '🎁'} {alert.donationItem.name}{qty > 1 ? ` ×${qty}` : ''}
+              </span>
+            );
+          }
+          return (
+            <span style={style}>
+              Rp {Number(alert.amount).toLocaleString('id-ID')}
+            </span>
+          );
+        };
+
         const renderInner = () => {
           const hl = highlight;
           const monospace = "'Inter'";
@@ -349,7 +383,7 @@
                       <div style={{ fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg, marginBottom: 8 }}>
                         {alert.donorName}
                       </div>
-                      <div style={{
+                      {/* <div style={{
                         marginLeft: 0,
                         position: 'relative',
                         top: 1,
@@ -358,7 +392,16 @@
                         textShadow: `0 0 10px ${hl}55`,
                       }}>
                         Rp {Number(alert.amount).toLocaleString('id-ID')}
-                      </div>
+                      </div> */}
+                      {renderAmountOrItem(alert, hl, { 
+                        marginLeft: 0,
+                        position: 'relative',
+                        top: 1,
+                        fontFamily: monospace, fontSize: 18, fontWeight: 500, color: hl,
+                        marginBottom: 6,
+                        textShadow: `0 0 10px ${hl}55` 
+                        }
+                      )}
                     </div>
                     <div style={{
                       width: 40, height: 40, 
@@ -371,6 +414,8 @@
                       {renderIcon(customIcon, 20)}
                     </div>
                   </div>
+                  
+                  {renderDonationItem(alert, hl, fg)}
 
                   {alert.message && (
                     <div style={{
@@ -458,7 +503,7 @@
                     }}>
                       {alert.donorName} mengirim
                     </div>
-                    <div style={{
+                    {/* <div style={{
                       fontFamily: "'Inter', sans-serif",
                       fontSize: 20,
                       marginLeft: 5,
@@ -469,8 +514,20 @@
                       textShadow: `0 0 10px ${highlight}55`,
                     }}>
                       Rp {Number(alert.amount).toLocaleString('id-ID')}
-                    </div>
+                    </div> */}
+                     {renderAmountOrItem(alert, hl, {
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: 20,
+                        marginLeft: 5,
+                        fontWeight: 500,
+                        color: highlight,
+                        letterSpacing: '-0.5px',
+                        lineHeight: 1,
+                        textShadow: `0 0 10px ${highlight}55`
+                      })}
                   </div>
+                  
+                  {renderDonationItem(alert, hl, fg)}
 
                   {alert.message && (
                     <div style={{
@@ -526,11 +583,13 @@
                 
                 {/* Divider */}
                 <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} />
-                <div style={{ fontSize: 18, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1 }}>
+                {/* <div style={{ fontSize: 18, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1 }}>
                   Rp {Number(alert.amount).toLocaleString('id-ID')}
-                </div>
+                </div> */}
+                {renderAmountOrItem(alert, hl, { fontSize: 18, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1 })}
+                
+                {renderDonationItem(alert, hl, fg)}{/* Pesan */}
 
-                {/* Pesan */}
                 {alert.message && (
                   <div style={{
                     fontSize: 18, 
@@ -565,12 +624,10 @@
               <div style={scanlineStyle} />
               <div style={{ padding: '10px 6px', position: 'relative', zIndex: 2 }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
-                  <span style={{
+                  {renderAmountOrItem(alert, hl, {
                     fontFamily: monospace, fontSize: 20, fontWeight: 500, color: hl,
-                     textShadow: `0 0 8px ${hl}50`,
-                  }}>
-                    Rp {Number(alert.amount).toLocaleString('id-ID')}
-                  </span>
+                    textShadow: `0 0 8px ${hl}50`,
+                  })}
                 </div>
 
                 <div style={{
@@ -579,6 +636,8 @@
                 }}>
                   {alert.donorName}
                 </div>
+              
+              {renderDonationItem(alert, hl, fg)}
 
                 {alert.message && (
                   <div style={{

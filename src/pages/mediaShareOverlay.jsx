@@ -386,6 +386,22 @@ const calculateMediaShareDuration = (config, amount) => {
       </div>
     );
 
+    const renderAmountOrItem = (alert, hl, style = {}) => {
+        if (alert?.donationItem?.name) {
+          const qty = alert.donationItem.quantity || 1;
+          return (
+            <span style={style}>
+              {alert.donationItem.emoji || '🎁'} {alert.donationItem.name}{qty > 1 ? ` ×${qty}` : ''}
+            </span>
+          );
+        }
+        return (
+          <span style={style}>
+            Rp {Number(alert.amount).toLocaleString('id-ID')}
+          </span>
+        );
+      };
+
     const renderInner = () => {
       const hl = highlight;
       const monospace = "'Inter', sans-serif";
@@ -479,9 +495,10 @@ const calculateMediaShareDuration = (config, amount) => {
               <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6 }}>
                 <span style={{ fontWeight: 500 }}>{alert.donorName}</span>
                 <span> mengirim </span>
-                <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}55` }}>
+                {/* <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}55` }}>
                   Rp {Number(alert.amount).toLocaleString('id-ID')}
-                </span>
+                </span> */}
+                {renderAmountOrItem(alert, hl, { tWeight: 500, color: hl, textShadow: `0 0 10px ${hl}55` })}
               </div>
 
               {/* Pesan */}
@@ -515,9 +532,10 @@ const calculateMediaShareDuration = (config, amount) => {
               <div style={{ fontSize: 20, color: fg, lineHeight: 1 }}>
                 <span style={{ color: hl }}>{alert.donorName}</span>
                 <span> mengirim </span>
-                <span style={{ color: hl, letterSpacing: '-0.5px' }}>
+                {/* <span style={{ color: hl, letterSpacing: '-0.5px' }}>
                   Rp {Number(alert.amount).toLocaleString('id-ID')}
-                </span>
+                </span> */}
+              {renderAmountOrItem(alert, hl, { color: hl, letterSpacing: '-0.5px' })}
               </div>
 
               {/* Divider */}
@@ -570,7 +588,7 @@ const calculateMediaShareDuration = (config, amount) => {
                 }}>
                   {alert.donorName} mengirim
                 </div>
-                <div style={{
+                {/* <div style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: 20,
                   marginLeft: 5,
@@ -581,7 +599,17 @@ const calculateMediaShareDuration = (config, amount) => {
                   textShadow: `0 0 10px ${hl}55`,
                 }}>
                   Rp {Number(alert.amount).toLocaleString('id-ID')}
-                </div>
+                </div> */}
+                {renderAmountOrItem(alert, hl, { fontFamily: "'Inter', sans-serif",
+                  fontSize: 20,
+                  marginLeft: 5,
+                  fontWeight: 500,
+                  color: hl,
+                  letterSpacing: '-0.5px',
+                  lineHeight: 1,
+                  textShadow: `0 0 10px ${hl}55`
+                   }
+                  )}
               </div>
 
               {alert.message && (
@@ -616,42 +644,6 @@ const calculateMediaShareDuration = (config, amount) => {
         );
       }
 
-      // ── CLASSIC ──────────────────────────────────────────────────────────────────
-      // if (theme === 'classic') {
-      //   return (
-      //     <div style={{ position: 'relative', overflow: 'hidden' }}>
-      //       <div style={scanlineStyle} />
-      //       {mediaBlock}
-
-      //       <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
-      //         {/* Nama mengirim amount */}
-      //         <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 4, borderBottom: `1px dashed ${hl}30`, paddingBottom: 8 }}>
-      //           <span style={{ fontWeight: 500 }}>{alert.donorName}</span>
-      //           <span> mengirim </span>
-      //           <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}50` }}>
-      //             Rp {Number(alert.amount).toLocaleString('id-ID')}
-      //           </span>
-      //         </div>
-
-      //         {/* Pesan */}
-      //         {alert.message && (
-      //           <div style={{ fontWeight: 600, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, marginBottom: 10, maxWidth: 500 }}>
-      //             {alert.message}
-      //           </div>
-      //         )}
-
-      //         {/* Progress bar */}
-      //         <div style={{ height: 2, background: 'rgba(255,255,255,0.08)' }}>
-      //           <div style={{ height: '100%', width: `${progress}%`, background: hl, transition: 'width 50ms linear' }} />
-      //         </div>
-      //       </div>
-
-      //       <div style={{ height: 1, background: 'rgba(255,255,255,0.08)' }} />
-      //       <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-      //     </div>
-      //   );
-      // }
-
       // ── minimal ──────────────────────────────────────────────────────────────────
       return (
         <div style={{ position: 'relative', overflow: 'hidden' }}>
@@ -662,9 +654,10 @@ const calculateMediaShareDuration = (config, amount) => {
             {/* Nama mengirim amount */}
             <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 6 }}>
               <span style={{ fontWeight: 500 }}>{alert.donorName} - </span>
-              <span style={{ fontWeight: 500, color: hl, letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}50` }}>
+              {/* <span style={{ fontWeight: 500, color: hl, letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}50` }}>
                 Rp {Number(alert.amount).toLocaleString('id-ID')}
-              </span>
+              </span> */}
+              {renderAmountOrItem(alert, hl, { fontWeight: 500, color: hl, letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}50` })}
             </div>
 
             {/* Pesan */}

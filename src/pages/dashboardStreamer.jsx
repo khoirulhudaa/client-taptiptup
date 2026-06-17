@@ -168,6 +168,7 @@ const DEFAULT_SETTINGS = {
   soundTiers: [],
   borderColor: '#ffffff26',
   primaryColor: '#2e2f42',
+  donationItemsMode: 'both',
   textColor: '#ffffff',
   alertBaseDuration: 12,
   publicSounds: [],
@@ -406,6 +407,8 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
   const [customName, setCustomName] = useState('Seseorang');
   const [customMsg, setCustomMsg] = useState('Ini test donasi dari dashboard! 🎉');
   const [customVoiceUrl, setCustomVoiceUrl] = useState('');
+  const [testItem, setTestItem] = useState(null);
+  const [useItem, setUseItem] = useState(false);
 
   const sendTest = async () => {
     if (!overlayToken) return;
@@ -414,11 +417,18 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       await api.post('/api/test-alert/send', {
         targetUsername: user.username,
         donorName: customName,
-        amount: Number(customAmount),
+        amount: useItem && testItem ? testItem.price * testItem.quantity : Number(customAmount),
         message: customMsg,
         mediaUrl: null,
         mediaType: null,
         voiceUrl: customVoiceUrl.trim() || null,
+        donationItem: useItem && testItem ? {
+          name: testItem.name,
+          emoji: testItem.emoji,
+          price: testItem.price,
+          quantity: testItem.quantity,
+          total: testItem.price * testItem.quantity,
+        } : null,
       });
       setLastSent(new Date());
       toast.success('Test alert berhasil dikirim!', {
@@ -526,6 +536,69 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         ))}
       </div>
 
+      {/* Toggle pakai item */}
+      <label className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer">
+        <div onClick={() => setUseItem(v => !v)}
+          className={`w-10 h-6 rounded-lg relative flex-shrink-0 transition-all cursor-pointer ${useItem ? 'bg-rose-500' : 'bg-slate-200 dark:bg-slate-700'}`}>
+          <div className={`absolute top-1 w-4 h-4 bg-white rounded-lg shadow transition-all ${useItem ? 'left-5' : 'left-1'}`} />
+        </div>
+        Test dengan Donation Item
+      </label>
+
+      {useItem && (
+        <div className="space-y-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Konfigurasi Item</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col gap-1">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Emoji</label>
+              <input
+                value={testItem?.emoji || '🎁'}
+                onChange={e => setTestItem(prev => ({ ...prev, emoji: e.target.value }))}
+                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-center outline-none focus:border-rose-400"
+                placeholder="🎁"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Nama Item</label>
+              <input
+                value={testItem?.name || ''}
+                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: e.target.value, price: prev?.price || 10000, quantity: prev?.quantity || 1 }))}
+                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-rose-400"
+                placeholder="Kopi"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Harga (Rp)</label>
+              <input
+                type="number"
+                value={testItem?.price || 10000}
+                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: prev?.name || '', price: Number(e.target.value), quantity: prev?.quantity || 1 }))}
+                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-rose-400"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Qty</label>
+              <input
+                type="number"
+                min={1}
+                max={99}
+                value={testItem?.quantity || 1}
+                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: prev?.name || '', price: prev?.price || 10000, quantity: Math.max(1, Number(e.target.value)) }))}
+                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-center outline-none focus:border-rose-400"
+              />
+            </div>
+          </div>
+          {testItem?.name && (
+            <div className="flex items-center gap-2 px-3 py-2 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 rounded-lg">
+              <span className="text-lg">{testItem.emoji}</span>
+              <span className="font-black text-xs text-rose-700 dark:text-rose-300">
+                {testItem.name} ×{testItem.quantity || 1} — Rp {((testItem.price || 0) * (testItem.quantity || 1)).toLocaleString('id-ID')}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
+
       <button 
         onClick={sendTest} 
         disabled={isSending || !overlayToken}
@@ -560,6 +633,8 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
 const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
   const [isSending, setIsSending] = useState(false);
   const [lastSent, setLastSent] = useState(null);
+  const [useItem, setUseItem] = useState(false);
+  const [testItem, setTestItem] = useState(null);
   const [formData, setFormData] = useState({
     donorName: 'Seseorang',
     amount: '25000',
@@ -575,10 +650,17 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
       await api.post('/api/midtrans/test-mediashare/send', {
         targetUsername: user.username,
         donorName: formData.donorName,
-        amount: Number(formData.amount) || 0,
+        amount: useItem && testItem ? testItem.price * testItem.quantity : Number(formData.amount) || 0,
         message: formData.message || null,
         mediaUrl: formData.mediaUrl,
         mediaType: formData.mediaType,
+        donationItem: useItem && testItem ? {
+          name: testItem.name,
+          emoji: testItem.emoji,
+          price: testItem.price,
+          quantity: testItem.quantity,
+          total: testItem.price * testItem.quantity,
+        } : null,
       });
       setLastSent(new Date());
     } catch (err) {
@@ -657,6 +739,69 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
           ))}
         </div>
       </div>
+
+      {/* Toggle pakai item */}
+      <label className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer">
+        <div onClick={() => setUseItem(v => !v)}
+          className={`w-10 h-6 rounded-lg relative flex-shrink-0 transition-all cursor-pointer ${useItem ? 'bg-rose-500' : 'bg-slate-200 dark:bg-slate-700'}`}>
+          <div className={`absolute top-1 w-4 h-4 bg-white rounded-lg shadow transition-all ${useItem ? 'left-5' : 'left-1'}`} />
+        </div>
+        Test dengan Donation Item
+      </label>
+
+      {useItem && (
+        <div className="space-y-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Konfigurasi Item</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col gap-1">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Emoji</label>
+              <input
+                value={testItem?.emoji || '🎁'}
+                onChange={e => setTestItem(prev => ({ ...prev, emoji: e.target.value }))}
+                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-center outline-none focus:border-rose-400"
+                placeholder="🎁"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Nama Item</label>
+              <input
+                value={testItem?.name || ''}
+                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: e.target.value, price: prev?.price || 10000, quantity: prev?.quantity || 1 }))}
+                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-rose-400"
+                placeholder="Kopi"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Harga (Rp)</label>
+              <input
+                type="number"
+                value={testItem?.price || 10000}
+                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: prev?.name || '', price: Number(e.target.value), quantity: prev?.quantity || 1 }))}
+                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-rose-400"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Qty</label>
+              <input
+                type="number"
+                min={1}
+                max={99}
+                value={testItem?.quantity || 1}
+                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: prev?.name || '', price: prev?.price || 10000, quantity: Math.max(1, Number(e.target.value)) }))}
+                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-center outline-none focus:border-rose-400"
+              />
+            </div>
+          </div>
+          {testItem?.name && (
+            <div className="flex items-center gap-2 px-3 py-2 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 rounded-lg">
+              <span className="text-lg">{testItem.emoji}</span>
+              <span className="font-black text-xs text-rose-700 dark:text-rose-300">
+                {testItem.name} ×{testItem.quantity || 1} — Rp {((testItem.price || 0) * (testItem.quantity || 1)).toLocaleString('id-ID')}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
 
       <button onClick={sendTestMedia} disabled={isSending || !overlayToken || !formData.mediaUrl}
         className="cursor-pointer hover:brightness-90 w-full py-3 hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white rounded-lg font-black text-sm active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
@@ -2370,13 +2515,6 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 rounded-lg bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-950 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-3">
         Simulasi notifikasi
       </button>
-      {/* <button onClick={() => handleFullScreen()}
-        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3.5 rounded-lg bg-slate-900/70 dark:bg-slate-700 hover:bg-slate-800 text-white font-black text-sm transition-all flex items-center justify-center gap-3 border border-slate-700">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
-        </svg>
-        Full Screen Preview
-      </button> */}
     </div>
   );
 }

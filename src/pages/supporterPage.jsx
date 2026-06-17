@@ -1259,7 +1259,7 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
               {selectedItem.quantity || 1}
             </span>
             <button
-              onClick={() => onSelect({ ...selectedItem, quantity: Math.min(selectedItem.maxQty ?? 10, (selectedItem.quantity || 1) + 1) })}
+              onClick={() => onSelect({ ...selectedItem, quantity: Math.min(selectedItem.maxQty ?? 100, (selectedItem.quantity || 1) + 1) })}
               className="rounded-md w-8 h-8 flex items-center justify-center cursor-pointer active:scale-[0.98] bg-white/10 text-lg font-bold text-white hover:text-slate-400 active:scale-95"
             >
               +
