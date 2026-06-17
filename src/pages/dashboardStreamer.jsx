@@ -277,7 +277,7 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
       {/* <div className="flex justify-between items-center gap-3 mb-5">
         <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Quick Nominal</span>
       </div> */}
-        <SectionHeader icon={<Settings size={20} />} title={`Quick Nominal`} color="bg-red-500" />
+        <SectionHeader icon={<Settings size={20} />} title={`Quick Nominal`} color="bg-red-600" />
         <div className="gap-2.5 grid grid-cols-1 mt-5 md:grid-cols-2">
         {amounts.map((amt, i) => (
           <div key={i} className="w-[100%] flex gap-3 items-center bg-slate-50 dark:bg-slate-800 p-3 rounded-lg">
@@ -288,7 +288,9 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
               onChange={e => update(i, e.target.value)}
               className="flex-1 p-3 w-full bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-lg font-bold"
             />
-            <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.99] hover:text-red-600 text-red-500">
+            <button onClick={() => remove(i)} 
+              className="shrink-0 cursor-pointer bg-red-700 h-[40px] w-[40px] flex justify-center items-center text-slate-300 hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-800 rounded-lg transition-all active:scale-95"
+            >
               <Trash2 size={18} />
             </button>
           </div>

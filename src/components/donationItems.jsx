@@ -142,9 +142,9 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
 
           <button
             onClick={() => onRemove(index)}
-            className="shrink-0 cursor-pointer bg-red-800 h-[40px] w-[40px] flex justify-center items-center text-slate-300 hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-800 rounded-lg transition-all active:scale-95"
+            className="shrink-0 cursor-pointer bg-red-700 h-[40px] w-[40px] flex justify-center items-center text-slate-300 hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-800 rounded-lg transition-all active:scale-95"
           >
-            <Trash2 size={15} />
+            <Trash2 size={16} className='relative left-[-1px]' />
           </button>
         </div>
 
