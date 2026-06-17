@@ -4109,7 +4109,7 @@ const handleChangePin = async () => {
     
     return (
       <>
-        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-8">
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-8">
           <audio ref={previewAudioRef} />
           <SectionHeader icon={<Music size={20} />} title="Pengaturan Suara Alert" color="bg-gradient-to-r from-emerald-500 to-blue-500" />
           <div className="md:p-5 md:bg-slate-50 md:dark:bg-slate-800/50 rounded-xl  md:border border-slate-200 dark:border-slate-700">
@@ -4856,11 +4856,11 @@ const handleChangePin = async () => {
                   </div>
 
                   {/* HAPUS AKUN */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-6">
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 pb-4.5 md:pb-6 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-5">
                     <SectionHeader icon={<Trash2 size={18} />} title="Hapus Akun" color="bg-red-500" />
                   
                     <div className="space-y-4">
-                      <p className="text-xs text-slate-400 dark:text-slate-500 font-medium leading-relaxed">
+                      <p className="text-xs text-slate-400 dark:text-slate-500 md:block hidden font-medium leading-relaxed">
                         Menghapus akun bersifat <span className="font-black text-red-400">permanen</span>.
                         Seluruh data akan dihapus selamanya.
                       </p>
@@ -5058,7 +5058,7 @@ const handleChangePin = async () => {
                 {showPreviewPanel && (
                   <section
                     key="preview-panel"
-                    className="xl:col-span-5 sticky top-26 self-start z-[2]"
+                    className="xl:col-span-5 md:block hidden sticky top-26 self-start z-[2]"
                   >
                   <motion.div 
                     animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
