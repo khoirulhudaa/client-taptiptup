@@ -25,6 +25,7 @@ import StoreWidget from './components/storeWidget';
 import CombinedOverlay from './pages/combinedOverlay';
 import AuthSuperAdmin from './pages/authSuperAdmin';
 import MarqueeWidget from './components/marqueeWidget';
+import TermsConditions from './pages/terms';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -265,6 +266,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login-superAdmin" element={<AuthSuperAdmin />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsConditions />} />
 
           <Route path="/login"    element={<PublicOnlyRoute><Auth /></PublicOnlyRoute>} />
           <Route path="/register" element={<PublicOnlyRoute><Auth /></PublicOnlyRoute>} />
