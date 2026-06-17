@@ -919,7 +919,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
             )}
             {showAlert && previewMode === 'media' && (
               <motion.div
-                className='absolute bottom-10 2xl:ml-5 md:mt-[-12px] 2xl:mt-[0] w-[90%] 2xl:scale-[1] scale-[0.85]'
+                className='absolute bottom-10 ml-1.5 2xl:ml-5 md:mt-[-12px] 2xl:mt-[0] w-[90%] 2xl:scale-[1] scale-[0.85]'
                 key={`media-${animKey}`}
                 initial={anim.initial}
                 animate={anim.animate}
