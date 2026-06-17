@@ -2535,20 +2535,11 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   );
 
     return (
-    <div className="relative mt-5.5 space-y-2.5">
+    <div className="relative space-y-2.5">
       <FullscreenPreview />
 
       {/* Tab switcher */}
       <div className="flex gap-2.5">
-        {/* Tombol toggle preview */}
-        <button
-          onClick={() => onTogglePreview?.()}
-          title="Sembunyikan / Tampilkan Preview"
-          className="cursor-pointer active:scale-[0.99] flex items-center justify-center w-13 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
-        >
-          <PanelLeft size={18} />
-        </button>
-
         {/* Tab switcher */}
         <div className="flex-1 flex gap-1.5 bg-slate-100 dark:bg-slate-800 p-[3px] rounded-xl">
           {[{ id: 'alert', label: '⚡ Alert OBS' }, { id: 'media', label: '🎬 Media share' }].map(tab => (
@@ -4604,10 +4595,13 @@ const handleChangePin = async () => {
                         </div>
                     </div>
 
-                    {showPreviewPanel && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-0 md:space-y-2 mt-4.5">
+                      <InputField label="Minimal Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
+                      <InputField label="Maksimal Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
+                      
                       <section
                         key="preview-panel"
-                        className="xl:col-span-5 z-[2] relative mt-2 block md:hidden"
+                        className="xl:col-span-5 mt-3.5 z-[2] py-0 h-max relative mb-2.5 block md:hidden"
                       >
                       <motion.div 
                         animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
@@ -4624,11 +4618,7 @@ const handleChangePin = async () => {
 
                       </motion.div>
                       </section>
-                    )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-2 mt-4.5">
-                      <InputField label="Minimal Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
-                      <InputField label="Maksimal Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
                       <div className="md:col-span-2">
                         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label>
                         <div className="grid grid-cols-2 gap-3">
