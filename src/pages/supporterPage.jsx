@@ -1181,7 +1181,7 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
         {selectedItem && (
           <button
             onClick={() => onSelect(null)}
-            className="text-[10px] font-black text-slate-400 hover:text-red-500 transition-colors cursor-pointer px-2 py-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
+            className="text-[10px] font-black text-slate-400 hover:text-red-400 transition-colors cursor-pointer px-2 py-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
           >
             ✕ Batal
           </button>
@@ -1199,42 +1199,30 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
               key={item.id || i}
               whileTap={{ scale: 0.96 }}
               onClick={() => onSelect(active ? null : item)}
-              className={`relative pb-1 rounded-xl border-2 overflow-hidden text-left transition-all cursor-pointer ${
+              className={`relative rounded-xl border-2 overflow-hidden text-left transition-all cursor-pointer ${
                 active
-                  ? 'border-blue-500 shadow-lg shadow-blue-200/50 dark:shadow-blue-900/30'
-                  : 'border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600'
+                  ? 'border-slate-200 dark:border-slate-700'
+                  : 'border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-400'
               }`}
             >
               <div className={`p-2.5 text-center space-y-1.5 transition-colors ${
                 active
-                  ? 'bg-blue-50 dark:bg-blue-950/40'
-                  : 'bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800'
+                  ? 'bg-blue-50 dark:bg-blue-950/50'
+                  : 'bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/60'
               }`}>
                 <div className='w-10 h-10 mx-auto mt-1 rounded-md flex justify-center items-center bg-slate-500/20'>
                   <div className="text-xl leading-none">{item.emoji}</div>
                 </div>
                 
-                <p className={`font-medium text-[11px] leading-tight ${
-                  active ? 'text-blue-700 dark:text-blue-300' : 'text-slate-700 dark:text-slate-200'
-                }`}>
+                <p className={`font-medium text-[11px] leading-tight 'text-slate-700 dark:text-white`}>
                   {item.name}
                 </p>
 
-                <p className={`font-black text-[11px] ${
+                <p className={`font-black text-[11px] mb-[2px] ${
                   active ? 'text-blue-600 dark:text-blue-400' : 'text-blue-600 dark:text-blue-400'
                 }`}>
                   Rp {Number(item.price).toLocaleString('id-ID')}
                 </p>
-
-                {active && (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="absolute top-1.5 right-1.5 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center"
-                  >
-                    <span className="text-white text-[8px] font-black">✓</span>
-                  </motion.div>
-                )}
               </div>
             </motion.button>
           );
@@ -1246,16 +1234,16 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
         <motion.div
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-xl"
+          className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800/10 border border-slate-200 dark:border-slate-500/50 rounded-xl"
         >
           <span className="text-3xl flex-shrink-0">{selectedItem.emoji || '🎁'}</span>
           
-          <div className="flex-1 min-w-0">
-            <p className="font-black text-sm text-blue-700 dark:text-blue-300 truncate">
+          <div className="flex-1 min-w-0 relative top-[-1.1px]">
+            <p className="font-black text-sm text-blue-700 dark:text-white truncate">
               {selectedItem.name}
             </p>
-            <p className="text-[10px] text-blue-500 font-medium">
-              Rp {Number(selectedItem.price).toLocaleString('id-ID')} × {selectedItem.quantity || 1}
+            <p className="text-[11px] text-blue-400 font-medium">
+              Rp {Number(selectedItem.price) * selectedItem.quantity}
             </p>
           </div>
 
@@ -1263,7 +1251,7 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
           <div className="flex p-1.5 items-center gap-1 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
             <button
               onClick={() => onSelect({ ...selectedItem, quantity: Math.max(1, (selectedItem.quantity || 1) - 1) })}
-              className="rounded-md w-8 h-8 flex items-center justify-center cursor-pointer active:scale-[0.98] bg-white/10 text-lg font-bold text-white hover:text-red-500 active:scale-95"
+              className="rounded-md w-8 h-8 flex items-center justify-center cursor-pointer active:scale-[0.98] bg-white/10 text-lg font-bold text-white hover:text-slate-400 active:scale-95"
             >
               −
             </button>
@@ -1272,7 +1260,7 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
             </span>
             <button
               onClick={() => onSelect({ ...selectedItem, quantity: Math.min(selectedItem.maxQty ?? 10, (selectedItem.quantity || 1) + 1) })}
-              className="rounded-md w-8 h-8 flex items-center justify-center cursor-pointer active:scale-[0.98] bg-white/10 text-lg font-bold text-white hover:text-green-500 active:scale-95"
+              className="rounded-md w-8 h-8 flex items-center justify-center cursor-pointer active:scale-[0.98] bg-white/10 text-lg font-bold text-white hover:text-slate-400 active:scale-95"
             >
               +
             </button>
@@ -1935,7 +1923,7 @@ const SupporterPage = () => {
                   Nominal Kustom
                 </label>
                 <div className="relative">
-                  <span className={`absolute left-4 top-1/2 -translate-y-1/2 font-black ${!eligibleTrigger ? 'text-red-400' : 'text-blue-600 dark:text-blue-400'} text-sm`}>Rp</span>
+                  <span className={`absolute left-4 top-1/2 -translate-y-1/2 font-black ${!eligibleTrigger ? 'text-red-300' : 'text-blue-600 dark:text-blue-400'} text-sm`}>Rp</span>
                   <input
                     type="number"
                     value={form.amount || ''}
@@ -1945,8 +1933,8 @@ const SupporterPage = () => {
                     }}
                     className={`w-full p-4 pl-12 rounded-lg font-black border-2 outline-none transition-all ${
                       !eligibleTrigger 
-                        ? 'border-red-500 focus:border-red-400 text-red-400' 
-                        : 'bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500'
+                        ? 'border-red-300 focus:border-red-200 text-red-300' 
+                        : 'bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-700 text-white focus:border-blue-300 dark:focus:border-blue-500'
                     }`}
                     placeholder="Nominal Kustom..."
                   />
@@ -1961,7 +1949,7 @@ const SupporterPage = () => {
                       if (!reached && !isNext) return null;
                       return (
                         <div key={i} className={`flex items-center gap-2 text-[10px] font-bold px-2 py-1.5 rounded-md ${
-                          reached ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'bg-slate-50 dark:bg-slate-900/50 text-slate-400'
+                          reached ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'bg-slate-50 dark:bg-slate-900/50 text-red-300'
                         }`}>
                           <span>{reached ? '✅' : '🔒'}</span>
                           <span>

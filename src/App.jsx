@@ -55,7 +55,7 @@ function App() {
   const { isOnline, isError, isOffline, checking, retry } = useServerStatus();
 
   // Saat pertama kali cek, tampilkan loading sebentar
-  if (!checking) {
+  if (checking) {
     return isOverlay ? (
       <div style={{
         background: 'transparent'
