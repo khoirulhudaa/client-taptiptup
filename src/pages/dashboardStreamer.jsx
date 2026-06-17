@@ -4702,43 +4702,7 @@ const handleChangePin = async () => {
                   </div>
 
                   {/* Widget URLs */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
-                    {/* <div className="flex justify-between items-center gap-3 mb-5">
-                      <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Widget OBS</span>
-                    </div> */}
-                    <div className='mb-5'>
-                      <SectionHeader icon={<Settings size={20} />} title={`URL Widget`} color="bg-rose-500" />
-                    </div>
-                    {[
-                      { label: 'Milestones',   emoji: '🎯', path: 'milestones',  desc: 'Progress target donasi',        },
-                      { label: 'Leaderboard',  emoji: '🏆', path: 'leaderboard', desc: 'Top 10 donor terbesar',             },
-                      { label: 'QR Code',      emoji: '◼',  path: 'qrcode',      desc: 'QR scan halaman donasi',         },
-                      { label: 'Poll',         emoji: '🗳️', path: 'poll',        desc: 'Voting poll live',                  },
-                      { label: 'Marquee Donor', emoji: '📜', path: 'marquee?limit=10', desc: 'Scrolling top donor terbesar' },
-                      { label: 'Subathon',     emoji: '⏱',  path: 'subathon',    desc: 'Timer subathon',                    },
-                      { 
-                        label: 'Toko OBS', 
-                        emoji: '🛍️', 
-                        path: 'store', 
-                        desc: 'Produk jualan streamer (gambar + harga + link)', 
-                        size: '800×600px' 
-                      },
-                    ].map(({ label, emoji, path, desc, size }) => {
-                      const widgetUrl = `${window.location.origin}/widget/${user.overlayToken}/${path}`;
-                      return (
-                        <div key={path} className="flex items-center gap-4 bg-white dark:bg-slate-800 rounded-lg p-4 px-3 border border-slate-200 dark:border-slate-700">
-                          <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
-                          <div className="flex-1 min-w-0 relative top-1">
-                            <label className="block text-[10px] font-bold rounded-sm bg-emerald-500 text-white w-max mb-1 uppercase tracking-widest px-2">{label}</label>
-                            <p className="text-sm truncate max-w-[90%] font-mono text-blue-500 dark:text-blue-400 truncate mt-0.5">{widgetUrl}</p>
-                          </div>
-                          <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
-                            <Copy size={15} />
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
+                
                 </section>
 
                 <section className="xl:col-span-5 z-[2]">
