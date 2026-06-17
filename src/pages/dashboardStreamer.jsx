@@ -2535,7 +2535,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   );
 
     return (
-    <div className="sticky md:p-0 p-4 top-26 space-y-2.5">
+    <div className="relative mt-5.5 space-y-2.5">
       <FullscreenPreview />
 
       {/* Tab switcher */}
@@ -2610,9 +2610,6 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
               </button>
             ))}
           </div>
-          {/* <input value={mediaUrl} onChange={e => setMediaUrl(e.target.value)}
-            className="w-full p-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-mono text-[10px] text-slate-600 dark:text-slate-300 outline-none focus:border-purple-400 transition-all"
-            placeholder="https://... (gambar, video, atau YouTube)" /> */}
         </div>
       )}
 
@@ -4607,6 +4604,28 @@ const handleChangePin = async () => {
                         </div>
                     </div>
 
+                    {showPreviewPanel && (
+                      <section
+                        key="preview-panel"
+                        className="xl:col-span-5 z-[2] relative mt-2 block md:hidden"
+                      >
+                      <motion.div 
+                        animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                      <YouTubeLivePreview
+                        settings={settings}
+                        username={user.username}
+                        testFullScreen={() => setNavbar(!navbar)}
+                        onPreviewModeChange={setPreviewMode}
+                        autoPreviewTick={autoPreviewTick}
+                        onTogglePreview={() => setShowPreviewPanel(v => !v)}
+                      />
+
+                      </motion.div>
+                      </section>
+                    )}
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-2 mt-4.5">
                       <InputField label="Minimal Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
                       <InputField label="Maksimal Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
@@ -5035,7 +5054,7 @@ const handleChangePin = async () => {
                 {showPreviewPanel && (
                   <section
                     key="preview-panel"
-                    className="xl:col-span-5 z-[2] sticky top-26 self-start hidden xl:block"
+                    className="xl:col-span-5 z-[2] sticky top-26 self-start hidden md:block"
                   >
                   <motion.div 
                     animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
