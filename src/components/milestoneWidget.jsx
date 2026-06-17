@@ -162,22 +162,21 @@ const MilestonesWidget = () => {
       <style>{`
         html, body { margin: 0 !important; padding: 0 !important; background: transparent !important; overflow: hidden !important; }
       `}</style>
-      <div className="space-y-2">
-        <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Preview</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {['miles1', 'miles2'].map(t => (
-            <div key={t} className="space-y-1.5">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">{t === 'miles1' ? 'Miles 1' : 'Miles 2'}</p>
-              <div className="flex justify-center overflow-auto p-2 rounded-lg" style={{ background: `#${mlBgcolor}` }}>
-                {t === 'miles1'
-                  ? <Miles1 displayList={list.slice(0, 3)} totalDonation={0} activeIdx={0} color={mlColor} bgcolor={mlBgcolor} />
-                  : <Miles2 displayList={list.slice(0, 2)} totalDonation={0} color={mlColor} bgcolor={mlBgcolor} />
-                }
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {theme === 'miles1'
+        ? <Miles1
+            displayList={displayList}
+            totalDonation={totalDonation}
+            activeIdx={activeIdx}
+            color={color}
+            bgcolor={bgcolor}
+          />
+        : <Miles2
+            displayList={displayList}
+            totalDonation={totalDonation}
+            color={color}
+            bgcolor={bgcolor}
+          />
+      }
     </>
   );
 };
