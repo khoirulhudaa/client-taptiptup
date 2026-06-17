@@ -915,7 +915,7 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
   useEffect(() => {
     setMounted(true);
   }, []);
-
+  
   const { data: streamer, isLoading, error } = useQuery({
     queryKey: ['publicProfile', username],
     queryFn: () => fetchPublicProfile(username),
