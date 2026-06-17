@@ -3511,6 +3511,17 @@ export const DashboardStreamer = () => {
   const confirmPinRefs = [useRef(), useRef(), useRef(), useRef()];
   const [showVideoTutorial, setShowVideoTutorial] = useState(false);
   const [showOBSConnect, setShowOBSConnect] = useState(false);
+  const [tokenStep, setTokenStep]               = useState('idle');
+  const [tokenError, setTokenError]             = useState('');
+  const [newOverlayToken, setNewOverlayToken]   = useState('');
+  const [showTokenConfirm, setShowTokenConfirm] = useState(false);
+
+  // Hapus Akun
+  const [deleteStep, setDeleteStep]             = useState('idle');
+  const [deleteError, setDeleteError]           = useState('');
+  const [deleteConfirmText, setDeleteConfirmText] = useState('');
+  const [deletePinForm, setDeletePinForm]       = useState(['','','','']);
+  const deletePinRefs = [useRef(), useRef(), useRef(), useRef()];
   const [pinForm, setPinForm] = useState({ 
     currentPin: ['','','',''], 
     newPin: ['','','',''], 
@@ -4620,7 +4631,7 @@ const handleChangePin = async () => {
                     </button>
                   </div>
                   {/* Preset Warna Siap Pakai */}
-                  <div className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6">
+                  <div className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6">
                     <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
                       Preset Warna Siap Pakai
                     </label>
@@ -4739,6 +4750,317 @@ const handleChangePin = async () => {
                       );
                     })}
                   </div>
+
+                     {/* GANTI OVERLAY TOKEN */}
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                    <SectionHeader icon={<RefreshCw size={18} />} title="Ganti Overlay Token" color="bg-violet-500" />
+                  
+                    <div className="space-y-3">
+                      {/* <p className="text-xs text-slate-400 dark:text-slate-500 font-medium leading-relaxed">
+                        Token digunakan untuk semua URL overlay & widget OBS-mu. Mengganti token akan
+                        <span className="font-black text-amber-500"> memutus semua URL lama</span> — kamu harus memperbarui
+                        browser source di OBS setelah proses ini.
+                      </p> */}
+                  
+                      {/* Info box: URL saat ini */}
+                      <div className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <div className="w-9 h-9 flex-shrink-0 rounded-lg bg-violet-100 dark:bg-violet-950/40 flex items-center justify-center">
+                          <Link size={15} className="text-violet-500" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-0.5">Token Aktif</p>
+                          <p className="font-mono text-sm text-slate-700 dark:text-slate-200 font-bold truncate">
+                            {user.overlayToken || '—'}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => copyToClipboard(user.overlayToken, 'Overlay Token')}
+                          className="cursor-pointer p-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg transition-all flex-shrink-0"
+                        >
+                          <Copy size={14} />
+                        </button>
+                      </div>
+                  
+                      {/* Warning card */}
+                      <div className="flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/50 rounded-lg">
+                        <AlertCircle size={15} className="text-amber-500 flex-shrink-0 mt-0.5" />
+                        <div className="space-y-1">
+                          <p className="text-xs font-black text-amber-700 dark:text-amber-400 uppercase tracking-wide">Perhatian</p>
+                          <ul className="text-[11px] text-amber-600 dark:text-amber-500 font-medium space-y-0.5 list-disc list-inside">
+                            <li>Semua URL alert, widget, & voice note akan berubah</li>
+                            <li>Update manual semua Browser Source di OBS setelah ganti</li>
+                            <li>Proses ini tidak bisa dibatalkan</li>
+                          </ul>
+                        </div>
+                      </div>
+                  
+                      {/* State: sukses */}
+                      <AnimatePresence mode="wait">
+                        {tokenStep === 'success' && (
+                          <motion.div
+                            key="token-success"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="flex flex-col items-center gap-3 py-6 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800/50"
+                          >
+                            <div className="w-12 h-12 bg-green-100 dark:bg-green-950/40 rounded-lg flex items-center justify-center">
+                              <CheckCircle2 size={26} className="text-green-600 dark:text-green-400" />
+                            </div>
+                            <div className="text-center">
+                              <p className="font-black text-slate-800 dark:text-slate-100">Token Berhasil Diganti!</p>
+                              <p className="text-xs text-slate-400 font-medium mt-1">Perbarui semua Browser Source di OBS sekarang.</p>
+                            </div>
+                            {newOverlayToken && (
+                              <div className="flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 w-full max-w-xs">
+                                <p className="font-mono text-sm text-violet-600 dark:text-violet-400 font-bold flex-1 truncate">{newOverlayToken}</p>
+                                <button onClick={() => copyToClipboard(newOverlayToken, 'Token Baru')} className="cursor-pointer p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-all">
+                                  <Copy size={13} />
+                                </button>
+                              </div>
+                            )}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                  
+                      {/* Error */}
+                      <AnimatePresence>
+                        {tokenError && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
+                            className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg"
+                          >
+                            <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
+                            <p className="text-xs font-bold text-red-600 dark:text-red-400">{tokenError}</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                  
+                      {/* Tombol trigger */}
+                      {tokenStep !== 'success' && (
+                        <button
+                          onClick={() => setShowTokenConfirm(true)}
+                          disabled={tokenStep === 'loading'}
+                          className="cursor-pointer active:scale-[0.99] w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-black text-sm rounded-lg transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          {tokenStep === 'loading' ? (
+                            <><Loader2 size={16} className="animate-spin" /> Memproses...</>
+                          ) : (
+                            <><RefreshCw size={16} /> Ganti Overlay Token</>
+                          )}
+                        </button>
+                      )}
+                      {tokenStep === 'success' && (
+                        <button
+                          onClick={() => { setTokenStep('idle'); setNewOverlayToken(''); setTokenError(''); }}
+                          className="cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-black text-sm rounded-lg transition-all"
+                        >
+                          Kembali
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* HAPUS AKUN */}
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-sm border border-red-100 dark:border-red-900/30 space-y-6">
+                    <SectionHeader icon={<Trash2 size={18} />} title="Hapus Akun" color="bg-red-500" />
+                  
+                    <div className="space-y-4">
+                      <p className="text-xs text-slate-400 dark:text-slate-500 font-medium leading-relaxed">
+                        Menghapus akun bersifat <span className="font-black text-red-500">permanen dan tidak dapat dibatalkan</span>.
+                        Seluruh data, riwayat donasi, saldo, dan konfigurasi overlay akan dihapus selamanya.
+                      </p>
+                  
+                      {/* Daftar konsekuensi */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {[
+                          { icon: '💸', label: 'Saldo tidak dapat dikembalikan' },
+                          { icon: '📊', label: 'Riwayat donasi terhapus permanen' },
+                          { icon: '🎬', label: 'Semua URL overlay tidak aktif' },
+                          { icon: '👥', label: 'Data komunitas & follower hilang' },
+                        ].map(({ icon, label }) => (
+                          <div key={label} className="flex items-center gap-2.5 p-3 bg-red-50 dark:bg-red-500/19 rounded-lg border border-red-100 dark:border-red-900/30">
+                            <span className="text-base flex-shrink-0">{icon}</span>
+                            <p className="text-[11px] font-bold text-white">{label}</p>
+                          </div>
+                        ))}
+                      </div>
+                  
+                      {/* Step 1: ketik konfirmasi */}
+                      {deleteStep === 'idle' && (
+                        <div className="space-y-3 pt-1">
+                          <div className="space-y-1.5">
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">
+                              Ketik <span className="text-red-500 font-black">HAPUS AKUN SAYA</span> untuk lanjut
+                            </label>
+                            <input
+                              type="text"
+                              value={deleteConfirmText}
+                              onChange={e => setDeleteConfirmText(e.target.value)}
+                              placeholder="HAPUS AKUN SAYA"
+                              className="w-full p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-400 dark:focus:border-red-600 text-slate-900 dark:text-slate-100 rounded-lg font-bold text-sm outline-none transition-all"
+                            />
+                          </div>
+                          <button
+                            onClick={() => {
+                              if (deleteConfirmText !== 'HAPUS AKUN SAYA') {
+                                setDeleteError('Ketik persis: HAPUS AKUN SAYA');
+                                return;
+                              }
+                              setDeleteError('');
+                              setDeleteStep('pin');
+                            }}
+                            disabled={deleteConfirmText !== 'HAPUS AKUN SAYA'}
+                            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-lg transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
+                          >
+                            <Trash2 size={16} /> Lanjut ke Verifikasi PIN
+                          </button>
+                        </div>
+                      )}
+                  
+                      {/* Step 2: verifikasi PIN sebelum hapus */}
+                      {deleteStep === 'pin' && (
+                        <motion.div
+                          key="delete-pin"
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="space-y-5 pt-1"
+                        >
+                          <div className="p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800/50 rounded-lg">
+                            <p className="text-xs font-black text-red-600 dark:text-red-400 mb-0.5">Konfirmasi dengan PIN Keamanan</p>
+                            <p className="text-[11px] text-red-500 dark:text-red-500 font-medium">
+                              Masukkan PIN 4-digit yang kamu gunakan untuk konfirmasi transfer.
+                            </p>
+                          </div>
+                  
+                          {/* PIN input row (inline, tanpa reuse PinRow agar bebas styling) */}
+                          <div className="flex flex-col items-center gap-4">
+                            <div className="flex gap-3 justify-center">
+                              {deletePinForm.map((digit, idx) => (
+                                <input
+                                  key={idx}
+                                  ref={deletePinRefs[idx]}
+                                  type="password"
+                                  inputMode="numeric"
+                                  maxLength={1}
+                                  value={digit}
+                                  onChange={e => {
+                                    const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 1);
+                                    setDeletePinForm(prev => {
+                                      const next = [...prev];
+                                      next[idx] = val;
+                                      return next;
+                                    });
+                                    if (val && idx < 3) {
+                                      setTimeout(() => deletePinRefs[idx + 1].current?.focus(), 10);
+                                    }
+                                  }}
+                                  onKeyDown={e => {
+                                    if (e.key === 'Backspace' && !deletePinForm[idx] && idx > 0) {
+                                      deletePinRefs[idx - 1].current?.focus();
+                                    }
+                                  }}
+                                  className="w-13 h-13 text-center text-xl font-black bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-500 dark:focus:border-red-500 rounded-xl outline-none text-slate-900 dark:text-slate-100 transition-all"
+                                />
+                              ))}
+                            </div>
+                          </div>
+                  
+                          <div className="flex gap-3">
+                            <button
+                              onClick={() => {
+                                setDeleteStep('idle');
+                                setDeletePinForm(['','','','']);
+                                setDeleteError('');
+                              }}
+                              className="cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-lg transition-all active:scale-[0.99]"
+                            >
+                              Batal
+                            </button>
+                            <button
+                              onClick={async () => {
+                                const pin = deletePinForm.join('');
+                                if (pin.length < 4) {
+                                  setDeleteError('Masukkan PIN 4 digit');
+                                  return;
+                                }
+                                setDeleteStep('loading');
+                                setDeleteError('');
+                                try {
+                                  await api.delete('/api/auth/delete-account', {
+                                    data: { pin }
+                                  });
+                                  setDeleteStep('done');
+                                  // Logout otomatis setelah 3 detik
+                                  setTimeout(() => {
+                                    localStorage.removeItem('token');
+                                    window.location.href = '/login';
+                                  }, 3000);
+                                } catch (err) {
+                                  const msg = err.response?.data?.message || err.message || 'Gagal menghapus akun';
+                                  setDeleteError(msg);
+                                  setDeleteStep('pin');
+                                }
+                              }}
+                              disabled={deletePinForm.join('').length < 4}
+                              className="cursor-pointer flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-lg transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                            >
+                              <Trash2 size={15} /> Hapus Selamanya
+                            </button>
+                          </div>
+                        </motion.div>
+                      )}
+                  
+                      {/* Loading */}
+                      {deleteStep === 'loading' && (
+                        <motion.div
+                          key="delete-loading"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          className="flex flex-col items-center gap-4 py-8"
+                        >
+                          <Loader2 size={32} className="animate-spin text-red-500" />
+                          <p className="text-sm font-black text-slate-700 dark:text-slate-200">Menghapus akun...</p>
+                          <p className="text-xs text-slate-400 font-medium">Mohon tunggu, jangan tutup halaman ini.</p>
+                        </motion.div>
+                      )}
+                  
+                      {/* Done / Success */}
+                      {deleteStep === 'done' && (
+                        <motion.div
+                          key="delete-done"
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="flex flex-col items-center gap-4 py-8 bg-slate-50 dark:bg-slate-800/50 rounded-lg"
+                        >
+                          <div className="w-16 h-16 bg-red-100 dark:bg-red-950/40 rounded-xl flex items-center justify-center">
+                            <Trash2 size={28} className="text-red-500" />
+                          </div>
+                          <div className="text-center">
+                            <p className="font-black text-slate-800 dark:text-slate-100 text-lg">Akun Berhasil Dihapus</p>
+                            <p className="text-xs text-slate-400 font-medium mt-1">Kamu akan dialihkan ke halaman login...</p>
+                          </div>
+                        </motion.div>
+                      )}
+                  
+                      {/* Error */}
+                      <AnimatePresence>
+                        {deleteError && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
+                            className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg"
+                          >
+                            <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
+                            <p className="text-xs font-bold text-red-600 dark:text-red-400">{deleteError}</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
                 </section>
 
                 <section className="xl:col-span-5 z-[2]">
@@ -4828,6 +5150,70 @@ const handleChangePin = async () => {
                 <MyDonationsHistory />
               </motion.div>
             )}
+            
+            {/* ── Modal konfirmasi ganti token ── */}
+            <AnimatePresence>
+              {showTokenConfirm && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4"
+                  onClick={() => setShowTokenConfirm(false)}
+                >
+                  <motion.div
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.9, opacity: 0 }}
+                    className="bg-white dark:bg-slate-900 rounded-xl max-w-sm w-full p-7 shadow-2xl border border-slate-100 dark:border-slate-800"
+                    onClick={e => e.stopPropagation()}
+                  >
+                    <div className="flex flex-col items-center gap-4 text-center">
+                      <div className="w-16 h-16 bg-violet-100 dark:bg-violet-950/40 rounded-xl flex items-center justify-center">
+                        <RefreshCw size={30} className="text-violet-500" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-1">Ganti Overlay Token?</h3>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+                          Semua URL overlay lama akan <span className="font-black text-red-500">langsung tidak aktif</span>. 
+                          Pastikan kamu siap memperbarui OBS setelah ini.
+                        </p>
+                      </div>
+                      <div className="flex gap-3 w-full mt-2">
+                        <button
+                          onClick={() => setShowTokenConfirm(false)}
+                          className="cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-lg transition-all active:scale-[0.99]"
+                        >
+                          Batal
+                        </button>
+                        <button
+                          onClick={async () => {
+                            setShowTokenConfirm(false);
+                            setTokenStep('loading');
+                            setTokenError('');
+                            try {
+                              const res = await api.put('/api/auth/regenerate-overlay-token');
+                              setNewOverlayToken(res.data.overlayToken || '');
+                              setTokenStep('success');
+                              // Refresh profile data agar URL di dashboard ikut update
+                              await isRefetchProfile();
+                            } catch (err) {
+                              const msg = err.response?.data?.message || err.message || 'Gagal mengganti token';
+                              setTokenError(msg);
+                              setTokenStep('error');
+                              setTimeout(() => setTokenStep('idle'), 100);
+                            }
+                          }}
+                          className="cursor-pointer flex-1 py-3 bg-violet-600 hover:bg-violet-700 text-white font-black text-sm rounded-lg transition-all active:scale-[0.99]"
+                        >
+                          Ya, Ganti Sekarang
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* ══════════════════════ PROFILE ══════════════════════ */}
             {activeTab === 'profile' && (

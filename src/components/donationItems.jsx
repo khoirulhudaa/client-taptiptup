@@ -219,19 +219,19 @@ const MODE_OPTIONS = [
   {
     value: 'both',
     label: 'Item + Nominal',
-    desc: 'Donor bisa pilih item ATAU isi nominal manual',
+    desc: 'Donor bisa item atau isi nominal',
     icon: '🔀',
   },
   {
     value: 'items_only',
     label: 'Item Saja',
-    desc: 'Donor hanya bisa pilih dari daftar item (tidak ada input nominal)',
+    desc: 'Donor hanya bisa pilih item',
     icon: '🎁',
   },
   {
     value: 'amount_only',
     label: 'Nominal Saja',
-    desc: 'Item tidak ditampilkan, donor isi nominal manual seperti biasa',
+    desc: 'Donor hanya bisa pilih nominal',
     icon: '💸',
   },
 ];
@@ -382,18 +382,18 @@ const DonationItemsEditor = ({
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
           Mode Tampilan Donasi
         </label>
-        <div className="grid grid-cols-1 md:grid-cols-1 space-y-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
           {MODE_OPTIONS.map((opt) => (
             <button
               key={opt.value}
               onClick={() => handleModeChange(opt.value)}
-              className={`text-left p-4 rounded-xl border-2 transition-all cursor-pointer active:scale-[0.99] ${
+              className={`text-left px-4 pt-2.5 pb-3.5 rounded-xl border-2 transition-all cursor-pointer active:scale-[0.99] ${
                 currentMode === opt.value
                   ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                   : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300'
               }`}
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 relative top-[1px]">
                 {/* <span className="text-2xl relative ml-[-2.1px]">{opt.icon}</span> */}
                 <div>
                   <span className={`font-black text-xs ${
@@ -411,9 +411,9 @@ const DonationItemsEditor = ({
                     {opt.desc}
                   </p>
                 </div>
-                {currentMode === opt.value && (
+                {/* {currentMode === opt.value && (
                   <span className="ml-auto text-[9px] bg-blue-600 text-white px-1.5 py-0.5 rounded-md font-black">AKTIF</span>
-                )}
+                )} */}
               </div>
             </button>
           ))}
