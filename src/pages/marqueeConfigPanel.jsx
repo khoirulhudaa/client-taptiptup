@@ -233,7 +233,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
             <label className="text-[10px] font-black text-slate-400 uppercase md:capitalize tracking-widest block mb-2">
-              Warna Nama Donor
+              NAMA DONOR
             </label>
             <div className="flex items-center gap-3">
               <input
@@ -249,7 +249,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
 
           <div>
             <label className="text-[10px] font-black text-slate-400 uppercase md:capitalize tracking-widest block mb-2">
-              Warna Nominal
+              NOMINAL
             </label>
             <div className="flex items-center gap-3">
               <input

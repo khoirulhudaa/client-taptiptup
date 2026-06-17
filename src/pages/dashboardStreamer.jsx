@@ -474,7 +474,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex flex-col gap-1">
-          <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Donor</label>
+          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Donor</label>
           <input 
             value={customName} 
             onChange={e => setCustomName(e.target.value)}
@@ -483,19 +483,46 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nominal (Rp)</label>
+          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nominal (Rp)</label>
           <input 
             type="number" 
             value={customAmount} 
-            onChange={e => setCustomAmount(e.target.value)}
+            onChange={e => {
+              setCustomAmount(e.target.value);
+              // Reset item jika user mengetik manual
+              if (testItem) {
+                setTestItem(null);
+                setUseItem(false);
+              }
+            }}
             className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all" 
           />
         </div>
       </div>
 
+      <div className="flex flex-wrap gap-3">
+        {[10000, 50000, 100000, 500000, 1000000].map(v => (
+          <button 
+            key={v} 
+            onClick={() => {
+              setCustomAmount(v);
+              setTestItem(null);
+              setUseItem(false);
+            }}
+            className={`cursor-pointer active:scale-[0.99] px-3 py-1.5 rounded-lg text-xs font-black transition-all border-2 ${
+              Number(customAmount) === v
+                ? 'bg-rose-500 border-rose-500 text-white'
+                : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
+            }`}
+          >
+            {v >= 1000000 ? `${v / 1000000}jt` : v >= 1000 ? `${v / 1000}K` : v}
+          </button>
+        ))}
+      </div>
+
       {/* Textarea tetap ada */}
       <div className="flex flex-col gap-1">
-        <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pesan</label>
+        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pesan</label>
         <textarea 
           value={customMsg} 
           onChange={e => setCustomMsg(e.target.value)}
@@ -524,22 +551,6 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-3">
-        {[10000, 50000, 100000, 500000, 1000000].map(v => (
-          <button 
-            key={v} 
-            onClick={() => setCustomAmount(v)}
-            className={`cursor-pointer active:scale-[0.99] px-3 py-1.5 rounded-lg text-xs font-black transition-all border-2 ${
-              Number(customAmount) === v
-                ? 'bg-rose-500 border-rose-500 text-white'
-                : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
-            }`}
-          >
-            {v >= 1000000 ? `${v / 1000000}jt` : v >= 1000 ? `${v / 1000}K` : v}
-          </button>
-        ))}
-      </div>
-
       {donationItems.length > 0 ? (
         <>
           <label className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
@@ -557,7 +568,11 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
                 {donationItems.map(item => (
                   <button
                     key={item.id}
-                    onClick={() => setTestItem(testItem?.id === item.id ? null : { ...item, quantity: 1 })}
+                    onClick={() => {
+                      const selected = testItem?.id === item.id ? null : { ...item, quantity: 1 };
+                      setTestItem(selected);
+                      if (selected) setCustomAmount(selected.price * 1);
+                    }}
                     className={`p-3 rounded-lg border-2 text-center transition-all cursor-pointer active:scale-[0.99] ${
                       testItem?.id === item.id
                         ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40'
@@ -583,10 +598,20 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
                     </p>
                   </div>
                   <div className="flex items-center gap-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-1">
-                    <button onClick={() => setTestItem(p => ({ ...p, quantity: Math.max(1, (p.quantity||1) - 1) }))}
+                    <button 
+                      onClick={() => {
+                        const newQty = Math.max(1, (testItem.quantity||1) - 1);
+                        setTestItem(p => ({ ...p, quantity: newQty }));
+                        setCustomAmount(testItem.price * newQty);
+                      }}
                       className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-rose-500 cursor-pointer">−</button>
                     <span className="w-6 text-center font-black text-sm text-slate-700 dark:text-white">{testItem.quantity || 1}</span>
-                    <button onClick={() => setTestItem(p => ({ ...p, quantity: Math.min(p.maxQty ?? 10, (p.quantity||1) + 1) }))}
+                    <button 
+                      onClick={() => {
+                        const newQty = Math.min(testItem.maxQty ?? 10, (testItem.quantity||1) + 1);
+                        setTestItem(p => ({ ...p, quantity: newQty }));
+                        setCustomAmount(testItem.price * newQty);
+                      }}
                       className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-rose-500 cursor-pointer">+</button>
                   </div>
                 </div>
@@ -659,9 +684,9 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
       await api.post('/api/midtrans/test-mediashare/send', {
         targetUsername: user.username,
         donorName: formData.donorName,
-        amount: useItem && testItem
+        amount: testItem
           ? testItem.price * (testItem.quantity || 1)
-          : Number(customAmount),
+          : Number(formData.amount) || 0,
         message: formData.message || null,
         mediaUrl: formData.mediaUrl,
         mediaType: formData.mediaType,
@@ -713,10 +738,38 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
           <input 
             type="number" 
             value={formData.amount}
-            onChange={e => updateForm('amount', e.target.value === '' ? '' : e.target.value)}
+            onChange={e => {
+              updateForm('amount', e.target.value === '' ? '' : e.target.value);
+              // Reset item jika user mengetik manual
+              if (testItem) {
+                setTestItem(null);
+                setUseItem(false);
+              }
+            }}
             className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm focus:border-emerald-400 focus:outline-none transition-all"
             placeholder="25000" />
         </div>
+      </div>
+
+      {/* Quick Amounts */}
+      <div className="flex flex-wrap gap-2">
+        {[10000, 25000, 50000, 100000, 500000].map(v => (
+          <button
+            key={v}
+            onClick={() => {
+              updateForm('amount', v);
+              setTestItem(null);
+              setUseItem(false);
+            }}
+            className={`cursor-pointer active:scale-[0.99] px-3 py-1.5 rounded-lg text-xs font-black transition-all border-2 ${
+              Number(formData.amount) === v && !testItem
+                ? 'bg-blue-600 border-blue-600 text-white'
+                : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
+            }`}
+          >
+            {v >= 1000000 ? `${v / 1000000}jt` : v >= 1000 ? `${v / 1000}K` : v}
+          </button>
+        ))}
       </div>
 
       <div className="flex flex-col gap-1">
@@ -768,7 +821,13 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
                 {donationItems.map(item => (
                   <button
                     key={item.id}
-                    onClick={() => setTestItem(testItem?.id === item.id ? null : { ...item, quantity: 1 })}
+                    onClick={() => {
+                      const selected = testItem?.id === item.id ? null : { ...item, quantity: 1 };
+                      setTestItem(selected);
+                      if (selected) {
+                        updateForm('amount', selected.price * 1);
+                      }
+                    }}
                     className={`p-3 rounded-lg border-2 text-center transition-all cursor-pointer active:scale-[0.99] ${
                       testItem?.id === item.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40'
@@ -794,10 +853,20 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
                     </p>
                   </div>
                   <div className="flex items-center gap-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-1">
-                    <button onClick={() => setTestItem(p => ({ ...p, quantity: Math.max(1, (p.quantity||1) - 1) }))}
+                    <button 
+                      onClick={() => {
+                        const newQty = Math.max(1, (testItem.quantity||1) - 1);
+                        setTestItem(p => ({ ...p, quantity: newQty }));
+                        updateForm('amount', testItem.price * newQty);
+                      }}
                       className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-blue-500 cursor-pointer">−</button>
                     <span className="w-6 text-center font-black text-sm text-slate-700 dark:text-white">{testItem.quantity || 1}</span>
-                    <button onClick={() => setTestItem(p => ({ ...p, quantity: Math.min(p.maxQty ?? 10, (p.quantity||1) + 1) }))}
+                    <button 
+                      onClick={() => {
+                        const newQty = Math.min(testItem.maxQty ?? 10, (testItem.quantity||1) + 1);
+                        setTestItem(p => ({ ...p, quantity: newQty }));
+                        updateForm('amount', testItem.price * newQty);
+                      }}
                       className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-blue-500 cursor-pointer">+</button>
                   </div>
                 </div>
