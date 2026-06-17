@@ -410,6 +410,8 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
   const [testItem, setTestItem] = useState(null);
   const [useItem, setUseItem] = useState(false);
 
+  const donationItems = (settings?.donationItems || []).filter(i => i.name && i.price > 0);
+
   const sendTest = async () => {
     if (!overlayToken) return;
     setIsSending(true);
@@ -417,7 +419,9 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       await api.post('/api/test-alert/send', {
         targetUsername: user.username,
         donorName: customName,
-        amount: useItem && testItem ? testItem.price * testItem.quantity : Number(customAmount),
+        amount: useItem && testItem
+          ? testItem.price * (testItem.quantity || 1)
+          : Number(customAmount),
         message: customMsg,
         mediaUrl: null,
         mediaType: null,
@@ -426,8 +430,8 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
           name: testItem.name,
           emoji: testItem.emoji,
           price: testItem.price,
-          quantity: testItem.quantity,
-          total: testItem.price * testItem.quantity,
+          quantity: testItem.quantity || 1,
+          total: testItem.price * (testItem.quantity || 1),
         } : null,
       });
       setLastSent(new Date());
@@ -458,7 +462,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
   ];
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4.5">
       <div className="flex items-center gap-4">
         <div className="bg-rose-500 p-3 rounded-lg text-white shadow-lg">
           <Zap size={20} />
@@ -536,66 +540,69 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         ))}
       </div>
 
-      {/* Toggle pakai item */}
-      <label className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer">
-        <div onClick={() => setUseItem(v => !v)}
-          className={`w-10 h-6 rounded-lg relative flex-shrink-0 transition-all cursor-pointer ${useItem ? 'bg-rose-500' : 'bg-slate-200 dark:bg-slate-700'}`}>
-          <div className={`absolute top-1 w-4 h-4 bg-white rounded-lg shadow transition-all ${useItem ? 'left-5' : 'left-1'}`} />
-        </div>
-        Test dengan Donation Item
-      </label>
+      {donationItems.length > 0 ? (
+        <>
+          <label className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
+            <div onClick={() => { setUseItem(v => !v); setTestItem(null); }}
+              className={`w-10 h-6 rounded-lg relative flex-shrink-0 transition-all cursor-pointer ${useItem ? 'bg-rose-500' : 'bg-slate-200 dark:bg-slate-700'}`}>
+              <div className={`absolute top-1 w-4 h-4 bg-white rounded-lg shadow transition-all ${useItem ? 'left-5' : 'left-1'}`} />
+            </div>
+            Test dengan Donation Item
+          </label>
 
-      {useItem && (
-        <div className="space-y-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Konfigurasi Item</p>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Emoji</label>
-              <input
-                value={testItem?.emoji || '🎁'}
-                onChange={e => setTestItem(prev => ({ ...prev, emoji: e.target.value }))}
-                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-center outline-none focus:border-rose-400"
-                placeholder="🎁"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Nama Item</label>
-              <input
-                value={testItem?.name || ''}
-                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: e.target.value, price: prev?.price || 10000, quantity: prev?.quantity || 1 }))}
-                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-rose-400"
-                placeholder="Kopi"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Harga (Rp)</label>
-              <input
-                type="number"
-                value={testItem?.price || 10000}
-                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: prev?.name || '', price: Number(e.target.value), quantity: prev?.quantity || 1 }))}
-                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-rose-400"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Qty</label>
-              <input
-                type="number"
-                min={1}
-                max={99}
-                value={testItem?.quantity || 1}
-                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: prev?.name || '', price: prev?.price || 10000, quantity: Math.max(1, Number(e.target.value)) }))}
-                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-center outline-none focus:border-rose-400"
-              />
-            </div>
-          </div>
-          {testItem?.name && (
-            <div className="flex items-center gap-2 px-3 py-2 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 rounded-lg">
-              <span className="text-lg">{testItem.emoji}</span>
-              <span className="font-black text-xs text-rose-700 dark:text-rose-300">
-                {testItem.name} ×{testItem.quantity || 1} — Rp {((testItem.price || 0) * (testItem.quantity || 1)).toLocaleString('id-ID')}
-              </span>
+          {useItem && (
+            <div className="space-y-2">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pilih Item</p>
+              <div className="grid grid-cols-3 gap-2">
+                {donationItems.map(item => (
+                  <button
+                    key={item.id}
+                    onClick={() => setTestItem(testItem?.id === item.id ? null : { ...item, quantity: 1 })}
+                    className={`p-3 rounded-lg border-2 text-center transition-all cursor-pointer active:scale-[0.99] ${
+                      testItem?.id === item.id
+                        ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40'
+                        : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800'
+                    }`}
+                  >
+                    <div className="text-xl mb-1">{item.emoji}</div>
+                    <p className="font-black text-xs text-slate-700 dark:text-slate-200 truncate">{item.name}</p>
+                    <p className="font-black text-[10px] text-white mt-0.5">
+                      Rp {Number(item.price).toLocaleString('id-ID')}
+                    </p>
+                  </button>
+                ))}
+              </div>
+
+              {testItem && (
+                <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+                  <span className="text-2xl">{testItem.emoji}</span>
+                  <div className="flex-1">
+                    <p className="font-black text-sm text-slate-700 dark:text-white">{testItem.name}</p>
+                    <p className="text-[10px] text-white font-bold">
+                      Rp {(testItem.price * (testItem.quantity || 1)).toLocaleString('id-ID')}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-1">
+                    <button onClick={() => setTestItem(p => ({ ...p, quantity: Math.max(1, (p.quantity||1) - 1) }))}
+                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-rose-500 cursor-pointer">−</button>
+                    <span className="w-6 text-center font-black text-sm text-slate-700 dark:text-white">{testItem.quantity || 1}</span>
+                    <button onClick={() => setTestItem(p => ({ ...p, quantity: Math.min(p.maxQty ?? 10, (p.quantity||1) + 1) }))}
+                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-rose-500 cursor-pointer">+</button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
+        </>
+      ): (
+        <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-dashed border-slate-200 dark:border-slate-700 rounded-lg">
+          <span className="text-xl flex-shrink-0">🎁</span>
+          <div>
+            <p className="font-black text-xs text-slate-500 dark:text-slate-400">Belum ada item donasi</p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+              Tambahkan item donasi di bagian <span className="font-black text-blue-500">Item Donasi</span> di bawah terlebih dahulu
+            </p>
+          </div>
         </div>
       )}
 
@@ -643,6 +650,8 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
     mediaType: 'image'
   });
 
+  const donationItems = (settings?.donationItems || []).filter(i => i.name && i.price > 0);
+
   const sendTestMedia = async () => {
     if (!overlayToken || !formData.mediaUrl) return;
     setIsSending(true);
@@ -650,7 +659,9 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
       await api.post('/api/midtrans/test-mediashare/send', {
         targetUsername: user.username,
         donorName: formData.donorName,
-        amount: useItem && testItem ? testItem.price * testItem.quantity : Number(formData.amount) || 0,
+        amount: useItem && testItem
+          ? testItem.price * (testItem.quantity || 1)
+          : Number(customAmount),
         message: formData.message || null,
         mediaUrl: formData.mediaUrl,
         mediaType: formData.mediaType,
@@ -658,8 +669,8 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
           name: testItem.name,
           emoji: testItem.emoji,
           price: testItem.price,
-          quantity: testItem.quantity,
-          total: testItem.price * testItem.quantity,
+          quantity: testItem.quantity || 1,
+          total: testItem.price * (testItem.quantity || 1),
         } : null,
       });
       setLastSent(new Date());
@@ -715,7 +726,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
           placeholder="Terima kasih dukungannya!" />
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-3 mt-[-4px]">
         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-1">Media URL</label>
         <input value={formData.mediaUrl} onChange={e => updateForm('mediaUrl', e.target.value)}
           className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm focus:border-purple-400 focus:outline-none transition-all"
@@ -740,66 +751,69 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
         </div>
       </div>
 
-      {/* Toggle pakai item */}
-      <label className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer">
-        <div onClick={() => setUseItem(v => !v)}
-          className={`w-10 h-6 rounded-lg relative flex-shrink-0 transition-all cursor-pointer ${useItem ? 'bg-rose-500' : 'bg-slate-200 dark:bg-slate-700'}`}>
-          <div className={`absolute top-1 w-4 h-4 bg-white rounded-lg shadow transition-all ${useItem ? 'left-5' : 'left-1'}`} />
-        </div>
-        Test dengan Donation Item
-      </label>
+       {donationItems.length > 0 ? (
+        <>
+          <label className="flex items-center my-5 gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
+            <div onClick={() => { setUseItem(v => !v); setTestItem(null); }}
+              className={`w-10 h-6 rounded-lg relative flex-shrink-0 transition-all cursor-pointer ${useItem ? 'bg-blue-500' : 'bg-slate-200 dark:bg-slate-700'}`}>
+              <div className={`absolute top-1 w-4 h-4 bg-white rounded-lg shadow transition-all ${useItem ? 'left-5' : 'left-1'}`} />
+            </div>
+            Test dengan Donation Item
+          </label>
 
-      {useItem && (
-        <div className="space-y-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Konfigurasi Item</p>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Emoji</label>
-              <input
-                value={testItem?.emoji || '🎁'}
-                onChange={e => setTestItem(prev => ({ ...prev, emoji: e.target.value }))}
-                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-center outline-none focus:border-rose-400"
-                placeholder="🎁"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Nama Item</label>
-              <input
-                value={testItem?.name || ''}
-                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: e.target.value, price: prev?.price || 10000, quantity: prev?.quantity || 1 }))}
-                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-rose-400"
-                placeholder="Kopi"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Harga (Rp)</label>
-              <input
-                type="number"
-                value={testItem?.price || 10000}
-                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: prev?.name || '', price: Number(e.target.value), quantity: prev?.quantity || 1 }))}
-                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm outline-none focus:border-rose-400"
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Qty</label>
-              <input
-                type="number"
-                min={1}
-                max={99}
-                value={testItem?.quantity || 1}
-                onChange={e => setTestItem(prev => ({ ...(prev || {}), emoji: prev?.emoji || '🎁', name: prev?.name || '', price: prev?.price || 10000, quantity: Math.max(1, Number(e.target.value)) }))}
-                className="p-2.5 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-sm text-center outline-none focus:border-rose-400"
-              />
-            </div>
-          </div>
-          {testItem?.name && (
-            <div className="flex items-center gap-2 px-3 py-2 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 rounded-lg">
-              <span className="text-lg">{testItem.emoji}</span>
-              <span className="font-black text-xs text-rose-700 dark:text-rose-300">
-                {testItem.name} ×{testItem.quantity || 1} — Rp {((testItem.price || 0) * (testItem.quantity || 1)).toLocaleString('id-ID')}
-              </span>
+          {useItem && (
+            <div className="space-y-2">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pilih Item</p>
+              <div className="grid grid-cols-3 gap-2">
+                {donationItems.map(item => (
+                  <button
+                    key={item.id}
+                    onClick={() => setTestItem(testItem?.id === item.id ? null : { ...item, quantity: 1 })}
+                    className={`p-3 rounded-lg border-2 text-center transition-all cursor-pointer active:scale-[0.99] ${
+                      testItem?.id === item.id
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40'
+                        : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800'
+                    }`}
+                  >
+                    <div className="text-xl mb-1">{item.emoji}</div>
+                    <p className="font-black text-xs text-slate-700 dark:text-slate-200 truncate">{item.name}</p>
+                    <p className="font-black text-[10px] text-white mt-0.5">
+                      Rp {Number(item.price).toLocaleString('id-ID')}
+                    </p>
+                  </button>
+                ))}
+              </div>
+
+              {testItem && (
+                <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg">
+                  <span className="text-2xl">{testItem.emoji}</span>
+                  <div className="flex-1">
+                    <p className="font-black text-sm text-slate-700 dark:text-white">{testItem.name}</p>
+                    <p className="text-[10px] text-white font-bold">
+                      Rp {(testItem.price * (testItem.quantity || 1)).toLocaleString('id-ID')}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-1">
+                    <button onClick={() => setTestItem(p => ({ ...p, quantity: Math.max(1, (p.quantity||1) - 1) }))}
+                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-blue-500 cursor-pointer">−</button>
+                    <span className="w-6 text-center font-black text-sm text-slate-700 dark:text-white">{testItem.quantity || 1}</span>
+                    <button onClick={() => setTestItem(p => ({ ...p, quantity: Math.min(p.maxQty ?? 10, (p.quantity||1) + 1) }))}
+                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-blue-500 cursor-pointer">+</button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
+        </>
+      ): (
+         <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-dashed border-slate-200 dark:border-slate-700 rounded-lg">
+          <span className="text-xl flex-shrink-0">🎁</span>
+          <div>
+            <p className="font-black text-xs text-slate-500 dark:text-slate-400">Belum ada item donasi</p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+              Tambahkan item donasi di bagian <span className="font-black text-blue-500">Item Donasi</span> di bawah terlebih dahulu
+            </p>
+          </div>
         </div>
       )}
 
