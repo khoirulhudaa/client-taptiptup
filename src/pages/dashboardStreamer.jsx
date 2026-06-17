@@ -57,7 +57,9 @@ import {
   CopyCheck,
   Users2,
   Monitor,
-  Link2
+  Link2,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
@@ -275,9 +277,6 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
 
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
-      {/* <div className="flex justify-between items-center gap-3 mb-5">
-        <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Quick Nominal</span>
-      </div> */}
         <SectionHeader icon={<Settings size={20} />} title={`Quick Nominal`} color="bg-red-600" />
         <div className="gap-2.5 grid grid-cols-1 mt-5 md:grid-cols-2">
         {amounts.map((amt, i) => (
@@ -1805,7 +1804,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
 
 // ─── YouTubeLivePreview ───────────────────────────────────────────────────────
 
-export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeChange, autoPreviewTick }) => {
+export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPreviewModeChange, autoPreviewTick, onTogglePreview }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [animKey, setAnimKey] = useState(0);
   const [currentDonor, setCurrentDonor] = useState(null);
@@ -2536,20 +2535,32 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   );
 
     return (
-    <div className="sticky md:p-0 p-4 top-26 space-y-3">
+    <div className="sticky md:p-0 p-4 top-26 space-y-2.5">
       <FullscreenPreview />
 
       {/* Tab switcher */}
-      <div className="flex gap-1.5 bg-slate-100 dark:bg-slate-800 p-[3px] rounded-lg">
-        {[{ id: 'alert', label: '⚡ Alert OBS' }, { id: 'media', label: '🎬 Media share' }].map(tab => (
-            <button key={tab.id} onClick={() => {
-              setPreviewMode(tab.id);
-              onPreviewModeChange?.(tab.id);
-            }}
-            className={`cursor-pointer flex-1 py-3 text-xs font-black rounded-md transition-all ${previewMode === tab.id ? 'bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm text-slate-800 dark:text-slate-100 shadow-sm' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}>
-            {tab.label}
-          </button>
-        ))}
+      <div className="flex gap-2.5">
+        {/* Tombol toggle preview */}
+        <button
+          onClick={() => onTogglePreview?.()}
+          title="Sembunyikan / Tampilkan Preview"
+          className="cursor-pointer active:scale-[0.99] flex items-center justify-center w-13 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
+        >
+          <PanelLeft size={18} />
+        </button>
+
+        {/* Tab switcher */}
+        <div className="flex-1 flex gap-1.5 bg-slate-100 dark:bg-slate-800 p-[3px] rounded-lg">
+          {[{ id: 'alert', label: '⚡ Alert OBS' }, { id: 'media', label: '🎬 Media share' }].map(tab => (
+              <button key={tab.id} onClick={() => {
+                setPreviewMode(tab.id);
+                onPreviewModeChange?.(tab.id);
+              }}
+              className={`cursor-pointer flex-1 py-3 text-xs font-black rounded-md transition-all ${previewMode === tab.id ? 'bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm text-slate-800 dark:text-slate-100 shadow-sm' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}>
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[70.5vh] h-[62.8vh]' : '2xl:h-[61.9vh] h-[51.8vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
@@ -3495,6 +3506,7 @@ export const DashboardStreamer = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [pinStep, setPinStep] = useState('idle'); // idle | success | error
   const [overlayDone, setOverlayDone] = useState(false);
+  const [showPreviewPanel, setShowPreviewPanel] = useState(true);
   const [showOverlay, setShowOverlay] = useState(true);
   const [adminMode, setAdminMode] = useState(() => {
     return localStorage.getItem('adminMode') === 'true';
@@ -4383,12 +4395,28 @@ const handleChangePin = async () => {
 
             {/* ══════════════════════ SETTINGS (Editor Overlay) ══════════════════════ */}
             {activeTab === 'settings' && !isEffectiveAdmin && (
-              <motion.div key="settings" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="grid grid-cols-1 xl:grid-cols-12 gap-5">
-                <section className="xl:col-span-7 space-y-6">
-
+              <div
+                key="settings"
+                className="grid grid-cols-1 gap-5 xl:grid-cols-12"
+              >
+               <section className={`space-y-6 ${showPreviewPanel ? 'xl:col-span-7' : 'xl:col-span-12'}`}>
                   {/* Konfigurasi Alert */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
-                    <SectionHeader icon={<Settings size={20} />} title={`Konfigurasi Utama`} color="bg-blue-500" />
+                    <div className="flex items-center justify-between gap-3">
+                      <SectionHeader icon={<Settings size={20} />} title="Konfigurasi Utama" color="bg-blue-500" />
+                     
+                      {
+                        !showPreviewPanel && (
+                          <button
+                            onClick={() => setShowPreviewPanel(v => !v)}
+                            title="Sembunyikan / Tampilkan Preview"
+                            className="cursor-pointer active:scale-[0.99] flex items-center justify-center p-3 rounded-lg text-white shadow-lg rounded-lg bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
+                          >
+                            <Monitor size={18} />
+                          </button>
+                        )
+                      }
+                    </div>
                     <div className="md:flex mt-5.5 space-y-3 md:space-y-0 items-center gap-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-700">
                       {['A', 'B'].map((slot) => (
                         <button
@@ -4488,22 +4516,24 @@ const handleChangePin = async () => {
                           </div>
                         )}
                       </div>
-
-                      {[
-                        { key: 'overlayEnabled', label: 'Aktifkan Overlay OBS',  desc: 'Alert tidak akan muncul di OBS sama sekali' },
-                        { key: 'showTimestamp',  label: 'Tampilkan Jam Donasi',  desc: 'Waktu kapan donasi diterima overlay' },
-                      ].map(({ key, label, desc }) => (
-                        <div key={key} className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
-                          <div>
-                            <p className="font-black text-slate-700 dark:text-slate-200 text-sm">{label}</p>
-                            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{desc}</p>
+                        
+                      <div className='w-full flex items-center gap-2.5'>
+                        {[  
+                          { key: 'overlayEnabled', label: 'Overlay OBS',  desc: 'Alert tidak muncul di OBS' },
+                          { key: 'showTimestamp',  label: 'Waktu Donasi',  desc: 'Waktu kapan donasi diterima' },
+                        ].map(({ key, label, desc }) => (
+                          <div key={key} className="w-full flex items-center justify-between p-4 px-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+                            <div>
+                              <p className="font-black text-slate-700 dark:text-slate-200 text-sm">{label}</p>
+                              <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{desc}</p>
+                            </div>
+                            <button onClick={() => upd(key, !settings[key])}
+                              className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer focus:outline-none ${settings[key] ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
+                              <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform duration-300 ${settings[key] ? 'translate-x-8' : 'translate-x-1'}`} />
+                            </button>
                           </div>
-                          <button onClick={() => upd(key, !settings[key])}
-                            className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer focus:outline-none ${settings[key] ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
-                            <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform duration-300 ${settings[key] ? 'translate-x-8' : 'translate-x-1'}`} />
-                          </button>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
 
                       {/* Icon Alert */}
                         <div className="space-y-3 mt-4.5">
@@ -4709,53 +4739,11 @@ const handleChangePin = async () => {
                     ))}
                   </div>
 
-                  {/* Widget URLs */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
-                    <div className='mb-5'>
-                      <SectionHeader icon={<Settings size={20} />} title={`URL Widget`} color="bg-rose-500" />
-                    </div>
-                    {[
-                      { label: 'Milestones',   emoji: '🎯', path: 'milestones',  desc: 'Progress target donasi',        },
-                      { label: 'Leaderboard',  emoji: '🏆', path: 'leaderboard', desc: 'Top 10 donor terbesar',             },
-                      { label: 'QR Code',      emoji: '◼',  path: 'qrcode',      desc: 'QR scan halaman donasi',         },
-                      { label: 'Poll',         emoji: '🗳️', path: 'poll',        desc: 'Voting poll live',                  },
-                      { label: 'Marquee Donor', emoji: '📜', path: 'marquee?limit=10', desc: 'Scrolling top donor terbesar' },
-                      { label: 'Subathon',     emoji: '⏱',  path: 'subathon',    desc: 'Timer subathon',                    },
-                      { 
-                        label: 'Toko OBS', 
-                        emoji: '🛍️', 
-                        path: 'store', 
-                        desc: 'Produk jualan streamer (gambar + harga + link)', 
-                        size: '800×600px' 
-                      },
-                    ].map(({ label, emoji, path, desc, size }) => {
-                      const widgetUrl = `${window.location.origin}/widget/${user.overlayToken}/${path}`;
-                      return (
-                        <div key={path} className="flex items-center gap-4 bg-white dark:bg-slate-800 rounded-lg p-4 px-3 border border-slate-200 dark:border-slate-700">
-                          <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
-                          <div className="flex-1 min-w-0 relative top-1">
-                            <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-full mb-1 uppercase tracking-widest">{label}</label>
-                            <p className="text-sm truncate max-w-[90%] font-mono text-blue-500 dark:text-blue-400 truncate mt-0.5">{widgetUrl}</p>
-                          </div>
-                          <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
-                            <Copy size={15} />
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                     {/* GANTI OVERLAY TOKEN */}
+                  {/* GANTI OVERLAY TOKEN */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
                     <SectionHeader icon={<RefreshCw size={18} />} title="Ganti Overlay Token" color="bg-violet-500" />
                   
                     <div className="space-y-3">
-                      {/* <p className="text-xs text-slate-400 dark:text-slate-500 font-medium leading-relaxed">
-                        Token digunakan untuk semua URL overlay & widget OBS-mu. Mengganti token akan
-                        <span className="font-black text-amber-500"> memutus semua URL lama</span> — kamu harus memperbarui
-                        browser source di OBS setelah proses ini.
-                      </p> */}
-                  
                       {/* Info box: URL saat ini */}
                       <div className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
                         <div className="w-9 h-9 flex-shrink-0 rounded-lg bg-violet-100 dark:bg-slate-500/30 flex items-center justify-center">
@@ -4773,19 +4761,6 @@ const handleChangePin = async () => {
                         >
                           <Copy size={14} />
                         </button>
-                      </div>
-                  
-                      {/* Warning card */}
-                      <div className="flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/50 rounded-lg">
-                        {/* <AlertCircle size={15} className="text-amber-500 flex-shrink-0 mt-0.5" /> */}
-                        <div className="space-y-1">
-                          <p className="text-xs font-black text-amber-700 dark:text-amber-400 uppercase tracking-wide">Perhatian</p>
-                          <ul className="text-[11px] text-amber-600 dark:text-amber-500 font-medium space-y-0.5 list-disc list-inside">
-                            <li>Semua URL alert, widget, & voice note akan berubah</li>
-                            <li>Update manual semua Browser Source di OBS setelah ganti</li>
-                            <li>Proses ini tidak bisa dibatalkan</li>
-                          </ul>
-                        </div>
                       </div>
                   
                       {/* State: sukses */}
@@ -4858,12 +4833,12 @@ const handleChangePin = async () => {
                   </div>
 
                   {/* HAPUS AKUN */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-sm border border-red-100 dark:border-red-900/30 space-y-6">
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-6">
                     <SectionHeader icon={<Trash2 size={18} />} title="Hapus Akun" color="bg-red-500" />
                   
                     <div className="space-y-4">
                       <p className="text-xs text-slate-400 dark:text-slate-500 font-medium leading-relaxed">
-                        Menghapus akun bersifat <span className="font-black text-red-400">permanen dan tidak dapat dibatalkan</span>.
+                        Menghapus akun bersifat <span className="font-black text-red-400">permanen</span>.
                         Seluruh data akan dihapus selamanya.
                       </p>
                   
@@ -5057,11 +5032,49 @@ const handleChangePin = async () => {
                   </div>
                 </section>
 
-                <section className="xl:col-span-5 z-[2]">
-                  {/* <VideoTutorialSection /> */}
-                  <YouTubeLivePreview settings={settings} username={user.username} testFullScreen={() => setNavbar(!navbar)} onPreviewModeChange={setPreviewMode}   autoPreviewTick={autoPreviewTick} />
-                </section>
-              </motion.div>
+                {showPreviewPanel && (
+                  <section
+                    key="preview-panel"
+                    className="xl:col-span-5 z-[2]"
+                    initial={{ opacity: 0, x: 80, width: 0 }}
+                    animate={{ 
+                      opacity: 1, 
+                      x: 0, 
+                      width: 'auto',
+                      transition: { 
+                        x: { type: 'spring', stiffness: 80, damping: 35 },
+                        opacity: { duration: 0.2 },
+                        width: { duration: 0.35 }
+                      }
+                    }}
+                    exit={{ 
+                      opacity: 0, 
+                      x: 80, 
+                      width: 0,
+                      transition: { 
+                        x: { type: 'spring', stiffness: 80, damping: 30 },
+                        opacity: { duration: 1 },
+                        width: { duration: 1 }
+                      }
+                    }}
+                  >
+                  <motion.div 
+                    animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                  <YouTubeLivePreview
+                    settings={settings}
+                    username={user.username}
+                    testFullScreen={() => setNavbar(!navbar)}
+                    onPreviewModeChange={setPreviewMode}
+                    autoPreviewTick={autoPreviewTick}
+                    onTogglePreview={() => setShowPreviewPanel(v => !v)}
+                  />
+
+                  </motion.div>
+                  </section>
+                )}
+              </div>
             )}
 
             {/* ══════════════════════ ALERT SETTINGS ══════════════════════ */}
@@ -5159,7 +5172,7 @@ const handleChangePin = async () => {
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0.9, opacity: 0 }}
-                    className="bg-white dark:bg-slate-900 rounded-xl max-w-sm w-full p-7 shadow-2xl border border-slate-100 dark:border-slate-800"
+                    className="bg-white dark:bg-slate-900 rounded-xl max-w-md w-full p-7 shadow-2xl border border-slate-100 dark:border-slate-800"
                     onClick={e => e.stopPropagation()}
                   >
                     <div className="flex flex-col items-center gap-4 text-center">
