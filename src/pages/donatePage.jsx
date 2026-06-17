@@ -55,7 +55,7 @@ const DonateNavbar = ({ streamerUsername }) => {
       <div className="max-w-3xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-red-100 rounded-lg flex items-center justify-center">
+          <div className="w-7 h-7 bg-red-100 rounded-xl flex items-center justify-center">
             <img src="/jellyfish.png" alt="logo" className="w-[70%]" />
           </div>
           <span className="font-black text-sm text-slate-800 tracking-tight">SAWER.IN</span>

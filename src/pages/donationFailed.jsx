@@ -40,7 +40,7 @@ const DonationFailed = () => {
             initial={{ opacity: 0, scale: 0.8, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 200, damping: 18 }}
-            className="bg-white dark:bg-slate-900 rounded-none shadow-2xl overflow-hidden border border-red-100 dark:border-slate-800"
+            className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl overflow-hidden border border-red-100 dark:border-slate-800"
           >
             {/* Top banner */}
             <div className="bg-gradient-to-r from-red-400 to-orange-400 p-8 text-center">
@@ -48,7 +48,7 @@ const DonationFailed = () => {
                 initial={{ scale: 0, rotate: 30 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ delay: 0.3, type: 'spring', stiffness: 300, damping: 15 }}
-                className="w-20 h-20 bg-white rounded-none flex items-center justify-center mx-auto shadow-lg"
+                className="w-20 h-20 bg-white rounded-xl flex items-center justify-center mx-auto shadow-lg"
               >
                 <XCircle size={44} className="text-red-400" strokeWidth={2.5} />
               </motion.div>
@@ -90,7 +90,7 @@ const DonationFailed = () => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.8 + i * 0.1 }}
-                      className="flex items-center gap-3 bg-gray-50 dark:bg-slate-800 rounded-none p-3 border border-gray-100 dark:border-slate-700"
+                      className="flex items-center gap-3 bg-gray-50 dark:bg-slate-800 rounded-xl p-3 border border-gray-100 dark:border-slate-700"
                     >
                       <span className="text-xl shrink-0">{r.icon}</span>
                       <div>
@@ -104,7 +104,7 @@ const DonationFailed = () => {
 
               {/* External ID */}
               {externalId && (
-                <div className="bg-gray-50 dark:bg-slate-800 rounded-none p-3 border border-gray-100 dark:border-slate-700">
+                <div className="bg-gray-50 dark:bg-slate-800 rounded-xl p-3 border border-gray-100 dark:border-slate-700">
                   <p className="text-xs text-gray-400 dark:text-slate-500 font-bold uppercase mb-1">ID Transaksi</p>
                   <p className="text-xs text-gray-500 dark:text-slate-400 font-mono break-all">{externalId}</p>
                 </div>
@@ -116,7 +116,7 @@ const DonationFailed = () => {
                   whileHover={{ scale: 1 }}
                   whileTap={{ scale: 0.99 }}
                   onClick={handleRetry}
-                  className="cursor-pointer flex items-center justify-center gap-2 py-3 rounded-none bg-red-500 text-white font-bold text-sm hover:bg-red-600 transition-all"
+                  className="cursor-pointer flex items-center justify-center gap-2 py-3 rounded-xl bg-red-500 text-white font-bold text-sm hover:bg-red-600 transition-all"
                 >
                   <RefreshCcw size={16} />
                   Coba Lagi
@@ -125,7 +125,7 @@ const DonationFailed = () => {
                   whileHover={{ scale: 1 }}
                   whileTap={{ scale: 0.99 }}
                   onClick={handleHome}
-                  className="cursor-pointer flex items-center justify-center gap-2 py-3 rounded-none border-2 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"
+                  className="cursor-pointer flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"
                 >
                   <Home size={16} />
                   {username ? `@${username}` : 'Beranda'}

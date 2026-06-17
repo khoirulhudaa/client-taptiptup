@@ -56,9 +56,9 @@ export const InstantTestMediaShare = ({ overlayToken, user }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-none p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
+    <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
       <div className="flex items-center gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
-        <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-3 rounded-none text-white shadow-lg">
+        <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-3 rounded-xl text-white shadow-lg">
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm3 14H5v-2h2v2zm0-4H5V9h2v6zm4 4H9v-2h2v2zM9 11H9V9h2v2zm4 4h-2v-2h2v2zm0-4h-2V9h2v6z" />
           </svg>
@@ -81,7 +81,7 @@ export const InstantTestMediaShare = ({ overlayToken, user }) => {
               value={formData[field]} 
               onChange={e => update(field, type === 'number' ? (e.target.value === '' ? '' : e.target.value) : e.target.value)}
               placeholder={ph}
-              className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm focus:border-purple-400 focus:outline-none transition-all" />
+              className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm focus:border-purple-400 focus:outline-none transition-all" />
           </div>
         ))}
       </div>
@@ -89,7 +89,7 @@ export const InstantTestMediaShare = ({ overlayToken, user }) => {
       <div className="flex flex-col gap-1">
         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pesan (opsional)</label>
         <textarea value={formData.message} onChange={e => update('message', e.target.value)} rows={2}
-          className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-none font-medium text-sm resize-none focus:border-blue-400 focus:outline-none transition-all"
+          className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-medium text-sm resize-none focus:border-blue-400 focus:outline-none transition-all"
           placeholder="Terima kasih dukungannya!" />
       </div>
 
@@ -98,13 +98,13 @@ export const InstantTestMediaShare = ({ overlayToken, user }) => {
         <div className="flex items-center gap-2">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-1">Media URL</label>
           <select value={formData.mediaType} onChange={e => update('mediaType', e.target.value)}
-            className="px-3 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-none text-xs font-bold">
+            className="px-3 py-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold">
             <option value="image">🖼️ Image/GIF</option>
             <option value="video">▶ MP4/YouTube</option>
           </select>
         </div>
         <input value={formData.mediaUrl} onChange={e => update('mediaUrl', e.target.value)}
-          className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm focus:border-purple-400 focus:outline-none transition-all"
+          className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm focus:border-purple-400 focus:outline-none transition-all"
           placeholder="https://example.com/image.jpg" />
       </div>
 
@@ -114,7 +114,7 @@ export const InstantTestMediaShare = ({ overlayToken, user }) => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {PRESET_MEDIA.map((preset, i) => (
             <button key={i} onClick={() => { update('mediaUrl', preset.url); update('mediaType', preset.type); }}
-              className={`cursor-pointer active:scale-[0.99] group relative p-2 rounded-none border-2 transition-all overflow-hidden hover:shadow-md ${
+              className={`cursor-pointer active:scale-[0.99] group relative p-2 rounded-xl border-2 transition-all overflow-hidden hover:shadow-md ${
                 formData.mediaUrl === preset.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/30 shadow-md' : 'border-slate-200 dark:border-slate-700 hover:border-purple-300 bg-slate-50 dark:bg-slate-800/50'
               }`}>
               <div className="w-full h-16 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-700 dark:to-slate-600 rounded overflow-hidden">
@@ -126,14 +126,14 @@ export const InstantTestMediaShare = ({ overlayToken, user }) => {
       </div>
 
       <button onClick={sendTestMedia} disabled={isSending || !overlayToken || !formData.mediaUrl}
-        className="cursor-pointer hover:brightness-90 w-full py-3 bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600 text-white rounded-none font-black text-sm shadow-2xl active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
+        className="cursor-pointer hover:brightness-90 w-full py-3 bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600 text-white rounded-xl font-black text-sm shadow-2xl active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
         {isSending ? <><div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" /><span>Mengirim...</span></> : <><Zap size={18} /> Kirim Test MediaShare ke OBS</>}
       </button>
 
       <AnimatePresence>
         {lastSent && (
           <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-none px-4 py-3 border border-emerald-100 dark:border-emerald-900">
+            className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-xl px-4 py-3 border border-emerald-100 dark:border-emerald-900">
             <CheckCircle2 size={14} /> MediaShare berhasil dikirim: {lastSent.toLocaleTimeString('id-ID')}
           </motion.div>
         )}
@@ -150,7 +150,7 @@ const MediaShareSettingsPage = ({ overlayToken, user, settings, upd, saveSetting
     <div className="space-y-6">
 
       {/* Header */}
-      <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-none p-6 text-white relative overflow-hidden">
+      <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl p-6 text-white relative overflow-hidden">
         <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-white/5 rounded-full" />
         <div className="relative z-10">
           <p className="text-purple-200 text-xs font-black uppercase tracking-widest mb-2">Media Share</p>
@@ -161,9 +161,9 @@ const MediaShareSettingsPage = ({ overlayToken, user, settings, upd, saveSetting
       </div>
 
       {/* MediaShare Controller — skip, skip all, volume */}
-      <div className="bg-white dark:bg-slate-900 rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+      <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 bg-purple-600 rounded-none text-white shadow-lg">
+          <div className="p-3 bg-purple-600 rounded-xl text-white shadow-lg">
             <Video size={20} />
           </div>
           <div>
@@ -178,7 +178,7 @@ const MediaShareSettingsPage = ({ overlayToken, user, settings, upd, saveSetting
       <InstantTestMediaShare overlayToken={overlayToken} user={user} />
 
       {/* Info box */}
-      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-none p-6 text-white">
+      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 text-white">
         <p className="text-slate-300 text-xs font-black uppercase tracking-widest mb-4">Cara Kerja MediaShare</p>
         <div className="space-y-3">
           {[

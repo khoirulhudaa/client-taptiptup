@@ -26,7 +26,7 @@
     const SectionHeader = ({ icon, title, color }) => (
     <div className="flex items-center gap-4">
         {icon && (
-        <div className={`${color} p-2 rounded-lg text-white shadow-lg`}>{icon}</div>
+        <div className={`${color} p-2 rounded-xl text-white shadow-lg`}>{icon}</div>
         )}
         <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">{title}</h3>
     </div>
@@ -51,9 +51,9 @@
     }));
 
     return (
-        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
          <div className="!mb-6 flex items-center gap-4">
-            <div className="bg-purple-500 p-3 rounded-lg text-white shadow-lg">
+            <div className="bg-purple-500 p-3 rounded-xl text-white shadow-lg">
                 <Timer size={20} />
             </div>
             <div>
@@ -77,7 +77,7 @@
                 min={1}
                 value={settings.voiceBaseDuration ?? 10}
                 onChange={e => onChange('voiceBaseDuration', e.target.value === '' ? '' : Number(e.target.value))}
-                className="w-full text-lg font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg p-2 outline-none focus:border-violet-400 text-slate-900 dark:text-slate-100 transition-all"
+                className="w-full text-lg font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl p-2 outline-none focus:border-violet-400 text-slate-900 dark:text-slate-100 transition-all"
             />
             </div>
 
@@ -96,7 +96,7 @@
                     min={1000}
                     value={settings.voiceExtraPerAmount ?? 10000}
                     onChange={e => onChange('voiceExtraPerAmount', e.target.value === '' ? '' : Number(e.target.value))}
-                    className="w-full text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg p-2 outline-none focus:border-violet-400 text-slate-900 dark:text-slate-100 transition-all"
+                    className="w-full text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl p-2 outline-none focus:border-violet-400 text-slate-900 dark:text-slate-100 transition-all"
                 />
                 </div>
                 <div className="hidden md:flex items-center text-slate-400 dark:text-slate-500 font-black mt-4">
@@ -111,7 +111,7 @@
                     min={0}
                     value={settings.voiceExtraDuration ?? 5}
                     onChange={e => onChange('voiceExtraDuration', e.target.value === '' ? '' : Number(e.target.value))}
-                    className="w-full md:w-24 text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg p-2 outline-none focus:border-violet-400 text-slate-900 dark:text-slate-100 transition-all"
+                    className="w-full md:w-24 text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl p-2 outline-none focus:border-violet-400 text-slate-900 dark:text-slate-100 transition-all"
                 />
                 </div>
             </div>
@@ -119,7 +119,7 @@
         </div>
 
         {/* Preview kalkulasi */}
-        <div className="mt-3 md:bg-slate-50 md:dark:bg-slate-800/70 md:p-5 md:rounded-lg md:border border-dashed border-slate-200 dark:border-slate-700">
+        <div className="mt-3 md:bg-slate-50 md:dark:bg-slate-800/70 md:p-5 md:rounded-xl md:border border-dashed border-slate-200 dark:border-slate-700">
             <p className="font-black text-xs text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">
             Simulasi Durasi
             </p>
@@ -143,7 +143,7 @@
         <button
             onClick={() => saveSettingsMutation.mutate(settings)}
             disabled={saveSettingsMutation.isPending}
-            className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-violet-600 hover:bg-violet-700 text-white py-4 rounded-lg font-black text-sm transition-all disabled:opacity-70 flex items-center justify-center gap-2 mt-3"
+            className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-violet-600 hover:bg-violet-700 text-white py-4 rounded-xl font-black text-sm transition-all disabled:opacity-70 flex items-center justify-center gap-2 mt-3"
         >
             <Save size={20} />
             {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Durasi Voice'}
@@ -197,9 +197,9 @@
         };
 
         return (
-            <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6">
+            <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6">
                 <div className="flex items-center gap-4">
-                    <div className="bg-rose-500 p-3 rounded-lg text-white shadow-lg">
+                    <div className="bg-rose-500 p-3 rounded-xl text-white shadow-lg">
                         <Zap size={20} />
                     </div>
                     <div>
@@ -222,7 +222,7 @@
                         <input
                             value={customName}
                             onChange={e => setCustomName(e.target.value)}
-                            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
+                            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
                             placeholder="Seseorang"
                         />
                     </div>
@@ -234,7 +234,7 @@
                             type="number"
                             value={customAmount}
                             onChange={e => setCustomAmount(e.target.value)}
-                            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
+                            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
                         />
                     </div>
                     <div className="flex flex-col gap-1.5 md:col-span-2">
@@ -244,7 +244,7 @@
                         <input
                             value={customMsg}
                             onChange={e => setCustomMsg(e.target.value)}
-                            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
+                            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
                             placeholder="Semangat terus bang! (opsional)"
                         />
                     </div>
@@ -256,7 +256,7 @@
                         <button
                             key={v}
                             onClick={() => setCustomAmount(v)}
-                            className={`w-full cursor-pointer active:scale-[0.97] px-3 py-1.5 rounded-lg text-xs font-black transition-all border-2 ${
+                            className={`w-full cursor-pointer active:scale-[0.97] px-3 py-1.5 rounded-xl text-xs font-black transition-all border-2 ${
                                 Number(customAmount) === v
                                     ? 'bg-rose-500 border-rose-500 text-white'
                                     : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
@@ -286,7 +286,7 @@
                 <button
                     onClick={sendTest}
                     disabled={isSending || !voiceUrl || !user?.overlayToken}
-                    className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-lg font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-rose-200 dark:shadow-rose-900/30"
+                    className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-rose-200 dark:shadow-rose-900/30"
                 >
                     {isSending ? (
                         <><RefreshCw size={18} className="animate-spin" /> Mengirim...</>
@@ -301,7 +301,7 @@
                         <motion.div
                             initial={{ opacity: 0, y: 4 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-lg px-4 py-3 border border-emerald-100 dark:border-emerald-900"
+                            className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-xl px-4 py-3 border border-emerald-100 dark:border-emerald-900"
                         >
                             <CheckCircle2 size={14} />
                             Voice test terakhir dikirim: {lastSent.toLocaleTimeString('id-ID')}
@@ -324,9 +324,9 @@
     ];
 
     return (
-        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
          <div className="!mb-6 flex items-center gap-4">
-            <div className="bg-emerald-500 p-3 rounded-lg text-white shadow-lg">
+            <div className="bg-emerald-500 p-3 rounded-xl text-white shadow-lg">
                 <Mic size={20} />
             </div>
             <div>
@@ -341,7 +341,7 @@
         {urls.map(({ label, url, desc }) => (
             <div
             key={label}
-            className="bg-slate-100 dark:bg-slate-800 p-5 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700"
+            className="bg-slate-100 dark:bg-slate-800 p-5 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700"
             >
             <div className="block text-[10px] font-black text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-widest">
                 {label}
@@ -369,9 +369,9 @@
     // ─── VoiceSettingsInfo ────────────────────────────────────────────────────────
 
     const VoiceSettingsInfo = () => (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
         <div className="!mb-5.5 flex items-center gap-4">
-            <div className="bg-rose-500 p-3 rounded-lg text-white shadow-lg">
+            <div className="bg-rose-500 p-3 rounded-xl text-white shadow-lg">
                 <Mic size={20} />
             </div>
             <div>
@@ -406,7 +406,7 @@
             desc: 'File audio disimpan di memory server, otomatis terhapus setelah 30 menit',
             },
         ].map(({ icon, title, desc }) => (
-            <div key={title} className="flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+            <div key={title} className="flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
             <span className="text-lg flex-shrink-0">{icon}</span>
             <div>
                 <p className="text-sm font-black text-slate-700 dark:text-slate-200">{title}</p>
@@ -476,19 +476,19 @@
     if(!localSettings) return (
         <div className="space-y-6 pb-6 w-full animate-pulse">
             {/* Info card */}
-            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-6 space-y-5">
+            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-6 space-y-5">
             <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-lg flex-shrink-0" />
-                <div className="h-5 w-36 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-xl flex-shrink-0" />
+                <div className="h-5 w-36 bg-slate-200 dark:bg-slate-700 rounded-xl" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[...Array(4)].map((_, i) => (
-                <div key={i} className="flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-lg">
-                    <div className="w-6 h-6 bg-slate-200 dark:bg-slate-600 rounded-lg flex-shrink-0" />
+                <div key={i} className="flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl">
+                    <div className="w-6 h-6 bg-slate-200 dark:bg-slate-600 rounded-xl flex-shrink-0" />
                     <div className="flex-1 space-y-1.5">
-                    <div className="h-3 bg-slate-200 dark:bg-slate-600 rounded-lg w-3/4" />
-                    <div className="h-2.5 bg-slate-100 dark:bg-slate-700 rounded-lg w-full" />
-                    <div className="h-2.5 bg-slate-100 dark:bg-slate-700 rounded-lg w-5/6" />
+                    <div className="h-3 bg-slate-200 dark:bg-slate-600 rounded-xl w-3/4" />
+                    <div className="h-2.5 bg-slate-100 dark:bg-slate-700 rounded-xl w-full" />
+                    <div className="h-2.5 bg-slate-100 dark:bg-slate-700 rounded-xl w-5/6" />
                     </div>
                 </div>
                 ))}
@@ -496,72 +496,72 @@
             </div>
 
             {/* URL Overlay */}
-            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-6 space-y-5">
+            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-6 space-y-5">
             <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-lg flex-shrink-0" />
-                <div className="h-5 w-28 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-xl flex-shrink-0" />
+                <div className="h-5 w-28 bg-slate-200 dark:bg-slate-700 rounded-xl" />
             </div>
-            <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-lg" />
-            <div className="h-2.5 w-4/5 bg-slate-100 dark:bg-slate-800 rounded-lg" />
-            <div className="bg-slate-100 dark:bg-slate-800 p-5 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg space-y-2">
-                <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-600 rounded-lg" />
-                <div className="h-2.5 w-48 bg-slate-100 dark:bg-slate-700 rounded-lg" />
-                <div className="h-3 w-72 bg-slate-200 dark:bg-slate-600 rounded-lg mt-2" />
+            <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-xl" />
+            <div className="h-2.5 w-4/5 bg-slate-100 dark:bg-slate-800 rounded-xl" />
+            <div className="bg-slate-100 dark:bg-slate-800 p-5 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl space-y-2">
+                <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-600 rounded-xl" />
+                <div className="h-2.5 w-48 bg-slate-100 dark:bg-slate-700 rounded-xl" />
+                <div className="h-3 w-72 bg-slate-200 dark:bg-slate-600 rounded-xl mt-2" />
             </div>
             </div>
 
             {/* Durasi settings */}
-            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-6 space-y-6">
+            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-6 space-y-6">
             <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-lg flex-shrink-0" />
-                <div className="h-5 w-24 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-xl flex-shrink-0" />
+                <div className="h-5 w-24 bg-slate-200 dark:bg-slate-700 rounded-xl" />
             </div>
-            <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-lg" />
-            <div className="h-2.5 w-3/4 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+            <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-xl" />
+            <div className="h-2.5 w-3/4 bg-slate-100 dark:bg-slate-800 rounded-xl" />
             <div className="space-y-5">
-                <div className="h-2.5 w-32 bg-slate-200 dark:bg-slate-700 rounded-lg" />
-                <div className="h-12 w-full bg-slate-100 dark:bg-slate-800 rounded-lg" />
-                <div className="h-2.5 w-28 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+                <div className="h-2.5 w-32 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+                <div className="h-12 w-full bg-slate-100 dark:bg-slate-800 rounded-xl" />
+                <div className="h-2.5 w-28 bg-slate-200 dark:bg-slate-700 rounded-xl" />
                 <div className="flex gap-3">
-                <div className="flex-1 h-12 bg-slate-100 dark:bg-slate-800 rounded-lg" />
-                <div className="w-24 h-12 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                <div className="flex-1 h-12 bg-slate-100 dark:bg-slate-800 rounded-xl" />
+                <div className="w-24 h-12 bg-slate-100 dark:bg-slate-800 rounded-xl" />
                 </div>
             </div>
-            <div className="bg-slate-50 dark:bg-slate-800/70 p-5 border border-dashed border-slate-200 dark:border-slate-700 rounded-lg">
-                <div className="h-2.5 w-28 bg-slate-200 dark:bg-slate-600 rounded-lg mb-4" />
+            <div className="bg-slate-50 dark:bg-slate-800/70 p-5 border border-dashed border-slate-200 dark:border-slate-700 rounded-xl">
+                <div className="h-2.5 w-28 bg-slate-200 dark:bg-slate-600 rounded-xl mb-4" />
                 <div className="flex flex-wrap gap-2">
                 {[...Array(5)].map((_, i) => (
-                    <div key={i} className="h-8 w-28 bg-slate-200 dark:bg-slate-700 rounded-lg" />
+                    <div key={i} className="h-8 w-28 bg-slate-200 dark:bg-slate-700 rounded-xl" />
                 ))}
                 </div>
             </div>
-            <div className="h-12 w-full bg-slate-200 dark:bg-slate-700 rounded-lg" />
+            <div className="h-12 w-full bg-slate-200 dark:bg-slate-700 rounded-xl" />
             </div>
 
             {/* Test voice */}
-            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-6 space-y-5">
+            <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-6 space-y-5">
             <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-lg flex-shrink-0" />
+                <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-xl flex-shrink-0" />
                 <div className="space-y-1.5">
-                <div className="h-4 w-24 bg-slate-200 dark:bg-slate-700 rounded-lg" />
-                <div className="h-2.5 w-48 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                <div className="h-4 w-24 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+                <div className="h-2.5 w-48 bg-slate-100 dark:bg-slate-800 rounded-xl" />
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[...Array(3)].map((_, i) => (
                 <div key={i} className={`space-y-1.5 ${i === 2 ? 'md:col-span-2' : ''}`}>
-                    <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-700 rounded-lg" />
-                    <div className="h-11 w-full bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                    <div className="h-2.5 w-20 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+                    <div className="h-11 w-full bg-slate-100 dark:bg-slate-800 rounded-xl" />
                 </div>
                 ))}
             </div>
             <div className="flex flex-wrap gap-2">
                 {[...Array(6)].map((_, i) => (
-                <div key={i} className="h-8 w-14 bg-slate-100 dark:bg-slate-800 rounded-lg" />
+                <div key={i} className="h-8 w-14 bg-slate-100 dark:bg-slate-800 rounded-xl" />
                 ))}
             </div>
-            <div className="h-24 w-full bg-slate-100 dark:bg-slate-800 rounded-lg" />
-            <div className="h-12 w-full bg-slate-200 dark:bg-slate-700 rounded-lg" />
+            <div className="h-24 w-full bg-slate-100 dark:bg-slate-800 rounded-xl" />
+            <div className="h-12 w-full bg-slate-200 dark:bg-slate-700 rounded-xl" />
             </div>
         </div>
         );
@@ -575,7 +575,7 @@
                 initial={{ y: -50, opacity: 0 }}
                 animate={{ y: 20, opacity: 1 }}
                 exit={{ y: -50, opacity: 0 }}
-                className="fixed top-0 left-1/2 -translate-x-1/2 z-[100] bg-slate-900/70 text-white px-8 py-4 rounded-lg shadow-2xl flex items-center gap-3 font-bold border border-white/10 backdrop-blur-md"
+                className="fixed top-0 left-1/2 -translate-x-1/2 z-[100] bg-slate-900/70 text-white px-8 py-4 rounded-xl shadow-2xl flex items-center gap-3 font-bold border border-white/10 backdrop-blur-md"
             >
                 <CheckCircle2 size={18} className="text-green-500" /> Pengaturan Voice Tersimpan!
             </motion.div>

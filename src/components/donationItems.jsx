@@ -78,7 +78,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
-      className="bg-white dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 overflow-visible"
+      className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 overflow-visible"
     >
       {/* <div className={`h-1 w-full bg-gradient-to-r ${tier.bg}`} /> */}
       <div className="p-4 space-y-1">
@@ -87,7 +87,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
           <div className="relative" ref={pickerRef}>
             <button
               onClick={() => setShowEmojiPicker(v => !v)}
-              className="w-11 h-11 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-2xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-all cursor-pointer active:scale-95 border-2 border-slate-200 dark:border-slate-600"
+              className="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-2xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-all cursor-pointer active:scale-95 border-2 border-slate-200 dark:border-slate-600"
             >
               {item.emoji || '❓'}
             </button>
@@ -106,7 +106,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
                         key={emoji}
                         onClick={() => { onChange(index, 'emoji', emoji); setShowEmojiPicker(false); }}
                         title={label}
-                        className={`w-9 h-9 rounded-lg flex items-center justify-center text-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all cursor-pointer active:scale-95 ${
+                        className={`w-9 h-9 rounded-xl flex items-center justify-center text-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all cursor-pointer active:scale-95 ${
                           item.emoji === emoji
                             ? 'bg-blue-100 dark:bg-blue-900/50 ring-2 ring-blue-500'
                             : 'bg-slate-50 dark:bg-slate-800'
@@ -123,7 +123,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
                       value={item.emoji || ''}
                       onChange={(e) => onChange(index, 'emoji', e.target.value.slice(0, 2))}
                       placeholder="😊"
-                      className="w-full py-2.5 px-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-center font-bold text-lg outline-none"
+                      className="w-full py-2.5 px-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-center font-bold text-lg outline-none"
                     />
                   </div>
                 </motion.div>
@@ -137,12 +137,12 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
             onChange={(e) => onChange(index, 'name', e.target.value)}
             placeholder={`Item ${index + 1} (contoh: Kopi)`}
             maxLength={30}
-            className="w-[71%] md:flex-1 p-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-bold text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
+            className="w-[71%] md:flex-1 p-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
           />
 
           <button
             onClick={() => onRemove(index)}
-            className="shrink-0 cursor-pointer bg-red-700 h-[40px] w-[40px] flex justify-center items-center text-slate-300 hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-800 rounded-lg transition-all active:scale-95"
+            className="shrink-0 cursor-pointer bg-red-700 h-[40px] w-[40px] flex justify-center items-center text-slate-300 hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-800 rounded-xl transition-all active:scale-95"
           >
             <Trash2 size={16} className='relative left-[-1px]' />
           </button>
@@ -157,7 +157,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
               onChange={(e) => onChange(index, 'price', Number(e.target.value))}
               placeholder="10000"
               min={0}
-              className="w-full pl-10 pr-3 py-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-black text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
+              className="w-full pl-10 pr-3 py-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-black text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
             />
           </div>
 
@@ -170,7 +170,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
               onChange={(e) => onChange(index, 'maxQty', Math.max(1, Number(e.target.value)))}
               min={1}
               max={99}
-              className="w-full px-2.5 py-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-black text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-blue-400 transition-all text-center"
+              className="w-full px-2.5 py-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-black text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-blue-400 transition-all text-center"
             />
           </div>
         </div>
@@ -183,7 +183,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
             onChange={(e) => onChange(index, 'description', e.target.value)}
             placeholder="Deskripsi singkat (opsional)"
             maxLength={60}
-            className="w-full p-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-lg font-medium text-xs text-slate-500 dark:text-slate-400 outline-none focus:border-blue-400 transition-all"
+            className="w-full p-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-medium text-xs text-slate-500 dark:text-slate-400 outline-none focus:border-blue-400 transition-all"
           />
         </div>
       </div>
@@ -195,7 +195,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
 const ItemPreviewCard = ({ item }) => {
   const tier = getTierColor(item.price || 0);
   return (
-    <div className="relative bg-white dark:bg-slate-800 rounded-lg border-2 border-slate-100 dark:border-slate-700">
+    <div className="relative bg-white dark:bg-slate-800 rounded-xl border-2 border-slate-100 dark:border-slate-700">
       <div className={`h-0.5 w-full bg-gradient-to-r ${tier.bg}`} />
       <div className="p-3 text-center space-y-1.5">
         <div className="text-3xl">{item.emoji || '❓'}</div>
@@ -330,7 +330,7 @@ const DonationItemsEditor = ({
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="p-3 w-11 h-11 bg-gradient-to-br from-pink-500 to-orange-500 rounded-lg flex items-center justify-center text-white shadow-lg flex-shrink-0">
+          <div className="p-3 w-11 h-11 bg-gradient-to-br from-pink-500 to-orange-500 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
             🎁
           </div>
           <div>
@@ -353,7 +353,7 @@ const DonationItemsEditor = ({
             exit={{ opacity: 0, height: 0 }}
             className="overflow-hidden"
           >
-            <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">
+            <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
               <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3">
                 Tampilan di halaman donasi
               </p>

@@ -112,7 +112,7 @@ const DonationPending = () => {
             initial={{ opacity: 0, scale: 0.85, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 200, damping: 18 }}
-            className="bg-white dark:bg-slate-900 rounded-none shadow-2xl overflow-hidden border border-amber-100 dark:border-slate-800"
+            className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl overflow-hidden border border-amber-100 dark:border-slate-800"
           >
             {/* Top banner */}
             <div className="bg-gradient-to-r from-amber-500 to-yellow-500 p-8 text-center">
@@ -170,7 +170,7 @@ const DonationPending = () => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.8 + i * 0.12 }}
-                      className={`flex items-center gap-3 rounded-none p-4 border-2 transition-all ${
+                      className={`flex items-center gap-3 rounded-xl p-4 border-2 transition-all ${
                         step.done
                           ? 'bg-green-50 dark:bg-green-900/20 border-green-100 dark:border-green-800'
                           : i === 1
@@ -221,7 +221,7 @@ const DonationPending = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.1 }}
-                className="bg-blue-50 dark:bg-blue-900/20 rounded-none p-4 border border-blue-100 dark:border-blue-800"
+                className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border border-blue-100 dark:border-blue-800"
               >
                 <p className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1">
                   ℹ️ Informasi
@@ -245,7 +245,7 @@ const DonationPending = () => {
                     whileTap={{ scale: 0.98 }}
                     onClick={handleReopenPayment}
                     disabled={reopening}
-                    className="cursor-pointer w-full flex items-center justify-center gap-2 py-4 rounded-none bg-blue-600 text-white font-black text-sm hover:bg-blue-700 transition-all disabled:opacity-60 shadow-lg shadow-blue-200 dark:shadow-blue-900"
+                    className="cursor-pointer w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-blue-600 text-white font-black text-sm hover:bg-blue-700 transition-all disabled:opacity-60 shadow-lg shadow-blue-200 dark:shadow-blue-900"
                   >
                     {reopening ? (
                       <>
@@ -276,7 +276,7 @@ const DonationPending = () => {
                   whileHover={{ scale: 1 }}
                   whileTap={{ scale: 0.99 }}
                   onClick={() => navigate(`/donate/${username}`)}
-                  className="cursor-pointer flex items-center justify-center gap-2 py-3 rounded-none bg-amber-500 text-white font-bold text-sm hover:bg-amber-400 transition-all"
+                  className="cursor-pointer flex items-center justify-center gap-2 py-3 rounded-xl bg-amber-500 text-white font-bold text-sm hover:bg-amber-400 transition-all"
                 >
                   <RefreshCcw size={16} />
                   Donasi Baru
@@ -285,7 +285,7 @@ const DonationPending = () => {
                   whileHover={{ scale: 1 }}
                   whileTap={{ scale: 0.99 }}
                   onClick={() => navigate(username ? `/donate/${username}` : '/')}
-                  className="cursor-pointer flex items-center justify-center gap-2 py-3 rounded-none border-2 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"
+                  className="cursor-pointer flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"
                 >
                   <Home size={16} />
                   {username ? `@${username}` : 'Beranda'}

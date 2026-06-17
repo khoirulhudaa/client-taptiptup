@@ -62,7 +62,7 @@ export const WhatsAppPage = () => {
       className="space-y-6 pb-6"
     >
       {/* Header Card */}
-      <div className={`rounded-lg p-6 text-white ${
+      <div className={`rounded-xl p-6 text-white ${
         isReady 
           ? 'bg-gradient-to-br from-green-500 to-emerald-600' 
           : 'bg-gradient-to-br from-red-500 to-orange-500'
@@ -99,19 +99,19 @@ export const WhatsAppPage = () => {
 
       {/* Status Details */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white dark:bg-slate-900 rounded-lg p-5 border border-slate-100 dark:border-slate-800">
+        <div className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800">
           <p className="text-xs text-slate-400 font-black uppercase mb-1">Status</p>
           <p className={`font-black text-lg ${isReady ? 'text-green-600' : 'text-red-500'}`}>
             {isReady ? '🟢 Online' : '🔴 Offline'}
           </p>
         </div>
-        <div className="bg-white dark:bg-slate-900 rounded-lg p-5 border border-slate-100 dark:border-slate-800">
+        <div className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800">
           <p className="text-xs text-slate-400 font-black uppercase mb-1">Pesan Kirim</p>
           <p className="font-black text-lg text-blue-600">
             {stats.sent || 0} / {stats.max || 50}
           </p>
         </div>
-        <div className="bg-white dark:bg-slate-900 rounded-lg p-5 border border-slate-100 dark:border-slate-800">
+        <div className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800">
           <p className="text-xs text-slate-400 font-black uppercase mb-1">Sisa Kuota</p>
           <p className="font-black text-lg text-emerald-600">
             {stats.remaining || 50}
@@ -120,7 +120,7 @@ export const WhatsAppPage = () => {
       </div>
 
       {/* Actions */}
-      <div className="bg-white dark:bg-slate-900 rounded-lg p-6 border border-slate-100 dark:border-slate-800 space-y-4">
+      <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-100 dark:border-slate-800 space-y-4">
         <h3 className="text-lg font-black text-slate-800 dark:text-slate-100">
           Pengaturan WhatsApp
         </h3>
@@ -129,7 +129,7 @@ export const WhatsAppPage = () => {
           <button
             onClick={loadQR}
             disabled={isReady || reconnectMutation.isPending}
-            className="flex items-center justify-center gap-3 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-black transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
+            className="flex items-center justify-center gap-3 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
           >
             {isReady ? (
               <CheckCircle2 size={20} />
@@ -142,7 +142,7 @@ export const WhatsAppPage = () => {
           <button
             onClick={() => reconnectMutation.mutate()}
             disabled={reconnectMutation.isPending}
-            className="flex items-center justify-center gap-3 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg font-black transition-all disabled:opacity-50 active:scale-[0.98]"
+            className="flex items-center justify-center gap-3 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-black transition-all disabled:opacity-50 active:scale-[0.98]"
           >
             {reconnectMutation.isPending ? (
               <Loader2 size={20} className="animate-spin" />
@@ -154,7 +154,7 @@ export const WhatsAppPage = () => {
         </div>
 
         {/* Info */}
-        <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 text-sm">
+        <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 text-sm">
           <p className="font-medium text-slate-600 dark:text-slate-400">
             ℹ️ Notifikasi akan dikirim ke nomor: <span className="font-black text-blue-600">089513093406</span>
           </p>
@@ -167,7 +167,7 @@ export const WhatsAppPage = () => {
       {/* QR Modal */}
       {showQRModal && qrImage && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-lg max-w-sm w-full p-6 text-center">
+          <div className="bg-white dark:bg-slate-900 rounded-xl max-w-sm w-full p-6 text-center">
             <h3 className="text-xl font-black mb-4">Scan QR Code</h3>
             <div className="bg-white p-4 inline-block border-2 border-slate-900">
               <img src={qrImage} alt="QR Code" className="w-[250px] h-[250px]" />
@@ -177,7 +177,7 @@ export const WhatsAppPage = () => {
             </p>
             <button
               onClick={() => { setShowQRModal(false); setQrImage(null); }}
-              className="mt-6 w-full py-3 bg-slate-900 text-white rounded-lg font-black"
+              className="mt-6 w-full py-3 bg-slate-900 text-white rounded-xl font-black"
             >
               Tutup
             </button>

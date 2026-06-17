@@ -400,7 +400,7 @@ export const OBSConnectPanel = ({ overlayToken }) => {
   return (
     <>
       {/* ── Panel Utama ── */}
-      <div className="bg-slate-800/60 dark:bg-slate-900/80 border border-slate-700 dark:border-slate-700 rounded-lg p-4 space-y-4">
+      <div className="bg-slate-800/60 dark:bg-slate-900/80 border border-slate-700 dark:border-slate-700 rounded-xl p-4 space-y-4">
 
         {/* Header row */}
         <div className="flex items-center justify-between border-b border-slate-100/20 pb-4">

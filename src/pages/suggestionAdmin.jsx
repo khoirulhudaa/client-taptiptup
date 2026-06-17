@@ -131,7 +131,7 @@ export const SuggestionsAdmin = () => {
             initial={{ opacity: 0, y: 16, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8 }}
-            className={`fixed bottom-6 right-6 z-[9999] flex items-center gap-3 px-5 py-4 rounded-lg shadow-2xl font-bold text-sm ${
+            className={`fixed bottom-6 right-6 z-[9999] flex items-center gap-3 px-5 py-4 rounded-xl shadow-2xl font-bold text-sm ${
               showToast.type === 'error' ? 'bg-red-600 text-white' : 'bg-emerald-600 text-white'
             }`}
           >
@@ -142,12 +142,12 @@ export const SuggestionsAdmin = () => {
       </AnimatePresence>
 
       {/* Header */}
-     <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+     <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
         <div className="relative flex items-start justify-between gap-4">
           <div>
               <div className="flex items-center gap-4">
-              <div className="bg-purple-600 p-3 rounded-lg text-white shadow-lg">
+              <div className="bg-purple-600 p-3 rounded-xl text-white shadow-lg">
                   <Mic size={20} />
               </div>
               <div>
@@ -160,12 +160,12 @@ export const SuggestionsAdmin = () => {
         </div>
       </div>
 
-      <div className='bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 px-0 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6'>
+      <div className='bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 px-0 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6'>
         {/* Filters */}
         <div className="flex gap-2 flex-wrap px-5 md:px-0">
           <button
             onClick={() => setStatusFilter('')}
-            className={`cursor-pointer px-4 py-2 rounded-lg font-black text-xs transition-all ${
+            className={`cursor-pointer px-4 py-2 rounded-xl font-black text-xs transition-all ${
               statusFilter === '' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700'
             }`}
           >
@@ -175,7 +175,7 @@ export const SuggestionsAdmin = () => {
             <button
               key={s.value}
               onClick={() => setStatusFilter(s.value)}
-              className={`cursor-pointer px-4 py-2 rounded-lg font-black text-xs transition-all ${
+              className={`cursor-pointer px-4 py-2 rounded-xl font-black text-xs transition-all ${
                 statusFilter === s.value ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700'
               }`}
             >
@@ -191,13 +191,13 @@ export const SuggestionsAdmin = () => {
               <tr>
                 <td colSpan={6} className="text-center py-16 text-slate-400 font-bold">
                   <div className="flex items-center justify-center gap-3">
-                    <div className="w-5 h-5 border-4 border-slate-200 border-t-purple-600 rounded-lg animate-spin" />Memuat...
+                    <div className="w-5 h-5 border-4 border-slate-200 border-t-purple-600 rounded-xl animate-spin" />Memuat...
                   </div>
                 </td>
               </tr>
             ) : suggestions.length === 0 ? (
               <div>
-                <div colSpan={6} className="text-center bg-slate-500/10 rounded-lg py-16 text-slate-400">
+                <div colSpan={6} className="text-center bg-slate-500/10 rounded-xl py-16 text-slate-400">
                   <MessageCircle size={40} className="mx-auto mb-3 opacity-30" />
                   <p className="font-bold text-sm">Belum ada saran</p>
                 </div>
@@ -207,11 +207,11 @@ export const SuggestionsAdmin = () => {
                 {suggestions.map((s) => (
                   <div
                     key={s._id}
-                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-5 hover:shadow-md transition-all flex flex-col"
+                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-5 hover:shadow-md transition-all flex flex-col"
                   >
                     {/* Header: Kategori & Status */}
                     <div className="flex items-center justify-between mb-3">
-                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black ${
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[10px] font-black ${
                         s.category === 'feature' ? 'bg-blue-100 text-purple-600 dark:bg-blue-950/40 dark:text-blue-400' :
                         s.category === 'bug' ? 'bg-red-100 text-red-600 dark:bg-red-950/40 dark:text-red-400' :
                         s.category === 'improvement' ? 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400' :
@@ -220,7 +220,7 @@ export const SuggestionsAdmin = () => {
                         {CATEGORY_ICONS[s.category]}
                         {s.category}
                       </span>
-                      <span className={`px-2.5 py-1 rounded-lg text-[10px] font-black ${STATUS_COLORS[s.status]}`}>
+                      <span className={`px-2.5 py-1 rounded-xl text-[10px] font-black ${STATUS_COLORS[s.status]}`}>
                         {STATUS_LABELS[s.status]}
                       </span>
                     </div>
@@ -239,7 +239,7 @@ export const SuggestionsAdmin = () => {
                       </div>
                       <button
                         onClick={() => { setSelectedSuggestion(s); setAdminNote(s.adminNote || ''); }}
-                        className="cursor-pointer p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-all border border-slate-100 dark:border-slate-700"
+                        className="cursor-pointer p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-all border border-slate-100 dark:border-slate-700"
                       >
                         <Edit size={16} className="text-slate-400" />
                       </button>
@@ -267,11 +267,11 @@ export const SuggestionsAdmin = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-lg p-6 z-[9999] shadow-2xl border border-slate-100 dark:border-slate-800"
+              className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-xl p-6 z-[9999] shadow-2xl border border-slate-100 dark:border-slate-800"
             >
               <div className="flex items-center justify-between mb-5">
                 <h3 className="text-xl font-black text-slate-800 dark:text-slate-100">Review Saran</h3>
-                <button onClick={() => setSelectedSuggestion(null)} className="cursor-pointer p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+                <button onClick={() => setSelectedSuggestion(null)} className="cursor-pointer p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl">
                   <X size={20} className="text-slate-400" />
                 </button>
               </div>
@@ -305,7 +305,7 @@ export const SuggestionsAdmin = () => {
                         key={opt.value}
                         onClick={() => handleUpdateStatus(selectedSuggestion, opt.value)}
                         disabled={updateMutation.isPending}
-                        className={`cursor-pointer py-2 rounded-lg font-black text-xs transition-all ${
+                        className={`cursor-pointer py-2 rounded-xl font-black text-xs transition-all ${
                           selectedSuggestion.status === opt.value
                             ? 'bg-purple-600 text-white'
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -324,14 +324,14 @@ export const SuggestionsAdmin = () => {
                     onChange={(e) => setAdminNote(e.target.value)}
                     placeholder="Tulis catatan untuk streamer..."
                     rows={3}
-                    className="w-full p-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-medium text-sm text-slate-700 dark:text-slate-200 focus:border-purple-600 outline-none resize-none"
+                    className="w-full p-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-medium text-sm text-slate-700 dark:text-slate-200 focus:border-purple-600 outline-none resize-none"
                   />
                 </div>
 
                 <button
                   onClick={() => handleUpdateStatus(selectedSuggestion, selectedSuggestion.status)}
                   disabled={updateMutation.isPending}
-                  className="cursor-pointer w-full py-3 bg-purple-600 hover:bg-blue-700 text-white rounded-lg font-black text-sm disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="cursor-pointer w-full py-3 bg-purple-600 hover:bg-blue-700 text-white rounded-xl font-black text-sm disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {updateMutation.isPending ? (
                     <><Loader2 size={16} className="animate-spin" /> Menyimpan...</>

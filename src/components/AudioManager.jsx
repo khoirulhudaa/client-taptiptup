@@ -142,7 +142,7 @@ const AudioManager = ({
   return (
     <div className="space-y-4">
       {/* Upload Area */}
-      <div className="rounded-none bg-white dark:bg-slate-900 shadow-sm">
+      <div className="rounded-xl bg-white dark:bg-slate-900 shadow-sm">
         <div className="pt-1">
           <label className="block text-sm font-bold text-slate-500 dark:text-slate-400 mb-2">
             📁 Upload File Audio
@@ -155,7 +155,7 @@ const AudioManager = ({
               disabled={uploading}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
-            <div className={`flex items-center gap-3 p-4 border-2 border-dashed rounded-none transition-all cursor-pointer
+            <div className={`flex items-center gap-3 p-4 border-2 border-dashed rounded-xl transition-all cursor-pointer
               border-slate-200 dark:border-slate-700 hover:border-blue-300 bg-white dark:bg-slate-800
               ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
               <Upload size={18} className="text-blue-500" />
@@ -180,24 +180,24 @@ const AudioManager = ({
             {playingPreview && (
               <button
                 onClick={stopPreview}
-                className="cursor-pointer flex items-center gap-2 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-none text-sm font-bold shadow-md active:scale-[0.98] transition-all"
+                className="cursor-pointer flex items-center gap-2 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl text-sm font-bold shadow-md active:scale-[0.98] transition-all"
               >
                 Stop
               </button>
             )}
           </div>
 
-          <div className="space-y-3 max-h-60 overflow-y-auto rounded-none border border-slate-200 dark:border-slate-700 p-4 bg-slate-50/50 dark:bg-slate-900/30">
+          <div className="space-y-3 max-h-60 overflow-y-auto rounded-xl border border-slate-200 dark:border-slate-700 p-4 bg-slate-50/50 dark:bg-slate-900/30">
             {publicSounds.map((sound, index) => (
               <motion.div
                 key={`${sound.url}-${index}`}
                 layout
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="group flex items-center justify-between p-4 bg-white/80 dark:bg-slate-800/70 border border-slate-200/50 dark:border-slate-700/50 rounded-none hover:shadow-md hover:border-blue-300 transition-all"
+                className="group flex items-center justify-between p-4 bg-white/80 dark:bg-slate-800/70 border border-slate-200/50 dark:border-slate-700/50 rounded-xl hover:shadow-md hover:border-blue-300 transition-all"
               >
                 <div className="flex items-center gap-4 flex-1 min-w-0">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-none flex items-center justify-center shadow-lg flex-shrink-0">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
                     <Ear className="text-white" size={20} />
                   </div>
 
@@ -217,7 +217,7 @@ const AudioManager = ({
                     onClick={() =>
                       playingPreview === sound.url ? stopPreview() : playPreview(sound.url)
                     }
-                    className={`p-3 h-[40px] cursor-pointer rounded-none active:scale-[0.95] transition-all flex-shrink-0 flex items-center justify-center ${
+                    className={`p-3 h-[40px] cursor-pointer rounded-xl active:scale-[0.95] transition-all flex-shrink-0 flex items-center justify-center ${
                       playingPreview === sound.url
                         ? 'bg-emerald-500 text-white'
                         : previewError
@@ -233,7 +233,7 @@ const AudioManager = ({
 
                 <button
                   onClick={() => removeSound(index)}
-                  className="p-3 ml-3 h-[40px] cursor-pointer hover:brightness-90 text-red-500 rounded-none active:scale-[0.95] transition-all flex-shrink-0"
+                  className="p-3 ml-3 h-[40px] cursor-pointer hover:brightness-90 text-red-500 rounded-xl active:scale-[0.95] transition-all flex-shrink-0"
                   title="Hapus suara"
                 >
                   <Trash2 size={18} />
@@ -254,7 +254,7 @@ const AudioManager = ({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="fixed bottom-6 left-6 z-[1000] bg-red-500 text-white px-6 py-3 rounded-none shadow-2xl font-bold flex items-center gap-3 max-w-sm"
+            className="fixed bottom-6 left-6 z-[1000] bg-red-500 text-white px-6 py-3 rounded-xl shadow-2xl font-bold flex items-center gap-3 max-w-sm"
           >
             <Volume2 size={18} />
             <span>Audio tidak bisa diputar</span>

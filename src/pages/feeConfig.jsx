@@ -34,7 +34,7 @@ const FeeSimulator = ({ feeBearer }) => {
   const PRESETS = [10000, 50000, 100000, 500000, 1000000];
 
   return (
-    <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700 rounded-lg p-5 space-y-4">
+    <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700 rounded-xl p-5 space-y-4">
       <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">
         SIMULASI KALKULASI FEE
       </p>
@@ -45,7 +45,7 @@ const FeeSimulator = ({ feeBearer }) => {
           <button
             key={v}
             onClick={() => setNominal(v)}
-            className={`px-3 py-3 rounded-lg text-xs font-black transition-all border-2 cursor-pointer active:scale-[0.97] ${
+            className={`px-3 py-3 rounded-xl text-xs font-black transition-all border-2 cursor-pointer active:scale-[0.97] ${
               nominal === v
                 ? 'bg-indigo-600 border-indigo-600 text-white'
                 : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 hover:border-indigo-300'
@@ -63,7 +63,7 @@ const FeeSimulator = ({ feeBearer }) => {
           type="number"
           value={nominal}
           onChange={e => setNominal(Number(e.target.value))}
-          className="w-full pl-12 pr-4 py-3 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-lg font-bold text-slate-800 dark:text-slate-100 outline-none focus:border-indigo-500 transition-all"
+          className="w-full pl-12 pr-4 py-3 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-slate-100 outline-none focus:border-indigo-500 transition-all"
         />
       </div>
 
@@ -166,12 +166,12 @@ export const FeeConfigPage = () => {
 
   return (
     <motion.div className="w-full space-y-5 pb-10" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
-      <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+      <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
         <div className="relative flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-4">
-              <div className="bg-blue-500 p-3 rounded-lg text-white shadow-lg">
+              <div className="bg-blue-500 p-3 rounded-xl text-white shadow-lg">
                   <BadgeDollarSignIcon size={20} />
               </div>
               <div>
@@ -183,7 +183,7 @@ export const FeeConfigPage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white dark:bg-slate-900 rounded-lg p-4 md:p-5 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+      <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-5 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
         {isLoading ? (
           <div className="py-12 text-center text-slate-400">Memuat konfigurasi...</div>
         ) : (
@@ -192,17 +192,17 @@ export const FeeConfigPage = () => {
               <button
                 key={opt.id}
                 onClick={() => setFeeBearer(opt.id)}
-                className={`cursor-pointer active:scale-[0.98] text-left p-6 rounded-lg border-2 transition-all space-y-4 ${
+                className={`cursor-pointer active:scale-[0.98] text-left p-6 rounded-xl border-2 transition-all space-y-4 ${
                   feeBearer === opt.id
                     ? `${opt.borderActive} ${opt.bgActive} shadow-lg`
                     : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300'
                 }`}
               >
                 <div className="flex items-start justify-between">
-                  <div className={`${opt.iconColor} p-3 rounded-lg text-white shadow-md`}>
+                  <div className={`${opt.iconColor} p-3 rounded-xl text-white shadow-md`}>
                     {opt.icon}
                   </div>
-                  <div className={`px-3 py-1 rounded-lg text-[10px] font-bold ${opt.badgeColor}`}>
+                  <div className={`px-3 py-1 rounded-xl text-[10px] font-bold ${opt.badgeColor}`}>
                     {opt.badge}
                   </div>
                 </div>
@@ -223,7 +223,7 @@ export const FeeConfigPage = () => {
         <FeeSimulator feeBearer={feeBearer} />
 
         {/* Ringkasan */}
-        <div className={`p-5 rounded-lg border ${feeBearer === 'streamer' 
+        <div className={`p-5 rounded-xl border ${feeBearer === 'streamer' 
           ? 'bg-indigo-50 border-indigo-200 dark:bg-indigo-950/30' 
           : 'bg-emerald-50 border-emerald-200 dark:bg-emerald-950/30'}`}>
           <p className="font-black text-sm mb-1">
@@ -242,7 +242,7 @@ export const FeeConfigPage = () => {
         <button
           onClick={() => saveMutation.mutate(feeBearer)}
           disabled={saveMutation.isPending}
-          className="cursor-pointer active:scale-[0.98] hover:brightness-90 w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black md-text-md text-sm rounded-lg transition-all active:scale-[0.98] disabled:opacity-60"
+          className="cursor-pointer active:scale-[0.98] hover:brightness-90 w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black md-text-md text-sm rounded-xl transition-all active:scale-[0.98] disabled:opacity-60"
         >
           {saveMutation.isPending ? 'Menyimpan...' : 'Simpan Konfigurasi Fee'}
         </button>

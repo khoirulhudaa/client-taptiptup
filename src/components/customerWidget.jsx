@@ -496,7 +496,7 @@ const replyFromCS = (question) => {
               {/* ← satu-satunya tombol X, di header */}
               <button
                 onClick={() => setIsOpen(false)}
-                className="relative left-2.5 text-white active:scale-[0.99] cursor-pointer hover:text-white hover:bg-white/10 rounded-lg p-1.5 transition-all"
+                className="relative left-2.5 text-white active:scale-[0.99] cursor-pointer hover:text-white hover:bg-white/10 rounded-xl p-1.5 transition-all"
                 aria-label="Tutup panel"
               >
                 <X size={30} />

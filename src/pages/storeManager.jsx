@@ -79,9 +79,9 @@ const StoreManager = ({ overlayToken }) => {
 
   return (
     <div className="space-y-6 pb-0">
-      <div className="bg-white dark:bg-slate-900 p-4 md:p-6 rounded-lg border border-slate-200 dark:border-slate-700">
+      <div className="bg-white dark:bg-slate-900 p-4 md:p-6 rounded-xl border border-slate-200 dark:border-slate-700">
         <div className="flex items-center gap-4">
-            <div className="bg-blue-500 p-3 rounded-lg text-white shadow-lg"><StoreIcon size={20} /></div>
+            <div className="bg-blue-500 p-3 rounded-xl text-white shadow-lg"><StoreIcon size={20} /></div>
             <div>
             <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Label produk </h3>
             </div>
@@ -90,7 +90,7 @@ const StoreManager = ({ overlayToken }) => {
         {products.length === 0 && (
           <button
             onClick={addProduct}
-            className="cursor-pointer active:scale-[0.98] mt-6 w-full py-3.5 border-2 border-dashed border-blue-500 text-blue-500 font-black rounded-lg hover:bg-blue-900/10 flex items-center justify-center gap-2"
+            className="cursor-pointer active:scale-[0.98] mt-6 w-full py-3.5 border-2 border-dashed border-blue-500 text-blue-500 font-black rounded-xl hover:bg-blue-900/10 flex items-center justify-center gap-2"
           >
             <Plus size={20} /> Tambah Produk
           </button>
@@ -101,7 +101,7 @@ const StoreManager = ({ overlayToken }) => {
             const isLinkValid = isValidUrl(p.link);
 
             return (
-            <div key={i} className="md:border-2 border-slate-200 md:dark:border-slate-700 p-0 md:p-6 md:py-4.5 md:bg-slate-50 md:dark:bg-slate-800 rounded-lg">
+            <div key={i} className="md:border-2 border-slate-200 md:dark:border-slate-700 p-0 md:p-6 md:py-4.5 md:bg-slate-50 md:dark:bg-slate-800 rounded-xl">
               {/* <div className="flex justify-between mb-4">
                 <button onClick={() => removeProduct(i)} className="text-blue-500 hover:text-blue-700">
                   <Trash2 size={20} />
@@ -140,7 +140,7 @@ const StoreManager = ({ overlayToken }) => {
                 placeholder="Nama Produk"
                 value={p.name}
                 onChange={e => updateProduct(i, 'name', e.target.value)}
-                className="w-full p-4 border border-slate-300 dark:border-slate-600 rounded-lg mb-3 font-medium"
+                className="w-full p-4 border border-slate-300 dark:border-slate-600 rounded-xl mb-3 font-medium"
               />
 
               <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
@@ -149,14 +149,14 @@ const StoreManager = ({ overlayToken }) => {
                   placeholder="Harga (Rp)"
                   value={p.price}
                   onChange={e => updateProduct(i, 'price', Number(e.target.value))}
-                  className="p-4 border border-slate-300 dark:border-slate-600 rounded-lg font-medium"
+                  className="p-4 border border-slate-300 dark:border-slate-600 rounded-xl font-medium"
                 />
                <div>
                   <input
                     placeholder="Link Produk (Wajib https://)"
                     value={p.link}
                     onChange={e => updateProduct(i, 'link', e.target.value)}
-                    className={`w-full p-4 border rounded-lg font-medium transition-colors ${
+                    className={`w-full p-4 border rounded-xl font-medium transition-colors ${
                       isLinkValid 
                         ? 'border-slate-300 dark:border-slate-600 focus:border-blue-500' 
                         : 'border-blue-500 focus:border-blue-500 bg-blue-50 dark:bg-blue-950/20'
@@ -174,7 +174,7 @@ const StoreManager = ({ overlayToken }) => {
                 placeholder="Deskripsi singkat (opsional)"
                 value={p.description}
                 onChange={e => updateProduct(i, 'description', e.target.value)}
-                className="w-full p-4 border border-slate-300 dark:border-slate-600 rounded-lg h-24 mt-4 font-medium"
+                className="w-full p-4 border border-slate-300 dark:border-slate-600 rounded-xl h-24 mt-4 font-medium"
               />
             </div>
             )
@@ -185,7 +185,7 @@ const StoreManager = ({ overlayToken }) => {
           <button
             onClick={() => saveMutation.mutate(products)}
             disabled={saveMutation.isPending}
-            className="cursor-pointer active:scale-[0.99] mt-10 w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm rounded-lg transition-all flex items-center justify-center gap-2"
+            className="cursor-pointer active:scale-[0.99] mt-10 w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm rounded-xl transition-all flex items-center justify-center gap-2"
           >
             <Save size={20} />
             {saveMutation.isPending ? 'Menyimpan...' : 'Simpan Produk ke OBS'}

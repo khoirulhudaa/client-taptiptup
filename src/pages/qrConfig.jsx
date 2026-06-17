@@ -51,7 +51,7 @@ const Row = ({ label, children }) => (
 const ColorRow = ({ label, value, onChange }) => (
   <Row label={label}>
     <div className="flex items-center gap-3">
-      <div className="relative w-10 h-10 rounded-lg overflow-hidden border border-slate-300 dark:border-slate-600 flex-shrink-0">
+      <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-slate-300 dark:border-slate-600 flex-shrink-0">
         <input
           type="color"
           value={value.startsWith('rgba') || value === 'transparent' ? '#ffffff' : value}
@@ -64,7 +64,7 @@ const ColorRow = ({ label, value, onChange }) => (
         type="text"
         value={value}
         onChange={e => onChange(e.target.value)}
-        className="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all"
+        className="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all"
       />
     </div>
   </Row>
@@ -85,16 +85,16 @@ const Slider = ({ label, value, min, max, step = 1, unit = '', onChange }) => (
 );
 
 const Toggle = ({ label, desc, value, onChange }) => (
-  <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">
+  <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
     <div>
       <p className="font-black text-sm text-slate-700 dark:text-slate-200">{label}</p>
       {desc && <p className="text-[11px] text-slate-400 mt-0.5">{desc}</p>}
     </div>
     <button
       onClick={() => onChange(!value)}
-      className={`relative inline-flex h-7 w-14 items-center rounded-lg transition-colors duration-300 cursor-pointer ${value ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}
+      className={`relative inline-flex h-7 w-14 items-center rounded-xl transition-colors duration-300 cursor-pointer ${value ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}
     >
-      <span className={`inline-block h-5 w-5 transform rounded-lg bg-white shadow-md transition-transform duration-300 ${value ? 'translate-x-8' : 'translate-x-1'}`} />
+      <span className={`inline-block h-5 w-5 transform rounded-xl bg-white shadow-md transition-transform duration-300 ${value ? 'translate-x-8' : 'translate-x-1'}`} />
     </button>
   </div>
 );
@@ -276,10 +276,10 @@ const QrConfigPage = ({ overlayToken, username }) => {
         <div className="xl:col-span-8 space-y-4">
 
           {/* Ukuran & Padding */}
-          <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+          <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
             {/* Header */}
             <div className="flex items-center gap-4">
-                <div className="bg-violet-600 p-3 rounded-lg text-white shadow-lg flex-shrink-0">
+                <div className="bg-violet-600 p-3 rounded-xl text-white shadow-lg flex-shrink-0">
                     <QrCode size={20} />
                     </div>
                     <div>
@@ -297,7 +297,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
           </div>
 
           {/* Warna */}
-          <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+          <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Warna</p>
             <div className='w-full grid gap-3 grid-cols-1 md:grid-cols-2'>
                 <ColorRow label="Warna QR (gelap)" value={cfg.darkColor} onChange={v => upd('darkColor', v)} />
@@ -310,7 +310,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
           </div>
 
              {/* Preset Cepat */}
-          <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800">
+          <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800">
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">Preset Cepat</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
@@ -330,7 +330,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
                     borderColor: p.dark + '60',
                   }))}
                   style={{ background: p.bg, border: `2px solid ${p.dark}40` }}
-                  className="cursor-pointer active:scale-[0.98] py-3 rounded-lg font-black text-xs transition-all"
+                  className="cursor-pointer active:scale-[0.98] py-3 rounded-xl font-black text-xs transition-all"
                 >
                   <span style={{ color: p.dark === '#000000' ? '#fff' : p.dark }}>{p.label}</span>
                 </button>
@@ -339,7 +339,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
           </div>
 
           {/* Opsi Tampilan */}
-            <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-3">
+            <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-3">
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">Opsi Tampilan</p>
             <div className='w-full grid md:grid-cols-2 grid-cols-1 gap-3'>
                 <Toggle label="Bayangan (Box Shadow)" desc="Efek shadow di sekitar card" value={cfg.boxShadow} onChange={v => upd('boxShadow', v)} />
@@ -358,7 +358,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
                         <button
                         key={opt.label}
                         onClick={() => upd('logoSize', opt.value)}
-                        className={`cursor-pointer active:scale-[0.98] py-2.5 rounded-lg font-black text-xs transition-all border-2 ${
+                        className={`cursor-pointer active:scale-[0.98] py-2.5 rounded-xl font-black text-xs transition-all border-2 ${
                             (cfg.logoSize ?? 36) === opt.value
                             ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600'
                             : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
@@ -382,13 +382,13 @@ const QrConfigPage = ({ overlayToken, username }) => {
           <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
             <button
               onClick={handleReset}
-              className="cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-lg font-black text-sm flex items-center justify-center gap-3 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+              className="cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl font-black text-sm flex items-center justify-center gap-3 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
             >
               <RotateCcw size={16} /> Reset ke Default
             </button>
             <button
               onClick={handleSave}
-              className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 md:py-4 bg-blue-600 text-white rounded-lg font-black text-sm flex items-center justify-center gap-3 transition-all"
+              className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 md:py-4 bg-blue-600 text-white rounded-xl font-black text-sm flex items-center justify-center gap-3 transition-all"
             >
               {saved ? <><CheckCircle2 size={18} /> Tersimpan!</> : <><Save size={18} /> Simpan Konfigurasi</>}
             </button>
@@ -398,10 +398,10 @@ const QrConfigPage = ({ overlayToken, username }) => {
         {/* ── Preview ── */}
         <div className="xl:col-span-4 z-[2] self-start relative top-0">
             {/* Live Preview */}
-            <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800">
+            <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800">
               <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-5">Preview Live</p>
               <div
-                className="flex items-center justify-center rounded-lg min-h-[360px]"
+                className="flex items-center justify-center rounded-xl min-h-[360px]"
                 style={{ background: 'repeating-conic-gradient(#e2e8f0 0% 25%, transparent 0% 50%) 0 0 / 20px 20px', }}
               >
                 <QrPreview donateUrl={donateUrl} cfg={cfg} />
@@ -409,13 +409,13 @@ const QrConfigPage = ({ overlayToken, username }) => {
             </div>
 
             {/* URL Widget OBS */}
-            <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg mt-4 p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-3">
+            <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl mt-4 p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-3">
               <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">URL Widget OBS</p>
-              <div className="flex justify-between items-center gap-3 bg-slate-100 dark:bg-slate-800 rounded-lg p-3">
+              <div className="flex justify-between items-center gap-3 bg-slate-100 dark:bg-slate-800 rounded-xl p-3">
                 <p className="flex-1 max-w-[74%] font-mono text-xs text-blue-500 dark:text-blue-400 truncate">{widgetUrl}</p>
                 <button
                   onClick={handleCopy}
-                  className="cursor-pointer active:scale-[0.98] p-2 bg-white dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600 flex-shrink-0 hover:bg-slate-50 dark:hover:bg-slate-600 transition-all"
+                  className="cursor-pointer active:scale-[0.98] p-2 bg-white dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-600 flex-shrink-0 hover:bg-slate-50 dark:hover:bg-slate-600 transition-all"
                 >
                   {copied ? <CheckCircle2 size={15} className="text-green-500" /> : <Copy size={15} />}
                 </button>
@@ -425,7 +425,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
               </p>
               <button
                 onClick={handleDownload}
-                className="cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-900/70 dark:bg-slate-700 text-white rounded-lg font-black text-sm flex items-center justify-center gap-3 hover:brightness-90 transition-all"
+                className="cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl font-black text-sm flex items-center justify-center gap-3 hover:brightness-90 transition-all"
               >
                 <Download size={16} /> Download PNG
               </button>

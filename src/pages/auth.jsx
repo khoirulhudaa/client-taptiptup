@@ -135,7 +135,7 @@ const AuthInput = ({ icon: Icon, type='text', value, onChange, placeholder, T, c
   return (
     <div style={{ position:'relative' }}>
       <div 
-        className='rounded-lg'
+        className='rounded-xl'
         style={{ 
         position:'absolute', left:16, top:'50%', transform:'translateY(-50%)', 
         color: focused ? '#2754FF' : T.iconDefault, transition:'color 0.2s', 
@@ -158,10 +158,10 @@ const AuthInput = ({ icon: Icon, type='text', value, onChange, placeholder, T, c
           color: T.inputText, fontSize:15, fontWeight:600,
           outline:'none', transition:'all 0.2s',
         }}
-        className={`rounded-lg auth-input-field ${className}`}
+        className={`rounded-xl auth-input-field ${className}`}
       />
       {isPassword && (
-        <button className='rounded-lg' type="button" onClick={() => setShowPassword(v => !v)}
+        <button className='rounded-xl' type="button" onClick={() => setShowPassword(v => !v)}
           style={{ 
             position:'absolute', right:16, top:'50%', transform:'translateY(-50%)', 
             background:'none', border:'none', cursor:'pointer', color: T.iconDefault, 

@@ -9,7 +9,7 @@ const CustomToast = ({ toastState }) => {
   const isSuccess = toastState.type === 'success';
   return (
     <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50 animate-[toast-in_0.25s_ease_forwards]">
-      <div className={`flex items-center gap-2.5 px-4 py-2.5 rounded-lg border text-[13px] font-medium whitespace-nowrap
+      <div className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border text-[13px] font-medium whitespace-nowrap
         ${isSuccess
           ? 'bg-emerald-500/10 border-emerald-500/25 text-emerald-400'
           : 'bg-red-500/10 border-red-500/25 text-red-400'
@@ -89,12 +89,12 @@ const MaintenancePage = () => {
 
       <CustomToast toastState={toastState} />
 
-      <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 text-white relative overflow-hidden">
+      <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
           <div className="relative flex items-start justify-between gap-4">
             <div>
                 <div className="flex items-center gap-4">
-                <div className="bg-blue-600 p-3 rounded-lg text-white shadow-lg">
+                <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg">
                     <Cog size={20} />
                 </div>
                 <div>
@@ -107,21 +107,21 @@ const MaintenancePage = () => {
           </div>
       </div>
 
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-100/10 p-4 md:p-5 rounded-lg">
+      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-100/10 p-4 md:p-5 rounded-xl">
         <div className="grid gap-4">
           {pages.map(({ key, label, desc }) => (
-            <div key={key} className="rounded-lg flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+            <div key={key} className="rounded-xl flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
               <div>
                 <p className="text-sm md:text-md font-bold">{label}</p>
                 <p className="text-xs text-slate-500">{desc}</p>
               </div>
               <button
                 onClick={() => toggle(key)}
-                className={`cursor-pointer active:scale-[0.99] hover:brightness-90 relative w-14 h-8 rounded-lg transition-all ${
+                className={`cursor-pointer active:scale-[0.99] hover:brightness-90 relative w-14 h-8 rounded-xl transition-all ${
                   settings[key] ? 'bg-red-500' : 'bg-slate-300 dark:bg-slate-600'
                 }`}
               >
-                <div className={`absolute top-1 w-6 h-6 bg-white rounded-lg shadow transition-all ${settings[key] ? 'translate-x-7' : 'translate-x-1'}`} />
+                <div className={`absolute top-1 w-6 h-6 bg-white rounded-xl shadow transition-all ${settings[key] ? 'translate-x-7' : 'translate-x-1'}`} />
               </button>
             </div>
           ))}
@@ -130,7 +130,7 @@ const MaintenancePage = () => {
         <button
           onClick={saveSettings}
           disabled={saving}
-          className="cursor-pointer active:scale-[0.99] mt-8 w-full py-3 bg-slate-600 text-white font-black  rounded-lg text-sm flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98]"
+          className="cursor-pointer active:scale-[0.99] mt-8 w-full py-3 bg-slate-600 text-white font-black  rounded-xl text-sm flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98]"
         >
           {saving ? <RefreshCw className="animate-spin" /> : <Save size={20} />}
           {saving ? 'Menyimpan...' : 'Simpan Pengaturan Maintenance'}
