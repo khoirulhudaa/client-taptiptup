@@ -527,7 +527,7 @@
                       })}
                   </div>
                   
-                  {renderDonationItem(alert, hl, fg)}
+                  {/* {renderDonationItem(alert, hl, fg)} */}
 
                   {alert.message && (
                     <div style={{
@@ -536,7 +536,7 @@
                       color: 'black',
                       fontWeight: 400,
                       minWidth: 400,
-                      borderRadius: 14,
+                      borderRadius: 12,
                       maxWidth: 500,
                       background: 'white',
                       border: `1px solid ${highlight}25`,
