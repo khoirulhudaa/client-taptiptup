@@ -95,6 +95,7 @@ import OBSConnectPanel from '../components/obsInject';
 import { VideoTutorialSection } from './videoTutorial';
 import DonatePageConfig from './donateConfig';
 import { createPortal } from 'react-dom';
+import QrConfigPage from './qrConfig';
 
 // ─── API ──────────────────────────────────────────────────────────────────────
 const fetchBadges = async () => (await api.get('/api/midtrans/badges')).data;
@@ -3955,6 +3956,7 @@ const handleChangePin = async () => {
     settings:      'Dashboard',
     alertSettings: 'Alert OBS',
     voiceSettings: 'Voice Note',
+    qrConfig: 'Kustom QR Code',
     marquee: 'Marquee Donor',
     mediaSettings: 'Media share',
     donatePageConfig: 'Halaman Donasi',
@@ -4178,6 +4180,12 @@ const handleChangePin = async () => {
             {activeTab === 'maintenance' && (
               <motion.div key="maintenance" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                 <MaintenancePage />
+              </motion.div>
+            )}
+
+            {activeTab === 'qrConfig' && (
+              <motion.div key="qrConfig" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                <QrConfigPage overlayToken={user.overlayToken} username={user.username} />
               </motion.div>
             )}
 
