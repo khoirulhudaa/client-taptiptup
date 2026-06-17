@@ -255,20 +255,6 @@ const QrConfigPage = ({ overlayToken, username }) => {
 
   return (
     <div className="space-y-6 pb-6">
-      {/* Header */}
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-lg p-4 md:p-5 flex items-center gap-4">
-        <div className="bg-violet-600 p-3 rounded-lg text-white shadow-lg flex-shrink-0">
-          <QrCode size={20} />
-        </div>
-        <div>
-          <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
-            Kustom QR Code
-          </h3>
-          <p className="text-[11px] text-slate-400 font-medium mt-0.5 hidden md:block">
-            Sesuaikan tampilan QR Code overlay untuk OBS
-          </p>
-        </div>
-      </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-5">
         {/* ── Controls ── */}
@@ -276,8 +262,18 @@ const QrConfigPage = ({ overlayToken, username }) => {
 
           {/* Ukuran & Padding */}
           <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
-            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Ukuran & Tata Letak</p>
-            <div className='w-full grid grid-cols-1 md:grid-cols-2 gap-3'>
+            {/* Header */}
+            <div className="flex items-center gap-4">
+                <div className="bg-violet-600 p-3 rounded-lg text-white shadow-lg flex-shrink-0">
+                    <QrCode size={20} />
+                    </div>
+                    <div>
+                    <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                        Kustom QR Code
+                    </h3>
+                </div>
+            </div>
+            <div className='w-full grid grid-cols-1 mt-[-1px] md:grid-cols-2 gap-3'>
                 <Slider label="Ukuran QR" value={cfg.size} min={120} max={360} step={4} unit="px" onChange={v => upd('size', v)} />
                 <Slider label="Padding" value={cfg.padding} min={0} max={40} unit="px" onChange={v => upd('padding', v)} />
                 <Slider label="Border Radius" value={cfg.borderRadius} min={0} max={40} unit="px" onChange={v => upd('borderRadius', v)} />
