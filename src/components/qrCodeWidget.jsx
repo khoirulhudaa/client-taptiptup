@@ -1,14 +1,47 @@
 import { useEffect, useCallback, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import QRCode from 'qrcode';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
+const DEFAULT_QR_CONFIG = {
+  darkColor: '#000000',
+  lightColor: '#ffffff',
+  bgColor: 'transparent',
+  padding: 14,
+  borderRadius: 16,
+  borderWidth: 0,
+  borderColor: 'rgba(255,255,255,0.15)',
+  boxShadow: true,
+  showUsername: false,
+  usernameColor: '#ffffff',
+  showLogo: true,
+  logoSize: 36,
+  size: 220,
+};
+
 const QrCodeWidget = () => {
   const { token } = useParams();
-  const [username, setUsername] = useState('');
+  const [searchParams] = useSearchParams();
   const [donateUrl, setDonateUrl] = useState('');
+
+  // Baca config dari URL params, fallback ke default
+  const cfg = {
+    darkColor:    searchParams.get('dark')     || DEFAULT_QR_CONFIG.darkColor,
+    lightColor:   searchParams.get('light')    || DEFAULT_QR_CONFIG.lightColor,
+    bgColor:      searchParams.get('bg')       || DEFAULT_QR_CONFIG.bgColor,
+    padding:      Number(searchParams.get('pad'))  || DEFAULT_QR_CONFIG.padding,
+    borderRadius: Number(searchParams.get('br'))   || DEFAULT_QR_CONFIG.borderRadius,
+    borderWidth:  Number(searchParams.get('bw'))   || DEFAULT_QR_CONFIG.borderWidth,
+    borderColor:  searchParams.get('bc')       || DEFAULT_QR_CONFIG.borderColor,
+    boxShadow:    searchParams.get('shadow')   !== '0',
+    showUsername: searchParams.get('showText') === '1',
+    usernameColor: searchParams.get('textColor') || DEFAULT_QR_CONFIG.usernameColor,
+    showLogo:     searchParams.get('showLogo') !== '0',
+    logoSize:     Number(searchParams.get('logoSize')) || DEFAULT_QR_CONFIG.logoSize,
+    size:         Number(searchParams.get('size'))     || DEFAULT_QR_CONFIG.size,
+  };
 
   useEffect(() => {
     if (!token) return;
@@ -17,7 +50,6 @@ const QrCodeWidget = () => {
     })
       .then(res => {
         const uname = res.data?.username || '';
-        setUsername(uname);
         setDonateUrl(`https://taptiptup.vercel.app/donate/${uname}`);
       })
       .catch(() => console.error('Failed to fetch qrcode data'));
@@ -26,66 +58,61 @@ const QrCodeWidget = () => {
   const canvasCallbackRef = useCallback((node) => {
     if (!node || !donateUrl) return;
     QRCode.toCanvas(node, donateUrl, {
-      width: 220,        // naikan dari 160 → 220
-      margin: 3, 
+      width: cfg.size,
+      margin: 0,
       errorCorrectionLevel: 'M',
-      color: { dark: '#000000', light: '#ffffff' },
+      color: { dark: cfg.darkColor, light: cfg.lightColor },
     });
-  }, [donateUrl]);
+  }, [donateUrl, cfg.darkColor, cfg.lightColor, cfg.size]);
 
   if (!donateUrl) return null;
 
   return (
-    <div style={{
-      display: 'inline-flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      borderRadius: 20,
-      padding: '12px',
-      background: 'transparent',
-      fontFamily: "'Inter', sans-serif",
-    }}>
+    <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', fontFamily: "'Inter', sans-serif" }}>
       <div style={{
-        background: 'rgba(15, 15, 25, 0.9)',
-        padding: '14px',
-        borderRadius: 20,
-        border: '1.5px solid rgba(255,255,255,0.1)',
-        boxShadow: '0 10px 40px rgba(0,0,0,0.4)',
+        background: cfg.bgColor === 'transparent' ? 'rgba(15,15,25,0.85)' : cfg.bgColor,
+        padding: cfg.padding,
+        borderRadius: cfg.borderRadius,
+        border: cfg.borderWidth > 0 ? `${cfg.borderWidth}px solid ${cfg.borderColor}` : 'none',
+        boxShadow: cfg.boxShadow ? '0 10px 40px rgba(0,0,0,0.4)' : 'none',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '12px'
+        gap: 10,
       }}>
         <div style={{
-          position: 'relative',
-          background: '#ffffff',
-          padding: '12px',
+          background: cfg.lightColor,
+          padding: 10,
+          borderRadius: Math.max(0, cfg.borderRadius - 6),
           lineHeight: 0,
-          borderRadius: 16,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          position: 'relative',
         }}>
-          {/* Pakai canvasCallbackRef, bukan canvasRef */}
           <canvas ref={canvasCallbackRef} />
-          <div style={{
-            position: 'absolute',
-            width: '36px',
-            height: '36px',
-            background: 'white',
-            padding: '3px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '2px solid #eee',
-          }}>
-            <img
-              src="/jellyfish.png"
-              alt="Logo"
-              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-            />
-          </div>
+          {cfg.showLogo && (
+            <div style={{
+              position: 'absolute',
+              width: cfg.logoSize,
+              height: cfg.logoSize,
+              background: 'white',
+              padding: 3,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '2px solid #eee',
+              borderRadius: 6,
+            }}>
+              <img src="/jellyfish.png" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            </div>
+          )}
         </div>
+        {cfg.showUsername && (
+          <p style={{ color: cfg.usernameColor, fontSize: 13, fontWeight: 700, letterSpacing: '0.03em', margin: '2px 0 0' }}>
+            Scan untuk donasi
+          </p>
+        )}
       </div>
     </div>
   );

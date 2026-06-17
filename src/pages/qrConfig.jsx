@@ -209,7 +209,22 @@ const QrConfigPage = ({ overlayToken, username }) => {
   const handleReset = () => setCfg(DEFAULT_QR_CONFIG);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(widgetUrl);
+    const params = new URLSearchParams({
+      dark: cfg.darkColor,
+      light: cfg.lightColor,
+      bg: cfg.bgColor,
+      pad: cfg.padding,
+      br: cfg.borderRadius,
+      bw: cfg.borderWidth,
+      bc: cfg.borderColor,
+      shadow: cfg.boxShadow ? '1' : '0',
+      showText: cfg.showUsername ? '1' : '0',
+      textColor: cfg.usernameColor,
+      showLogo: cfg.showLogo ? '1' : '0',
+      logoSize: cfg.logoSize ?? 36,
+      size: cfg.size,
+    });
+    navigator.clipboard.writeText(`${widgetUrl}?${params.toString()}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };

@@ -394,7 +394,7 @@
                         Rp {Number(alert.amount).toLocaleString('id-ID')}
                       </div> */}
                       {renderAmountOrItem(alert, hl, { 
-                        marginLeft: 0,
+                        marginLeft: '-2px',
                         position: 'relative',
                         top: 1,
                         fontFamily: monospace, fontSize: 18, fontWeight: 500, color: hl,
@@ -415,7 +415,7 @@
                     </div>
                   </div>
                   
-                  {renderDonationItem(alert, hl, fg)}
+                  {/* {renderDonationItem(alert, hl, fg)} */}
 
                   {alert.message && (
                     <div style={{
@@ -571,13 +571,6 @@
                     <div style={{ display: 'flex', gap: '6px', justifyContent: 'center', alignItems: 'center', fontSize: 20, fontWeight: 500, color: fg, position: 'relative' }}>
                       {alert.donorName}
                     </div>
-                    <div style={{
-                      width: 40, height: 40, borderRadius: 14,
-                      background: hl + '22', border: `1.5px solid ${hl}40`,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0,
-                    }}>
-                      {renderIcon(customIcon, 20)}
-                    </div>
                   </div>
                 </div>
                 
@@ -586,9 +579,8 @@
                 {/* <div style={{ fontSize: 18, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1 }}>
                   Rp {Number(alert.amount).toLocaleString('id-ID')}
                 </div> */}
-                {renderAmountOrItem(alert, hl, { fontSize: 18, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1 })}
-                
-                {renderDonationItem(alert, hl, fg)}{/* Pesan */}
+                {renderAmountOrItem(alert, hl, { fontSize: 18, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1, marginLeft: '-3px' })}
+              
 
                 {alert.message && (
                   <div style={{
@@ -626,18 +618,16 @@
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
                   {renderAmountOrItem(alert, hl, {
                     fontFamily: monospace, fontSize: 20, fontWeight: 500, color: hl,
-                    textShadow: `0 0 8px ${hl}50`,
+                    textShadow: `0 0 8px ${hl}50`, marginLeft: '-3px'
                   })}
                 </div>
 
                 <div style={{
                   fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg,
-                  marginBottom: 3, borderBottom: `1px solid ${hl}20`, paddingBottom: 5,
+                  marginBottom: 3, borderBottom: `1px solid ${hl}20`, paddingBottom: 5
                 }}>
                   {alert.donorName}
                 </div>
-              
-              {renderDonationItem(alert, hl, fg)}
 
                 {alert.message && (
                   <div style={{
