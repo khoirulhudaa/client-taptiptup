@@ -4161,1464 +4161,1519 @@ const handleChangePin = async () => {
   );
 
   return (
-    <div className="flex min-h-screen bg-[#F8FAFC] dark:bg-slate-950 font-sans pb-0 text-slate-900 dark:text-slate-100">
+    <>
+      <div className="flex min-h-screen bg-[#F8FAFC] dark:bg-slate-950 font-sans pb-0 text-slate-900 dark:text-slate-100">
 
-      <OnboardingTour />
-      {showOverlay && <LoadingOverlay onDone={() => setShowOverlay(false)} />}
+        <OnboardingTour />
+        {showOverlay && <LoadingOverlay onDone={() => setShowOverlay(false)} />}
 
-      {/* <video src="/glass.mp4" className='absolute z-[1]' autoplay={true}></video> */}
-      <img src="/glass.jpg" className='opacity-[10%] fixed top-0 left-0 w-screen h-screen z-[1]' autoPlay={true} alt='glass-img'></img>
-      {/* ── Modal Copy URL ── */}
-      <AnimatePresence>
-        {showCopyModal && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowCopyModal(false)}>
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl md:max-w-sm max-w-md w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
-              <div className="p-4 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 mt-1 md:mt-2 bg-green-100 dark:bg-green-950/40 rounded-xl  flex items-center justify-center">
-                  <CheckCircle2 size={40} className="text-green-600 dark:text-green-400" />
-                </div>
-                <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2">URL Tersalin!</h3>
-                <p className="text-slate-600 dark:text-slate-400 mb-6">Widget <span className="font-bold text-blue-600 dark:text-blue-400">{copiedLabel}</span> berhasil disalin.</p>
-                <button onClick={() => setShowCopyModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-xl  transition-all active:scale-[0.99]">OK, Mengerti</button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ── Modal Follow ── */}
-      <AnimatePresence>
-        {showFollowModal && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowFollowModal(false)}>
-            <motion.div initial={{ scale: 0.88, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.88, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl max-w-sm w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
-              <div className="p-8 text-center">
-                <div className={`w-20 h-20 mx-auto mb-6 rounded-xl  flex items-center justify-center text-5xl ${followAction.type === 'follow' ? 'bg-green-100 dark:bg-green-950/40' : 'bg-orange-100 dark:bg-orange-950/40'}`}>
-                  {followAction.type === 'follow' ? '🤝' : '👋'}
-                </div>
-                <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-1">{followAction.type === 'follow' ? 'Berhasil Follow!' : 'Berhasil Unfollow'}</h3>
-                <p className="text-slate-600 dark:text-slate-400 mb-8">Kamu {followAction.type === 'follow' ? 'sekarang mengikuti' : 'tidak lagi mengikuti'} <span className="font-bold text-blue-600 dark:text-blue-400">@{followAction.username}</span></p>
-                <button onClick={() => setShowFollowModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-xl  transition-all active:scale-[0.99]">OK, Mengerti</button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ── Save Toast ── */}
-      <AnimatePresence>
-        {showToast && (
-          <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} exit={{ y: -50, opacity: 0 }}
-            className="fixed bottom-10 right-11 shadow-2xl z-[100] bg-slate-900/70 text-white px-8 py-3 md:py-4 rounded-xl  flex items-center gap-3 font-bold border border-white/10 backdrop-blur-md">
-            <CheckCircle2 size={18} className="text-green-500" /> Pengaturan Tersimpan!
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ── Donation Toasts ── */}
-      <div className="fixed bottom-6 right-4.5 md:right-11 z-[100] flex flex-col gap-3 max-w-sm w-full">
+        {/* <video src="/glass.mp4" className='absolute z-[1]' autoplay={true}></video> */}
+        <img src="/glass.jpg" className='opacity-[10%] fixed top-0 left-0 w-screen h-screen z-[1]' autoPlay={true} alt='glass-img'></img>
+        {/* ── Modal Copy URL ── */}
         <AnimatePresence>
-          {donationToasts.map(t => (
-            <motion.div key={t.id} initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 100, opacity: 0 }}
-              className="bg-white dark:bg-slate-800 rounded-xl  p-5 shadow-2xl border border-slate-100 dark:border-slate-700 flex items-start gap-4">
-              {t.isWithdrawal
-                ? <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl flex-shrink-0 ${t.status === 'COMPLETED' ? 'bg-green-500' : 'bg-red-500'}`}>{t.status === 'COMPLETED' ? '✓' : '✕'}</div>
-                : <div className="w-12 h-12 bg-blue-600 rounded-xl  flex items-center justify-center flex-shrink-0">{renderIconPreview(settings.customIcon, 24)}</div>
-              }
-              <div className="flex-1 min-w-0">
-                <span className={`text-[10px] font-black uppercase tracking-widest ${t.isWithdrawal ? (t.status === 'COMPLETED' ? 'text-green-600 dark:text-green-400' : 'text-red-500') : 'text-blue-600 dark:text-blue-400'}`}>
-                  {t.isWithdrawal ? (t.status === 'COMPLETED' ? 'Penarikan Berhasil!' : 'Penarikan Gagal') : t.isTestAlert ? '🧪 Test Alert!' : 'Donasi Masuk!'}
-                </span>
-                <p className="text-slate-700 dark:text-slate-200 text-sm font-medium mt-1">{t.message}</p>
-              </div>
-              <button onClick={() => setDonationToasts(prev => prev.filter(x => x.id !== t.id))} className="text-slate-300 dark:text-slate-600 hover:text-slate-500 transition-colors flex-shrink-0 text-lg leading-none">×</button>
+          {showCopyModal && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowCopyModal(false)}>
+              <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl md:max-w-sm max-w-md w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
+                <div className="p-4 text-center">
+                  <div className="w-16 h-16 mx-auto mb-6 mt-1 md:mt-2 bg-green-100 dark:bg-green-950/40 rounded-xl  flex items-center justify-center">
+                    <CheckCircle2 size={40} className="text-green-600 dark:text-green-400" />
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2">URL Tersalin!</h3>
+                  <p className="text-slate-600 dark:text-slate-400 mb-6">Widget <span className="font-bold text-blue-600 dark:text-blue-400">{copiedLabel}</span> berhasil disalin.</p>
+                  <button onClick={() => setShowCopyModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-xl  transition-all active:scale-[0.99]">OK, Mengerti</button>
+                </div>
+              </motion.div>
             </motion.div>
-          ))}
+          )}
         </AnimatePresence>
-      </div>
 
-      {/* ── Mobile Navbar ── */}
-      <div className="lg:hidden fixed top-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 z-50 px-[17px] py-3 md:py-4 flex justify-between items-center">
-        <a href='/'>
-          <div className="flex items-center gap-3">
-            {
-              !isSidebarOpen && (
-                <div className="w-[44px] md:w-10 h-11 md:h-10 p-[6px] bg-blue-500 rounded-xl  flex items-center justify-center"><img src="/logoNew.png" className='relative left-[-0.8px]' alt="icon" /></div>
-              )
-            }
-            {/* <span className="font-black text-lg tracking-tight text-slate-800 dark:text-slate-100">TTT</span> */}
-          </div>
-        </a>
-        <div className="flex items-center gap-3">
-          <button onClick={toggle} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} className="h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-xl  border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
-            {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
-          </button>
-          <button onClick={() => setActiveTab('contact')} aria-label="Bantuan & Kontak" className={`h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-xl border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
-            <HeadphonesIcon size={14} />
-          </button>
-          <button onClick={() => setActiveTab('community')} aria-label="Komunitas Streamer" className="h-[40px] cursor-pointer hover:brightness-90 active:scale-[0.99] relative flex items-center gap-3 px-3 py-3 rounded-xl  font-medium text-md overflow-hidden" style={{ background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)', backgroundSize: '300% 100%', animation: 'rainbowSlide 3s ease-in-out infinite' }}>
-            <Users size={16} className="relative z-10 text-white" />
-          </button>
-          <InboxBell setActiveTab={setActiveTab} />
-          <button onClick={() => setIsSidebarOpen(true)} aria-label="Buka navigasi" className="h-[40px] cursor-pointer active:scale-[0.99] p-2 bg-white dark:bg-slate-800 rounded-xl  text-slate-600 dark:text-slate-400">
-            <Menu size={24} />
-          </button>
+        {/* ── Modal Follow ── */}
+        <AnimatePresence>
+          {showFollowModal && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowFollowModal(false)}>
+              <motion.div initial={{ scale: 0.88, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.88, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl max-w-sm w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
+                <div className="p-8 text-center">
+                  <div className={`w-20 h-20 mx-auto mb-6 rounded-xl  flex items-center justify-center text-5xl ${followAction.type === 'follow' ? 'bg-green-100 dark:bg-green-950/40' : 'bg-orange-100 dark:bg-orange-950/40'}`}>
+                    {followAction.type === 'follow' ? '🤝' : '👋'}
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-1">{followAction.type === 'follow' ? 'Berhasil Follow!' : 'Berhasil Unfollow'}</h3>
+                  <p className="text-slate-600 dark:text-slate-400 mb-8">Kamu {followAction.type === 'follow' ? 'sekarang mengikuti' : 'tidak lagi mengikuti'} <span className="font-bold text-blue-600 dark:text-blue-400">@{followAction.username}</span></p>
+                  <button onClick={() => setShowFollowModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-xl  transition-all active:scale-[0.99]">OK, Mengerti</button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Save Toast ── */}
+        <AnimatePresence>
+          {showToast && (
+            <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} exit={{ y: -50, opacity: 0 }}
+              className="fixed bottom-10 right-11 shadow-2xl z-[100] bg-slate-900/70 text-white px-8 py-3 md:py-4 rounded-xl  flex items-center gap-3 font-bold border border-white/10 backdrop-blur-md">
+              <CheckCircle2 size={18} className="text-green-500" /> Pengaturan Tersimpan!
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Donation Toasts ── */}
+        <div className="fixed bottom-6 right-4.5 md:right-11 z-[100] flex flex-col gap-3 max-w-sm w-full">
+          <AnimatePresence>
+            {donationToasts.map(t => (
+              <motion.div key={t.id} initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 100, opacity: 0 }}
+                className="bg-white dark:bg-slate-800 rounded-xl  p-5 shadow-2xl border border-slate-100 dark:border-slate-700 flex items-start gap-4">
+                {t.isWithdrawal
+                  ? <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl flex-shrink-0 ${t.status === 'COMPLETED' ? 'bg-green-500' : 'bg-red-500'}`}>{t.status === 'COMPLETED' ? '✓' : '✕'}</div>
+                  : <div className="w-12 h-12 bg-blue-600 rounded-xl  flex items-center justify-center flex-shrink-0">{renderIconPreview(settings.customIcon, 24)}</div>
+                }
+                <div className="flex-1 min-w-0">
+                  <span className={`text-[10px] font-black uppercase tracking-widest ${t.isWithdrawal ? (t.status === 'COMPLETED' ? 'text-green-600 dark:text-green-400' : 'text-red-500') : 'text-blue-600 dark:text-blue-400'}`}>
+                    {t.isWithdrawal ? (t.status === 'COMPLETED' ? 'Penarikan Berhasil!' : 'Penarikan Gagal') : t.isTestAlert ? '🧪 Test Alert!' : 'Donasi Masuk!'}
+                  </span>
+                  <p className="text-slate-700 dark:text-slate-200 text-sm font-medium mt-1">{t.message}</p>
+                </div>
+                <button onClick={() => setDonationToasts(prev => prev.filter(x => x.id !== t.id))} className="text-slate-300 dark:text-slate-600 hover:text-slate-500 transition-colors flex-shrink-0 text-lg leading-none">×</button>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
-      </div>
 
-      <Sidebar 
-        isCollapsed={isCollapsed}         // ← tambah ini
-        setIsCollapsed={setIsCollapsed}
-        activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+        {/* ── Mobile Navbar ── */}
+        <div className="lg:hidden fixed top-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 z-50 px-[17px] py-3 md:py-4 flex justify-between items-center">
+          <a href='/'>
+            <div className="flex items-center gap-3">
+              {
+                !isSidebarOpen && (
+                  <div className="w-[44px] md:w-10 h-11 md:h-10 p-[6px] bg-blue-500 rounded-xl  flex items-center justify-center"><img src="/logoNew.png" className='relative left-[-0.8px]' alt="icon" /></div>
+                )
+              }
+              {/* <span className="font-black text-lg tracking-tight text-slate-800 dark:text-slate-100">TTT</span> */}
+            </div>
+          </a>
+          <div className="flex items-center gap-3">
+            <button onClick={toggle} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} className="h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-xl  border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
+              {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+            </button>
+            <button onClick={() => setActiveTab('contact')} aria-label="Bantuan & Kontak" className={`h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-xl border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
+              <HeadphonesIcon size={14} />
+            </button>
+            <button onClick={() => setActiveTab('community')} aria-label="Komunitas Streamer" className="h-[40px] cursor-pointer hover:brightness-90 active:scale-[0.99] relative flex items-center gap-3 px-3 py-3 rounded-xl  font-medium text-md overflow-hidden" style={{ background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)', backgroundSize: '300% 100%', animation: 'rainbowSlide 3s ease-in-out infinite' }}>
+              <Users size={16} className="relative z-10 text-white" />
+            </button>
+            <InboxBell setActiveTab={setActiveTab} />
+            <button onClick={() => setIsSidebarOpen(true)} aria-label="Buka navigasi" className="h-[40px] cursor-pointer active:scale-[0.99] p-2 bg-white dark:bg-slate-800 rounded-xl  text-slate-600 dark:text-slate-400">
+              <Menu size={24} />
+            </button>
+          </div>
+        </div>
 
-      <main className="flex-1 mt-22 md:mt-0 md:w-8xl z-[2] mx-auto w-full relative">
-        <TopNavbar 
+        <Sidebar 
           isCollapsed={isCollapsed}         // ← tambah ini
-          setIsCollapsed={setIsCollapsed} 
-          user={user} navbar={navbar}
-          showBalance={showBalance}
-          onToggleBalance={() => setShowBalance(v => !v)}
-          displayBalance={displayBalance}
-          onLogout={() => { localStorage.removeItem('token'); window.location.href = '/login'; }}
-          onProfile={() => setActiveTab('profile')}
-          activeTab={activeTab} setActiveTab={setActiveTab}
-        />
+          setIsCollapsed={setIsCollapsed}
+          activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
 
-        <div className="relative md:mt-[-14px] px-0 md:px-5 lg:py-11 w-full">
-          <AnimatePresence mode="wait">
+        <main className="flex-1 mt-22 md:mt-0 md:w-8xl z-[2] mx-auto w-full relative">
+          <TopNavbar 
+            isCollapsed={isCollapsed}         // ← tambah ini
+            setIsCollapsed={setIsCollapsed} 
+            user={user} navbar={navbar}
+            showBalance={showBalance}
+            onToggleBalance={() => setShowBalance(v => !v)}
+            displayBalance={displayBalance}
+            onLogout={() => { localStorage.removeItem('token'); window.location.href = '/login'; }}
+            onProfile={() => setActiveTab('profile')}
+            activeTab={activeTab} setActiveTab={setActiveTab}
+          />
 
-            {activeTab === 'maintenance' && (
-              <motion.div key="maintenance" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <MaintenancePage />
-              </motion.div>
-            )}
+          <div className="relative md:mt-[-14px] px-0 md:px-5 lg:pt-11 pb-8 w-full">
+            <AnimatePresence mode="wait">
 
-            {activeTab === 'qrConfig' && (
-              <motion.div key="qrConfig" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <QrConfigPage overlayToken={user.overlayToken} username={user.username} />
-              </motion.div>
-            )}
+              {activeTab === 'maintenance' && (
+                <motion.div key="maintenance" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <MaintenancePage />
+                </motion.div>
+              )}
 
-            {activeTab === 'donatePageConfig' && (
-              <motion.div key="donatePageConfig" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <DonatePageConfig
-                  settings={settings}
-                  upd={upd}
-                  saveSettingsMutation={saveSettingsMutation}
-                  activeSlot={activeSlot}
-                />
-              </motion.div>
-            )}
+              {activeTab === 'qrConfig' && (
+                <motion.div key="qrConfig" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <QrConfigPage overlayToken={user.overlayToken} username={user.username} />
+                </motion.div>
+              )}
 
-            {activeTab === 'marquee' && (
-              <motion.div
-                key="marquee"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <MarqueeConfigPanel overlayToken={user.overlayToken} />
-              </motion.div>
-            )}
+              {activeTab === 'donatePageConfig' && (
+                <motion.div key="donatePageConfig" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <DonatePageConfig
+                    settings={settings}
+                    upd={upd}
+                    saveSettingsMutation={saveSettingsMutation}
+                    activeSlot={activeSlot}
+                  />
+                </motion.div>
+              )}
 
-            {activeTab === 'streamerManager' && isEffectiveAdmin && (
-              <motion.div
-                key="streamerManager"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <StreamerManagerPage />
-              </motion.div>
-            )}
+              {activeTab === 'marquee' && (
+                <motion.div
+                  key="marquee"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <MarqueeConfigPanel overlayToken={user.overlayToken} />
+                </motion.div>
+              )}
 
-            {activeTab === 'terminal' && isEffectiveAdmin && (
-              <motion.div key="terminal" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <DonationTerminal />
-              </motion.div>
-            )}
+              {activeTab === 'streamerManager' && isEffectiveAdmin && (
+                <motion.div
+                  key="streamerManager"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <StreamerManagerPage />
+                </motion.div>
+              )}
 
-            {activeTab === 'voiceSettings' && (
-              <motion.div
-                key="voiceSettings"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="space-y-6 pb-0 w-full"
-              >
-                <VoiceSettingsPage
-                  user={user}
-                  onCopyUrl={(url, label) => {
-                    setCopiedUrl(url);
-                    setCopiedLabel(label);
-                    setShowCopyModal(true);
-                  }}
-                />
-              </motion.div>
-            )}
+              {activeTab === 'terminal' && isEffectiveAdmin && (
+                <motion.div key="terminal" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <DonationTerminal />
+                </motion.div>
+              )}
 
-            {/* ══════════════════════ COMMUNITY ══════════════════════ */}
-            {activeTab === 'community' && (
-              <motion.div key="community" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <CommunityPage currentUserId={profileData?.user?._id || profileData?.User?._id} onFollowAction={handleFollowAction} />
-              </motion.div>
-            )}
+              {activeTab === 'voiceSettings' && (
+                <motion.div
+                  key="voiceSettings"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="space-y-6 pb-0 w-full"
+                >
+                  <VoiceSettingsPage
+                    user={user}
+                    onCopyUrl={(url, label) => {
+                      setCopiedUrl(url);
+                      setCopiedLabel(label);
+                      setShowCopyModal(true);
+                    }}
+                  />
+                </motion.div>
+              )}
 
-            {activeTab === 'store' && (
-              <motion.div key="store" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <StoreManager overlayToken={user.overlayToken} />
-              </motion.div>
-            )}
+              {/* ══════════════════════ COMMUNITY ══════════════════════ */}
+              {activeTab === 'community' && (
+                <motion.div key="community" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <CommunityPage currentUserId={profileData?.user?._id || profileData?.User?._id} onFollowAction={handleFollowAction} />
+                </motion.div>
+              )}
 
-            {activeTab === 'suggestions' && isEffectiveAdmin && (
-              <SuggestionsAdmin />
-            )}
+              {activeTab === 'store' && (
+                <motion.div key="store" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <StoreManager overlayToken={user.overlayToken} />
+                </motion.div>
+              )}
 
-            {activeTab === 'whatsapp' && (
-              <motion.div key="whatsapp" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <WhatsAppPage />
-              </motion.div>
-            )}
+              {activeTab === 'suggestions' && isEffectiveAdmin && (
+                <SuggestionsAdmin />
+              )}
 
-            {activeTab === 'settings' && isEffectiveAdmin && (
-              <motion.div key="superDashboard" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <DashboardSuperPage />
-              </motion.div>
-            )}
+              {activeTab === 'whatsapp' && (
+                <motion.div key="whatsapp" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <WhatsAppPage />
+                </motion.div>
+              )}
 
-            {activeTab === 'inbox' && (
-              <motion.div key="inbox" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <InboxPage />
-              </motion.div>
-            )}
-            
-            {activeTab === 'announcements' && isEffectiveAdmin && ( 
-              <motion.div key="announcements" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <AdminAnnouncementsPage />
-              </motion.div>
-            )}
+              {activeTab === 'settings' && isEffectiveAdmin && (
+                <motion.div key="superDashboard" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <DashboardSuperPage />
+                </motion.div>
+              )}
 
-            {/* ══════════════════════ SETTINGS (Editor Overlay) ══════════════════════ */}
-            {activeTab === 'settings' && !isEffectiveAdmin && (
-              <div
-                key="settings"
-                className="grid grid-cols-1 gap-5 xl:grid-cols-12"
-              >
-               <section className={`space-y-6 ${showPreviewPanel ? 'xl:col-span-7' : 'xl:col-span-12'}`}>
-                  {/* Konfigurasi Alert */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
-                    <div className="flex items-center justify-between gap-3">
-                      <SectionHeader icon={<Settings size={20} />} title="Konfigurasi Utama" color="bg-blue-500" />
-                     
-                      {
-                        !showPreviewPanel && (
+              {activeTab === 'inbox' && (
+                <motion.div key="inbox" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <InboxPage />
+                </motion.div>
+              )}
+              
+              {activeTab === 'announcements' && isEffectiveAdmin && ( 
+                <motion.div key="announcements" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <AdminAnnouncementsPage />
+                </motion.div>
+              )}
+
+              {/* ══════════════════════ SETTINGS (Editor Overlay) ══════════════════════ */}
+              {activeTab === 'settings' && !isEffectiveAdmin && (
+                <div
+                  key="settings"
+                  className="grid grid-cols-1 gap-5 xl:grid-cols-12"
+                >
+                <section className={`space-y-6 ${showPreviewPanel ? 'xl:col-span-7' : 'xl:col-span-12'}`}>
+                    {/* Konfigurasi Alert */}
+                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+                      <div className="flex items-center justify-between gap-3">
+                        <SectionHeader icon={<Settings size={20} />} title="Konfigurasi Utama" color="bg-blue-500" />
+                      
+                        {
+                          !showPreviewPanel && (
+                            <button
+                              onClick={() => setShowPreviewPanel(v => !v)}
+                              title="Sembunyikan / Tampilkan Preview"
+                              className="cursor-pointer active:scale-[0.99] flex items-center justify-center p-3 rounded-xl text-white shadow-lg rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
+                            >
+                              <Monitor size={18} />
+                            </button>
+                          )
+                        }
+                      </div>
+                      <div className="md:flex mt-5.5 space-y-3 md:space-y-0 items-center gap-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-500">
+                        {['A', 'B'].map((slot) => (
                           <button
-                            onClick={() => setShowPreviewPanel(v => !v)}
-                            title="Sembunyikan / Tampilkan Preview"
-                            className="cursor-pointer active:scale-[0.99] flex items-center justify-center p-3 rounded-xl text-white shadow-lg rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
-                          >
-                            <Monitor size={18} />
-                          </button>
-                        )
-                      }
-                    </div>
-                    <div className="md:flex mt-5.5 space-y-3 md:space-y-0 items-center gap-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-500">
-                      {['A', 'B'].map((slot) => (
-                        <button
-                          key={slot}
-                          onClick={() => {
-                            const newSlot = slot;
-                            setActiveSlot(newSlot);
-                            setObsActiveSlot(newSlot);
+                            key={slot}
+                            onClick={() => {
+                              const newSlot = slot;
+                              setActiveSlot(newSlot);
+                              setObsActiveSlot(newSlot);
 
-                            saveSettingsMutation.mutate({ 
-                              settings: { activeSlot: newSlot }, 
-                              slot: newSlot 
-                            });
-                          }}
-                          className={`w-full flex-1 flex items-center justify-between px-[14px] py-2.5 cursor-pointer rounded-sm font-black text-sm transition-all duration-200 active:scale-[0.99] relative overflow-hidden group ${
-                            activeSlot === slot 
-                              ? 'bg-blue-600 text-white' 
-                              : 'dark:bg-slate-700 hover:bg-slate-600 bg-white text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
-                          }`}
-                        >
-                          {/* Background Glow Effect */}
-                          {activeSlot === slot && (
-                            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-30" />
-                          )}
-
-                          <div className="flex items-center gap-2.5">
-                            <div className={`w-6 h-6 flex items-center justify-center rounded border transition-all ${
+                              saveSettingsMutation.mutate({ 
+                                settings: { activeSlot: newSlot }, 
+                                slot: newSlot 
+                              });
+                            }}
+                            className={`w-full flex-1 flex items-center justify-between px-[14px] py-2.5 cursor-pointer rounded-sm font-black text-sm transition-all duration-200 active:scale-[0.99] relative overflow-hidden group ${
                               activeSlot === slot 
-                                ? 'border-white/50 bg-white/20' 
-                                : 'border-slate-300 dark:border-slate-600'
+                                ? 'bg-blue-600 text-white' 
+                                : 'dark:bg-slate-700 hover:bg-slate-600 bg-white text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                            }`}
+                          >
+                            {/* Background Glow Effect */}
+                            {activeSlot === slot && (
+                              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-30" />
+                            )}
+
+                            <div className="flex items-center gap-2.5">
+                              <div className={`w-6 h-6 flex items-center justify-center rounded border transition-all ${
+                                activeSlot === slot 
+                                  ? 'border-white/50 bg-white/20' 
+                                  : 'border-slate-300 dark:border-slate-600'
+                              }`}>
+                                <span className="text-xs font-black tracking-widest">{slot}</span>
+                              </div>
+                              <div>
+                                <p className="text-sm md:text-md -mt-0.5">Overlay</p>
+                              </div>
+                            </div>
+
+                            {/* Status Badge */}
+                            <div className={`px-3 py-1 text-[10px] font-black rounded-xl  transition-all ${
+                              activeSlot === slot 
+                                ? 'bg-emerald-500 text-white shadow-inner' 
+                                : 'bg-slate-200 dark:bg-slate-500/30 text-slate-500 dark:text-slate-400 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30'
                             }`}>
-                              <span className="text-xs font-black tracking-widest">{slot}</span>
+                              {activeSlot === slot ? 'AKTIF' : 'TIDAK AKTIF'}
                             </div>
-                            <div>
-                              <p className="text-sm md:text-md -mt-0.5">Overlay</p>
-                            </div>
-                          </div>
 
-                          {/* Status Badge */}
-                          <div className={`px-3 py-1 text-[10px] font-black rounded-xl  transition-all ${
-                            activeSlot === slot 
-                              ? 'bg-emerald-500 text-white shadow-inner' 
-                              : 'bg-slate-200 dark:bg-slate-500/30 text-slate-500 dark:text-slate-400 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30'
-                          }`}>
-                            {activeSlot === slot ? 'AKTIF' : 'TIDAK AKTIF'}
-                          </div>
+                            {/* Subtle indicator */}
+                            {activeSlot === slot && (
+                              <div className="absolute -bottom-px left-1/2 -translate-x-1/2 w-8 h-0.5 bg-white rounded-full" />
+                            )}
+                          </button>
+                        ))}
+                      </div>
 
-                          {/* Subtle indicator */}
-                          {activeSlot === slot && (
-                            <div className="absolute -bottom-px left-1/2 -translate-x-1/2 w-8 h-0.5 bg-white rounded-full" />
-                          )}
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="mt-2.5 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
-                      <button
-                        onClick={() => setShowVideoTutorial(v => !v)}
-                        className="cursor-pointer w-full flex items-center justify-between px-5 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
-                      >
-                        <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
-                        Tutorial Video
-                        </span>
-                        <div className='w-6 h-6 border p-[1.4px] hover:bg-blue-600 border-slate-600 rounded-md'>
-                          <ChevronDown
-                            size={20}
-                            className={`text-white transition-transform duration-200 ${showVideoTutorial ? 'rotate-180' : ''}`}
-                          />
-                        </div>
-                      </button>
-                      {showVideoTutorial && (
-                        <div className="border-t border-slate-200 dark:border-slate-700 p-4">
-                          <VideoTutorialSection />
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="mt-2.5 space-y-2.5">
-                      <div className="mb-2.5 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+                      <div className="mt-2.5 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
                         <button
-                          onClick={() => setShowOBSConnect(v => !v)}
+                          onClick={() => setShowVideoTutorial(v => !v)}
                           className="cursor-pointer w-full flex items-center justify-between px-5 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
                         >
                           <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
-                          OBS Auto-connection 
+                          Tutorial Video
                           </span>
-                          <div className='w-6 h-6 border p-[1.4px] group hover:bg-blue-600 hover:text-white border-slate-600 rounded-md'>
+                          <div className='w-6 h-6 border p-[1.4px] hover:bg-blue-600 border-slate-600 rounded-md'>
                             <ChevronDown
                               size={20}
-                              className={`text-white transition-transform duration-200 ${showOBSConnect ? 'rotate-180' : ''}`}
+                              className={`text-white transition-transform duration-200 ${showVideoTutorial ? 'rotate-180' : ''}`}
                             />
                           </div>
                         </button>
-                        {showOBSConnect && (
-                          <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
-                            <OBSConnectPanel overlayToken={user.overlayToken} />
+                        {showVideoTutorial && (
+                          <div className="border-t border-slate-200 dark:border-slate-700 p-4">
+                            <VideoTutorialSection />
                           </div>
                         )}
                       </div>
-                        
-                      <div className='w-full md:flex space-y-2.5 md:space-y-0 items-center gap-2.5'>
-                        {[  
-                          { key: 'overlayEnabled', label: 'Overlay OBS',  desc: 'Alert tidak muncul di OBS' },
-                          { key: 'showTimestamp',  label: 'Waktu Donasi',  desc: 'Waktu kapan donasi diterima' },
-                        ].map(({ key, label, desc }) => (
-                          <div key={key} className="w-full flex items-center justify-between p-4 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-100 dark:border-slate-700">
-                            <div>
-                              <p className="font-black text-slate-700 dark:text-slate-200 text-sm">{label}</p>
-                              <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{desc}</p>
+
+                      <div className="mt-2.5 space-y-2.5">
+                        <div className="mb-2.5 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+                          <button
+                            onClick={() => setShowOBSConnect(v => !v)}
+                            className="cursor-pointer w-full flex items-center justify-between px-5 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
+                          >
+                            <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
+                            OBS Auto-connection 
+                            </span>
+                            <div className='w-6 h-6 border p-[1.4px] group hover:bg-blue-600 hover:text-white border-slate-600 rounded-md'>
+                              <ChevronDown
+                                size={20}
+                                className={`text-white transition-transform duration-200 ${showOBSConnect ? 'rotate-180' : ''}`}
+                              />
                             </div>
-                            <button onClick={() => upd(key, !settings[key])}
-                              className={`relative inline-flex h-7 w-14 items-center rounded-xl transition-colors duration-300 cursor-pointer focus:outline-none ${settings[key] ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
-                              <span className={`inline-block h-5 w-5 transform rounded-xl bg-white shadow-md transition-transform duration-300 ${settings[key] ? 'translate-x-8' : 'translate-x-1'}`} />
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Icon Alert */}
-                        <div className="space-y-3 mt-4.5">
-                          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Icon Alert</label>
-                          
-                          {/* Mode selector */}
-                          <div className="flex gap-3">
-                            {[{ id: 'emoji', label: '😊 Emoji' }, { id: 'gif', label: '🎬 GIF / URL' }].map(m => (
-                              <button key={m.id}
-                                onClick={() => {
-                                  if (m.id === 'emoji') upd('customIcon', '');
-                                  setIconMode(m.id);
-                                }}
-                                className={`cursor-pointer active:scale-[0.99] px-4 py-2 rounded-xl font-black text-xs transition-all ${
-                                  iconMode === m.id
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
-                                }`}>
-                                {m.label}
-                              </button>
-                            ))}
-                          </div>
-
-                          {iconMode === 'emoji' ? (
-                            <div className="grid grid-cols-4 md:grid-cols-6 gap-2.5">
-                              {ICON_PRESETS.map(({ emoji, label }) => (
-                                <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
-                                  className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
-                                    (settings.customIcon || '❤️') === emoji || (!settings.customIcon && emoji === '❤️')
-                                      ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40'
-                                      : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
-                                  }`}>
-                                  <span>{emoji}</span>
-                                  <span className="text-[8px] font-black text-slate-400 leading-none">{label}</span>
-                                </button>
-                              ))}
-                            </div>
-                          ) : (
-                            <div className="space-y-3">
-                              <div className="flex gap-3 items-center">
-                                <input
-                                  type="url"
-                                  value={settings.customIcon?.startsWith('http') ? settings.customIcon : ''}
-                                  onChange={e => upd('customIcon', e.target.value)}
-                                  placeholder="https://media.giphy.com/media/xxxx/giphy.gif"
-                                  className="flex-1 p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
-                                />
-                                {settings.customIcon?.startsWith('http') && (
-                                  <div className="w-12 h-12 flex-shrink-0 border-2 border-slate-200 dark:border-slate-700 rounded-xl  overflow-hidden bg-slate-900 flex items-center justify-center">
-                                    <img src={settings.customIcon} alt="preview" className="w-full h-full object-contain" />
-                                  </div>
-                                )}
-                              </div>
-
-                              {/* Giphy reference */}
-                              <div className="flex items-center gap-3 p-3 bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 rounded-xl">
-                                <span className="text-lg flex-shrink-0">🎬</span>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-[11px] md:text-[10px] font-black text-pink-700 dark:text-pink-400 uppercase tracking-wider md:mb-0.5">Cari GIF di Giphy</p>
-                                  <p className="text-[10px] text-pink-500 dark:text-pink-500 md:flex hidden font-medium">
-                                    Buka Giphy → klik GIF → Share → Copy GIF Link → paste di atas
-                                  </p>
-                                </div>
-                                <a href="https://giphy.com/search/terima-kasih" target="_blank" rel="noopener noreferrer"
-                                  className="flex-shrink-0 px-3 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-xl  text-[10px] font-black transition-all active:scale-[0.99]">
-                                  Buka Giphy →
-                                </a>
-                              </div>
+                          </button>
+                          {showOBSConnect && (
+                            <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+                              <OBSConnectPanel overlayToken={user.overlayToken} />
                             </div>
                           )}
                         </div>
-                    </div>
+                          
+                        <div className='w-full md:flex space-y-2.5 md:space-y-0 items-center gap-2.5'>
+                          {[  
+                            { key: 'overlayEnabled', label: 'Overlay OBS',  desc: 'Alert tidak muncul di OBS' },
+                            { key: 'showTimestamp',  label: 'Waktu Donasi',  desc: 'Waktu kapan donasi diterima' },
+                          ].map(({ key, label, desc }) => (
+                            <div key={key} className="w-full flex items-center justify-between p-4 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-100 dark:border-slate-700">
+                              <div>
+                                <p className="font-black text-slate-700 dark:text-slate-200 text-sm">{label}</p>
+                                <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{desc}</p>
+                              </div>
+                              <button onClick={() => upd(key, !settings[key])}
+                                className={`relative inline-flex h-7 w-14 items-center rounded-xl transition-colors duration-300 cursor-pointer focus:outline-none ${settings[key] ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
+                                <span className={`inline-block h-5 w-5 transform rounded-xl bg-white shadow-md transition-transform duration-300 ${settings[key] ? 'translate-x-8' : 'translate-x-1'}`} />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-1 md:space-y-2 mt-4.5">
-                      <InputField label="Minimal Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
-                      <InputField label="Maksimal Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
-                      
-                      <section
-                        key="preview-panel"
-                        className="xl:col-span-5 mt-2.5 z-[2] py-0 h-max relative mb-2.5 block md:hidden"
-                      >
-                        <motion.div 
-                          animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
-                          transition={{ duration: 0.2 }}
+                        {/* Icon Alert */}
+                          <div className="space-y-3 mt-4.5">
+                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Icon Alert</label>
+                            
+                            {/* Mode selector */}
+                            <div className="flex gap-3">
+                              {[{ id: 'emoji', label: '😊 Emoji' }, { id: 'gif', label: '🎬 GIF / URL' }].map(m => (
+                                <button key={m.id}
+                                  onClick={() => {
+                                    if (m.id === 'emoji') upd('customIcon', '');
+                                    setIconMode(m.id);
+                                  }}
+                                  className={`cursor-pointer active:scale-[0.99] px-4 py-2 rounded-xl font-black text-xs transition-all ${
+                                    iconMode === m.id
+                                      ? 'bg-blue-600 text-white'
+                                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                  }`}>
+                                  {m.label}
+                                </button>
+                              ))}
+                            </div>
+
+                            {iconMode === 'emoji' ? (
+                              <div className="grid grid-cols-4 md:grid-cols-6 gap-2.5">
+                                {ICON_PRESETS.map(({ emoji, label }) => (
+                                  <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
+                                    className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
+                                      (settings.customIcon || '❤️') === emoji || (!settings.customIcon && emoji === '❤️')
+                                        ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40'
+                                        : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
+                                    }`}>
+                                    <span>{emoji}</span>
+                                    <span className="text-[8px] font-black text-slate-400 leading-none">{label}</span>
+                                  </button>
+                                ))}
+                              </div>
+                            ) : (
+                              <div className="space-y-3">
+                                <div className="flex gap-3 items-center">
+                                  <input
+                                    type="url"
+                                    value={settings.customIcon?.startsWith('http') ? settings.customIcon : ''}
+                                    onChange={e => upd('customIcon', e.target.value)}
+                                    placeholder="https://media.giphy.com/media/xxxx/giphy.gif"
+                                    className="flex-1 p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
+                                  />
+                                  {settings.customIcon?.startsWith('http') && (
+                                    <div className="w-12 h-12 flex-shrink-0 border-2 border-slate-200 dark:border-slate-700 rounded-xl  overflow-hidden bg-slate-900 flex items-center justify-center">
+                                      <img src={settings.customIcon} alt="preview" className="w-full h-full object-contain" />
+                                    </div>
+                                  )}
+                                </div>
+
+                                {/* Giphy reference */}
+                                <div className="flex items-center gap-3 p-3 bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 rounded-xl">
+                                  <span className="text-lg flex-shrink-0">🎬</span>
+                                  <div className="flex-1 min-w-0">
+                                    <p className="text-[11px] md:text-[10px] font-black text-pink-700 dark:text-pink-400 uppercase tracking-wider md:mb-0.5">Cari GIF di Giphy</p>
+                                    <p className="text-[10px] text-pink-500 dark:text-pink-500 md:flex hidden font-medium">
+                                      Buka Giphy → klik GIF → Share → Copy GIF Link → paste di atas
+                                    </p>
+                                  </div>
+                                  <a href="https://giphy.com/search/terima-kasih" target="_blank" rel="noopener noreferrer"
+                                    className="flex-shrink-0 px-3 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-xl  text-[10px] font-black transition-all active:scale-[0.99]">
+                                    Buka Giphy →
+                                  </a>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-1 md:space-y-2 mt-4.5">
+                        <InputField label="Minimal Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
+                        <InputField label="Maksimal Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
+                        
+                        <section
+                          key="preview-panel"
+                          className="xl:col-span-5 mt-2.5 z-[2] py-0 h-max relative mb-2.5 block md:hidden"
                         >
+                          <motion.div 
+                            animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
+                            transition={{ duration: 0.2 }}
+                          >
 
-                        <YouTubeLivePreview2
-                          settings={settings}
-                          username={user.username}
-                          testFullScreen={() => setNavbar(!navbar)}
-                          onPreviewModeChange={setPreviewMode}
-                          autoPreviewTick={autoPreviewTick}
-                          onTogglePreview={() => setShowPreviewPanel(v => !v)}
-                        />
+                          <YouTubeLivePreview2
+                            settings={settings}
+                            username={user.username}
+                            testFullScreen={() => setNavbar(!navbar)}
+                            onPreviewModeChange={setPreviewMode}
+                            autoPreviewTick={autoPreviewTick}
+                            onTogglePreview={() => setShowPreviewPanel(v => !v)}
+                          />
 
-                        </motion.div>
-                      </section>
+                          </motion.div>
+                        </section>
 
-                      <div className="md:col-span-2">
-                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label>
-                        <div className="grid grid-cols-2 gap-3">
-                        {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
-                          const themeLabels = {
-                            modern:  'Taptip 1',
-                            minimal: 'Taptip 2',
-                            smooth:  'Taptip 3',
-                            gifCard: 'Pop Card',
-                          };
+                        <div className="md:col-span-2">
+                          <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label>
+                          <div className="grid grid-cols-2 gap-3">
+                          {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
+                            const themeLabels = {
+                              modern:  'Taptip 1',
+                              minimal: 'Taptip 2',
+                              smooth:  'Taptip 3',
+                              gifCard: 'Pop Card',
+                            };
 
-                          return (
-                            <button key={t} onClick={() => upd('theme', t)}
-                              className={`cursor-pointer active:scale-[0.99] py-3 md:py-4 text-left pl-3 rounded-xl border-2 transition-all font-black text-sm capitalize ${
-                                settings.theme === t
-                                  ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
-                                  : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
-                              }`}>
-                              {themeLabels[t] || t}
-                            </button>
-                          );
-                        })}
+                            return (
+                              <button key={t} onClick={() => upd('theme', t)}
+                                className={`cursor-pointer active:scale-[0.99] py-3 md:py-4 text-left pl-3 rounded-xl border-2 transition-all font-black text-sm capitalize ${
+                                  settings.theme === t
+                                    ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
+                                    : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
+                                }`}>
+                                {themeLabels[t] || t}
+                              </button>
+                            );
+                          })}
+                          </div>
+                        </div>
+                        <div className="md:col-span-2 w-full flex flex-col gap-3">
+                          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label>
+                          <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
+                            className="w-full px-2 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
+                            <option value="bounce">Bounce</option><option value="slide-left">Slide Kiri</option>
+                            <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
+                          </select>
                         </div>
                       </div>
-                      <div className="md:col-span-2 w-full flex flex-col gap-3">
-                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label>
-                        <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
-                          className="w-full px-2 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
-                          <option value="bounce">Bounce</option><option value="slide-left">Slide Kiri</option>
-                          <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
-                        </select>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
+                      {[
+                        { key: 'primaryColor',   label: 'Background Alert',  fallback: '#2e2f42' },
+                        { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#ffffff' },
+                        { key: 'textColor',      label: 'Warna Teks',        fallback: '#ffffff' },
+                      ].map(({ key, label, fallback }) => (
+                        <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
+                      ))}
+                      <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
+                      {/* TAMBAH INI: */}
+                      <ColorInput id="color-progressBarColor" label="Warna Progress Bar" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
+                    </div>
+                      <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
+                        <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
+                      </button>
+                    </div>
+                    {/* Preset Warna Siap Pakai */}
+                    <div className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6">
+                      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
+                        Preset Warna Siap Pakai
+                      </label>
+                      <div className="grid grid-cols-3 md:grid-cols-3 gap-3">
+                        {ALERT_PRESETS.map(preset => (
+                          <button
+                            key={preset.id}
+                            onClick={() => {
+                              upd('primaryColor',   preset.primaryColor);
+                              upd('highlightColor', preset.highlightColor);
+                              upd('textColor',      preset.textColor);
+                              upd('borderColor',    preset.borderColor);
+                            }}
+                            className="cursor-pointer active:scale-[0.99] py-3 px-2 rounded-xl  border-2 transition-all text-center md:text-left"
+                            style={{
+                              borderColor: preset.highlightColor + '60',
+                              background: preset.primaryColor,
+                            }}
+                          >
+                            <div className='uppercase text-[12px] md:text-[13px] relative top-[1.2px] md:text-center' style={{ color: preset.highlightColor, fontFamily: "'Inter', sans-serif", fontWeight: 600, marginBottom: 2 }}>
+                              {preset.name}
+                            </div>
+                          </button>
+                        ))}
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
-                    {[
-                      { key: 'primaryColor',   label: 'Background Alert',  fallback: '#2e2f42' },
-                      { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#ffffff' },
-                      { key: 'textColor',      label: 'Warna Teks',        fallback: '#ffffff' },
-                    ].map(({ key, label, fallback }) => (
-                      <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
-                    ))}
-                    <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
-                    {/* TAMBAH INI: */}
-                    <ColorInput id="color-progressBarColor" label="Warna Progress Bar" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
-                  </div>
-                    <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                      className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
-                      <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
-                    </button>
-                  </div>
-                  {/* Preset Warna Siap Pakai */}
-                  <div className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6">
-                    <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
-                      Preset Warna Siap Pakai
-                    </label>
-                    <div className="grid grid-cols-3 md:grid-cols-3 gap-3">
-                      {ALERT_PRESETS.map(preset => (
-                        <button
-                          key={preset.id}
-                          onClick={() => {
-                            upd('primaryColor',   preset.primaryColor);
-                            upd('highlightColor', preset.highlightColor);
-                            upd('textColor',      preset.textColor);
-                            upd('borderColor',    preset.borderColor);
-                          }}
-                          className="cursor-pointer active:scale-[0.99] py-3 px-2 rounded-xl  border-2 transition-all text-center md:text-left"
-                          style={{
-                            borderColor: preset.highlightColor + '60',
-                            background: preset.primaryColor,
-                          }}
-                        >
-                          <div className='uppercase text-[12px] md:text-[13px] relative top-[1.2px] md:text-center' style={{ color: preset.highlightColor, fontFamily: "'Inter', sans-serif", fontWeight: 600, marginBottom: 2 }}>
-                            {preset.name}
+                    {/* Quick Nominal */}
+                    <QuickAmountsEditor amounts={settings.quickAmounts || DEFAULT_SETTINGS.quickAmounts} onChange={v => upd('quickAmounts', v)} saveSettingsMutation={saveSettingsMutation} settings={settings} activeSlot={activeSlot} />
+
+                    <DonationItemsEditor
+                      items={settings.donationItems || []}
+                      onChange={v => upd('donationItems', v)}
+                      saveSettingsMutation={saveSettingsMutation}
+                      settings={settings}
+                      activeSlot={activeSlot}
+                    />
+
+                    {/* OBS URLs */}
+                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 md:pb-2.5 shadow-xs border border-slate-100 dark:border-slate-800">
+                      <div className='mb-5'>
+                        <SectionHeader icon={<Monitor size={20} />} title={`URL Overlay`} color="bg-blue-500" />
+                      </div>
+                      <div className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-3 py-4 rounded-xl  border border-slate-100/10 mb-3">
+                        <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">💝</div>
+                        <div className='flex-1 min-w-0'>
+                          <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-full uppercase tracking-widest">MY DONATE URL</label>
+                          <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="w-[86%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden truncate" />
+                        </div>
+                        <div className="flex gap-3">
+                          <button onClick={() => copyToClipboard(`https://taptiptup.vercel.app/donate/${user.username}`)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-xl transition-all flex-shrink-0">
+                              <Copy size={15} />
+                            </button>
+                        </div>
+                      </div>
+                      {[
+                        { label: 'URL ALERT - ALL SLOT', emoji: '🔔', url: user.overlayUrl },
+                        { label: 'URL MEDIASHARE - OBS',      emoji: '🎬', url: `${window.location.origin}/overlay/${user.overlayToken}/mediashare` },
+                        { label: 'URL VOICE NOTE - OBS',      emoji: '🎙️', url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
+                        { label: 'URL COMBINED', emoji: '🧩', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
+                      ].map(({ label, emoji, url }) => (
+                        <div key={label} className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-xl  border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
+                          <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
+                          <div className='flex-1 min-w-0 relative top-[3px]'>
+                            <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-fulll uppercase tracking-widest">{label}</label>
+                            <input readOnly value={url} aria-label={`URL ${label}`} className="w-[90%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
                           </div>
-                        </button>
+                          <div className="flex gap-3">
+                            <button onClick={() => copyToClipboard(url)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-xl  transition-all flex-shrink-0">
+                              <Copy size={15} />
+                            </button>
+                          </div>
+                        </div>
                       ))}
                     </div>
-                  </div>
 
-                  {/* Quick Nominal */}
-                  <QuickAmountsEditor amounts={settings.quickAmounts || DEFAULT_SETTINGS.quickAmounts} onChange={v => upd('quickAmounts', v)} saveSettingsMutation={saveSettingsMutation} settings={settings} activeSlot={activeSlot} />
+                    {/* GANTI OVERLAY TOKEN */}
+                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                      <SectionHeader icon={<RefreshCw size={18} />} title="Ganti Overlay Token" color="bg-violet-500" />
+                    
+                      <div className="space-y-3">
+                        {/* Info box: URL saat ini */}
+                        <div className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-200 dark:border-slate-700">
+                          <div className="w-9 h-9 flex-shrink-0 rounded-xl  bg-violet-100 dark:bg-slate-500/30 flex items-center justify-center">
+                            <Link2 size={17} className="text-white relative left-[-0.2px]" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-0.5">Token Aktif</p>
+                            <p className="font-mono text-sm text-slate-700 dark:text-slate-200 font-bold truncate">
+                              {user.overlayToken || '—'}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => copyToClipboard(user.overlayToken, 'Overlay Token')}
+                            className="cursor-pointer p-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl  transition-all flex-shrink-0"
+                          >
+                            <Copy size={14} />
+                          </button>
+                        </div>
+                    
+                        {/* State: sukses */}
+                        <AnimatePresence mode="wait">
+                          {tokenStep === 'success' && (
+                            <motion.div
+                              key="token-success"
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0 }}
+                              className="flex flex-col items-center gap-3 py-6 bg-green-50 dark:bg-green-950/20 rounded-xl  border border-green-200 dark:border-green-800/50"
+                            >
+                              <div className="w-12 h-12 bg-green-100 dark:bg-green-950/40 rounded-xl  flex items-center justify-center">
+                                <CheckCircle2 size={26} className="text-green-600 dark:text-green-400" />
+                              </div>
+                              <div className="text-center">
+                                <p className="font-black text-slate-800 dark:text-slate-100">Token Berhasil Diganti!</p>
+                                <p className="text-xs text-slate-400 font-medium mt-1">Perbarui semua Browser Source di OBS sekarang.</p>
+                              </div>
+                              {newOverlayToken && (
+                                <div className="flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 w-full max-w-xs">
+                                  <p className="font-mono text-sm text-violet-600 dark:text-violet-400 font-bold flex-1 truncate">{newOverlayToken}</p>
+                                  <button onClick={() => copyToClipboard(newOverlayToken, 'Token Baru')} className="cursor-pointer p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl  transition-all">
+                                    <Copy size={13} />
+                                  </button>
+                                </div>
+                              )}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                    
+                        {/* Error */}
+                        <AnimatePresence>
+                          {tokenError && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -4 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0 }}
+                              className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-xl "
+                            >
+                              <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
+                              <p className="text-xs font-bold text-red-600 dark:text-red-400">{tokenError}</p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                    
+                        {/* Tombol trigger */}
+                        {tokenStep !== 'success' && (
+                          <button
+                            onClick={() => setShowTokenConfirm(true)}
+                            disabled={tokenStep === 'loading'}
+                            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            {tokenStep === 'loading' ? (
+                              <><Loader2 size={16} className="animate-spin" /> Memproses...</>
+                            ) : (
+                              <><RefreshCw size={16} /> Ganti Overlay Token</>
+                            )}
+                          </button>
+                        )}
+                        {tokenStep === 'success' && (
+                          <button
+                            onClick={() => { setTokenStep('idle'); setNewOverlayToken(''); setTokenError(''); }}
+                            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all"
+                          >
+                            Kembali
+                          </button>
+                        )}
+                      </div>
+                    </div>
 
-                  <DonationItemsEditor
-                    items={settings.donationItems || []}
-                    onChange={v => upd('donationItems', v)}
-                    saveSettingsMutation={saveSettingsMutation}
+                    {/* HAPUS AKUN */}
+                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 pb-4.5 md:pb-6 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-5">
+                      <SectionHeader icon={<Trash2 size={18} />} title="Hapus Akun" color="bg-red-500" />
+                    
+                      <div className="space-y-4">
+                        <p className="text-xs text-slate-400 dark:text-slate-500 md:block hidden font-medium leading-relaxed">
+                          Menghapus akun bersifat <span className="font-black text-red-400">permanen</span>.
+                          Seluruh data akan dihapus selamanya.
+                        </p>
+                    
+                        {/* Daftar konsekuensi */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {[
+                            { icon: '⚙️', label: 'Saldo tidak dapat dikembalikan' },
+                            { icon: '⚙️', label: 'Riwayat donasi terhapus permanen' },
+                            { icon: '⚙️', label: 'Semua URL overlay tidak aktif' },
+                            { icon: '⚙️', label: 'Data komunitas & follower hilang' },
+                          ].map(({ icon, label }) => (
+                            <div key={label} className="flex items-center gap-2.5 p-3 bg-slate-500/20 rounded-xl  border border-slate-500/30">
+                              <span className="text-base flex-shrink-0">{icon}</span>
+                              <p className="text-[11px] font-bold text-white">{label}</p>
+                            </div>
+                          ))}
+                        </div>
+                    
+                        {/* Step 1: ketik konfirmasi */}
+                        {deleteStep === 'idle' && (
+                          <div className="space-y-3 pt-1">
+                            <div className="space-y-1.5">
+                              <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">
+                                Ketik <span className="text-red-400 font-black">HAPUS AKUN SAYA</span> untuk lanjut
+                              </label>
+                              <input
+                                type="text"
+                                value={deleteConfirmText}
+                                onChange={e => setDeleteConfirmText(e.target.value)}
+                                placeholder="HAPUS AKUN SAYA"
+                                className="w-full p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-400 dark:focus:border-red-600 text-slate-900 dark:text-slate-100 rounded-xl  font-bold text-sm outline-none transition-all"
+                              />
+                            </div>
+                            <button
+                              onClick={() => {
+                                if (deleteConfirmText !== 'HAPUS AKUN SAYA') {
+                                  setDeleteError('Ketik persis: HAPUS AKUN SAYA');
+                                  return;
+                                }
+                                setDeleteError('');
+                                setDeleteStep('pin');
+                              }}
+                              disabled={deleteConfirmText !== 'HAPUS AKUN SAYA'}
+                              className="cursor-pointer active:scale-[0.99] w-full py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
+                            >
+                              <Trash2 size={16} /> Lanjut ke Verifikasi PIN
+                            </button>
+                          </div>
+                        )}
+                    
+                        {/* Step 2: verifikasi PIN sebelum hapus */}
+                        {deleteStep === 'pin' && (
+                          <motion.div
+                            key="delete-pin"
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="space-y-5 pt-1"
+                          >
+                            <div className="p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800/50 rounded-xl ">
+                              <p className="text-xs font-black text-red-600 dark:text-red-400 mb-0.5">Konfirmasi dengan PIN Keamanan</p>
+                              <p className="text-[11px] text-red-500 dark:text-red-500 font-medium">
+                                Masukkan PIN 4-digit yang kamu gunakan untuk konfirmasi transfer.
+                              </p>
+                            </div>
+                    
+                            {/* PIN input row (inline, tanpa reuse PinRow agar bebas styling) */}
+                            <div className="flex flex-col items-center gap-4">
+                              <div className="flex gap-3 justify-center">
+                                {deletePinForm.map((digit, idx) => (
+                                  <input
+                                    key={idx}
+                                    ref={deletePinRefs[idx]}
+                                    type="password"
+                                    inputMode="numeric"
+                                    maxLength={1}
+                                    value={digit}
+                                    onChange={e => {
+                                      const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 1);
+                                      setDeletePinForm(prev => {
+                                        const next = [...prev];
+                                        next[idx] = val;
+                                        return next;
+                                      });
+                                      if (val && idx < 3) {
+                                        setTimeout(() => deletePinRefs[idx + 1].current?.focus(), 10);
+                                      }
+                                    }}
+                                    onKeyDown={e => {
+                                      if (e.key === 'Backspace' && !deletePinForm[idx] && idx > 0) {
+                                        deletePinRefs[idx - 1].current?.focus();
+                                      }
+                                    }}
+                                    className="w-13 h-13 text-center text-xl font-black bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-500 dark:focus:border-red-500 rounded-xl outline-none text-slate-900 dark:text-slate-100 transition-all"
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                    
+                            <div className="flex gap-3">
+                              <button
+                                onClick={() => {
+                                  setDeleteStep('idle');
+                                  setDeletePinForm(['','','','']);
+                                  setDeleteError('');
+                                }}
+                                className="cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
+                              >
+                                Batal
+                              </button>
+                              <button
+                                onClick={async () => {
+                                  const pin = deletePinForm.join('');
+                                  if (pin.length < 4) {
+                                    setDeleteError('Masukkan PIN 4 digit');
+                                    return;
+                                  }
+                                  setDeleteStep('loading');
+                                  setDeleteError('');
+                                  try {
+                                    await api.delete('/api/auth/delete-account', {
+                                      data: { pin }
+                                    });
+                                    setDeleteStep('done');
+                                    // Logout otomatis setelah 3 detik
+                                    setTimeout(() => {
+                                      localStorage.removeItem('token');
+                                      window.location.href = '/login';
+                                    }, 3000);
+                                  } catch (err) {
+                                    const msg = err.response?.data?.message || err.message || 'Gagal menghapus akun';
+                                    setDeleteError(msg);
+                                    setDeleteStep('pin');
+                                  }
+                                }}
+                                disabled={deletePinForm.join('').length < 4}
+                                className="cursor-pointer flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                              >
+                                <Trash2 size={15} /> Hapus Selamanya
+                              </button>
+                            </div>
+                          </motion.div>
+                        )}
+                    
+                        {/* Loading */}
+                        {deleteStep === 'loading' && (
+                          <motion.div
+                            key="delete-loading"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="flex flex-col items-center gap-4 py-8"
+                          >
+                            <Loader2 size={32} className="animate-spin text-red-500" />
+                            <p className="text-sm font-black text-slate-700 dark:text-slate-200">Menghapus akun...</p>
+                            <p className="text-xs text-slate-400 font-medium">Mohon tunggu, jangan tutup halaman ini.</p>
+                          </motion.div>
+                        )}
+                    
+                        {/* Done / Success */}
+                        {deleteStep === 'done' && (
+                          <motion.div
+                            key="delete-done"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="flex flex-col items-center gap-4 py-8 bg-slate-50 dark:bg-slate-800/50 rounded-xl "
+                          >
+                            <div className="w-16 h-16 bg-red-100 dark:bg-red-950/40 rounded-xl flex items-center justify-center">
+                              <Trash2 size={28} className="text-red-500" />
+                            </div>
+                            <div className="text-center">
+                              <p className="font-black text-slate-800 dark:text-slate-100 text-lg">Akun Berhasil Dihapus</p>
+                              <p className="text-xs text-slate-400 font-medium mt-1">Kamu akan dialihkan ke halaman login...</p>
+                            </div>
+                          </motion.div>
+                        )}
+                    
+                        {/* Error */}
+                        <AnimatePresence>
+                          {deleteError && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -4 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0 }}
+                              className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-xl "
+                            >
+                              <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
+                              <p className="text-xs font-bold text-red-600 dark:text-red-400">{deleteError}</p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                  </section>
+
+                  {showPreviewPanel && (
+                    <section
+                      key="preview-panel"
+                      className="xl:col-span-5 md:block hidden sticky top-26 self-start z-[2]"
+                    >
+                    <motion.div 
+                      animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                    <YouTubeLivePreview
+                      settings={settings}
+                      username={user.username}
+                      testFullScreen={() => setNavbar(!navbar)}
+                      onPreviewModeChange={setPreviewMode}
+                      autoPreviewTick={autoPreviewTick}
+                      onTogglePreview={() => setShowPreviewPanel(v => !v)}
+                    />
+
+                    </motion.div>
+                    </section>
+                  )}
+                </div>
+              )}
+
+              {/* ══════════════════════ ALERT SETTINGS ══════════════════════ */}
+              {activeTab === 'alertSettings' && (
+                <motion.div key="alertSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 pb-0 w-full">
+
+                  {/* Instant Test */}
+                  {profileLoading ? <InstantTestAlertSkeleton /> : <InstantTestAlert overlayToken={user.overlayToken} settings={settings} user={user} />}
+
+                  {/* Durasi */}
+                  {profileLoading ? (
+                    <DurationSettingsSkeleton alertOnly={true} />
+                  ) : (
+                    <DurationSettings 
+                      alertOnly={true} 
+                      settings={settings} 
+                      onChange={upd} 
+                      saveSettingsMutation={saveSettingsMutation} 
+                      activeSlot={activeSlot} 
+                    />
+                  )}
+
+                  {/* Suara */}
+                  <SoundSection activeSlot={activeSlot} />
+
+                  {/* TTS */}
+                  <TTSSection
                     settings={settings}
+                    upd={upd}
+                    saveSettingsMutation={saveSettingsMutation}
+                    api={api}
                     activeSlot={activeSlot}
                   />
 
-                  {/* OBS URLs */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 md:pb-2.5 shadow-xs border border-slate-100 dark:border-slate-800">
-                    <div className='mb-5'>
-                      <SectionHeader icon={<Monitor size={20} />} title={`URL Overlay`} color="bg-blue-500" />
-                    </div>
-                    <div className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-3 py-4 rounded-xl  border border-slate-100/10 mb-3">
-                      <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">💝</div>
-                      <div className='flex-1 min-w-0'>
-                        <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-full uppercase tracking-widest">MY DONATE URL</label>
-                        <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="w-[86%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden truncate" />
-                      </div>
-                      <div className="flex gap-3">
-                        <button onClick={() => copyToClipboard(`https://taptiptup.vercel.app/donate/${user.username}`)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-xl transition-all flex-shrink-0">
-                            <Copy size={15} />
-                          </button>
-                      </div>
-                    </div>
-                    {[
-                      { label: 'URL ALERT - ALL SLOT', emoji: '🔔', url: user.overlayUrl },
-                      { label: 'URL MEDIASHARE - OBS',      emoji: '🎬', url: `${window.location.origin}/overlay/${user.overlayToken}/mediashare` },
-                      { label: 'URL VOICE NOTE - OBS',      emoji: '🎙️', url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
-                      { label: 'URL COMBINED', emoji: '🧩', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
-                    ].map(({ label, emoji, url }) => (
-                      <div key={label} className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-xl  border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
-                        <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
-                        <div className='flex-1 min-w-0 relative top-[3px]'>
-                          <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-fulll uppercase tracking-widest">{label}</label>
-                          <input readOnly value={url} aria-label={`URL ${label}`} className="w-[90%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
+                  {/* Filter kata */}
+                  <BannedWordsEditor saveSettingsMutation={saveSettingsMutation} settings={settings} activeSlot={activeSlot} />
+                </motion.div>
+              )}
+
+              {/* ══════════════════════ MEDIA SETTINGS ══════════════════════ */}
+              {activeTab === 'mediaSettings' && (
+                <motion.div key="mediaSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 pb-0 w-full">
+
+                  {/* Instant Test MediaShare */}
+                  {profileLoading ? <InstantTestMediaShareSkeleton /> : <InstantTestMediaShare overlayToken={user.overlayToken} settings={settings} user={user}/>}
+
+                  {/* Izin Media */}
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
+                    <SectionHeader icon={<ImageIcon size={20} />} title="Izinkan Donor Kirim Media" color="bg-purple-500" />
+                    <MediaTriggersEditor saveSettingsMutation={saveSettingsMutation} settings={settings} triggers={settings.mediaTriggers || []} onChange={v => upd('mediaTriggers', v)} activeSlot={activeSlot} />
+                  </div>
+
+                  {/* MediaShare Control */}
+                  <MediaShareControl overlayToken={user.overlayToken} />
+
+                  {profileLoading ? (
+                    <DurationSettingsSkeleton mediaOnly={true} />
+                  ) : (
+                    <DurationSettings 
+                      mediaOnly={true} 
+                      settings={settings} 
+                      onChange={upd} 
+                      saveSettingsMutation={saveSettingsMutation} 
+                      activeSlot={activeSlot} 
+                    />
+                  )}
+                </motion.div>
+              )}
+
+              {/* ══════════════════════ HISTORY ══════════════════════ */}
+              {activeTab === 'history' && (
+                <motion.div key="history" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <HistoryPage  key={localStorage.getItem('showBalance')} />
+                </motion.div>
+              )}
+
+              {/* ══════════════════════ MY DONATIONS ══════════════════════ */}
+              {activeTab === 'myDonations' && (
+                <motion.div key="myDonations" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <MyDonationsHistory />
+                </motion.div>
+              )}
+              
+              {/* ── Modal konfirmasi ganti token ── */}
+              <AnimatePresence>
+                {showTokenConfirm && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4"
+                    onClick={() => setShowTokenConfirm(false)}
+                  >
+                    <motion.div
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.9, opacity: 0 }}
+                      className="bg-white dark:bg-slate-900 rounded-xl max-w-md w-full p-7 shadow-2xl border border-slate-100 dark:border-slate-800"
+                      onClick={e => e.stopPropagation()}
+                    >
+                      <div className="flex flex-col items-center gap-4 text-center">
+                        <div className="w-16 h-16 bg-violet-100 dark:bg-violet-950/40 rounded-xl flex items-center justify-center">
+                          <RefreshCw size={30} className="text-violet-500" />
                         </div>
-                        <div className="flex gap-3">
-                          <button onClick={() => copyToClipboard(url)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-xl  transition-all flex-shrink-0">
-                            <Copy size={15} />
+                        <div>
+                          <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-1">Ganti Overlay Token?</h3>
+                          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+                            Semua URL overlay lama akan <span className="font-black text-red-500">langsung tidak aktif</span>. 
+                            Pastikan kamu siap memperbarui OBS setelah ini.
+                          </p>
+                        </div>
+                        <div className="flex gap-3 w-full mt-2">
+                          <button
+                            onClick={() => setShowTokenConfirm(false)}
+                            className="cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
+                          >
+                            Batal
+                          </button>
+                          <button
+                            onClick={async () => {
+                              setShowTokenConfirm(false);
+                              setTokenStep('loading');
+                              setTokenError('');
+                              try {
+                                const res = await api.put('/api/auth/regenerate-overlay-token');
+                                setNewOverlayToken(res.data.overlayToken || '');
+                                setTokenStep('success');
+                                // Refresh profile data agar URL di dashboard ikut update
+                                await isRefetchProfile();
+                              } catch (err) {
+                                const msg = err.response?.data?.message || err.message || 'Gagal mengganti token';
+                                setTokenError(msg);
+                                setTokenStep('error');
+                                setTimeout(() => setTokenStep('idle'), 100);
+                              }
+                            }}
+                            className="cursor-pointer flex-1 py-3 bg-violet-600 hover:bg-violet-700 text-white font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
+                          >
+                            Ya, Ganti Sekarang
                           </button>
                         </div>
                       </div>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* ══════════════════════ PROFILE ══════════════════════ */}
+              {activeTab === 'profile' && (
+                <motion.div key="profile" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-3 pb-0">
+                  <div className="relative bg-slate-900/70 backdrop-blur-sm rounded-xl  pt-8 pb-7 md:pl-7 pr-8 shadow-sm border border-slate-100 dark:border-slate-800 px-8 py-0 text-white relative overflow-hidden">
+                    <div className="relative z-2 flex flex-col md:flex-row items-center gap-6">
+                      <div className="rounded-xl w-26 h-26 mt-[-1.6px] mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg border-4 border-white dark:border-slate-900">
+                        {profileForm.profilePicture || user?.profilePicture ? (
+                          <img src={profileForm.profilePicture || user?.profilePicture} alt={user.username} className="w-full h-full object-cover"
+                            onError={(e) => { e.target.style.display = 'none'; const parent = e.target.parentElement; if (parent) parent.innerHTML = (user.username?.charAt(0) || '?').toUpperCase(); }} />
+                        ) : (user.username?.charAt(0) || '?').toUpperCase()}
+                      </div>
+                      <div className="flex-1 text-center md:text-left md:block flex flex-col jsutify-center items-center space-y-3">
+                        <div className="flex flex-wrap items-center justify-center md:justify-between gap-3">
+                          <div className='flex items-center gap-3'>
+                            <h2 className="text-3xl font-black text-white tracking-tighter">@{user.username}</h2> <Verified className='relative top-[3.9px] text-blue-400' />
+                          </div>
+                        </div>
+                        <div className="w-max px-4 md:flex hidden py-2 relative bg-green-100 relative top-1 text-green-600 rounded-xl text-[10px] font-black uppercase tracking-widest border border-green-200">Verified Creator</div>
+                        <p className="text-slate-200 font-medium text-sm">{user.email}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex w-full flex-wrap gap-2 justify-center md:justify-start bg-gradient-to-r from-slate-50/50 to-blue-50/30 dark:from-slate-900/50 dark:to-blue-900/20 p-3 py-2 border border-slate-100/20 dark:border-slate-700/50 backdrop-blur-sm rounded-xl shadow-sm">
+                    {['10k','50k','100k','500k','1jt'].map(name => (
+                      <Badge key={name} type="streamer" name={name} active={profileData?.user?.donationMilestones?.[name] || false} />
                     ))}
                   </div>
 
-                  {/* GANTI OVERLAY TOKEN */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
-                    <SectionHeader icon={<RefreshCw size={18} />} title="Ganti Overlay Token" color="bg-violet-500" />
-                  
-                    <div className="space-y-3">
-                      {/* Info box: URL saat ini */}
-                      <div className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-200 dark:border-slate-700">
-                        <div className="w-9 h-9 flex-shrink-0 rounded-xl  bg-violet-100 dark:bg-slate-500/30 flex items-center justify-center">
-                          <Link2 size={17} className="text-white relative left-[-0.2px]" />
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
+                    <SectionHeader icon={<User size={18} />} title="Profil Publik" color="bg-blue-500" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
+                      <div className="md:col-span-2">
+                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">Foto Profil</label>
+                        <div className="flex flex-col sm:flex-row items-start gap-4">
+                          <div className="w-20 h-20 rounded-xl  border-2 border-slate-200 dark:border-slate-700 overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-5xl font-black flex-shrink-0">
+                            {profileForm.profilePicture ? (
+                              <img src={profileForm.profilePicture} alt="Profile Preview" className="w-full h-full object-cover" onError={(e) => e.target.src = ''} />
+                            ) : profileForm.username?.charAt(0)?.toUpperCase() || '?'}
+                          </div>
+                          <div className="flex-1 space-y-3 w-full">
+                            <label className="cursor-pointer block">
+                              <div className="h-20 border-2 active:scale-[0.99] border-dashed border-slate-300 dark:border-slate-600 rounded-xl p-4 text-center hover:border-blue-400 transition-all">
+                                <input type="file" accept="image/*" onChange={handleProfilePictureUpload} className="hidden h-20" id="profile-upload" />
+                                <label htmlFor="profile-upload" className="cursor-pointer flex flex-col items-center">
+                                  <p className="flex items-center gap-3 mb-1 font-bold text-slate-600 dark:text-slate-300">Klik untuk upload gambar <Image size={16} /></p>
+                                  <p className="text-[10px] text-slate-400">JPG, PNG, WebP (max 3MB)</p>
+                                </label>
+                              </div>
+                            </label>
+                          </div>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-0.5">Token Aktif</p>
-                          <p className="font-mono text-sm text-slate-700 dark:text-slate-200 font-bold truncate">
-                            {user.overlayToken || '—'}
-                          </p>
+                      </div>
+
+                      <div className="md:col-span-2 mb-1 border-t border-slate-100/10 pt-5 mt-2">
+                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Link Halaman Donasi</label>
+                        <div className="flex gap-3">
+                          <input readOnly value={`${window.location.origin}/donate/${user.username}`}
+                            className="flex-1 bg-blue-50 dark:bg-blue-950/40 border-2 border-blue-100 dark:border-blue-900 rounded-xl p-5 font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none" />
+                          <button onClick={() => copyToClipboard(`${window.location.origin}/donate/${user.username}`)}
+                            className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-xl  transition-all flex items-center justify-center active:scale-95">
+                            <Copy size={20} />
+                          </button>
                         </div>
-                        <button
-                          onClick={() => copyToClipboard(user.overlayToken, 'Overlay Token')}
-                          className="cursor-pointer p-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl  transition-all flex-shrink-0"
-                        >
-                          <Copy size={14} />
+                      </div>
+
+                      <InputField label="Display Name" value={profileForm.username} onChange={v => setProfileForm(f => ({ ...f, username: v }))} />
+                      <InputField label="Email Address" type="email" value={profileForm.email} onChange={v => setProfileForm(f => ({ ...f, email: v }))} />
+
+                      <div className="md:col-span-2">
+                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Bio Singkat</label>
+                        <textarea value={profileForm.bio} onChange={e => setProfileForm(f => ({ ...f, bio: e.target.value }))}
+                          className="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-xl font-bold outline-none focus:border-blue-500 h-32 transition-all"
+                          placeholder="Ceritakan tentang kontenmu..." />
+                      </div>
+
+                      <div className="md:col-span-2 mb-1">
+                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Intro Halaman Donate</label>
+                        <input type="text" value={profileForm.donateIntro || ''} onChange={e => setProfileForm(f => ({ ...f, donateIntro: e.target.value }))}
+                          className="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-xl font-bold outline-none focus:border-blue-500 transition-all"
+                          placeholder="Support aku biar makin semangat 🚀" maxLength={120} />
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Social Media</label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <InputField label="Instagram" value={profileForm.instagram} placeholder="@username" onChange={v => setProfileForm(f => ({ ...f, instagram: v }))} />
+                          <InputField label="Facebook" value={profileForm.facebook} placeholder="facebook.com/username" onChange={v => setProfileForm(f => ({ ...f, facebook: v }))} />
+                          <InputField label="YouTube" value={profileForm.youtube} placeholder="youtube.com/@channel" onChange={v => setProfileForm(f => ({ ...f, youtube: v }))} />
+                          <InputField label="X / Twitter" value={profileForm.twitter} placeholder="@username" onChange={v => setProfileForm(f => ({ ...f, twitter: v }))} />
+                        </div>
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <button onClick={() => updateProfileMutation.mutate(profileForm)} disabled={updateProfileMutation.isPending}
+                          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-md transition-all flex items-center justify-center gap-3 disabled:opacity-70">
+                          <Save size={20} />
+                          {updateProfileMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
                         </button>
                       </div>
-                  
-                      {/* State: sukses */}
+                    </div>
+                  </div>
+                  <QrCodeCard username={user.username} />
+                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                      <SectionHeader icon={<ShieldCheck size={18} />} title="Ubah PIN Keamanan" color="bg-amber-500" />
+                      <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">
+                        PIN digunakan untuk konfirmasi transfer saldo. Pastikan tidak membagikannya ke siapapun.
+                      </p>
+
                       <AnimatePresence mode="wait">
-                        {tokenStep === 'success' && (
+                        {pinStep === 'success' ? (
                           <motion.div
-                            key="token-success"
+                            key="pin-success"
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0 }}
-                            className="flex flex-col items-center gap-3 py-6 bg-green-50 dark:bg-green-950/20 rounded-xl  border border-green-200 dark:border-green-800/50"
+                            className="flex flex-col items-center gap-4 py-8"
                           >
-                            <div className="w-12 h-12 bg-green-100 dark:bg-green-950/40 rounded-xl  flex items-center justify-center">
-                              <CheckCircle2 size={26} className="text-green-600 dark:text-green-400" />
+                            <div className="w-16 h-16 bg-green-100 dark:bg-green-950/40 flex items-center justify-center">
+                              <CheckCircle2 size={32} className="text-green-600 dark:text-green-400" />
                             </div>
-                            <div className="text-center">
-                              <p className="font-black text-slate-800 dark:text-slate-100">Token Berhasil Diganti!</p>
-                              <p className="text-xs text-slate-400 font-medium mt-1">Perbarui semua Browser Source di OBS sekarang.</p>
-                            </div>
-                            {newOverlayToken && (
-                              <div className="flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 w-full max-w-xs">
-                                <p className="font-mono text-sm text-violet-600 dark:text-violet-400 font-bold flex-1 truncate">{newOverlayToken}</p>
-                                <button onClick={() => copyToClipboard(newOverlayToken, 'Token Baru')} className="cursor-pointer p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl  transition-all">
-                                  <Copy size={13} />
-                                </button>
-                              </div>
-                            )}
+                            <p className="font-black text-slate-800 dark:text-slate-100 text-lg">PIN Berhasil Diubah!</p>
+                            <p className="text-sm text-slate-400 font-medium">Gunakan PIN baru untuk konfirmasi transfer berikutnya.</p>
                           </motion.div>
-                        )}
-                      </AnimatePresence>
-                  
-                      {/* Error */}
-                      <AnimatePresence>
-                        {tokenError && (
-                          <motion.div
-                            initial={{ opacity: 0, y: -4 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0 }}
-                            className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-xl "
-                          >
-                            <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
-                            <p className="text-xs font-bold text-red-600 dark:text-red-400">{tokenError}</p>
+                        ) : (
+                          <motion.div key="pin-form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl  w-full grid grid-cols-1 gap-4 md:gap-14 items-center justify-center md:grid-cols-3 space-y-0">
+                            <PinRow
+                              label="PIN Saat Ini"
+                              groupKey="currentPin"
+                              refs={currentPinRefs}
+                              pinForm={pinForm}
+                              setPinForm={setPinForm}
+                              showPins={showPins}
+                              setShowPins={setShowPins}
+                              handlePinInputChange={handlePinInputChange}
+                              handlePinKeyDown={handlePinKeyDown}
+                            />
+                            <PinRow
+                              label="PIN Baru"
+                              groupKey="newPin"
+                              refs={newPinRefs}
+                              pinForm={pinForm}
+                              setPinForm={setPinForm}
+                              showPins={showPins}
+                              setShowPins={setShowPins}
+                              handlePinInputChange={handlePinInputChange}
+                              handlePinKeyDown={handlePinKeyDown}
+                            />
+                            <PinRow
+                              label="Konfirmasi PIN Baru"
+                              groupKey="confirmPin"
+                              refs={confirmPinRefs}
+                              pinForm={pinForm}
+                              setPinForm={setPinForm}
+                              showPins={showPins}
+                              setShowPins={setShowPins}
+                              handlePinInputChange={handlePinInputChange}
+                              handlePinKeyDown={handlePinKeyDown}
+                            />
+
                           </motion.div>
-                        )}
+                      )}
                       </AnimatePresence>
-                  
-                      {/* Tombol trigger */}
-                      {tokenStep !== 'success' && (
+                        <AnimatePresence>
+                          {pinError && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -4 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0 }}
+                              className="rounded-xl w-max flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800"
+                            >
+                              <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
+                              <p className="text-xs font-bold text-red-600 dark:text-red-400">{pinError}</p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
                         <button
-                          onClick={() => setShowTokenConfirm(true)}
-                          disabled={tokenStep === 'loading'}
-                          className="cursor-pointer active:scale-[0.99] w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                          onClick={handleChangePin}
+                          disabled={
+                            pinLoading ||
+                            pinForm.currentPin.join('').length < 4 ||
+                            pinForm.newPin.join('').length < 4 ||
+                            pinForm.confirmPin.join('').length < 4
+                          }
+                          className="rounded-xl cursor-pointer md:mt-0 mt-2 w-full px-4 relative md:top-[7px] py-3 bg-blue-500 hover:bg-amber-600 text-white font-black text-sm transition-all active:scale-[0.99] flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
                         >
-                          {tokenStep === 'loading' ? (
+                          {pinLoading ? (
                             <><Loader2 size={16} className="animate-spin" /> Memproses...</>
                           ) : (
-                            <><RefreshCw size={16} /> Ganti Overlay Token</>
+                            <><Save />Simpan PIN terbaru</>
                           )}
                         </button>
-                      )}
-                      {tokenStep === 'success' && (
-                        <button
-                          onClick={() => { setTokenStep('idle'); setNewOverlayToken(''); setTokenError(''); }}
-                          className="cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all"
-                        >
-                          Kembali
-                        </button>
-                      )}
                     </div>
-                  </div>
-
-                  {/* HAPUS AKUN */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 pb-4.5 md:pb-6 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-5">
-                    <SectionHeader icon={<Trash2 size={18} />} title="Hapus Akun" color="bg-red-500" />
-                  
-                    <div className="space-y-4">
-                      <p className="text-xs text-slate-400 dark:text-slate-500 md:block hidden font-medium leading-relaxed">
-                        Menghapus akun bersifat <span className="font-black text-red-400">permanen</span>.
-                        Seluruh data akan dihapus selamanya.
-                      </p>
-                  
-                      {/* Daftar konsekuensi */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {[
-                          { icon: '⚙️', label: 'Saldo tidak dapat dikembalikan' },
-                          { icon: '⚙️', label: 'Riwayat donasi terhapus permanen' },
-                          { icon: '⚙️', label: 'Semua URL overlay tidak aktif' },
-                          { icon: '⚙️', label: 'Data komunitas & follower hilang' },
-                        ].map(({ icon, label }) => (
-                          <div key={label} className="flex items-center gap-2.5 p-3 bg-slate-500/20 rounded-xl  border border-slate-500/30">
-                            <span className="text-base flex-shrink-0">{icon}</span>
-                            <p className="text-[11px] font-bold text-white">{label}</p>
-                          </div>
-                        ))}
-                      </div>
-                  
-                      {/* Step 1: ketik konfirmasi */}
-                      {deleteStep === 'idle' && (
-                        <div className="space-y-3 pt-1">
-                          <div className="space-y-1.5">
-                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">
-                              Ketik <span className="text-red-400 font-black">HAPUS AKUN SAYA</span> untuk lanjut
-                            </label>
-                            <input
-                              type="text"
-                              value={deleteConfirmText}
-                              onChange={e => setDeleteConfirmText(e.target.value)}
-                              placeholder="HAPUS AKUN SAYA"
-                              className="w-full p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-400 dark:focus:border-red-600 text-slate-900 dark:text-slate-100 rounded-xl  font-bold text-sm outline-none transition-all"
-                            />
-                          </div>
-                          <button
-                            onClick={() => {
-                              if (deleteConfirmText !== 'HAPUS AKUN SAYA') {
-                                setDeleteError('Ketik persis: HAPUS AKUN SAYA');
-                                return;
-                              }
-                              setDeleteError('');
-                              setDeleteStep('pin');
-                            }}
-                            disabled={deleteConfirmText !== 'HAPUS AKUN SAYA'}
-                            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
-                          >
-                            <Trash2 size={16} /> Lanjut ke Verifikasi PIN
-                          </button>
-                        </div>
-                      )}
-                  
-                      {/* Step 2: verifikasi PIN sebelum hapus */}
-                      {deleteStep === 'pin' && (
-                        <motion.div
-                          key="delete-pin"
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="space-y-5 pt-1"
-                        >
-                          <div className="p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800/50 rounded-xl ">
-                            <p className="text-xs font-black text-red-600 dark:text-red-400 mb-0.5">Konfirmasi dengan PIN Keamanan</p>
-                            <p className="text-[11px] text-red-500 dark:text-red-500 font-medium">
-                              Masukkan PIN 4-digit yang kamu gunakan untuk konfirmasi transfer.
-                            </p>
-                          </div>
-                  
-                          {/* PIN input row (inline, tanpa reuse PinRow agar bebas styling) */}
-                          <div className="flex flex-col items-center gap-4">
-                            <div className="flex gap-3 justify-center">
-                              {deletePinForm.map((digit, idx) => (
-                                <input
-                                  key={idx}
-                                  ref={deletePinRefs[idx]}
-                                  type="password"
-                                  inputMode="numeric"
-                                  maxLength={1}
-                                  value={digit}
-                                  onChange={e => {
-                                    const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 1);
-                                    setDeletePinForm(prev => {
-                                      const next = [...prev];
-                                      next[idx] = val;
-                                      return next;
-                                    });
-                                    if (val && idx < 3) {
-                                      setTimeout(() => deletePinRefs[idx + 1].current?.focus(), 10);
-                                    }
-                                  }}
-                                  onKeyDown={e => {
-                                    if (e.key === 'Backspace' && !deletePinForm[idx] && idx > 0) {
-                                      deletePinRefs[idx - 1].current?.focus();
-                                    }
-                                  }}
-                                  className="w-13 h-13 text-center text-xl font-black bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-500 dark:focus:border-red-500 rounded-xl outline-none text-slate-900 dark:text-slate-100 transition-all"
-                                />
-                              ))}
-                            </div>
-                          </div>
-                  
-                          <div className="flex gap-3">
-                            <button
-                              onClick={() => {
-                                setDeleteStep('idle');
-                                setDeletePinForm(['','','','']);
-                                setDeleteError('');
-                              }}
-                              className="cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
-                            >
-                              Batal
-                            </button>
-                            <button
-                              onClick={async () => {
-                                const pin = deletePinForm.join('');
-                                if (pin.length < 4) {
-                                  setDeleteError('Masukkan PIN 4 digit');
-                                  return;
-                                }
-                                setDeleteStep('loading');
-                                setDeleteError('');
-                                try {
-                                  await api.delete('/api/auth/delete-account', {
-                                    data: { pin }
-                                  });
-                                  setDeleteStep('done');
-                                  // Logout otomatis setelah 3 detik
-                                  setTimeout(() => {
-                                    localStorage.removeItem('token');
-                                    window.location.href = '/login';
-                                  }, 3000);
-                                } catch (err) {
-                                  const msg = err.response?.data?.message || err.message || 'Gagal menghapus akun';
-                                  setDeleteError(msg);
-                                  setDeleteStep('pin');
-                                }
-                              }}
-                              disabled={deletePinForm.join('').length < 4}
-                              className="cursor-pointer flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
-                            >
-                              <Trash2 size={15} /> Hapus Selamanya
-                            </button>
-                          </div>
-                        </motion.div>
-                      )}
-                  
-                      {/* Loading */}
-                      {deleteStep === 'loading' && (
-                        <motion.div
-                          key="delete-loading"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          className="flex flex-col items-center gap-4 py-8"
-                        >
-                          <Loader2 size={32} className="animate-spin text-red-500" />
-                          <p className="text-sm font-black text-slate-700 dark:text-slate-200">Menghapus akun...</p>
-                          <p className="text-xs text-slate-400 font-medium">Mohon tunggu, jangan tutup halaman ini.</p>
-                        </motion.div>
-                      )}
-                  
-                      {/* Done / Success */}
-                      {deleteStep === 'done' && (
-                        <motion.div
-                          key="delete-done"
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          className="flex flex-col items-center gap-4 py-8 bg-slate-50 dark:bg-slate-800/50 rounded-xl "
-                        >
-                          <div className="w-16 h-16 bg-red-100 dark:bg-red-950/40 rounded-xl flex items-center justify-center">
-                            <Trash2 size={28} className="text-red-500" />
-                          </div>
-                          <div className="text-center">
-                            <p className="font-black text-slate-800 dark:text-slate-100 text-lg">Akun Berhasil Dihapus</p>
-                            <p className="text-xs text-slate-400 font-medium mt-1">Kamu akan dialihkan ke halaman login...</p>
-                          </div>
-                        </motion.div>
-                      )}
-                  
-                      {/* Error */}
-                      <AnimatePresence>
-                        {deleteError && (
-                          <motion.div
-                            initial={{ opacity: 0, y: -4 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0 }}
-                            className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-xl "
-                          >
-                            <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
-                            <p className="text-xs font-bold text-red-600 dark:text-red-400">{deleteError}</p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </div>
-                </section>
-
-                {showPreviewPanel && (
-                  <section
-                    key="preview-panel"
-                    className="xl:col-span-5 md:block hidden sticky top-26 self-start z-[2]"
-                  >
-                  <motion.div 
-                    animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                  <YouTubeLivePreview
-                    settings={settings}
-                    username={user.username}
-                    testFullScreen={() => setNavbar(!navbar)}
-                    onPreviewModeChange={setPreviewMode}
-                    autoPreviewTick={autoPreviewTick}
-                    onTogglePreview={() => setShowPreviewPanel(v => !v)}
-                  />
-
-                  </motion.div>
-                  </section>
-                )}
-              </div>
-            )}
-
-            {/* ══════════════════════ ALERT SETTINGS ══════════════════════ */}
-            {activeTab === 'alertSettings' && (
-              <motion.div key="alertSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 pb-0 w-full">
-
-                {/* Instant Test */}
-                {profileLoading ? <InstantTestAlertSkeleton /> : <InstantTestAlert overlayToken={user.overlayToken} settings={settings} user={user} />}
-
-                {/* Durasi */}
-                {profileLoading ? (
-                  <DurationSettingsSkeleton alertOnly={true} />
-                ) : (
-                  <DurationSettings 
-                    alertOnly={true} 
-                    settings={settings} 
-                    onChange={upd} 
-                    saveSettingsMutation={saveSettingsMutation} 
-                    activeSlot={activeSlot} 
-                  />
-                )}
-
-                {/* Suara */}
-                <SoundSection activeSlot={activeSlot} />
-
-                {/* TTS */}
-                 <TTSSection
-                  settings={settings}
-                  upd={upd}
-                  saveSettingsMutation={saveSettingsMutation}
-                  api={api}
-                  activeSlot={activeSlot}
-                />
-
-                {/* Filter kata */}
-                <BannedWordsEditor saveSettingsMutation={saveSettingsMutation} settings={settings} activeSlot={activeSlot} />
-              </motion.div>
-            )}
-
-            {/* ══════════════════════ MEDIA SETTINGS ══════════════════════ */}
-            {activeTab === 'mediaSettings' && (
-              <motion.div key="mediaSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 pb-0 w-full">
-
-                {/* Instant Test MediaShare */}
-                {profileLoading ? <InstantTestMediaShareSkeleton /> : <InstantTestMediaShare overlayToken={user.overlayToken} settings={settings} user={user}/>}
-
-                {/* Izin Media */}
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
-                  <SectionHeader icon={<ImageIcon size={20} />} title="Izinkan Donor Kirim Media" color="bg-purple-500" />
-                  <MediaTriggersEditor saveSettingsMutation={saveSettingsMutation} settings={settings} triggers={settings.mediaTriggers || []} onChange={v => upd('mediaTriggers', v)} activeSlot={activeSlot} />
-                </div>
-
-                {/* MediaShare Control */}
-                <MediaShareControl overlayToken={user.overlayToken} />
-
-                {profileLoading ? (
-                  <DurationSettingsSkeleton mediaOnly={true} />
-                ) : (
-                  <DurationSettings 
-                    mediaOnly={true} 
-                    settings={settings} 
-                    onChange={upd} 
-                    saveSettingsMutation={saveSettingsMutation} 
-                    activeSlot={activeSlot} 
-                  />
-                )}
-              </motion.div>
-            )}
-
-            {/* ══════════════════════ HISTORY ══════════════════════ */}
-            {activeTab === 'history' && (
-              <motion.div key="history" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <HistoryPage  key={localStorage.getItem('showBalance')} />
-              </motion.div>
-            )}
-
-            {/* ══════════════════════ MY DONATIONS ══════════════════════ */}
-            {activeTab === 'myDonations' && (
-              <motion.div key="myDonations" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <MyDonationsHistory />
-              </motion.div>
-            )}
-            
-            {/* ── Modal konfirmasi ganti token ── */}
-            <AnimatePresence>
-              {showTokenConfirm && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4"
-                  onClick={() => setShowTokenConfirm(false)}
-                >
-                  <motion.div
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.9, opacity: 0 }}
-                    className="bg-white dark:bg-slate-900 rounded-xl max-w-md w-full p-7 shadow-2xl border border-slate-100 dark:border-slate-800"
-                    onClick={e => e.stopPropagation()}
-                  >
-                    <div className="flex flex-col items-center gap-4 text-center">
-                      <div className="w-16 h-16 bg-violet-100 dark:bg-violet-950/40 rounded-xl flex items-center justify-center">
-                        <RefreshCw size={30} className="text-violet-500" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-1">Ganti Overlay Token?</h3>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
-                          Semua URL overlay lama akan <span className="font-black text-red-500">langsung tidak aktif</span>. 
-                          Pastikan kamu siap memperbarui OBS setelah ini.
-                        </p>
-                      </div>
-                      <div className="flex gap-3 w-full mt-2">
-                        <button
-                          onClick={() => setShowTokenConfirm(false)}
-                          className="cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
-                        >
-                          Batal
-                        </button>
-                        <button
-                          onClick={async () => {
-                            setShowTokenConfirm(false);
-                            setTokenStep('loading');
-                            setTokenError('');
-                            try {
-                              const res = await api.put('/api/auth/regenerate-overlay-token');
-                              setNewOverlayToken(res.data.overlayToken || '');
-                              setTokenStep('success');
-                              // Refresh profile data agar URL di dashboard ikut update
-                              await isRefetchProfile();
-                            } catch (err) {
-                              const msg = err.response?.data?.message || err.message || 'Gagal mengganti token';
-                              setTokenError(msg);
-                              setTokenStep('error');
-                              setTimeout(() => setTokenStep('idle'), 100);
-                            }
-                          }}
-                          className="cursor-pointer flex-1 py-3 bg-violet-600 hover:bg-violet-700 text-white font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
-                        >
-                          Ya, Ganti Sekarang
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
                 </motion.div>
               )}
-            </AnimatePresence>
 
-            {/* ══════════════════════ PROFILE ══════════════════════ */}
-            {activeTab === 'profile' && (
-              <motion.div key="profile" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-3 pb-0">
-                <div className="relative bg-slate-900/70 backdrop-blur-sm rounded-xl  pt-8 pb-7 md:pl-7 pr-8 shadow-sm border border-slate-100 dark:border-slate-800 px-8 py-0 text-white relative overflow-hidden">
-                  <div className="relative z-2 flex flex-col md:flex-row items-center gap-6">
-                    <div className="rounded-xl w-26 h-26 mt-[-1.6px] mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg border-4 border-white dark:border-slate-900">
-                      {profileForm.profilePicture || user?.profilePicture ? (
-                        <img src={profileForm.profilePicture || user?.profilePicture} alt={user.username} className="w-full h-full object-cover"
-                          onError={(e) => { e.target.style.display = 'none'; const parent = e.target.parentElement; if (parent) parent.innerHTML = (user.username?.charAt(0) || '?').toUpperCase(); }} />
-                      ) : (user.username?.charAt(0) || '?').toUpperCase()}
-                    </div>
-                    <div className="flex-1 text-center md:text-left md:block flex flex-col jsutify-center items-center space-y-3">
-                      <div className="flex flex-wrap items-center justify-center md:justify-between gap-3">
-                        <div className='flex items-center gap-3'>
-                          <h2 className="text-3xl font-black text-white tracking-tighter">@{user.username}</h2> <Verified className='relative top-[3.9px] text-blue-400' />
-                        </div>
-                      </div>
-                      <div className="w-max px-4 md:flex hidden py-2 relative bg-green-100 relative top-1 text-green-600 rounded-xl text-[10px] font-black uppercase tracking-widest border border-green-200">Verified Creator</div>
-                      <p className="text-slate-200 font-medium text-sm">{user.email}</p>
-                    </div>
-                  </div>
-                </div>
+              {/* ══════════════════════ WALLET ══════════════════════ */}
+              {activeTab === 'wallet' && (
+                maintenance?.withdrawal
+                  ? <MaintenanceScreen title="Sitem WD - maintenance" subtitle="Fitur penarikan sementara tidak tersedia. Saldo kamu aman dan tidak terpengaruh." />
+                  : <WithdrawPage />
+              )}
 
-                <div className="flex w-full flex-wrap gap-2 justify-center md:justify-start bg-gradient-to-r from-slate-50/50 to-blue-50/30 dark:from-slate-900/50 dark:to-blue-900/20 p-3 py-2 border border-slate-100/20 dark:border-slate-700/50 backdrop-blur-sm rounded-xl shadow-sm">
-                  {['10k','50k','100k','500k','1jt'].map(name => (
-                    <Badge key={name} type="streamer" name={name} active={profileData?.user?.donationMilestones?.[name] || false} />
-                  ))}
-                </div>
+              {/* ══════════════════════ FEE CONFIG ══════════════════════ */}
+              {activeTab === 'feeConfig' && (
+                <motion.div key="feeConfig" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <FeeConfigPage />
+                </motion.div>
+              )}
 
-                <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
-                  <SectionHeader icon={<User size={18} />} title="Profil Publik" color="bg-blue-500" />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
-                    <div className="md:col-span-2">
-                      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">Foto Profil</label>
-                      <div className="flex flex-col sm:flex-row items-start gap-4">
-                        <div className="w-20 h-20 rounded-xl  border-2 border-slate-200 dark:border-slate-700 overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-5xl font-black flex-shrink-0">
-                          {profileForm.profilePicture ? (
-                            <img src={profileForm.profilePicture} alt="Profile Preview" className="w-full h-full object-cover" onError={(e) => e.target.src = ''} />
-                          ) : profileForm.username?.charAt(0)?.toUpperCase() || '?'}
-                        </div>
-                        <div className="flex-1 space-y-3 w-full">
-                          <label className="cursor-pointer block">
-                            <div className="h-20 border-2 active:scale-[0.99] border-dashed border-slate-300 dark:border-slate-600 rounded-xl p-4 text-center hover:border-blue-400 transition-all">
-                              <input type="file" accept="image/*" onChange={handleProfilePictureUpload} className="hidden h-20" id="profile-upload" />
-                              <label htmlFor="profile-upload" className="cursor-pointer flex flex-col items-center">
-                                <p className="flex items-center gap-3 mb-1 font-bold text-slate-600 dark:text-slate-300">Klik untuk upload gambar <Image size={16} /></p>
-                                <p className="text-[10px] text-slate-400">JPG, PNG, WebP (max 3MB)</p>
-                              </label>
+              {/* ══════════════════════ GHOST ALERT ══════════════════════ */}
+              {activeTab === 'ghostAlert' && isEffectiveAdmin && <GhostAlertPage />}
+
+              {/* ══════════════════════ ADMIN ══════════════════════ */}
+              {activeTab === 'admin' && isEffectiveAdmin && (
+                <motion.div key="admin" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full">
+                  <AdminWithdrawalPage />
+                </motion.div>
+              )}
+              {activeTab === 'admin' && !isEffectiveAdmin && (
+                <motion.div key="forbidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center justify-center py-32 text-slate-400">
+                  <p className="text-6xl mb-4">🔒</p>
+                  <p className="font-black text-xl">Akses Ditolak</p>
+                  <p className="font-medium text-sm mt-2">Halaman ini hanya untuk Super Admin</p>
+                </motion.div>
+              )}
+
+              {/* ══════════════════════ POLL ══════════════════════ */}
+              {activeTab === 'poll' && (
+                <motion.div key="poll" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
+                      <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #2e2f42 0%, transparent 50%)' }} />
+                      <div className="relative flex items-start justify-between gap-4">
+                        <div>
+                          <div className="flex items-center gap-4">
+                            <div className="bg-orange-500 p-3 rounded-xl  text-white shadow-lg">
+                                <Vote size={20} />
                             </div>
-                          </label>
+                            <div>
+                                <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                                    Polling
+                                </h3>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-
-                    <div className="md:col-span-2 mb-1 border-t border-slate-100/10 pt-5 mt-2">
-                      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Link Halaman Donasi</label>
-                      <div className="flex gap-3">
-                        <input readOnly value={`${window.location.origin}/donate/${user.username}`}
-                          className="flex-1 bg-blue-50 dark:bg-blue-950/40 border-2 border-blue-100 dark:border-blue-900 rounded-xl p-5 font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none" />
-                        <button onClick={() => copyToClipboard(`${window.location.origin}/donate/${user.username}`)}
-                          className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-xl  transition-all flex items-center justify-center active:scale-95">
-                          <Copy size={20} />
-                        </button>
-                      </div>
-                    </div>
-
-                    <InputField label="Display Name" value={profileForm.username} onChange={v => setProfileForm(f => ({ ...f, username: v }))} />
-                    <InputField label="Email Address" type="email" value={profileForm.email} onChange={v => setProfileForm(f => ({ ...f, email: v }))} />
-
-                    <div className="md:col-span-2">
-                      <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Bio Singkat</label>
-                      <textarea value={profileForm.bio} onChange={e => setProfileForm(f => ({ ...f, bio: e.target.value }))}
-                        className="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-xl font-bold outline-none focus:border-blue-500 h-32 transition-all"
-                        placeholder="Ceritakan tentang kontenmu..." />
-                    </div>
-
-                    <div className="md:col-span-2 mb-1">
-                      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Intro Halaman Donate</label>
-                      <input type="text" value={profileForm.donateIntro || ''} onChange={e => setProfileForm(f => ({ ...f, donateIntro: e.target.value }))}
-                        className="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-xl font-bold outline-none focus:border-blue-500 transition-all"
-                        placeholder="Support aku biar makin semangat 🚀" maxLength={120} />
-                    </div>
-
-                    <div className="md:col-span-2">
-                      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Social Media</label>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <InputField label="Instagram" value={profileForm.instagram} placeholder="@username" onChange={v => setProfileForm(f => ({ ...f, instagram: v }))} />
-                        <InputField label="Facebook" value={profileForm.facebook} placeholder="facebook.com/username" onChange={v => setProfileForm(f => ({ ...f, facebook: v }))} />
-                        <InputField label="YouTube" value={profileForm.youtube} placeholder="youtube.com/@channel" onChange={v => setProfileForm(f => ({ ...f, youtube: v }))} />
-                        <InputField label="X / Twitter" value={profileForm.twitter} placeholder="@username" onChange={v => setProfileForm(f => ({ ...f, twitter: v }))} />
-                      </div>
-                    </div>
-
-                    <div className="md:col-span-2">
-                      <button onClick={() => updateProfileMutation.mutate(profileForm)} disabled={updateProfileMutation.isPending}
-                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-md transition-all flex items-center justify-center gap-3 disabled:opacity-70">
-                        <Save size={20} />
-                        {updateProfileMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
-                      </button>
-                    </div>
+                  <div className="space-y-6 mt-5">
+                    <PollManager overlayToken={user.overlayToken} username={user.username} />
                   </div>
-                </div>
-                <QrCodeCard username={user.username} />
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
-                    <SectionHeader icon={<ShieldCheck size={18} />} title="Ubah PIN Keamanan" color="bg-amber-500" />
-                    <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">
-                      PIN digunakan untuk konfirmasi transfer saldo. Pastikan tidak membagikannya ke siapapun.
-                    </p>
+                </motion.div>
+              )}
 
-                    <AnimatePresence mode="wait">
-                      {pinStep === 'success' ? (
-                        <motion.div
-                          key="pin-success"
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0 }}
-                          className="flex flex-col items-center gap-4 py-8"
-                        >
-                          <div className="w-16 h-16 bg-green-100 dark:bg-green-950/40 flex items-center justify-center">
-                            <CheckCircle2 size={32} className="text-green-600 dark:text-green-400" />
-                          </div>
-                          <p className="font-black text-slate-800 dark:text-slate-100 text-lg">PIN Berhasil Diubah!</p>
-                          <p className="text-sm text-slate-400 font-medium">Gunakan PIN baru untuk konfirmasi transfer berikutnya.</p>
-                        </motion.div>
-                      ) : (
-                        <motion.div key="pin-form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl  w-full grid grid-cols-1 gap-4 md:gap-14 items-center justify-center md:grid-cols-3 space-y-0">
-                          <PinRow
-                            label="PIN Saat Ini"
-                            groupKey="currentPin"
-                            refs={currentPinRefs}
-                            pinForm={pinForm}
-                            setPinForm={setPinForm}
-                            showPins={showPins}
-                            setShowPins={setShowPins}
-                            handlePinInputChange={handlePinInputChange}
-                            handlePinKeyDown={handlePinKeyDown}
-                          />
-                          <PinRow
-                            label="PIN Baru"
-                            groupKey="newPin"
-                            refs={newPinRefs}
-                            pinForm={pinForm}
-                            setPinForm={setPinForm}
-                            showPins={showPins}
-                            setShowPins={setShowPins}
-                            handlePinInputChange={handlePinInputChange}
-                            handlePinKeyDown={handlePinKeyDown}
-                          />
-                          <PinRow
-                            label="Konfirmasi PIN Baru"
-                            groupKey="confirmPin"
-                            refs={confirmPinRefs}
-                            pinForm={pinForm}
-                            setPinForm={setPinForm}
-                            showPins={showPins}
-                            setShowPins={setShowPins}
-                            handlePinInputChange={handlePinInputChange}
-                            handlePinKeyDown={handlePinKeyDown}
-                          />
+              {/* ══════════════════════ MILESTONES ══════════════════════ */}
+              {activeTab === 'milestones' && <MilestonesManager overlayToken={user?.overlayToken} />}
 
-                        </motion.div>
-                    )}
-                    </AnimatePresence>
-                      <AnimatePresence>
-                        {pinError && (
-                          <motion.div
-                            initial={{ opacity: 0, y: -4 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0 }}
-                            className="rounded-xl w-max flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800"
-                          >
-                            <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
-                            <p className="text-xs font-bold text-red-600 dark:text-red-400">{pinError}</p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
-                      <button
-                        onClick={handleChangePin}
-                        disabled={
-                          pinLoading ||
-                          pinForm.currentPin.join('').length < 4 ||
-                          pinForm.newPin.join('').length < 4 ||
-                          pinForm.confirmPin.join('').length < 4
-                        }
-                        className="rounded-xl cursor-pointer md:mt-0 mt-2 w-full px-4 relative md:top-[7px] py-3 bg-blue-500 hover:bg-amber-600 text-white font-black text-sm transition-all active:scale-[0.99] flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
-                      >
-                        {pinLoading ? (
-                          <><Loader2 size={16} className="animate-spin" /> Memproses...</>
-                        ) : (
-                          <><Save />Simpan PIN terbaru</>
-                        )}
-                      </button>
-                  </div>
-              </motion.div>
-            )}
-
-            {/* ══════════════════════ WALLET ══════════════════════ */}
-            {activeTab === 'wallet' && (
-              maintenance?.withdrawal
-                ? <MaintenanceScreen title="Sitem WD - maintenance" subtitle="Fitur penarikan sementara tidak tersedia. Saldo kamu aman dan tidak terpengaruh." />
-                : <WithdrawPage />
-            )}
-
-            {/* ══════════════════════ FEE CONFIG ══════════════════════ */}
-            {activeTab === 'feeConfig' && (
-              <motion.div key="feeConfig" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <FeeConfigPage />
-              </motion.div>
-            )}
-
-            {/* ══════════════════════ GHOST ALERT ══════════════════════ */}
-            {activeTab === 'ghostAlert' && isEffectiveAdmin && <GhostAlertPage />}
-
-            {/* ══════════════════════ ADMIN ══════════════════════ */}
-            {activeTab === 'admin' && isEffectiveAdmin && (
-              <motion.div key="admin" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full">
-                <AdminWithdrawalPage />
-              </motion.div>
-            )}
-            {activeTab === 'admin' && !isEffectiveAdmin && (
-              <motion.div key="forbidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center justify-center py-32 text-slate-400">
-                <p className="text-6xl mb-4">🔒</p>
-                <p className="font-black text-xl">Akses Ditolak</p>
-                <p className="font-medium text-sm mt-2">Halaman ini hanya untuk Super Admin</p>
-              </motion.div>
-            )}
-
-            {/* ══════════════════════ POLL ══════════════════════ */}
-            {activeTab === 'poll' && (
-              <motion.div key="poll" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                 <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
+              {/* ══════════════════════ SUBATHON ══════════════════════ */}
+              {activeTab === 'subathon' && (
+                <motion.div key="subathon" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl  p-4 md:p-5 text-white relative overflow-hidden">
                     <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #2e2f42 0%, transparent 50%)' }} />
                     <div className="relative flex items-start justify-between gap-4">
                       <div>
                         <div className="flex items-center gap-4">
-                          <div className="bg-orange-500 p-3 rounded-xl  text-white shadow-lg">
+                          <div className="bg-blue-500 p-3 rounded-xl  text-white shadow-lg">
                               <Vote size={20} />
                           </div>
                           <div>
                               <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
-                                  Polling
+                                  Subathon
                               </h3>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                <div className="space-y-6 mt-5">
-                  <PollManager overlayToken={user.overlayToken} username={user.username} />
-                </div>
-              </motion.div>
-            )}
+                  <SubathonManager overlayToken={user.overlayToken} />
+                </motion.div>
+              )}
 
-            {/* ══════════════════════ MILESTONES ══════════════════════ */}
-            {activeTab === 'milestones' && <MilestonesManager overlayToken={user?.overlayToken} />}
+              {/* ══════════════════════ LEADERBOARD ══════════════════════ */}
+              {activeTab === 'leaderboard' && (
+                <motion.div key="leaderboard" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <LeaderboardSettings overlayToken={user?.overlayToken} />
+                  {/* <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                  </div> */}
+                </motion.div>
+              )}
 
-            {/* ══════════════════════ SUBATHON ══════════════════════ */}
-            {activeTab === 'subathon' && (
-              <motion.div key="subathon" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                 <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl  p-4 md:p-5 text-white relative overflow-hidden">
-                  <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #2e2f42 0%, transparent 50%)' }} />
-                  <div className="relative flex items-start justify-between gap-4">
-                    <div>
-                      <div className="flex items-center gap-4">
-                        <div className="bg-blue-500 p-3 rounded-xl  text-white shadow-lg">
-                            <Vote size={20} />
-                        </div>
-                        <div>
-                            <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
-                                Subathon
-                            </h3>
-                        </div>
-                      </div>
-                    </div>
+              {/* ══════════════════════ CONTACT ══════════════════════ */}
+              {activeTab === 'contact' && <ContactPage />}
+
+            </AnimatePresence>
+          </div>
+
+          <footer className="relative z-[2] mt-auto border-t border-slate-200/50 dark:border-slate-800/50 bg-white/20 dark:bg-slate-900/40 backdrop-blur-sm">
+            <div className="max-w-full mx-auto px-4 md:px-6 py-5">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                
+                {/* Kiri — brand */}
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <img src="/logoNew.png" alt="logo" className="w-full h-full object-contain p-1" />
+                  </div>
+                  <div>
+                    <p className="font-black text-sm text-slate-700 dark:text-slate-200 tracking-tight">TapTipTup</p>
                   </div>
                 </div>
-                <SubathonManager overlayToken={user.overlayToken} />
-              </motion.div>
-            )}
 
-            {/* ══════════════════════ LEADERBOARD ══════════════════════ */}
-            {activeTab === 'leaderboard' && (
-              <motion.div key="leaderboard" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <LeaderboardSettings overlayToken={user?.overlayToken} />
-                {/* <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
-                </div> */}
-              </motion.div>
-            )}
+                <div className='w-max flex items-center gap-2'>
+                  <div className="flex items-center gap-1 text-[11px] font-bold text-slate-400 dark:text-slate-500">
+                    {[
+                      { label: 'Syarat & Ketentuan', href: '/terms' },
+                      { label: 'Kebijakan Privasi', href: '/privacy-policy' },
+                      { label: 'Bantuan', onClick: () => setActiveTab('contact') },
+                    ].map((item, i) => (
+                      <span key={i} className="flex items-center gap-1">
+                        {i > 0 && 
+                        <span className="text-slate-300 dark:text-slate-700">·</span>}
+                        {item.onClick ? (
+                          <button
+                            onClick={item.onClick}
+                            className="text-[14px] cursor-pointer hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                          >
+                            {item.label}
+                          </button>
+                        ) : (
+                          <a
+                            href={item.href}
+                            className="text-[14px] hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                          >
+                            {item.label}
+                          </a>
+                        )}
+                      </span>
+                    ))}
+                  </div>
 
-            {/* ══════════════════════ CONTACT ══════════════════════ */}
-            {activeTab === 'contact' && <ContactPage />}
+                    -
+                  <p className="text-[14px] text-slate-400 dark:text-slate-500 font-bold">
+                    © {new Date().getFullYear()} TapTipTup. All Rights Seserved.
+                  </p>
+                </div>
 
-          </AnimatePresence>
-        </div>
-      </main>
-
-      {isSidebarOpen && (
-        <div onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-50 lg:hidden" />
-      )}
-
-      {showUpgradeModal && (
-        <div className="fixed inset-0 z-[99999] overlow-hidden flex items-center justify-center bg-black/60 backdrop-blur-md">
-
-          <UpgradeConfetti />
-
-          <div className="bg-white dark:bg-slate-900 p-8 max-w-max text-center">
-            <ShieldCheck className="w-16 h-16 mx-auto text-blue-500 mb-4" />
-            <h2 className="text-2xl font-black mb-2">Akun superStreamer</h2>
-            <p className="text-slate-600 dark:text-slate-400 mb-6">
-              Memiliki akses penuh untuk mengelola semua akun streamer taptiptup.
-            </p>
-            <button
-              onClick={async () => {
-                setShowUpgradeModal(false); // ✅ tutup modal dulu, langsung
-                
-                try {
-                  await api.put('/api/streamer-manage/mark-role-upgrade-notified');
-                  await isRefetchProfile(); // refetch di background
-                } catch (err) {
-                  console.error('Gagal update notified:', err);
-                }
-              }}
-              className="cursor-pointer active:scale-[0.99] bg-blue-600 mt-4 hover:bg-blue-700 text-white font-black px-4 py-3"
-            >
-              Terima Kasih
-            </button>
-          </div>
-        </div>
-      )}
-      
-      <AnimatePresence>
-        {showModeToast && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{duration: 0.15}}
-            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 backdrop-blur-md"
-          >
-            <motion.div
-              initial={{ scale: 0.85, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.85, opacity: 0, y: 20 }}
-              className="flex rounded-xl  flex-col items-center w-[95vw] md:w-md gap-6 text-center p-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl"
-            >
-              <div className="w-20 h-20 rounded-xl  bg-blue-100 dark:bg-blue-950/40 flex items-center justify-center">
-                <ShieldCheck size={40} className="text-blue-500" />
               </div>
-              <div>
-                <p className="text-2xl font-black text-slate-800 dark:text-slate-100">{modeToastLabel}</p>
-                <p className="text-sm text-slate-400 font-medium mt-2">
-                  {adminMode ? 'Kamu sekarang dalam mode pengelola.' : 'Kamu kembali ke mode streamer.'}
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </footer>
+        </main>
+
+        {isSidebarOpen && (
+          <div onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-50 lg:hidden" />
         )}
-      </AnimatePresence>
 
-      <AnimatePresence>
-        {showLoginModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/70 backdrop-blur-md"
-            onClick={() => setShowLoginModal(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.88, opacity: 0, y: 24 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.88, opacity: 0, y: 24 }}
-              transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-              onClick={e => e.stopPropagation()}
-              className="relative max-w-3xl bg-slate-700 p-3 w-full mx-4 rounded-xl overflow-hidden shadow-2xl border border-white/10"
-            >
-              <img
-                src="/poster.png"
-                alt="poster"
-                className="w-full rounded-xl  h-auto block"
-              />
+        {showUpgradeModal && (
+          <div className="fixed inset-0 z-[99999] overlow-hidden flex items-center justify-center bg-black/60 backdrop-blur-md">
+
+            <UpgradeConfetti />
+
+            <div className="bg-white dark:bg-slate-900 p-8 max-w-max text-center">
+              <ShieldCheck className="w-16 h-16 mx-auto text-blue-500 mb-4" />
+              <h2 className="text-2xl font-black mb-2">Akun superStreamer</h2>
+              <p className="text-slate-600 dark:text-slate-400 mb-6">
+                Memiliki akses penuh untuk mengelola semua akun streamer taptiptup.
+              </p>
               <button
-                onClick={() => setShowLoginModal(false)}
-                className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-red-600 hover:bg-black/70 text-white rounded-xl transition-all cursor-pointer"
-                aria-label="Tutup"
+                onClick={async () => {
+                  setShowUpgradeModal(false); // ✅ tutup modal dulu, langsung
+                  
+                  try {
+                    await api.put('/api/streamer-manage/mark-role-upgrade-notified');
+                    await isRefetchProfile(); // refetch di background
+                  } catch (err) {
+                    console.error('Gagal update notified:', err);
+                  }
+                }}
+                className="cursor-pointer active:scale-[0.99] bg-blue-600 mt-4 hover:bg-blue-700 text-white font-black px-4 py-3"
               >
-                ✕
+                Terima Kasih
               </button>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+        
+        <AnimatePresence>
+          {showModeToast && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{duration: 0.15}}
+              className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 backdrop-blur-md"
+            >
+              <motion.div
+                initial={{ scale: 0.85, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.85, opacity: 0, y: 20 }}
+                className="flex rounded-xl  flex-col items-center w-[95vw] md:w-md gap-6 text-center p-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl"
+              >
+                <div className="w-20 h-20 rounded-xl  bg-blue-100 dark:bg-blue-950/40 flex items-center justify-center">
+                  <ShieldCheck size={40} className="text-blue-500" />
+                </div>
+                <div>
+                  <p className="text-2xl font-black text-slate-800 dark:text-slate-100">{modeToastLabel}</p>
+                  <p className="text-sm text-slate-400 font-medium mt-2">
+                    {adminMode ? 'Kamu sekarang dalam mode pengelola.' : 'Kamu kembali ke mode streamer.'}
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-      {/* <CustomerServiceWidget /> */}
-    </div>
+        <AnimatePresence>
+          {showLoginModal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/70 backdrop-blur-md"
+              onClick={() => setShowLoginModal(false)}
+            >
+              <motion.div
+                initial={{ scale: 0.88, opacity: 0, y: 24 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.88, opacity: 0, y: 24 }}
+                transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+                onClick={e => e.stopPropagation()}
+                className="relative max-w-3xl bg-slate-700 p-3 w-full mx-4 rounded-xl overflow-hidden shadow-2xl border border-white/10"
+              >
+                <img
+                  src="/poster.png"
+                  alt="poster"
+                  className="w-full rounded-xl  h-auto block"
+                />
+                <button
+                  onClick={() => setShowLoginModal(false)}
+                  className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-red-600 hover:bg-black/70 text-white rounded-xl transition-all cursor-pointer"
+                  aria-label="Tutup"
+                >
+                  ✕
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* <CustomerServiceWidget /> */}
+      </div>
+    </>
   );
 };

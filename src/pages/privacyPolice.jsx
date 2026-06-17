@@ -22,7 +22,7 @@ function SectionTitle({ children }) {
   return (
     <h3 className="w-max md:text-[20px] text-[16px]" style={{
       fontFamily: "'Bebas Neue', sans-serif",
-      color: C.lime,
+      color: 'white',
       fontWeight: 800,
       marginTop: 48,
       marginBottom: 16,
@@ -54,11 +54,13 @@ export default function PrivacyPolicy() {
   return (
     <div style={{ minHeight: "100vh", background: C.bg, color: C.text, fontFamily: "'Space Grotesk', sans-serif" }}>
         <nav
-          className="px-[30px] md:px-[40px] py-[24px] flex justify-between items-center sticky top-0 z-10 backdrop-blur-[10px] bg-[rgba(10,11,16,0.8)]"
+          className="px-[30px] md:px-[40px] py-[18px] flex justify-between items-center sticky top-0 z-10 backdrop-blur-[10px] bg-[rgba(10,11,16,0.8)]"
           style={{ borderBottom: `1px solid ${C.line}` }}
         > 
         <Link to="/" style={{ textDecoration: "none", color: C.text, fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 24, height: 24, background: C.lime, color: C.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 900 }}>🪼</div>
+          <div style={{ width: 34, height: 34, background: 'white', color: C.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 900 }}>
+            <img src="/logttt.png" alt="logo" className="w-[82%]" />
+          </div>
           TAP-TIP-TUP
         </Link>
         <Link className="text-white flex items-center gap-[5px] hover:text-white/80 active:scale-[0.98]" to="/" style={{ fontSize: 14, textDecoration: "none", textTransform: "uppercase", letterSpacing: "0.1em" }}>
@@ -68,9 +70,9 @@ export default function PrivacyPolicy() {
 
       {/* Header Halaman */}
       <header className="w-full md:w-[56vw] md:text-justify text-center flex justify-start items-start flex-col mx-auto border-x border-slate-100/10 px-[28px] md:px-[38px] pt-[40px] md:pt-[80px] pb-[40px]" style={{ textAlign: "center" }}>
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: C.lime, textTransform: "uppercase", letterSpacing: "0.2em" }}>Taptiptup official</span>
+        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: 'white', textTransform: "uppercase", letterSpacing: "0.2em" }}>Taptiptup official</span>
         <h1 className="w-max text-[30px] md:text-[50px]" style={{ fontWeight: 800, fontFamily: "'Bebas Neue', sans-serif", lineHeight: 1, marginTop: 16 }}>
-          KEBIJAKAN <span style={{ color: C.lime }}>PRIVASI</span>
+          KEBIJAKAN <span style={{ color: 'white' }}>PRIVASI</span>
         </h1>
         <div className="text-slate-400" style={{ fontSize: 16, marginTop: 12 }}>
           Terakhir diperbarui: 30 Mei 2026
@@ -128,12 +130,12 @@ export default function PrivacyPolicy() {
           marginTop: 80, 
           padding: 32, 
           background: C.bg2, 
-          borderLeft: `4px solid ${C.lime}`,
+          borderLeft: `4px solid ${'white'}`,
           display: "flex",
           flexDirection: "column",
           gap: 12
         }}>
-          <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, color: C.lime }}>Pertanyaan atau Masukan?</div>
+          <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, color: 'white' }}>Pertanyaan atau Masukan?</div>
           <PolicyText>
             Jika Anda memiliki pertanyaan mengenai Kebijakan Privasi ini, silakan hubungi kami di: 
             <br />
