@@ -583,23 +583,11 @@ const calculateMediaShareDuration = (config, amount) => {
                   fontSize: 20,
                   width: 'max-content',
                   fontWeight: 500,
-                  color: hl,
+                  color: 'white',
                   borderBottom: `1px solid ${hl}25`,
                 }}>
                   {alert.donorName} mengirim
                 </div>
-                {/* <div style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: 20,
-                  marginLeft: 5,
-                  fontWeight: 500,
-                  color: hl,
-                  letterSpacing: '-0.5px',
-                  lineHeight: 1,
-                  textShadow: `0 0 10px ${hl}55`,
-                }}>
-                  Rp {Number(alert.amount).toLocaleString('id-ID')}
-                </div> */}
                 {renderAmountOrItem(alert, hl, { fontFamily: "'Inter', sans-serif",
                   fontSize: 20,
                   marginLeft: 5,

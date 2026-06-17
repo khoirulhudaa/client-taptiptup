@@ -563,7 +563,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
             Test dengan Donation Item
           </label>
 
-          {useItem && (
+         {useItem && (
             <div className="space-y-2">
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pilih Item</p>
               <div className="grid grid-cols-3 gap-2">
@@ -573,17 +573,21 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
                     onClick={() => {
                       const selected = testItem?.id === item.id ? null : { ...item, quantity: 1 };
                       setTestItem(selected);
-                      if (selected) setCustomAmount(selected.price * 1);
+                      if (selected) {
+                        updateForm('amount', selected.price * 1);
+                      }
                     }}
-                    className={`p-3 rounded-lg border-2 text-center transition-all cursor-pointer active:scale-[0.99] ${
+                    className={`p-3 flex items-center justify-between rounded-lg border-2 text-center transition-all cursor-pointer active:scale-[0.99] ${
                       testItem?.id === item.id
-                        ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40'
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40'
                         : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800'
                     }`}
                   >
-                    <div className="text-xl mb-1">{item.emoji}</div>
-                    <p className="font-black text-xs text-slate-700 dark:text-slate-200 truncate">{item.name}</p>
-                    <p className="font-black text-[10px] text-white mt-0.5">
+                    <div className='w-max flex items-center gap-3'>
+                      <div className="text-xl mb-[2px]">{item.emoji}</div>
+                      <p className="font-black relative top-[1px] text-[12.5px] text-slate-700 dark:text-slate-200 truncate">{item.name}</p>
+                    </div>
+                    <p className="font-black text-xs text-white mt-0.5">
                       Rp {Number(item.price).toLocaleString('id-ID')}
                     </p>
                   </button>
@@ -604,17 +608,17 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
                       onClick={() => {
                         const newQty = Math.max(1, (testItem.quantity||1) - 1);
                         setTestItem(p => ({ ...p, quantity: newQty }));
-                        setCustomAmount(testItem.price * newQty);
+                        updateForm('amount', testItem.price * newQty);
                       }}
-                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-rose-500 cursor-pointer">−</button>
+                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-blue-500 cursor-pointer">−</button>
                     <span className="w-6 text-center font-black text-sm text-slate-700 dark:text-white">{testItem.quantity || 1}</span>
                     <button 
                       onClick={() => {
                         const newQty = Math.min(testItem.maxQty ?? 10, (testItem.quantity||1) + 1);
                         setTestItem(p => ({ ...p, quantity: newQty }));
-                        setCustomAmount(testItem.price * newQty);
+                        updateForm('amount', testItem.price * newQty);
                       }}
-                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-rose-500 cursor-pointer">+</button>
+                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-blue-500 cursor-pointer">+</button>
                   </div>
                 </div>
               )}
@@ -830,15 +834,17 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
                         updateForm('amount', selected.price * 1);
                       }
                     }}
-                    className={`p-3 rounded-lg border-2 text-center transition-all cursor-pointer active:scale-[0.99] ${
+                    className={`p-3 flex items-center justify-between rounded-lg border-2 text-center transition-all cursor-pointer active:scale-[0.99] ${
                       testItem?.id === item.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40'
                         : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800'
                     }`}
                   >
-                    <div className="text-xl mb-1">{item.emoji}</div>
-                    <p className="font-black text-xs text-slate-700 dark:text-slate-200 truncate">{item.name}</p>
-                    <p className="font-black text-[10px] text-white mt-0.5">
+                    <div className='w-max flex items-center gap-3'>
+                      <div className="text-xl mb-[2px]">{item.emoji}</div>
+                      <p className="font-black relative top-[1px] text-[12.5px] text-slate-700 dark:text-slate-200 truncate">{item.name}</p>
+                    </div>
+                    <p className="font-black text-xs text-white mt-0.5">
                       Rp {Number(item.price).toLocaleString('id-ID')}
                     </p>
                   </button>
@@ -915,7 +921,7 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
   useEffect(() => {
     setMounted(true);
   }, []);
-  
+
   const { data: streamer, isLoading, error } = useQuery({
     queryKey: ['publicProfile', username],
     queryFn: () => fetchPublicProfile(username),

@@ -133,7 +133,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
       items: [
         { id: 'settings',      label: isSuperAdmin ? 'Statistik Overall' : 'Editor Overlay', icon: <Layout size={20} /> },
         { id: 'alertSettings', label: 'Notifikasi Alert',      icon: <ZapIcon size={20} /> },
-        { id: 'mediaSettings', label: 'Mediashare',    icon: <Video size={20} /> },
+        { id: 'mediaSettings', label: 'Media Share',    icon: <Video size={20} /> },
         { id: 'marquee', label: 'Marquee Donor', icon: <Users size={20} /> },
         { id: 'qrConfig', label: 'Kustom QR Code', icon: <QrCode size={20} /> },
         { id: 'voiceSettings', label: 'Voice Note',     icon: <Mic size={20} /> },
