@@ -5058,28 +5058,7 @@ const handleChangePin = async () => {
                 {showPreviewPanel && (
                   <section
                     key="preview-panel"
-                    className="xl:col-span-5 z-[2]"
-                    initial={{ opacity: 0, x: 80, width: 0 }}
-                    animate={{ 
-                      opacity: 1, 
-                      x: 0, 
-                      width: 'auto',
-                      transition: { 
-                        x: { type: 'spring', stiffness: 80, damping: 35 },
-                        opacity: { duration: 0.2 },
-                        width: { duration: 0.35 }
-                      }
-                    }}
-                    exit={{ 
-                      opacity: 0, 
-                      x: 80, 
-                      width: 0,
-                      transition: { 
-                        x: { type: 'spring', stiffness: 80, damping: 30 },
-                        opacity: { duration: 1 },
-                        width: { duration: 1 }
-                      }
-                    }}
+                    className="xl:col-span-5 sticky top-26 self-start z-[2]"
                   >
                   <motion.div 
                     animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
