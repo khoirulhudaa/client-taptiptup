@@ -511,7 +511,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
               setTestItem(null);
               setUseItem(false);
             }}
-            className={`cursor-pointer active:scale-[0.99] px-3 py-1.5 rounded-lg text-xs font-black transition-all border-2 ${
+            className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black transition-all border-2 ${
               Number(customAmount) === v
                 ? 'bg-rose-500 border-rose-500 text-white'
                 : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
@@ -767,7 +767,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
               setTestItem(null);
               setUseItem(false);
             }}
-            className={`cursor-pointer active:scale-[0.99] px-3 py-1.5 rounded-lg text-xs font-black transition-all border-2 ${
+            className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-lg text-xs font-black transition-all border-2 ${
               Number(formData.amount) === v && !testItem
                 ? 'bg-blue-600 border-blue-600 text-white'
                 : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
@@ -1494,7 +1494,7 @@ const AdminWithdrawalPage = () => {
                         <td className="px-6 py-5"><p className="font-bold text-slate-600 dark:text-slate-300 text-sm">{wd.paymentMethod || 'BANK'}</p></td>
                         <td className="px-6 py-5"><p className="font-mono font-bold text-slate-700 dark:text-slate-200 text-sm">{wd.accountNumber}</p></td>
                         <td className="px-6 py-5">
-                          <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black ${wd.status === 'COMPLETED' ? 'bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400' : wd.status === 'FAILED' ? 'bg-red-100 dark:bg-red-950/40 text-red-500 dark:text-red-400' : 'bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400'}`}>{wd.status}</span>
+                          <span className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-black ${wd.status === 'COMPLETED' ? 'bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400' : wd.status === 'FAILED' ? 'bg-red-100 dark:bg-red-950/40 text-red-500 dark:text-red-400' : 'bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400'}`}>{wd.status}</span>
                         </td>
                         <td className="px-6 py-5"><p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium whitespace-nowrap">{formatDate(wd.createdAt)}</p></td>
                           {statusFilter === 'PENDING' && (
@@ -2591,7 +2591,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           <div className="flex gap-3 mt-1">
             {MEDIA_PRESETS.map((p, i) => (
               <button key={i} onClick={() => setMediaUrl(p.url)}
-                className={`flex-1 py-1.5 text-[10px] font-black rounded-md border-2 transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-purple-300'}`}>
+                className={`flex-1 py-2 text-[10px] font-black rounded-md border-2 transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-purple-300'}`}>
                 {p.label}
               </button>
             ))}
@@ -2639,6 +2639,7 @@ const HistoryPage = () => {
     return saved === null ? true : saved === 'true'; // default true kalau belum ada
   });
   const [showEmails, setShowEmails] = useState(false);
+  const [showItemAmounts, setShowItemAmounts] = useState({});
 
   useEffect(() => {
     const handler = () => {
@@ -2676,6 +2677,23 @@ const HistoryPage = () => {
 
   const donations = data?.donations || [];
   const pagination = data?.pagination || {};
+
+  const toggleItemAmount = (id) => {
+    setShowItemAmounts(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const getDonationItemDisplay = (donation) => {
+    if (!donation?.donationItem?.name) return null;
+    const item = donation.donationItem;
+    const qty = item.price > 0 ? Math.round(donation.amount / item.price) : 1;
+    return {
+      display: `${item.name}${qty > 1 ? ` ×${qty}` : ''}`,
+      emoji: item.emoji || '🎁',
+      sub: qty > 1
+        ? `${qty}× Rp ${Number(item.price).toLocaleString('id-ID')} = Rp ${Number(donation.amount).toLocaleString('id-ID')}`
+        : `Rp ${Number(item.price).toLocaleString('id-ID')}`,
+    };
+  };
 
   const maskAmount = (amount) => {
     if (!showAmounts) return '••••••';
@@ -2741,7 +2759,7 @@ const HistoryPage = () => {
             <div className="flex gap-1.5">
               {[{ id: 'received', label: 'Diterima' }, { id: 'sent', label: 'Terkirim' }].map((t) => (
                 <button key={t.id} onClick={() => { setHistoryTab(t.id); setPage(1); setStatusFilter(''); }}
-                  className={`px-4 py-1 text-xs cursor-pointer font-black rounded-md transition-all border border-slate-200 dark:border-slate-700 ${historyTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-blue-200'}`}>
+                  className={`px-4 py-2 text-xs cursor-pointer font-black rounded-md transition-all border border-slate-200 dark:border-slate-700 ${historyTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-blue-200'}`}>
                   {t.label}
                 </button>
               ))}
@@ -2752,14 +2770,14 @@ const HistoryPage = () => {
             <div className="flex gap-1.5 rounded-md overflow-hidden">
               <button
                 onClick={() => setViewMode('table')}
-                className={`px-4 py-1 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
+                className={`px-4 py-2 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
               >
                 <List size={13} className='relative top-[-0.5px]' />
                 Table
               </button>
               <button
                 onClick={() => setViewMode('card')}
-                className={`px-4 py-1 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'card' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
+                className={`px-4 py-2 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'card' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
               >
                 <Grid size={13} className='relative top-[-0.5px]' />
                 Card
@@ -2776,18 +2794,18 @@ const HistoryPage = () => {
                 setShowAmounts(next);
                 localStorage.setItem('showBalance', String(next)); // ← sync ke localStorage
               }}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black transition-all border-2 ${showAmounts ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-black transition-all border-2 ${showAmounts ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
                 {showAmounts ? <Eye size={12} /> : <EyeOff size={12} />} Nominal
               </button>
               <button onClick={() => setShowEmails(v => !v)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black transition-all border-2 ${showEmails ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[10px] font-black transition-all border-2 ${showEmails ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
                 {showEmails ? <Eye size={12} /> : <EyeOff size={12} />} Email
               </button>
             </div>
             <div className="flex gap-1">
               {[{ val: '', label: 'Semua' }, { val: 'PAID', label: 'PAID' }].map((f) => (
                 <button key={f.val} onClick={() => { setStatusFilter(f.val); setPage(1); }}
-                  className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200'}`}>
+                  className={`px-3 py-2 rounded-lg text-[10px] font-black transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200'}`}>
                   {f.label}
                 </button>
               ))}
@@ -2835,11 +2853,15 @@ const HistoryPage = () => {
                               )}
                             </td>
                             <td className="px-5 md:px-8 py-5">
-                             {getDonationItemDisplay(item) ? (
-                                <p className="font-medium">
-                                  {getDonationItemDisplay(item).display}
-                                  {getDonationItemDisplay(item).qty}
-                                </p>
+                              {getDonationItemDisplay(item) ? (
+                                <div>
+                                  <p className="font-black text-sm text-white">
+                                    {getDonationItemDisplay(item).display}
+                                  </p>
+                                  <p className="text-[10px] relative left-[-0.2px] text-slate-400 font-medium mt-0.5">
+                                    {getDonationItemDisplay(item).sub}
+                                  </p>
+                                </div>
                               ) : (
                                 <p className={`font-medium ${showAmounts ? 'text-white' : 'text-slate-300'}`}>
                                   {maskAmount(item.amount)}
@@ -2901,38 +2923,53 @@ const HistoryPage = () => {
                         key={item._id}
                         className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-6 hover:shadow-lg transition-all duration-200"
                       >
-                        <div className="flex justify-between items-start mb-5">
-                          <div>
-                            <p className="font-black text-lg text-slate-800 dark:text-slate-100">
-                              {item.donorName || 'Anonim'}
-                            </p>
-                            {showEmails && item.donorEmail && (
-                              <p className="text-xs text-slate-500 mt-1">{item.donorEmail}</p>
+                        <div className='h-[80%]'>
+
+                          <div className="flex justify-between items-start mb-5">
+                            <div>
+                              <p className="font-black text-lg text-slate-800 dark:text-slate-100">
+                                {item.donorName || 'Anonim'}
+                              </p>
+                              {showEmails && item.donorEmail && (
+                                <p className="text-xs text-slate-500 mt-1">{item.donorEmail}</p>
+                              )}
+                            </div>
+                            <span className={`px-3 py-1 rounded-lg text-xs font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'}`}>
+                              {item.status}
+                            </span>
+                          </div>
+                          
+                          <div className='h-[60px]'>
+                            {getDonationItemDisplay(item) ? (
+                              <div className="mb-4 relative left-[-3.5px]">
+                                <p className="font-medium text-lg text-white flex items-center gap-1">
+                                  <span className="relative top-[-2.1px] text-[20px]">{getDonationItemDisplay(item).emoji}</span>
+                                  {getDonationItemDisplay(item).display}
+                                </p>
+                                <p className="text-xs pl-1 text-slate-400 font-medium mt-1">
+                                  {getDonationItemDisplay(item).sub}
+                                </p>
+                              </div>
+                            ) : (
+                              <div className="mb-4 relative left-[-2px]">
+                                <p className={`${showAmounts ? 'text-white' : 'text-slate-300'} font-medium text-lg text-white flex items-center gap-1`}>
+                                  {maskAmount(item.amount)}
+                                </p>
+                                <p className="text-xs pl-1 top-[5.1px] relative left-[-4px] text-slate-400 font-medium">
+                                  Tanpa item
+                                </p>
+                              </div>
                             )}
                           </div>
-                          <span className={`px-3 py-1 rounded-lg text-xs font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'}`}>
-                            {item.status}
-                          </span>
+
+                          {item.message && (
+                            <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 line-clamp-4">
+                              {item.message}
+                            </p>
+                          )}
                         </div>
 
-                        {getDonationItemDisplay(item) ? (
-                          <p className="text-xl font-medium mb-4">
-                            {getDonationItemDisplay(item).display}
-                            {getDonationItemDisplay(item).qty}
-                          </p>
-                        ) : (
-                          <p className={`text-xl font-medium mb-4 ${showAmounts ? 'text-white' : 'text-slate-300'}`}>
-                            {maskAmount(item.amount)}
-                          </p>
-                        )}
-
-                        {item.message && (
-                          <p className="text-slate-600 dark:text-slate-400 italic text-sm mb-6 line-clamp-4">
-                            "{item.message}"
-                          </p>
-                        )}
-
-                        <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700 text-sm">
+                        <div className="h-[20%] flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700 text-sm">
                           <p className="text-slate-400 text-xs">{formatDate(item.createdAt)}</p>
 
                           <div className="flex items-center gap-4">
@@ -2944,7 +2981,7 @@ const HistoryPage = () => {
                             <button
                               onClick={() => replayDonation(item._id)}
                               disabled={isReplaying}
-                              className={`flex relative mt-[1.3px] items-center gap-1.5 font-black text-blue-600 hover:text-blue-500 transition-all ${isReplaying ? 'opacity-50 cursor-not-allowed' : ''}`}
+                              className={`flex relative mt-[1.3px] items-center gap-1.5 font-black text-blue-500 hover:text-blue-300 cursor-pointer active:scale-[0.99] transition-all ${isReplaying ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
                               {isReplaying ? <Loader2 size={18} className="animate-spin" /> : <Video className='relative top-[-1px]' size={20} />}
                               Replay
@@ -2973,10 +3010,48 @@ const HistoryPage = () => {
                     (sentData?.donations || []).map((item) => (
                       <tr key={item._id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-all">
                         <td className="px-5 md:px-8 py-5"><p className="font-black text-slate-700 dark:text-slate-200">@{item.userId?.username || item.username || '-'}</p></td>
-                        <td className="px-5 md:px-8 py-5 font-black text-sm">Rp {Number(item.amount).toLocaleString('id-ID')}</td>
+                        <td className="px-5 md:px-8 py-5">
+                          {getDonationItemDisplay(item) ? (
+                            <div className="flex items-center gap-2">
+                              <div>
+                                {showItemAmounts[item._id] ? (
+                                  <p className="font-black text-sm text-white">
+                                    Rp {Number(item.amount).toLocaleString('id-ID')}
+                                  </p>
+                                ) : (
+                                  <p className="font-medium text-sm">
+                                    {getDonationItemDisplay(item).display}
+                                    {getDonationItemDisplay(item).qty}
+                                  </p>
+                                )}
+                                {/* selalu tampil qty × nominal per item */}
+                                <p className="text-[10px] text-slate-400 font-medium mt-0.5">
+                                  {item.donationItem.quantity > 1 ? `${item.donationItem.quantity}× ` : ''}
+                                  Rp {Number(item.donationItem.price).toLocaleString('id-ID')}
+                                  {item.donationItem.quantity > 1 && (
+                                    <span className="ml-1 text-slate-500">
+                                      = Rp {Number(item.amount).toLocaleString('id-ID')}
+                                    </span>
+                                  )}
+                                </p>
+                              </div>
+                              <button
+                                onClick={() => toggleItemAmount(item._id)}
+                                className="text-slate-400 hover:text-blue-400 transition-colors"
+                                title={showItemAmounts[item._id] ? 'Lihat item' : 'Lihat nominal'}
+                              >
+                                {showItemAmounts[item._id] ? <EyeOff size={12} /> : <Eye size={12} />}
+                              </button>
+                            </div>
+                          ) : (
+                            <p className={`font-medium ${showAmounts ? 'text-white' : 'text-slate-300'}`}>
+                              {maskAmount(item.amount)}
+                            </p>
+                          )}
+                        </td>
                         <td className="px-5 md:px-8 py-5 max-w-[250px]"><p className="text-slate-500 dark:text-slate-400 text-sm italic truncate">{item.message || '-'}</p></td>
                         <td className="px-5 md:px-8 py-5">
-                          <span className={`px-3 py-1.5 rounded-lg text-[10px] font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600 dark:bg-green-950/40 dark:text-green-400' : 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400'}`}>{item.status}</span>
+                          <span className={`px-3 py-2 rounded-lg text-[10px] font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600 dark:bg-green-950/40 dark:text-green-400' : 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400'}`}>{item.status}</span>
                         </td>
                         <td className="px-5 md:px-8 py-5 text-[10px] text-slate-400 dark:text-slate-500">{formatDate(item.createdAt)}</td>
                       </tr>
@@ -4479,7 +4554,7 @@ const handleChangePin = async () => {
                                   </p>
                                 </div>
                                 <a href="https://giphy.com/search/terima-kasih" target="_blank" rel="noopener noreferrer"
-                                  className="flex-shrink-0 px-3 py-1.5 bg-pink-500 hover:bg-pink-600 text-white rounded-lg text-[10px] font-black transition-all active:scale-[0.99]">
+                                  className="flex-shrink-0 px-3 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg text-[10px] font-black transition-all active:scale-[0.99]">
                                   Buka Giphy →
                                 </a>
                               </div>
@@ -4769,7 +4844,7 @@ const handleChangePin = async () => {
                           <h2 className="text-3xl font-black text-white tracking-tighter">@{user.username}</h2> <Verified className='relative top-[3.9px] text-blue-400' />
                         </div>
                       </div>
-                      <div className="w-max px-4 md:flex hidden py-1.5 relative bg-green-100 relative top-1 text-green-600 rounded-lg text-[10px] font-black uppercase tracking-widest border border-green-200">Verified Creator</div>
+                      <div className="w-max px-4 md:flex hidden py-2 relative bg-green-100 relative top-1 text-green-600 rounded-lg text-[10px] font-black uppercase tracking-widest border border-green-200">Verified Creator</div>
                       <p className="text-slate-200 font-medium text-sm">{user.email}</p>
                     </div>
                   </div>
