@@ -504,7 +504,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-2">
         {[10000, 50000, 100000, 500000, 1000000].map(v => (
           <button 
             key={v} 
@@ -568,7 +568,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
          {useItem && (
             <div className="space-y-2">
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pilih Item</p>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                 {donationItems.map(item => (
                   <button
                     key={item.id}
@@ -825,7 +825,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
           {useItem && (
             <div className="space-y-2">
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pilih Item</p>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                 {donationItems.map(item => (
                   <button
                     key={item.id}
