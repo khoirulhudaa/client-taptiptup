@@ -41,7 +41,7 @@ const normalizeToPickerHex = (v) => {
 export const SectionHeader = ({ icon, title, color }) => (
   <div className="flex items-center gap-4">
     {icon && (
-      <div className={`${color} p-3 rounded-none text-white shadow-lg`}>{icon}</div>
+      <div className={`${color} p-3 rounded-xl text-white shadow-lg`}>{icon}</div>
     )}
     <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">{title}</h3>
   </div>
@@ -51,7 +51,7 @@ export const InputField = ({ label, ...props }) => (
   <div className="w-full">
     <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">{label}</label>
     <input
-      className="w-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none p-3 focus:border-indigo-500 dark:focus:border-indigo-500 outline-none transition-all font-bold text-sm text-slate-900 dark:text-slate-100 shadow-sm"
+      className="w-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl p-3 focus:border-indigo-500 dark:focus:border-indigo-500 outline-none transition-all font-bold text-sm text-slate-900 dark:text-slate-100 shadow-sm"
       {...props}
       onChange={e => props.onChange?.(e.target.value)}
     />
@@ -108,7 +108,7 @@ export const ColorInput = React.memo(({ label, value, onChange, allowAlpha = fal
         {label}
       </label>
       <div className="flex items-center gap-2">
-        <div className="w-10 h-10 flex-shrink-0 rounded-none overflow-hidden border border-slate-300 dark:border-slate-600 relative group">
+        <div className="w-10 h-10 flex-shrink-0 rounded-xl overflow-hidden border border-slate-300 dark:border-slate-600 relative group">
           <input
             id={`${inputId}-picker`}
             type="color"
@@ -131,10 +131,10 @@ export const ColorInput = React.memo(({ label, value, onChange, allowAlpha = fal
           spellCheck={false}
           placeholder={allowAlpha ? '#rrggbbaa' : '#rrggbb'}
           maxLength={allowAlpha ? 9 : 7}
-          className="w-28 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-500 transition-all"
+          className="w-28 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-500 transition-all"
         />
         <div
-          className="flex-1 h-10 rounded-none border border-slate-200 dark:border-slate-700 cursor-pointer hover:shadow-md transition-all"
+          className="flex-1 h-10 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:shadow-md transition-all"
           style={{ backgroundColor: previewColor }}
           title={previewColor}
         />
@@ -151,7 +151,7 @@ ColorInput.displayName = 'ColorInput';
 
 const AlertConfig = ({ settings, upd, saveSettingsMutation, user, copyToClipboard }) => {
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+    <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
       <SectionHeader icon={<Settings size={20} />} title="Konfigurasi Alert" color="bg-indigo-500" />
       <div className="mt-8 space-y-6">
 
@@ -160,22 +160,22 @@ const AlertConfig = ({ settings, upd, saveSettingsMutation, user, copyToClipboar
           { key: 'overlayEnabled', label: 'Aktifkan Overlay OBS', desc: 'Alert tidak akan muncul di OBS sama sekali' },
           { key: 'showTimestamp',  label: 'Tampilkan Jam Donasi', desc: 'Waktu kapan donasi diterima overlay' },
         ].map(({ key, label, desc }) => (
-          <div key={key} className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-none border border-slate-100 dark:border-slate-700">
+          <div key={key} className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
             <div>
               <p className="font-black text-slate-700 dark:text-slate-200 text-sm">{label}</p>
               <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{desc}</p>
             </div>
             <button
               onClick={() => upd(key, !settings[key])}
-              className={`relative inline-flex h-7 w-14 items-center rounded-none transition-colors duration-300 cursor-pointer focus:outline-none ${settings[key] ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-600'}`}
+              className={`relative inline-flex h-7 w-14 items-center rounded-xl transition-colors duration-300 cursor-pointer focus:outline-none ${settings[key] ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-600'}`}
             >
-              <span className={`inline-block h-5 w-5 transform rounded-none bg-white shadow-md transition-transform duration-300 ${settings[key] ? 'translate-x-8' : 'translate-x-1'}`} />
+              <span className={`inline-block h-5 w-5 transform rounded-xl bg-white shadow-md transition-transform duration-300 ${settings[key] ? 'translate-x-8' : 'translate-x-1'}`} />
             </button>
           </div>
         ))}
 
         {/* Donate URL */}
-        <div className="bg-slate-100 dark:bg-slate-800 p-5 rounded-none border border-slate-100/10 mb-2">
+        <div className="bg-slate-100 dark:bg-slate-800 p-5 rounded-xl border border-slate-100/10 mb-2">
           <label className="block text-[10px] font-black bg-emerald-300 w-max text-slate-700 mb-2 uppercase tracking-widest px-2 rounded">DONATE URL</label>
           <div className="flex gap-3">
             <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`}
@@ -193,7 +193,7 @@ const AlertConfig = ({ settings, upd, saveSettingsMutation, user, copyToClipboar
           <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
             {ICON_PRESETS.map(({ emoji, label }) => (
               <button key={emoji} onClick={() => upd('customIcon', emoji === '💜' ? '' : emoji)} title={label}
-                className={`flex flex-col items-center gap-1 p-3 rounded-none border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
+                className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
                   (settings.customIcon || '💜') === emoji || (!settings.customIcon && emoji === '💜')
                     ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-950/40'
                     : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
@@ -216,7 +216,7 @@ const AlertConfig = ({ settings, upd, saveSettingsMutation, user, copyToClipboar
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {['modern', 'classic', 'minimal'].map(t => (
               <button key={t} onClick={() => upd('theme', t)}
-                className={`cursor-pointer active:scale-[0.97] py-4 rounded-none border-2 transition-all font-black text-sm capitalize ${
+                className={`cursor-pointer active:scale-[0.97] py-4 rounded-xl border-2 transition-all font-black text-sm capitalize ${
                   settings.theme === t
                     ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 shadow-md'
                     : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
@@ -229,7 +229,7 @@ const AlertConfig = ({ settings, upd, saveSettingsMutation, user, copyToClipboar
         <div className="md:col-span-2 w-full flex flex-col gap-3">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label>
           <select value={settings.animation} onChange={e => upd('animation', e.target.value)}
-            className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-500 transition-all">
+            className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-500 transition-all">
             <option value="bounce">Bounce</option>
             <option value="slide-left">Slide Kiri</option>
             <option value="slide-right">Slide Kanan</option>
@@ -277,7 +277,7 @@ const AlertConfig = ({ settings, upd, saveSettingsMutation, user, copyToClipboar
       <button
         onClick={() => saveSettingsMutation.mutate(settings)}
         disabled={saveSettingsMutation.isPending}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900 dark:bg-slate-700 text-white py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2 mt-8"
+        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900 dark:bg-slate-700 text-white py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2 mt-8"
       >
         <Save size={20} />
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Konfigurasi Alert'}

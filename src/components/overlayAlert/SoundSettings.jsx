@@ -46,7 +46,7 @@ export const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
       <div className="flex gap-2">
         {[{ id: 'preset', label: '🎵 Pilih Preset' }, { id: 'custom', label: '🔗 URL Custom' }].map(m => (
           <button key={m.id} onClick={() => setMode(m.id)}
-            className={`cursor-pointer active:scale-[0.97] px-4 py-2 rounded-none font-black text-xs transition-all ${
+            className={`cursor-pointer active:scale-[0.97] px-4 py-2 rounded-xl font-black text-xs transition-all ${
               mode === m.id
                 ? 'bg-indigo-600 text-white'
                 : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -59,14 +59,14 @@ export const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
       {mode === 'preset' && (
         <div className="grid grid-cols-3 gap-2">
           <button onClick={() => onChange('')}
-            className={`cursor-pointer active:scale-[0.97] flex flex-col items-center gap-1.5 p-3 rounded-none border-2 font-black text-xs transition-all ${
+            className={`cursor-pointer active:scale-[0.97] flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 font-black text-xs transition-all ${
               !value ? 'border-slate-600 bg-slate-800 text-white shadow-md' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-400'
             }`}>
             <span className="text-lg">🔇</span><span>Tanpa Suara</span>
           </button>
           {SOUND_PRESETS.map(preset => (
             <button key={preset.url} onClick={() => { onChange(preset.url); playPreview(preset.url); }}
-              className={`cursor-pointer active:scale-[0.97] flex flex-col items-center gap-1.5 p-3 rounded-none border-2 font-black text-xs transition-all ${
+              className={`cursor-pointer active:scale-[0.97] flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 font-black text-xs transition-all ${
                 value === preset.url
                   ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 shadow-md'
                   : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
@@ -84,13 +84,13 @@ export const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
 
       {mode === 'custom' && (
         <input value={value || ''} onChange={e => onChange(e.target.value)} placeholder="https://... .mp3"
-          className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-400 transition-all" />
+          className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-400 transition-all" />
       )}
 
       {value && (
-        <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 rounded-none p-3 border border-slate-100 dark:border-slate-700">
+        <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800 rounded-xl p-3 border border-slate-100 dark:border-slate-700">
           <button onClick={() => playPreview(value)}
-            className="cursor-pointer active:scale-[0.97] w-8 h-8 bg-indigo-600 rounded-none flex items-center justify-center text-white text-xs hover:bg-indigo-700 transition-all flex-shrink-0">
+            className="cursor-pointer active:scale-[0.97] w-8 h-8 bg-indigo-600 rounded-xl flex items-center justify-center text-white text-xs hover:bg-indigo-700 transition-all flex-shrink-0">
             ▶
           </button>
           <div className="flex-1 min-w-0">
@@ -120,7 +120,7 @@ export const SoundTiersEditor = ({ tiers = [], onChange, saveSettingsMutation, s
   return (
     <div className="space-y-3">
       {tiers.map((t, i) => (
-        <div key={i} className="bg-slate-50 dark:bg-slate-800 rounded-none p-4 border border-slate-100 dark:border-slate-700 space-y-4">
+        <div key={i} className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 border border-slate-100 dark:border-slate-700 space-y-4">
           <div className="flex items-center justify-between">
             <span className="font-black text-slate-600 dark:text-slate-300 text-sm">{t.label || `Tier Suara ${i + 1}`}</span>
             <button onClick={() => remove(i)} className="cursor-pointer text-red-400 hover:text-red-600 p-1">
@@ -133,7 +133,7 @@ export const SoundTiersEditor = ({ tiers = [], onChange, saveSettingsMutation, s
                 <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{lbl}</label>
                 <input type="number" value={val} placeholder={key === 'maxAmount' ? '∞' : ''}
                   onChange={e => upd(i, key, e.target.value)}
-                  className="w-full p-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-400" />
+                  className="w-full p-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-400" />
               </div>
             ))}
           </div>
@@ -141,17 +141,17 @@ export const SoundTiersEditor = ({ tiers = [], onChange, saveSettingsMutation, s
             <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Label (opsional)</label>
             <input value={t.label} placeholder="contoh: Sultan Alert Sound"
               onChange={e => upd(i, 'label', e.target.value)}
-              className="w-full p-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-none font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-400" />
+              className="w-full p-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-400" />
           </div>
           <SoundPicker value={t.soundUrl} onChange={v => upd(i, 'soundUrl', v)} />
         </div>
       ))}
       <button onClick={add}
-        className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-indigo-200 dark:border-indigo-900 text-indigo-500 dark:text-indigo-400 rounded-none font-black text-sm hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-all flex items-center justify-center gap-2">
+        className="cursor-pointer active:scale-[0.97] w-full py-3 border-2 border-dashed border-indigo-200 dark:border-indigo-900 text-indigo-500 dark:text-indigo-400 rounded-xl font-black text-sm hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 transition-all flex items-center justify-center gap-2">
         <Plus size={16} /> Tambah Suara per Nominal
       </button>
       <button onClick={() => saveSettingsMutation.mutate(settings)} disabled={saveSettingsMutation.isPending}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900 dark:bg-slate-700 text-white py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
+        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900 dark:bg-slate-700 text-white py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2">
         <Save size={20} />
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Audio Terbaru'}
       </button>
@@ -187,12 +187,12 @@ const SoundSettings = ({ settings, upd, saveSettingsMutation, formData, setFormD
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-8">
+    <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-8">
       <SectionHeader icon={<Music size={20} />} title="Pengaturan Suara Alert" color="bg-gradient-to-r from-emerald-500 to-indigo-500" />
 
       {/* Default sound */}
       <div className="space-y-6">
-        <div className="p-5 bg-slate-50 dark:bg-slate-800/50 rounded-none border border-slate-200 dark:border-slate-700">
+        <div className="p-5 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
           <h4 className="font-black text-sm text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
             📢 Suara Default (Semua Donasi)
           </h4>
@@ -215,16 +215,16 @@ const SoundSettings = ({ settings, upd, saveSettingsMutation, formData, setFormD
       <div className="pt-8 border-t border-slate-200 dark:border-slate-700">
         <SectionHeader icon={<span className="text-xl">🔊</span>} title="Text-to-Speech Alert" color="bg-rose-500" />
 
-        <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-none border border-slate-100 dark:border-slate-700 mt-4">
+        <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 mt-4">
           <div>
             <p className="font-black text-slate-700 dark:text-slate-200">Aktifkan Text-to-Speech</p>
             <p className="text-xs text-slate-400 dark:text-slate-500">Suara akan otomatis membaca: Nama + Nominal + Pesan</p>
           </div>
           <button
             onClick={() => upd('ttsEnabled', !settings.ttsEnabled)}
-            className={`relative inline-flex h-7 w-14 items-center rounded-none transition-colors duration-300 cursor-pointer ${settings.ttsEnabled ? 'bg-rose-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+            className={`relative inline-flex h-7 w-14 items-center rounded-xl transition-colors duration-300 cursor-pointer ${settings.ttsEnabled ? 'bg-rose-500' : 'bg-slate-300 dark:bg-slate-600'}`}
           >
-            <span className={`inline-block h-5 w-5 transform rounded-none bg-white shadow-md transition-transform ${settings.ttsEnabled ? 'translate-x-8' : 'translate-x-1'}`} />
+            <span className={`inline-block h-5 w-5 transform rounded-xl bg-white shadow-md transition-transform ${settings.ttsEnabled ? 'translate-x-8' : 'translate-x-1'}`} />
           </button>
         </div>
 
@@ -257,7 +257,7 @@ const SoundSettings = ({ settings, upd, saveSettingsMutation, formData, setFormD
       <button
         onClick={() => saveSettingsMutation.mutate(settings)}
         disabled={saveSettingsMutation.isPending || uploading}
-        className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:brightness-90 text-white font-black rounded-none shadow-xl transition-all disabled:opacity-60 flex items-center justify-center gap-2"
+        className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:brightness-90 text-white font-black rounded-xl shadow-xl transition-all disabled:opacity-60 flex items-center justify-center gap-2"
       >
         {saveSettingsMutation.isPending || uploading
           ? <><div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> Menyimpan...</>

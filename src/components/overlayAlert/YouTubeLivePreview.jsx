@@ -179,17 +179,17 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen }) => {
           className="fixed w-[100%] right-0 inset-0 z-[999999999] bg-black flex flex-col">
           <div className="flex items-center justify-between px-6 py-4 bg-black/80 backdrop-blur-sm border-b border-white/10 flex-shrink-0">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 bg-red-500 rounded-none animate-pulse" />
+              <span className="w-2.5 h-2.5 bg-red-500 rounded-xl animate-pulse" />
               <span className="text-white font-black text-sm tracking-wide">LIVE PREVIEW</span>
-              <span className="px-2 py-0.5 bg-red-600 text-white text-[10px] font-black rounded-none tracking-widest">OBS SIMULATION</span>
+              <span className="px-2 py-0.5 bg-red-600 text-white text-[10px] font-black rounded-xl tracking-widest">OBS SIMULATION</span>
             </div>
             <div className="flex items-center gap-2">
               <button onClick={triggerDemo}
-                className="cursor-pointer active:scale-[0.97] flex items-center gap-2 px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-none font-black text-xs transition-all">
-                <span className="w-1.5 h-1.5 bg-red-400 rounded-none animate-pulse" /> Simulasi Donasi
+                className="cursor-pointer active:scale-[0.97] flex items-center gap-2 px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-black text-xs transition-all">
+                <span className="w-1.5 h-1.5 bg-red-400 rounded-xl animate-pulse" /> Simulasi Donasi
               </button>
               <button onClick={() => handleFullScreen()}
-                className="cursor-pointer active:scale-[0.97] flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-none font-black text-xs transition-all border border-white/10">
+                className="cursor-pointer active:scale-[0.97] flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl font-black text-xs transition-all border border-white/10">
                 ✕ Tutup
               </button>
             </div>
@@ -220,14 +220,14 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen }) => {
       <FullscreenPreview />
 
       {/* Preview frame */}
-      <div className="relative overflow-hidden border-[10px] border-slate-800 rounded-none shadow-2xl" style={{ aspectRatio: '16/9', background: '#000' }}>
+      <div className="relative overflow-hidden border-[10px] border-slate-800 rounded-xl shadow-2xl" style={{ aspectRatio: '16/9', background: '#000' }}>
         <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
           <span style={{ fontSize: 80, fontWeight: 800, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span>
         </div>
         <div className="absolute top-0 left-0 right-0 flex items-center gap-2 px-3 py-2"
           style={{ background: 'linear-gradient(to bottom,rgba(0,0,0,.65) 0%,transparent 100%)' }}>
-          <div className="w-5 h-5 rounded-none bg-red-600 flex items-center justify-center text-white text-[8px] font-black flex-shrink-0">YT</div>
-          <span className="bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-none tracking-wide">LIVE</span>
+          <div className="w-5 h-5 rounded-xl bg-red-600 flex items-center justify-center text-white text-[8px] font-black flex-shrink-0">YT</div>
+          <span className="bg-red-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-xl tracking-wide">LIVE</span>
           <span className="text-white text-[9px] font-medium opacity-80 flex-1 truncate">Ngoding Bareng | Demo</span>
         </div>
         <div className="absolute inset-0 pointer-events-none">
@@ -241,7 +241,7 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen }) => {
           </AnimatePresence>
         </div>
         <div className="absolute top-2 right-3">
-          <span className="w-1.5 h-1.5 bg-red-500 rounded-none animate-pulse block" />
+          <span className="w-1.5 h-1.5 bg-red-500 rounded-xl animate-pulse block" />
         </div>
       </div>
 
@@ -254,11 +254,11 @@ const YouTubeLivePreview = ({ settings, username, testFullScreen }) => {
 
       {/* Buttons */}
       <button onClick={triggerDemo}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3 rounded-none bg-indigo-50 dark:bg-indigo-950/40 hover:bg-indigo-100 text-indigo-600 dark:text-indigo-400 font-black text-sm border-2 border-indigo-100 dark:border-indigo-900 transition-all flex items-center justify-center gap-2">
-        <span className="w-2 h-2 bg-red-500 rounded-none animate-pulse" /> Simulasi Donasi Masuk
+        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 hover:bg-indigo-100 text-indigo-600 dark:text-indigo-400 font-black text-sm border-2 border-indigo-100 dark:border-indigo-900 transition-all flex items-center justify-center gap-2">
+        <span className="w-2 h-2 bg-red-500 rounded-xl animate-pulse" /> Simulasi Donasi Masuk
       </button>
       <button onClick={() => handleFullScreen()}
-        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3.5 rounded-none bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 text-white font-black text-sm transition-all flex items-center justify-center gap-2 border border-slate-700">
+        className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-3.5 rounded-xl bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 text-white font-black text-sm transition-all flex items-center justify-center gap-2 border border-slate-700">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
         </svg>

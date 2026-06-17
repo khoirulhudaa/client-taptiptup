@@ -49,7 +49,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
   ];
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-none p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
+    <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
       <SectionHeader icon={<ShieldCheck size={20} />} title="Filter Kata Terlarang" color="bg-red-500" />
 
       <div className="space-y-3">
@@ -60,7 +60,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
           {ACTION_OPTIONS.map(opt => (
             <button key={opt.id}
               onClick={() => { setLocalAction(opt.id); saveMutation.mutate({ words, action: opt.id, replacement: localReplacement }); }}
-              className={`cursor-pointer active:scale-[0.99] text-left p-4 rounded-none border-2 transition-all space-y-1.5 ${
+              className={`cursor-pointer active:scale-[0.99] text-left p-4 rounded-xl border-2 transition-all space-y-1.5 ${
                 localAction === opt.id
                   ? opt.active + ' shadow-md'
                   : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600'
@@ -80,7 +80,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
             onChange={e => setLocalReplacement(e.target.value)}
             onBlur={() => save({ replacement: localReplacement })}
             placeholder="contoh: [dihapus], ❤️, [sensor]"
-            className="w-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-400 transition-all"
+            className="w-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-400 transition-all"
           />
         )}
       </div>
@@ -97,10 +97,10 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && add()}
             placeholder="Ketik kata lalu tekan Enter..."
-            className="w-full flex-1 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-none px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-red-400 transition-all"
+            className="w-full flex-1 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-red-400 transition-all"
           />
           <button onClick={add}
-            className="md:w-max w-max mt-1 md:mt-0 cursor-pointer active:scale-[0.97] px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-none font-black text-sm transition-all flex items-center gap-2">
+            className="md:w-max w-max mt-1 md:mt-0 cursor-pointer active:scale-[0.97] px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl font-black text-sm transition-all flex items-center gap-2">
             <Plus size={16} /> Tambah
           </button>
         </div>
@@ -109,7 +109,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
           ? <div className="text-slate-400 text-sm font-bold animate-pulse">Memuat...</div>
           : words.length === 0
             ? (
-              <div className="rounded-none border-2 border-dashed border-slate-200 dark:border-slate-700 py-8 text-center text-slate-400">
+              <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 py-8 text-center text-slate-400">
                 <p className="text-2xl mb-2">🚫</p>
                 <p className="font-black text-sm">Belum ada kata terlarang</p>
               </div>
@@ -117,7 +117,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
             : (
               <div className="flex flex-wrap gap-2">
                 {words.map(word => (
-                  <span key={word} className="w-max flex justify-center md:justify-start items-center gap-2 px-4 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-none text-sm font-black border border-red-100 dark:border-red-900">
+                  <span key={word} className="w-max flex justify-center md:justify-start items-center gap-2 px-4 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl text-sm font-black border border-red-100 dark:border-red-900">
                     {word}
                     <button onClick={() => remove(word)} className="cursor-pointer hover:text-red-800 dark:hover:text-red-300 transition-colors">
                       <Trash2 size={12} />
@@ -131,7 +131,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
         <button
           onClick={() => saveSettingsMutation.mutate(settings)}
           disabled={saveSettingsMutation.isPending}
-          className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900 dark:bg-slate-700 text-white py-4 rounded-none font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2"
+          className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900 dark:bg-slate-700 text-white py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2"
         >
           <Save size={20} />
           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Filter Kata'}
