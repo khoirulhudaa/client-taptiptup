@@ -4518,7 +4518,7 @@ const handleChangePin = async () => {
                         )}
                       </div>
                         
-                      <div className='w-full flex items-center gap-2.5'>
+                      <div className='w-full md:flex space-y-2.5 md:space-y-0 items-center gap-2.5'>
                         {[  
                           { key: 'overlayEnabled', label: 'Overlay OBS',  desc: 'Alert tidak muncul di OBS' },
                           { key: 'showTimestamp',  label: 'Waktu Donasi',  desc: 'Waktu kapan donasi diterima' },
