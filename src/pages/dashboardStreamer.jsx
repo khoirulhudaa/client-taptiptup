@@ -4660,14 +4660,14 @@ const handleChangePin = async () => {
                   />
 
                   {/* OBS URLs */}
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 md:pb-2.5 shadow-xs border border-slate-100 dark:border-slate-800">
                     <div className='mb-5'>
-                      <SectionHeader icon={<Monitor size={20} />} title={`URL Widget`} color="bg-blue-500" />
+                      <SectionHeader icon={<Monitor size={20} />} title={`URL Overlay`} color="bg-blue-500" />
                     </div>
                     <div className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-3 py-4 rounded-lg border border-slate-100/10 mb-3">
                       <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">💝</div>
                       <div className='flex-1 min-w-0'>
-                        <label className="block text-[10px] font-bold rounded-sm bg-emerald-500 text-white w-max mb-1 uppercase tracking-widest px-2">DONATE URL</label>
+                        <label className="block text-[10px] font-bold rounded-sm bg-white text-black w-max mb-1 uppercase tracking-widest px-2">MY DONATE URL</label>
                         <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="w-[86%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden truncate" />
                       </div>
                       <div className="flex gap-3">
@@ -4677,15 +4677,15 @@ const handleChangePin = async () => {
                       </div>
                     </div>
                     {[
-                      { label: 'URL ALERT - OBS Slot A + B', emoji: '🔔', url: user.overlayUrl },
+                      { label: 'URL ALERT - ALL SLOT', emoji: '🔔', url: user.overlayUrl },
                       { label: 'URL MEDIASHARE - OBS',      emoji: '🎬', url: `${window.location.origin}/overlay/${user.overlayToken}/mediashare` },
                       { label: 'URL VOICE NOTE - OBS',      emoji: '🎙️', url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
-                      { label: 'URL COMBINED (ALL-IN-ONE)', emoji: '🧩', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
+                      { label: 'URL COMBINED', emoji: '🧩', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
                     ].map(({ label, emoji, url }) => (
                       <div key={label} className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
                         <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
                         <div className='flex-1 min-w-0 relative top-[3px]'>
-                          <label className="block text-[10px] font-bold rounded-sm bg-emerald-500 text-white w-max uppercase tracking-widest px-2">{label}</label>
+                          <label className="block text-[10px] font-bold rounded-sm bg-white text-black w-max uppercase tracking-widest px-2">{label}</label>
                           <input readOnly value={url} aria-label={`URL ${label}`} className="w-[90%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
                         </div>
                         <div className="flex gap-3">
@@ -4695,14 +4695,50 @@ const handleChangePin = async () => {
                         </div>
                       </div>
                     ))}
-                    <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                    {/* <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                       className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-lg font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
                       <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
-                    </button>
+                    </button> */}
                   </div>
 
                   {/* Widget URLs */}
-                
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
+                    {/* <div className="flex justify-between items-center gap-3 mb-5">
+                      <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Widget OBS</span>
+                    </div> */}
+                    <div className='mb-5'>
+                      <SectionHeader icon={<Settings size={20} />} title={`URL Widget`} color="bg-rose-500" />
+                    </div>
+                    {[
+                      { label: 'Milestones',   emoji: '🎯', path: 'milestones',  desc: 'Progress target donasi',        },
+                      { label: 'Leaderboard',  emoji: '🏆', path: 'leaderboard', desc: 'Top 10 donor terbesar',             },
+                      { label: 'QR Code',      emoji: '◼',  path: 'qrcode',      desc: 'QR scan halaman donasi',         },
+                      { label: 'Poll',         emoji: '🗳️', path: 'poll',        desc: 'Voting poll live',                  },
+                      { label: 'Marquee Donor', emoji: '📜', path: 'marquee?limit=10', desc: 'Scrolling top donor terbesar' },
+                      { label: 'Subathon',     emoji: '⏱',  path: 'subathon',    desc: 'Timer subathon',                    },
+                      { 
+                        label: 'Toko OBS', 
+                        emoji: '🛍️', 
+                        path: 'store', 
+                        desc: 'Produk jualan streamer (gambar + harga + link)', 
+                        size: '800×600px' 
+                      },
+                    ].map(({ label, emoji, path, desc, size }) => {
+                      const widgetUrl = `${window.location.origin}/widget/${user.overlayToken}/${path}`;
+                      return (
+                        <div key={path} className="flex items-center gap-4 bg-white dark:bg-slate-800 rounded-lg p-4 px-3 border border-slate-200 dark:border-slate-700">
+                          <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
+                          <div className="flex-1 min-w-0 relative top-1">
+                            <label className="block text-[10px] font-bold rounded-sm bg-white text-black w-max mb-1 uppercase tracking-widest px-2">{label}</label>
+                            <p className="text-sm truncate max-w-[90%] font-mono text-blue-500 dark:text-blue-400 truncate mt-0.5">{widgetUrl}</p>
+                          </div>
+                          <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
+                            <Copy size={15} />
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </section>
 
                 <section className="xl:col-span-5 z-[2]">
