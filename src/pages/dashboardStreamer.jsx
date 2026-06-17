@@ -4678,7 +4678,7 @@ const handleChangePin = async () => {
                     <div className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-3 py-4 rounded-lg border border-slate-100/10 mb-3">
                       <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">💝</div>
                       <div className='flex-1 min-w-0'>
-                        <label className="block text-[10px] font-bold rounded-sm bg-white text-black w-max mb-1 uppercase tracking-widest px-2">MY DONATE URL</label>
+                        <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-full uppercase tracking-widest">MY DONATE URL</label>
                         <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="w-[86%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden truncate" />
                       </div>
                       <div className="flex gap-3">
@@ -4696,7 +4696,7 @@ const handleChangePin = async () => {
                       <div key={label} className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-lg border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
                         <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
                         <div className='flex-1 min-w-0 relative top-[3px]'>
-                          <label className="block text-[10px] font-bold rounded-sm bg-white text-black w-max uppercase tracking-widest px-2">{label}</label>
+                          <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-fulll uppercase tracking-widest">{label}</label>
                           <input readOnly value={url} aria-label={`URL ${label}`} className="w-[90%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
                         </div>
                         <div className="flex gap-3">
@@ -4706,17 +4706,10 @@ const handleChangePin = async () => {
                         </div>
                       </div>
                     ))}
-                    {/* <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                      className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-lg font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-                      <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
-                    </button> */}
                   </div>
 
                   {/* Widget URLs */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
-                    {/* <div className="flex justify-between items-center gap-3 mb-5">
-                      <span className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-900 dark:text-slate-100">Widget OBS</span>
-                    </div> */}
                     <div className='mb-5'>
                       <SectionHeader icon={<Settings size={20} />} title={`URL Widget`} color="bg-rose-500" />
                     </div>
@@ -4740,7 +4733,7 @@ const handleChangePin = async () => {
                         <div key={path} className="flex items-center gap-4 bg-white dark:bg-slate-800 rounded-lg p-4 px-3 border border-slate-200 dark:border-slate-700">
                           <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
                           <div className="flex-1 min-w-0 relative top-1">
-                            <label className="block text-[10px] font-bold rounded-sm bg-white text-black w-max mb-1 uppercase tracking-widest px-2">{label}</label>
+                            <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-full mb-1 uppercase tracking-widest">{label}</label>
                             <p className="text-sm truncate max-w-[90%] font-mono text-blue-500 dark:text-blue-400 truncate mt-0.5">{widgetUrl}</p>
                           </div>
                           <button onClick={() => copyToClipboard(widgetUrl, label)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-lg transition-all flex-shrink-0">
@@ -4869,19 +4862,19 @@ const handleChangePin = async () => {
                   
                     <div className="space-y-4">
                       <p className="text-xs text-slate-400 dark:text-slate-500 font-medium leading-relaxed">
-                        Menghapus akun bersifat <span className="font-black text-red-500">permanen dan tidak dapat dibatalkan</span>.
+                        Menghapus akun bersifat <span className="font-black text-red-400">permanen dan tidak dapat dibatalkan</span>.
                         Seluruh data, riwayat donasi, saldo, dan konfigurasi overlay akan dihapus selamanya.
                       </p>
                   
                       {/* Daftar konsekuensi */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {[
-                          { icon: '💸', label: 'Saldo tidak dapat dikembalikan' },
-                          { icon: '📊', label: 'Riwayat donasi terhapus permanen' },
-                          { icon: '🎬', label: 'Semua URL overlay tidak aktif' },
-                          { icon: '👥', label: 'Data komunitas & follower hilang' },
+                          { icon: '⚙️', label: 'Saldo tidak dapat dikembalikan' },
+                          { icon: '⚙️', label: 'Riwayat donasi terhapus permanen' },
+                          { icon: '⚙️', label: 'Semua URL overlay tidak aktif' },
+                          { icon: '⚙️', label: 'Data komunitas & follower hilang' },
                         ].map(({ icon, label }) => (
-                          <div key={label} className="flex items-center gap-2.5 p-3 bg-red-50 dark:bg-red-500/19 rounded-lg border border-red-100 dark:border-red-900/30">
+                          <div key={label} className="flex items-center gap-2.5 p-3 bg-slate-500/20 rounded-lg border border-slate-500/30">
                             <span className="text-base flex-shrink-0">{icon}</span>
                             <p className="text-[11px] font-bold text-white">{label}</p>
                           </div>
@@ -4893,7 +4886,7 @@ const handleChangePin = async () => {
                         <div className="space-y-3 pt-1">
                           <div className="space-y-1.5">
                             <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">
-                              Ketik <span className="text-red-500 font-black">HAPUS AKUN SAYA</span> untuk lanjut
+                              Ketik <span className="text-red-400 font-black">HAPUS AKUN SAYA</span> untuk lanjut
                             </label>
                             <input
                               type="text"
