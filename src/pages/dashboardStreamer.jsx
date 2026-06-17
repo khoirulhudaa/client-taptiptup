@@ -100,6 +100,7 @@ import { VideoTutorialSection } from './videoTutorial';
 import DonatePageConfig from './donateConfig';
 import { createPortal } from 'react-dom';
 import QrConfigPage from './qrConfig';
+import { YouTubeLivePreview2 } from './livePreview';
 
 // ─── API ──────────────────────────────────────────────────────────────────────
 const fetchBadges = async () => (await api.get('/api/midtrans/badges')).data;
@@ -2535,11 +2536,20 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   );
 
     return (
-    <div className="relative space-y-2.5">
+    <div className="sticky md:p-0 p-4 top-26 space-y-2.5">
       <FullscreenPreview />
 
       {/* Tab switcher */}
       <div className="flex gap-2.5">
+        {/* Tombol toggle preview */}
+        <button
+          onClick={() => onTogglePreview?.()}
+          title="Sembunyikan / Tampilkan Preview"
+          className="cursor-pointer active:scale-[0.99] flex items-center justify-center w-13 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
+        >
+          <PanelLeft size={18} />
+        </button>
+
         {/* Tab switcher */}
         <div className="flex-1 flex gap-1.5 bg-slate-100 dark:bg-slate-800 p-[3px] rounded-xl">
           {[{ id: 'alert', label: '⚡ Alert OBS' }, { id: 'media', label: '🎬 Media share' }].map(tab => (
@@ -2601,6 +2611,9 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
               </button>
             ))}
           </div>
+          {/* <input value={mediaUrl} onChange={e => setMediaUrl(e.target.value)}
+            className="w-full p-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-mono text-[10px] text-slate-600 dark:text-slate-300 outline-none focus:border-purple-400 transition-all"
+            placeholder="https://... (gambar, video, atau YouTube)" /> */}
         </div>
       )}
 
@@ -4595,29 +4608,29 @@ const handleChangePin = async () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-0 md:space-y-2 mt-4.5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-1 md:space-y-2 mt-4.5">
                       <InputField label="Minimal Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
                       <InputField label="Maksimal Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
                       
                       <section
                         key="preview-panel"
-                        className="xl:col-span-5 mt-3.5 z-[2] py-0 h-max relative mb-2.5 block md:hidden"
+                        className="xl:col-span-5 mt-2.5 z-[2] py-0 h-max relative mb-2.5 block md:hidden"
                       >
-                      <motion.div 
-                        animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        
-                      <YouTubeLivePreview
-                        settings={settings}
-                        username={user.username}
-                        testFullScreen={() => setNavbar(!navbar)}
-                        onPreviewModeChange={setPreviewMode}
-                        autoPreviewTick={autoPreviewTick}
-                        onTogglePreview={() => setShowPreviewPanel(v => !v)}
-                      />
+                        <motion.div 
+                          animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
+                          transition={{ duration: 0.2 }}
+                        >
 
-                      </motion.div>
+                        <YouTubeLivePreview2
+                          settings={settings}
+                          username={user.username}
+                          testFullScreen={() => setNavbar(!navbar)}
+                          onPreviewModeChange={setPreviewMode}
+                          autoPreviewTick={autoPreviewTick}
+                          onTogglePreview={() => setShowPreviewPanel(v => !v)}
+                        />
+
+                        </motion.div>
                       </section>
 
                       <div className="md:col-span-2">
@@ -5045,7 +5058,28 @@ const handleChangePin = async () => {
                 {showPreviewPanel && (
                   <section
                     key="preview-panel"
-                    className="xl:col-span-5 z-[2] sticky top-26 self-start hidden md:block"
+                    className="xl:col-span-5 z-[2]"
+                    initial={{ opacity: 0, x: 80, width: 0 }}
+                    animate={{ 
+                      opacity: 1, 
+                      x: 0, 
+                      width: 'auto',
+                      transition: { 
+                        x: { type: 'spring', stiffness: 80, damping: 35 },
+                        opacity: { duration: 0.2 },
+                        width: { duration: 0.35 }
+                      }
+                    }}
+                    exit={{ 
+                      opacity: 0, 
+                      x: 80, 
+                      width: 0,
+                      transition: { 
+                        x: { type: 'spring', stiffness: 80, damping: 30 },
+                        opacity: { duration: 1 },
+                        width: { duration: 1 }
+                      }
+                    }}
                   >
                   <motion.div 
                     animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
