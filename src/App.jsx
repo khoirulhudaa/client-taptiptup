@@ -55,7 +55,7 @@ function App() {
   const { isOnline, isError, isOffline, checking, retry } = useServerStatus();
 
   // Saat pertama kali cek, tampilkan loading sebentar
-  if (checking) {
+  if (!checking) {
     return isOverlay ? (
       <div style={{
         background: 'transparent'
@@ -99,7 +99,7 @@ function App() {
           </svg>
         </div>
 
-        <img src="/logttt.png" alt="img" loading="lazy" className="animate animate-pulse ease duration-100 w-[43%] md:w-[15%] 2xl:w-[12%] !mt-[0px]" />
+        <img src="/logttt.png" alt="img" loading="lazy" className="animate animate-pulse ease duration-100 w-[57%] md:w-[15%] 2xl:w-[12%] !mt-[0px]" />
 
         {/* Text */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, marginBottom: '2rem', animation: 'fadein 0.6s 0.1s ease both' }}>
