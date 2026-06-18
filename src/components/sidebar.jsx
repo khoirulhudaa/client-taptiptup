@@ -81,6 +81,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     'history',
     'marquee',
     'wallet',
+    'qrConfig',
     'poll',
     'feeConfig',
     'subathon',
@@ -90,7 +91,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
 
   const hideForAdminMode = [
     'alertSettings', 'mediaSettings', 'voiceSettings', 'store',
-    'history', 'wallet', 'poll', 'marquee', 'feeConfig', 'subathon', 'milestones', 'leaderboard'
+    'history', 'wallet', 'poll', 'marquee', 'qrConfig', 'feeConfig', 'subathon', 'milestones', 'leaderboard'
   ];
 
   const menuItems = [
