@@ -613,17 +613,17 @@ function Marquee({ C }) {
 }
 
 const PLATFORMS = [
-  { name: "Saweria",    feeDonate: 5.0,  feeWd: 5000,  feeWdLabel: "Rp 5.000" },
-  { name: "TapTipTup", feeDonate: 3.0,  feeWd: 3500,  feeWdLabel: "Rp 3.500", winner: true },
-  { name: "Sociabuzz",  feeDonate: 5.0,  feeWd: 4500,  feeWdLabel: "Rp 4.500" },
+  { name: "Saweria",    feeDonate: 5.0,  feeWd: 5000,  feeWdLabel: "Rp 5.000",  winner: true },
+  { name: "TapTipTup", feeDonate: 3.0,  feeWd: 3500,  feeWdLabel: "Rp 3.500" },
+  { name: "Sociabuzz",  feeDonate: 5.0,  feeWd: 4500,  feeWdLabel: "Rp 4.500", winner: true },
   // { name: "TipTap",  feeDonate: 3.0,  feeWd: 6.500,  feeWdLabel: "Rp 6.500" },
 ];
 
 function OverlayCustom({ C }) {
   const ITEMS = [
-    { num: "01", ico: "🎨", title: "Tema & Warna Bebas", desc: "Pilih 4 tema berbeda. Ubah warna, font, dan animasi sesuai brand stream-mu." },
-    { num: "02", ico: "🔊", title: "Suara per Nominal", desc: "Sultan dapat sound kenceng! 16+ preset audio, atur sendiri tiap tier Dukungan." },
-    { num: "03", ico: "📐", title: "Posisi & Ukuran Bebas", desc: "Drag & drop posisi alert, goal bar, dan leaderboard langsung dari dashboard." },
+    { title: "Kustom Tema & Warna", desc: "Pilih 4 tema berbeda. Ubah warna, font, dan animasi sesuai brand stream-mu." },
+    { title: "Suara per Nominal", desc: "Sultan dapat sound kenceng! 16+ preset audio, atur sendiri tiap tier Dukungan." },
+    { title: "Posisi & Ukuran Bebas", desc: "Drag & drop posisi alert, goal bar, dan leaderboard langsung dari dashboard." },
   ];
 
   const TAGS = ["OBS Studio", "Streamlabs OBS", "YouTube Live", "TikTok Live", "Twitch", "Facebook Gaming", "Instagram Live"];
@@ -631,7 +631,7 @@ function OverlayCustom({ C }) {
   return (
     <section
       className="bg-blue-900 relative overflow-hidden flex flex-col justify-center items-center"
-      style={{ padding: "20px 0"}}
+      style={{ padding: "55px 0"}}
     >
       {/* Grid bg */}
       <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
@@ -663,22 +663,14 @@ function OverlayCustom({ C }) {
               display: "inline-block",
               borderRadius: 8,
             }}>
-              KUSTOM
+              FLEX
             </span>
-            <span style={{ color: "azure" }}>ABEL</span>
+            <span style={{ color: "azure" }}>IBEL</span>
           </h2>
-
-          <p style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: "clamp(13px, 1.4vw, 15px)",
-            color: "rgba(255,255,255,0.8)", maxWidth: '90vw', lineHeight: 1.6,
-          }}>
-            Bikin stream lo punya identitas sendiri. Tema, warna, suara — semua di tanganmu.
-          </p>
         </div>
 
         {/* ── CARDS ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-xl overflow-hidden !mt-10"
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-xl overflow-hidden !mt-8"
           style={{ border: "1px solid rgba(255,255,255,0.12)" }}>
           {ITEMS.map((item, i) => {
             const isLast = i === PLATFORMS.length - 1;
@@ -688,49 +680,33 @@ function OverlayCustom({ C }) {
                 style={{
                   padding: "36px 28px",
                   borderRight: i < ITEMS.length - 1 ? "1px solid rgba(255,255,255,0.1)" : "none",
-                  background: i % 2 === 0 ? "#0d2b45" : "rgba(255,255,255)",
+                  background: i % 2 === 0 ? "#0d2b45" : "#0d2b45",
                   position: "relative",
-                  borderRadius: 10,
+                  borderRadius: 14,
                   borderRight: !isLast ? `1px solid ${C.line}` : "none",
                   transition: "background 0.2s",
                 }}
               >
-                {/* Badge nomor */}
-                <span style={{
-                  fontFamily: "'Space Mono', monospace", fontSize: 9,
-                  color: i % 2 === 0 ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.2)",
-                  letterSpacing: "0.1em", position: "absolute", top: 20, right: 20,
-                }}>
-                  {item.num}
-                </span>
-
-                {/* Icon besar */}
-                <div style={{
-                  fontSize: 40, marginBottom: 20,
-                  filter: i % 2 === 0 ? "none" : "drop-shadow(0 0 6px rgba(173,216,230,0.4))",
-                }}>
-                  {item.ico}
-                </div>
-
                 <div style={{
                   fontFamily: "'Bebas Neue', sans-serif",
                   fontSize: 26, lineHeight: 1.1,
-                  color: i % 2 === 0 ? "white" : "black",
-                  marginBottom: 10,
+                  color: "white",
+                  marginBottom: 20,
+                  marginTop: 4
                 }}>
                   {item.title}
                 </div>
 
                 <div style={{
                   height: 1,
-                  background: i % 2 === 0 ? "white" : "black",
+                  background: "white",
                   marginBottom: 14,
                 }} />
 
                 <div style={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: 13.5, lineHeight: 1.65,
-                  color: i % 2 === 0 ? "white" : "rgba(0,0,0,0.88)",
+                  color: "white",
                 }}>
                   {item.desc}
                 </div>
@@ -773,7 +749,7 @@ function NominalSection({ C }) {
     <section
       className="bg-blue-900 relative overflow-hidden flex flex-col justify-center items-center"
       style={{ 
-        padding: "80px 0", 
+        padding: "50px 0", 
       }}
     >
       {/* Grid bg */}
@@ -799,7 +775,7 @@ function NominalSection({ C }) {
             lineHeight: 1.05, color: "white", letterSpacing: "0.01em", marginBottom: 16,
           }}>
             NOMINAL BISA{" "}
-            <span style={{ color: "azure" }}>—</span>{" "}
+            <span style={{ color: "azure" }}>KIRIM</span>{" "}
             <span style={{ color: "white" }}>ITEM JUGA BISA</span>
           </h2>
           <p className="!mb-12" style={{
@@ -807,8 +783,8 @@ function NominalSection({ C }) {
             fontSize: "clamp(13px, 1.4vw, 15px)",
             color: "white", maxWidth: '90vw', lineHeight: 1.7,
           }}>
-            Kirim nominal langsung seperti <strong style={{ color: "cyan" }}>Rp 10.000</strong> atau <strong style={{ color: "cyan" }}>Rp 150.000</strong>,
-            atau kirim item seru seperti <strong style={{ color: "cyan" }}>💎 Diamond ×10</strong>, <strong style={{ color: "cyan" }}>🍣 Sushi ×3</strong>, <strong style={{ color: "cyan" }}>🪷 Kembang ×5</strong>
+            Kirim nominal <strong style={{ color: "cyan" }}>Rp 10.000</strong> atau <strong style={{ color: "cyan" }}>Rp 150.000</strong>,
+            atau kirim item <strong style={{ color: "cyan" }}>💎 Diamond ×10</strong>, <strong style={{ color: "cyan" }}>🍣 Sushi ×3</strong>, <strong style={{ color: "cyan" }}>🪷 Kembang ×5</strong>
           </p>
         </div>
 
@@ -825,7 +801,7 @@ function NominalSection({ C }) {
               display: "flex", alignItems: "center", gap: 10,
             }}>
               <span style={{ fontSize: 18 }}>💸</span>
-              <div>
+              <div className='w-full relative top-[1.6px] flex justify-between items-center'>
                 <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 18, color: "white", lineHeight: 1 }}>MODE NOMINAL</div>
                 <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 9, color: "white", letterSpacing: "0.06em" }}>KETIK BERAPA SAJA</div>
               </div>
@@ -909,7 +885,7 @@ function NominalSection({ C }) {
               display: "flex", alignItems: "center", gap: 10,
             }}>
               <span style={{ fontSize: 18 }}>🎁</span>
-              <div>
+              <div className='w-full relative top-[1.6px] flex justify-between items-center'>
                 <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 18, color: "white", lineHeight: 1 }}>MODE ITEM / GIFT</div>
                 <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 9, color: "rgba(255,255,255,0.7)", letterSpacing: "0.06em" }}>PILIH ITEM, TENTUKAN JUMLAH</div>
               </div>
@@ -994,7 +970,7 @@ function NominalSection({ C }) {
         </div>
 
         {/* CTA */}
-        <div className="flex justify-center !mt-10">
+        <div className="flex justify-center !mt-12">
           <BtnMain href={`${window.location}/donate/taptiptup`} C={C}>Coba Kirim Dukungan Sekarang</BtnMain>
         </div>
       </div>
@@ -1009,7 +985,7 @@ function FeeComparison({ C }) {
     <section id="biaya" className="flex flex-col bg-blue-900 justify-center items-center relative overflow-hidden"
       style={{ 
         transition: "border-color 0.4s",
-        padding: '20px 0px 60px 0px',           // mobile
+        padding: '50px 0px 60px 0px',           // mobile
         '@media (maxWidth: 768px)': {           // md breakpoint
           padding: '20px 0px 30px 0px'
         }
@@ -1107,18 +1083,15 @@ function FeeComparison({ C }) {
               <div key={p.name}
                 className={`${p.winner ? "bg-blue-900" : "bg-transparent"}`}
                 style={{
-                  padding: "32px 24px",
+                  padding: "24px 24px",
                   borderRadius: 10,
                   // borderRight: !isLast ? `1px solid black` : "none",
                   borderBottom: isMobile ? `1px solid ${C.line}` : "none",
-                  background: p.winner ? '#0d2b45' : "white",
+                  background: "white",
+                  border: '1px solid #ffffff80',
                   transition: "all 0.4s",
                 }}>
-                {p.winner
-                  ? <span style={{ display: "inline-block", marginBottom: 10, background: "orange", color: C.bg, fontSize: 10, padding: "3px 10px", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 700 }}>Terkecil</span>
-                  : <div style={{ height: 24, marginBottom: 0 }} />}
-
-                <div style={{ fontSize: 24, fontWeight: 700, color: p.winner ? "white" : "#000000", marginBottom: 4, fontFamily: "'Space Grotesk',sans-serif" }}>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "#000000", marginBottom: p.winner ? 4 : 0, marginTop: 6, fontFamily: "'Space Grotesk',sans-serif" }}>
                   {p.name}
                 </div>
 
@@ -1128,10 +1101,10 @@ function FeeComparison({ C }) {
 
                 {/* Fee donate */}
                 <div style={{ marginBottom: 12 }}>
-                  <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 26, lineHeight: 1, color: p.winner ? "white" : "#000000" }}>
+                  <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 26, lineHeight: 1, color: "#000000" }}>
                     {p.feeDonate.toFixed(1)}% + {p.feeWdLabel || '—'}
                   </div>
-                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 12, color: p.winner ? "white" : "black", letterSpacing: "0.05em", textTransform: "uppercase", marginTop: 10 }}>
+                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 12, color: "black", letterSpacing: "0.05em", textTransform: "uppercase", marginTop: 10 }}>
                     {p.winner || p.name === 'TipTap' ? 'potongan per Dukungan + WD semua metode' : 'potongan per Dukungan + WD Bank'}
                   </div>
                 </div>
@@ -1568,9 +1541,9 @@ export default function TapTipTup() {
       </div>
       <Hero C={C} isDark={isDark} />
       <FeeComparison C={C} /> 
-      <OverlayCustom C={C} />
       <NominalSection C={C} />
-      <section className="w-screen md:!min-h-[70vh] !pb-20 !pt-4 flex flex-col justify-center items-center bg-blue-900 !px-[20px] gap-6 relative overflow-hidden">
+      <OverlayCustom C={C} />
+      <section className="w-screen md:!min-h-[70vh] !pb-20 !pt-14 flex flex-col justify-center items-center bg-blue-900 !px-[20px] gap-6 relative overflow-hidden">
 
         <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
