@@ -1683,14 +1683,16 @@ export default function TapTipTup() {
 
           {/* Kolom 1 — Brand */}
           <div className="w-full flex md:block items-center justify-between mx-auto text-center text-[28px] md:text-[40px]">
-            <div style={{
+            <div 
+            className="md:!mb-[16px]"
+            style={{
               fontFamily: "'Bebas Neue', sans-serif",
               letterSpacing: "0.04em",
               color: "white",
             }}>
               TapTipTup
             </div>
-            <a href="/privacy-policy" className="md:flex hidden" style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, color: "#BBDEFB", letterSpacing: "0.1em", textDecoration: "none" }}>
+            <a href="/privacy-policy" className="md:block hidden" style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, color: "#BBDEFB", letterSpacing: "0.1em", textDecoration: "none" }}>
               KEBIJAKAN PRIVASI TAPTIPTUP
             </a>
           </div>
