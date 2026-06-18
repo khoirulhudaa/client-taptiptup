@@ -325,7 +325,7 @@ const DonationItemsEditor = ({
   const sortedPreview = [...localItems].filter(i => i.name && i.price > 0).sort((a, b) => a.price - b.price);
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4.5">
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
@@ -337,9 +337,6 @@ const DonationItemsEditor = ({
             <h4 className="text-sm uppercase md:capitalize md:text-base font-black text-slate-800 dark:text-white">
               Item Donasi
             </h4>
-            <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-              Donor bisa pilih item atau nominal langsung
-            </p>
           </div>
         </div>
       </div>
@@ -382,7 +379,7 @@ const DonationItemsEditor = ({
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
           Mode Tampilan Donasi
         </label>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
           {MODE_OPTIONS.map((opt) => (
             <button
               key={opt.value}

@@ -4730,7 +4730,7 @@ const handleChangePin = async () => {
                       <div className='mb-5'>
                         <SectionHeader icon={<Monitor size={20} />} title={`URL Overlay`} color="bg-blue-500" />
                       </div>
-                      <div className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-3 py-4 rounded-xl  border border-slate-100/10 mb-3">
+                      <div className="!mt-[21px] flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-3 py-4 rounded-xl  border border-slate-100/10 mb-3">
                         <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">💝</div>
                         <div className='flex-1 min-w-0'>
                           <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-full uppercase tracking-widest">MY DONATE URL</label>
@@ -4857,7 +4857,7 @@ const handleChangePin = async () => {
                     </div>
 
                     {/* HAPUS AKUN */}
-                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 pb-4.5 md:pb-6 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-5">
+                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 pb-4.5 md:pb-6 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-4.5">
                       <SectionHeader icon={<Trash2 size={18} />} title="Hapus Akun" color="bg-red-500" />
                     
                       <div className="space-y-4">
