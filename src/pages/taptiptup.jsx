@@ -645,7 +645,7 @@ function OverlayCustom({ C }) {
         </svg>
       </div>
 
-      <div className="relative w-[90vw] mx-auto" style={{ zIndex: 10 }}>
+      <div className="relative w-[90vw] md:w-[82vw] mx-auto" style={{ zIndex: 10 }}>
 
         {/* ── HEADER ── */}
         <div className="text-center flex flex-col items-center mb-4">
@@ -671,14 +671,14 @@ function OverlayCustom({ C }) {
           <p style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: "clamp(13px, 1.4vw, 15px)",
-            color: "rgba(255,255,255,0.6)", maxWidth: '90vw', lineHeight: 1.6,
+            color: "rgba(255,255,255,0.8)", maxWidth: '90vw', lineHeight: 1.6,
           }}>
             Bikin stream lo punya identitas sendiri. Tema, warna, suara — semua di tanganmu.
           </p>
         </div>
 
         {/* ── CARDS ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 rounded-xl overflow-hidden !mt-10"
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-xl overflow-hidden !mt-10"
           style={{ border: "1px solid rgba(255,255,255,0.12)" }}>
           {ITEMS.map((item, i) => {
             const isLast = i === PLATFORMS.length - 1;
@@ -688,8 +688,9 @@ function OverlayCustom({ C }) {
                 style={{
                   padding: "36px 28px",
                   borderRight: i < ITEMS.length - 1 ? "1px solid rgba(255,255,255,0.1)" : "none",
-                  background: i % 2 === 0 ? "#99FFFF" : "rgba(255,255,255)",
+                  background: i % 2 === 0 ? "#008080" : "rgba(255,255,255)",
                   position: "relative",
+                  borderRadius: 10,
                   borderRight: !isLast ? `1px solid ${C.line}` : "none",
                   transition: "background 0.2s",
                 }}
@@ -714,7 +715,7 @@ function OverlayCustom({ C }) {
                 <div style={{
                   fontFamily: "'Bebas Neue', sans-serif",
                   fontSize: 26, lineHeight: 1.1,
-                  color: i % 2 === 0 ? "#0d2b45" : "black",
+                  color: i % 2 === 0 ? "white" : "black",
                   marginBottom: 10,
                 }}>
                   {item.title}
@@ -722,14 +723,14 @@ function OverlayCustom({ C }) {
 
                 <div style={{
                   height: 1,
-                  background: i % 2 === 0 ? "rgba(0,0,0,0.12)" : "black",
+                  background: i % 2 === 0 ? "white" : "black",
                   marginBottom: 14,
                 }} />
 
                 <div style={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: 13.5, lineHeight: 1.65,
-                  color: i % 2 === 0 ? "#1a3a80" : "rgba(0,0,0,0.88)",
+                  color: i % 2 === 0 ? "white" : "rgba(0,0,0,0.88)",
                 }}>
                   {item.desc}
                 </div>
@@ -1094,8 +1095,8 @@ function FeeComparison({ C }) {
       </div>
 
       {/* Grid perbandingan */}
-      <div className="select-none h-max w-[90vw] relative grid grid-cols-1 bg-white md:grid-cols-3"
-        style={{ borderBottom: `1px solid ${C.line}`, zIndex: 40, borderRadius: 10, }}
+      <div className="select-none h-max w-[90vw] relative grid gap-5 grid-cols-1 md:grid-cols-3"
+        style={{ zIndex: 40, borderRadius: 10, }}
         >
           {PLATFORMS.map((p, i) => {
             const barWidth = Math.round((p.feeDonate / maxFee) * 100);
@@ -1108,30 +1109,29 @@ function FeeComparison({ C }) {
                 style={{
                   padding: "32px 24px",
                   borderRadius: 10,
-                  borderRight: !isLast ? `1px solid ${C.line}` : "none",
+                  // borderRight: !isLast ? `1px solid black` : "none",
                   borderBottom: isMobile ? `1px solid ${C.line}` : "none",
-                  background: p.winner ? '#99FFFF' : "transparent",
+                  background: p.winner ? '#0d2b45' : "white",
                   transition: "all 0.4s",
                 }}>
                 {p.winner
                   ? <span style={{ display: "inline-block", marginBottom: 10, background: "orange", color: C.bg, fontSize: 10, padding: "3px 10px", letterSpacing: "0.06em", textTransform: "uppercase", fontWeight: 700 }}>Terkecil</span>
                   : <div style={{ height: 24, marginBottom: 0 }} />}
 
-                <div style={{ fontSize: 24, fontWeight: 700, color: p.winner ? "#000000" : "#000000", marginBottom: 4, fontFamily: "'Space Grotesk',sans-serif" }}>
+                <div style={{ fontSize: 24, fontWeight: 700, color: p.winner ? "white" : "#000000", marginBottom: 4, fontFamily: "'Space Grotesk',sans-serif" }}>
                   {p.name}
                 </div>
 
                 {/* Progress bar */}
                 <div style={{ height: 1, background: C.line2, borderRadius: 2, marginBottom: 16, marginTop: 14 }}>
-                  {/* <div style={{ height: 1, width: `${barWidth}%`, background: p.winner ? "#000000" : C.dim, borderRadius: 2 }} /> */}
                 </div>
 
                 {/* Fee donate */}
                 <div style={{ marginBottom: 12 }}>
-                  <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 26, lineHeight: 1, color: p.winner ? "#000000" : "#000000" }}>
+                  <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 26, lineHeight: 1, color: p.winner ? "white" : "#000000" }}>
                     {p.feeDonate.toFixed(1)}% + {p.feeWdLabel || '—'}
                   </div>
-                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 12, color: p.winner ? "#000000" : "black", letterSpacing: "0.05em", textTransform: "uppercase", marginTop: 10 }}>
+                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 12, color: p.winner ? "white" : "black", letterSpacing: "0.05em", textTransform: "uppercase", marginTop: 10 }}>
                     {p.winner || p.name === 'TipTap' ? 'potongan per Dukungan + WD semua metode' : 'potongan per Dukungan + WD Bank'}
                   </div>
                 </div>
@@ -1328,7 +1328,7 @@ function FAQ({ C }) {
   return (
     <section
       id="faq"
-      className="relative overflow-hidden w-full flex flex-col justify-center !pt-[80px] md:!pt-[100px] !pb-[34px] md:!pb-[100px] items-center"
+      className="relative overflow-hidden w-full hidden md:flex flex-col justify-center !pt-[80px] md:!pt-[100px] !pb-[34px] md:!pb-[100px] items-center"
       style={{
         background: "#0a0f1e",
         borderTop: "1px solid rgba(255,255,255,0.08)",
@@ -1371,7 +1371,7 @@ function FAQ({ C }) {
         style={{ zIndex: 2 }}
       >
       <div
-        className="grid rounded-xl grid-cols-1 md:grid-cols-2 w-[90vw]"
+        className="grid rounded-xl grid-cols-1 md:grid-cols-3 w-[90vw]"
         style={{
           border: "1px solid rgba(255,255,255,0.08)", // border terluar
         }}
@@ -1387,18 +1387,22 @@ function FAQ({ C }) {
               className="w-full rounded-xl cursor-pointer hover:bg-slate-100/5 active:scale-[0.99]"
               onClick={() => toggle(i)}
               style={{
-                // border kiri untuk kolom kanan (menghindari double border kiri+kanan)
                 borderLeft: !isLeftCol ? "1px solid rgba(255,255,255,0.08)" : "none",
-                // border atas untuk semua baris kecuali baris pertama
                 borderTop: !isTopRow ? "1px solid rgba(255,255,255,0.08)" : "none",
-                padding: "36px 20px",
+                padding: "54px 20px",
               }}
             >
               <button
                 style={{
-                  width: "100%", textAlign: "left", background: "none", border: "none",
-                  padding: 0, cursor: "pointer",
-                  display: "flex", justifyContent: "space-between", alignItems: "flex-start",
+                  width: "100%", 
+                  textAlign: "left", 
+                  background: "none", 
+                  border: "none",
+                  padding: 0, 
+                  cursor: "pointer",
+                  display: "flex", 
+                  justifyContent: "space-between", 
+                  alignItems: "flex-start",
                   gap: 16,
                 }}
               >
@@ -1406,7 +1410,7 @@ function FAQ({ C }) {
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: "clamp(13px,1.6vw,15px)",
                   fontWeight: 600, color: isOpen ? "azure" : "white",
-                  lineHeight: 1.4, flex: 1,
+                  lineHeight: 1.8, flex: 1,
                   transition: "color 0.2s",
                 }}>
                   {item.q}
@@ -1443,32 +1447,7 @@ function FAQ({ C }) {
         })}
       </div>
     </div>
-
-      {/* CTA bawah */}
-      <div className="relative text-center !mt-[26px] md:!mt-16 px-6" style={{ zIndex: 2 }}>
-        <p 
-          className="!mb-[10px] md:!mb-[18px]"
-          style={{
-          fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: 15.5, color: "rgba(255,255,255,0.70)",
-        }}>
-          Masih ada pertanyaan lain?
-        </p>
-        <a
-          className="text-[10.5px] md:text-[13px]"
-          href="mailto:taptiptup.support@gmail.com"
-          style={{
-            fontFamily: "'Space Mono', monospace",
-            letterSpacing: "0.1em", textTransform: "uppercase",
-            color: "azure", textDecoration: "none",
-            borderBottom: "1px solid rgba(173,216,230,0.35)",
-            paddingBottom: 2,
-          }}
-        >
-          Hubungi kami → taptiptup.support@gmail.com
-        </a>
-      </div>
-    </section>
+  </section>
   );
 }
 
@@ -1692,33 +1671,26 @@ export default function TapTipTup() {
       <FAQ C={C} />
 
       {/* ===== FOOTER ===== */}
-     <footer className="text-center flex flex-col justify-center items-center w-full px-0 !pt-[20px] !pb-[0px] md:!pt-[90px] md:!pb-[60px]" 
+     <footer className="text-center flex md:flex-col justify-center items-center w-full px-0 !pt-[20px] !pb-[0px] md:!pt-[90px] md:!pb-[60px]" 
         style={{
           background: "#0a0f1e",
           borderTop: `1px solid rgba(255,255,255,0.08)`,
         }}>
 
-        <div className="max-w-7xl mx-auto px-8 !md:pb-[48px] !pb-5 text-center flex flex-col justify-center items-center"
+        <div className="w-full md:max-w-7xl mx-auto !px-8 !md:pb-[48px] !pb-5 text-center flex flex-col justify-center items-center"
           style={{ gap: "32px" }}
           >
 
           {/* Kolom 1 — Brand */}
-          <div className="w-full mx-auto text-center text-[28px] md:text-[40px]">
+          <div className="w-full flex md:block items-center justify-between mx-auto text-center text-[28px] md:text-[40px]">
             <div style={{
               fontFamily: "'Bebas Neue', sans-serif",
               letterSpacing: "0.04em",
-              color: "white", marginBottom: 12,
+              color: "white",
             }}>
               TapTipTup
             </div>
-            <p className="md:flex hidden w-full mx-auto !justify-center" style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: 15, color: "rgba(255,255,255,0.5)",
-              lineHeight: 0.4, marginBottom: 20,
-            }}>
-              Platform Dukungan streaming lokal terbaik untuk konten kreator Indonesia. Potongan hanya 3.0%, alert langsung di OBS, setup dalam 5 menit.
-            </p>
-            <a href="/privacy-policy" style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, color: "#BBDEFB", letterSpacing: "0.1em", textDecoration: "none" }}>
+            <a href="/privacy-policy" className="md:flex hidden" style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, color: "#BBDEFB", letterSpacing: "0.1em", textDecoration: "none" }}>
               KEBIJAKAN PRIVASI TAPTIPTUP
             </a>
           </div>
