@@ -37,7 +37,7 @@ const staggerChild = (i) => ({
 const StatCard = ({ label, value, sub, icon: Icon, accent, index }) => (
   <motion.div
     {...staggerChild(index)}
-    className="relative overflow-hidden rounded-xl border dark:border-slate-800 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm p-6 flex flex-col gap-3"
+    className="relative overflow-hidden rounded-xl border dark:border-slate-800 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm p-4 md:p-6 flex flex-col gap-3"
   >
     {/* accent line */}
     <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: accent }} />
@@ -78,7 +78,7 @@ const HealthBadge = ({ latency, status }) => {
   return (
     <div className="flex items-center gap-2">
       <span className="w-2 h-2 rounded-xl animate-pulse" style={{ background: color }} />
-      <span className="text-xs font-black" style={{ color }}>{label}</span>
+      <span className="relative top-[1px] text-xs font-black" style={{ color }}>{label}</span>
       <span className="text-[10px] text-slate-500 font-mono">{latency}ms</span>
     </div>
   );
@@ -236,7 +236,7 @@ export const DashboardSuperPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
         {/* Top Donatur */}
-        <motion.div {...staggerChild(10)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl p-0 md:p-6">
+        <motion.div {...staggerChild(10)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl p-4 md:p-6">
           <div className="flex items-center gap-2 mb-5">
             <div className="w-8 h-8 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center">
               <Trophy size={14} className="text-amber-400" />
@@ -269,7 +269,7 @@ export const DashboardSuperPage = () => {
         </motion.div>
 
         {/* Pending Withdrawals Alert */}
-        <motion.div {...staggerChild(11)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl p-0 md:p-6">
+        <motion.div {...staggerChild(11)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl p-4 md:p-6">
           <div className="flex items-center justify-between gap-2 mb-5">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center justify-center">
@@ -301,7 +301,7 @@ export const DashboardSuperPage = () => {
         </motion.div>
 
         {/* Donasi Terbaru */}
-        <motion.div {...staggerChild(12)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl p-0 md:p-6">
+        <motion.div {...staggerChild(12)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl p-4 md:p-6">
           <div className="flex items-center gap-2 mb-5">
             <div className="w-8 h-8 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center justify-center">
               <Coins size={14} className="relative left-[0.1px] text-indigo-400" />

@@ -51,12 +51,12 @@ const Row = ({ label, children }) => (
 const ColorRow = ({ label, value, onChange }) => (
   <Row label={label}>
     <div className="flex items-center gap-3">
-      <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-slate-300 dark:border-slate-600 flex-shrink-0">
+      <div className="relative w-11 h-11 rounded-xl overflow-hidden border border-slate-300 dark:border-slate-600 flex-shrink-0">
         <input
           type="color"
           value={value.startsWith('rgba') || value === 'transparent' ? '#ffffff' : value}
           onChange={e => onChange(e.target.value)}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+          className="absolute inset-0 w-full py-3 h-full opacity-0 cursor-pointer z-10"
         />
         <div className="absolute inset-0" style={{ background: value }} />
       </div>
@@ -64,7 +64,7 @@ const ColorRow = ({ label, value, onChange }) => (
         type="text"
         value={value}
         onChange={e => onChange(e.target.value)}
-        className="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all"
+        className="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-3 font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all"
       />
     </div>
   </Row>
@@ -358,7 +358,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
                         <button
                         key={opt.label}
                         onClick={() => upd('logoSize', opt.value)}
-                        className={`cursor-pointer active:scale-[0.98] py-2.5 rounded-xl font-black text-xs transition-all border-2 ${
+                        className={`cursor-pointer active:scale-[0.98] py-3 md:py-2.5 rounded-xl font-black text-xs transition-all border-2 ${
                             (cfg.logoSize ?? 36) === opt.value
                             ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600'
                             : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
@@ -379,7 +379,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
             </div>
           
           {/* Actions */}
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
+          <div className="grid md:grid-cols-2 grid-cols-1 px-4 md:px-0 gap-3">
             <button
               onClick={handleReset}
               className="cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl font-black text-sm flex items-center justify-center gap-3 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"

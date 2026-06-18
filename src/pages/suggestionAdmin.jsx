@@ -142,115 +142,115 @@ export const SuggestionsAdmin = () => {
       </AnimatePresence>
 
       {/* Header */}
-     <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
-      <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
-        <div className="relative flex items-start justify-between gap-4">
-          <div>
-              <div className="flex items-center gap-4">
-              <div className="bg-purple-600 p-3 rounded-xl text-white shadow-lg">
-                  <Mic size={20} />
-              </div>
-              <div>
-                  <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
-                        Kelola Masukan
-                  </h3>
-              </div>
-              </div>
+      <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
+          <div className="relative flex items-start justify-between gap-4">
+            <div>
+                <div className="flex items-center gap-4">
+                <div className="bg-purple-600 p-3 rounded-xl text-white shadow-lg">
+                    <Mic size={20} />
+                </div>
+                <div>
+                    <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+                          Kelola Masukan
+                    </h3>
+                </div>
+                </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className='bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 px-0 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6'>
-        {/* Filters */}
-        <div className="flex gap-2 flex-wrap px-5 md:px-0">
-          <button
-            onClick={() => setStatusFilter('')}
-            className={`cursor-pointer px-4 py-2 rounded-xl font-black text-xs transition-all ${
-              statusFilter === '' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700'
-            }`}
-          >
-            Semua
-          </button>
-          {STATUS_OPTIONS.map((s) => (
+        <div className='bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 px-0 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6'>
+          {/* Filters */}
+          <div className="flex gap-2 flex-wrap px-5 md:px-0">
             <button
-              key={s.value}
-              onClick={() => setStatusFilter(s.value)}
+              onClick={() => setStatusFilter('')}
               className={`cursor-pointer px-4 py-2 rounded-xl font-black text-xs transition-all ${
-                statusFilter === s.value ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700'
+                statusFilter === '' ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700'
               }`}
             >
-              {s.label}
+              Semua
             </button>
-          ))}
-        </div>
+            {STATUS_OPTIONS.map((s) => (
+              <button
+                key={s.value}
+                onClick={() => setStatusFilter(s.value)}
+                className={`cursor-pointer px-4 py-2 rounded-xl font-black text-xs transition-all ${
+                  statusFilter === s.value ? 'bg-purple-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700'
+                }`}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
 
-        {/* List */}
-        <div className="">
-          <div className="overflow-x-auto">
-            {isLoading ? (
-              <tr>
-                <td colSpan={6} className="text-center py-16 text-slate-400 font-bold">
-                  <div className="flex items-center justify-center gap-3">
-                    <div className="w-5 h-5 border-4 border-slate-200 border-t-purple-600 rounded-xl animate-spin" />Memuat...
+          {/* List */}
+          <div className="">
+            <div className="overflow-x-auto">
+              {isLoading ? (
+                <tr>
+                  <td colSpan={6} className="text-center py-16 text-slate-400 font-bold">
+                    <div className="flex items-center justify-center gap-3">
+                      <div className="w-5 h-5 border-4 border-slate-200 border-t-purple-600 rounded-xl animate-spin" />Memuat...
+                    </div>
+                  </td>
+                </tr>
+              ) : suggestions.length === 0 ? (
+                <div>
+                  <div colSpan={6} className="text-center bg-slate-500/10 rounded-xl py-16 text-slate-400">
+                    <MessageCircle size={40} className="mx-auto mb-3 opacity-30" />
+                    <p className="font-bold text-sm">Belum ada saran</p>
                   </div>
-                </td>
-              </tr>
-            ) : suggestions.length === 0 ? (
-              <div>
-                <div colSpan={6} className="text-center bg-slate-500/10 rounded-xl py-16 text-slate-400">
-                  <MessageCircle size={40} className="mx-auto mb-3 opacity-30" />
-                  <p className="font-bold text-sm">Belum ada saran</p>
                 </div>
-              </div>
-            ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {suggestions.map((s) => (
-                  <div
-                    key={s._id}
-                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-5 hover:shadow-md transition-all flex flex-col"
-                  >
-                    {/* Header: Kategori & Status */}
-                    <div className="flex items-center justify-between mb-3">
-                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[10px] font-black ${
-                        s.category === 'feature' ? 'bg-blue-100 text-purple-600 dark:bg-blue-950/40 dark:text-blue-400' :
-                        s.category === 'bug' ? 'bg-red-100 text-red-600 dark:bg-red-950/40 dark:text-red-400' :
-                        s.category === 'improvement' ? 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400' :
-                        'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
-                      }`}>
-                        {CATEGORY_ICONS[s.category]}
-                        {s.category}
-                      </span>
-                      <span className={`px-2.5 py-1 rounded-xl text-[10px] font-black ${STATUS_COLORS[s.status]}`}>
-                        {STATUS_LABELS[s.status]}
-                      </span>
-                    </div>
-
-                    {/* Judul & Pesan */}
-                    <div className="mb-4 flex-1">
-                      <p className="font-black text-sm text-slate-800 dark:text-slate-100 mb-1">{s.title}</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-3">{s.message}</p>
-                    </div>
-
-                    {/* Footer: Username, Tanggal, Aksi */}
-                    <div className="pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
-                      <div>
-                        <p className="font-black text-xs text-slate-700 dark:text-slate-200">@{s.username}</p>
-                        <p className="text-[10px] text-slate-400 mt-0.5">{formatDate(s.createdAt)}</p>
+              ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {suggestions.map((s) => (
+                    <div
+                      key={s._id}
+                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-5 hover:shadow-md transition-all flex flex-col"
+                    >
+                      {/* Header: Kategori & Status */}
+                      <div className="flex items-center justify-between mb-3">
+                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-[10px] font-black ${
+                          s.category === 'feature' ? 'bg-blue-100 text-purple-600 dark:bg-blue-950/40 dark:text-blue-400' :
+                          s.category === 'bug' ? 'bg-red-100 text-red-600 dark:bg-red-950/40 dark:text-red-400' :
+                          s.category === 'improvement' ? 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400' :
+                          'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+                        }`}>
+                          {CATEGORY_ICONS[s.category]}
+                          {s.category}
+                        </span>
+                        <span className={`px-2.5 py-1 rounded-xl text-[10px] font-black ${STATUS_COLORS[s.status]}`}>
+                          {STATUS_LABELS[s.status]}
+                        </span>
                       </div>
-                      <button
-                        onClick={() => { setSelectedSuggestion(s); setAdminNote(s.adminNote || ''); }}
-                        className="cursor-pointer p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-all border border-slate-100 dark:border-slate-700"
-                      >
-                        <Edit size={16} className="text-slate-400" />
-                      </button>
+
+                      {/* Judul & Pesan */}
+                      <div className="mb-4 flex-1">
+                        <p className="font-black text-sm text-slate-800 dark:text-slate-100 mb-1">{s.title}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-3">{s.message}</p>
+                      </div>
+
+                      {/* Footer: Username, Tanggal, Aksi */}
+                      <div className="pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                        <div>
+                          <p className="font-black text-xs text-slate-700 dark:text-slate-200">@{s.username}</p>
+                          <p className="text-[10px] text-slate-400 mt-0.5">{formatDate(s.createdAt)}</p>
+                        </div>
+                        <button
+                          onClick={() => { setSelectedSuggestion(s); setAdminNote(s.adminNote || ''); }}
+                          className="cursor-pointer p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-all border border-slate-100 dark:border-slate-700"
+                        >
+                          <Edit size={16} className="text-slate-400" />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
       {/* Modal Edit */}
       <AnimatePresence>
