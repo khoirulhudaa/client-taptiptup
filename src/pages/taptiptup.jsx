@@ -688,7 +688,7 @@ function OverlayCustom({ C }) {
                 style={{
                   padding: "36px 28px",
                   borderRight: i < ITEMS.length - 1 ? "1px solid rgba(255,255,255,0.1)" : "none",
-                  background: i % 2 === 0 ? "#008080" : "rgba(255,255,255)",
+                  background: i % 2 === 0 ? "#0d2b45" : "rgba(255,255,255)",
                   position: "relative",
                   borderRadius: 10,
                   borderRight: !isLast ? `1px solid ${C.line}` : "none",
@@ -836,7 +836,7 @@ function NominalSection({ C }) {
               <div style={{ marginBottom: 14 }}>
                 <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NAMA DONATUR</div>
                 <div style={{
-                  background: "#f8fafc", border: "1px solid #cbd5e1",
+                  background: "#f8fafc", border: "1px solid #0d2b45",
                   borderRadius: 8, padding: "10px 14px",
                   fontFamily: "'Space Grotesk',sans-serif", fontSize: 14, color: "#000",
                 }}>
@@ -849,10 +849,10 @@ function NominalSection({ C }) {
                 <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NOMINAL — KETIK BEBAS</div>
                 <div style={{
                   background: "white", borderRadius: 8, padding: "12px 16px",
+                  border: '1px solid #0d2b45',
                   display: "flex", justifyContent: "space-between", alignItems: "center",
                 }}>
-                  <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 28, color: "black", lineHeight: 1 }}>Rp 1.275.000</span>
-                  {/* <span style={{ fontFamily: "'Space Mono',monospace", fontSize: 12, color: "black" }}>min. Rp 1.000</span> */}
+                  <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 28, color: "black", lineHeight: 1, position: 'relative', top: 2 }}>Rp 1.275.000</span>
                 </div>
               </div>
 
@@ -864,7 +864,7 @@ function NominalSection({ C }) {
                     <div key={v} style={{
                       padding: "6px 12px", borderRadius: 6,
                       background: i === 4 ? "#99FFFF" : "#f1f5f9",
-                      border: i === 4 ? "1px solid #99FFFF" : "1px solid #cbd5e1",
+                      border: i === 4 ? "1px solid #99FFFF" : "1px solid #0d2b45",
                       fontFamily: "'Space Mono',monospace", fontSize: 11,
                       color: "#000",
                       cursor: "pointer",
@@ -879,7 +879,7 @@ function NominalSection({ C }) {
               <div style={{ marginBottom: 20 }}>
                 <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>PESAN</div>
                 <div style={{
-                  background: "#f8fafc", border: "1px solid #cbd5e1",
+                  background: "#f8fafc", border: "1px solid #0d2b45",
                   borderRadius: 8, 
                   height: '190.5px',
                   padding: "10px 14px",
@@ -920,7 +920,7 @@ function NominalSection({ C }) {
               <div style={{ marginBottom: 14 }}>
                 <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NAMA DONATUR</div>
                 <div style={{
-                  background: "#f8fafc", border: "1px solid #cbd5e1",
+                  background: "#f8fafc", border: "1px solid #0d2b45",
                   borderRadius: 8, padding: "10px 14px",
                   fontFamily: "'Space Grotesk',sans-serif", fontSize: 14, color: "#000",
                 }}>
@@ -936,7 +936,7 @@ function NominalSection({ C }) {
                     <div key={item.name} style={{
                       borderRadius: 8, padding: "10px 6px",
                       background: i === 0 ? "#99FFFF" : "#f8fafc",
-                      border: i === 0 ? "1px solid #99FFFF" : "1px solid #cbd5e1",
+                      border: i === 0 ? "1px solid #0d2b45" : "1px solid #0d2b45",
                       textAlign: "center", cursor: "pointer",
                     }}>
                       <div style={{ fontSize: 22, marginBottom: 4 }}>{item.emoji}</div>
@@ -955,7 +955,7 @@ function NominalSection({ C }) {
                     <div key={v} style={{
                       flex: 1, padding: "8px 0", textAlign: "center", borderRadius: 6,
                       background: i === 2 ? "#99FFFF" : "#f1f5f9",
-                      border: i === 2 ? "1px solid #99FFFF" : "1px solid #cbd5e1",
+                      border: i === 2 ? "1px solid #0d2b45" : "1px solid #0d2b45",
                       fontFamily: "'Bebas Neue',sans-serif", fontSize: 16,
                       color: "#000",
                       cursor: "pointer",
@@ -968,7 +968,7 @@ function NominalSection({ C }) {
 
               {/* Total */}
               <div style={{
-                background: "#f0fffe", border: "1px solid #99FFFF",
+                background: "#f0fffe", border: "1px solid #0d2b45",
                 borderRadius: 8, padding: "12px 16px", marginBottom: 16,
                 display: "flex", justifyContent: "space-between", alignItems: "center",
               }}>
