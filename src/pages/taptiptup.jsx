@@ -771,7 +771,9 @@ function NominalSection({ C }) {
   return (
     <section
       className="bg-blue-900 relative overflow-hidden flex flex-col justify-center items-center"
-      style={{ padding: "80px 0", borderBottom: `1px solid ${C.line}` }}
+      style={{ 
+        padding: "80px 0", 
+      }}
     >
       {/* Grid bg */}
       <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
