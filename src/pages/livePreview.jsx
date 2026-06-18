@@ -906,7 +906,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
         </div>
       </div>
 
-      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[70.5vh] h-[27.5vh]' : '2xl:h-[61.9vh] h-[42.8vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
+      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[70.5vh] h-[35.1vh]' : '2xl:h-[61.9vh] h-[41.5vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
         <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
           {/* <span style={{ fontSize: 80, fontWeight: 500, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span> */}
         </div>

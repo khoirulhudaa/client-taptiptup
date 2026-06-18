@@ -5521,58 +5521,58 @@ const handleChangePin = async () => {
             </AnimatePresence>
           </div>
 
-          <footer className="relative z-[2] mt-auto border-t border-slate-200/50 dark:border-slate-800/50 bg-white/20 dark:bg-slate-900/40 backdrop-blur-sm">
-            <div className="max-w-full mx-auto px-4 md:px-6 py-5">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                
-                {/* Kiri — brand */}
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <img src="/logoNew.png" alt="logo" className="w-full h-full object-contain p-1" />
+          <footer className="md:block hidden relative z-[2] mt-auto border-t border-slate-200/50 dark:border-slate-800/50 bg-white/20 dark:bg-slate-900/40 backdrop-blur-sm">
+              <div className="max-w-full mx-auto px-4 md:px-6 py-5">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                  
+                  {/* Kiri — brand */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <img src="/logoNew.png" alt="logo" className="w-full h-full object-contain p-1" />
+                    </div>
+                    <div>
+                      <p className="font-black text-sm text-slate-700 dark:text-slate-200 tracking-tight">TapTipTup</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-black text-sm text-slate-700 dark:text-slate-200 tracking-tight">TapTipTup</p>
+
+                  <div className='w-max flex items-center gap-2'>
+                    <div className="flex items-center gap-1 text-[11px] font-bold text-slate-400 dark:text-slate-500">
+                      {[
+                        { label: 'Syarat & Ketentuan', href: '/terms' },
+                        { label: 'Kebijakan Privasi', href: '/privacy-policy' },
+                        { label: 'Bantuan', onClick: () => setActiveTab('contact') },
+                      ].map((item, i) => (
+                        <span key={i} className="flex items-center gap-1">
+                          {i > 0 && 
+                          <span className="text-slate-300 dark:text-slate-700">·</span>}
+                          {item.onClick ? (
+                            <button
+                              onClick={item.onClick}
+                              className="text-[14px] cursor-pointer hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                            >
+                              {item.label}
+                            </button>
+                          ) : (
+                            <a
+                              href={item.href}
+                              className="text-[14px] hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                            >
+                              {item.label}
+                            </a>
+                          )}
+                        </span>
+                      ))}
+                    </div>
+
+                      -
+                    <p className="text-[14px] text-slate-400 dark:text-slate-500 font-bold">
+                      © {new Date().getFullYear()} TapTipTup. All Rights Seserved.
+                    </p>
                   </div>
+
                 </div>
-
-                <div className='w-max flex items-center gap-2'>
-                  <div className="flex items-center gap-1 text-[11px] font-bold text-slate-400 dark:text-slate-500">
-                    {[
-                      { label: 'Syarat & Ketentuan', href: '/terms' },
-                      { label: 'Kebijakan Privasi', href: '/privacy-policy' },
-                      { label: 'Bantuan', onClick: () => setActiveTab('contact') },
-                    ].map((item, i) => (
-                      <span key={i} className="flex items-center gap-1">
-                        {i > 0 && 
-                        <span className="text-slate-300 dark:text-slate-700">·</span>}
-                        {item.onClick ? (
-                          <button
-                            onClick={item.onClick}
-                            className="text-[14px] cursor-pointer hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
-                          >
-                            {item.label}
-                          </button>
-                        ) : (
-                          <a
-                            href={item.href}
-                            className="text-[14px] hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
-                          >
-                            {item.label}
-                          </a>
-                        )}
-                      </span>
-                    ))}
-                  </div>
-
-                    -
-                  <p className="text-[14px] text-slate-400 dark:text-slate-500 font-bold">
-                    © {new Date().getFullYear()} TapTipTup. All Rights Seserved.
-                  </p>
-                </div>
-
               </div>
-            </div>
-          </footer>
+            </footer>
         </main>
 
         {isSidebarOpen && (
