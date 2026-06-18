@@ -43,11 +43,11 @@ const StatCard = ({ label, value, sub, icon: Icon, accent, index }) => (
     <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: accent }} />
     <div className="flex items-start justify-between">
       <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-500">{label}</p>
-      <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: accent + '18', border: `1px solid ${accent}30` }}>
+      <div className="w-9 h-9 rounded-xl hidden md:flex items-center justify-center" style={{ background: accent + '18', border: `1px solid ${accent}30` }}>
         <Icon size={16} style={{ color: accent }} />
       </div>
     </div>
-    <p className="text-md font-black text-slate-900 dark:text-white leading-none tracking-tight">{value}</p>
+    <p className="text-md font-black mt-2 md:mt-0 text-slate-900 dark:text-white leading-none tracking-tight">{value}</p>
     {sub && <p className="text-[11px] text-slate-500 font-medium">{sub}</p>}
   </motion.div>
 );
@@ -223,21 +223,21 @@ export const DashboardSuperPage = () => {
       </div>
 
       {/* ── Stat Cards ── */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
-        <StatCard index={1} label="Total Donasi Masuk"   value={fmtRp(stats?.totalDonation?.amount)}   sub={`${fmt(stats?.totalDonation?.count)} transaksi`}    icon={DollarSign}   accent="#6366f1" />
-        <StatCard index={2} label="Total Users"           value={fmt(stats?.totalUsers)}                sub="Akun streamer aktif"                                   icon={Users}        accent="#22d3ee" />
-        <StatCard index={3} label="Total Pencairan"       value={fmtRp(stats?.totalWithdrawal?.amount)} sub={`${fmt(stats?.totalWithdrawal?.count)} transaksi`}      icon={Wallet}       accent="#34d399" />
-        <StatCard index={4} label="Dana Tertahan"         value={fmtRp(retained)}                       sub="Belum dicairkan"                                        icon={TrendingUp}   accent="#f59e0b" />
-        <StatCard index={5} label="Pending Withdraw"      value={fmt(stats?.pendingWithdrawalsCount)}  sub="Menunggu diproses"                                     icon={Clock}        accent="#ef4444" />
-        <StatCard index={6} label="Status Server"         value={healthLoading ? '—' : health?.status === 'ok' ? 'Online' : 'Offline'} sub={healthLoading ? 'checking...' : `${health?.latency}ms latency`} icon={Activity} accent="#a78bfa" />
+      <div className="grid grid-cols-2 bg-white/30 dark:bg-slate-900/60 p-4 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        <StatCard index={1} label="Donasi"   value={fmtRp(stats?.totalDonation?.amount)}   sub={`${fmt(stats?.totalDonation?.count)} transaksi`}    icon={DollarSign}   accent="#6366f1" />
+        <StatCard index={2} label="Streamer"           value={fmt(stats?.totalUsers)}                sub="Akun streamer aktif"                                   icon={Users}        accent="#22d3ee" />
+        <StatCard index={3} label="Pencairan"       value={fmtRp(stats?.totalWithdrawal?.amount)} sub={`${fmt(stats?.totalWithdrawal?.count)} transaksi`}      icon={Wallet}       accent="#34d399" />
+        <StatCard index={4} label="Tertahan"         value={fmtRp(retained)}                       sub="Belum dicairkan"                                        icon={TrendingUp}   accent="#f59e0b" />
+        <StatCard index={5} label="panarikan"      value={fmt(stats?.pendingWithdrawalsCount)}  sub="Menunggu diproses"                                     icon={Clock}        accent="#ef4444" />
+        <StatCard index={6} label="Server"         value={healthLoading ? '—' : health?.status === 'ok' ? 'Online' : 'Offline'} sub={healthLoading ? 'checking...' : `${health?.latency}ms latency`} icon={Activity} accent="#a78bfa" />
       </div>
 
       {/* ── Bottom Row ── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
         {/* Top Donatur */}
-        <motion.div {...staggerChild(10)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl p-4 md:p-6">
-          <div className="flex items-center gap-2 mb-5">
+        <motion.div {...staggerChild(10)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl p-4 px-0 md:p-6">
+          <div className="flex items-center px-4 gap-2 md:px-0 mb-5">
             <div className="w-8 h-8 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center">
               <Trophy size={14} className="text-amber-400" />
             </div>
@@ -253,7 +253,7 @@ export const DashboardSuperPage = () => {
               const medals = ['🥇', '🥈', '🥉'];
               const accents = ['#f59e0b', '#94a3b8', '#b45309'];
               return (
-                <div key={i} className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 border border-slate-700/50 rounded-xl">
+                <div key={i} className="flex items-center gap-3 p-3 md:bg-white dark:md:bg-slate-800/50 md:border border-slate-700/50 rounded-xl">
                   <span className="text-xl flex-shrink-0">{medals[i]}</span>
                   <div className="flex-1 min-w-0">
                     <p className="font-black text-sm text-slate-900 dark:text-white truncate">{d.name}</p>
@@ -269,8 +269,8 @@ export const DashboardSuperPage = () => {
         </motion.div>
 
         {/* Pending Withdrawals Alert */}
-        <motion.div {...staggerChild(11)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl p-4 md:p-6">
-          <div className="flex items-center justify-between gap-2 mb-5">
+        <motion.div {...staggerChild(11)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl py-4 p-0 md:p-6">
+          <div className="flex items-center justify-between px-4 md:px-0 gap-2 mb-5">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center justify-center">
                 <Clock size={14} className="text-red-400" />
@@ -286,7 +286,7 @@ export const DashboardSuperPage = () => {
               <p className="text-slate-600 text-sm font-bold text-center py-6">Tidak ada pending</p>
             )}
             {(stats?.pendingWithdrawals || []).slice(0, 3).map((w, i) => (
-              <div key={w.id || i} className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 border border-slate-700/50 rounded-xl">
+              <div key={w.id || i} className="flex items-center gap-3 p-3 md:bg-white dark:md:bg-slate-800/50 md:border border-slate-700/50 rounded-xl">
                 <div className="w-7 h-7 bg-red-500/10 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-black text-red-400">
                   {w.accountName?.charAt(0)?.toUpperCase() || '?'}
                 </div>
@@ -301,8 +301,8 @@ export const DashboardSuperPage = () => {
         </motion.div>
 
         {/* Donasi Terbaru */}
-        <motion.div {...staggerChild(12)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl p-4 md:p-6">
-          <div className="flex items-center gap-2 mb-5">
+        <motion.div {...staggerChild(12)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl py-4 p-0 md:p-6">
+          <div className="flex items-center px-4 gap-2 md:px-0 mb-5">
             <div className="w-8 h-8 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center justify-center">
               <Coins size={14} className="relative left-[0.1px] text-indigo-400" />
             </div>
@@ -315,7 +315,7 @@ export const DashboardSuperPage = () => {
               <p className="text-slate-600 text-sm font-bold text-center py-6">Belum ada donasi</p>
             )}
             {(stats?.recentDonations || []).slice(0, 3).map((d, i) => (
-              <div key={d._id || i} className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800/50 border border-slate-700/50 rounded-xl">
+              <div key={d._id || i} className="flex items-center gap-3 p-3 md:bg-white dark:md:bg-slate-800/50 md:border border-slate-700/50 rounded-xl">
                 <div className="w-7 h-7 bg-indigo-500/10 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-black text-indigo-400">
                   {d.donorName?.charAt(0)?.toUpperCase() || '?'}
                 </div>
