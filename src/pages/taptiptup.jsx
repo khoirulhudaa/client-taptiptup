@@ -616,8 +616,388 @@ const PLATFORMS = [
   { name: "Saweria",    feeDonate: 5.0,  feeWd: 5000,  feeWdLabel: "Rp 5.000" },
   { name: "TapTipTup", feeDonate: 3.0,  feeWd: 3500,  feeWdLabel: "Rp 3.500", winner: true },
   { name: "Sociabuzz",  feeDonate: 5.0,  feeWd: 4500,  feeWdLabel: "Rp 4.500" },
-  { name: "TipTap",  feeDonate: 3.0,  feeWd: 6.500,  feeWdLabel: "Rp 6.500" },
+  // { name: "TipTap",  feeDonate: 3.0,  feeWd: 6.500,  feeWdLabel: "Rp 6.500" },
 ];
+
+function OverlayCustom({ C }) {
+  const ITEMS = [
+    { num: "01", ico: "🎨", title: "Tema & Warna Bebas", desc: "Pilih 4 tema berbeda. Ubah warna, font, dan animasi sesuai brand stream-mu." },
+    { num: "02", ico: "🔊", title: "Suara per Nominal", desc: "Sultan dapat sound kenceng! 16+ preset audio, atur sendiri tiap tier Dukungan." },
+    { num: "03", ico: "📐", title: "Posisi & Ukuran Bebas", desc: "Drag & drop posisi alert, goal bar, dan leaderboard langsung dari dashboard." },
+  ];
+
+  const TAGS = ["OBS Studio", "Streamlabs OBS", "YouTube Live", "TikTok Live", "Twitch", "Facebook Gaming", "Instagram Live"];
+
+  return (
+    <section
+      className="bg-blue-900 relative overflow-hidden flex flex-col justify-center items-center"
+      style={{ padding: "20px 0"}}
+    >
+      {/* Grid bg */}
+      <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="overlay-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#overlay-grid)" />
+        </svg>
+      </div>
+
+      <div className="relative w-[90vw] mx-auto" style={{ zIndex: 10 }}>
+
+        {/* ── HEADER ── */}
+        <div className="text-center flex flex-col items-center mb-4">
+          <Kicker C={C}>Desain & Akses</Kicker>
+
+          {/* Judul dengan badge "able" */}
+          <h2 style={{
+            fontFamily: "'Bebas Neue', sans-serif",
+            fontSize: "clamp(36px, 7vw, 86px)",
+            lineHeight: 1.05, letterSpacing: "0.01em", color: "white",
+            marginBottom: 16,
+          }}>
+            KESUKAAN SI PALING{" "}
+            <span style={{
+              display: "inline-block",
+              borderRadius: 8,
+            }}>
+              KUSTOM
+            </span>
+            <span style={{ color: "azure" }}>ABEL</span>
+          </h2>
+
+          <p style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: "clamp(13px, 1.4vw, 15px)",
+            color: "rgba(255,255,255,0.6)", maxWidth: '90vw', lineHeight: 1.6,
+          }}>
+            Bikin stream lo punya identitas sendiri. Tema, warna, suara — semua di tanganmu.
+          </p>
+        </div>
+
+        {/* ── CARDS ── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 rounded-xl overflow-hidden !mt-10"
+          style={{ border: "1px solid rgba(255,255,255,0.12)" }}>
+          {ITEMS.map((item, i) => {
+            const isLast = i === PLATFORMS.length - 1;
+            return (
+              <div
+                key={item.num}
+                style={{
+                  padding: "36px 28px",
+                  borderRight: i < ITEMS.length - 1 ? "1px solid rgba(255,255,255,0.1)" : "none",
+                  background: i % 2 === 0 ? "#99FFFF" : "rgba(255,255,255)",
+                  position: "relative",
+                  borderRight: !isLast ? `1px solid ${C.line}` : "none",
+                  transition: "background 0.2s",
+                }}
+              >
+                {/* Badge nomor */}
+                <span style={{
+                  fontFamily: "'Space Mono', monospace", fontSize: 9,
+                  color: i % 2 === 0 ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.2)",
+                  letterSpacing: "0.1em", position: "absolute", top: 20, right: 20,
+                }}>
+                  {item.num}
+                </span>
+
+                {/* Icon besar */}
+                <div style={{
+                  fontSize: 40, marginBottom: 20,
+                  filter: i % 2 === 0 ? "none" : "drop-shadow(0 0 6px rgba(173,216,230,0.4))",
+                }}>
+                  {item.ico}
+                </div>
+
+                <div style={{
+                  fontFamily: "'Bebas Neue', sans-serif",
+                  fontSize: 26, lineHeight: 1.1,
+                  color: i % 2 === 0 ? "#0d2b45" : "black",
+                  marginBottom: 10,
+                }}>
+                  {item.title}
+                </div>
+
+                <div style={{
+                  height: 1,
+                  background: i % 2 === 0 ? "rgba(0,0,0,0.12)" : "black",
+                  marginBottom: 14,
+                }} />
+
+                <div style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: 13.5, lineHeight: 1.65,
+                  color: i % 2 === 0 ? "#1a3a80" : "rgba(0,0,0,0.88)",
+                }}>
+                  {item.desc}
+                </div>
+              </div>
+            )}
+          )}
+        </div>
+
+        {/* ── TAGS ── */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 28, justifyContent: "center" }}>
+          {TAGS.map((t) => (
+            <span key={t} style={{
+              fontFamily: "'Space Mono', monospace", fontSize: 10,
+              letterSpacing: "0.06em", textTransform: "uppercase",
+              padding: "6px 14px",
+              border: "1px solid rgba(173,216,230,0.7)",
+              color: "rgba(173,216,230,1)", borderRadius: 8,
+            }}>
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+function NominalSection({ C }) {
+  const ITEMS_GIFT = [
+    { emoji: "💎", name: "Diamond",    price: "10.000"  },
+    { emoji: "🍣", name: "Sushi",      price: "5.000"   },
+    { emoji: "🪷", name: "Kembang",    price: "2.000"   },
+    { emoji: "🚀", name: "Roket",      price: "25.000"  },
+    { emoji: "👑", name: "Mahkota",    price: "50.000"  },
+    { emoji: "🎮", name: "Controller", price: "7.500"   },
+    { emoji: "🔥", name: "Fire",       price: "1.000"   },
+    { emoji: "🏆", name: "Trophy",     price: "100.000" },
+  ];
+
+  return (
+    <section
+      className="bg-blue-900 relative overflow-hidden flex flex-col justify-center items-center"
+      style={{ padding: "80px 0", borderBottom: `1px solid ${C.line}` }}
+    >
+      {/* Grid bg */}
+      <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="nominal-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#nominal-grid)" />
+        </svg>
+      </div>
+
+      <div className="relative w-[90vw] mx-auto" style={{ zIndex: 10 }}>
+
+        {/* ── HEADER ── */}
+        <div className="text-center flex flex-col items-center mb-12">
+          <Kicker C={C}>Cara Kirim Dukungan</Kicker>
+          <h2 style={{
+            fontFamily: "'Bebas Neue', sans-serif",
+            fontSize: "clamp(36px, 7vw, 86px)",
+            lineHeight: 1.05, color: "white", letterSpacing: "0.01em", marginBottom: 16,
+          }}>
+            NOMINAL BISA{" "}
+            <span style={{ color: "azure" }}>—</span>{" "}
+            <span style={{ color: "white" }}>ITEM JUGA BISA</span>
+          </h2>
+          <p className="!mb-12" style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: "clamp(13px, 1.4vw, 15px)",
+            color: "white", maxWidth: '90vw', lineHeight: 1.7,
+          }}>
+            Kirim nominal langsung seperti <strong style={{ color: "cyan" }}>Rp 10.000</strong> atau <strong style={{ color: "cyan" }}>Rp 150.000</strong>,
+            atau kirim item seru seperti <strong style={{ color: "cyan" }}>💎 Diamond ×10</strong>, <strong style={{ color: "cyan" }}>🍣 Sushi ×3</strong>, <strong style={{ color: "cyan" }}>🪷 Kembang ×5</strong>
+          </p>
+        </div>
+
+        {/* ── DUA KOLOM UTAMA ── */}
+        <div className="flex flex-col md:flex-row gap-6 items-stretch mb-10">
+
+          {/* KIRI — Mode Nominal */}
+          <div className="flex-1 rounded-xl overflow-hidden"
+            style={{ border: "1px solid #e2e8f0", background: "azure" }}>
+
+            {/* Header tab */}
+            <div style={{
+              background: "#0d2b45", padding: "14px 20px",
+              display: "flex", alignItems: "center", gap: 10,
+            }}>
+              <span style={{ fontSize: 18 }}>💸</span>
+              <div>
+                <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 18, color: "white", lineHeight: 1 }}>MODE NOMINAL</div>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 9, color: "white", letterSpacing: "0.06em" }}>KETIK BERAPA SAJA</div>
+              </div>
+            </div>
+
+            <div style={{ padding: "24px 20px" }}>
+              {/* Nama */}
+              <div style={{ marginBottom: 14 }}>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NAMA DONATUR</div>
+                <div style={{
+                  background: "#f8fafc", border: "1px solid #cbd5e1",
+                  borderRadius: 8, padding: "10px 14px",
+                  fontFamily: "'Space Grotesk',sans-serif", fontSize: 14, color: "#000",
+                }}>
+                  RizkyGamer99 🎮
+                </div>
+              </div>
+
+              {/* Input nominal */}
+              <div style={{ marginBottom: 14 }}>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NOMINAL — KETIK BEBAS</div>
+                <div style={{
+                  background: "white", borderRadius: 8, padding: "12px 16px",
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
+                }}>
+                  <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 28, color: "black", lineHeight: 1 }}>Rp 1.275.000</span>
+                  {/* <span style={{ fontFamily: "'Space Mono',monospace", fontSize: 12, color: "black" }}>min. Rp 1.000</span> */}
+                </div>
+              </div>
+
+              {/* Quick pick nominal */}
+              <div style={{ marginBottom: 14 }}>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 8 }}>ATAU PILIH CEPAT</div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                  {["Rp 1rb", "Rp 5rb", "Rp 10rb", "Rp 25rb", "Rp 50rb", "Rp 100rb"].map((v, i) => (
+                    <div key={v} style={{
+                      padding: "6px 12px", borderRadius: 6,
+                      background: i === 4 ? "#99FFFF" : "#f1f5f9",
+                      border: i === 4 ? "1px solid #99FFFF" : "1px solid #cbd5e1",
+                      fontFamily: "'Space Mono',monospace", fontSize: 11,
+                      color: "#000",
+                      cursor: "pointer",
+                    }}>
+                      {v}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Pesan */}
+              <div style={{ marginBottom: 20 }}>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>PESAN</div>
+                <div style={{
+                  background: "#f8fafc", border: "1px solid #cbd5e1",
+                  borderRadius: 8, 
+                  height: '190.5px',
+                  padding: "10px 14px",
+                  fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, color: "#000",
+                }}>
+                  "GG bang, mainnya mantap! 🔥"
+                </div>
+              </div>
+
+              <div style={{
+                background: "#0d2b45", borderRadius: 8, padding: "13px",
+                textAlign: "center", fontFamily: "'Space Grotesk',sans-serif",
+                fontWeight: 700, fontSize: 13, color: "white", cursor: "pointer",
+              }}>
+                Bayar via QRIS / Transfer →
+              </div>
+            </div>
+          </div>
+
+          {/* KANAN — Mode Item */}
+          <div className="flex-1 rounded-xl overflow-hidden"
+            style={{ border: "1px solid #e2e8f0", background: "azure" }}>
+
+            {/* Header tab */}
+            <div style={{
+              background: "#0d2b45", padding: "14px 20px",
+              display: "flex", alignItems: "center", gap: 10,
+            }}>
+              <span style={{ fontSize: 18 }}>🎁</span>
+              <div>
+                <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 18, color: "white", lineHeight: 1 }}>MODE ITEM / GIFT</div>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 9, color: "rgba(255,255,255,0.7)", letterSpacing: "0.06em" }}>PILIH ITEM, TENTUKAN JUMLAH</div>
+              </div>
+            </div>
+
+            <div style={{ padding: "20px" }}>
+              {/* Nama */}
+              <div style={{ marginBottom: 14 }}>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NAMA DONATUR</div>
+                <div style={{
+                  background: "#f8fafc", border: "1px solid #cbd5e1",
+                  borderRadius: 8, padding: "10px 14px",
+                  fontFamily: "'Space Grotesk',sans-serif", fontSize: 14, color: "#000",
+                }}>
+                  SultanStream 👑
+                </div>
+              </div>
+
+              {/* Grid item */}
+              <div style={{ marginBottom: 14 }}>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 8 }}>PILIH ITEM</div>
+                <div className="grid grid-cols-4 gap-2">
+                  {ITEMS_GIFT.map((item, i) => (
+                    <div key={item.name} style={{
+                      borderRadius: 8, padding: "10px 6px",
+                      background: i === 0 ? "#99FFFF" : "#f8fafc",
+                      border: i === 0 ? "1px solid #99FFFF" : "1px solid #cbd5e1",
+                      textAlign: "center", cursor: "pointer",
+                    }}>
+                      <div style={{ fontSize: 22, marginBottom: 4 }}>{item.emoji}</div>
+                      <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 10, fontWeight: 700, color: "#000", marginBottom: 2 }}>{item.name}</div>
+                      <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000" }}>{item.price}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Jumlah item */}
+              <div style={{ marginBottom: 14 }}>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>JUMLAH</div>
+                <div style={{ display: "flex", gap: 6 }}>
+                  {["×1", "×3", "×5", "×10", "×20"].map((v, i) => (
+                    <div key={v} style={{
+                      flex: 1, padding: "8px 0", textAlign: "center", borderRadius: 6,
+                      background: i === 2 ? "#99FFFF" : "#f1f5f9",
+                      border: i === 2 ? "1px solid #99FFFF" : "1px solid #cbd5e1",
+                      fontFamily: "'Bebas Neue',sans-serif", fontSize: 16,
+                      color: "#000",
+                      cursor: "pointer",
+                    }}>
+                      {v}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Total */}
+              <div style={{
+                background: "#f0fffe", border: "1px solid #99FFFF",
+                borderRadius: 8, padding: "12px 16px", marginBottom: 16,
+                display: "flex", justifyContent: "space-between", alignItems: "center",
+              }}>
+                <div>
+                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.06em", marginBottom: 4 }}>TOTAL DIKIRIM</div>
+                  <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 22, color: "#000", lineHeight: 1 }}>💎 Diamond ×5</div>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.06em", marginBottom: 4 }}>NILAI</div>
+                  <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 22, color: "#000", lineHeight: 1 }}>Rp 50.000</div>
+                </div>
+              </div>
+
+              <div style={{
+                background: "#0d2b45", borderRadius: 8, padding: "13px",
+                textAlign: "center", fontFamily: "'Space Grotesk',sans-serif",
+                fontWeight: 700, fontSize: 13, color: "#99FFFF", cursor: "pointer",
+              }}>
+                Kirim Item via QRIS / Transfer →
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="flex justify-center !mt-10">
+          <BtnMain href={`${window.location}/donate/taptiptup`} C={C}>Coba Kirim Dukungan Sekarang</BtnMain>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function FeeComparison({ C }) {
   const maxFee = Math.max(...PLATFORMS.map(p => p.fee));
@@ -712,7 +1092,7 @@ function FeeComparison({ C }) {
       </div>
 
       {/* Grid perbandingan */}
-      <div className="select-none h-max w-[90vw] relative grid grid-cols-1 bg-white md:grid-cols-4"
+      <div className="select-none h-max w-[90vw] relative grid grid-cols-1 bg-white md:grid-cols-3"
         style={{ borderBottom: `1px solid ${C.line}`, zIndex: 40, borderRadius: 10, }}
         >
           {PLATFORMS.map((p, i) => {
@@ -1207,6 +1587,8 @@ export default function TapTipTup() {
       </div>
       <Hero C={C} isDark={isDark} />
       <FeeComparison C={C} /> 
+      <OverlayCustom C={C} />
+      <NominalSection C={C} />
       <section className="w-screen md:!min-h-[70vh] !pb-20 !pt-4 flex flex-col justify-center items-center bg-blue-900 !px-[20px] gap-6 relative overflow-hidden">
 
         <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
