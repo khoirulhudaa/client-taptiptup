@@ -4412,7 +4412,7 @@ const handleChangePin = async () => {
                             <button
                               onClick={() => setShowPreviewPanel(v => !v)}
                               title="Sembunyikan / Tampilkan Preview"
-                              className="cursor-pointer active:scale-[0.99] flex items-center justify-center p-3 rounded-xl text-white shadow-lg rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
+                              className="absolute right-6 top-[24px] cursor-pointer active:scale-[0.99] flex items-center justify-center p-3 rounded-xl text-white shadow-lg rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
                             >
                               <Monitor size={18} />
                             </button>
