@@ -5531,7 +5531,7 @@ const handleChangePin = async () => {
                       <img src="/logoNew.png" alt="logo" className="w-full h-full object-contain p-1" />
                     </div>
                     <div>
-                      <p className="font-black text-sm text-slate-700 dark:text-slate-200 tracking-tight">TapTipTup</p>
+                      <p className="font-bold relative top-[1px] text-[14px] text-slate-700 dark:text-slate-200 tracking-tight">TapTipTup</p>
                     </div>
                   </div>
 
@@ -5564,10 +5564,10 @@ const handleChangePin = async () => {
                       ))}
                     </div>
 
-                      -
+                      {/* -
                     <p className="text-[14px] text-slate-400 dark:text-slate-500 font-bold">
                       © {new Date().getFullYear()} TapTipTup. All Rights Seserved.
-                    </p>
+                    </p> */}
                   </div>
 
                 </div>
