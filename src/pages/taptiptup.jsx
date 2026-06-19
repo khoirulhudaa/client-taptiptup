@@ -698,10 +698,12 @@ function OverlayCustom({ C }) {
             fontFamily: "'Bebas Neue', sans-serif",
             fontSize: "clamp(36px, 7vw, 86px)",
             lineHeight: 1.05, letterSpacing: "0.01em", color: "white",
-            marginBottom: 16,
+            marginBottom: 16, display: 'flex'
           }}>
-            KESUKAAN SI PALING{" "}
-            <span style={{
+            KESUKAAN SI<div className="w-4 md:flex hidden"></div>PALING{" "}
+            <span 
+            className="!ml-2 md:!ml-3.5"
+            style={{
               display: "inline-block",
               borderRadius: 8,
             }}>
@@ -812,11 +814,12 @@ function NominalSection({ C }) {
           <h2 style={{
             fontFamily: "'Bebas Neue', sans-serif",
             fontSize: "clamp(36px, 7vw, 86px)",
+            display: 'flex',
             lineHeight: 1.05, color: "white", letterSpacing: "0.01em", marginBottom: 16,
           }}>
             NOMINAL BISA{" "}
-            <span style={{ color: "azure" }} className="md:flex hidden">KIRIM</span>{" "}
-            <span style={{ color: "white" }}>ITEM JUGA BISA</span>
+            <span style={{ color: "azure" }} className="md:flex hidden !mx-3">KIRIM</span>{" "}
+            <span style={{ color: "white" }} className="md:inline"><span className="md:hidden inline">,</span> ITEM <span className="md:inline hidden">JUGA</span> BISA</span>
           </h2>
           <p className="!mb-12" style={{
             fontFamily: "'Space Grotesk', sans-serif",
