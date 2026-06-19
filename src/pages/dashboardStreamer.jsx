@@ -4642,7 +4642,7 @@ const handleChangePin = async () => {
                       </button>
                     </div>
                     
-                    <div id="tour-min-max-donasi" className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
+                    <div id="tour-min-max-donasi" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
                         <SectionHeader icon={<BadgeDollarSign size={20} />} title={`Nominal Donasi`} color="bg-red-600" />
                         <InputField label="Min Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
                         <InputField label="Max Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
@@ -4653,7 +4653,7 @@ const handleChangePin = async () => {
                         </button>
                     </div>
 
-                    <div id="tour-tema-visual" className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
+                    <div id="tour-tema-visual" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
                       <SectionHeader icon={<Palette size={20} />} title={`Tema visual`} color="bg-cyan-600" />
                       <div className="md:col-span-2">
                         {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label> */}
