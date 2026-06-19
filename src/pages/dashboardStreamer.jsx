@@ -2540,7 +2540,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   );
 
     return (
-    <div className="sticky md:p-0 p-4 top-26 space-y-2.5">
+    <div id="tour-live-preview" className="sticky md:p-0 p-4 top-26 space-y-2.5">
       <FullscreenPreview />
 
       {/* Tab switcher */}
@@ -4614,7 +4614,7 @@ const handleChangePin = async () => {
                           </div>
                       </div>
 
-                      <div id="tour-min-max-donasi" className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-1 md:space-y-2 mt-4.5">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-1 md:space-y-2 mt-4.5">
                         <section
                           key="preview-panel"
                           className="xl:col-span-5 mt-2.5 z-[2] py-0 h-max relative mb-2.5 block md:hidden"
@@ -4635,31 +4635,6 @@ const handleChangePin = async () => {
 
                           </motion.div>
                         </section>
-
-                        {/* <div id="tour-tema-visual" className="md:col-span-2">
-                          <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label>
-                          <div className="grid grid-cols-2 gap-3">
-                          {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
-                            const themeLabels = {
-                              modern:  'Taptip 1',
-                              minimal: 'Taptip 2',
-                              smooth:  'Taptip 3',
-                              gifCard: 'Pop Card',
-                            };
-
-                            return (
-                              <button key={t} onClick={() => upd('theme', t)}
-                                className={`cursor-pointer active:scale-[0.99] py-3 md:py-4 text-left pl-3 rounded-xl border-2 transition-all font-black text-sm capitalize ${
-                                  settings.theme === t
-                                    ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
-                                    : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
-                                }`}>
-                                {themeLabels[t] || t}
-                              </button>
-                            );
-                          })}
-                          </div>
-                        </div> */}
                       </div>
                       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
@@ -4667,8 +4642,8 @@ const handleChangePin = async () => {
                       </button>
                     </div>
                     
-                    <div className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
-                        <SectionHeader icon={<BadgeDollarSign size={20} />} title={`Quick Nominal`} color="bg-red-600" />
+                    <div id="tour-min-max-donasi" className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
+                        <SectionHeader icon={<BadgeDollarSign size={20} />} title={`Nominal Donasi`} color="bg-red-600" />
                         <InputField label="Min Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
                         <InputField label="Max Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
                         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
@@ -4678,60 +4653,58 @@ const handleChangePin = async () => {
                         </button>
                     </div>
 
-                    <div className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
-                        <SectionHeader icon={<Palette size={20} />} title={`Tema visual`} color="bg-cyan-600" />
+                    <div id="tour-tema-visual" className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
+                      <SectionHeader icon={<Palette size={20} />} title={`Tema visual`} color="bg-cyan-600" />
+                      <div className="md:col-span-2">
+                        {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label> */}
+                        <div className="grid grid-cols-2 gap-3">
+                        {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
+                          const themeLabels = {
+                            modern:  'Taptip 1',
+                            minimal: 'Taptip 2',
+                            smooth:  'Taptip 3',
+                            gifCard: 'Pop Card',
+                          };
 
-                        <div id="tour-tema-visual" className="md:col-span-2">
-                          {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label> */}
-                          <div className="grid grid-cols-2 gap-3">
-                          {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
-                            const themeLabels = {
-                              modern:  'Taptip 1',
-                              minimal: 'Taptip 2',
-                              smooth:  'Taptip 3',
-                              gifCard: 'Pop Card',
-                            };
-
-                            return (
-                              <button key={t} onClick={() => upd('theme', t)}
-                                className={`cursor-pointer active:scale-[0.99] py-3 md:py-4 text-left pl-3 rounded-xl border-2 transition-all font-black text-sm capitalize ${
-                                  settings.theme === t
-                                    ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
-                                    : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
-                                }`}>
-                                {themeLabels[t] || t}
-                              </button>
-                            );
-                          })}
-                          </div>
+                          return (
+                            <button key={t} onClick={() => upd('theme', t)}
+                              className={`cursor-pointer active:scale-[0.99] py-3 md:py-4 text-left pl-3 rounded-xl border-2 transition-all font-black text-sm capitalize ${
+                                settings.theme === t
+                                  ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
+                                  : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
+                              }`}>
+                              {themeLabels[t] || t}
+                            </button>
+                          );
+                        })}
                         </div>
+                      </div>
 
-                        <div className="md:col-span-2 w-full flex flex-col gap-3">
-                          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label>
-                          <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
-                            className="w-full px-2 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
-                            <option value="bounce">Bounce</option><option value="slide-left">Slide Kiri</option>
-                            <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
-                          </select>
-                        </div>
+                      <div className="md:col-span-2 w-full flex flex-col gap-3">
+                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label>
+                        <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
+                          className="w-full px-2 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
+                          <option value="bounce">Bounce</option><option value="slide-left">Slide Kiri</option>
+                          <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
+                        </select>
+                      </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
-                          {[
-                            { key: 'primaryColor',   label: 'Background Alert',  fallback: '#2e2f42' },
-                            { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#ffffff' },
-                            { key: 'textColor',      label: 'Warna Teks',        fallback: '#ffffff' },
-                          ].map(({ key, label, fallback }) => (
-                            <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
-                          ))}
-                          <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
-                          {/* TAMBAH INI: */}
-                          <ColorInput id="color-progressBarColor" label="Warna Progress Bar" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
-                        </div>
-                        <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
-                          {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
-                        </button>
-                     
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
+                        {[
+                          { key: 'primaryColor',   label: 'Background Alert',  fallback: '#2e2f42' },
+                          { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#ffffff' },
+                          { key: 'textColor',      label: 'Warna Teks',        fallback: '#ffffff' },
+                        ].map(({ key, label, fallback }) => (
+                          <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
+                        ))}
+                        <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
+                        {/* TAMBAH INI: */}
+                        <ColorInput id="color-progressBarColor" label="Warna Progress Bar" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
+                      </div>
+                      <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
+                        {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
+                      </button>
                     </div>
 
                     {/* Preset Warna Siap Pakai */}

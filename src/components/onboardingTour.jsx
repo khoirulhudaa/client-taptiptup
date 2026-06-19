@@ -185,6 +185,13 @@ const TOUR_STEPS = [
     desc: 'Di sini kamu bisa lihat saldo, kirim saldo ke streamer lain, ganti tema gelap/terang, akses bantuan, komunitas, inbox, dan profil akunmu.',
     placement: 'bottom',
   },
+  {
+    target: 'tour-live-preview',
+    icon: <Monitor size={18} />,
+    title: 'Live Preview',
+    desc: 'Lihat preview overlay alert dan mediashare kamu dengan mudah secara langsung setelah menentukan tema dan desain-nya',
+    placement: 'bottom',
+  },
 ];
 
 const SCROLL_PADDING = 80; // jarak aman dari tepi atas/bawah layar
@@ -456,7 +463,7 @@ const TourStartModal = ({ onStart, onSkip }) => (
       initial={{ opacity: 0, scale: 0.9, y: 16 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, y: 16 }}
-      className="relative bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-100/5 p-6 w-full max-w-md text-center shadow-2xl"
+      className="relative bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-500/30 shadow-2xl p-6 w-full max-w-md text-center rounded-xl"
     >
       <div className="w-16 h-16 bg-blue-50 dark:bg-blue-950/40 text-blue-600 rounded-xl flex items-center justify-center mx-auto mb-5">
         <Map size={28} />
@@ -470,7 +477,7 @@ const TourStartModal = ({ onStart, onSkip }) => (
           onClick={onStart}
           className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl text-sm cursor-pointer transition-all active:scale-[0.99] flex items-center justify-center gap-2 shadow-lg shadow-blue-100 dark:shadow-blue-900/20"
         >
-          <Play size={14} /> Mulai Tur Fitur
+        Mulai Tur Fitur
         </button>
         <button
           onClick={onSkip}
@@ -522,14 +529,13 @@ const STORAGE_KEY = 'taptiptup_tour_done';
 const DONATION_MODE_STORAGE_KEY = 'taptiptup_donation_mode_chosen';
 
 const DonationModeModal = ({ onComplete }) => {
-  const [selected, setSelected] = useState(null); // 'nominal' | 'item' | null
+  const [selected, setSelected] = useState(null);
   const [saving, setSaving] = useState(false);
 
   const handleConfirm = async () => {
     if (!selected) return;
     setSaving(true);
     try {
-      // Simpan pilihan ke backend jika perlu, atau cukup localStorage
       localStorage.setItem(DONATION_MODE_STORAGE_KEY, selected);
       onComplete?.(selected);
     } finally {
@@ -542,199 +548,236 @@ const DonationModeModal = ({ onComplete }) => {
     onComplete?.(null);
   };
 
-  const ITEMS_PREVIEW = ['💎', '🍣', '🪷', '🚀', '👑', '🔥'];
+  const MODES = [
+    {
+      id: 'nominal',
+      emoji: '💸',
+      label: 'Nominal Saja',
+      desc: 'Donatur ketik nominal bebas atau pilih quick amount.',
+      color: 'blue',
+      preview: (
+        <div className="bg-slate-900 px-4 py-4 relative h-full w-full">
+          <div className="absolute inset-0 opacity-20" style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
+          }} />
+          <div className="relative z-10 space-y-2">
+            <div className="bg-white/10 border border-white/20 rounded-xl px-3 py-2 flex justify-between items-center">
+              <span className="text-white/50 text-[10px] font-mono uppercase">Nominal</span>
+              <span className="text-white font-black text-base" style={{ fontFamily: 'monospace' }}>Rp 75.000</span>
+            </div>
+            <div className="flex gap-1.5 flex-wrap">
+              {['10K', '25K', '50K', '100K'].map((v, i) => (
+                <span key={v} style={{
+                  padding: '3px 7px', borderRadius: 5, fontSize: 12, fontWeight: 700, fontFamily: 'monospace',
+                  background: i === 2 ? '#99FFFF' : 'rgba(255,255,255,0.1)',
+                  color: i === 2 ? '#000' : 'white',
+                  border: i === 2 ? '1px solid #99FFFF' : '1px solid rgba(255,255,255,0.2)',
+                }}>{v}</span>
+              ))}
+            </div>
+            <div className="bg-white/10 border border-white/20 rounded-xl px-3 h-[158px] py-2">
+              <p className="text-white/40 text-[9px] font-mono uppercase mb-1">Pesan</p>
+              <p className="text-white/70 text-[11px]">"GG bang maen gamenya, ayo bang maen bareng sudah aku donate 150.000 untuk sepuluh game nih 🔥"</p>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 'both',
+      emoji: '⚡',
+      label: 'Keduanya',
+      desc: 'Donatur bisa kirim nominal atau pilih item — bebas memilih.',
+      color: 'emerald',
+      badge: 'Rekomendasi',
+      preview: (
+        <div className="relative h-full w-full overflow-hidden">
+          {/* Nominal kiri */}
+          <div className="absolute inset-0 bg-slate-900 px-3 py-3">
+            <div className="absolute inset-0 opacity-20" style={{
+              backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
+              backgroundSize: '20px 20px',
+            }} />
+            <div className="relative z-10 space-y-2 gap-2 h-full">
+              <div className="flex-1">
+                <div className="grid grid-cols-3 gap-1">
+                  {[
+                    { emoji: '💎', name: 'Diamond', active: true },
+                    { emoji: '🍣', name: 'Sushi', active: false },
+                    { emoji: '🪷', name: 'Kembang', active: false },
+                    { emoji: '🚀', name: 'Roket', active: false },
+                    { emoji: '👑', name: 'Crown', active: false },
+                    { emoji: '🔥', name: 'Fire', active: false },
+                  ].map(item => (
+                    <div key={item.name} style={{
+                      borderRadius: 5, padding: '4px 2px', textAlign: 'center',
+                      background: item.active ? '#99FFFF' : 'rgba(255,255,255,0.07)',
+                      border: item.active ? '1px solid #99FFFF' : '1px solid rgba(255,255,255,0.12)',
+                    }}>
+                      <div style={{ fontSize: 15}}>{item.emoji}</div>
+                      <div className='mt-[2.5px]' style={{ fontSize: 10, fontFamily: 'monospace', color: item.active ? '#000' : 'rgba(255,255,255)' }}>{item.name}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Divider */}
+              <div className="w-px bg-white/15 self-stretch mx-1" />
+               <div className="flex-1 space-y-1.5">
+                <div className="bg-white/10 border border-white/20 rounded-xl px-2 py-1.5 flex justify-between items-center">
+                  <span className="text-white/40 text-[9px] font-mono">Nominal</span>
+                  <span className="text-white font-black text-sm" style={{ fontFamily: 'monospace' }}>50K</span>
+                </div>
+                <div className="flex gap-1 flex-wrap">
+                  {['10K', '50K', '100K'].map((v, i) => (
+                    <span key={v} style={{
+                      padding: '2px 6px', borderRadius: 4, fontSize: 9, fontWeight: 700, fontFamily: 'monospace',
+                      background: i === 1 ? '#99FFFF' : 'rgba(255,255,255,0.1)',
+                      color: i === 1 ? '#000' : 'white',
+                      border: i === 1 ? '1px solid #99FFFF' : '1px solid rgba(255,255,255,0.2)',
+                    }}>{v}</span>
+                  ))}
+                </div>
+                <div className="bg-white/10 border border-white/20 rounded-xl px-2 h-[66px] py-1.5">
+                  <p className="text-white text-[9px]">"Semangat! 🚀"</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 'item',
+      emoji: '🎁',
+      label: 'Item / Gift',
+      desc: 'Donatur pilih item dengan emoji, nama, dan harga yang kamu atur.',
+      color: 'violet',
+      preview: (
+        <div className="p-3 relative h-full w-full" style={{ background: '#0d1b2a' }}>
+          <div className="absolute inset-0 opacity-15" style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
+          }} />
+          <div className="relative z-10 space-y-2">
+            <div className="grid grid-cols-3 gap-1.5">
+              {[
+                { emoji: '💎', name: 'Diamond', price: '10K', active: true },
+                { emoji: '🍣', name: 'Sushi', price: '5K', active: false },
+                { emoji: '🪷', name: 'Kembang', price: '2K', active: false },
+                { emoji: '🚀', name: 'Roket', price: '25K', active: false },
+                { emoji: '👑', name: 'Crown', price: '50K', active: false },
+                { emoji: '🔥', name: 'Fire', price: '1K', active: false },
+              ].map(item => (
+                <div key={item.name} style={{
+                  borderRadius: 7, padding: '6px 4px', textAlign: 'center',
+                  background: item.active ? '#99FFFF' : 'rgba(255,255,255,0.07)',
+                  border: item.active ? '1px solid #99FFFF' : '1px solid rgba(255,255,255,0.15)',
+                }}>
+                  <div style={{ fontSize: 16, marginBottom: 2 }}>{item.emoji}</div>
+                  <div style={{ fontFamily: 'monospace', fontSize: 10, fontWeight: 700, color: item.active ? '#000' : 'rgba(255,255,255,0.7)' }}>{item.name}</div>
+                  <div style={{ fontFamily: 'monospace', fontSize: 10, color: item.active ? '#000' : 'rgba(255,255,255,1)' }}>{item.price}</div>
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-1.5">
+              {['×1', '×3', '×5', '×10'].map((v, i) => (
+                <span key={v} style={{
+                  flex: 1, padding: '5px 0', textAlign: 'center', borderRadius: 5,
+                  background: i === 1 ? '#99FFFF' : 'rgba(255,255,255,0.07)',
+                  border: i === 1 ? '1px solid #99FFFF' : '1px solid rgba(255,255,255,0.15)',
+                  fontFamily: 'monospace', fontSize: 10, fontWeight: 700,
+                  color: i === 1 ? '#000' : 'white',
+                }}>{v}</span>
+              ))}
+            </div>
+            <div className="bg-white/10 border border-white/20 rounded-xl px-2 h-[54px] py-1.5">
+                <p className="text-white text-[9px]">"Semangat! 🚀"</p>
+              </div>
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  const colorMap = {
+    blue:    { border: 'border-blue-500',   shadow: 'shadow-blue-100 dark:shadow-blue-900/20',   bg: 'bg-blue-50 dark:bg-blue-950/30',   badge: 'bg-blue-500' },
+    emerald: { border: 'border-blue-500', shadow: 'shadow-blue-100 dark:shadow-blue-900/20', bg: 'bg-blue-50 dark:bg-blue-950/30', badge: 'bg-blue-500' },
+    violet:  { border: 'border-blue-500', shadow: 'shadow-blue-100 dark:shadow-blue-900/20', bg: 'bg-blue-50 dark:bg-blue-950/30',  badge: 'bg-blue-500' },
+  };
 
   return (
     <div className="fixed inset-0 z-[99998] flex items-center justify-center p-4 overflow-y-auto">
-      {/* Backdrop */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
         className="absolute inset-0 bg-slate-900/70 backdrop-blur-md"
         onClick={handleSkip}
       />
 
-      {/* Modal */}
       <motion.div
         initial={{ opacity: 0, scale: 0.92, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.92, y: 20 }}
         transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-        className="relative bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl flex flex-col justify-between shadow-2xl w-full max-w-4xl min-h-[74vh] overflow-hidden my-auto"
+        className="relative bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl shadow-2xl w-full max-w-7xl pb-6 h-max md:h-[76vh] overflow-hidden my-auto"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-6 h-[18%] pt-6 pb-4 border-b border-slate-100 dark:border-slate-800">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1">Langkah Awal</p>
-              <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 leading-tight">
-                Pilih Mode Donasi Kamu
-              </h2>
-              <p className="text-xs text-slate-400 font-medium mt-1">
-                Pilih cara donatur mengirim dukungan
-              </p>
-            </div>
-            <button
-              onClick={handleSkip}
-              className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 cursor-pointer transition-all"
-            >
-              <X size={14} />
-            </button>
+        <div className="h-[19%] px-6 pt-6 pb-4 border-b border-slate-100 dark:border-slate-800 flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1">Langkah Awal</p>
+            <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 leading-tight">Pilih Mode Donasi</h2>
+            <p className="text-xs text-slate-400 font-medium mt-1">Cara donatur mengirim dukungan ke halamanmu</p>
           </div>
         </div>
 
-        {/* Pilihan */}
-        <div className="px-4 md:px-6 h-[72%] py-5 grid grid-cols-1 md:grid-cols-2 gap-4">
-
-          {/* ── PILIHAN 1: Nominal ── */}
-          <button
-            onClick={() => setSelected('nominal')}
-            className={`text-left rounded-xl border-2 h-[365px] overflow-hidden flex flex-col justify-between py-4 cursor-pointer active:scale-[0.99] transition-all ${
-              selected === 'nominal'
-                ? 'border-blue-500 shadow-lg shadow-blue-100 dark:shadow-blue-900/20'
-                : 'border-slate-200 dark:border-slate-700 hover:border-slate-500'
-            }`}
-          >
-            {/* Preview Visual */}
-            <div className="bg-slate-900 px-4 relative h-[80%] full">
-              {/* Grid bg */}
-              <div className="absolute inset-0 opacity-20" style={{
-                backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
-                backgroundSize: '24px 24px',
-              }} />
-
-              {/* Mock input nominal */}
-              <div className="relative z-10 h-full space-y-2.5">
-                {/* Input field mock */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 py-2 flex justify-between items-center">
-                  <span className="text-white/50 text-[10px] font-mono uppercase tracking-wider">Nominal</span>
-                  <span className="text-white font-black text-lg" style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: 1 }}>
-                    Rp 75.000
-                  </span>
+        {/* 3 Pilihan */}
+        <div className="h-[71%] p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {MODES.map(mode => {
+            const c = colorMap[mode.color];
+            const isSelected = selected === mode.id;
+            return (
+              <button
+                key={mode.id}
+                onClick={() => setSelected(mode.id)}
+                className={`h-full relative text-left rounded-xl border-2 cursor-pointer active:scale-[0.99] transition-all ${
+                  isSelected ? `${c.border} shadow-lg ${c.shadow}` : 'border-slate-200 dark:border-slate-700 hover:border-slate-400'
+                }`}
+                style={{ display: 'grid', gridTemplateRows: '78% 22%', overflow: 'hidden' }}
+              >
+                {/* Preview */}
+                <div className='h-[100%]' style={{ overflow: 'hidden', position: 'relative' }}>
+                  {mode.preview}
                 </div>
-                {/* Quick pick */}
-                <div className="flex gap-1.5 flex-wrap">
-                  {['10K', '25K', '50K', '100K', '250K'].map((v, i) => (
-                    <span key={v} style={{
-                      padding: '3px 8px', borderRadius: 5, fontSize: 11, fontWeight: 700,
-                      fontFamily: 'monospace',
-                      background: i === 2 ? '#99FFFF' : 'rgba(255,255,255,0.1)',
-                      color: i === 2 ? '#000' : 'white',
-                      border: i === 2 ? '1px solid #99FFFF' : '1px solid rgba(255,255,255,0.2)',
-                    }}>{v}</span>
-                  ))}
-                </div>
-                {/* Pesan */}
-                <div className="bg-white/10 border border-white/20 rounded-lg px-3 py-2 h-[55%]">
-                  <p className="text-white/40 text-[10px] font-mono uppercase tracking-wider mb-1">Pesan</p>
-                  <p className="text-white/80 text-xs font-medium">"GG bang, lanjut terus! 🔥"</p>
-                </div>
-              </div>
-            </div>
 
-            {/* Label */}
-            <div className={`p-4 w-[92.5%] h-[28%] mt-2.5 border border-slate-500/30 mx-auto rounded-xl ${selected === 'nominal' ? 'bg-blue-50 dark:bg-blue-950/30' : 'bg-white dark:bg-slate-900'}`}>
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className="text-lg">💸</span>
-                <p className="font-black text-slate-800 dark:text-slate-100 text-sm">Mode Nominal</p>
-              </div>
-              <p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium leading-relaxed">
-                 Nominal seperti <span className="text-[10px] font-black text-slate-600 dark:text-slate-300">10.000</span> atau pilih dari quick amount.
-              </p>
-            </div>
-          </button>
-
-          {/* ── PILIHAN 2: Item ── */}
-          <button
-            onClick={() => setSelected('item')}
-            className={`text-left rounded-xl border-2 h-[365px] overflow-hidden flex flex-col justify-between py-4 cursor-pointer active:scale-[0.99] transition-all ${
-              selected === 'item'
-                ? 'border-blue-500 shadow-lg shadow-blue-100 dark:shadow-blue-900/20'
-                : 'border-slate-200 dark:border-slate-700 hover:border-blue-300'
-            }`}
-          >
-            {/* Preview Visual */}
-            <div className="p-4 relative overflow-hidden h-[80%]">
-              {/* Grid bg */}
-              <div className="absolute inset-0 opacity-15" style={{
-                backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
-                backgroundSize: '24px 24px',
-              }} />
-
-              {/* Grid item mock */}
-              <div className="relative z-10 grid grid-cols-3 gap-1.5">
-                {[
-                  { emoji: '💎', name: 'Diamond', price: '10K', active: true },
-                  { emoji: '🍣', name: 'Sushi',   price: '5K',  active: false },
-                  { emoji: '🪷', name: 'Kembang', price: '2K',  active: false },
-                  { emoji: '🚀', name: 'Roket',   price: '25K', active: false },
-                  { emoji: '👑', name: 'Mahkota', price: '50K', active: false },
-                  { emoji: '🔥', name: 'Fire',    price: '1K',  active: false },
-                ].map((item) => (
-                  <div key={item.name} style={{
-                    borderRadius: 7, padding: '7px 4px',
-                    background: item.active ? '#99FFFF' : 'rgba(255,255,255,0.07)',
-                    border: item.active ? '1px solid #99FFFF' : '1px solid rgba(255,255,255,0.15)',
-                    textAlign: 'center',
-                  }}>
-                    <div style={{ fontSize: 18, marginBottom: 2 }}>{item.emoji}</div>
-                    <div style={{ fontFamily: 'monospace', fontSize: 9, fontWeight: 700, color: item.active ? '#000' : 'rgba(255,255,255,0.7)', marginBottom: 1 }}>{item.name}</div>
-                    <div style={{ fontFamily: 'monospace', fontSize: 9, color: item.active ? '#000' : 'white' }}>{item.price}</div>
+                {/* Label */}
+                <div
+                  className={`${isSelected ? c.bg : 'bg-white dark:bg-slate-900'} h-[100%]`}
+                  style={{ overflow: 'hidden', padding: '14px 16px' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
+                    <span style={{ fontSize: 16 }}>{mode.emoji}</span>
+                    <p className="font-black text-slate-800 dark:text-slate-100 text-sm">{mode.label}</p>
                   </div>
-                ))}
-              </div>
-
-              {/* Qty row */}
-              <div className="relative z-10 flex gap-1.5 mt-2">
-                {['×1', '×3', '×5', '×10'].map((v, i) => (
-                  <span key={v} style={{
-                    flex: 1, padding: '12px 0', textAlign: 'center', borderRadius: 5,
-                    background: i === 1 ? '#99FFFF' : 'rgba(255,255,255,0.07)',
-                    border: i === 1 ? '1px solid #99FFFF' : '1px solid rgba(255,255,255,0.15)',
-                    fontFamily: 'monospace', fontSize: 11, fontWeight: 700,
-                    color: i === 1 ? '#000' : 'white',
-                  }}>{v}</span>
-                ))}
-              </div>
-            </div>
-
-            {/* Label */}
-            <div className={`p-4 w-[92.5%] h-[28%] border border-slate-500/30 mx-auto rounded-xl ${selected === 'item' ? 'bg-blue-50 dark:bg-blue-950/30' : 'bg-white dark:bg-slate-900'}`}>
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className="text-lg">🎁</span>
-                <p className="font-black text-slate-800 dark:text-slate-100 text-sm">Mode Item / Gift</p>
-              </div>
-              <p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium leading-relaxed">
-                Kamu bisa atur emoji, nama, dan <span className="font-black text-slate-600 dark:text-slate-300">harga</span> tiap item.
-              </p>
-            </div>
-          </button>
+                  <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium leading-relaxed line-clamp-3">{mode.desc}</p>
+                </div>
+              </button>
+            );
+          })}
         </div>
 
         {/* Footer */}
-        <div className="px-4 md:px-6 pb-5 h-[10%] flex gap-3">
-          <button
-            onClick={handleSkip}
-            className="flex-1 py-4 text-xs font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-xl cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
-          >
+        <div className="h-[10%] px-4 md:px-6 flex gap-3">
+          <button onClick={handleSkip}
+            className="flex-1 py-3 text-xs font-black text-slate-400 hover:text-slate-600 border border-slate-200 dark:border-slate-700 rounded-xl cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
             Atur nanti
           </button>
-          <button
-            onClick={handleConfirm}
-            disabled={!selected || saving}
-            className={`flex-[2] py-4 text-xs font-black rounded-xl cursor-pointer transition-all flex items-center justify-center gap-1.5 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed ${
-              selected === 'item'
-                ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                : 'bg-blue-600 hover:bg-blue-700 text-white'
-            }`}
-          >
-            {saving ? (
-              <><span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Menyimpan...</>
-            ) : (
-              <>Gunakan Mode {selected === 'item' ? 'Item' : selected === 'nominal' ? 'Nominal' : 'Ini'}</>
-            )}
+          <button onClick={handleConfirm} disabled={!selected || saving}
+            className="flex-[2] py-3 text-xs font-black bg-blue-600 hover:bg-blue-700 text-white rounded-xl cursor-pointer transition-all flex items-center justify-center gap-1.5 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed">
+            {saving
+              ? <><span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Menyimpan...</>
+              : <> Gunakan {selected === 'nominal' ? 'Mode Nominal' : selected === 'item' ? 'Mode Item' : selected === 'both' ? 'Keduanya' : 'Mode Ini'}</>
+            }
           </button>
         </div>
       </motion.div>
