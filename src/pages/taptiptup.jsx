@@ -103,7 +103,7 @@ const PLANS = [
 const THEMES = {
   dark: {
     bg:    "#0a0b10",
-    bg2:   "#12141d",
+    bg2:   "#0d2b45",
     bg3:   "#1b1e2b",
     line:  "#232736",
     line2: "#2d334b",
@@ -2031,12 +2031,12 @@ export function OverlayCustomizer({ C }) {
  
   const obsGridStyle = {
     position: "absolute", inset: 0, pointerEvents: "none",
-    backgroundImage: "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+    backgroundImage: "linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px)",
     backgroundSize: "40px 40px",
   };
  
   const sectionLabel = {
-    fontFamily: "'Space Mono',monospace", fontSize: 9, letterSpacing: ".1em",
+    fontFamily: "'Space Mono',monospace", fontSize: 12, letterSpacing: ".1em",
     textTransform: "uppercase", color: "#1e3a5f", marginBottom: 10, display: "block",
     fontWeight: 700,
   };
@@ -2218,32 +2218,13 @@ export function OverlayCustomizer({ C }) {
  
           {/* ── KANAN: Preview OBS ── */}
           <Reveal x={40} y={0} delay={0.15} className="h-full" style={{ background: "rgba(0,0,0,.25)", border: "1px solid white", borderRadius: 14, overflow: "hidden", position: "sticky", top: 100 }}>
-            <div style={{ position: "relative", height: '88.5%', background: "#0d2b45", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+            <div style={{ position: "relative", height: '100%', background: "azure", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
               <div style={obsGridStyle} />
-              <div style={{ position: "absolute", top: 20, left: 24, fontFamily: "'Space Mono',monospace", fontSize: 9, color: "rgba(255,255,255,.45)", letterSpacing: ".06em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 6, zIndex: 5 }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#ef4444", animation: "pulse-dot 1.5s ease-in-out infinite", display: "inline-block" }} />
-                {previewMode === "alert" ? "Alert Preview" : "Media Share Preview"}
-              </div>
-              <div style={{ position: "absolute", top: 20, right: 24, background: "#ef4444", color: "#fff", fontFamily: "'Space Mono',monospace", fontSize: 8, letterSpacing: ".1em", padding: "3px 8px", borderRadius: 4, fontWeight: 700, zIndex: 5 }}>LIVE</div>
               <div style={{ position: "relative", zIndex: 10, maxWidth: '100%' }}>
                 {previewMode === "alert"
                   ? <AlertPreview cfg={cfg} animKey={animKey} />
                   : <MediaSharePreview cfg={cfg} animKey={animKey} />}
               </div>
-            </div>
- 
-            <div style={{ padding: "14px 16px", borderTop: "1px solid rgba(255,255,255,.08)", display: "flex", alignItems: "center", gap: 12, background: "rgba(0,0,0,.2)" }}>
-              <button onClick={fire}
-                style={{ flex: 1, padding: "12px 16px", background: "rgba(173,216,230,.12)", border: "1px solid rgba(173,216,230,.35)", color: "azure", borderRadius: 9, fontFamily: "'Space Grotesk',sans-serif", fontSize: 12, fontWeight: 700, cursor: "pointer", transition: "all .15s", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
-               Simulasi Donasi
-              </button>
-            </div>
- 
-            <div style={{ padding: "12px 16px", borderTop: "1px solid rgba(255,255,255,.06)", display: "flex", alignItems: "center", gap: 8, background: "rgba(0,0,0,.3)" }}>
-              <span style={{ fontSize: 14 }}>⚡</span>
-              <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 11, color: "rgba(255,255,255,.4)" }}>
-                Perubahan langsung terlihat — copy URL overlay ke OBS setelah register
-              </span>
             </div>
           </Reveal>
         </div>
