@@ -5,6 +5,56 @@ import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motio
    DATA
 ───────────────────────────────────────── */
 
+/* ─────────────────────────────────────────
+   SCROLL REVEAL HELPERS
+───────────────────────────────────────── */
+function Reveal({ children, delay = 0, y = 40, x = 0, once = true, amount = 0.2, duration = 0.7, style, className }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y, x }}
+      whileInView={{ opacity: 1, y: 0, x: 0 }}
+      viewport={{ once, amount }}
+      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
+      style={style}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+const staggerContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+};
+const staggerItemVariant = {
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+};
+
+function StaggerGroup({ children, className, style, once = true, amount = 0.15 }) {
+  return (
+    <motion.div
+      className={className}
+      style={style}
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once, amount }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function StaggerItem({ children, className, style }) {
+  return (
+    <motion.div className={className} style={style} variants={staggerItemVariant}>
+      {children}
+    </motion.div>
+  );
+}
+
 const FEATURES = [
   { num: "01", ico: "🎨", name: "Overlay OBS Kustom", desc: "Alert Dukungan tampil langsung di stream. Tema modern, classic, atau minimal dengan animasi dan warna sesukamu." },
   { num: "02", ico: "🔊", name: "Suara per Nominal", desc: "Sultan dapat sound kenceng! Atur efek suara berbeda untuk setiap tier Dukungan. 16+ preset siap pakai." },
@@ -690,7 +740,7 @@ function OverlayCustom({ C }) {
       <div className="relative w-[90vw] md:w-[82vw] mx-auto" style={{ zIndex: 10 }}>
 
         {/* ── HEADER ── */}
-        <div className="text-center flex flex-col items-center mb-4">
+        <Reveal className="text-center flex flex-col items-center mb-4">
           <Kicker C={C}>Desain & Akses</Kicker>
 
           {/* Judul dengan badge "able" */}
@@ -711,16 +761,16 @@ function OverlayCustom({ C }) {
             </span>
             <span style={{ color: "azure" }}>IBEL</span>
           </h2>
-        </div>
+        </Reveal>
 
         {/* ── CARDS ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-xl overflow-hidden !mt-8"
+        <StaggerGroup className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-xl overflow-hidden !mt-8"
           // style={{ border: "1px solid rgba(255,255,255,0.12)" }}
           >
           {ITEMS.map((item, i) => {
             const isLast = i === PLATFORMS.length - 1;
             return (
-              <div
+              <StaggerItem
                 key={item.num}
                 style={{
                   padding: "36px 28px",
@@ -755,10 +805,10 @@ function OverlayCustom({ C }) {
                 }}>
                   {item.desc}
                 </div>
-              </div>
+              </StaggerItem>
             )}
           )}
-        </div>
+        </StaggerGroup>
 
         {/* ── TAGS ── */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 28, justifyContent: "center" }}>
@@ -809,7 +859,7 @@ function NominalSection({ C }) {
       <div className="relative w-[90vw] mx-auto" style={{ zIndex: 10 }}>
 
         {/* ── HEADER ── */}
-        <div className="text-center flex flex-col items-center mb-12">
+        <Reveal className="text-center flex flex-col items-center mb-12">
           <Kicker C={C}>Cara Kirim Dukungan</Kicker>
           <h2 style={{
             fontFamily: "'Bebas Neue', sans-serif",
@@ -829,13 +879,13 @@ function NominalSection({ C }) {
             Kirim nominal <strong style={{ color: "cyan" }}>Rp 10.000</strong> atau <strong style={{ color: "cyan" }}>Rp 150.000</strong>,
             atau kirim item <strong style={{ color: "cyan" }}>💎 Diamond ×10</strong>, <strong style={{ color: "cyan" }}>🍣 Sushi ×3</strong>, <strong style={{ color: "cyan" }}>🪷 Kembang ×5</strong>
           </p>
-        </div>
+        </Reveal>
 
         {/* ── DUA KOLOM UTAMA ── */}
-        <div className="flex flex-col md:flex-row gap-6 items-stretch mb-10">
+        <StaggerGroup className="flex flex-col md:flex-row gap-6 items-stretch mb-10">
 
           {/* KIRI — Mode Nominal */}
-          <div className="flex-1 rounded-xl overflow-hidden h-[634px]"
+          <StaggerItem className="flex-1 rounded-xl overflow-hidden h-[634px]"
             style={{ border: "1px solid #e2e8f0", background: "azure" }}>
 
             {/* Header tab */}
@@ -919,10 +969,10 @@ function NominalSection({ C }) {
                 </div>
               </div>
             </div>
-          </div>
+          </StaggerItem>
 
           {/* KANAN — Mode Item */}
-          <div className="flex-1 rounded-xl overflow-hidden h-[634px]"
+          <StaggerItem className="flex-1 rounded-xl overflow-hidden h-[634px]"
             style={{ border: "1px solid #e2e8f0", background: "azure" }}>
 
             {/* Header tab */}
@@ -1017,8 +1067,8 @@ function NominalSection({ C }) {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </StaggerItem>
+        </StaggerGroup>
 
         {/* CTA */}
         <div className="flex justify-center !mt-12">
@@ -1113,16 +1163,16 @@ function FeeComparison({ C }) {
       `}</style>
 
       {/* Header */}
-      <div className="select-none text-center flex flex-col justify-center items-center !py-11 !md:py-20 !px-5 transition-colors duration-400 relative z-[2]">
+      <Reveal className="select-none text-center flex flex-col justify-center items-center !py-11 !md:py-20 !px-5 transition-colors duration-400 relative z-[2]">
         <Kicker C={C}>Transparansi Biaya</Kicker>
         
         <BigTitle C={C}>POTONGAN TERKECIL DI{" "}
           <span style={{ color: C.lime }}>KELASNYA</span>
         </BigTitle>
-      </div>
+      </Reveal>
 
       {/* Grid perbandingan */}
-      <div className="select-none h-max w-[90vw] relative grid gap-5 grid-cols-1 md:grid-cols-3"
+      <StaggerGroup className="select-none h-max w-[90vw] relative grid gap-5 grid-cols-1 md:grid-cols-3"
         style={{ zIndex: 40, borderRadius: 10, }}
         >
           {PLATFORMS.map((p, i) => {
@@ -1131,7 +1181,7 @@ function FeeComparison({ C }) {
             const isMobile = window.innerWidth < 768;
 
             return (
-              <div key={p.name}
+              <StaggerItem key={p.name}
                 style={{
                   position: 'relative',
                   overflow: 'hidden',   // ← wajib agar pita terpotong rapi
@@ -1182,10 +1232,10 @@ function FeeComparison({ C }) {
                     {p.winner || p.name === 'TipTap' ? 'potongan per Dukungan + WD semua metode' : 'potongan per Dukungan + WD Bank'}
                   </div>
                 </div>
-              </div>
+              </StaggerItem>
             );
           })}
-      </div>
+      </StaggerGroup>
     </section>
   );
 }
@@ -1395,7 +1445,7 @@ function FAQ({ C }) {
       </div>
 
       {/* Header */}
-      <div className="relative text-center flex flex-col items-center px-6 mb-14" style={{ zIndex: 2 }}>
+      <Reveal className="relative text-center flex flex-col items-center px-6 mb-14" style={{ zIndex: 2 }}>
         <span style={{
           fontFamily: "'Space Mono', monospace",
           fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase",
@@ -1410,14 +1460,14 @@ function FAQ({ C }) {
         }}>
           ADA YANG <span style={{ color: "azure" }}>DITANYAKAN?</span>
         </h2>
-      </div>
+      </Reveal>
 
       {/* Accordion */}
       <div
         className="relative rounded-xl mx-auto grid grid-cols-2 w-[90vw] gap-10 !mt-10 px-4 md:px-0"
         style={{ zIndex: 2 }}
       >
-      <div
+      <StaggerGroup
         className="grid rounded-xl grid-cols-1 md:grid-cols-3 w-[90vw]"
         style={{
           border: "1px solid rgba(255,255,255,0.08)", // border terluar
@@ -1429,7 +1479,7 @@ function FAQ({ C }) {
           const isTopRow   = i < 2;
 
           return (
-            <div
+            <StaggerItem
               key={i}
               className="w-full rounded-xl cursor-pointer hover:bg-slate-100/5 active:scale-[0.99]"
               onClick={() => toggle(i)}
@@ -1489,10 +1539,10 @@ function FAQ({ C }) {
                   {item.a}
                 </p>
               </div>
-            </div>
+            </StaggerItem>
           );
         })}
-      </div>
+      </StaggerGroup>
     </div>
   </section>
   );
@@ -1826,7 +1876,7 @@ export function OverlayCustomizer({ C }) {
  
       <div className="md:w-[82vw] w-[90vw]" style={{ position: "relative", zIndex: 10, margin: "0 auto" }}>
  
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
+        <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
           <Kicker C={C}>Kustomisasi Overlay</Kicker>
           <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px,7vw,80px)", lineHeight: 1.05, letterSpacing: "0.01em", color: "white", marginBottom: 14 }}>
             DESAIN ALERT <span style={{ color: "azure" }}>SESUKAMU</span>
@@ -1834,12 +1884,12 @@ export function OverlayCustomizer({ C }) {
           <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(13px,1.4vw,15px)", color: "rgba(255,255,255,.6)", maxWidth: 460, margin: "0 auto" }}>
             Ubah warna, tema, ikon, dan animasi. Preview langsung tanpa perlu buka OBS.
           </p>
-        </div>
+        </Reveal>
  
         <div className="overlay-builder-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 20, alignItems: "start" }}>
  
           {/* ── KIRI: Controls ── */}
-          <div style={{ background: "azure", borderRadius: 14, padding: 16, display: "flex", flexDirection: "column", gap: 12 }}>
+          <Reveal x={-40} y={0} delay={0.05} style={{ background: "azure", borderRadius: 14, padding: 16, display: "flex", flexDirection: "column", gap: 12 }}>
  
             {/* Tema */}
             <div style={ctrlCard}>
@@ -1926,10 +1976,10 @@ export function OverlayCustomizer({ C }) {
                 ))}
               </div>
             </div>
-          </div>
+          </Reveal>
  
           {/* ── KANAN: Preview OBS ── */}
-          <div className="h-full" style={{ background: "rgba(0,0,0,.25)", border: "1px solid white", borderRadius: 14, overflow: "hidden", position: "sticky", top: 100 }}>
+          <Reveal x={40} y={0} delay={0.15} className="h-full" style={{ background: "rgba(0,0,0,.25)", border: "1px solid white", borderRadius: 14, overflow: "hidden", position: "sticky", top: 100 }}>
             <div style={{ position: "relative", height: '88.5%', background: "#0d2b45", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
               <div style={obsGridStyle} />
               <div style={{ position: "absolute", top: 20, left: 24, fontFamily: "'Space Mono',monospace", fontSize: 9, color: "rgba(255,255,255,.45)", letterSpacing: ".06em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 6, zIndex: 5 }}>
@@ -1955,7 +2005,7 @@ export function OverlayCustomizer({ C }) {
                 Perubahan langsung terlihat — copy URL overlay ke OBS setelah register
               </span>
             </div>
-          </div>
+          </Reveal>
         </div>
  
         {/* CTA */}
@@ -2148,23 +2198,17 @@ export default function TapTipTup() {
           </span>
         ))}
         {/* Judul */}
-        <div className="text-center" style={{ zIndex: 2 }}>
+        <Reveal className="text-center" style={{ zIndex: 2 }}>
           <Kicker C={C}>Setup Cepat</Kicker>
           <BigTitle C={C}>
             LIVE BARENG{" "}
             <span style={{ color: C.lime }}>TAPTIPTUP</span>
           </BigTitle>
-        </div>
+        </Reveal>
 
-        {/* Video */}
-        <video
-          className="!w-[90vw] rounded-xl md:!w-[80vw] h-[100%] !border !p-4 !border-white"
-          src="/live2.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-        />
+        <Reveal delay={0.15} y={60} style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+          <video className="!w-[90vw] rounded-xl md:!w-[80vw] h-[100%] !border !p-4 !border-white" src="/live2.mp4" autoPlay muted loop playsInline />
+        </Reveal>
       </section>
 
       <FAQ C={C} />
@@ -2176,10 +2220,7 @@ export default function TapTipTup() {
           borderTop: `1px solid rgba(255,255,255,0.08)`,
         }}>
 
-        <div className="w-full md:max-w-max md:!pb-[0px] !pb-5 text-center flex  justify-center items-center"
-          // style={{ gap: "32px" }}
-          >
-
+        <Reveal className="w-full md:max-w-max md:!pb-[0px] !pb-5 text-center flex  justify-center items-center">
           {/* Kolom 1 — Brand */}
           <div className="w-full flex items-center justify-center md:pt-0 !pt-[1.5px] md:justify-between mx-auto text-center text-[11px] md:text-[12px]">
             <div 
@@ -2190,7 +2231,7 @@ export default function TapTipTup() {
               SIARAN LANGSUNG PAKAI TAPTIPTUP
             </div>
           </div>
-        </div>
+        </Reveal>
        
         {/* Bottom bar */}
         <div className="md:flex hidden" style={{
