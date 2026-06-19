@@ -815,7 +815,7 @@ function NominalSection({ C }) {
             lineHeight: 1.05, color: "white", letterSpacing: "0.01em", marginBottom: 16,
           }}>
             NOMINAL BISA{" "}
-            <span style={{ color: "azure" }}>KIRIM</span>{" "}
+            <span style={{ color: "azure" }} className="md:flex hidden">KIRIM</span>{" "}
             <span style={{ color: "white" }}>ITEM JUGA BISA</span>
           </h2>
           <p className="!mb-12" style={{
@@ -1703,7 +1703,7 @@ export default function TapTipTup() {
           >
 
           {/* Kolom 1 — Brand */}
-          <div className="w-full flex items-center justify-center md:pt-0 !pt-[1.5px] md:justify-between mx-auto text-center text-[16px] md:text-[12px]">
+          <div className="w-full flex items-center justify-center md:pt-0 !pt-[1.5px] md:justify-between mx-auto text-center text-[11px] md:text-[12px]">
             <div 
             style={{
               fontFamily: "'Space Mono', sans-serif",
