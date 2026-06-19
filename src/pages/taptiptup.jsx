@@ -885,7 +885,6 @@ function NominalSection({ C }) {
                         padding: "6px 12px", borderRadius: 6,
                         background: i === 4 ? "#99FFFF" : "#f1f5f9",
                         border: i === 4 ? "1px solid #99FFFF" : "1px solid #0d2b45",
-                        fontFamily: "'Space Mono',monospace", fontSize: 11,
                         color: "#000",
                         cursor: "pointer",
                       }}>
