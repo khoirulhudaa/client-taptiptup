@@ -334,7 +334,7 @@ const DonationItemsEditor = ({
             🎁
           </div>
           <div>
-            <h4 className="text-sm uppercase md:capitalize md:text-base font-black text-slate-800 dark:text-white">
+            <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
               Item Donasi
             </h4>
           </div>
@@ -434,7 +434,7 @@ const DonationItemsEditor = ({
             </AnimatePresence>
 
             {localItems.length === 0 && (
-              <div className="text-center py-8 text-slate-300 dark:text-slate-600">
+              <div className="text-center py-8 text-slate-300 dark:text-slate-400">
                 <div className="text-4xl mb-3">🎁</div>
                 <p className="text-sm font-bold">Belum ada item</p>
                 <p className="text-xs font-medium mt-1">Klik tombol di bawah untuk menambah item pertama</p>

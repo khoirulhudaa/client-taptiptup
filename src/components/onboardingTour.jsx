@@ -1,159 +1,200 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import {
-  ArrowRight,
-  Check,
-  Clock,
-  HeadphonesIcon,
-  History,
-  Layout,
-  Mail,
-  Map,
-  Mic,
-  Play,
-  Receipt,
-  ShoppingBag,
-  Sun,
-  TrendingUp,
-  Trophy,
-  User,
-  Users,
-  Video,
-  Vote,
-  Wallet,
-  X,
-  Zap,
+  ArrowRight, Check, Clock, HeadphonesIcon, History, ImageIcon, Layers,
+  Layout, Mail, Map, Mic, Monitor, Play, Receipt, ShoppingBag, Sun,
+  TrendingUp, Trophy, User, Users, Video, Vote, Wallet, X, Zap,
 } from 'lucide-react';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
+// const TOUR_STEPS = [
+//   {
+//     target: 'tour-settings',
+//     icon: <Layout size={18} />,
+//     title: 'Editor Overlay',
+//     desc: 'Kustomisasi tampilan overlay OBS kamu — posisi nama donatur, animasi, warna, dan font bisa diatur bebas dari sini.',
+//   },
+//   {
+//     target: 'tour-alertSettings',
+//     icon: <Zap size={18} />,
+//     title: 'Alert OBS',
+//     desc: 'Kelola efek suara dan animasi yang muncul otomatis di stream saat ada donasi masuk.',
+//   },
+//   {
+//     target: 'tour-mediaSettings',
+//     icon: <Video size={18} />,
+//     title: 'Media Share',
+//     desc: 'Donatur bisa request video YouTube atau GIF yang langsung tampil di stream-mu secara realtime.',
+//   },
+//   {
+//     target: 'tour-voiceSettings',
+//     icon: <Mic size={18} />,
+//     title: 'Voice Note',
+//     desc: 'Donatur bisa kirim pesan suara yang akan diputar otomatis di stream kamu.',
+//   },
+//   {
+//     target: 'tour-store',
+//     icon: <ShoppingBag size={18} />,
+//     title: 'Toko OBS',
+//     desc: 'Buat item yang bisa dibeli donatur — efek khusus, sound effect, atau interaksi unik lainnya.',
+//   },
+//   {
+//     target: 'tour-history',
+//     icon: <History size={18} />,
+//     title: 'Riwayat Donasi',
+//     desc: 'Lihat semua riwayat donasi yang masuk lengkap dengan nama, jumlah, dan pesan dari donatur.',
+//   },
+//   {
+//     target: 'tour-wallet',
+//     icon: <Wallet size={18} />,
+//     title: 'Penarikan Dana',
+//     desc: 'Tarik saldo donasi kamu ke rekening bank atau e-wallet kapan saja.',
+//   },
+//   {
+//     target: 'tour-inbox',
+//     icon: <Mail size={18} />,
+//     title: 'Inbox',
+//     desc: 'Baca semua pesan dan notifikasi penting dari platform di satu tempat.',
+//   },
+//   {
+//     target: 'tour-poll',
+//     icon: <Vote size={18} />,
+//     title: 'Poll & Voting',
+//     desc: 'Buat poll interaktif yang bisa diikuti penonton dan donatur selama live berlangsung.',
+//   },
+//   {
+//     target: 'tour-subathon',
+//     icon: <Clock size={18} />,
+//     title: 'Subathon',
+//     desc: 'Atur timer Subathon yang akan bertambah otomatis setiap ada donasi atau subscriber baru.',
+// },
+// {
+// target: 'tour-milestones',
+// icon: <TrendingUp size={18} />,
+// title: 'Milestones',
+// desc: 'Tetapkan target donasi dan beri hadiah spesial ketika target tercapai oleh komunitas kamu.',
+// },
+// {
+// target: 'tour-leaderboard',
+// icon: <Trophy size={18} />,
+// title: 'Leaderboard',
+// desc: 'Tampilkan donatur terbesar di overlay untuk mendorong semangat penonton bersaing.',
+// },
+// {
+// target: 'tour-feeConfig',
+// icon: <Receipt size={18} />,
+// title: 'Konfigurasi Fee',
+// desc: 'Atur besaran fee platform dan lihat transparansi potongan dari setiap donasi yang masuk.',
+// },
+// {
+// target: 'tour-sidebar-toggle',
+// icon: <Layout size={18} />,
+// title: 'Sidebar Navigation',
+// desc: 'Klik tombol ini untuk menyempitkan atau memperlebar sidebar. Sangat berguna saat layar kecil atau fokus ke satu fitur.',
+// placement: 'bottom',
+// },
+// {
+// target: 'tour-balance',
+// icon: <Wallet size={18} />,
+// title: 'Saldo & Kirim Dana',
+// desc: 'Pantau saldo kamu di navbar dan kirim saldo ke sesama streamer dengan satu klik.',
+// placement: 'bottom',
+// },
+// {
+// target: 'tour-theme-toggle',
+// icon: <Sun size={18} />,
+// title: 'Tema Gelap / Terang',
+// desc: 'Ganti tampilan dashboard antara mode Light dan Dark sesuai kenyamanan mata kamu.',
+// placement: 'bottom',
+// },
+// {
+// target: 'tour-help',
+// icon: <HeadphonesIcon size={18} />,   // pastikan import HeadphonesIcon
+// title: 'Bantuan & Kontak',
+// desc: 'Hubungi tim support, developer, atau admin Taptiptup jika butuh bantuan.',
+// placement: 'bottom',
+// },
+// {
+// target: 'tour-community',
+// icon: <Users size={18} />,   // pastikan import Users
+// title: 'Komunitas Streamer',
+// desc: 'Bertemu, berdiskusi, dan saling support dengan sesama streamer Taptiptup.',
+// placement: 'bottom',
+// },
+// {
+// target: 'tour-profile',
+// icon: <User size={18} />,   // pastikan import User dari lucide-react
+// title: 'Profil & Logout',
+// desc: 'Akses profil kamu, pengaturan akun, dan tombol keluar (logout).',
+// placement: 'bottom',
+// },
+// ];
+
 const TOUR_STEPS = [
   {
-    target: 'tour-settings',
+    target: 'tour-sidebar-group',
     icon: <Layout size={18} />,
-    title: 'Editor Overlay',
-    desc: 'Kustomisasi tampilan overlay OBS kamu — posisi nama donatur, animasi, warna, dan font bisa diatur bebas dari sini.',
+    title: 'Menu Navigasi',
+    desc: 'Semua fitur ada di sini — Editor Overlay, Notif Alert, Media Share, Voice Note, Toko, Riwayat Donasi, Penarikan Dana, Poll, Subathon, Milestones, Leaderboard, dan Konfigurasi Fee.',
   },
   {
-    target: 'tour-alertSettings',
-    icon: <Zap size={18} />,
-    title: 'Alert OBS',
-    desc: 'Kelola efek suara dan animasi yang muncul otomatis di stream saat ada donasi masuk.',
+    target: 'tour-overlay-slot',
+    icon: <Layers size={18} />,
+    title: 'Slot Overlay A & B',
+    desc: 'Kamu bisa simpan 2 konfigurasi overlay berbeda. Aktifkan salah satu sebagai overlay yang tampil live di OBS, dan simpan yang lain sebagai cadangan atau tema alternatif.',
   },
   {
-    target: 'tour-mediaSettings',
-    icon: <Video size={18} />,
-    title: 'Media Share',
-    desc: 'Donatur bisa request video YouTube atau GIF yang langsung tampil di stream-mu secara realtime.',
-  },
-  {
-    target: 'tour-voiceSettings',
-    icon: <Mic size={18} />,
-    title: 'Voice Note',
-    desc: 'Donatur bisa kirim pesan suara yang akan diputar otomatis di stream kamu.',
-  },
-  {
-    target: 'tour-store',
-    icon: <ShoppingBag size={18} />,
-    title: 'Toko OBS',
-    desc: 'Buat item yang bisa dibeli donatur — efek khusus, sound effect, atau interaksi unik lainnya.',
-  },
-  {
-    target: 'tour-history',
-    icon: <History size={18} />,
-    title: 'Riwayat Donasi',
-    desc: 'Lihat semua riwayat donasi yang masuk lengkap dengan nama, jumlah, dan pesan dari donatur.',
-  },
-  {
-    target: 'tour-wallet',
+    target: 'tour-min-max-donasi',
     icon: <Wallet size={18} />,
-    title: 'Penarikan Dana',
-    desc: 'Tarik saldo donasi kamu ke rekening bank atau e-wallet kapan saja.',
+    title: 'Minimal & Maksimal Donasi',
+    desc: 'Atur batas nominal donasi yang bisa diterima dari supporter di halaman donasimu.',
   },
   {
-    target: 'tour-inbox',
-    icon: <Mail size={18} />,
-    title: 'Inbox',
-    desc: 'Baca semua pesan dan notifikasi penting dari platform di satu tempat.',
+    target: 'tour-tema-visual',
+    icon: <ImageIcon size={18} />,
+    title: 'Tema Visual Overlay',
+    desc: 'Pilih tampilan alert donasi yang muncul di OBS — Taptip 1, Taptip 2, Taptip 3, atau Pop Card. Tiap tema punya gaya visual berbeda.',
   },
   {
-    target: 'tour-poll',
-    icon: <Vote size={18} />,
-    title: 'Poll & Voting',
-    desc: 'Buat poll interaktif yang bisa diikuti penonton dan donatur selama live berlangsung.',
+    target: 'tour-donation-items',
+    icon: <ShoppingBag size={18} />,
+    title: 'Item Donasi',
+    desc: 'Buat paket donasi dengan nominal dan label khusus, supaya supporter bisa pilih dengan cepat tanpa input manual.',
   },
   {
-    target: 'tour-subathon',
-    icon: <Clock size={18} />,
-    title: 'Subathon',
-    desc: 'Atur timer Subathon yang akan bertambah otomatis setiap ada donasi atau subscriber baru.',
-},
-{
-target: 'tour-milestones',
-icon: <TrendingUp size={18} />,
-title: 'Milestones',
-desc: 'Tetapkan target donasi dan beri hadiah spesial ketika target tercapai oleh komunitas kamu.',
-},
-{
-target: 'tour-leaderboard',
-icon: <Trophy size={18} />,
-title: 'Leaderboard',
-desc: 'Tampilkan donatur terbesar di overlay untuk mendorong semangat penonton bersaing.',
-},
-{
-target: 'tour-feeConfig',
-icon: <Receipt size={18} />,
-title: 'Konfigurasi Fee',
-desc: 'Atur besaran fee platform dan lihat transparansi potongan dari setiap donasi yang masuk.',
-},
-{
-target: 'tour-sidebar-toggle',
-icon: <Layout size={18} />,
-title: 'Sidebar Navigation',
-desc: 'Klik tombol ini untuk menyempitkan atau memperlebar sidebar. Sangat berguna saat layar kecil atau fokus ke satu fitur.',
-placement: 'bottom',
-},
-{
-target: 'tour-balance',
-icon: <Wallet size={18} />,
-title: 'Saldo & Kirim Dana',
-desc: 'Pantau saldo kamu di navbar dan kirim saldo ke sesama streamer dengan satu klik.',
-placement: 'bottom',
-},
-{
-target: 'tour-theme-toggle',
-icon: <Sun size={18} />,
-title: 'Tema Gelap / Terang',
-desc: 'Ganti tampilan dashboard antara mode Light dan Dark sesuai kenyamanan mata kamu.',
-placement: 'bottom',
-},
-{
-target: 'tour-help',
-icon: <HeadphonesIcon size={18} />,   // pastikan import HeadphonesIcon
-title: 'Bantuan & Kontak',
-desc: 'Hubungi tim support, developer, atau admin Taptiptup jika butuh bantuan.',
-placement: 'bottom',
-},
-{
-target: 'tour-community',
-icon: <Users size={18} />,   // pastikan import Users
-title: 'Komunitas Streamer',
-desc: 'Bertemu, berdiskusi, dan saling support dengan sesama streamer Taptiptup.',
-placement: 'bottom',
-},
-{
-target: 'tour-profile',
-icon: <User size={18} />,   // pastikan import User dari lucide-react
-title: 'Profil & Logout',
-desc: 'Akses profil kamu, pengaturan akun, dan tombol keluar (logout).',
-placement: 'bottom',
-},
+    target: 'tour-overlay-url',
+    icon: <Monitor size={18} />,
+    title: 'URL Overlay',
+    desc: 'Salin link ini dan pasang sebagai Browser Source di OBS — link alert, media share, voice note, dan combined semua ada di sini.',
+  },
+  {
+    target: 'tour-ganti-token',
+    icon: <Zap size={18} />,
+    title: 'Ganti Overlay Token',
+    desc: 'Kalau token overlay-mu bocor atau ingin reset, ganti di sini. Semua URL OBS lama otomatis tidak berlaku setelah diganti.',
+  },
+  {
+    target: 'tour-hapus-akun',
+    icon: <X size={18} />,
+    title: 'Hapus Akun',
+    desc: 'Kalau suatu saat ingin berhenti, kamu bisa hapus akun secara permanen dari sini.',
+  },
+  {
+    target: 'tour-topnavbar-group',
+    icon: <Wallet size={18} />,
+    title: 'Navbar Atas',
+    desc: 'Di sini kamu bisa lihat saldo, kirim saldo ke streamer lain, ganti tema gelap/terang, akses bantuan, komunitas, inbox, dan profil akunmu.',
+    placement: 'bottom',
+  },
 ];
+
+const SCROLL_PADDING = 80; // jarak aman dari tepi atas/bawah layar
 
 // ─── Scroll elemen target agar terlihat di dalam sidebar ──────────────────────
 function scrollTargetIntoView(targetId) {
   const el = document.getElementById(targetId);
   if (!el) return;
 
-  // Cari ancestor scrollable (sidebar pakai overflow-y: auto)
+  // Cari ancestor scrollable
   let scrollable = el.parentElement;
   while (scrollable && scrollable !== document.body) {
     const { overflowY } = window.getComputedStyle(scrollable);
@@ -167,13 +208,29 @@ function scrollTargetIntoView(targetId) {
     const relTop        = elRect.top    - containerRect.top;
     const relBottom     = elRect.bottom - containerRect.top;
 
-    if (relTop < 0) {
-      scrollable.scrollBy({ top: relTop - 16, behavior: 'smooth' });
-    } else if (relBottom > containerRect.height) {
-      scrollable.scrollBy({ top: relBottom - containerRect.height + 16, behavior: 'smooth' });
+    if (relTop < SCROLL_PADDING) {
+      // Elemen terlalu dekat / di atas tepi container
+      scrollable.scrollBy({ top: relTop - SCROLL_PADDING, behavior: 'smooth' });
+    } else if (relBottom > containerRect.height - SCROLL_PADDING) {
+      // Elemen terlalu dekat / di bawah tepi container
+      scrollable.scrollBy({
+        top: relBottom - containerRect.height + SCROLL_PADDING,
+        behavior: 'smooth',
+      });
     }
   } else {
-    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Fallback: scroll window dengan offset padding
+    const elRect   = el.getBoundingClientRect();
+    const scrollY  = window.scrollY;
+
+    if (elRect.top < SCROLL_PADDING) {
+      window.scrollTo({ top: scrollY + elRect.top - SCROLL_PADDING, behavior: 'smooth' });
+    } else if (elRect.bottom > window.innerHeight - SCROLL_PADDING) {
+      window.scrollTo({
+        top: scrollY + elRect.bottom - window.innerHeight + SCROLL_PADDING,
+        behavior: 'smooth',
+      });
+    }
   }
 }
 
@@ -182,56 +239,99 @@ const PAD = 6;
 
 function useTargetRect(targetId, active) {
   const [rect, setRect] = useState(null);
+  const prevRectRef = useRef(null);
+  const rafRef = useRef(null);
 
   useLayoutEffect(() => {
     if (!active || !targetId) return;
 
-    let timer;
     const update = () => {
       const el = document.getElementById(targetId);
       if (!el) return;
       const r = el.getBoundingClientRect();
-      setRect({ top: r.top, left: r.left, width: r.width, height: r.height });
+      const next = { top: r.top, left: r.left, width: r.width, height: r.height };
+
+      // Hanya update state jika posisi benar-benar berubah
+      const prev = prevRectRef.current;
+      if (
+        !prev ||
+        prev.top    !== next.top   ||
+        prev.left   !== next.left  ||
+        prev.width  !== next.width ||
+        prev.height !== next.height
+      ) {
+        prevRectRef.current = next;
+        setRect(next);
+      }
+
+      // Loop terus via rAF selama aktif
+      rafRef.current = requestAnimationFrame(update);
     };
 
-    update();
-    // Update lagi setelah scroll selesai (~420ms)
-    timer = setTimeout(update, 420);
+    rafRef.current = requestAnimationFrame(update);
 
-    window.addEventListener('resize', update);
-    window.addEventListener('scroll', update, true);
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', update);
-      window.removeEventListener('scroll', update, true);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [targetId, active]);
 
-  return rect;
+  return rect ?? prevRectRef.current;
 }
 
 // ─── Spotlight ────────────────────────────────────────────────────────────────
 const Spotlight = ({ rect }) => {
   if (!rect) return null;
+
+  const pad    = PAD;
+  const vw     = window.innerWidth;
+  const vh     = window.innerHeight;
+
+  // Clamp agar tidak pernah keluar viewport atau negatif
+  const spotTop    = Math.max(0, rect.top    - pad);
+  const spotLeft   = Math.max(0, rect.left   - pad);
+  const spotRight  = Math.min(vw, rect.left + rect.width  + pad);
+  const spotBottom = Math.min(vh, rect.top  + rect.height + pad);
+
+  const spotWidth  = spotRight  - spotLeft;
+  const spotHeight = spotBottom - spotTop;
+
+  const top    = spotTop;
+  const left   = spotLeft;
+  const width  = spotWidth;
+  const height = spotHeight;
+
+  const rightW  = Math.max(0, vw - (left + width));
+  const bottomH = Math.max(0, vh - (top  + height));
+  const topH    = Math.max(0, top);
+  const leftW   = Math.max(0, left);
+
+  const overlayStyle = {
+    position: 'fixed',
+    background: 'rgba(0,0,0,0.65)',
+    zIndex: 99990,
+    pointerEvents: 'none',
+  };
+
   return (
     <>
+      <div style={{ ...overlayStyle, top: 0,         left: 0,          right: 0,   height: topH   }} />
+      <div style={{ ...overlayStyle, bottom: 0,      left: 0,          right: 0,   height: bottomH }} />
+      <div style={{ ...overlayStyle, top,             left: 0,          width: leftW, height }} />
+      <div style={{ ...overlayStyle, top,             left: left + width, width: rightW, height }} />
+
       <div
-        className="fixed inset-0 pointer-events-none z-[99990]"
-        style={{ background: 'rgba(0,0,0,0.55)' }}
-      />
-      <motion.div
-        className="fixed pointer-events-none z-[99991] rounded-xl"
-        style={{ boxShadow: '0 0 0 9999px rgba(0,0,0,0)' }}
-        animate={{
-          top:       rect.top  - PAD,
-          left:      rect.left - PAD,
-          width:     rect.width  + PAD * 2,
-          height:    rect.height + PAD * 2,
-          boxShadow: '0 0 0 9999px rgba(0,0,0,0.55)',
-          outline:   '2px solid #3b82f6',
-          outlineOffset: '0px',
+        style={{
+          position:     'fixed',
+          top,
+          left,
+          width,
+          height,
+          borderRadius: 10,
+          outline:      '2px solid #3b82f6',
+          boxShadow:    '0 0 0 4px rgba(59,130,246,0.2)',
+          zIndex:       99991,
+          pointerEvents: 'none',
         }}
-        transition={{ type: 'spring', stiffness: 400, damping: 35 }}
       />
     </>
   );
@@ -456,10 +556,7 @@ const OnboardingTour = ({ forceShow = false, onComplete }) => {
       setIsSuperAdmin(true);
       return;
     }
-
-    // Jangan tampilkan tour di mobile
     if (isMobile) return;
-
     if (forceShow) { setPhase('start'); return; }
     const done = localStorage.getItem(STORAGE_KEY);
     if (!done) setPhase('start');

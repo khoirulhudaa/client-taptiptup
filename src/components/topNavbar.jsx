@@ -207,7 +207,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
         </div>
 
         {/* Kanan */}
-        <div className="flex items-center gap-2.5 md:pr-[7px] md:justify-end 2xl:w-max w-full flex-shrink-0">
+        <div id="tour-topnavbar-group" className="flex items-center gap-2.5 md:pr-[7px] md:justify-end 2xl:w-max w-full flex-shrink-0">
           <button
             id="tour-sidebar-toggle"
             onClick={() => setIsCollapsed(v => !v)}

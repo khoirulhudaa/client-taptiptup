@@ -235,6 +235,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
 
       {/* ── SIDEBAR ── */}
       <aside
+        id="tour-sidebar-group"
         className={`
           fixed lg:sticky top-0 left-0 h-[100dvh] lg:h-screen overflow-y-auto overflow-x-hidden
           bg-white/5 dark:bg-slate-900

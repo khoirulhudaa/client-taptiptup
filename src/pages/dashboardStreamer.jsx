@@ -23,6 +23,7 @@ import {
   List,
   Loader2,
   Menu,
+  DollarSign,
   MessageSquare,
   Mic,
   Moon,
@@ -59,7 +60,9 @@ import {
   Monitor,
   Link2,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  BadgeDollarSign,
+  Palette
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
@@ -255,16 +258,17 @@ const SectionHeader = ({ icon, title, color }) => (
 );
 
 const InputField = ({ label, ...props }) => (
-  <div className="w-full">
-    <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">{label}</label>
+  <div className="w-full flex pl-[1.5px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+    <div className="w-[20%] px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      {label}
+    </div>
     <input
-      className="w-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl p-3 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all font-bold text-sm text-slate-900 dark:text-slate-100 shadow-sm"
+      className="flex-1 bg-transparent p-3 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
       {...props}
       onChange={e => props.onChange?.(e.target.value)}
     />
   </div>
 );
-
 // ─── QuickAmountsEditor ───────────────────────────────────────────────────────
 
 const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, settings, activeSlot }) => {
@@ -1147,8 +1151,8 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
         }
         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
           className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-          <Save size={20} />
-          {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
+          
+          {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
         </button>
       </div>
     </div>
@@ -1739,7 +1743,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
 
       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-        <Save size={20} />
+        
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan Durasi'}
       </button>
     </div>
@@ -1796,7 +1800,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
       </button>
       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-        <Save size={20} />
+        
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Izin Media'}
       </button>
     </div>
@@ -4035,7 +4039,7 @@ const handleChangePin = async () => {
           }} 
           disabled={saveSettingsMutation.isPending}
           className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-          <Save size={20} />
+          
           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Audio Terbaru'}
         </button>
       </div>
@@ -4146,7 +4150,7 @@ const handleChangePin = async () => {
             <div className='w-full h-[1px] bg-slate-100/10 my-4' />
             <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending || uploading}
               className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-blue-600 to-violet-600 hover:brightness-90 text-white font-black rounded-xl transition-all disabled:opacity-60 flex items-center justify-center gap-3">
-              <Save size={20} />
+              
               {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Suara'}
             </button>
           </div>
@@ -4164,7 +4168,6 @@ const handleChangePin = async () => {
     <>
       <div className="flex min-h-screen bg-[#F8FAFC] dark:bg-slate-950 font-sans pb-0 text-slate-900 dark:text-slate-100">
 
-        <OnboardingTour />
         {showOverlay && <LoadingOverlay onDone={() => setShowOverlay(false)} />}
 
         {/* <video src="/glass.mp4" className='absolute z-[1]' autoplay={true}></video> */}
@@ -4395,6 +4398,8 @@ const handleChangePin = async () => {
                 </motion.div>
               )}
 
+              {activeTab === 'settings' && !isEffectiveAdmin && <OnboardingTour />}
+
               {/* ══════════════════════ SETTINGS (Editor Overlay) ══════════════════════ */}
               {activeTab === 'settings' && !isEffectiveAdmin && (
                 <div
@@ -4419,7 +4424,7 @@ const handleChangePin = async () => {
                           )
                         }
                       </div>
-                      <div className="md:flex mt-5.5 space-y-3 md:space-y-0 items-center gap-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-500">
+                      <div id="tour-overlay-slot" className="md:flex mt-5.5 space-y-3 md:space-y-0 items-center gap-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-500">
                         {['A', 'B'].map((slot) => (
                           <button
                             key={slot}
@@ -4609,10 +4614,7 @@ const handleChangePin = async () => {
                           </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-1 md:space-y-2 mt-4.5">
-                        <InputField label="Minimal Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
-                        <InputField label="Maksimal Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
-                        
+                      <div id="tour-min-max-donasi" className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-1 md:space-y-2 mt-4.5">
                         <section
                           key="preview-panel"
                           className="xl:col-span-5 mt-2.5 z-[2] py-0 h-max relative mb-2.5 block md:hidden"
@@ -4634,7 +4636,7 @@ const handleChangePin = async () => {
                           </motion.div>
                         </section>
 
-                        <div className="md:col-span-2">
+                        {/* <div id="tour-tema-visual" className="md:col-span-2">
                           <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label>
                           <div className="grid grid-cols-2 gap-3">
                           {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
@@ -4657,7 +4659,53 @@ const handleChangePin = async () => {
                             );
                           })}
                           </div>
+                        </div> */}
+                      </div>
+                      <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
+                        {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
+                      </button>
+                    </div>
+                    
+                    <div className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
+                        <SectionHeader icon={<BadgeDollarSign size={20} />} title={`Quick Nominal`} color="bg-red-600" />
+                        <InputField label="Min Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
+                        <InputField label="Max Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
+                        <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+                          
+                          {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
+                        </button>
+                    </div>
+
+                    <div className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
+                        <SectionHeader icon={<Palette size={20} />} title={`Tema visual`} color="bg-cyan-600" />
+
+                        <div id="tour-tema-visual" className="md:col-span-2">
+                          {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label> */}
+                          <div className="grid grid-cols-2 gap-3">
+                          {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
+                            const themeLabels = {
+                              modern:  'Taptip 1',
+                              minimal: 'Taptip 2',
+                              smooth:  'Taptip 3',
+                              gifCard: 'Pop Card',
+                            };
+
+                            return (
+                              <button key={t} onClick={() => upd('theme', t)}
+                                className={`cursor-pointer active:scale-[0.99] py-3 md:py-4 text-left pl-3 rounded-xl border-2 transition-all font-black text-sm capitalize ${
+                                  settings.theme === t
+                                    ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
+                                    : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
+                                }`}>
+                                {themeLabels[t] || t}
+                              </button>
+                            );
+                          })}
+                          </div>
                         </div>
+
                         <div className="md:col-span-2 w-full flex flex-col gap-3">
                           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label>
                           <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
@@ -4666,27 +4714,28 @@ const handleChangePin = async () => {
                             <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
                           </select>
                         </div>
-                      </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
-                      {[
-                        { key: 'primaryColor',   label: 'Background Alert',  fallback: '#2e2f42' },
-                        { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#ffffff' },
-                        { key: 'textColor',      label: 'Warna Teks',        fallback: '#ffffff' },
-                      ].map(({ key, label, fallback }) => (
-                        <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
-                      ))}
-                      <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
-                      {/* TAMBAH INI: */}
-                      <ColorInput id="color-progressBarColor" label="Warna Progress Bar" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
+                          {[
+                            { key: 'primaryColor',   label: 'Background Alert',  fallback: '#2e2f42' },
+                            { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#ffffff' },
+                            { key: 'textColor',      label: 'Warna Teks',        fallback: '#ffffff' },
+                          ].map(({ key, label, fallback }) => (
+                            <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
+                          ))}
+                          <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
+                          {/* TAMBAH INI: */}
+                          <ColorInput id="color-progressBarColor" label="Warna Progress Bar" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
+                        </div>
+                        <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
+                          {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
+                        </button>
+                     
                     </div>
-                      <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
-                        <Save size={20} />{saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Overlay Terbaru'}
-                      </button>
-                    </div>
+
                     {/* Preset Warna Siap Pakai */}
-                    <div className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6">
+                    <div className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6">
                       <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
                         Preset Warna Siap Pakai
                       </label>
@@ -4716,17 +4765,19 @@ const handleChangePin = async () => {
 
                     {/* Quick Nominal */}
                     <QuickAmountsEditor amounts={settings.quickAmounts || DEFAULT_SETTINGS.quickAmounts} onChange={v => upd('quickAmounts', v)} saveSettingsMutation={saveSettingsMutation} settings={settings} activeSlot={activeSlot} />
-
-                    <DonationItemsEditor
-                      items={settings.donationItems || []}
-                      onChange={v => upd('donationItems', v)}
-                      saveSettingsMutation={saveSettingsMutation}
-                      settings={settings}
-                      activeSlot={activeSlot}
-                    />
+                    
+                    <div id="tour-donation-items">
+                      <DonationItemsEditor
+                        items={settings.donationItems || []}
+                        onChange={v => upd('donationItems', v)}
+                        saveSettingsMutation={saveSettingsMutation}
+                        settings={settings}
+                        activeSlot={activeSlot}
+                      />
+                    </div>
 
                     {/* OBS URLs */}
-                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 md:pb-2.5 shadow-xs border border-slate-100 dark:border-slate-800">
+                    <div id="tour-overlay-url" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 md:pb-2.5 shadow-xs border border-slate-100 dark:border-slate-800">
                       <div className='mb-5'>
                         <SectionHeader icon={<Monitor size={20} />} title={`URL Overlay`} color="bg-blue-500" />
                       </div>
@@ -4764,7 +4815,7 @@ const handleChangePin = async () => {
                     </div>
 
                     {/* GANTI OVERLAY TOKEN */}
-                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                    <div id="tour-ganti-token" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
                       <SectionHeader icon={<RefreshCw size={18} />} title="Ganti Overlay Token" color="bg-violet-500" />
                     
                       <div className="space-y-3">
@@ -4857,7 +4908,7 @@ const handleChangePin = async () => {
                     </div>
 
                     {/* HAPUS AKUN */}
-                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 pb-4.5 md:pb-6 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-4.5">
+                    <div id="tour-hapus-akun" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 pb-4.5 md:pb-6 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-4.5">
                       <SectionHeader icon={<Trash2 size={18} />} title="Hapus Akun" color="bg-red-500" />
                     
                       <div className="space-y-4">
@@ -5321,7 +5372,7 @@ const handleChangePin = async () => {
                       <div className="md:col-span-2">
                         <button onClick={() => updateProfileMutation.mutate(profileForm)} disabled={updateProfileMutation.isPending}
                           className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-md transition-all flex items-center justify-center gap-3 disabled:opacity-70">
-                          <Save size={20} />
+                          
                           {updateProfileMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
                         </button>
                       </div>
@@ -5520,59 +5571,6 @@ const handleChangePin = async () => {
 
             </AnimatePresence>
           </div>
-
-          <footer className="md:block hidden relative z-[2] mt-auto border-t border-slate-200/50 dark:border-slate-800/50 bg-white/20 dark:bg-slate-900/40 backdrop-blur-sm">
-              <div className="max-w-full mx-auto px-4 md:px-6 py-5">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                  
-                  {/* Kiri — brand */}
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <img src="/logoNew.png" alt="logo" className="w-full h-full object-contain p-1" />
-                    </div>
-                    <div>
-                      <p className="font-bold relative top-[1px] text-[14px] text-slate-700 dark:text-slate-200 tracking-tight">TapTipTup</p>
-                    </div>
-                  </div>
-
-                  <div className='w-max flex items-center gap-2'>
-                    <div className="flex items-center gap-1 text-[11px] font-bold text-slate-400 dark:text-slate-500">
-                      {[
-                        { label: 'Syarat & Ketentuan', href: '/terms' },
-                        { label: 'Kebijakan Privasi', href: '/privacy-policy' },
-                        { label: 'Bantuan', onClick: () => setActiveTab('contact') },
-                      ].map((item, i) => (
-                        <span key={i} className="flex items-center gap-1">
-                          {i > 0 && 
-                          <span className="text-slate-300 dark:text-slate-700">·</span>}
-                          {item.onClick ? (
-                            <button
-                              onClick={item.onClick}
-                              className="text-[14px] cursor-pointer hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
-                            >
-                              {item.label}
-                            </button>
-                          ) : (
-                            <a
-                              href={item.href}
-                              className="text-[14px] hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
-                            >
-                              {item.label}
-                            </a>
-                          )}
-                        </span>
-                      ))}
-                    </div>
-
-                      {/* -
-                    <p className="text-[14px] text-slate-400 dark:text-slate-500 font-bold">
-                      © {new Date().getFullYear()} TapTipTup. All Rights Seserved.
-                    </p> */}
-                  </div>
-
-                </div>
-              </div>
-            </footer>
         </main>
 
         {isSidebarOpen && (
