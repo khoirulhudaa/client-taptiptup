@@ -27,8 +27,8 @@ export const Miles1 = ({ displayList, totalDonation, activeIdx, color, bgcolor }
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {displayList.map((m, i) => {
-            const pct = Math.min(100, Math.round((totalDonation / m.targetAmount) * 100));
-            const achieved = totalDonation >= m.targetAmount;
+            const pct = m.progress ?? Math.min(100, Math.round(((m.currentAmount || 0) / m.targetAmount) * 100));
+            const achieved = m.reached ?? (m.currentAmount || 0) >= m.targetAmount;
             return (
               <div key={m._id || i}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
@@ -70,8 +70,8 @@ export const Miles2 = ({ displayList, totalDonation, color, bgcolor }) => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', width: 'fit-content', fontFamily: "'Inter','Segoe UI',sans-serif", gap: 8 }}>
         {displayList.map((m, i) => {
-          const pct = Math.min(100, Math.round((totalDonation / m.targetAmount) * 100));
-          const achieved = totalDonation >= m.targetAmount;
+          const pct = m.progress ?? Math.min(100, Math.round(((m.currentAmount || 0) / m.targetAmount) * 100));
+          const achieved = m.reached ?? (m.currentAmount || 0) >= m.targetAmount;
           return (
             <div key={m._id || i} style={{ background: bgcolor ? `#${bgcolor}` : 'rgba(15,15,25,1)', borderRadius: 18, padding: '14px 18px', boxShadow: '0 4px 20px rgba(0,0,0,0.4)', textAlign: 'center' }}>
               <span style={{ fontSize: 22, fontWeight: 700, color: achieved ? '#10b981' : '#ffffff', textDecoration: achieved ? 'line-through' : 'none', display: 'block', marginBottom: 18 }}>
@@ -95,7 +95,7 @@ export const Miles2 = ({ displayList, totalDonation, color, bgcolor }) => {
               {/* Nominal sekarang / target */}
               <div style={{ marginTop: 14, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 6 }}>
                 <span style={{ fontSize: 18, fontWeight: 700, color: achieved ? '#10b981' : 'rgba(255,255,255,0.6)' }}>
-                  Rp {Math.min(totalDonation, m.targetAmount).toLocaleString('id-ID')}
+                  Rp {Number(m.currentAmount ?? 0).toLocaleString('id-ID')}
                 </span>
                 <span style={{ fontSize: 18, fontWeight: 600, color: achieved ? '#10b981' : 'rgba(255,255,255,0.6)' }}>
                   / Rp {Number(m.targetAmount).toLocaleString('id-ID')}
@@ -126,12 +126,15 @@ const MilestonesWidget = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const [msRes, statsRes] = await Promise.all([
-        axios.get(`${BASE_URL}/widget/${token}/milestones`),
-        axios.get(`${BASE_URL}/widget/${token}/stats`).catch(() => ({ data: { total: 0 } })),
-      ]);
-      setMilestones(msRes.data || []);
-      setTotalDonation(statsRes.data?.total || 0);
+      const msRes = await axios.get(`${BASE_URL}/widget/${token}/milestones`);
+      // Backend return { milestones: [...], totalPaid: 0 }
+      const data = msRes.data;
+      if (Array.isArray(data)) {
+        setMilestones(data); // fallback kalau return array langsung
+      } else {
+        setMilestones(data.milestones || []);
+        setTotalDonation(data.totalPaid || 0); // alltime untuk display header
+      }
     } catch (err) {
       console.error('Failed to fetch milestones');
     }
