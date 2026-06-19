@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 /* ─────────────────────────────────────────
    DATA
 ───────────────────────────────────────── */
@@ -175,7 +175,7 @@ function BtnGhost({ children, href, style, C }) {
       fontFamily: "'Space Grotesk', sans-serif",
       fontSize: 13, fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase",
       padding: "14px 24px", border: `1px solid ${C.line2}`,
-      background: "white", cursor: "pointer",
+      background: "azure", cursor: "pointer",
       textDecoration: "none", display: "inline-block", transition: "all 0.15s",
       ...style,
     }}
@@ -744,7 +744,7 @@ function OverlayCustom({ C }) {
 
                 <div style={{
                   height: 1,
-                  background: "white",
+                  background: "azure",
                   marginBottom: 14,
                 }} />
 
@@ -868,7 +868,7 @@ function NominalSection({ C }) {
                 <div style={{ marginBottom: 14 }}>
                   <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NOMINAL — KETIK BEBAS</div>
                   <div style={{
-                    background: "white", borderRadius: 8, padding: "12px 16px",
+                    background: "azure", borderRadius: 8, padding: "12px 16px",
                     border: '1px solid #0d2b45',
                     display: "flex", justifyContent: "space-between", alignItems: "center",
                   }}>
@@ -1138,7 +1138,7 @@ function FeeComparison({ C }) {
                   padding: "24px 24px",
                   borderRadius: 10,
                   borderBottom: isMobile ? `1px solid ${C.line}` : "none",
-                  background: "white",
+                  background: "azure",
                   border: '1px solid #ffffff80',
                   transition: "all 0.4s",
                 }}>
@@ -1527,6 +1527,456 @@ function SharePromo({ C }) {
   );
 }
 
+const THEMES2 = [
+  { id: "modern",  label: "Taptip 1" },
+  { id: "minimal", label: "Taptip 2" },
+  { id: "smooth",  label: "Taptip 3" },
+  { id: "gifCard", label: "Pop Card" },
+];
+ 
+const ICONS = ["❤️","🔥","💎","👑","🎮","⭐","🚀","💰","🎯","⚡","🐧","🏆"];
+ 
+const ANIM_OPTIONS = [
+  { id: "bounce", label: "Bounce" },
+  { id: "slide",  label: "Slide"  },
+  { id: "fade",   label: "Fade"   },
+];
+ 
+const PRESETS = [
+  { label: "Neon Night",  bg: "#0a0f1e", hl: "#39ff14", tx: "#d4ffda" },
+  { label: "Toska Dark",  bg: "#0d2b45", hl: "#7dd3fc", tx: "#e0f7ff" },
+  { label: "Sakura",      bg: "#1a0010", hl: "#ff6eb4", tx: "#ffe0f0" },
+];
+ 
+const DEMO_DONORS = [
+  { name: "BudiGamer99",   amount: 150000,  msg: "Semangat terus streamnya bang!" },
+  { name: "SultanStream",  amount: 1000000, msg: "Sultan hadir, kuy naik rank!" },
+  { name: "FansSetia01",   amount: 25000,   msg: "Sering-sering livestream ya kak" },
+  { name: "AnonymDragon",  amount: 500000,  msg: "GG banget, keep it up brooo!" },
+];
+ 
+const ANIM_VARIANTS = {
+  bounce: {
+    initial: { scale: 0.5, opacity: 0 },
+    animate: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 350, damping: 18 } },
+    exit:    { scale: 0.8, opacity: 0, transition: { duration: 0.2 } },
+  },
+  slide: {
+    initial: { x: -60, opacity: 0 },
+    animate: { x: 0, opacity: 1, transition: { duration: 0.38, ease: "easeOut" } },
+    exit:    { x: -40, opacity: 0, transition: { duration: 0.2 } },
+  },
+  fade: {
+    initial: { y: -18, opacity: 0 },
+    animate: { y: 0, opacity: 1, transition: { duration: 0.36 } },
+    exit:    { y: -10, opacity: 0, transition: { duration: 0.2 } },
+  },
+};
+ // ── Render persis sama dengan renderAlert() di dashboard ──────────────────────
+function AlertPreview({ cfg, animKey }) {
+  const donor = DEMO_DONORS[animKey % DEMO_DONORS.length];
+  const variants = ANIM_VARIANTS[cfg.anim] || ANIM_VARIANTS.bounce;
+
+  const settings = {
+    theme:           cfg.theme,
+    primaryColor:    cfg.bg,
+    highlightColor:  cfg.hl,
+    textColor:       cfg.tx,
+    customIcon:      cfg.icon,
+    borderColor:     cfg.hl + "40",
+    progressBarColor: cfg.hl,
+    showTimestamp:   false,
+  };
+
+  const hl = settings.highlightColor;
+  const fg = settings.textColor;
+  const bg = settings.primaryColor;
+
+  const renderIconPreview = (icon) => {
+    if (!icon) return "❤️";
+    if (icon.startsWith("http") || icon.startsWith("/")) {
+      return <img src={icon} alt="icon" style={{ width: 26, height: 26, objectFit: "contain", borderRadius: 4, display: "inline-block" }} />;
+    }
+    return icon;
+  };
+
+  const scanlineStyle = {
+    position: "absolute", inset: 0,
+    backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)",
+    pointerEvents: "none", zIndex: 1,
+  };
+  const pixelBorder = `2px solid ${hl}`;
+  const dimBorder   = `1px solid ${hl}40`;
+
+  // ── MODERN ──────────────────────────────────────────────────────────────────
+  const modernInner = (
+    <div style={{ position: "relative", overflow: "hidden", borderRadius: 12 }}>
+      <div style={scanlineStyle} />
+      <div style={{
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        background: hl + "18", borderBottom: pixelBorder,
+        padding: "7px 14px", position: "relative", zIndex: 2,
+      }}>
+        <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
+          {["#ff4444", "#ffaa00", hl].map((c, i) => (
+            <span key={i} style={{ width: 9, height: 9, background: c, display: "inline-block", border: "1px solid rgba(255,255,255,0.2)" }} />
+          ))}
+        </div>
+      </div>
+      <div style={{ padding: "14px 16px", position: "relative", zIndex: 2 }}>
+        <div style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 10 }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 26, fontWeight: 500, color: fg, marginTop: 12, lineHeight: 1.1, letterSpacing: "-0.5px" }}>
+              {donor.name}
+            </div>
+          </div>
+          <div style={{ width: 52, height: 52, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, flexShrink: 0 }}>
+            {renderIconPreview(settings.customIcon)}
+          </div>
+        </div>
+        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 26, fontWeight: 500, color: hl, letterSpacing: "-1px", lineHeight: 1, marginBottom: 8, textShadow: `0 0 12px ${hl}60` }}>
+          Rp {donor.amount.toLocaleString("id-ID")}
+        </div>
+        {donor.msg && (
+          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 22, color: fg, background: "rgba(255,255,255,0.04)", border: dimBorder, marginTop: 12, borderRadius: 10, padding: "7px 10px", lineHeight: 1.4, width: "100%", marginBottom: 8 }}>
+            {donor.msg}
+          </div>
+        )}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", marginTop: 6 }}>
+          <div style={{ display: "flex", gap: 3 }}>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <span key={i} style={{ width: 8, height: 8, background: i < 5 ? (settings.progressBarColor || hl) : hl + "25", display: "inline-block" }} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // ── MINIMAL ──────────────────────────────────────────────────────────────────
+  const minimalInner = (
+    <div style={{ position: "relative", overflow: "hidden" }}>
+      <div style={scanlineStyle} />
+      <div style={{ padding: "14px 18px 18px", position: "relative", zIndex: 2 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+          <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 26, fontWeight: 500, color: hl, letterSpacing: "-1px", textShadow: `0 0 8px ${hl}50` }}>
+            Rp {donor.amount.toLocaleString("id-ID")}
+          </span>
+        </div>
+        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: "24px", fontWeight: 500, color: fg, marginBottom: 4, borderBottom: `1px solid ${hl}20`, paddingBottom: 7 }}>
+          {donor.name}
+        </div>
+        {donor.msg && (
+          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 22, color: fg, lineHeight: 1.4, marginBottom: 5 }}>
+            {donor.msg}
+          </div>
+        )}
+        <div style={{ height: 3, marginTop: 8, background: "rgba(255,255,255,0.06)" }}>
+          <div style={{ height: "100%", width: "60%", background: settings.progressBarColor || hl }} />
+        </div>
+      </div>
+    </div>
+  );
+
+  // ── SMOOTH ──────────────────────────────────────────────────────────────────
+  const smoothInner = (
+    <div style={{ fontFamily: "'Inter',sans-serif", padding: "18px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14 }}>
+        <div style={{ fontSize: 24, fontWeight: 500, color: fg, lineHeight: 1.2 }}>{donor.name}</div>
+        <div style={{ width: 56, height: 56, borderRadius: 16, background: hl + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, flexShrink: 0, border: `1.5px solid ${hl}40` }}>
+          {renderIconPreview(settings.customIcon)}
+        </div>
+      </div>
+      <div style={{ height: 1, background: hl + "25", borderRadius: 99 }} />
+      <div style={{ fontSize: 24, fontWeight: 500, color: hl, letterSpacing: "-0.5px", lineHeight: 1 }}>
+        Rp {donor.amount.toLocaleString("id-ID")}
+      </div>
+      {donor.msg && (
+        <div style={{ fontSize: 22, fontWeight: 400, color: fg, lineHeight: 1.5 }}>{donor.msg}</div>
+      )}
+      <div style={{ height: 4, background: hl + "25", borderRadius: 99, overflow: "hidden" }}>
+        <div style={{ height: "100%", width: "60%", background: settings.progressBarColor || hl, borderRadius: 99 }} />
+      </div>
+    </div>
+  );
+
+  // ── GIF CARD ──────────────────────────────────────────────────────────────────
+  const gifCardInner = (
+    <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+      <div style={{ width: "100%", height: 130, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14, overflow: "hidden" }}>
+        {settings.customIcon?.startsWith("http") || settings.customIcon?.startsWith("/") ? (
+          <img src={settings.customIcon} alt="icon" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
+        ) : (
+          <span style={{ fontSize: 76, lineHeight: 1 }}>{settings.customIcon || "❤️"}</span>
+        )}
+      </div>
+      <div style={{ padding: "10px 14px", display: "flex", textAlign: "center", flexDirection: "column", gap: 8, alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: 6 }}>
+          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 20, fontWeight: 500, color: fg }}>
+            {donor.name} mengirim
+          </div>
+          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 20, fontWeight: 500, color: hl, letterSpacing: "-0.5px", lineHeight: 1, textShadow: `0 0 10px ${hl}55` }}>
+            Rp {donor.amount.toLocaleString("id-ID")}
+          </div>
+        </div>
+        {donor.msg && (
+          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 18, color: fg, fontWeight: 400, borderRadius: 10, background: hl + "12", border: `1px solid ${hl}25`, padding: "7px 10px", lineHeight: 1.5 }}>
+            {donor.msg}
+          </div>
+        )}
+        <div style={{ height: 4, background: hl + "20", overflow: "hidden", width: "100%" }}>
+          <div style={{ height: "100%", width: "60%", background: settings.progressBarColor || hl }} />
+        </div>
+      </div>
+    </div>
+  );
+
+  const innerMap = { modern: modernInner, minimal: minimalInner, smooth: smoothInner, gifCard: gifCardInner };
+
+  const cardStyle = {
+    backgroundColor: settings.theme === "gifCard" ? "transparent" : bg,
+    color: fg,
+    borderRadius: 24,
+    width: "max-content",
+    border: settings.theme === "gifCard" ? "none" : `2.5px solid ${settings.borderColor || hl + "40"}`,
+  };
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={animKey + "-" + cfg.theme + "-" + cfg.anim}
+        initial={variants.initial}
+        animate={variants.animate}
+        exit={variants.exit}
+        style={cardStyle}
+      >
+        {innerMap[settings.theme] ?? modernInner}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+ 
+function ColorRow({ label, colorKey, value, onChange }) {
+  const handleHex = (e) => {
+    const v = e.target.value;
+    if (/^#[0-9a-fA-F]{0,8}$/.test(v)) onChange(colorKey, v);
+  };
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{ position: "relative", width: 32, height: 32, borderRadius: 8, overflow: "hidden", border: "1px solid rgba(0,0,0,.15)", flexShrink: 0, background: value }}>
+        <input type="color" value={value.length === 7 ? value : "#ffffff"} onChange={e => onChange(colorKey, e.target.value)}
+          style={{ position: "absolute", inset: 0, opacity: 0, cursor: "pointer", width: "100%", height: "100%" }} />
+      </div>
+      <span style={{ fontFamily: "'Space Mono',monospace", fontSize: 10, color: "#1e3a5f", textTransform: "uppercase", letterSpacing: ".06em", width: 70 }}>{label}</span>
+      <input value={value} onChange={handleHex}
+        style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, color: "#0d2b45", background: "rgba(0,0,0,.07)", border: "1px solid rgba(0,0,0,.15)", borderRadius: 6, padding: "4px 8px", width: "81%", outline: "none" }}
+        maxLength={9} />
+    </div>
+  );
+}
+ 
+export function OverlayCustomizer({ C }) {
+  const [cfg, setCfg] = useState({ theme: "modern", bg: "#0d2b45", hl: "#7dd3fc", tx: "#e0f7ff", icon: "❤️", anim: "bounce" });
+  const [animKey, setAnimKey] = useState(0);
+  const [donorLabel, setDonorLabel] = useState(1);
+ 
+  const upd = useCallback((key, val) => setCfg(prev => ({ ...prev, [key]: val })), []);
+ 
+  const fire = () => {
+    setAnimKey(k => k + 1);
+    setDonorLabel(l => (l % DEMO_DONORS.length) + 1);
+  };
+ 
+  useEffect(() => { fire(); }, []);
+ 
+  const obsGridStyle = {
+    position: "absolute", inset: 0, pointerEvents: "none",
+    backgroundImage: "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+    backgroundSize: "40px 40px",
+  };
+ 
+  const sectionLabel = {
+    fontFamily: "'Space Mono',monospace", fontSize: 9, letterSpacing: ".1em",
+    textTransform: "uppercase", color: "#1e3a5f", marginBottom: 10, display: "block",
+    fontWeight: 700,
+  };
+ 
+  const ctrlCard = {
+    background: "rgba(255,255,255,0.45)",
+    border: "1px solid rgba(255,255,255,0.7)",
+    borderRadius: 12,
+    padding: "2px 16px",
+    display: "flex",
+    flexDirection: "column",
+    gap: 14,
+  };
+ 
+  return (
+    <section className="bg-blue-900 relative overflow-hidden" style={{ padding: "64px 0 80px" }}>
+      <div className="select-none hidden md:flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="overlay-cust-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#overlay-cust-grid)" />
+        </svg>
+      </div>
+ 
+      <div className="md:w-[82vw] w-[90vw]" style={{ position: "relative", zIndex: 10, margin: "0 auto" }}>
+ 
+        <div style={{ textAlign: "center", marginBottom: 48 }}>
+          <Kicker C={C}>Kustomisasi Overlay</Kicker>
+          <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px,7vw,80px)", lineHeight: 1.05, letterSpacing: "0.01em", color: "white", marginBottom: 14 }}>
+            DESAIN ALERT <span style={{ color: "azure" }}>SESUKAMU</span>
+          </h2>
+          <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(13px,1.4vw,15px)", color: "rgba(255,255,255,.6)", maxWidth: 460, margin: "0 auto" }}>
+            Ubah warna, tema, ikon, dan animasi. Preview langsung tanpa perlu buka OBS.
+          </p>
+        </div>
+ 
+        <div className="overlay-builder-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 20, alignItems: "start" }}>
+ 
+          {/* ── KIRI: Controls ── */}
+          <div style={{ background: "azure", borderRadius: 14, padding: 16, display: "flex", flexDirection: "column", gap: 12 }}>
+ 
+            {/* Tema */}
+            <div style={ctrlCard}>
+              <span style={sectionLabel}>Tema Alert</span>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                {THEMES2.map(t => (
+                  <button key={t.id} onClick={() => upd("theme", t.id)}
+                    style={{
+                      padding: "10px 8px", borderRadius: 8,
+                      border: cfg.theme === t.id ? "2px solid #0d2b45" : "1.5px solid rgba(0,0,0,.15)",
+                      background: cfg.theme === t.id ? "#0d2b45" : "rgba(255,255,255,.6)",
+                      color: cfg.theme === t.id ? "azure" : "#1e3a5f",
+                      fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 12,
+                      cursor: "pointer", transition: "all .15s",
+                    }}>
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+ 
+            {/* Warna */}
+            <div style={ctrlCard}>
+              <span style={sectionLabel}>Warna Alert</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%" }}>
+                <ColorRow label="Background" colorKey="bg" value={cfg.bg} onChange={upd} />
+                <ColorRow label="Highlight"  colorKey="hl" value={cfg.hl} onChange={upd} />
+                <ColorRow label="Teks"       colorKey="tx" value={cfg.tx} onChange={upd} />
+              </div>
+              <div style={{ height: 1, background: "rgba(0,0,0,.1)", margin: "4px 0" }} />
+              <span style={{ ...sectionLabel, marginBottom: 8 }}>Preset Warna</span>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
+                {PRESETS.map(p => (
+                  <button key={p.label} onClick={() => setCfg(prev => ({ ...prev, bg: p.bg, hl: p.hl, tx: p.tx }))}
+                    style={{
+                      padding: "8px 6px", borderRadius: 8,
+                      border: `1.5px solid ${p.hl}80`,
+                      background: p.bg, color: p.hl,
+                      fontFamily: "'Space Mono',monospace", fontSize: 9,
+                      letterSpacing: ".05em", textTransform: "uppercase",
+                      cursor: "pointer", transition: "all .15s",
+                    }}>
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+ 
+            {/* Icon */}
+            <div style={ctrlCard}>
+              <span style={sectionLabel}>Icon Alert</span>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 6 }}>
+                {ICONS.map(ic => (
+                  <button key={ic} onClick={() => upd("icon", ic)}
+                    style={{
+                      padding: "8px 4px", borderRadius: 8, fontSize: 18, textAlign: "center",
+                      border: cfg.icon === ic ? "2px solid #0d2b45" : "1.5px solid rgba(0,0,0,.12)",
+                      background: cfg.icon === ic ? "#0d2b45" : "rgba(255,255,255,.5)",
+                      cursor: "pointer", transition: "all .15s",
+                    }}>
+                    {ic}
+                  </button>
+                ))}
+              </div>
+            </div>
+ 
+            {/* Animasi */}
+            <div style={ctrlCard}>
+              <span style={sectionLabel}>Animasi Masuk</span>
+              <div style={{ display: "flex", gap: 8 }}>
+                {ANIM_OPTIONS.map(a => (
+                  <button key={a.id} onClick={() => upd("anim", a.id)}
+                    style={{
+                      flex: 1, padding: "9px 8px", borderRadius: 8,
+                      border: cfg.anim === a.id ? "2px solid #0d2b45" : "1.5px solid rgba(0,0,0,.12)",
+                      background: cfg.anim === a.id ? "#0d2b45" : "rgba(255,255,255,.5)",
+                      color: cfg.anim === a.id ? "azure" : "#1e3a5f",
+                      fontFamily: "'Space Mono',monospace", fontSize: 10,
+                      letterSpacing: ".06em", textTransform: "uppercase",
+                      cursor: "pointer", transition: "all .15s", fontWeight: 700,
+                    }}>
+                    {a.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+ 
+          {/* ── KANAN: Preview OBS ── */}
+          <div className="h-full" style={{ background: "rgba(0,0,0,.25)", border: "1px solid white", borderRadius: 14, overflow: "hidden", position: "sticky", top: 100 }}>
+            <div style={{ position: "relative", height: '88.5%', background: "#0d2b45", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+              <div style={obsGridStyle} />
+              <div style={{ position: "absolute", top: 20, left: 24, fontFamily: "'Space Mono',monospace", fontSize: 9, color: "rgba(255,255,255,.45)", letterSpacing: ".06em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 6, zIndex: 5 }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#ef4444", animation: "pulse-dot 1.5s ease-in-out infinite", display: "inline-block" }} />
+                OBS Preview
+              </div>
+              <div style={{ position: "absolute", top: 20, right: 24, background: "#ef4444", color: "#fff", fontFamily: "'Space Mono',monospace", fontSize: 8, letterSpacing: ".1em", padding: "3px 8px", borderRadius: 4, fontWeight: 700, zIndex: 5 }}>LIVE</div>
+              <div style={{ position: "relative", zIndex: 10, maxWidth: '100%' }}>
+                <AlertPreview cfg={cfg} animKey={animKey} />
+              </div>
+            </div>
+ 
+            <div style={{ padding: "14px 16px", borderTop: "1px solid rgba(255,255,255,.08)", display: "flex", alignItems: "center", gap: 12, background: "rgba(0,0,0,.2)" }}>
+              <button onClick={fire}
+                style={{ flex: 1, padding: "12px 16px", background: "rgba(173,216,230,.12)", border: "1px solid rgba(173,216,230,.35)", color: "azure", borderRadius: 9, fontFamily: "'Space Grotesk',sans-serif", fontSize: 12, fontWeight: 700, cursor: "pointer", transition: "all .15s", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+               Simulasi Donasi
+              </button>
+            </div>
+ 
+            <div style={{ padding: "12px 16px", borderTop: "1px solid rgba(255,255,255,.06)", display: "flex", alignItems: "center", gap: 8, background: "rgba(0,0,0,.3)" }}>
+              <span style={{ fontSize: 14 }}>⚡</span>
+              <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 11, color: "rgba(255,255,255,.4)" }}>
+                Perubahan langsung terlihat — copy URL overlay ke OBS setelah register
+              </span>
+            </div>
+          </div>
+        </div>
+ 
+        {/* CTA */}
+        <div style={{ textAlign: "center", marginTop: 48 }}>
+          <a href="/register"
+            className="rounded-xl hover:bg-[azure] active:scale-[0.98] hover:text-blue-900 select-none"
+            style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: ".05em", textTransform: "uppercase", padding: "16px 46px", border: "1px solid azure", cursor: "pointer", textDecoration: "none", display: "inline-block", color: "azure", transition: "all .2s" }}>
+            Mulai Kustomisasi Gratis
+          </a>
+        </div>
+      </div>
+ 
+      <style>{`
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+        @media (max-width: 768px) { .overlay-builder-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
+    </section>
+  );
+}
+ 
+
 /* ─────────────────────────────────────────
    ROOT
 ───────────────────────────────────────── */
@@ -1559,7 +2009,7 @@ export default function TapTipTup() {
   }, []);
 
   useEffect(() => {
-    const audio = new Audio('/sound.mp3');
+    const audio = new Audio('/sound2.mp3');
     audio.loop = true;
     audio.volume = 1.0;
     
@@ -1615,6 +2065,7 @@ export default function TapTipTup() {
       </div>
       <Hero C={C} isDark={isDark} />
       <FeeComparison C={C} /> 
+      <OverlayCustomizer C={C} /> 
       <NominalSection C={C} />
       <OverlayCustom C={C} />
       
