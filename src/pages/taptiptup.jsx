@@ -614,7 +614,7 @@ function Marquee({ C }) {
 
 const PLATFORMS = [
   { name: "Saweria",    feeDonate: 5.0,  feeWd: 5000,  feeWdLabel: "Rp 5.000",  winner: true },
-  { name: "TapTipTup", feeDonate: 3.0,  feeWd: 3500,  feeWdLabel: "Rp 3.500" },
+  { name: "TapTipTup", feeDonate: 3.0,  feeWd: 3500,  feeWdLabel: "Rp 4.000" },
   { name: "Sociabuzz",  feeDonate: 5.0,  feeWd: 4500,  feeWdLabel: "Rp 4.500", winner: true },
   // { name: "TipTap",  feeDonate: 3.0,  feeWd: 6.500,  feeWdLabel: "Rp 6.500" },
 ];
@@ -633,7 +633,7 @@ function OverlayCustom({ C }) {
       className="bg-blue-900 relative overflow-hidden flex md:!py-[55px] !py-[64px] flex-col justify-center items-center"
     >
       {/* Grid bg */}
-      {/* <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+      <div className="select-none hidden md:flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="overlay-grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -642,7 +642,7 @@ function OverlayCustom({ C }) {
           </defs>
           <rect width="100%" height="100%" fill="url(#overlay-grid)" />
         </svg>
-      </div> */}
+      </div>
 
       <div className="relative w-[90vw] md:w-[82vw] mx-auto" style={{ zIndex: 10 }}>
 
@@ -749,7 +749,7 @@ function NominalSection({ C }) {
       className="bg-blue-900 relative overflow-hidden flex md:!py-[50px] !py-[20px] flex-col justify-center items-center"
     >
       {/* Grid bg */}
-      {/* <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+      <div className="select-none hidden md:flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="nominal-grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -758,7 +758,7 @@ function NominalSection({ C }) {
           </defs>
           <rect width="100%" height="100%" fill="url(#nominal-grid)" />
         </svg>
-      </div> */}
+      </div>
 
       <div className="relative w-[90vw] mx-auto" style={{ zIndex: 10 }}>
 
@@ -1274,7 +1274,7 @@ const FAQ_DATA = [
   },
   {
     q: "Berapa minimal Dukungan dan minimal penarikan dana?",
-    a: "Minimal Dukungan adalah Rp 1.000. Minimal penarikan dana adalah Rp 50.000. Biaya penarikan hanya Rp 3.500 — lebih murah dari platform lain.",
+    a: "Minimal Dukungan adalah Rp 1.000. Minimal penarikan dana adalah Rp 20.000. Biaya penarikan hanya Rp 4.000 — lebih murah dari platform lain.",
   },
   {
     q: "Berapa lama proses konfirmasi Dukungan sampai bisa dicairkan?",
@@ -1286,7 +1286,7 @@ const FAQ_DATA = [
   },
   {
     q: "Biaya apa saja yang dipotong dari Dukungan yang masuk?",
-    a: "Potongan platform TapTipTup hanya 3.0% dari setiap Dukungan. Biaya penarikan ke rekening bank sebesar Rp 3.500 saja. Tidak ada biaya tersembunyi lainnya.",
+    a: "Potongan platform TapTipTup hanya 3.0% dari setiap Dukungan. Biaya penarikan semua metode hanya sebesar Rp 4.000 saja. Tidak ada biaya tersembunyi lainnya.",
   },
   {
     q: "Bagaimana cara memasang overlay TapTipTup di OBS?",
@@ -1648,116 +1648,42 @@ export default function TapTipTup() {
       <FAQ C={C} />
 
       {/* ===== FOOTER ===== */}
-     <footer className="text-center flex md:flex-col justify-center items-center w-full px-0 !pt-[20px] !pb-[0px] md:!pt-[90px] md:!pb-[60px]" 
+     <footer className="text-center flex justify-center gap-8 items-center w-full px-0 !pt-[20px] !pb-[0px] md:!pt-[90px] md:!pb-[60px]" 
         style={{
           background: "#0a0f1e",
           borderTop: `1px solid rgba(255,255,255,0.08)`,
         }}>
 
-        <div className="w-full md:max-w-7xl mx-auto !px-8 !md:pb-[48px] !pb-5 text-center flex flex-col justify-center items-center"
-          style={{ gap: "32px" }}
+        <div className="w-full md:max-w-max md:!pb-[0px] !pb-5 text-center flex  justify-center items-center"
+          // style={{ gap: "32px" }}
           >
 
           {/* Kolom 1 — Brand */}
-          <div className="w-full flex md:block items-center justify-between mx-auto text-center text-[28px] md:text-[40px]">
+          <div className="w-full flex items-center justify-between mx-auto text-center text-[28px] md:text-[12px]">
             <div 
-            className="md:!mb-[16px]"
             style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              letterSpacing: "0.04em",
+              fontFamily: "'Space Mono', sans-serif",
+              // letterSpacing: "0.4em",
               color: "white",
             }}>
-              TapTipTup
-            </div>
-            <a href="/privacy-policy" className="md:block hidden" style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, color: "#BBDEFB", letterSpacing: "0.1em", textDecoration: "none" }}>
-              KEBIJAKAN PRIVASI TAPTIPTUP
-            </a>
-          </div>
-
-          <div className="w-full hidden md:flex flex-col justify-center items-center text-center">
-          {/* Kolom 3 — Platform */}
-            <div className="flex w-max text-center justify-between m-auto items-center gap-3">
-            {[
-              "YouTube Live",
-              "TikTok Live",
-              "Twitch",
-              "Facebook Gaming",
-              "Instagram Live",
-            ].map((item, i) => (
-              <div key={i} style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: 15, color: "rgba(255,255,255,0.55)",
-                padding: "6px 0",
-                borderBottom: "1px solid rgba(255,255,255,0.05)",
-                display: "flex", alignItems: "center", gap: 8,
-              }}>
-                {/* <span style={{ width: 4, height: 4, borderRadius: "0%", background: "azure", display: "inline-block", flexShrink: 0, opacity: 0.7 }} /> */}
-                {item}
-              </div>
-            ))}
-            </div>
-            {/* Kolom 4 — Platform */}
-            <div className="flex w-max text-center justify-between m-auto items-center gap-3">
-              {[
-                "Komunitas Streamer",
-                "Transfer Saldo",
-                "Penarikan Dana",
-                "Support Streamer",
-                "Konfigurasi Fee",
-                "Dark & Light Mode",
-              ].map((item, i) => (
-                <div key={i} style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: 15, color: "rgba(255,255,255,0.55)",
-                  padding: "6px 0",
-                  borderBottom: "1px solid rgba(255,255,255,0.05)",
-                  display: "flex", alignItems: "center", gap: 8,
-                }}>
-                  {/* <span style={{ width: 4, height: 4, borderRadius: "0%", background: "azure", display: "inline-block", flexShrink: 0, opacity: 0.7 }} /> */}
-                  {item}
-                </div>
-              ))}
-            </div>
-            {/* Kolom 2 — Overlay Tersedia */}
-            <div className="flex w-max text-center justify-between m-auto items-center gap-3">
-              {[
-                "Alert Dukungan Real-Time",
-                "Leaderboard Top Donor",
-                "Milestone & Goal Bar",
-                "Subathon Timer",
-                "Poll Penonton",
-                "Media Alert (Gambar/Video)",
-                "Sound Tier Kustom",
-              ].map((item, i) => (
-                <div key={i} style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: 15, color: "rgba(255,255,255,0.55)",
-                  padding: "6px 0",
-                  borderBottom: "1px solid rgba(255,255,255,0.05)",
-                  display: "flex", alignItems: "center", gap: 8,
-                }}>
-                  {/* <span style={{ width: 4, height: 4, borderRadius: "0%", background: "azure", display: "inline-block", flexShrink: 0, opacity: 0.7 }} /> */}
-                  {item}
-                </div>
-              ))}
+              TAPTIPTUP UNTUK STREAMER LOKAL
             </div>
           </div>
         </div>
-
+       
         {/* Bottom bar */}
         <div className="md:flex hidden" style={{
-          borderTop: "1px solid rgba(255,255,255,0.07)",
-          padding: "30px 32px 20px",
-          // width: '100%',
-          flexWrap: "wrap",
-          justifyContent: "space-center", alignItems: "center",
-          gap: 10,
+          justifyContent: "space-center", alignItems: "center"
         }}>
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, color: "rgba(255,255,255,0.3)", letterSpacing: "0.06em" }}>
-            2026 TAPTIPTUP.COM — ALL RIGHTS RESERVED - PLATFORM DONATE LOCAL
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, color: "white", letterSpacing: "0.06em" }}>
+            2026 TAPTIPTUP.COM — ALL RIGHTS RESERVED
           </span>
-          {/* <span className="relative top-[0px] text-[9px] text-slate-500">/</span> */}
         </div>
+        
+        <a href="/privacy-policy" className="md:block hidden" style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, color: "white", letterSpacing: "0.1em", textDecoration: "none" }}>
+          KEBIJAKAN PRIVASI TAPTIPTUP
+        </a>
+
       </footer>
 
       {/* ==================== INTRO MODAL ==================== */}
