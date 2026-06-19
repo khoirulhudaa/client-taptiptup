@@ -1187,7 +1187,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                 <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                   Periode Penghitungan Donasi
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-3">
                   {[
                     { id: 'alltime',   label: '⏳ Semua Waktu', desc: 'Total sejak awal' },
                     { id: 'today',     label: '📅 Hari Ini',    desc: 'Donasi hari ini' },
