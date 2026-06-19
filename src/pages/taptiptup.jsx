@@ -2081,7 +2081,8 @@ export function OverlayCustomizer({ C }) {
           ].map(m => (
             <button key={m.id} onClick={() => setPreviewMode(m.id)}
               style={{
-                padding: "10px 20px", borderRadius: 12,
+                padding: "12px 20px", 
+                borderRadius: 12,
                 minWidth: 170,
                 border: previewMode === m.id ? "2px solid azure" : "1.5px solid rgba(255,255,255",
                 background: previewMode === m.id ? "azure" : "rgba(255,255,255,.06)",
