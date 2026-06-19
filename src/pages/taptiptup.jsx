@@ -1150,7 +1150,7 @@ function FeeComparison({ C }) {
                     top: 10,
                     right: -22,
                     width: 90,
-                    background: '#1e40af',
+                    background: '#0d2b45',
                     color: '#fff',
                     textAlign: 'center',
                     fontFamily: "'Space Mono', monospace",
