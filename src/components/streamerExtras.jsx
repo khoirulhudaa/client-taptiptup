@@ -1197,15 +1197,15 @@ export const MilestonesManager = ({ overlayToken }) => {
                       key={p.id}
                       type="button"
                       onClick={() => upd(i, 'period', p.id)}
-                      className={`cursor-pointer active:scale-[0.99] p-3 rounded-xl border-2 text-left font-black text-xs transition-all ${
+                      className={`cursor-pointer active:scale-[0.99] p-3 py-4 rounded-xl border-2 text-left font-black text-xs transition-all ${
                         (m.period || 'alltime') === p.id
                           ? 'border-green-500 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300'
                           : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
                       }`}
                     >
-                      {p.label}
-                      <br/>
-                      <span className="font-medium text-[10px] text-slate-400 dark:text-slate-500">{p.desc}</span>
+                      <p className='relative top-[1.6px]'>
+                        {p.label}
+                      </p>
                     </button>
                   ))}
                 </div>
