@@ -630,11 +630,10 @@ function OverlayCustom({ C }) {
 
   return (
     <section
-      className="bg-blue-900 relative overflow-hidden flex flex-col justify-center items-center"
-      style={{ padding: "55px 0"}}
+      className="bg-blue-900 relative overflow-hidden flex md:!py-[55px] !py-[64px] flex-col justify-center items-center"
     >
       {/* Grid bg */}
-      <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+      {/* <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="overlay-grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -643,7 +642,7 @@ function OverlayCustom({ C }) {
           </defs>
           <rect width="100%" height="100%" fill="url(#overlay-grid)" />
         </svg>
-      </div>
+      </div> */}
 
       <div className="relative w-[90vw] md:w-[82vw] mx-auto" style={{ zIndex: 10 }}>
 
@@ -747,13 +746,10 @@ function NominalSection({ C }) {
 
   return (
     <section
-      className="bg-blue-900 relative overflow-hidden flex flex-col justify-center items-center"
-      style={{ 
-        padding: "50px 0", 
-      }}
+      className="bg-blue-900 relative overflow-hidden flex md:!py-[50px] !py-[20px] flex-col justify-center items-center"
     >
       {/* Grid bg */}
-      <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
+      {/* <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="nominal-grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -762,7 +758,7 @@ function NominalSection({ C }) {
           </defs>
           <rect width="100%" height="100%" fill="url(#nominal-grid)" />
         </svg>
-      </div>
+      </div> */}
 
       <div className="relative w-[90vw] mx-auto" style={{ zIndex: 10 }}>
 
@@ -792,7 +788,7 @@ function NominalSection({ C }) {
         <div className="flex flex-col md:flex-row gap-6 items-stretch mb-10">
 
           {/* KIRI — Mode Nominal */}
-          <div className="flex-1 rounded-xl overflow-hidden"
+          <div className="flex-1 rounded-xl overflow-hidden h-[634px]"
             style={{ border: "1px solid #e2e8f0", background: "azure" }}>
 
             {/* Header tab */}
@@ -807,76 +803,80 @@ function NominalSection({ C }) {
               </div>
             </div>
 
-            <div style={{ padding: "24px 20px" }}>
-              {/* Nama */}
-              <div style={{ marginBottom: 14 }}>
-                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NAMA DONATUR</div>
+            <div style={{ padding: "24px 20px" }} className="w-full h-full flex flex-col justify-between">
+              <div className="w-full h-[84%]">
+                {/* Nama */}
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NAMA DONATUR</div>
+                  <div style={{
+                    background: "#f8fafc", border: "1px solid #0d2b45",
+                    borderRadius: 8, padding: "10px 14px",
+                    fontFamily: "'Space Grotesk',sans-serif", fontSize: 14, color: "#000",
+                  }}>
+                    RizkyGamer99 🎮
+                  </div>
+                </div>
+
+                {/* Input nominal */}
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NOMINAL — KETIK BEBAS</div>
+                  <div style={{
+                    background: "white", borderRadius: 8, padding: "12px 16px",
+                    border: '1px solid #0d2b45',
+                    display: "flex", justifyContent: "space-between", alignItems: "center",
+                  }}>
+                    <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 28, color: "black", lineHeight: 1, position: 'relative', top: 2 }}>Rp 1.275.000</span>
+                  </div>
+                </div>
+
+                {/* Quick pick nominal */}
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 8 }}>ATAU PILIH CEPAT</div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {["Rp 1rb", "Rp 5rb", "Rp 10rb", "Rp 25rb", "Rp 50rb", "Rp 100rb"].map((v, i) => (
+                      <div key={v} style={{
+                        padding: "6px 12px", borderRadius: 6,
+                        background: i === 4 ? "#99FFFF" : "#f1f5f9",
+                        border: i === 4 ? "1px solid #99FFFF" : "1px solid #0d2b45",
+                        fontFamily: "'Space Mono',monospace", fontSize: 11,
+                        color: "#000",
+                        cursor: "pointer",
+                      }}>
+                        {v}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Pesan */}
+                <div style={{ marginBottom: 20 }}>
+                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>PESAN</div>
+                  <div style={{
+                    background: "#f8fafc", border: "1px solid #0d2b45",
+                    borderRadius: 8, 
+                    height: '190.5px',
+                    padding: "10px 14px",
+                    fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, color: "#000",
+                  }}>
+                    "GG bang, mainnya mantap! 🔥"
+                  </div>
+                </div>
+              </div>
+              
+              <div className="w-full h-[16%]">
                 <div style={{
-                  background: "#f8fafc", border: "1px solid #0d2b45",
-                  borderRadius: 8, padding: "10px 14px",
-                  fontFamily: "'Space Grotesk',sans-serif", fontSize: 14, color: "#000",
+                  background: "#0d2b45", borderRadius: 8, padding: "13px",
+                  textAlign: "center", fontFamily: "'Space Grotesk',sans-serif",
+                  fontWeight: 700, fontSize: 13, color: "white", cursor: "pointer",
                 }}>
-                  RizkyGamer99 🎮
+                  Bayar via QRIS / Transfer →
                 </div>
-              </div>
-
-              {/* Input nominal */}
-              <div style={{ marginBottom: 14 }}>
-                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NOMINAL — KETIK BEBAS</div>
-                <div style={{
-                  background: "white", borderRadius: 8, padding: "12px 16px",
-                  border: '1px solid #0d2b45',
-                  display: "flex", justifyContent: "space-between", alignItems: "center",
-                }}>
-                  <span style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 28, color: "black", lineHeight: 1, position: 'relative', top: 2 }}>Rp 1.275.000</span>
-                </div>
-              </div>
-
-              {/* Quick pick nominal */}
-              <div style={{ marginBottom: 14 }}>
-                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 8 }}>ATAU PILIH CEPAT</div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                  {["Rp 1rb", "Rp 5rb", "Rp 10rb", "Rp 25rb", "Rp 50rb", "Rp 100rb"].map((v, i) => (
-                    <div key={v} style={{
-                      padding: "6px 12px", borderRadius: 6,
-                      background: i === 4 ? "#99FFFF" : "#f1f5f9",
-                      border: i === 4 ? "1px solid #99FFFF" : "1px solid #0d2b45",
-                      fontFamily: "'Space Mono',monospace", fontSize: 11,
-                      color: "#000",
-                      cursor: "pointer",
-                    }}>
-                      {v}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Pesan */}
-              <div style={{ marginBottom: 20 }}>
-                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>PESAN</div>
-                <div style={{
-                  background: "#f8fafc", border: "1px solid #0d2b45",
-                  borderRadius: 8, 
-                  height: '190.5px',
-                  padding: "10px 14px",
-                  fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, color: "#000",
-                }}>
-                  "GG bang, mainnya mantap! 🔥"
-                </div>
-              </div>
-
-              <div style={{
-                background: "#0d2b45", borderRadius: 8, padding: "13px",
-                textAlign: "center", fontFamily: "'Space Grotesk',sans-serif",
-                fontWeight: 700, fontSize: 13, color: "white", cursor: "pointer",
-              }}>
-                Bayar via QRIS / Transfer →
               </div>
             </div>
           </div>
 
           {/* KANAN — Mode Item */}
-          <div className="flex-1 rounded-xl overflow-hidden"
+          <div className="flex-1 rounded-xl overflow-hidden h-[634px]"
             style={{ border: "1px solid #e2e8f0", background: "azure" }}>
 
             {/* Header tab */}
@@ -891,79 +891,84 @@ function NominalSection({ C }) {
               </div>
             </div>
 
-            <div style={{ padding: "20px" }}>
-              {/* Nama */}
-              <div style={{ marginBottom: 14 }}>
-                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NAMA DONATUR</div>
+            <div style={{ padding: "24px 20px" }} className="w-full h-full flex flex-col justify-between">
+
+              <div className="w-full h-[84%]">
+                {/* Nama */}
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>NAMA DONATUR</div>
+                  <div style={{
+                    background: "#f8fafc", border: "1px solid #0d2b45",
+                    borderRadius: 8, padding: "10px 14px",
+                    fontFamily: "'Space Grotesk',sans-serif", fontSize: 14, color: "#000",
+                  }}>
+                    SultanStream 👑
+                  </div>
+                </div>
+
+                {/* Grid item */}
+                <div style={{ marginBottom: 14 }}>
+                  {/* <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 8 }}>PILIH ITEM</div> */}
+                  <div className="grid grid-cols-4 gap-2">
+                    {ITEMS_GIFT.map((item, i) => (
+                      <div key={item.name} style={{
+                        borderRadius: 8, padding: "10px 6px",
+                        background: i === 0 ? "#99FFFF" : "#f8fafc",
+                        border: i === 0 ? "1px solid #0d2b45" : "1px solid #0d2b45",
+                        textAlign: "center", cursor: "pointer",
+                      }}>
+                        <div style={{ fontSize: 22, marginBottom: 4 }}>{item.emoji}</div>
+                        <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 10, fontWeight: 700, color: "#000", marginBottom: 2 }}>{item.name}</div>
+                        <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000" }}>{item.price}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Jumlah item */}
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>JUMLAH</div>
+                  <div style={{ display: "flex", gap: 6 }}>
+                    {["×1", "×3", "×5", "×10", "×20"].map((v, i) => (
+                      <div key={v} style={{
+                        flex: 1, padding: "8px 0", textAlign: "center", borderRadius: 6,
+                        background: i === 2 ? "#99FFFF" : "#f1f5f9",
+                        border: i === 2 ? "1px solid #0d2b45" : "1px solid #0d2b45",
+                        fontFamily: "'Bebas Neue',sans-serif", fontSize: 16,
+                        color: "#000",
+                        cursor: "pointer",
+                      }}>
+                        {v}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Total */}
                 <div style={{
-                  background: "#f8fafc", border: "1px solid #0d2b45",
-                  borderRadius: 8, padding: "10px 14px",
-                  fontFamily: "'Space Grotesk',sans-serif", fontSize: 14, color: "#000",
+                  background: "#f0fffe", border: "1px solid #0d2b45",
+                  borderRadius: 8, padding: "12px 16px", marginBottom: 16,
+                  display: "flex", justifyContent: "space-between", alignItems: "center",
                 }}>
-                  SultanStream 👑
+                  <div>
+                    <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.06em", marginBottom: 4 }}>TOTAL DIKIRIM</div>
+                    <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 22, color: "#000", lineHeight: 1 }}>💎 Diamond ×5</div>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.06em", marginBottom: 4 }}>NILAI</div>
+                    <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 22, color: "#000", lineHeight: 1 }}>Rp 50.000</div>
+                  </div>
                 </div>
               </div>
 
-              {/* Grid item */}
-              <div style={{ marginBottom: 14 }}>
-                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 8 }}>PILIH ITEM</div>
-                <div className="grid grid-cols-4 gap-2">
-                  {ITEMS_GIFT.map((item, i) => (
-                    <div key={item.name} style={{
-                      borderRadius: 8, padding: "10px 6px",
-                      background: i === 0 ? "#99FFFF" : "#f8fafc",
-                      border: i === 0 ? "1px solid #0d2b45" : "1px solid #0d2b45",
-                      textAlign: "center", cursor: "pointer",
-                    }}>
-                      <div style={{ fontSize: 22, marginBottom: 4 }}>{item.emoji}</div>
-                      <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 10, fontWeight: 700, color: "#000", marginBottom: 2 }}>{item.name}</div>
-                      <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000" }}>{item.price}</div>
-                    </div>
-                  ))}
+              <div className="w-full h-[16%]">
+                <div style={{
+                  background: "#0d2b45", borderRadius: 8, padding: "13px",
+                  textAlign: "center", fontFamily: "'Space Grotesk',sans-serif",
+                  fontWeight: 700, fontSize: 13, color: "white", cursor: "pointer",
+                }}>
+                  Kirim Item via QRIS / Transfer →
                 </div>
-              </div>
-
-              {/* Jumlah item */}
-              <div style={{ marginBottom: 14 }}>
-                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 7 }}>JUMLAH</div>
-                <div style={{ display: "flex", gap: 6 }}>
-                  {["×1", "×3", "×5", "×10", "×20"].map((v, i) => (
-                    <div key={v} style={{
-                      flex: 1, padding: "8px 0", textAlign: "center", borderRadius: 6,
-                      background: i === 2 ? "#99FFFF" : "#f1f5f9",
-                      border: i === 2 ? "1px solid #0d2b45" : "1px solid #0d2b45",
-                      fontFamily: "'Bebas Neue',sans-serif", fontSize: 16,
-                      color: "#000",
-                      cursor: "pointer",
-                    }}>
-                      {v}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Total */}
-              <div style={{
-                background: "#f0fffe", border: "1px solid #0d2b45",
-                borderRadius: 8, padding: "12px 16px", marginBottom: 16,
-                display: "flex", justifyContent: "space-between", alignItems: "center",
-              }}>
-                <div>
-                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.06em", marginBottom: 4 }}>TOTAL DIKIRIM</div>
-                  <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 22, color: "#000", lineHeight: 1 }}>💎 Diamond ×5</div>
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.06em", marginBottom: 4 }}>NILAI</div>
-                  <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 22, color: "#000", lineHeight: 1 }}>Rp 50.000</div>
-                </div>
-              </div>
-
-              <div style={{
-                background: "#0d2b45", borderRadius: 8, padding: "13px",
-                textAlign: "center", fontFamily: "'Space Grotesk',sans-serif",
-                fontWeight: 700, fontSize: 13, color: "#99FFFF", cursor: "pointer",
-              }}>
-                Kirim Item via QRIS / Transfer →
               </div>
             </div>
           </div>
@@ -985,7 +990,7 @@ function FeeComparison({ C }) {
     <section id="biaya" className="flex flex-col bg-blue-900 justify-center items-center relative overflow-hidden"
       style={{ 
         transition: "border-color 0.4s",
-        padding: '50px 0px 60px 0px',           // mobile
+        padding: '40px 0px 60px 0px',           // mobile
         '@media (maxWidth: 768px)': {           // md breakpoint
           padding: '20px 0px 30px 0px'
         }
@@ -1543,7 +1548,7 @@ export default function TapTipTup() {
       <FeeComparison C={C} /> 
       <NominalSection C={C} />
       <OverlayCustom C={C} />
-      <section className="w-screen md:!min-h-[70vh] !pb-20 !pt-14 flex flex-col justify-center items-center bg-blue-900 !px-[20px] gap-6 relative overflow-hidden">
+      <section className="w-screen md:!min-h-[70vh] !pb-20 !pt-7 md:!pt-14 flex flex-col justify-center items-center bg-blue-900 !px-[20px] gap-6 relative overflow-hidden">
 
         <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
