@@ -56,26 +56,26 @@ function StaggerItem({ children, className, style }) {
 }
 
 const FEATURES = [
-  { num: "01", ico: "🎨", name: "Overlay OBS Kustom", desc: "Alert Dukungan tampil langsung di stream. Tema modern, classic, atau minimal dengan animasi dan warna sesukamu." },
-  { num: "02", ico: "🔊", name: "Suara per Nominal", desc: "Sultan dapat sound kenceng! Atur efek suara berbeda untuk setiap tier Dukungan. 16+ preset siap pakai." },
-  { num: "03", ico: "🛡️", name: "Filter Kata Terlarang", desc: "Blokir, sensor, atau ganti kata tidak pantas otomatis. Jagain konten tetap aman dan profesional." },
-  { num: "04", ico: "🎯", name: "Milestones & Goals", desc: "Tampilkan progress target Dukungan di OBS. Donor bisa lihat seberapa dekat goal tercapai." },
-  { num: "05", ico: "🖼️", name: "Media Alert", desc: "Izinkan donor kirim gambar atau video saat Dukungan mencapai nominal tertentu. Sultan alert yang epic." },
-  { num: "06", ico: "🗳️", name: "Poll & Subathon", desc: "Voting live untuk penonton dan timer subathon yang bertambah otomatis setiap ada Dukungan masuk." },
-  { num: "07", ico: "🏆", name: "Leaderboard", desc: "Tampilkan top donor di overlay OBS. Gamifikasi Dukungan bikin penonton makin kompetitif dan seru." },
-  { num: "08", ico: "👥", name: "Streamer Community", desc: "Temukan dan follow sesama streamer. Bangun network, kolaborasi, dan berkembang bersama." },
+  { num: "01", ico: "🎨", name: "Overlay OBS Kustom", desc: "Alert Dukungan tampil langsung di stream. Tema modern, classic, atau minimal dengan animasi dan warna sesukamu" },
+  { num: "02", ico: "🔊", name: "Suara per Nominal", desc: "Suara notif donasi masuk! Atur efek suara berbeda untuk setiap tier Dukungan. 16+ preset siap pakai" },
+  { num: "03", ico: "🛡️", name: "Filter Kata Terlarang", desc: "Blokir, sensor, atau ganti kata tidak pantas otomatis. Jagain konten tetap aman dan profesional" },
+  { num: "04", ico: "🎯", name: "Milestones & Goals", desc: "Tampilkan progress target Dukungan di OBS. Donor bisa lihat seberapa dekat goal tercapai" },
+  { num: "05", ico: "🖼️", name: "Media Alert", desc: "Izinkan donor kirim gambar atau video saat Dukungan mencapai nominal tertentu. Sultan alert yang epic" },
+  { num: "06", ico: "🗳️", name: "Poll & Subathon", desc: "Voting live untuk penonton dan timer subathon yang bertambah otomatis setiap ada Dukungan masuk" },
+  { num: "07", ico: "🏆", name: "Leaderboard", desc: "Tampilkan top donor di overlay OBS. Gamifikasi Dukungan bikin penonton makin kompetitif dan seru" },
+  { num: "08", ico: "👥", name: "Streamer Community", desc: "Temukan dan follow sesama streamer. Bangun network, kolaborasi, dan berkembang bersama" },
 ];
 
 const HOW_IT_WORKS = [
-  { num: "01", ico: "🚀", title: "Daftar Gratis", desc: "Buat akun dalam hitungan detik. Tidak perlu kartu kredit apapun." },
-  { num: "02", ico: "🎨", title: "Konfigurasi Overlay", desc: "Pilih tema, warna, animasi, dan atur suara sesuai brand stream-mu." },
-  { num: "03", ico: "📺", title: "Pasang di OBS", desc: "Copy URL overlay, tambahkan sebagai Browser Source di OBS Studio." },
+  { num: "01", ico: "🚀", title: "Daftar Gratis", desc: "Buat akun dalam hitungan detik. Tidak perlu kartu kredit apapun" },
+  { num: "02", ico: "🎨", title: "Konfigurasi Overlay", desc: "Pilih tema, warna, animasi, dan atur suara sesuai brand stream-mu" },
+  { num: "03", ico: "📺", title: "Pasang di OBS", desc: "Copy URL overlay, tambahkan sebagai Browser Source di OBS Studio" },
   { num: "04", ico: "💸", title: "Terima Dukungan", desc: "Donor bayar via QRIS atau transfer — alert langsung muncul di stream!" },
 ];
 
 const TESTIMONIALS = [
   { avatar: "R", avatarBg: "#7c5cbf", avatarColor: "#fff", name: "@ZulionZX", role: "Coding Streamer", text: '"Setup-nya gampang banget, 5 menit udah live. Alert-nya keren dan donatur makin semangat karena ada leaderboard!"', statNum: "2026", statLabel: "tahun ini" },
-  { avatar: "S", avatarBg: "#e05a3a", avatarColor: "#fff", name: "@Krigatsu", role: "Gaming Streamer", text: '"Fitur filter kata terlarang beneran ngebantu banget. Streamku jadi lebih aman dan aku bisa fokus main."', statNum: "2026", statLabel: "tahun ini" },
+  { avatar: "S", avatarBg: "#e05a3a", avatarColor: "#fff", name: "@Krigatsu", role: "Gaming Streamer", text: '"Fitur filter kata terlarang beneran ngebantu banget. Streamku jadi lebih aman dan aku bisa fokus main"', statNum: "2026", statLabel: "tahun ini" },
   { avatar: "B", avatarBg: 'white', avatarColor: "#080808", name: "@MinusGamdes", role: "Music Streamer", text: '"Sound tier sultan pakai efek beda — penonton jadi pengen Dukungan lebih gede biar dapat sound kenceng!"', statNum: "2026", statLabel: "tahun ini" },
 ];
 
@@ -714,9 +714,9 @@ const PLATFORMS = [
 
 function OverlayCustom({ C }) {
   const ITEMS = [
-    { title: "Kustom Tema & Warna", desc: "Pilih 4 tema berbeda. Ubah warna, font, dan animasi sesuai brand stream-mu." },
-    { title: "Suara per Nominal", desc: "Sultan dapat sound kenceng! 16+ preset audio, atur sendiri tiap tier Dukungan." },
-    { title: "Posisi & Ukuran Bebas", desc: "Drag & drop posisi alert, goal bar, dan leaderboard langsung dari dashboard." },
+    { title: "Kustom Tema & Warna", desc: "Pilih 4 tema berbeda. Ubah warna, font, dan animasi sesuai brand stream-mu" },
+    { title: "Suara per Nominal", desc: "Sultan dapat sound kenceng! 16+ preset audio, atur sendiri tiap tier Dukungan" },
+    { title: "Posisi & Ukuran Bebas", desc: "Drag & drop posisi alert, goal bar, dan leaderboard langsung dari dashboard" },
   ];
 
   const TAGS = ["OBS Studio", "Streamlabs OBS", "YouTube Live", "TikTok Live", "Twitch", "Facebook Gaming", "Instagram Live"];
@@ -1382,35 +1382,35 @@ const SHARE_TEMPLATES = {
 const FAQ_DATA = [
   {
     q: "Saweria itu apa? Bedanya sama TapTipTup?",
-    a: "Saweria adalah platform Dukungan lokal yang sudah ada lebih dulu. TapTipTup hadir dengan potongan lebih kecil — hanya 3.0% — dibanding Saweria yang memotong 5%. Fitur kami juga lebih lengkap: Auto-inject OBS, leaderboard, poll live, subathon timer, dan sound tier kustom.",
+    a: "Saweria adalah platform Dukungan lokal yang sudah ada lebih dulu. TapTipTup hadir dengan potongan lebih kecil — hanya 3.0% — dibanding Saweria yang memotong 5%. Fitur kami juga lebih lengkap: Auto-inject OBS, leaderboard, poll live, subathon timer, dan sound tier kustom",
   },
   {
     q: "Apakah saya bisa menggunakan TapTipTup tanpa live streaming?",
-    a: "Tentu bisa! Dukungan masuk ke akun kamu meskipun kamu tidak sedang live. Semua riwayat Dukungan bisa dicek di menu Transaksi kapan saja.",
+    a: "Tentu bisa! Dukungan masuk ke akun kamu meskipun kamu tidak sedang live. Semua riwayat Dukungan bisa dicek di menu Transaksi kapan saja",
   },
   {
     q: "Platform live streaming apa saja yang bisa diintegrasikan?",
-    a: "TapTipTup terintegrasi dengan semua software broadcasting yang mendukung Browser Source, seperti OBS Studio dan Streamlabs OBS (SLOBS). Bisa dipakai untuk YouTube Live, TikTok Live, Twitch, Facebook Gaming, dan Instagram Live.",
+    a: "TapTipTup terintegrasi dengan semua software broadcasting yang mendukung Browser Source, seperti OBS Studio dan Streamlabs OBS (SLOBS). Bisa dipakai untuk YouTube Live, TikTok Live, Twitch, Facebook Gaming, dan Instagram Live",
   },
   {
     q: "Berapa minimal Dukungan dan minimal penarikan dana?",
-    a: "Minimal Dukungan adalah Rp 1.000. Minimal penarikan dana adalah Rp 20.000. Biaya penarikan hanya Rp 4.000 — lebih murah dari platform lain.",
+    a: "Minimal Dukungan adalah Rp 1.000. Minimal penarikan dana adalah Rp 20.000. Biaya penarikan hanya Rp 4.000 — lebih murah dari platform lain",
   },
   {
     q: "Berapa lama proses konfirmasi Dukungan sampai bisa dicairkan?",
-    a: "Memakan waktu 2 hari kerja untuk konfirmasi oleh Payment Gateway. Setelah itu saldo bertambah dan siap dicairkan. Contoh: Dukungan masuk 10 Januari jam 12.00 WIB, dana bisa dicairkan 12 Januari jam 12.00 WIB.",
+    a: "Memakan waktu 2 hari kerja untuk konfirmasi oleh Payment Gateway. Setelah itu saldo bertambah dan siap dicairkan. Contoh: Dukungan masuk 10 Januari jam 12.00 WIB, dana bisa dicairkan 12 Januari jam 12.00 WIB",
   },
   {
     q: "Apakah dana Dukungan yang sudah dikirim bisa ditarik kembali?",
-    a: "Tidak. Dana Dukungan yang sudah dikirimkan tidak dapat ditarik kembali. Pastikan kamu sudah yakin sebelum mengirim Dukungan.",
+    a: "Tidak. Dana Dukungan yang sudah dikirimkan tidak dapat ditarik kembali. Pastikan kamu sudah yakin sebelum mengirim Dukungan",
   },
   {
     q: "Biaya apa saja yang dipotong dari Dukungan yang masuk?",
-    a: "Potongan platform TapTipTup hanya 3.0% dari setiap Dukungan. Biaya penarikan semua metode hanya sebesar Rp 4.000 saja. Tidak ada biaya tersembunyi lainnya.",
+    a: "Potongan platform TapTipTup hanya 3.0% dari setiap Dukungan. Biaya penarikan semua metode hanya sebesar Rp 4.000 saja. Tidak ada biaya tersembunyi lainnya",
   },
   {
     q: "Bagaimana cara memasang overlay TapTipTup di OBS?",
-    a: "Masuk ke dashboard, salin URL overlay yang tersedia, lalu tambahkan sebagai Browser Source di OBS Studio. Prosesnya tidak lebih dari 5 menit. Tersedia video tutorial lengkap di halaman tutorial kami.",
+    a: "Masuk ke dashboard, salin URL overlay yang tersedia, lalu tambahkan sebagai Browser Source di OBS Studio. Prosesnya tidak lebih dari 5 menit. Tersedia video tutorial lengkap di halaman tutorial kami",
   },
 ];
 
