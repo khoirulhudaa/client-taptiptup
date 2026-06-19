@@ -842,7 +842,7 @@ function NominalSection({ C }) {
 
   return (
     <section
-      className="bg-blue-900 relative overflow-hidden flex md:!py-[50px] !py-[20px] !pt-[50px] flex-col justify-center items-center"
+      className="bg-blue-900 relative overflow-hidden flex md:!py-[50px] !py-[20px] !pt-[0px] flex-col justify-center items-center"
     >
       {/* Grid bg */}
       <div className="select-none hidden md:flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
@@ -1083,7 +1083,7 @@ function FeeComparison({ C }) {
   const maxFee = Math.max(...PLATFORMS.map(p => p.fee));
 
   return (
-    <section id="biaya" className="md:!pt-[40px] md:!px-0 md:!pb-[60px] flex flex-col bg-blue-900 justify-center items-center relative overflow-hidden"
+    <section id="biaya" className="md:!pt-[40px] !pt-[10px] md:!px-0 md:!pb-[60px] flex flex-col bg-blue-900 justify-center items-center relative overflow-hidden"
       style={{ 
         transition: "border-color 0.4s",
         // padding: '40px 0px 60px 0px',           // mobile
@@ -2052,7 +2052,7 @@ export function OverlayCustomizer({ C }) {
   };
  
   return (
-    <section className="bg-blue-900 relative overflow-hidden" style={{ padding: "64px 0 80px" }}>
+    <section className="bg-blue-900 relative overflow-hidden md:!pb-[80px] !pb-[56px]" style={{ padding: "64px 0 80px" }}>
       <div className="select-none hidden md:flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -2098,12 +2098,12 @@ export function OverlayCustomizer({ C }) {
         <div className="overlay-builder-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 20, alignItems: "start" }}>
  
           {/* ── KIRI: Controls ── */}
-          <Reveal x={-40} y={0} delay={0.05} style={{ background: "azure", borderRadius: 14, padding: 16, display: "flex", flexDirection: "column", gap: 12 }}>
+          <Reveal x={-40} y={0} delay={0.05} className='md:p-[16px] !p-[6px] !py-[17px] w-[90vw]' style={{ background: "azure", borderRadius: 14, display: "flex", flexDirection: "column", gap: 12 }}>
  
             {/* Tema */}
             <div style={ctrlCard}>
               <span style={sectionLabel}>Tema Alert</span>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+              <div className="grid-cols-1 md:grid-cols-2" style={{ display: "grid", gap: 8 }}>
                 {THEMES2.map(t => (
                   <button key={t.id} onClick={() => upd("theme", t.id)}
                     style={{
@@ -2167,7 +2167,7 @@ export function OverlayCustomizer({ C }) {
             ) : (
               <div style={ctrlCard}>
                 <span style={sectionLabel}>Pilih Media</span>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 8 }}>
+                <div className="md:!grid-cols-4 !grid-cols-2" style={{ display: "grid", gap: 8 }}>
                   {MEDIA_PRESETS.map(m => (
                     <button key={m.url} onClick={() => upd("mediaUrl", m.url)}
                       className="h-[96px] w-full"
@@ -2218,8 +2218,8 @@ export function OverlayCustomizer({ C }) {
           </Reveal>
  
           {/* ── KANAN: Preview OBS ── */}
-          <Reveal x={40} y={0} delay={0.15} className="h-full" style={{ background: "rgba(0,0,0,.25)", borderRadius: 14, overflow: "hidden", position: "sticky", top: 100 }}>
-            <div style={{ position: "relative", height: '100%', background: "azure", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+          <Reveal x={40} y={0} delay={0.15} className="h-full md:!bg-[rgba(0,0,0,.25)] !bg-transparent" style={{ borderRadius: 14, overflow: "hidden", position: "sticky", top: 100 }}>
+            <div className="md:!bg-[azure] !bg-transparent" style={{ position: "relative", height: '100%', display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
               <div style={obsGridStyle} />
               <div style={{ position: "relative", zIndex: 10, maxWidth: '100%' }}>
                 {previewMode === "alert"
@@ -2441,7 +2441,7 @@ export default function TapTipTup() {
           borderTop: `1px solid rgba(255,255,255,0.08)`,
         }}>
 
-        <Reveal className="w-full md:max-w-max md:!pb-[0px] !pb-5 text-center flex  justify-center items-center">
+        <div className="w-full md:max-w-max md:!pb-[0px] !pb-5.5 text-center flex  justify-center items-center">
           {/* Kolom 1 — Brand */}
           <div className="w-full flex items-center justify-center md:pt-0 !pt-[1.5px] md:justify-between mx-auto text-center text-[11px] md:text-[12px]">
             <div 
@@ -2452,7 +2452,7 @@ export default function TapTipTup() {
               SIARAN LANGSUNG PAKAI TAPTIPTUP
             </div>
           </div>
-        </Reveal>
+        </div>
        
         {/* Bottom bar */}
         <div className="md:flex hidden" style={{
