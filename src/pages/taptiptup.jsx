@@ -670,7 +670,8 @@ function OverlayCustom({ C }) {
 
         {/* ── CARDS ── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-xl overflow-hidden !mt-8"
-          style={{ border: "1px solid rgba(255,255,255,0.12)" }}>
+          // style={{ border: "1px solid rgba(255,255,255,0.12)" }}
+          >
           {ITEMS.map((item, i) => {
             const isLast = i === PLATFORMS.length - 1;
             return (
@@ -1659,11 +1660,10 @@ export default function TapTipTup() {
           >
 
           {/* Kolom 1 — Brand */}
-          <div className="w-full flex items-center justify-between mx-auto text-center text-[28px] md:text-[12px]">
+          <div className="w-full flex items-center justify-center md:pt-0 !pt-[1.5px] md:justify-between mx-auto text-center text-[16px] md:text-[12px]">
             <div 
             style={{
               fontFamily: "'Space Mono', sans-serif",
-              // letterSpacing: "0.4em",
               color: "white",
             }}>
               TAPTIPTUP UNTUK STREAMER LOKAL
