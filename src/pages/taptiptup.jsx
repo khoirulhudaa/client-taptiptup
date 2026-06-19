@@ -1132,8 +1132,9 @@ function FeeComparison({ C }) {
 
             return (
               <div key={p.name}
-                className={`${p.winner ? "bg-blue-900" : "bg-transparent"}`}
                 style={{
+                  position: 'relative',
+                  overflow: 'hidden',   // ← wajib agar pita terpotong rapi
                   padding: "24px 24px",
                   borderRadius: 10,
                   borderBottom: isMobile ? `1px solid ${C.line}` : "none",
@@ -1141,6 +1142,29 @@ function FeeComparison({ C }) {
                   border: '1px solid #ffffff80',
                   transition: "all 0.4s",
                 }}>
+
+                {/* Ribbon hanya di kartu ke-2 */}
+                {i === 1 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 10,
+                    right: -22,
+                    width: 90,
+                    background: '#1e40af',
+                    color: '#fff',
+                    textAlign: 'center',
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: 9,
+                    fontWeight: 500,
+                    letterSpacing: '0.08em',
+                    padding: '7.5px 0 5px 0',
+                    transform: 'rotate(45deg)',
+                    textTransform: 'uppercase',
+                    zIndex: 10,
+                  }}>
+                    Terbaik
+                  </div>
+                )}
                 <div style={{ fontSize: 24, fontWeight: 700, color: "#000000", marginBottom: 28, marginTop: 6, fontFamily: "'Space Grotesk',sans-serif" }}>
                   {p.name}
                 </div>
