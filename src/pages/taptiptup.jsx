@@ -1086,8 +1086,7 @@ function FeeComparison({ C }) {
     <section id="biaya" className="md:!pt-[40px] !pt-[10px] md:!px-0 md:!pb-[60px] flex flex-col bg-blue-900 justify-center items-center relative overflow-hidden"
       style={{ 
         transition: "border-color 0.4s",
-        // padding: '40px 0px 60px 0px',           // mobile
-        '@media (maxWidth: 768px)': {           // md breakpoint
+        '@media (maxWidth: 768px)': {          
           padding: '10px 0px 30px 0px'
         }
       }}>
@@ -2098,7 +2097,7 @@ export function OverlayCustomizer({ C }) {
         <div className="overlay-builder-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 20, alignItems: "start" }}>
  
           {/* ── KIRI: Controls ── */}
-          <Reveal x={-40} y={0} delay={0.05} className='md:p-[16px] !p-[6px] !py-[17px] w-[90vw]' style={{ background: "azure", borderRadius: 14, display: "flex", flexDirection: "column", gap: 12 }}>
+          <Reveal x={-40} y={0} delay={0.05} className='md:p-[16px] !p-[6px] !py-[17px] md:!w-full !w-[90vw]' style={{ background: "azure", borderRadius: 14, display: "flex", flexDirection: "column", gap: 12 }}>
  
             {/* Tema */}
             <div style={ctrlCard}>

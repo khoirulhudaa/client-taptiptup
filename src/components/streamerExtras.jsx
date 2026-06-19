@@ -1118,7 +1118,7 @@ export const MilestonesManager = ({ overlayToken }) => {
   });
 
   const list = local || [];
-  const add    = () => setLocal([...list, { title: '', targetAmount: 1000000, order: list.length }]);
+  const add    = () => setLocal([...list, { title: '', targetAmount: 1000000, order: list.length, period: 'alltime' }]);
   const remove = (i) => setLocal(list.filter((_, idx) => idx !== i));
   const upd    = (i, key, val) => setLocal(list.map((m, idx) => idx === i ? { ...m, [key]: val } : m));
 
@@ -1181,9 +1181,34 @@ export const MilestonesManager = ({ overlayToken }) => {
                   onChange={e => upd(i, 'targetAmount', Number(e.target.value))}
                   className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100"
                 />
-                {/* <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">
-                  Rp {Number(m.targetAmount || 0).toLocaleString('id-ID')}
-                </p> */}
+              </div>
+              {/* Tambah di dalam grid form milestone, setelah input targetAmount */}
+              <div className="space-y-1.5 md:col-span-2">
+                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                  Periode Penghitungan Donasi
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { id: 'alltime',   label: '⏳ Semua Waktu', desc: 'Total sejak awal' },
+                    { id: 'today',     label: '📅 Hari Ini',    desc: 'Donasi hari ini' },
+                    { id: 'thismonth', label: '📆 Bulan Ini',   desc: 'Donasi bulan ini' },
+                  ].map(p => (
+                    <button
+                      key={p.id}
+                      type="button"
+                      onClick={() => upd(i, 'period', p.id)}
+                      className={`cursor-pointer active:scale-[0.99] p-3 rounded-xl border-2 text-left font-black text-xs transition-all ${
+                        (m.period || 'alltime') === p.id
+                          ? 'border-green-500 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300'
+                          : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
+                      }`}
+                    >
+                      {p.label}
+                      <br/>
+                      <span className="font-medium text-[10px] text-slate-400 dark:text-slate-500">{p.desc}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
