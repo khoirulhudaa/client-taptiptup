@@ -690,7 +690,7 @@ function OverlayCustom({ C }) {
                   fontFamily: "'Bebas Neue', sans-serif",
                   fontSize: 26, lineHeight: 1.1,
                   color: "white",
-                  marginBottom: 20,
+                  marginBottom: 30,
                   marginTop: 4
                 }}>
                   {item.title}
@@ -705,7 +705,7 @@ function OverlayCustom({ C }) {
                 <div style={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: 13.5, lineHeight: 1.65,
-                  color: "white",
+                  color: "white", paddingTop: 2
                 }}>
                   {item.desc}
                 </div>
@@ -947,7 +947,7 @@ function NominalSection({ C }) {
                 {/* Total */}
                 <div style={{
                   background: "#f0fffe", border: "1px solid #0d2b45",
-                  borderRadius: 8, padding: "12px 16px", marginBottom: 16,
+                  borderRadius: 8, padding: "21.5px 16px", marginBottom: 16,
                   display: "flex", justifyContent: "space-between", alignItems: "center",
                 }}>
                   <div>
@@ -1090,13 +1090,12 @@ function FeeComparison({ C }) {
                 style={{
                   padding: "24px 24px",
                   borderRadius: 10,
-                  // borderRight: !isLast ? `1px solid black` : "none",
                   borderBottom: isMobile ? `1px solid ${C.line}` : "none",
                   background: "white",
                   border: '1px solid #ffffff80',
                   transition: "all 0.4s",
                 }}>
-                <div style={{ fontSize: 24, fontWeight: 700, color: "#000000", marginBottom: p.winner ? 4 : 0, marginTop: 6, fontFamily: "'Space Grotesk',sans-serif" }}>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "#000000", marginBottom: 28, marginTop: 6, fontFamily: "'Space Grotesk',sans-serif" }}>
                   {p.name}
                 </div>
 
