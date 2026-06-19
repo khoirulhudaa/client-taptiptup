@@ -2012,7 +2012,7 @@ function ColorRow({ label, colorKey, value, onChange }) {
  
 export function OverlayCustomizer({ C }) {
   const [cfg, setCfg] = useState({
-    theme: "modern", bg: "#0d2b45", hl: "#7dd3fc", tx: "#e0f7ff",
+    theme: "smooth", bg: "#0d2b45", hl: "#7dd3fc", tx: "#e0f7ff",
     icon: "❤️", anim: "bounce",
     mediaUrl: MEDIA_PRESETS[0].url, // ← tambahan untuk Media Share
   });
