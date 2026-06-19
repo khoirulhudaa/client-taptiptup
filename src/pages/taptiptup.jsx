@@ -249,8 +249,51 @@ function Hero({ C, isDark }) {
       }}
     >
 
+    {/* Galaxy Stars Decoration (Mobile only) */}
+    <div className="select-none flex md:hidden absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{ position: "absolute", inset: 0 }}>
+        {Array.from({ length: 60 }).map((_, i) => (
+          <circle
+            key={i}
+            cx={`${Math.random() * 100}%`}
+            cy={`${Math.random() * 100}%`}
+            r={Math.random() * 1.4 + 0.3}
+            fill="white"
+            opacity={Math.random() * 0.6 + 0.15}
+            style={{
+              animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 3}s`,
+            }}
+          />
+        ))}
+      </svg>
 
-      {/* Grid Background (Mobile) */}
+      {/* Aurora blob kecil untuk mobile */}
+      <div
+        className="aurora-blob"
+        style={{
+          top: "-15%",
+          left: "-20%",
+          width: "70vw",
+          height: "70vw",
+          background: "radial-gradient(circle, rgba(99,102,241,0.25), transparent 70%)",
+          animationDuration: "16s",
+        }}
+      />
+      <div
+        className="aurora-blob"
+        style={{
+          bottom: "-10%",
+          right: "-25%",
+          width: "65vw",
+          height: "65vw",
+          background: "radial-gradient(circle, rgba(168,85,247,0.2), transparent 70%)",
+          animationDuration: "22s",
+          animationDelay: "-4s",
+        }}
+      />
+    </div>
+
       <div className="select-none hidden md:flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -800,7 +843,7 @@ function NominalSection({ C }) {
               <span style={{ fontSize: 18 }}>💸</span>
               <div className='w-full relative top-[1.6px] flex justify-between items-center'>
                 <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 18, color: "white", lineHeight: 1 }}>MODE NOMINAL</div>
-                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 9, color: "white", letterSpacing: "0.06em" }}>KETIK BERAPA SAJA</div>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 9, color: "white", letterSpacing: "0.06em" }} className="md:flex hidden">KETIK BERAPA SAJA</div>
               </div>
             </div>
 
@@ -888,7 +931,7 @@ function NominalSection({ C }) {
               <span style={{ fontSize: 18 }}>🎁</span>
               <div className='w-full relative top-[1.6px] flex justify-between items-center'>
                 <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 18, color: "white", lineHeight: 1 }}>MODE ITEM / GIFT</div>
-                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 9, color: "rgba(255,255,255,0.7)", letterSpacing: "0.06em" }}>PILIH ITEM, TENTUKAN JUMLAH</div>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 9, color: "rgba(255,255,255,0.7)", letterSpacing: "0.06em" }} className="md:flex hidden">PILIH ITEM, TENTUKAN JUMLAH</div>
               </div>
             </div>
 
