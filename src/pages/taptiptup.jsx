@@ -673,7 +673,7 @@ function OverlayCustom({ C }) {
 
   return (
     <section
-      className="bg-blue-900 relative overflow-hidden flex md:!py-[55px] !py-[64px] flex-col justify-center items-center"
+      className="bg-blue-900 relative overflow-hidden flex md:!py-[55px] !py-[64px] !pt-[35px] flex-col justify-center items-center"
     >
       {/* Grid bg */}
       <div className="select-none hidden md:flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
@@ -792,7 +792,7 @@ function NominalSection({ C }) {
 
   return (
     <section
-      className="bg-blue-900 relative overflow-hidden flex md:!py-[50px] !py-[20px] flex-col justify-center items-center"
+      className="bg-blue-900 relative overflow-hidden flex md:!py-[50px] !py-[20px] !pt-[50px] flex-col justify-center items-center"
     >
       {/* Grid bg */}
       <div className="select-none hidden md:flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
@@ -1033,12 +1033,12 @@ function FeeComparison({ C }) {
   const maxFee = Math.max(...PLATFORMS.map(p => p.fee));
 
   return (
-    <section id="biaya" className="flex flex-col bg-blue-900 justify-center items-center relative overflow-hidden"
+    <section id="biaya" className="md:!pt-[40px] md:!px-0 md:!pb-[60px] flex flex-col bg-blue-900 justify-center items-center relative overflow-hidden"
       style={{ 
         transition: "border-color 0.4s",
-        padding: '40px 0px 60px 0px',           // mobile
+        // padding: '40px 0px 60px 0px',           // mobile
         '@media (maxWidth: 768px)': {           // md breakpoint
-          padding: '20px 0px 30px 0px'
+          padding: '10px 0px 30px 0px'
         }
       }}>
 
@@ -1593,7 +1593,8 @@ export default function TapTipTup() {
       <FeeComparison C={C} /> 
       <NominalSection C={C} />
       <OverlayCustom C={C} />
-      <section className="w-screen md:!min-h-[70vh] !pb-20 !pt-7 md:!pt-14 flex flex-col justify-center items-center bg-blue-900 !px-[20px] gap-6 relative overflow-hidden">
+      
+      <section className="w-screen md:!min-h-[70vh] !pb-20 !pt-0 md:!pt-14 flex flex-col justify-center items-center bg-blue-900 !px-[20px] gap-6 relative overflow-hidden">
 
         <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -1711,7 +1712,7 @@ export default function TapTipTup() {
               fontFamily: "'Space Mono', sans-serif",
               color: "white",
             }}>
-              TAPTIPTUP UNTUK STREAMER LOKAL
+              SIARAN LANGSUNG PAKAI TAPTIPTUP
             </div>
           </div>
         </div>
