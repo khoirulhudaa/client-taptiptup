@@ -1622,6 +1622,27 @@ const ANIM_VARIANTS = {
     exit:    { y: -10, opacity: 0, transition: { duration: 0.2 } },
   },
 };
+
+const MEDIA_PRESETS = [
+  { url: 'https://picsum.photos/400/300?random=1', type: 'image', label: 'Foto' },
+  { url: 'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif', type: 'image', label: 'GIF' },
+  { url: 'https://picsum.photos/400/300?random=2', type: 'image', label: 'Foto 2' },
+  { url: 'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif', type: 'image', label: 'GIF Kucing' },
+];
+
+function detectMediaType(url) {
+  if (!url) return 'image';
+  if (/youtube\.com|youtu\.be/.test(url)) return 'youtube';
+  if (/\.(mp4|webm|mov)$/i.test(url)) return 'video';
+  return 'image';
+}
+
+function getYouTubeEmbedUrl(url) {
+  const match = url.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  const id = match ? match[1] : '';
+  return `https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}`;
+}
+
  // ── Render persis sama dengan renderAlert() di dashboard ──────────────────────
 function AlertPreview({ cfg, animKey }) {
   const donor = DEMO_DONORS[animKey % DEMO_DONORS.length];
@@ -1676,11 +1697,11 @@ function AlertPreview({ cfg, animKey }) {
       <div style={{ padding: "14px 16px", position: "relative", zIndex: 2 }}>
         <div style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 10 }}>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 26, fontWeight: 500, color: fg, marginTop: 12, lineHeight: 1.1, letterSpacing: "-0.5px" }}>
+            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 26, fontWeight: 500, color: fg, marginTop: 4, lineHeight: 1.1, letterSpacing: "-0.5px" }}>
               {donor.name}
             </div>
           </div>
-          <div style={{ width: 52, height: 52, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, flexShrink: 0 }}>
+          <div style={{ width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, flexShrink: 0, position: 'relative', top: -4 }}>
             {renderIconPreview(settings.customIcon)}
           </div>
         </div>
@@ -1733,7 +1754,7 @@ function AlertPreview({ cfg, animKey }) {
     <div style={{ fontFamily: "'Inter',sans-serif", padding: "18px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14 }}>
         <div style={{ fontSize: 24, fontWeight: 500, color: fg, lineHeight: 1.2 }}>{donor.name}</div>
-        <div style={{ width: 56, height: 56, borderRadius: 16, background: hl + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, flexShrink: 0, border: `1.5px solid ${hl}40` }}>
+        <div style={{ width: 40, height: 40, borderRadius: 16, background: hl + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0, border: `1.5px solid ${hl}40`, position: 'relative', top: -3.2 }}>
           {renderIconPreview(settings.customIcon)}
         </div>
       </div>
@@ -1805,6 +1826,170 @@ function AlertPreview({ cfg, animKey }) {
     </AnimatePresence>
   );
 }
+
+// ── Render persis sama dengan renderMediaAlert() di dashboard ─────────────────
+function MediaSharePreview({ cfg, animKey }) {
+  const donor = DEMO_DONORS[animKey % DEMO_DONORS.length];
+  const hl = cfg.hl;
+  const fg = cfg.tx;
+  const bg = cfg.bg;
+  const monospace = "'Inter', 'Courier New', monospace";
+  const mediaUrl = cfg.mediaUrl || MEDIA_PRESETS[0].url;
+  const mType = detectMediaType(mediaUrl);
+
+  // ── FIX: pakai animasi sesuai cfg.anim, sama seperti AlertPreview ──
+  const variants = ANIM_VARIANTS[cfg.anim] || ANIM_VARIANTS.bounce;
+
+  const scanlineStyle = {
+    position: 'absolute', inset: 0,
+    backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)',
+    pointerEvents: 'none', zIndex: 1,
+  };
+  const pixelBorder = `2px solid ${hl}`;
+
+  const MediaBlock = () => (
+    <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
+      {mType === 'youtube' ? (
+        <iframe src={getYouTubeEmbedUrl(mediaUrl)} width="100%" height="100%" frameBorder="0"
+          allow="autoplay; encrypted-media" allowFullScreen style={{ display: 'block', border: 'none' }} />
+      ) : (
+        <img src={mediaUrl} alt="media" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      )}
+    </div>
+  );
+
+  const wrapperBase = {
+    backgroundColor: bg, color: fg,
+    maxWidth: '340px', minWidth: '280px',
+    width: '100%', overflow: 'hidden',
+  };
+
+  const theme = cfg.theme || 'modern';
+
+  // ── GIF CARD ──────────────────────────────────────────────────────────────
+  if (theme === 'gifCard') {
+    return (
+      <AnimatePresence mode="wait">
+        <motion.div key={animKey + '-media-' + theme + '-' + cfg.anim}
+          initial={variants.initial} animate={variants.animate} exit={variants.exit}
+          style={{ ...wrapperBase, backgroundColor: 'transparent', border: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', overflow: 'visible' }}>
+          <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderBottom: `1px solid ${hl}25`, borderRadius: 18 }}>
+            {mType === 'youtube' ? (
+              <iframe src={getYouTubeEmbedUrl(mediaUrl)} width="100%" height="100%" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen style={{ display: 'block', border: 'none' }} />
+            ) : (
+              <img src={mediaUrl} alt="media" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            )}
+          </div>
+          <div style={{ padding: '10px 12px', display: 'flex', flexDirection: 'column', textAlign: 'center', gap: 7, alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 18, fontWeight: 500, color: 'white', borderBottom: `1px solid ${hl}25` }}>
+                {donor.name} mengirim
+              </div>
+              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 18, marginLeft: 5, fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1, textShadow: `0 0 10px ${hl}55` }}>
+                Rp {donor.amount.toLocaleString('id-ID')}
+              </div>
+            </div>
+            {donor.msg && (
+              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: 'black', fontWeight: 400, background: 'white', border: `1px solid ${hl}25`, padding: '5px 8px', lineHeight: 1.5, borderRadius: 8 }}>
+                {donor.msg}
+              </div>
+            )}
+            <div style={{ height: 4, background: hl + '20', overflow: 'hidden', width: '100%' }}>
+              <div style={{ height: '100%', width: '60%', background: hl }} />
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    );
+  }
+
+  // ── SMOOTH ──────────────────────────────────────────────────────────────────
+  if (theme === 'smooth') {
+    return (
+      <AnimatePresence mode="wait">
+        <motion.div key={animKey + '-media-' + theme + '-' + cfg.anim}
+          initial={variants.initial} animate={variants.animate} exit={variants.exit}
+          style={{ ...wrapperBase, borderRadius: 16, border: `1.5px solid ${hl}30` }}>
+          <MediaBlock />
+          <div style={{ fontFamily: "'Inter', sans-serif", padding: '14px 14px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ fontSize: 20, color: fg, lineHeight: 1.6 }}>
+              <span style={{ color: hl, fontWeight: 500 }}>{donor.name}</span>
+              <span> mengirim </span>
+              <span style={{ fontWeight: 500, color: hl, letterSpacing: '-0.5px' }}>Rp {donor.amount.toLocaleString('id-ID')}</span>
+            </div>
+            {donor.msg && (
+              <div style={{ fontWeight: 400, fontSize: 18, color: fg, background: hl + '10', borderRadius: 8, padding: '7px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
+                {donor.msg}
+              </div>
+            )}
+            <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: '60%', background: hl }} />
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    );
+  }
+
+  // ── MINIMAL ──────────────────────────────────────────────────────────────────
+  if (theme === 'minimal') {
+    return (
+      <AnimatePresence mode="wait">
+        <motion.div key={animKey + '-media-' + theme + '-' + cfg.anim}
+          initial={variants.initial} animate={variants.animate} exit={variants.exit}
+          style={{ ...wrapperBase, border: `2px solid ${hl}40`, position: 'relative', borderRadius: 18 }}>
+          <div style={scanlineStyle} />
+          <MediaBlock />
+          <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
+            <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 6 }}>
+              <span style={{ fontWeight: 500 }}>{donor.name} - </span>
+              <span style={{ fontWeight: 500, color: hl, letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}50` }}>
+                Rp {donor.amount.toLocaleString('id-ID')}
+              </span>
+            </div>
+            {donor.msg && (
+              <div style={{ fontWeight: 500, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderTop: `1px solid ${hl}20`, paddingTop: 8, paddingBottom: 6 }}>
+                {donor.msg}
+              </div>
+            )}
+            <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: '60%', background: hl }} />
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    );
+  }
+
+  // ── MODERN (default) ─────────────────────────────────────────────────────────
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div key={animKey + '-media-modern-' + cfg.anim}
+        initial={variants.initial} animate={variants.animate} exit={variants.exit}
+        style={{ ...wrapperBase, border: `2px solid ${hl}40`, width: 'max-content', position: 'relative', borderRadius: 18 }}>
+        <div style={scanlineStyle} />
+        <MediaBlock />
+        <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2, width: 'max-content' }}>
+          <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6, width: 'max-content' }}>
+            <span style={{ fontWeight: 500 }}>{donor.name}</span>
+            <span> mengirim </span>
+            <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}55` }}>
+              Rp {donor.amount.toLocaleString('id-ID')}
+            </span>
+          </div>
+          {donor.msg && (
+            <div style={{ fontWeight: 500, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, paddingBottom: 6 }}>
+              {donor.msg}
+            </div>
+          )}
+          <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+            <div style={{ height: '100%', width: '60%', background: hl }} />
+          </div>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
  
 function ColorRow({ label, colorKey, value, onChange }) {
   const handleHex = (e) => {
@@ -1826,10 +2011,15 @@ function ColorRow({ label, colorKey, value, onChange }) {
 }
  
 export function OverlayCustomizer({ C }) {
-  const [cfg, setCfg] = useState({ theme: "modern", bg: "#0d2b45", hl: "#7dd3fc", tx: "#e0f7ff", icon: "❤️", anim: "bounce" });
+  const [cfg, setCfg] = useState({
+    theme: "modern", bg: "#0d2b45", hl: "#7dd3fc", tx: "#e0f7ff",
+    icon: "❤️", anim: "bounce",
+    mediaUrl: MEDIA_PRESETS[0].url, // ← tambahan untuk Media Share
+  });
   const [animKey, setAnimKey] = useState(0);
   const [donorLabel, setDonorLabel] = useState(1);
- 
+  const [previewMode, setPreviewMode] = useState("alert"); // "alert" | "mediaShare" ← tambahan
+
   const upd = useCallback((key, val) => setCfg(prev => ({ ...prev, [key]: val })), []);
  
   const fire = () => {
@@ -1881,10 +2071,28 @@ export function OverlayCustomizer({ C }) {
           <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px,7vw,80px)", lineHeight: 1.05, letterSpacing: "0.01em", color: "white", marginBottom: 14 }}>
             DESAIN ALERT <span style={{ color: "azure" }}>SESUKAMU</span>
           </h2>
-          <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(13px,1.4vw,15px)", color: "rgba(255,255,255,.6)", maxWidth: 460, margin: "0 auto" }}>
-            Ubah warna, tema, ikon, dan animasi. Preview langsung tanpa perlu buka OBS.
-          </p>
         </Reveal>
+
+        {/* Tab switch Alert / Media Share */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 19, marginBottom: 24 }}>
+          {[
+            { id: "alert", label: "💬 Alert Dukungan" },
+            { id: "mediaShare", label: "🖼️ Media Share" },
+          ].map(m => (
+            <button key={m.id} onClick={() => setPreviewMode(m.id)}
+              style={{
+                padding: "10px 20px", borderRadius: 12,
+                minWidth: 170,
+                border: previewMode === m.id ? "2px solid azure" : "1.5px solid rgba(255,255,255",
+                background: previewMode === m.id ? "azure" : "rgba(255,255,255,.06)",
+                color: previewMode === m.id ? "#0d2b45" : "rgba(255,255,255,.7)",
+                fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 12,
+                cursor: "pointer", transition: "all .15s",
+              }}>
+              {m.label}
+            </button>
+          ))}
+        </div>
  
         <div className="overlay-builder-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 20, alignItems: "start" }}>
  
@@ -1914,7 +2122,7 @@ export function OverlayCustomizer({ C }) {
             {/* Warna */}
             <div style={ctrlCard}>
               <span style={sectionLabel}>Warna Alert</span>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%" }}>
+              <div style={{ display: "flex", gap: 10, width: "100%" }}>
                 <ColorRow label="Background" colorKey="bg" value={cfg.bg} onChange={upd} />
                 <ColorRow label="Highlight"  colorKey="hl" value={cfg.hl} onChange={upd} />
                 <ColorRow label="Teks"       colorKey="tx" value={cfg.tx} onChange={upd} />
@@ -1938,23 +2146,53 @@ export function OverlayCustomizer({ C }) {
               </div>
             </div>
  
-            {/* Icon */}
-            <div style={ctrlCard}>
-              <span style={sectionLabel}>Icon Alert</span>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 6 }}>
-                {ICONS.map(ic => (
-                  <button key={ic} onClick={() => upd("icon", ic)}
-                    style={{
-                      padding: "8px 4px", borderRadius: 8, fontSize: 18, textAlign: "center",
-                      border: cfg.icon === ic ? "2px solid #0d2b45" : "1.5px solid rgba(0,0,0,.12)",
-                      background: cfg.icon === ic ? "#0d2b45" : "rgba(255,255,255,.5)",
-                      cursor: "pointer", transition: "all .15s",
-                    }}>
-                    {ic}
-                  </button>
-                ))}
+            {previewMode === "alert" ? (
+              <div style={ctrlCard}>
+                <span style={sectionLabel}>Icon Alert</span>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 6 }}>
+                  {ICONS.map(ic => (
+                    <button key={ic} onClick={() => upd("icon", ic)}
+                      style={{
+                        padding: "8px 4px", borderRadius: 8, fontSize: 18, textAlign: "center",
+                        border: cfg.icon === ic ? "2px solid #0d2b45" : "1.5px solid rgba(0,0,0,.12)",
+                        background: cfg.icon === ic ? "#0d2b45" : "rgba(255,255,255,.5)",
+                        cursor: "pointer", transition: "all .15s",
+                      }}>
+                      {ic}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div style={ctrlCard}>
+                <span style={sectionLabel}>Pilih Media</span>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 8 }}>
+                  {MEDIA_PRESETS.map(m => (
+                    <button key={m.url} onClick={() => upd("mediaUrl", m.url)}
+                      className="h-[96px] w-full"
+                      style={{
+                        borderRadius: 10, overflow: "hidden", position: "relative",
+                        border: cfg.mediaUrl === m.url ? "2.5px solid #0d2b45" : "1.5px solid rgba(0,0,0,.15)",
+                        cursor: "pointer", padding: 0, background: "#000", aspectRatio: "1/1",
+                      }}>
+                      {m.type === "youtube" ? (
+                        <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#1e1e1e", fontSize: 22 }}>▶️</div>
+                      ) : (
+                        <img src={m.url} alt={m.label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                      )}
+                      <span style={{
+                        position: "absolute", bottom: 0, left: 0, right: 0,
+                        background: "rgba(0,0,0,.6)", color: "#fff",
+                        fontSize: 9, fontFamily: "'Space Mono',monospace",
+                        textAlign: "center", padding: "3px 0",
+                      }}>
+                        {m.label}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
  
             {/* Animasi */}
             <div style={ctrlCard}>
@@ -1984,11 +2222,13 @@ export function OverlayCustomizer({ C }) {
               <div style={obsGridStyle} />
               <div style={{ position: "absolute", top: 20, left: 24, fontFamily: "'Space Mono',monospace", fontSize: 9, color: "rgba(255,255,255,.45)", letterSpacing: ".06em", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 6, zIndex: 5 }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#ef4444", animation: "pulse-dot 1.5s ease-in-out infinite", display: "inline-block" }} />
-                OBS Preview
+                {previewMode === "alert" ? "Alert Preview" : "Media Share Preview"}
               </div>
               <div style={{ position: "absolute", top: 20, right: 24, background: "#ef4444", color: "#fff", fontFamily: "'Space Mono',monospace", fontSize: 8, letterSpacing: ".1em", padding: "3px 8px", borderRadius: 4, fontWeight: 700, zIndex: 5 }}>LIVE</div>
               <div style={{ position: "relative", zIndex: 10, maxWidth: '100%' }}>
-                <AlertPreview cfg={cfg} animKey={animKey} />
+                {previewMode === "alert"
+                  ? <AlertPreview cfg={cfg} animKey={animKey} />
+                  : <MediaSharePreview cfg={cfg} animKey={animKey} />}
               </div>
             </div>
  
@@ -2012,7 +2252,7 @@ export function OverlayCustomizer({ C }) {
         <div style={{ textAlign: "center", marginTop: 48 }}>
           <a href="/register"
             className="rounded-xl hover:bg-[azure] active:scale-[0.98] hover:text-blue-900 select-none"
-            style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: ".05em", textTransform: "uppercase", padding: "16px 46px", border: "1px solid azure", cursor: "pointer", textDecoration: "none", display: "inline-block", color: "azure", transition: "all .2s" }}>
+            style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: ".05em", textTransform: "uppercase", padding: "16px 46px", border: "1px solid azure", cursor: "pointer", textDecoration: "none", display: "inline-block", transition: "all .2s" }}>
             Mulai Kustomisasi Gratis
           </a>
         </div>
@@ -2026,7 +2266,6 @@ export function OverlayCustomizer({ C }) {
   );
 }
  
-
 /* ─────────────────────────────────────────
    ROOT
 ───────────────────────────────────────── */
