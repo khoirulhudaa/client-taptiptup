@@ -2217,7 +2217,7 @@ export function OverlayCustomizer({ C }) {
           </Reveal>
  
           {/* ── KANAN: Preview OBS ── */}
-          <Reveal x={40} y={0} delay={0.15} className="h-full" style={{ background: "rgba(0,0,0,.25)", border: "1px solid white", borderRadius: 14, overflow: "hidden", position: "sticky", top: 100 }}>
+          <Reveal x={40} y={0} delay={0.15} className="h-full" style={{ background: "rgba(0,0,0,.25)", borderRadius: 14, overflow: "hidden", position: "sticky", top: 100 }}>
             <div style={{ position: "relative", height: '100%', background: "azure", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
               <div style={obsGridStyle} />
               <div style={{ position: "relative", zIndex: 10, maxWidth: '100%' }}>
