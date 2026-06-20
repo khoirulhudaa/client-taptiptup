@@ -51,7 +51,7 @@ const Row = ({ label, children }) => (
 const ColorRow = ({ label, value, onChange }) => (
   <Row label={label}>
     <div className="flex items-center gap-3">
-      <div className="relative w-11 h-11 rounded-xl overflow-hidden border border-slate-300 dark:border-slate-600 flex-shrink-0">
+      <div className="relative w-11.5 h-11.5 rounded-xl overflow-hidden border border-slate-300 dark:border-slate-600 flex-shrink-0">
         <input
           type="color"
           value={value.startsWith('rgba') || value === 'transparent' ? '#ffffff' : value}
@@ -60,12 +60,17 @@ const ColorRow = ({ label, value, onChange }) => (
         />
         <div className="absolute inset-0" style={{ background: value }} />
       </div>
-      <input
-        type="text"
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        className="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-3 font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all"
-      />
+      <div className="flex-1 flex pl-[3.5px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 transition-all shadow-sm">
+        <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+          HEX
+        </div>
+        <input
+          type="text"
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          className="flex-1 bg-transparent p-3 h-11.5 pl-3 outline-none font-mono text-xs text-slate-900 dark:text-slate-100"
+        />
+      </div>
     </div>
   </Row>
 );
@@ -330,7 +335,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
                     borderColor: p.dark + '60',
                   }))}
                   style={{ background: p.bg, border: `2px solid ${p.dark}40` }}
-                  className="cursor-pointer active:scale-[0.98] py-3 rounded-xl font-black text-xs transition-all"
+                  className="cursor-pointer active:scale-[0.98] py-3 h-11.5 rounded-xl font-black text-xs transition-all"
                 >
                   <span style={{ color: p.dark === '#000000' ? '#fff' : p.dark }}>{p.label}</span>
                 </button>
@@ -358,7 +363,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
                         <button
                         key={opt.label}
                         onClick={() => upd('logoSize', opt.value)}
-                        className={`cursor-pointer active:scale-[0.98] py-3 md:py-2.5 rounded-xl font-black text-xs transition-all border-2 ${
+                        className={`cursor-pointer active:scale-[0.98] py-3 md:py-3 h-11.5 rounded-xl font-black text-xs transition-all border-2 ${
                             (cfg.logoSize ?? 36) === opt.value
                             ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600'
                             : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
@@ -425,7 +430,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
               </p>
               <button
                 onClick={handleDownload}
-                className="cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl font-black text-sm flex items-center justify-center gap-3 hover:brightness-90 transition-all"
+                className="cursor-pointer active:scale-[0.99] w-full py-3 h-11.5 bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl font-black text-sm flex items-center justify-center gap-3 hover:brightness-90 transition-all"
               >
                 <Download size={16} /> Download PNG
               </button>

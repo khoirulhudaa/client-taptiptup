@@ -258,17 +258,31 @@ const SectionHeader = ({ icon, title, color }) => (
 );
 
 const InputField = ({ label, ...props }) => (
-  <div className="w-full flex pl-[1.5px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
-    <div className="w-max md:w-[20%] px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+  <div className="w-full flex pl-[3px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+    <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
       {label}
     </div>
     <input
-      className="flex-1 bg-transparent p-3 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
+      className="flex-1 bg-transparent p-3 h-11.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
       {...props}
       onChange={e => props.onChange?.(e.target.value)}
     />
   </div>
 );
+
+const TextareaField = ({ label, className = '', inputClassName = '', onChange, ...props }) => (
+  <div className={`w-full flex pl-[1.5px] items-start bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
+    <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      {label}
+    </div>
+    <textarea
+      className={`flex-1 bg-transparent p-3 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100 resize-y ${inputClassName}`}
+      {...props}
+      onChange={e => onChange?.(e.target.value)}
+    />
+  </div>
+);
+
 // ─── QuickAmountsEditor ───────────────────────────────────────────────────────
 
 const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, settings, activeSlot }) => {
@@ -286,13 +300,14 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
         <div className="gap-2.5 grid grid-cols-1 mt-5 md:grid-cols-2">
         {amounts.map((amt, i) => (
           <div key={i} className="w-[100%] flex gap-3 items-center bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
-            <input
-              type="number"
-              value={amt}
-              aria-label={`Nominal ${i + 1}`}
-              onChange={e => update(i, e.target.value)}
-              className="flex-1 p-3 w-full bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-xl font-bold"
-            />
+           <InputField
+            label={`Nominal ${i + 1}`}
+            type="number"
+            value={amt}
+            aria-label={`Nominal ${i + 1}`}
+            onChange={v => update(i, v)}
+            // className="flex-1"
+          />
             <button onClick={() => remove(i)} 
               className="shrink-0 cursor-pointer bg-red-700 h-[40px] w-[40px] flex justify-center items-center text-slate-300 hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-800 rounded-xl transition-all active:scale-95"
             >
@@ -484,27 +499,20 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex flex-col gap-1">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Donor</label>
-          <input 
-            value={customName} 
-            onChange={e => setCustomName(e.target.value)}
-            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
-            placeholder="Seseorang" 
+          <InputField
+            label="Nama"
+            value={customName}
+            onChange={v => setCustomName(v)}
+            placeholder="Seseorang"
           />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nominal (Rp)</label>
-          <input 
-            type="number" 
-            value={customAmount} 
-            onChange={e => {
-              setCustomAmount(e.target.value);
-              // Reset item jika user mengetik manual
-              if (testItem) {
-                setTestItem(null);
-                setUseItem(false);
-              }
-            }}
-            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all" 
+          <InputField
+            label="Nominal"
+            type="number"
+            value={customAmount}
+            onChange={v => { setCustomAmount(v); if (testItem) { setTestItem(null); setUseItem(false); } }}
           />
         </div>
       </div>
@@ -532,11 +540,12 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       {/* Textarea tetap ada */}
       <div className="flex flex-col gap-1">
         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pesan</label>
-        <textarea 
-          value={customMsg} 
-          onChange={e => setCustomMsg(e.target.value)}
-          className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all h-20 resize-y"
-          placeholder="Tulis pesan donasi di sini..." 
+        <TextareaField
+          label="Pesan"
+          value={customMsg}
+          onChange={v => setCustomMsg(v)}
+          placeholder="Tulis pesan donasi di sini..."
+          inputClassName="h-20"
         />
       </div>
 
@@ -742,25 +751,22 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div className="flex flex-col gap-1">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Donor</label>
-          <input value={formData.donorName} onChange={e => updateForm('donorName', e.target.value)}
-            className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl  font-bold text-sm focus:border-purple-400 focus:outline-none transition-all"
-            placeholder="@Seseorang" />
+          <InputField
+            label="Nama"
+            value={formData.donorName}
+            onChange={v => updateForm('donorName', v)}
+            placeholder="@Seseorang"
+          />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nominal</label>
-          <input 
-            type="number" 
+          <InputField
+            label="Nominal"
+            type="number"
             value={formData.amount}
-            onChange={e => {
-              updateForm('amount', e.target.value === '' ? '' : e.target.value);
-              // Reset item jika user mengetik manual
-              if (testItem) {
-                setTestItem(null);
-                setUseItem(false);
-              }
-            }}
-            className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl  font-bold text-sm focus:border-emerald-400 focus:outline-none transition-all"
-            placeholder="25000" />
+            onChange={v => { updateForm('amount', v === '' ? '' : v); if (testItem) { setTestItem(null); setUseItem(false); } }}
+            placeholder="25000"
+          />
         </div>
       </div>
 
@@ -787,16 +793,23 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
 
       <div className="flex flex-col gap-1">
         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pesan (opsional)</label>
-        <textarea value={formData.message} onChange={e => updateForm('message', e.target.value)} rows={2}
-          className="p-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl  font-medium text-sm resize-none focus:border-blue-400 focus:outline-none transition-all"
-          placeholder="Terima kasih dukungannya!" />
+        <TextareaField
+          label="Pesan"
+          value={formData.message}
+          onChange={v => updateForm('message', v)}
+          placeholder="Terima kasih dukungannya!"
+          inputClassName="h-20"
+        />
       </div>
 
       <div className="space-y-3 mt-[-4px]">
         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-1">Media URL</label>
-        <input value={formData.mediaUrl} onChange={e => updateForm('mediaUrl', e.target.value)}
-          className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl font-bold text-sm focus:border-purple-400 focus:outline-none transition-all"
-          placeholder="https://example.com/image.jpg" />
+        <InputField
+          label="Media URL"
+          value={formData.mediaUrl}
+          onChange={v => updateForm('mediaUrl', v)}
+          placeholder="https://example.com/image.jpg"
+        />
       </div>
 
       <div className="pt-2">
@@ -1118,18 +1131,27 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
           ))}
         </div>
         {localAction === 'replace' && (
-          <input value={localReplacement} onChange={e => setLocalReplacement(e.target.value)} onBlur={() => save({ replacement: localReplacement })}
+          <InputField
+            label="Ganti dengan"
+            value={localReplacement}
+            onChange={v => setLocalReplacement(v)}
+            onBlur={() => save({ replacement: localReplacement })}
             placeholder="contoh: [dihapus], ❤️, [sensor]"
-            className="w-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
+          />
         )}
       </div>
       <div className="border-t border-slate-100 dark:border-slate-800" />
       <div className="space-y-4">
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Daftar kata terlarang</label>
         <div className="md:flex gap-3 md:space-y-0 space-y-3">
-          <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && add()}
+          <InputField
+            label="Kata-kata"
+            value={input}
+            onChange={v => setInput(v)}
+            onKeyDown={e => e.key === 'Enter' && add()}
             placeholder="Ketik kata lalu tekan Enter..."
-            className="w-full flex-1 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl  px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-red-400 transition-all" />
+            // className="flex-1"
+          />
           <button onClick={add} className="md:w-max w-max mt-1 md:mt-0 cursor-pointer active:scale-[0.99] px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl font-black text-sm transition-all flex items-center gap-3">
             <Plus size={16} /> Tambah
           </button>
@@ -1193,12 +1215,14 @@ const MilestonesEditor = () => {
             <div key={i} className="flex gap-3 items-end bg-slate-50 dark:bg-slate-800 rounded-xl p-4 border border-slate-100 dark:border-slate-700">
               <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
                 {[['Judul Milestone', 'title', m.title, 'text', 'contoh: Beli mic baru!'], ['Target (Rp)', 'targetAmount', m.targetAmount, 'number', '']].map(([lbl, key, val, type, ph]) => (
-                  <div key={key} className="flex flex-col gap-1">
-                    <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{lbl}</label>
-                    <input type={type} value={val} placeholder={ph}
-                      onChange={e => upd(i, key, type === 'number' ? Number(e.target.value) : e.target.value)}
-                      className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-xl  font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-green-400" />
-                  </div>
+                  <InputField
+                    key={key}
+                    label={lbl}
+                    type={type}
+                    value={val}
+                    placeholder={ph}
+                    onChange={v => upd(i, key, type === 'number' ? Number(v) : v)}
+                  />
                 ))}
               </div>
               <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.99] text-red-400 hover:text-red-600 p-2 flex-shrink-0"><Trash2 size={16} /></button>
@@ -1663,13 +1687,13 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
               <label className="text-xs font-black text-slate-500 block mb-1.5">
                 Durasi Default Alert (detik)
               </label>
-              <input 
-                type="number" 
+              <InputField
+                label="Detik"
+                type="number"
                 value={settings.alertBaseDuration ?? 12}
-                onChange={(e) => onChange('alertBaseDuration', e.target.value === '' ? 12 : Number(e.target.value))}
-                min={5}
-                max={60}
-                className="w-full text-md font-bold text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl pb-2.5 p-2"
+                onChange={v => onChange('alertBaseDuration', v === '' ? 12 : Number(v))}
+                min={5} max={60}
+                inputClassName="text-center"
               />
               <p className="text-xs text-slate-500 mt-2">
                 Jika TTS lebih lama, akan mengikuti TTS
@@ -1685,26 +1709,38 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
             <div className="flex flex-col gap-4">
               <div>
                 <label className="text-xs font-black text-slate-500 block mb-1.5">Durasi Dasar (detik)</label>
-                <input type="number" value={settings.mediaShareBaseDuration || ''}
-                  onChange={(e) => onChange('mediaShareBaseDuration', e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full text-lg font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl  p-2" />
+                <InputField
+                  label="Detik"
+                  type="number"
+                  value={settings.mediaShareBaseDuration || ''}
+                  onChange={v => onChange('mediaShareBaseDuration', v === '' ? '' : Number(v))}
+                  inputClassName="text-center"
+                />
               </div>
               <div>
                 <div className="md:flex items-center gap-3">
                   <div className='w-full'>
                     <label className="text-xs font-black text-slate-500 block mb-1.5">Tambahan tiap Rp</label>
                     <div className='md:flex items-center'>
-                      <input type="number" value={settings.mediaShareExtraPerAmount || ''}
-                        onChange={(e) => onChange('mediaShareExtraPerAmount', e.target.value === '' ? '' : Number(e.target.value))}
-                        className="w-full text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl p-2" />
+                      <InputField
+                        label="Tiap Rp"
+                        type="number"
+                        value={settings.mediaShareExtraPerAmount || ''}
+                        onChange={v => onChange('mediaShareExtraPerAmount', v === '' ? '' : Number(v))}
+                        inputClassName="text-center"
+                      />
                       <span className="md:flex hidden dark:text-white ml-2 text-slate-900 font-bold"><Plus /></span>
                     </div>
                   </div>
                   <div className='md:mt-0 mt-4'>
                     <label className="text-xs font-black text-slate-500 block mb-1.5">Detik</label>
-                    <input type="number" value={settings.mediaShareExtraDuration || ''}
-                      onChange={(e) => onChange('mediaShareExtraDuration', e.target.value === '' ? '' : Number(e.target.value))}
-                      className="w-full md:w-20 text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl p-2" />
+                    <InputField
+                      label="Detik"
+                      type="number"
+                      value={settings.mediaShareExtraDuration || ''}
+                      onChange={v => onChange('mediaShareExtraDuration', v === '' ? '' : Number(v))}
+                      inputClassName="text-center"
+                    />
                   </div>
                 </div>
               </div>
@@ -1777,11 +1813,14 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[['Label (opsional)', 'label', t.label, 'text', 'contoh: Sultan Alert'], ['Nominal Min (Rp)', 'minAmount', t.minAmount, 'number', '']].map(([lbl, key, val, type, ph]) => (
-              <div key={key} className="flex flex-col gap-1.5">
-                <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{lbl}</label>
-                <input type={type} value={val} placeholder={ph} onChange={e => update(i, key, type === 'number' ? Number(e.target.value) : e.target.value)}
-                  className="w-full p-3 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-xl  font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
-              </div>
+              <InputField
+                key={key}
+                label={lbl}
+                type={type}
+                value={val}
+                placeholder={ph}
+                onChange={v => update(i, key, type === 'number' ? Number(v) : v)}
+              />
             ))}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -3305,18 +3344,18 @@ const ColorInput = React.memo(({ label, value, onChange, allowAlpha = false, id 
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 flex-shrink-0 rounded-xl  overflow-hidden border border-slate-300 dark:border-slate-600 relative group">
           <input id={`${inputId}-picker`} name={`${inputId}-picker`} type="color" value={pickerHex} onChange={handlePickerChange}
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer peer z-10"
-            style={{ width: '100%', height: '100%', padding: 0, border: 0, backgroundColor: 'transparent' }}
+            className="absolute inset-0 w-full h-full opacity-0 py-3 cursor-pointer peer z-10"
+            style={{ width: '100%', height: '100%', border: 0, backgroundColor: 'transparent' }}
             aria-label={`${label} picker`} title="Klik untuk pilih warna" />
           <div className="absolute inset-0 w-full h-full border-2 border-transparent group-hover:border-blue-400 transition-all" style={{ backgroundColor: pickerHex }} aria-hidden="true" />
         </div>
         <input id={inputId} name={inputId} type="text" value={raw} onChange={handleTextChange} onBlur={handleTextBlur}
           spellCheck={false} placeholder={allowAlpha ? '#rrggbbaa' : '#rrggbb'} maxLength={allowAlpha ? 9 : 7}
-          className="w-28 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl px-3 py-2 font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all"
+          className="w-28 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl px-3 py-3 font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all"
           aria-label={`${label} hex value`} />
-        <div className="flex-1 h-10 rounded-xl  border border-slate-200 dark:border-slate-700 cursor-pointer hover:shadow-md hover:border-blue-300 transition-all" style={{ backgroundColor: previewColor }} title={previewColor} aria-hidden="true" />
+        <div className="flex-1 h-full rounded-xl  border border-slate-200 dark:border-slate-700 cursor-pointer hover:shadow-md hover:border-blue-300 transition-all" style={{ backgroundColor: previewColor }} title={previewColor} aria-hidden="true" />
       </div>
-      <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate bg-slate-50/50 dark:bg-slate-800/50 px-2 py-1 rounded" aria-live="polite">{previewColor}</div>
+      <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate bg-slate-50/50 dark:bg-slate-800/50 px-2 py-3 rounded-xl" aria-live="polite">{previewColor}</div>
     </div>
   );
 });
@@ -3407,13 +3446,13 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) =>
 
           <div className="space-y-3">
             <div className="flex gap-3">
-              <input
-                type="text"
+              <InputField
+                label="Teks"
                 value={testText}
-                onChange={e => setTestText(e.target.value)}
+                onChange={v => setTestText(v)}
                 onKeyDown={e => e.key === 'Enter' && !isTesting && handleTest()}
                 placeholder="Developer berdonasi Rp 50.000. Semangat terus kak!"
-                className="flex-1 px-4 py-3 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium outline-none focus:border-rose-400 dark:text-slate-100 transition-all"
+                className="flex-1"
               />
               <button 
                 onClick={handleTest} 
@@ -3988,38 +4027,35 @@ const handleChangePin = async () => {
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-1">
                 <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Min (Rp)</label>
-                <input 
-                  type="number" 
-                  // ✅ Value dari local state
+                <InputField
+                  label="Min"
+                  type="number"
                   value={t.minAmount ?? ''}
-                  // ✅ onChange KE LOCAL STATE, bukan langsung parent
-                  onChange={(e) => handleLocalChange(i, 'minAmount', e.target.value)}
-                  // ✅ onBlur - sync ke parent saat focus keluar
+                  onChange={v => handleLocalChange(i, 'minAmount', v)}
                   onBlur={syncToParent}
                   placeholder="50000"
-                  className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-xl  font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400" 
                 />
               </div>
               <div className="flex flex-col gap-1">
                 <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Max (kosong=∞)</label>
-                <input 
-                  type="number" 
+                <InputField
+                  label="Max"
+                  type="number"
                   value={t.maxAmount ?? ''}
-                  onChange={(e) => handleLocalChange(i, 'maxAmount', e.target.value)}
+                  onChange={v => handleLocalChange(i, 'maxAmount', v)}
                   onBlur={syncToParent}
                   placeholder="∞"
-                  className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-xl  font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400" 
                 />
               </div>
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Label (opsional)</label>
-              <input 
-                value={t.label || ''} 
-                onChange={(e) => handleLocalChange(i, 'label', e.target.value)}
+              <InputField
+                label="Label"
+                value={t.label || ''}
+                onChange={v => handleLocalChange(i, 'label', v)}
                 onBlur={syncToParent}
                 placeholder="contoh: Sultan Alert Sound"
-                className="w-full p-2.5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-xl  font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400" 
               />
             </div>
             <SoundPicker
@@ -4698,7 +4734,6 @@ const handleChangePin = async () => {
                           <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
                         ))}
                         <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
-                        {/* TAMBAH INI: */}
                         <ColorInput id="color-progressBarColor" label="Warna Progress Bar" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
                       </div>
                       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
@@ -4912,12 +4947,13 @@ const handleChangePin = async () => {
                               <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">
                                 Ketik <span className="text-red-400 font-black">HAPUS AKUN SAYA</span> untuk lanjut
                               </label>
-                              <input
+                              <InputField
+                                label='Ketik ulang'
                                 type="text"
                                 value={deleteConfirmText}
-                                onChange={e => setDeleteConfirmText(e.target.value)}
+                                onChange={e => setDeleteConfirmText(e)}
                                 placeholder="HAPUS AKUN SAYA"
-                                className="w-full p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-400 dark:focus:border-red-600 text-slate-900 dark:text-slate-100 rounded-xl  font-bold text-sm outline-none transition-all"
+                                // className="w-full p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-400 dark:focus:border-red-600 text-slate-900 dark:text-slate-100 rounded-xl  font-bold text-sm outline-none transition-all"
                               />
                             </div>
                             <button
@@ -5320,16 +5356,25 @@ const handleChangePin = async () => {
 
                       <div className="md:col-span-2">
                         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Bio Singkat</label>
-                        <textarea value={profileForm.bio} onChange={e => setProfileForm(f => ({ ...f, bio: e.target.value }))}
-                          className="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-xl font-bold outline-none focus:border-blue-500 h-32 transition-all"
-                          placeholder="Ceritakan tentang kontenmu..." />
+                        <TextareaField
+                          label="Bio"
+                          value={profileForm.bio}
+                          onChange={v => setProfileForm(f => ({ ...f, bio: v }))}
+                          placeholder="Ceritakan tentang kontenmu..."
+                          inputClassName="h-32"
+                        />
                       </div>
 
                       <div className="md:col-span-2 mb-1">
                         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Intro Halaman Donate</label>
-                        <input type="text" value={profileForm.donateIntro || ''} onChange={e => setProfileForm(f => ({ ...f, donateIntro: e.target.value }))}
-                          className="w-full p-3 text-sm bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-xl font-bold outline-none focus:border-blue-500 transition-all"
-                          placeholder="Support aku biar makin semangat 🚀" maxLength={120} />
+                        <InputField
+                          label="Intro"
+                          type="text"
+                          value={profileForm.donateIntro || ''}
+                          onChange={v => setProfileForm(f => ({ ...f, donateIntro: v }))}
+                          placeholder="Support aku biar makin semangat 🚀"
+                          maxLength={120}
+                        />
                       </div>
 
                       <div className="md:col-span-2">

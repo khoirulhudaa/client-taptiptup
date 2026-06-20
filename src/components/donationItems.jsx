@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { GripVertical, Plus, Save, Trash2 } from 'lucide-react';
+import { Plus, Save, Trash2 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const EMOJI_PRESETS = [
@@ -23,8 +23,6 @@ const EMOJI_PRESETS = [
   { emoji: '🐉', label: 'Naga' },
   { emoji: '🌈', label: 'Pelangi' },
   { emoji: '💰', label: 'Uang' },
-
-  // Tambahan
   { emoji: '👑', label: 'Mahkota' },
   { emoji: '❤️', label: 'Love' },
   { emoji: '🎤', label: 'Mic' },
@@ -35,7 +33,6 @@ const EMOJI_PRESETS = [
   { emoji: '🦋', label: 'Kupu-kupu' },
   { emoji: '🍔', label: 'Burger' },
   { emoji: '🥤', label: 'Minuman' },
-
   { emoji: '💍', label: 'Cincin' },
   { emoji: '🏆', label: 'Trofi' },
   { emoji: '🎊', label: 'Party' },
@@ -56,11 +53,23 @@ const getTierColor = (amount) => {
   return                       { bg: 'from-slate-300 to-slate-400',    badge: 'bg-slate-400',  text: 'COMMON'    };
 };
 
+// ── InputField with label ──────────────────────────────────────────────────────
+const InputField = ({ label, className = '', inputClassName = '', ...props }) => (
+  <div className={`w-full flex pl-[1.5px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
+    <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      {label}
+    </div>
+    <input
+      className={`flex-1 bg-transparent p-3 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100 ${inputClassName}`}
+      {...props}
+    />
+  </div>
+);
+
 // ── Single Item Row ────────────────────────────────────────────────────────────
 const ItemRow = ({ item, index, onChange, onRemove }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const pickerRef = useRef(null);
-  const tier = getTierColor(item.price || 0);
 
   useEffect(() => {
     const handler = (e) => {
@@ -80,8 +89,8 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
       exit={{ opacity: 0, y: -8 }}
       className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 overflow-visible"
     >
-      {/* <div className={`h-1 w-full bg-gradient-to-r ${tier.bg}`} /> */}
-      <div className="p-4 space-y-1">
+      <div className="p-4 space-y-2">
+        {/* Row 1: Emoji + Nama + Hapus */}
         <div className="flex items-center gap-3">
           {/* Emoji picker */}
           <div className="relative" ref={pickerRef}>
@@ -99,7 +108,6 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="absolute shadow-2xl left-[-2.1px] top-13 z-[99999] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 md:w-max w-[83.5vw] h-max overflow-y-auto"
                 >
-                  {/* <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Pilih Ikon Item</p> */}
                   <div className="grid grid-cols-7 md:grid-cols-10 gap-1.5">
                     {EMOJI_PRESETS.map(({ emoji, label }) => (
                       <button
@@ -116,14 +124,15 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
                       </button>
                     ))}
                   </div>
+                  {/* Emoji custom input — pakai InputField */}
                   <div className="mt-2 border-t border-slate-100 dark:border-slate-700 pt-2">
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Atau ketik emoji</p>
-                    <input
+                    <InputField
+                      label="Emoji"
                       type="text"
                       value={item.emoji || ''}
                       onChange={(e) => onChange(index, 'emoji', e.target.value.slice(0, 2))}
                       placeholder="😊"
-                      className="w-full py-2.5 px-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-center font-bold text-lg outline-none"
+                      inputClassName="text-center text-lg"
                     />
                   </div>
                 </motion.div>
@@ -131,13 +140,15 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
             </AnimatePresence>
           </div>
 
-          <input
+          {/* Nama item */}
+          <InputField
+            label={`Item ${index + 1}`}
             type="text"
             value={item.name || ''}
             onChange={(e) => onChange(index, 'name', e.target.value)}
-            placeholder={`Item ${index + 1} (contoh: Kopi)`}
+            placeholder="contoh: Kopi"
             maxLength={30}
-            className="w-[71%] md:flex-1 p-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
+            className="flex-1"
           />
 
           <button
@@ -148,44 +159,39 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
           </button>
         </div>
 
-        <div className="flex items-center gap-2.5 mt-3">
-          <div className="flex-1 flex flex-col gap-1">
-            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Nominal</label>
-            <input
-              type="number"
-              value={item.price || ''}
-              onChange={(e) => onChange(index, 'price', Number(e.target.value))}
-              placeholder="10000"
-              min={0}
-              className="w-full pl-10 pr-3 py-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-black text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
-            />
-          </div>
-
-          {/* Max quantity per order */}
-          <div className="flex flex-col gap-1 min-w-[90px]">
-            <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Maks qty</label>
-            <input
-              type="number"
-              value={item.maxQty ?? 10}
-              onChange={(e) => onChange(index, 'maxQty', Math.max(1, Number(e.target.value)))}
-              min={1}
-              max={99}
-              className="w-full px-2.5 py-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-black text-sm text-slate-800 dark:text-slate-100 outline-none focus:border-blue-400 transition-all text-center"
-            />
-          </div>
-        </div>
-
-        <div className="mt-[-4px]">
-          <label className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Deskripsi</label>
-          <input
-            type="text"
-            value={item.description || ''}
-            onChange={(e) => onChange(index, 'description', e.target.value)}
-            placeholder="Deskripsi singkat (opsional)"
-            maxLength={60}
-            className="w-full p-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-medium text-xs text-slate-500 dark:text-slate-400 outline-none focus:border-blue-400 transition-all"
+        {/* Row 2: Nominal + Maks Qty */}
+        <div className="grid grid-cols-2 items-center gap-2.5">
+          <InputField
+            label="Nominal"
+            type="number"
+            value={item.price || ''}
+            onChange={(e) => onChange(index, 'price', Number(e.target.value))}
+            placeholder="10000"
+            min={0}
+            className="flex-1"
+            inputClassName="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          />
+          <InputField
+            label="Maks Qty"
+            type="number"
+            value={item.maxQty ?? 10}
+            onChange={(e) => onChange(index, 'maxQty', Math.max(1, Number(e.target.value)))}
+            min={1}
+            max={99}
+            className="w-[140px]"
+            inputClassName="text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           />
         </div>
+
+        {/* Row 3: Deskripsi */}
+        <InputField
+          label="Deskripsi"
+          type="text"
+          value={item.description || ''}
+          onChange={(e) => onChange(index, 'description', e.target.value)}
+          placeholder="Deskripsi singkat (opsional)"
+          maxLength={60}
+        />
       </div>
     </motion.div>
   );
@@ -247,7 +253,7 @@ const DonationItemsEditor = ({
   const [localItems, setLocalItems] = useState(() => items.map(i => ({ ...i })));
   const [showPreview, setShowPreview] = useState(false);
   const [localMode, setLocalMode] = useState(
-    settings.donationItemsMode || 
+    settings.donationItemsMode ||
     (settings.donationItemsEnabled ? 'both' : 'amount_only')
   );
 
@@ -259,7 +265,6 @@ const DonationItemsEditor = ({
     }
   }, [settings.donationItemsMode, settings.donationItemsEnabled]);
 
-
   useEffect(() => {
     setLocalItems(items.map(i => ({ ...i })));
   }, [items]);
@@ -270,7 +275,6 @@ const DonationItemsEditor = ({
       next[index] = { ...next[index], [key]: value };
       return next;
     });
-    // JANGAN panggil onChange di sini → ini penyebab undo
   }, []);
 
   const handleRemove = useCallback((index) => {
@@ -290,38 +294,32 @@ const DonationItemsEditor = ({
   };
 
   const syncAndSave = () => {
-    // Update parent dulu
     onChange(localItems);
-
     saveSettingsMutation.mutate({
-      settings: { 
-        ...settings, 
+      settings: {
+        ...settings,
         donationItems: localItems,
         donationItemsMode: localMode,
-        donationItemsEnabled: localMode !== 'amount_only'
+        donationItemsEnabled: localMode !== 'amount_only',
       },
       slot: activeSlot,
     });
   };
 
   const handleModeChange = (mode) => {
-    setLocalMode(mode); // Optimistic update
-
+    setLocalMode(mode);
     const enabled = mode !== 'amount_only';
     saveSettingsMutation.mutate({
-      settings: { 
-        ...settings, 
-        donationItemsEnabled: enabled, 
-        donationItemsMode: mode 
+      settings: {
+        ...settings,
+        donationItemsEnabled: enabled,
+        donationItemsMode: mode,
       },
       slot: activeSlot,
     });
   };
 
-  const currentMode = localMode; // pakai localMode
-
-  // const currentMode = settings.donationItemsMode || (settings.donationItemsEnabled ? 'both' : 'amount_only');
-
+  const currentMode = localMode;
   const sortedPreview = [...localItems].filter(i => i.name && i.price > 0).sort((a, b) => a.price - b.price);
 
   return (
@@ -374,7 +372,7 @@ const DonationItemsEditor = ({
         )}
       </AnimatePresence>
 
-      {/* ── MODE SELECTOR (3 pilihan) ── */}
+      {/* Mode Selector */}
       <div className="space-y-2">
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
           Mode Tampilan Donasi
@@ -391,7 +389,6 @@ const DonationItemsEditor = ({
               }`}
             >
               <div className="flex items-center gap-2 relative top-[1px]">
-                {/* <span className="text-2xl relative ml-[-2.1px]">{opt.icon}</span> */}
                 <div>
                   <span className={`font-black text-xs ${
                     currentMode === opt.value
@@ -408,16 +405,13 @@ const DonationItemsEditor = ({
                     {opt.desc}
                   </p>
                 </div>
-                {/* {currentMode === opt.value && (
-                  <span className="ml-auto text-[9px] bg-blue-600 text-white px-1.5 py-0.5 rounded-md font-black">AKTIF</span>
-                )} */}
               </div>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Item list — hanya tampil kalau mode bukan amount_only */}
+      {/* Item list */}
       {currentMode !== 'amount_only' && (
         <>
           <div className="space-y-3">

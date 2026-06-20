@@ -32,6 +32,19 @@
     </div>
     );
 
+    const InputField = ({ label, ...props }) => (
+        <div className="w-full flex pl-[3px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+            <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+            {label}
+            </div>
+            <input
+            className="flex-1 bg-transparent p-3 h-11.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
+            {...props}
+            onChange={e => props.onChange?.(e.target.value)}
+            />
+        </div>
+    );
+
     // ─── VoiceDurationSettings ────────────────────────────────────────────────────
 
     const VoiceDurationSettings = ({ settings, onChange, saveSettingsMutation }) => {
@@ -72,12 +85,13 @@
             <label className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest block mb-2">
                 Durasi Dasar (detik)
             </label>
-            <input
+            <InputField
+                label="Detik"
                 type="number"
                 min={1}
                 value={settings.voiceBaseDuration ?? 10}
-                onChange={e => onChange('voiceBaseDuration', e.target.value === '' ? '' : Number(e.target.value))}
-                className="w-full text-lg font-black text-center bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl p-2 outline-none focus:border-violet-400 text-slate-900 dark:text-slate-100 transition-all"
+                onChange={v => onChange('voiceBaseDuration', v === '' ? '' : Number(v))}
+                inputClassName="text-center"
             />
             </div>
 
@@ -88,31 +102,33 @@
             </label>
             <div className="md:flex items-center gap-3 space-y-3 md:space-y-0">
                 <div className="flex-1">
-                <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-1.5">
+                {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-1.5">
                     Setiap Rp
-                </label>
-                <input
+                </label> */}
+                <InputField
+                    label="Setiap Rp"
                     type="number"
                     min={1000}
                     value={settings.voiceExtraPerAmount ?? 10000}
-                    onChange={e => onChange('voiceExtraPerAmount', e.target.value === '' ? '' : Number(e.target.value))}
-                    className="w-full text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl p-2 outline-none focus:border-violet-400 text-slate-900 dark:text-slate-100 transition-all"
+                    onChange={v => onChange('voiceExtraPerAmount', v === '' ? '' : Number(v))}
+                    inputClassName="text-center"
                 />
                 </div>
                 <div className="hidden md:flex items-center text-slate-400 dark:text-slate-500 font-black mt-4">
-                <Plus size={18} />
+                <Plus size={18} className='relative top-[-6px]' />
                 </div>
                 <div>
-                <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-1.5">
+                {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-1.5">
                     Detik Tambah
-                </label>
-                <input
+                </label> */}
+                <InputField
+                    label="+ Detik"
                     type="number"
                     min={0}
                     value={settings.voiceExtraDuration ?? 5}
-                    onChange={e => onChange('voiceExtraDuration', e.target.value === '' ? '' : Number(e.target.value))}
-                    className="w-full md:w-24 text-center text-lg font-bold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl p-2 outline-none focus:border-violet-400 text-slate-900 dark:text-slate-100 transition-all"
-                />
+                    onChange={v => onChange('voiceExtraDuration', v === '' ? '' : Number(v))}
+                    inputClassName="text-center"
+                    />
                 </div>
             </div>
             </div>
@@ -123,18 +139,16 @@
             <p className="font-black text-xs text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">
             Simulasi Durasi
             </p>
-            <div className="grid grid-cols-1 mb-2 md:grid-cols-5 md:gap-0 gap-x-2 md:justify-between">
+            <div className="grid grid-cols-1 mb-2 md:grid-cols-5 gap-3 md:justify-between">
             {previewDurations.map(({ label, seconds }, index) => (
-                <div className='md:flex w-full mb-2 md:mb-0 items-center gap-4'>
-                    <div 
-                        key={label} 
-                        className={`w-full border border-slate-100/20 py-1 px-3 flex md:justify-between gap-1.5 md:gap-4 items-center`}
-                    >
-                        <span className="text-sm text-slate-600 dark:text-slate-300">{label} - </span>
-                        <span className="font-black text-slate-900 dark:text-white text-sm">
-                        {seconds} detik
-                        </span>
-                    </div>
+                <div 
+                    key={label} 
+                    className={`w-full rounded-lg py-3 border border-slate-100/20 py-1 px-3 flex md:justify-between gap-1.5 md:gap-4 items-center`}
+                >
+                    <span className="text-sm text-slate-600 dark:text-slate-300">{label} - </span>
+                    <span className="font-black text-slate-900 dark:text-white text-sm">
+                    {seconds} detik
+                    </span>
                 </div>
                 ))}
             </div>
@@ -216,47 +230,47 @@
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* ... input nama, nominal, pesan tetap sama ... */}
                     <div className="flex flex-col gap-1.5">
-                        <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                        {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                             Nama Donor
-                        </label>
-                        <input
-                            value={customName}
-                            onChange={e => setCustomName(e.target.value)}
-                            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
-                            placeholder="Seseorang"
+                        </label> */}
+                        <InputField
+                        label="Nama Donor"
+                        value={customName}
+                        onChange={v => setCustomName(v)}
+                        placeholder="Seseorang"
                         />
                     </div>
                     <div className="flex flex-col gap-1.5">
-                        <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                        {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                             Nominal (Rp)
-                        </label>
-                        <input
+                        </label> */}
+                        <InputField
+                            label="Nominal (Rp)"
                             type="number"
                             value={customAmount}
-                            onChange={e => setCustomAmount(e.target.value)}
-                            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
-                        />
+                            onChange={v => setCustomAmount(v)}
+                            />
                     </div>
                     <div className="flex flex-col gap-1.5 md:col-span-2">
-                        <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                        {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                             Pesan Teks <span className="normal-case font-medium text-slate-300 dark:text-slate-600">(opsional)</span>
-                        </label>
-                        <input
+                        </label> */}
+                        <InputField
+                            label="Pesan"
                             value={customMsg}
-                            onChange={e => setCustomMsg(e.target.value)}
-                            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-rose-400 transition-all"
+                            onChange={v => setCustomMsg(v)}
                             placeholder="Semangat terus bang! (opsional)"
                         />
                     </div>
                 </div>
 
                 {/* Quick amount */}
-                <div className="grid grid-cols-6 gap-2">
+                <div className="grid grid-cols-6 gap-3">
                     {[1000, 5000, 10000, 50000, 100000, 500000].map(v => (
                         <button
                             key={v}
                             onClick={() => setCustomAmount(v)}
-                            className={`w-full cursor-pointer active:scale-[0.97] px-3 py-1.5 rounded-xl text-xs font-black transition-all border-2 ${
+                            className={`w-full cursor-pointer active:scale-[0.97] px-3 py-3 rounded-xl text-xs font-black transition-all border-2 ${
                                 Number(customAmount) === v
                                     ? 'bg-rose-500 border-rose-500 text-white'
                                     : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
@@ -271,7 +285,7 @@
                 <div className="space-y-2">
                     <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">
                         <span className="text-white font-medium">
-                            Maksimal {maxRecordSeconds} detik
+                            Maksimal {maxRecordSeconds} detik 
                         </span>
                     </label>
 

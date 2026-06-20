@@ -52,6 +52,33 @@ const formatSeconds = (s) => {
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
 };
 
+
+const InputField = ({ label, ...props }) => (
+  <div className="w-full flex pl-[3px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+    <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      {label}
+    </div>
+    <input
+      className="flex-1 bg-transparent p-3 h-11.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
+      {...props}
+      onChange={e => props.onChange?.(e.target.value)}
+    />
+  </div>
+);
+
+const TextareaField = ({ label, className = '', inputClassName = '', onChange, ...props }) => (
+  <div className={`w-full flex pl-[1.5px] items-start bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
+    <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      {label}
+    </div>
+    <textarea
+      className={`flex-1 bg-transparent p-3 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100 resize-y ${inputClassName}`}
+      {...props}
+      onChange={e => onChange?.(e.target.value)}
+    />
+  </div>
+);
+
 // ─── PollManager ─────────────────────────────────────────────────────────────
 
 export const PollManager = ({ overlayToken, username }) => {
@@ -198,11 +225,11 @@ export const PollManager = ({ overlayToken, username }) => {
 
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pertanyaan</label>
-              <input
+              <InputField
+                label="Pertanyaan"
                 value={newQuestion}
-                onChange={e => setNewQuestion(e.target.value)}
+                onChange={setNewQuestion}
                 placeholder="Contoh: Mau main game apa malam ini?"
-                className="w-full p-4 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
               />
             </div>
 
@@ -210,11 +237,11 @@ export const PollManager = ({ overlayToken, username }) => {
               <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilihan Jawaban</label>
               {newOptions.map((opt, i) => (
                 <div key={i} className="flex gap-2">
-                  <input
+                  <InputField
+                    label={`Opsi ${i + 1}`}
                     value={opt}
-                    onChange={e => updateOption(i, e.target.value)}
+                    onChange={val => updateOption(i, val)}
                     placeholder={`Opsi ${i + 1}`}
-                    className="flex-1 p-3 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
                   />
                   {newOptions.length > 2 && (
                     <button onClick={() => removeOption(i)} className="cursor-pointer p-3 text-red-400 hover:text-red-600 transition-colors">
@@ -555,10 +582,11 @@ export const SubathonManager = ({ overlayToken }) => {
 
         <div className="space-y-1.5">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Judul Timer</label>
-          <input value={localTimer.title || ''}
-            onChange={e => upd('title', e.target.value)}
+          <InputField
+            label="Judul Timer"
+            value={localTimer.title || ''}
+            onChange={val => upd('title', val)}
             placeholder="Subathon Timer"
-            className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
           />
         </div>
 
@@ -581,17 +609,22 @@ export const SubathonManager = ({ overlayToken }) => {
         <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Waktu Awal (detik)</label>
-            <input type="number" value={localTimer.initialSeconds}
-              onChange={e => upd('initialSeconds', Number(e.target.value))}
-              className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100"
+            <InputField
+              label="Waktu Awal (dtk)"
+              type="number"
+              value={localTimer.initialSeconds}
+              onChange={val => upd('initialSeconds', Number(val))}
             />
             <p className="text-[10px] text-slate-400 dark:text-slate-500">{formatSeconds(localTimer.initialSeconds)}</p>
           </div>
           <div className="space-y-1.5">
             <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Batas Maks (kosong=∞)</label>
-            <input type="number" value={localTimer.maxSeconds ?? ''} placeholder="∞"
-              onChange={e => upd('maxSeconds', e.target.value === '' ? null : Number(e.target.value))}
-              className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
+            <InputField
+              label="Batas Maks"
+              type="number"
+              value={localTimer.maxSeconds ?? ''}
+              placeholder="∞"
+              onChange={val => upd('maxSeconds', val === '' ? null : Number(val))}
             />
             {localTimer.maxSeconds && <p className="text-[10px] text-slate-400 dark:text-slate-500">{formatSeconds(localTimer.maxSeconds)}</p>}
           </div>
@@ -1042,45 +1075,10 @@ const TierForm = ({
       )}
 
       <div className="grid grid-cols-4 gap-2">
-        <div className="relative">
-          <input
-            type="number"
-            value={amount}
-            onChange={e => handleChange('amount', e.target.value)}
-            placeholder="5000"
-            className="w-full p-2 bg-white dark:bg-slate-800 border rounded-xl font-bold text-xs focus:border-blue-400 focus:outline-none pr-6"
-            min="1"
-          />
-          <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-400">Rp</span>
-        </div>
-        <input
-          type="number"
-          value={hours}
-          onChange={e => handleChange('hours', e.target.value)}
-          placeholder="0"
-          className="p-2 bg-white dark:bg-slate-800 border rounded-xl font-bold text-xs focus:border-blue-400 focus:outline-none"
-          min="0"
-        />
-        <input
-          type="number"
-          value={minutes}
-          onChange={e => handleChange('minutes', e.target.value)}
-          placeholder="1"
-          className="p-2 bg-white dark:bg-slate-800 border rounded-xl font-bold text-xs focus:border-blue-400 focus:outline-none"
-          min="0"
-        />
-        <input
-          type="number"
-          value={seconds}
-          onChange={e => handleChange('seconds', e.target.value)}
-          placeholder="30"
-          className="p-2 bg-white dark:bg-slate-800 border rounded-xl font-bold text-xs focus:border-blue-400 focus:outline-none"
-          min="0"
-        />
-      </div>
-      
-      <div className="grid grid-cols-4 gap-2 text-[10px] text-slate-400 dark:text-slate-500">
-        <span>Donasi</span><span>Jam</span><span>Menit</span><span>Detik</span>
+        <InputField label="Rp"  type="number" value={amount}  onChange={val => handleChange('amount', val)}  placeholder="5000" min="1" />
+        <InputField label="Jam" type="number" value={hours}   onChange={val => handleChange('hours', val)}   placeholder="0"    min="0" />
+        <InputField label="Mnt" type="number" value={minutes} onChange={val => handleChange('minutes', val)} placeholder="1"    min="0" />
+        <InputField label="Dtk" type="number" value={seconds} onChange={val => handleChange('seconds', val)} placeholder="30"   min="0" />
       </div>
 
       {isEditing ? (
@@ -1204,20 +1202,20 @@ export const MilestonesManager = ({ overlayToken }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Judul</label>
-                <input
+                <InputField
+                  label="Judul"
                   value={m.title}
-                  onChange={e => upd(i, 'title', e.target.value)}
+                  onChange={val => upd(i, 'title', val)}
                   placeholder="contoh: Beli mic baru!"
-                  className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
                 />
               </div>
               <div className="space-y-1.5">
                 <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Target (Rp)</label>
-                <input
+                <InputField
+                  label="Target (Rp)"
                   type="number"
                   value={m.targetAmount}
-                  onChange={e => upd(i, 'targetAmount', Number(e.target.value))}
-                  className="w-full p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100"
+                  onChange={val => upd(i, 'targetAmount', Number(val))}
                 />
               </div>
               {/* Tambah di dalam grid form milestone, setelah input targetAmount */}

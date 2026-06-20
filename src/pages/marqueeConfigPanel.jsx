@@ -207,7 +207,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
             <button
               key={n}
               onClick={() => upd('limit', n)}
-              className={`w-full md:mb-0 mb-2.5 cursor-pointer text-left pl-3.5 flex-1 py-2.5 rounded-xl font-black text-sm border-2 transition-all active:scale-[0.97] ${
+              className={`w-full md:mb-0 mb-2.5 cursor-pointer text-left pl-3.5 flex-1 py-3.5 rounded-xl font-black text-sm border-2 transition-all active:scale-[0.97] ${
                 cfg.limit === n
                   ? 'bg-blue-600 border-blue-600 text-white'
                   : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
@@ -240,10 +240,10 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
                 type="color"
                 value={cfg.color}
                 onChange={e => upd('color', e.target.value)}
-                className="w-10 h-10 cursor-pointer rounded-xl border border-slate-300 dark:border-slate-600 p-0.5"
+                className="w-12 h-11.5 cursor-pointer rounded-xl border border-slate-300 dark:border-slate-600"
               />
               <span className="font-mono text-sm text-slate-500">{cfg.color}</span>
-              <div className="flex-1 h-8 rounded-xl border border-slate-200 dark:border-slate-700" style={{ background: cfg.color }} />
+              <div className="flex-1 h-11.5 py-3 rounded-xl border border-slate-200 dark:border-slate-700" style={{ background: cfg.color }} />
             </div>
           </div>
 
@@ -256,10 +256,10 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
                 type="color"
                 value={cfg.highlight}
                 onChange={e => upd('highlight', e.target.value)}
-                className="w-10 h-10 cursor-pointer rounded-xl border border-slate-300 dark:border-slate-600 p-0.5"
+                className="w-12 h-11.5 cursor-pointer rounded-xl border border-slate-300 dark:border-slate-600"
               />
               <span className="font-mono text-sm text-slate-500">{cfg.highlight}</span>
-              <div className="flex-1 h-8 rounded-xl border border-slate-200 dark:border-slate-700" style={{ background: cfg.highlight }} />
+              <div className="flex-1 h-11.5 py-3 rounded-xl border border-slate-200 dark:border-slate-700" style={{ background: cfg.highlight }} />
             </div>
           </div>
         </div>
@@ -322,7 +322,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
                   upd('bg', preset.value);
                 }
               }}
-              className={`cursor-pointer px-4 py-2 rounded-xl font-black text-xs border-2 transition-all active:scale-[0.97] ${
+              className={`cursor-pointer px-4 py-3 min-h-11.5 rounded-xl font-black text-xs border-2 transition-all active:scale-[0.97] ${
                 cfg.bg === preset.value
                   ? 'bg-blue-600 border-blue-600 text-white'
                   : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
@@ -339,7 +339,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
               type="color"
               value={cfg.customBg}
               onChange={e => { upd('customBg', e.target.value); upd('bg', 'custom'); }}
-              className="w-10 h-10 cursor-pointer rounded-xl border border-slate-300 dark:border-slate-600 p-0.5"
+              className="w-10 h-11.5 py-3 cursor-pointer rounded-xl border border-slate-300 dark:border-slate-600 p-0.5"
             />
             <span className="font-mono text-sm text-slate-500">{cfg.customBg}</span>
           </div>
@@ -390,14 +390,14 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
           </div>
         </div>
 
-        <div className="bg-slate-100 truncate max-w-[100%] dark:bg-slate-800 rounded-xl px-4 py-3 font-mono text-xs text-blue-600 dark:text-blue-400 break-all border border-slate-200 dark:border-slate-700 select-all">
+        <div className="bg-slate-100 truncate max-w-[100%] dark:bg-slate-800 rounded-xl px-4 py-3 min-h-11.5 font-mono text-xs text-blue-600 dark:text-blue-400 break-all border border-slate-200 dark:border-slate-700 select-all">
           {buildUrl()}
         </div>
 
         <div className="gap-3 grid grid-cols-2">
           <button
             onClick={copy}
-            className={`w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 rounded-xl font-black text-sm transition-all border-2 ${
+            className={`w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 min-h-11.5 rounded-xl font-black text-sm transition-all border-2 ${
               copied
                 ? 'bg-green-600 border-green-600 text-white'
                 : 'bg-slate-900/70 dark:bg-slate-700 border-transparent text-white hover:brightness-90'
@@ -409,7 +409,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
             href={buildUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 rounded-xl font-black text-sm border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-300 transition-all"
+            className="w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 min-h-11.5 rounded-xl font-black text-sm border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-300 transition-all"
           >
             <ExternalLink size={16} /> Buka Preview
           </a>

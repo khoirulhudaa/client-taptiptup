@@ -47,6 +47,19 @@ const MIN_SALDO = 20000;
 // const FEE_PERCENT = 0.025;
 // const ADMIN_FEE = 0;
 
+const InputField = ({ label, ...props }) => (
+  <div className="w-full flex pl-[1.5px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+    <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      {label}
+    </div>
+    <input
+      className="flex-1 bg-transparent p-3 h-11.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
+      {...props}
+      onChange={e => props.onChange?.(e.target.value)}
+    />
+  </div>
+);
+
 // ── Alert Modal ──
 // ── Alert Modal (Support Success & Error) ──
 const AlertModal = ({ modal, onClose }) => {
@@ -620,7 +633,7 @@ export const WithdrawPage = () => {
             <div className={`grid grid-cols-1 ${method === 'BANK' || method === 'EWALLET' ? 'md:grid-cols-2' : ''} gap-3`}>
               {method === 'BANK' && (
                 <div className="flex flex-col gap-2">
-                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilih Bank</label>
+                  {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilih Bank</label> */}
                   <select
                     className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-xl font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100"
                     value={formData.channelCode}
@@ -654,36 +667,32 @@ export const WithdrawPage = () => {
                 </div>
               )}
 
-              <div className="flex flex-col gap-2">
-                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                  {method === 'BANK' ? 'Nomor Rekening' : 'Nomor Handphone'}
-                </label>
-                <input
-                  value={formData.accountNumber}
-                  placeholder={method === 'BANK' ? '0000000000000' : '08xx-xxxx-xxxx'}
-                  className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-xl font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
-                  onChange={e => setFormData({ ...formData, accountNumber: e.target.value })} />
-              </div>
+              <InputField
+                label={method === 'BANK' ? 'No. Rekening' : 'No. HP'}
+                value={formData.accountNumber}
+                placeholder={method === 'BANK' ? '0000000000000' : '08xx-xxxx-xxxx'}
+                onChange={v => setFormData({ ...formData, accountNumber: v })}
+              />
             </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Lengkap Pemilik Akun</label>
-              <input
-                value={formData.accountName}
-                placeholder="Sesuaikan dengan Buku Tabungan / Nama di App"
-                className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-xl font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600"
-                onChange={e => setFormData({ ...formData, accountName: e.target.value })} />
-            </div>
+            <InputField
+              label="Nama Pemilik"
+              value={formData.accountName}
+              placeholder="Sesuaikan dengan Buku Tabungan / Nama di App"
+              onChange={v => setFormData({ ...formData, accountName: v })}
+            />
 
             <div className="w-full flex flex-col gap-2">
               <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nominal Penarikan (Rp)</label>
-              <div className="relative w-[99.8%] mx-auto">
-                <span className="absolute left-5 top-[47%] -translate-y-1/2 font-black text-xl text-slate-400 dark:text-slate-500">Rp</span>
+              <div className="w-full flex pl-[4px] items-center bg-slate-900 dark:bg-slate-950 border-2 border-slate-700 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 transition-all shadow-sm">
+                <div className="w-max px-4 py-4 text-[10px] rounded-lg font-black text-slate-400 uppercase tracking-widest whitespace-nowrap bg-slate-800/50">
+                  Nominal (Rp)
+                </div>
                 <input
                   type="text"
                   value={formData.formattedAmount || ''}
-                  placeholder="0"
-                  className="w-full py-4 pl-14 bg-slate-900 dark:bg-slate-950 text-white ring-1 dark:ring-white/10 rounded-xl font-bold text-xl outline-none focus:ring-1 dark:focus:ring-blue-900 transition-all placeholder:text-slate-600"
+                  placeholder="320.000"
+                  className="flex-1 bg-transparent p-4 pl-3 outline-none font-bold text-md text-white placeholder:text-slate-600"
                   onChange={(e) => {
                     let value = e.target.value.replace(/[^0-9]/g, '');
                     if (value === '') { setFormData(prev => ({ ...prev, amount: '', formattedAmount: '' })); return; }
@@ -1027,17 +1036,22 @@ export const WithdrawPage = () => {
                   <p className="text-sm text-slate-500 mt-1">Masukkan 6 digit kode dari aplikasi Google Authenticator kamu</p>
                 </div>
 
-                <input
-                  type="text"
-                  maxLength={6}
-                  value={totpCode}
-                  onChange={(e) => {
-                    setTotpCode(e.target.value.replace(/[^0-9]/g, ''));
-                    setTotpError('');
-                  }}
-                  className="w-full text-center text-4xl tracking-[12px] font-mono py-6 mt-8 bg-slate-100 dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 rounded-xl focus:border-blue-500 outline-none"
-                  placeholder="000000"
-                />
+                <div className="mt-8 flex pl-[1.5px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 transition-all shadow-sm">
+                  <div className="w-max px-3 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+                    Kode 2FA
+                  </div>
+                  <input
+                    type="text"
+                    maxLength={6}
+                    value={totpCode}
+                    onChange={(e) => {
+                      setTotpCode(e.target.value.replace(/[^0-9]/g, ''));
+                      setTotpError('');
+                    }}
+                    className="flex-1 bg-transparent py-6 pl-4 outline-none font-mono text-4xl tracking-[12px] text-slate-900 dark:text-white"
+                    placeholder="000000"
+                  />
+                </div>
 
                 {totpError && <p className="text-red-500 text-center mt-3 text-sm">{totpError}</p>}
 

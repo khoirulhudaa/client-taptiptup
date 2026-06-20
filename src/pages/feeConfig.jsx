@@ -14,6 +14,19 @@ const ADMIN_FEE   = 3500;  // Rp 1.500 tetap ditanggung streamer
 const formatRupiah = (num) =>
   new Intl.NumberFormat('id-ID').format(Math.round(num));
 
+const InputField = ({ label, ...props }) => (
+  <div className="w-full flex pl-[3px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+    <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      {label}
+    </div>
+    <input
+      className="flex-1 bg-transparent p-3 h-11.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
+      {...props}
+      onChange={e => props.onChange?.(e.target.value)}
+    />
+  </div>
+);
+
 // ─── Simulator ────────────────────────────────────────────────────────────────
 const FeeSimulator = ({ feeBearer }) => {
   const [nominal, setNominal] = useState(100000);
@@ -57,15 +70,12 @@ const FeeSimulator = ({ feeBearer }) => {
       </div>
 
       {/* Input nominal */}
-      <div className="relative">
-        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-black text-sm">Rp</span>
-        <input
-          type="number"
-          value={nominal}
-          onChange={e => setNominal(Number(e.target.value))}
-          className="w-full pl-12 pr-4 py-3 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-800 dark:text-slate-100 outline-none focus:border-indigo-500 transition-all"
-        />
-      </div>
+      <InputField
+        label="Rupiah"
+        type="number"
+        value={nominal}
+        onChange={val => setNominal(Number(val))}
+      />
 
       {/* Breakdown */}
       <div className="space-y-2 text-sm">

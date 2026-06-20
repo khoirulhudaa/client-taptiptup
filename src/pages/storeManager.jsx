@@ -4,6 +4,32 @@ import { useState, useEffect } from 'react';
 import api from '../lib/axiosInstance';
 import toast from 'react-hot-toast';
 
+const InputField = ({ label, ...props }) => (
+    <div className="w-full flex pl-[3px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+      <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+        {label}
+      </div>
+      <input
+        className="flex-1 bg-transparent p-3 h-11.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
+        {...props}
+        onChange={e => props.onChange?.(e.target.value)}
+      />
+    </div>
+  );
+
+  const TextareaField = ({ label, className = '', inputClassName = '', onChange, ...props }) => (
+    <div className={`w-full flex pl-[1.5px] items-start bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
+      <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+        {label}
+      </div>
+      <textarea
+        className={`flex-1 bg-transparent p-3 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100 resize-y ${inputClassName}`}
+        {...props}
+        onChange={e => onChange?.(e.target.value)}
+      />
+    </div>
+  );
+
 const StoreManager = ({ overlayToken }) => {
   const queryClient = useQueryClient();
   const [products, setProducts] = useState([]);
@@ -136,31 +162,30 @@ const StoreManager = ({ overlayToken }) => {
                 </div>
               </div>
 
-              <input
-                placeholder="Nama Produk"
-                value={p.name}
-                onChange={e => updateProduct(i, 'name', e.target.value)}
-                className="w-full p-4 border border-slate-300 dark:border-slate-600 rounded-xl mb-3 font-medium"
-              />
+              <div className="mb-3">
+                <InputField
+                  label="Nama"
+                  value={p.name}
+                  onChange={v => updateProduct(i, 'name', v)}
+                  placeholder="Nama Produk"
+                />
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
-                <input
+                <InputField
+                  label="Harga (Rp)"
                   type="number"
-                  placeholder="Harga (Rp)"
                   value={p.price}
-                  onChange={e => updateProduct(i, 'price', Number(e.target.value))}
-                  className="p-4 border border-slate-300 dark:border-slate-600 rounded-xl font-medium"
+                  onChange={v => updateProduct(i, 'price', Number(v))}
+                  placeholder="0"
                 />
                <div>
-                  <input
-                    placeholder="Link Produk (Wajib https://)"
+                <InputField
+                    label="Link"
                     value={p.link}
-                    onChange={e => updateProduct(i, 'link', e.target.value)}
-                    className={`w-full p-4 border rounded-xl font-medium transition-colors ${
-                      isLinkValid 
-                        ? 'border-slate-300 dark:border-slate-600 focus:border-blue-500' 
-                        : 'border-blue-500 focus:border-blue-500 bg-blue-50 dark:bg-blue-950/20'
-                    }`}
+                    onChange={v => updateProduct(i, 'link', v)}
+                    placeholder="https://..."
+                    // className={!isLinkValid ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20' : ''}
                   />
                   {!isLinkValid && (
                     <p className="text-xs text-blue-500 mt-1 font-bold">
@@ -170,12 +195,15 @@ const StoreManager = ({ overlayToken }) => {
                 </div>
               </div>
 
-              <textarea
-                placeholder="Deskripsi singkat (opsional)"
-                value={p.description}
-                onChange={e => updateProduct(i, 'description', e.target.value)}
-                className="w-full p-4 border border-slate-300 dark:border-slate-600 rounded-xl h-24 mt-4 font-medium"
-              />
+              <div className="mt-3">
+                <TextareaField
+                  label="Deskripsi"
+                  value={p.description}
+                  onChange={v => updateProduct(i, 'description', v)}
+                  placeholder="Deskripsi singkat (opsional)"
+                  inputClassName="h-24"
+                />
+              </div>
             </div>
             )
           })}

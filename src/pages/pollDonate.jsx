@@ -45,6 +45,19 @@ const PollNavbar = ({ theme, toggleTheme }) => (
   </nav>
 );
 
+const InputField = ({ label, ...props }) => (
+  <div className="w-full flex pl-[1.5px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+    <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      {label}
+    </div>
+    <input
+      className="flex-1 bg-transparent p-3 h-11.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
+      {...props}
+      onChange={e => props.onChange?.(e.target.value)}
+    />
+  </div>
+);
+
 // ─── State: tidak ada poll aktif ──────────────────────────────────────────────
 const NoPollState = ({ username }) => (
   <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center p-4 pt-24">
@@ -308,13 +321,15 @@ const PollDonatePage = () => {
             </div>
 
             {/* Custom input */}
-            <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 font-black text-blue-600 dark:text-blue-400 text-sm">Rp</span>
+            <div className="flex pl-[1.5px] items-center bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 transition-all shadow-sm">
+              <div className="w-max px-3 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+                Rp
+              </div>
               <input
                 type="number"
                 value={amount || ''}
                 onChange={e => setAmount(Number(e.target.value))}
-                className="w-full p-4 pl-12 rounded-xl font-black text-slate-800 dark:text-white bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 outline-none transition-all"
+                className="flex-1 bg-transparent p-3 pl-3 outline-none font-black text-sm text-slate-800 dark:text-white"
                 placeholder="Nominal custom..."
               />
             </div>
@@ -336,28 +351,24 @@ const PollDonatePage = () => {
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Identitas</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Nama</label>
-                <input
-                  type="text"
-                  disabled={isAnonymous || isLoggedIn}
-                  value={isAnonymous ? '' : donorName}
-                  onChange={e => setDonorName(e.target.value)}
-                  placeholder="Nama kamu"
-                  className="w-full p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white text-sm font-bold"
-                />
-              </div>
-              <div>
-                <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Email (opsional)</label>
-                <input
-                  type="email"
-                  disabled={isLoggedIn}
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder="email@kamu.com"
-                  className="w-full p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white text-sm font-bold"
-                />
-              </div>
+              <InputField
+                label="Nama"
+                type="text"
+                disabled={isAnonymous || isLoggedIn}
+                value={isAnonymous ? '' : donorName}
+                onChange={v => setDonorName(v)}
+                placeholder="Nama kamu"
+                className={isAnonymous || isLoggedIn ? 'opacity-40' : ''}
+              />
+              <InputField
+                label="Email"
+                type="email"
+                disabled={isLoggedIn}
+                value={email}
+                onChange={v => setEmail(v)}
+                placeholder="email@kamu.com"
+                className={isLoggedIn ? 'opacity-40' : ''}
+              />
             </div>
 
             {/* Anonymous toggle */}
