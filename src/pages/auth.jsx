@@ -124,25 +124,35 @@ const AuthInput = ({ icon: Icon, type='text', value, onChange, placeholder, T, c
   const [showPassword, setShowPassword] = useState(false);
   const [focused, setFocused] = useState(false);
   const isPassword = type === 'password';
-  
-  // Handler untuk input change dengan sanitasi
+
   const handleChange = (inputValue) => {
-    // Sanitasi input untuk mencegah XSS
     const sanitized = sanitizeInput(inputValue);
     onChange(sanitized);
   };
 
   return (
-    <div style={{ position:'relative' }}>
-      <div 
-        className='rounded-xl'
-        style={{ 
-        position:'absolute', left:16, top:'50%', transform:'translateY(-50%)', 
-        color: focused ? '#2754FF' : T.iconDefault, transition:'color 0.2s', 
-        zIndex:1, display:'flex' 
-      }}>
+    <div
+      className="w-full flex pl-[1.5px] items-center rounded-xl overflow-hidden transition-all shadow-sm"
+      style={{
+        border: `1.5px solid ${focused ? T.inputBorderFocus : T.inputBorder}`,
+        background: focused ? T.inputBgFocus : T.inputBg,
+        transition: 'all 0.2s',
+      }}
+    >
+      {/* Label kiri (icon) */}
+      <div
+        className="flex items-center justify-center flex-shrink-0 h-full px-3 w-16 py-0 border-r border-slate-500/20"
+        style={{
+          color: focused ? '#2754FF' : T.iconDefault,
+          // borderColor: focused ? T.inputBorderFocus : T.inputBorder,
+          transition: 'color 0.2s, border-color 0.2s',
+          background: focused ? T.inputBgFocus : T.inputBg,
+        }}
+      >
         <Icon size={18} />
       </div>
+
+      {/* Input */}
       <input
         type={isPassword ? (showPassword ? 'text' : 'password') : type}
         value={value}
@@ -151,21 +161,29 @@ const AuthInput = ({ icon: Icon, type='text', value, onChange, placeholder, T, c
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         style={{
-          width:'100%', boxSizing:'border-box',
-          background: focused ? T.inputBgFocus : T.inputBg,
-          border: `1.5px solid ${focused ? T.inputBorderFocus : T.inputBorder}`,
-          borderRadius:10, padding:'15px 48px',
-          color: T.inputText, fontSize:15, fontWeight:600,
-          outline:'none', transition:'all 0.2s',
+          flex: 1,
+          background: 'transparent',
+          border: 'none',
+          padding: '15px 12px',
+          color: T.inputText,
+          fontSize: 15,
+          fontWeight: 600,
+          outline: 'none',
+          boxSizing: 'border-box',
+          width: '100%',
         }}
-        className={`rounded-xl auth-input-field ${className}`}
+        className={`auth-input-field ${className}`}
       />
+
+      {/* Toggle password */}
       {isPassword && (
-        <button className='rounded-xl' type="button" onClick={() => setShowPassword(v => !v)}
-          style={{ 
-            position:'absolute', right:16, top:'50%', transform:'translateY(-50%)', 
-            background:'none', border:'none', cursor:'pointer', color: T.iconDefault, 
-            display:'flex', zIndex:1 
+        <button
+          type="button"
+          onClick={() => setShowPassword(v => !v)}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            color: T.iconDefault, display: 'flex',
+            paddingRight: 14, flexShrink: 0,
           }}
         >
           {showPassword ? <EyeOff size={18}/> : <Eye size={18}/>}
@@ -446,21 +464,20 @@ const MainAuthForm = ({
             style={{ display:'flex', flexDirection:'column', gap:16, marginBottom:20 }}>
             <div className={`grid ${isLogin ? 'grid-cols-1' : ' grid-cols-1 md:grid-cols-2 mt-5.5'} gap-4`}>
                 {!isLogin && (
-                  <motion.div 
-                    key="username" 
-                    initial={{ opacity:0, height:0, marginBottom:0 }} 
-                    animate={{ opacity:1, height:'auto', marginBottom:0 }} 
-                    // exit={{ opacity:0, height:0, marginBottom:0 }}
-                    transition={{ duration:0.2 }}
-                  >
-                    <AuthInput 
-                      icon={User} 
-                      placeholder="Username" 
-                      value={formData.username} 
-                      onChange={v => setFormData(f => ({ ...f, username:v }))} 
-                      T={T} 
-                    />
-                  </motion.div>
+                  // <motion.div 
+                  //   key="username" 
+                  //   initial={{ opacity:0, height:0, marginBottom:0 }} 
+                  //   animate={{ opacity:1, height:'auto', marginBottom:0 }} 
+                  //   transition={{ duration:0.2 }}
+                  // >
+                  // </motion.div>
+                  <AuthInput 
+                    icon={User} 
+                    placeholder="Username" 
+                    value={formData.username} 
+                    onChange={v => setFormData(f => ({ ...f, username:v }))} 
+                    T={T} 
+                  />
               )}
               {!isLogin && (
                 <AuthInput 
