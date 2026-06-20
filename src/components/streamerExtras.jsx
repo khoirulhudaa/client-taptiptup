@@ -143,11 +143,11 @@ export const PollManager = ({ overlayToken, username }) => {
           <div className="p-5 space-y-4">
             <h3 className="font-black text-slate-800 dark:text-slate-100 text-md md:text-lg">{getPollData(activePoll).question}</h3>
             <div className="space-y-3">
-              {(getPollData(activePoll).options || []).map((opt) => {
+              {(getPollData(activePoll).options || []).map((opt, i) => {
                 const total = getTotalVotes(activePoll);
                 const pct = getPercent(opt.votes, total);
                 return (
-                  <div key={opt._id} className="space-y-1.5">
+                  <div key={opt._id || opt.text || i} className="space-y-1.5">
                     <div className="flex items-center justify-between text-sm">
                       <span className="font-bold text-slate-700 dark:text-slate-300">{opt.text}</span>
                       <span className="font-black text-blue-600 dark:text-blue-400">{pct}% <span className="text-slate-400 dark:text-slate-500 font-medium text-xs">({opt.votes} votes)</span></span>
@@ -306,12 +306,12 @@ export const PollManager = ({ overlayToken, username }) => {
       {closedPolls.length > 0 && (
         <div className="space-y-3">
           <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest px-1">Riwayat Poll ({closedPolls.length})</p>
-          {closedPolls.slice(0, 5).map(poll => {
+          {closedPolls.slice(0, 5).map((poll, i) => {
             const data = getPollData(poll);
             const total = getTotalVotes(poll);
             const winner = [...(data.options || [])].sort((a, b) => b.votes - a.votes)[0];
             return (
-              <div key={poll._id} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 flex items-center gap-4">
+              <div key={poll._id || poll.question || i} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 flex items-center gap-4">
                 <div className="flex-1 min-w-0">
                   <p className="font-black text-slate-700 dark:text-slate-200 text-sm truncate">{data.question}</p>
                   {winner && (
@@ -447,7 +447,13 @@ export const SubathonManager = ({ overlayToken }) => {
     onSuccess: (d) => { setLocalTimer(d); setDisplaySeconds(d.currentSeconds); },
   });
 
-  const upd = (k, v) => setLocalTimer(t => ({ ...t, [k]: v }));
+  // const upd = (k, v) => setLocalTimer(t => ({ ...t, [k]: v }));
+  const upd = (i, keyOrObj, val) => setLocal(list.map((m, idx) => {
+    if (idx !== i) return m;
+    if (typeof keyOrObj === 'object') return { ...m, ...keyOrObj }; // ← multi key
+    return { ...m, [keyOrObj]: val };
+  }));
+
 
   const save = () => {
     configMutation.mutate({
@@ -1117,6 +1123,8 @@ export const MilestonesManager = ({ overlayToken }) => {
   const [mlColor, setMlColor] = useState('6366f1'); 
   const [mlBgcolor, setMlBgcolor] = useState('0f0f19'); 
 
+  const [previewTotals, setPreviewTotals] = useState({});
+
   useEffect(() => {
     if (raw && !local) setLocal(Array.isArray(raw) ? raw : []);
   }, [raw]);
@@ -1134,6 +1142,23 @@ export const MilestonesManager = ({ overlayToken }) => {
   const add    = () => setLocal([...list, { title: '', targetAmount: 1000000, order: list.length, period: 'alltime' }]);
   const remove = (i) => setLocal(list.filter((_, idx) => idx !== i));
   const upd    = (i, key, val) => setLocal(list.map((m, idx) => idx === i ? { ...m, [key]: val } : m));
+  
+  const fetchPreviewTotal = async (period, periodSince) => {
+    const key = period === 'since' && periodSince ? `since::${periodSince}` : (period || 'alltime');
+    if (previewTotals[key] !== undefined) return;
+    try {
+      const res = await axios.get(`${BASE_URL}/api/milestones/total`, {
+        headers: authHeader(),
+        params: { period, ...(periodSince ? { periodSince } : {}) }
+      });
+      setPreviewTotals(prev => ({ ...prev, [key]: res.data.total }));
+    } catch {}
+  };
+
+  // Fetch saat list berubah
+  useEffect(() => {
+    list.forEach(m => fetchPreviewTotal(m.period || 'alltime', m.periodSince));
+  }, [list]);
 
   if (isLoading) return <div className="text-slate-400 dark:text-slate-500 text-sm font-bold animate-pulse py-3 md:py-4">Memuat...</div>;
 
@@ -1167,7 +1192,7 @@ export const MilestonesManager = ({ overlayToken }) => {
         </div>
 
         {list.map((m, i) => (
-          <div key={i} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 space-y-4">
+          <div key={`milestone-${m._id || ''}-${i}`} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Milestone {i + 1}</span>
               <button
@@ -1208,7 +1233,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                     { id: 'thismonth', label: '📆 Bulan Ini' },
                     { id: 'since',     label: '📌 Sejak Tanggal' },
                   ].map(p => {
-                    const hasSinceDate = p.id !== 'since' && !!m.periodSince; // ada tanggal, bukan tombol since
+                    const hasSinceDate = p.id !== 'since' && m.period === 'since' && !!m.periodSince;
                     const isActive = (m.period || 'alltime') === p.id && !hasSinceDate;
 
                     return (
@@ -1246,13 +1271,29 @@ export const MilestonesManager = ({ overlayToken }) => {
                       type="date"
                       value={m.periodSince ? m.periodSince.slice(0, 10) : ''}
                       max={new Date().toISOString().slice(0, 10)}
-                      onChange={e => upd(i, 'periodSince', e.target.value || null)} // kalau dikosongkan → null = 3 tombol aktif lagi
+                      onClick={e => e.target.showPicker?.()}
+                      onChange={e => upd(i, 'periodSince', e.target.value || null)}
                       className="flex-1 p-2 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100"
                     />
                     {m.periodSince && (
-                      <span className="text-[10px] font-bold text-green-600 dark:text-green-400 whitespace-nowrap">
-                        Donasi ≥ {new Date(m.periodSince).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
-                      </span>
+                      <>
+                        <span className="text-[10px] font-bold text-green-600 dark:text-green-400 whitespace-nowrap">
+                          Donasi ≥ {new Date(m.periodSince).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        </span>
+                        {/* ← tombol reset */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            upd(i, 'periodSince', null);
+                            upd(i, 'period', 'alltime'); // balik ke alltime
+                          }}
+                          className="cursor-pointer flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-red-100 dark:bg-red-600 text-white hover:bg-red-200 dark:hover:bg-red-900 transition-all text-xs font-medium"
+                        >
+                          <p className='relative left-[-1px]'>
+                            ×
+                          </p>
+                        </button>
+                      </>
                     )}
                   </div>
                 )}
@@ -1261,11 +1302,30 @@ export const MilestonesManager = ({ overlayToken }) => {
 
             <div className="space-y-1.5">
               <div className="flex justify-between text-[10px] font-black text-slate-400 dark:text-slate-500">
-                <span>Progress (preview)</span>
-                <span>0 / Rp {Number(m.targetAmount || 0).toLocaleString('id-ID')}</span>
+                <span>
+                  {(() => {
+                    const key = m.period === 'since' && m.periodSince
+                      ? `since::${m.periodSince}`
+                      : (m.period || 'alltime');
+                    const total = previewTotals[key] ?? 0;
+                    const pct = m.targetAmount > 0 ? Math.min(100, Math.round((total / m.targetAmount) * 100)) : 0;
+                    return `Rp ${total.toLocaleString('id-ID')} / Rp ${Number(m.targetAmount || 0).toLocaleString('id-ID')} (${pct}%)`;
+                  })()}
+                </span>
               </div>
               <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden">
-                <div className="h-full bg-green-400 rounded-xl" style={{ width: '0%' }} />
+                <div
+                  className="h-full bg-green-400 rounded-xl transition-all"
+                  style={{
+                    width: (() => {
+                      const key = m.period === 'since' && m.periodSince
+                        ? `since::${m.periodSince}`
+                        : (m.period || 'alltime');
+                      const total = previewTotals[key] ?? 0;
+                      return m.targetAmount > 0 ? `${Math.min(100, Math.round((total / m.targetAmount) * 100))}%` : '0%';
+                    })()
+                  }}
+                />
               </div>
             </div>
           </div>

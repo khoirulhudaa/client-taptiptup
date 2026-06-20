@@ -24,8 +24,6 @@ export const Miles1 = ({ displayList, totalDonation, activeIdx, color, bgcolor, 
         transform: `scale(${scale})`,
         width: BASE_WIDTH,
       }}>
-        {/* <div style={{ width, display: 'flex', flexDirection: 'column', fontFamily: "'Inter','Segoe UI',sans-serif" }}>
-        </div> */}
         <div style={{ background: bgcolor ? `#${bgcolor}` : 'rgba(15,15,25,1)', borderRadius: 20, padding: '18px 18px', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, position: 'relative', left: '-2px' }}>
             <span style={{ fontSize: 23 }}>🎯</span>
@@ -41,7 +39,7 @@ export const Miles1 = ({ displayList, totalDonation, activeIdx, color, bgcolor, 
               const pct = m.progress ?? Math.min(100, Math.round(((m.currentAmount || 0) / m.targetAmount) * 100));
               const achieved = m.reached ?? (m.currentAmount || 0) >= m.targetAmount;
               return (
-                <div key={m._id || i}>
+                <div key={`${m._id || ''}-${i}`}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', margin: '4.5px 0px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                       {achieved && <span style={{ fontSize: 20 }}>✅</span>}
@@ -93,7 +91,7 @@ export const Miles2 = ({ displayList, totalDonation, color, bgcolor, textcolor, 
             const pct = m.progress ?? Math.min(100, Math.round(((m.currentAmount || 0) / m.targetAmount) * 100));
             const achieved = m.reached ?? (m.currentAmount || 0) >= m.targetAmount;
             return (
-              <div key={m._id || i} style={{ background: bgcolor ? `#${bgcolor}` : 'rgba(15,15,25,1)', borderRadius: 18, padding: '20px 26px', boxShadow: '0 4px 20px rgba(0,0,0,0.4)', textAlign: 'center' }}>
+              <div key={`${m._id || ''}-${i}`} style={{ background: bgcolor ? `#${bgcolor}` : 'rgba(15,15,25,1)', borderRadius: 18, padding: '20px 26px', boxShadow: '0 4px 20px rgba(0,0,0,0.4)', textAlign: 'center' }}>
                 <span style={{ fontSize: 22, fontWeight: 700, color: achieved ? '#10b981' : tc, textDecoration: achieved ? 'line-through' : 'none', display: 'block', marginBottom: 18 }}>
                   {achieved ? '✅ ' : ''}{m.title}
                 </span>
@@ -124,8 +122,6 @@ export const Miles2 = ({ displayList, totalDonation, color, bgcolor, textcolor, 
               </div>
             );
           })}
-          {/* <div style={{ display: 'flex', flexDirection: 'column', width, fontFamily: "'Inter','Segoe UI',sans-serif", gap: 8 }}>
-          </div> */}
         </div>
       </div>
     )
@@ -167,7 +163,24 @@ const MilestonesWidget = () => {
     }
   }, [token]);
 
-  useEffect(() => { if (token) fetchData(); }, [token]);
+  useEffect(() => { 
+    if (token) {
+      fetchData();
+      const interval = setInterval(fetchData, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [token, fetchData]);
+
+  useEffect(() => {
+    if (!token) return;
+    const socket = io(BASE_URL);
+    socket.emit('join-room', token);
+    socket.emit('join-room', `${token}-mediashare`);
+    socket.on('new-donation', fetchData);
+    socket.on('new-media-donation', fetchData);
+    socket.on('milestones-updated', fetchData);
+    return () => socket.disconnect();
+  }, [token, fetchData]);
 
   useEffect(() => {
     if (!token) return;

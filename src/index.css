@@ -104,3 +104,8 @@ input[type="color"]::-moz-color-swatch {
   text-transform: uppercase;
   z-index: 10;
 }
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
