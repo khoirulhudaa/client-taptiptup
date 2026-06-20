@@ -706,7 +706,7 @@ function Marquee({ C }) {
 }
 
 const PLATFORMS = [
-  { name: "Saweria",    feeDonate: 5.0,  feeWd: 5000,  feeWdLabel: "Rp 5.000",  winner: true },
+  { name: "Saweria",    feeDonate: 5.0,  feeWd: 5000,  feeWdLabel: "Rp 5.000", feeMaintenance: "Rp. 10.000",  winner: true },
   { name: "TapTipTup", feeDonate: 3.0,  feeWd: 3500,  feeWdLabel: "Rp 4.000" },
   { name: "Sociabuzz",  feeDonate: 5.0,  feeWd: 4500,  feeWdLabel: "Rp 4.500", winner: true },
   // { name: "TipTap",  feeDonate: 3.0,  feeWd: 6.500,  feeWdLabel: "Rp 6.500" },
@@ -764,9 +764,7 @@ function OverlayCustom({ C }) {
         </Reveal>
 
         {/* ── CARDS ── */}
-        <StaggerGroup className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-xl overflow-hidden !mt-8"
-          // style={{ border: "1px solid rgba(255,255,255,0.12)" }}
-          >
+        <StaggerGroup className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-xl overflow-hidden !mt-8">
           {ITEMS.map((item, i) => {
             const isLast = i === PLATFORMS.length - 1;
             return (
@@ -1223,14 +1221,14 @@ function FeeComparison({ C }) {
                 </div>
 
                 {/* Fee donate */}
-                <div style={{ marginBottom: 12 }}>
-                  <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 26, lineHeight: 1, color: "#000000" }}>
-                    {p.feeDonate.toFixed(1)}% + {p.feeWdLabel || '—'}
-                  </div>
-                  <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 12, color: "black", letterSpacing: "0.05em", textTransform: "uppercase", marginTop: 10 }}>
-                    {p.winner || p.name === 'TipTap' ? 'potongan per Dukungan + WD semua metode' : 'potongan per Dukungan + WD Bank'}
-                  </div>
+               <div style={{ marginBottom: 12 }}>
+                <div style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: 26, lineHeight: 1, color: "#000000" }}>
+                  {p.feeDonate.toFixed(1)}% + {p.feeWdLabel || '—'}{p.name === 'Saweria' ? ` + ${p.feeMaintenance || ''}` : ''}
                 </div>
+                <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 12, color: "black", letterSpacing: "0.05em", textTransform: "uppercase", marginTop: 10 }}>
+                  {p.name === 'TapTipTup' ? 'Setiap Dukungan + WD semua metode' : p.name === 'Saweria' ? 'Setiap Dukungan + WD Bank + Pemeliharaan' : 'Setiap Dukungan + WD Bank'}
+                </div>
+              </div>
               </StaggerItem>
             );
           })}
@@ -2068,7 +2066,7 @@ export function OverlayCustomizer({ C }) {
         <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
           <Kicker C={C}>Kustomisasi Overlay</Kicker>
           <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px,7vw,80px)", lineHeight: 1.05, letterSpacing: "0.01em", color: "white", marginBottom: 14 }}>
-            DESAIN ALERT <span style={{ color: "azure" }}>SESUKAMU</span>
+            DESAIN OVERLAY <span style={{ color: "azure" }}>SESUKAMU</span>
           </h2>
         </Reveal>
 
@@ -2481,8 +2479,10 @@ export default function TapTipTup() {
           justifyContent: "center",
           zIndex: 999999,
         }}>
-          <div style={{
-            background: C.bg2,
+          <div 
+          className="bg-blue-900"
+          style={{
+            // background: "#0a0f1e",
             border: `1px solid ${C.line}`,
             borderRadius: "16px",
             maxWidth: "860px",
@@ -2507,7 +2507,7 @@ export default function TapTipTup() {
             {/* Video */}
             <div style={{ padding: "20px 14px 0" }}>
               <video
-                src="./live.mp4"
+                src="./live3.mp4"
                 controls={false}
                 autoPlay
                 muted
