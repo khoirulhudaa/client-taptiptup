@@ -31,7 +31,7 @@ export const Miles1 = ({ displayList, totalDonation, activeIdx, color, bgcolor }
             const achieved = m.reached ?? (m.currentAmount || 0) >= m.targetAmount;
             return (
               <div key={m._id || i}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', margin: '4.5px 0px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     {achieved && <span style={{ fontSize: 20 }}>✅</span>}
                     <span style={{ fontSize: 22, fontWeight: 700, color: '#ffffff', textDecoration: achieved ? 'line-through' : 'none' }}>
@@ -42,7 +42,7 @@ export const Miles1 = ({ displayList, totalDonation, activeIdx, color, bgcolor }
                     {achieved ? '✓' : `${pct}%`}
                   </span>
                 </div>
-                <div style={{ height: 6, background: 'rgba(255,255,255,0.12)', borderRadius: 0, overflow: 'hidden', minWidth: 460  }}>
+                <div style={{ height: 6, background: 'rgba(255,255,255,0.12)', borderRadius: 0, overflow: 'hidden', minWidth: 560  }}>
                   <div style={{ height: '100%', width: `${pct}%`, background: getBarBg(achieved), transition: 'width 1s ease' }} />
                 </div>
                 <div style={{ gap: 10, marginTop: 15, display: 'flex', justifyContent: 'end', alignItems: 'center', fontSize: 20, fontWeight: 600, color: 'rgba(255,255,255,1)', }}>
