@@ -450,36 +450,39 @@ export const OBSConnectPanel = ({ overlayToken }) => {
           <div className="space-y-2.5">
             <div className="grid grid-cols-5 gap-2.5">
               {/* Port */}
-              <div className="flex flex-col gap-1">
-                <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Port</label>
+              <div className="col-span-1 rounded-xl flex p-[3px] pl-[4px] items-center bg-slate-700/50 border border-slate-600 overflow-hidden focus-within:border-blue-500 transition-all">
+                <div className="rounded-lg px-2.5 py-3.5 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-600 bg-slate-700/80 flex-shrink-0">
+                  Port
+                </div>
                 <input
                   type="text"
                   value={port}
                   onChange={e => setPort(e.target.value)}
                   placeholder="4455"
-                  className="w-full px-2.5 py-3.5 bg-slate-700/50 border border-slate-600 text-slate-200 font-mono text-xs outline-none focus:border-blue-500 rounded-none"
+                  className="flex-1 bg-transparent px-3 py-3.5 text-slate-200 font-mono text-xs outline-none w-full min-w-0"
                 />
               </div>
+
               {/* Password */}
-              <div className="col-span-4 flex flex-col gap-1">
-                <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Password WebSocket</label>
-                <div className="relative">
-                  <input
-                    type={showPass ? 'text' : 'password'}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && handleConnect()}
-                    placeholder="OBS WebSocket password"
-                    className="w-full pl-2.5 pr-8 py-3.5 bg-slate-700/50 border border-slate-600 text-slate-200 font-mono text-xs outline-none focus:border-blue-500 rounded-none"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPass(v => !v)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
-                  >
-                    {showPass ? <EyeOff size={12} /> : <Eye size={12} />}
-                  </button>
+              <div className="col-span-4 rounded-xl flex p-[3px] pl-[4px] items-center bg-slate-700/50 border border-slate-600 overflow-hidden focus-within:border-blue-500 transition-all">
+                <div className="rounded-lg px-2.5 py-3.5 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-600 bg-slate-700/80 flex-shrink-0">
+                  Password
                 </div>
+                <input
+                  type={showPass ? 'text' : 'password'}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleConnect()}
+                  placeholder="OBS WebSocket password"
+                  className="flex-1 bg-transparent px-3 py-3.5 text-slate-200 font-mono text-xs outline-none w-full min-w-0"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPass(v => !v)}
+                  className="pr-3 text-slate-500 hover:text-slate-300 flex-shrink-0"
+                >
+                  {showPass ? <EyeOff size={12} /> : <Eye size={12} />}
+                </button>
               </div>
             </div>
 
