@@ -1007,9 +1007,9 @@ function NominalSection({ C }) {
                     {ITEMS_GIFT.map((item, i) => (
                       <div
                         key={item.name}
-                        className={(item.name === "Controller" || item.name === "Fire") ? "hidden md:block" : ""}
+                        className={`${(item.name === "Controller" || item.name === "Fire") ? "hidden md:block" : ""} !pt-[4px] !pb-[10px] md:!py-[10px] md!px-[6px]`}
                         style={{
-                          borderRadius: 8, padding: "10px 6px",
+                          borderRadius: 8,
                           background: i === 0 ? "#99FFFF" : "#f8fafc",
                           border: i === 0 ? "1px solid #0d2b45" : "1px solid #0d2b45",
                           textAlign: "center", cursor: "pointer",
