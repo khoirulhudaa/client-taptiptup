@@ -182,16 +182,6 @@ const MilestonesWidget = () => {
     return () => socket.disconnect();
   }, [token, fetchData]);
 
-  useEffect(() => {
-    if (!token) return;
-    const socket = io(BASE_URL);
-    socket.emit('join-room', token);
-    socket.emit('join-room', `${token}-mediashare`);
-    socket.on('new-donation', fetchData);
-    socket.on('new-media-donation', fetchData);
-    return () => socket.disconnect();
-  }, [token, fetchData]);
-
   if (!milestones.length) return <div style={{ background: 'transparent' }} />;
 
   const sorted = [...milestones].sort((a, b) => a.targetAmount - b.targetAmount);

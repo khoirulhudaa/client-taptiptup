@@ -1407,8 +1407,34 @@ export const MilestonesManager = ({ overlayToken }) => {
                   {/* <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Preview</p> */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {[
-                      { key: 'miles1', label: 'Miles 1', Component: Miles1, props: { displayList: list.slice(0, 3), totalDonation: 0, activeIdx: 0, color: mlColor, bgcolor: mlBgcolor, textcolor: mlTextcolor } },
-                      { key: 'miles2', label: 'Miles 2', Component: Miles2, props: { displayList: list.slice(0, 2), totalDonation: 0, color: mlColor, bgcolor: mlBgcolor, textcolor: mlTextcolor } },
+                      {
+                        key: 'miles1', label: 'Miles 1', Component: Miles1, 
+                        props: { 
+                          displayList: list.slice(0, 3).map(m => {
+                            const key = m.period === 'since' && m.periodSince
+                              ? `since::${m.periodSince}`
+                              : (m.period || 'alltime');
+                            const total = previewTotals[key] ?? m.currentAmount ?? 0;
+                            return { ...m, currentAmount: total, progress: m.targetAmount > 0 ? Math.min(100, Math.round((total / m.targetAmount) * 100)) : 0, reached: total >= m.targetAmount };
+                          }), 
+                          totalDonation: previewTotals['alltime'] ?? 0, 
+                          activeIdx: 0, color: mlColor, bgcolor: mlBgcolor, textcolor: mlTextcolor 
+                        } 
+                      },
+                      { 
+                        key: 'miles2', label: 'Miles 2', Component: Miles2, 
+                        props: { 
+                          displayList: list.slice(0, 2).map(m => {
+                            const key = m.period === 'since' && m.periodSince
+                              ? `since::${m.periodSince}`
+                              : (m.period || 'alltime');
+                            const total = previewTotals[key] ?? m.currentAmount ?? 0;
+                            return { ...m, currentAmount: total, progress: m.targetAmount > 0 ? Math.min(100, Math.round((total / m.targetAmount) * 100)) : 0, reached: total >= m.targetAmount };
+                          }), 
+                          totalDonation: previewTotals['alltime'] ?? 0, 
+                          color: mlColor, bgcolor: mlBgcolor, textcolor: mlTextcolor 
+                        } 
+                      },
                     ].map(({ key, label, Component, props }) => (
                       <div key={key} className="space-y-1">
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
