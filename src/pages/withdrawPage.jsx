@@ -511,7 +511,7 @@ export const WithdrawPage = () => {
         <AlertModal modal={alertModal} onClose={closeAlert} />
 
         {/* ── Balance Card ── */}
-        <div className="bg-blue-600 py-7 rounded-xl p-4 md:p-6 text-white relative overflow-hidden">
+        <div className="bg-blue-600 py-7 md:w-full md:mt-0 mt-5 w-[90vw] mx-auto rounded-xl p-4 md:p-6 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 p-12 opacity-10 md:flex hidden"><Wallet size={120} /></div>
           <div className="relative z-[2]">
             <div className="flex flex-col items-start gap-3 mb-2">
@@ -551,7 +551,7 @@ export const WithdrawPage = () => {
               </div>
             )}
             <p className="text-blue-200 text-xs font-medium mt-2">
-              Penarikan diproses oleh admin dalam 1×24 jam hari kerja
+              Penarikan diproses dalam 1×24 jam hari kerja
             </p>
           </div>
         </div>

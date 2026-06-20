@@ -76,7 +76,7 @@ const QRModal = ({ isOpen, onClose, qrCodeUrl, secret, onSuccess }) => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.93, y: 20 }}
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-xl shadow-2xl overflow-hidden"
+          className="bg-white dark:bg-slate-900 w-full md:max-w-lg rounded-xl shadow-2xl overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800">
@@ -289,7 +289,7 @@ const TwoFactorSetup = () => {
   return (
     <>
       {/* ── Card ── */}
-      <div className={`${isEnabled ? 'hidden' : 'hidden md:block'} bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden`}>
+      <div className={`${isEnabled ? 'hidden' : 'block'} bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden`}>
         {/* Top accent */}
         <div className={`h-1 w-full ${isEnabled ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-700'}`} />
 
@@ -313,7 +313,7 @@ const TwoFactorSetup = () => {
               <div className="w-full md:w-max min-w-0">
                 <div className="flex items-center justify-between md:justify-normal gap-2 flex-wrap">
                   <p className="font-black text-slate-800 dark:text-slate-100 text-sm">
-                    Google Authenticator (2FA)
+                    Google Authenticator
                   </p>
                   {statusLoading ? (
                     <span className="relative md:top-0 top-2 inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-black bg-slate-100 dark:bg-slate-800 text-slate-400">
@@ -332,8 +332,8 @@ const TwoFactorSetup = () => {
 
                 <p className="text-slate-500 dark:text-slate-400 md:mt-1 text-xs md:text-sm leading-relaxed">
                   {isEnabled
-                    ? 'Akun kamu terlindungi untuk WD.'
-                    : 'Wajib diaktifkan untuk WD.'
+                    ? 'Akun telah aman'
+                    : 'Wajib diaktifkan'
                   }
                 </p>
               </div>
