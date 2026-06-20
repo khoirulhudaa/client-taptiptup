@@ -103,7 +103,7 @@ const FeeSimulator = ({ feeBearer }) => {
         </div>  
 
         <p className="text-[10px] text-slate-400 pt-3 border-t border-slate-200 dark:border-slate-700 ">
-          * Biaya tetap Rp 3.500 dibebankan saat penarikan dana (ditanggung streamer)
+          Biaya Rp 4.000 saat penarikan tetap ditanggung streamer
         </p>
       </div>
     </div>
@@ -153,7 +153,7 @@ export const FeeConfigPage = () => {
       icon: <Wallet size={19} />,
       title: 'Streamer Menanggung',
       subtitle: '3.0% dipotong dari saldo streamer',
-      desc: 'Donor hanya membayar sesuai nominal yang diketik. Biaya 3.0% akan dipotong otomatis dari saldo kamu saat donasi masuk. Biaya tetap Rp3.500 dibebankan saat penarikan.',
+      desc: 'Donor hanya membayar sesuai nominal yang diketik. Biaya 3.0% akan dipotong otomatis dari saldo kamu saat donasi masuk. Biaya tetap Rp4.000 dibebankan saat penarikan.',
       badge: 'Ramah Donor',
       badgeColor: 'bg-indigo-100 dark:bg-white text-slate-900',
       borderActive: 'border-indigo-600',
@@ -165,7 +165,7 @@ export const FeeConfigPage = () => {
       icon: <Users size={19} />,
       title: 'Donatur Menanggung',
       subtitle: '3.0% ditambahkan ke nominal donasi',
-      desc: 'Donor akan membayar nominal + 3.0%. Streamer menerima persis sesuai nominal yang diinput donor. Biaya tetap Rp3.500 tetap ditanggung streamer saat penarikan.',
+      desc: 'Donor akan membayar nominal + 3.0%. Streamer menerima persis sesuai nominal yang diinput donor. Biaya tetap Rp4.000 tetap ditanggung streamer saat penarikan.',
       badge: 'Saldo Penuh',
       badgeColor: 'bg-emerald-100 dark:bg-white text-slate-900',
       borderActive: 'border-emerald-500',
@@ -246,7 +246,7 @@ export const FeeConfigPage = () => {
               ? 'Donor bayar Rp100.000 → Streamer terima Rp97.000' 
               : 'Donor bayar Rp103.093 → Streamer terima Rp100.000'}
           </p>
-          <p className="text-[10px] text-slate-400 mt-2">* Rp3.500 selalu dipotong saat penarikan dana</p>
+          {/* <p className="text-[10px] text-slate-400 mt-2">* Rp4.000 selalu dipotong saat penarikan dana</p> */}
         </div>
 
         <button
