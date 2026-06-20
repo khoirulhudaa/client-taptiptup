@@ -1096,11 +1096,24 @@ const TierForm = ({
 
 // ─── MilestonesManager ────────────────────────────────────────────────────────
 
+// Tambah konstanta preset di luar komponen
+const COLOR_PRESETS = [
+  { label: 'Default',    color: '6366f1', bgcolor: '0f0f19', textcolor: 'ffffff' },
+  { label: 'Gold',       color: 'f59e0b', bgcolor: '12100a', textcolor: 'fde68a' },
+  { label: 'Cyan Neon',  color: '06b6d4', bgcolor: '020f14', textcolor: '00f5ff' },
+  { label: 'Merah Gelap', color: 'ef4444', bgcolor: '1a0a0a', textcolor: 'ffffff' },
+  { label: 'Hijau',      color: '10b981', bgcolor: '011a10', textcolor: 'a7f3d0' },
+  { label: 'Oranye',     color: 'f97316', bgcolor: '1a0d00', textcolor: 'ffedd5' },
+  { label: 'Pink',       color: 'ec4899', bgcolor: '1a0011', textcolor: 'fce7f3' },
+  { label: 'Putih Bersih', color: 'e2e8f0', bgcolor: 'ffffff', textcolor: '1e293b' },
+];
+
 export const MilestonesManager = ({ overlayToken }) => {
   const queryClient = useQueryClient();
   const { data: raw, isLoading } = useQuery({ queryKey: ['milestones'], queryFn: fetchMilestones });
   const [local, setLocal] = useState(null);
   const [mlCopied, setMlCopied] = useState(false);
+  const [mlTextcolor, setMlTextcolor] = useState('ffffff');
   const [mlColor, setMlColor] = useState('6366f1'); 
   const [mlBgcolor, setMlBgcolor] = useState('0f0f19'); 
 
@@ -1187,28 +1200,62 @@ export const MilestonesManager = ({ overlayToken }) => {
                 <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                   Periode Penghitungan Donasi
                 </label>
-                <div className="grid grid-cols-3 gap-3">
+                {/* Periode */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {[
-                    { id: 'alltime',   label: '⏳ Semua Waktu', desc: 'Total sejak awal' },
-                    { id: 'today',     label: '📅 Hari Ini',    desc: 'Donasi hari ini' },
-                    { id: 'thismonth', label: '📆 Bulan Ini',   desc: 'Donasi bulan ini' },
-                  ].map(p => (
-                    <button
-                      key={p.id}
-                      type="button"
-                      onClick={() => upd(i, 'period', p.id)}
-                      className={`cursor-pointer active:scale-[0.99] p-3 py-4 rounded-xl border-2 text-left font-black text-xs transition-all ${
-                        (m.period || 'alltime') === p.id
-                          ? 'border-green-500 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300'
-                          : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
-                      }`}
-                    >
-                      <p className='relative top-[1.6px]'>
-                        {p.label}
-                      </p>
-                    </button>
-                  ))}
+                    { id: 'alltime',   label: '⏳ Semua Waktu' },
+                    { id: 'today',     label: '📅 Hari Ini' },
+                    { id: 'thismonth', label: '📆 Bulan Ini' },
+                    { id: 'since',     label: '📌 Sejak Tanggal' },
+                  ].map(p => {
+                    const hasSinceDate = p.id !== 'since' && !!m.periodSince; // ada tanggal, bukan tombol since
+                    const isActive = (m.period || 'alltime') === p.id && !hasSinceDate;
+
+                    return (
+                      <button
+                        key={p.id}
+                        type="button"
+                        disabled={hasSinceDate} // ← disabled kalau sudah ada tanggal
+                        onClick={() => {
+                          if (p.id !== 'since') {
+                            upd(i, 'periodSince', null); // reset tanggal
+                          }
+                          upd(i, 'period', p.id);
+                        }}
+                        className={`cursor-pointer active:scale-[0.99] p-3 py-4 rounded-xl border-2 text-left font-black text-xs transition-all
+                          ${isActive
+                            ? 'border-green-500 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300'
+                            : hasSinceDate
+                              ? 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 opacity-40 cursor-not-allowed' // greyed out
+                              : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
+                          }`}
+                      >
+                        <p className="relative top-[1.6px]">{p.label}</p>
+                      </button>
+                    );
+                  })}
                 </div>
+
+                {/* Date picker — muncul kalau pilih since */}
+                {(m.period || 'alltime') === 'since' && (
+                  <div className="mt-2 flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 border-2 border-green-200 dark:border-green-800 rounded-xl">
+                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest whitespace-nowrap">
+                      Mulai Tanggal
+                    </label>
+                    <input
+                      type="date"
+                      value={m.periodSince ? m.periodSince.slice(0, 10) : ''}
+                      max={new Date().toISOString().slice(0, 10)}
+                      onChange={e => upd(i, 'periodSince', e.target.value || null)} // kalau dikosongkan → null = 3 tombol aktif lagi
+                      className="flex-1 p-2 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100"
+                    />
+                    {m.periodSince && (
+                      <span className="text-[10px] font-bold text-green-600 dark:text-green-400 whitespace-nowrap">
+                        Donasi ≥ {new Date(m.periodSince).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -1243,12 +1290,43 @@ export const MilestonesManager = ({ overlayToken }) => {
 
         {overlayToken && (
           <div className="space-y-2">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Widget URL OBS</p>
-            {/* Color pickers */}
+            {/* <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Widget URL OBS</p> */}
+              
+              {/* ─── PRESET WARNA ─── */}
+              <div className="space-y-1 mt-4">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Preset Warna</p>
+                <div className="flex flex-wrap gap-2">
+                  {COLOR_PRESETS.map((preset) => (
+                    <button
+                      key={preset.label}
+                      type="button"
+                      onClick={() => {
+                        setMlColor(preset.color);
+                        setMlBgcolor(preset.bgcolor);
+                        setMlTextcolor(preset.textcolor);
+                      }}
+                      className="cursor-pointer active:scale-[0.97] flex items-center gap-2 px-3 py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 transition-all"
+                    >
+                      {/* Swatch mini 3 warna */}
+                      <div className="flex rounded-md overflow-hidden w-9 h-4 flex-shrink-0 border border-black/10">
+                        <div style={{ background: `#${preset.bgcolor}`, flex: 1 }} />
+                        <div style={{ background: `#${preset.color}`,  flex: 1 }} />
+                        <div style={{ background: `#${preset.textcolor}`, flex: 1 }} />
+                      </div>
+                      <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap">
+                        {preset.label}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Color pickers */}
               <div className="space-y-2 md:flex gap-1.5 w-full">
                 {[
                   { label: 'Warna Progres', value: mlColor, onChange: setMlColor, default: '6366f1' },
                   { label: 'Warna Overlay',  value: mlBgcolor, onChange: setMlBgcolor, default: '0f0f19' },
+                  { label: 'Warna Teks', value: mlTextcolor, onChange: setMlTextcolor, default: 'ffffff' },
                 ].map(({ label, value, onChange, default: def }) => (
                   <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-2.5 bg-slate-500/20 rounded-xl border border-slate-200 dark:border-slate-700">
                     <input
@@ -1269,8 +1347,8 @@ export const MilestonesManager = ({ overlayToken }) => {
                   {/* <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Preview</p> */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {[
-                      { key: 'miles1', label: 'Miles 1', Component: Miles1, props: { displayList: list.slice(0, 3), totalDonation: 0, activeIdx: 0, color: mlColor, bgcolor: mlBgcolor } },
-                      { key: 'miles2', label: 'Miles 2', Component: Miles2, props: { displayList: list.slice(0, 2), totalDonation: 0, color: mlColor, bgcolor: mlBgcolor } },
+                      { key: 'miles1', label: 'Miles 1', Component: Miles1, props: { displayList: list.slice(0, 3), totalDonation: 0, activeIdx: 0, color: mlColor, bgcolor: mlBgcolor, textcolor: mlTextcolor } },
+                      { key: 'miles2', label: 'Miles 2', Component: Miles2, props: { displayList: list.slice(0, 2), totalDonation: 0, color: mlColor, bgcolor: mlBgcolor, textcolor: mlTextcolor } },
                     ].map(({ key, label, Component, props }) => (
                       <div key={key} className="space-y-1">
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
@@ -1294,12 +1372,12 @@ export const MilestonesManager = ({ overlayToken }) => {
                   <span className="text-[12px] font-black text-slate-400 w-14 flex-shrink-0">{t === 'miles1' ? 'Miles 1' : 'Miles 2'}</span>
                   <input
                     readOnly
-                    value={`${window.location.origin}/widget/${overlayToken}/milestones?theme=${t}&color=${mlColor}&bgcolor=${mlBgcolor}`}
+                    value={`${window.location.origin}/widget/${overlayToken}/milestones?theme=${t}&color=${mlColor}&bgcolor=${mlBgcolor}&textcolor=${mlTextcolor}`}
                     className="flex-1 bg-transparent font-mono text-[12px] text-blue-600 dark:text-blue-400 font-bold outline-none truncate"
                   />
                  <button
                     onClick={() => {
-                      navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/milestones?theme=${t}&color=${mlColor}&bgcolor=${mlBgcolor}`);
+                      navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/milestones?theme=${t}&color=${mlColor}&bgcolor=${mlBgcolor}&textcolor=${mlTextcolor}`);
                       setMlCopied(prev => ({ ...prev, [t]: true }));
                       setTimeout(() => setMlCopied(prev => ({ ...prev, [t]: false })), 500);
                     }}
