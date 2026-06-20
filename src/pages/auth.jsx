@@ -683,7 +683,7 @@ const ForgotPasswordPage = ({
         </div>
       )}
 
-      <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
+      <div style={{ display:'flex', flexDirection:'column', gap:16, height: '100%' }}>
         {step === 1 ? (
           <>
             <AuthInput 
