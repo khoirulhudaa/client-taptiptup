@@ -297,7 +297,7 @@ const TwoFactorSetup = () => {
           <div className='w-full md:flex items-center justify-between'>
             <div className="flex items-center md:items-start gap-4">
               {/* Icon */}
-              <div className={`w-12 h-11 flex-shrink-0 flex items-center justify-center rounded-xl transition-all
+              <div className={`w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-xl transition-all
                 ${isEnabled
                   ? 'bg-green-50 dark:bg-green-800'
                   : 'bg-slate-100 dark:bg-slate-800'
@@ -344,7 +344,7 @@ const TwoFactorSetup = () => {
               <button
                 onClick={handleActivate}
                 disabled={enableMutation.isPending}
-                className="w-full md:mt-0 mt-4 md:w-max flex items-center justify-center gap-2 p-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-black text-xs transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                className="w-full rounded-xl md:mt-0 mt-4 md:w-max flex items-center justify-center gap-2 p-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-black text-xs transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
               >
                 {enableMutation.isPending ? (
                   <><Loader2 size={16} className="animate-spin" /> Menyiapkan QR Code...</>

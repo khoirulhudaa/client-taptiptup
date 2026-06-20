@@ -3588,6 +3588,10 @@ export const DashboardStreamer = () => {
   const [activeSlot, setActiveSlot] = useState('A'); // 'A' | 'B'
   const [localSettingsB, setLocalSettingsB] = useState(null);
   const [showConfetti, setShowConfetti] = useState(true);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' }); // atau 'smooth'
+  }, [activeTab]);
   
   const UpgradeConfetti = () => {
   useEffect(() => {
