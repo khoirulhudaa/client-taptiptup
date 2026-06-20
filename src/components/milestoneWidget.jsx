@@ -73,7 +73,7 @@ export const Miles2 = ({ displayList, totalDonation, color, bgcolor }) => {
           const pct = m.progress ?? Math.min(100, Math.round(((m.currentAmount || 0) / m.targetAmount) * 100));
           const achieved = m.reached ?? (m.currentAmount || 0) >= m.targetAmount;
           return (
-            <div key={m._id || i} style={{ background: bgcolor ? `#${bgcolor}` : 'rgba(15,15,25,1)', borderRadius: 18, padding: '14px 18px', boxShadow: '0 4px 20px rgba(0,0,0,0.4)', textAlign: 'center' }}>
+            <div key={m._id || i} style={{ background: bgcolor ? `#${bgcolor}` : 'rgba(15,15,25,1)', borderRadius: 18, padding: '20px 26px', boxShadow: '0 4px 20px rgba(0,0,0,0.4)', textAlign: 'center' }}>
               <span style={{ fontSize: 22, fontWeight: 700, color: achieved ? '#10b981' : '#ffffff', textDecoration: achieved ? 'line-through' : 'none', display: 'block', marginBottom: 18 }}>
                 {achieved ? '✅ ' : ''}{m.title}
               </span>
