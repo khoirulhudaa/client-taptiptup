@@ -1995,13 +1995,13 @@ function ColorRow({ label, colorKey, value, onChange }) {
   };
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-      <div style={{ position: "relative", width: 32, height: 32, borderRadius: 8, overflow: "hidden", border: "1px solid rgba(0,0,0,.15)", flexShrink: 0, background: value }}>
+      <div style={{ position: "relative", width: 38, height: 38, borderRadius: 8, overflow: "hidden", border: "1px solid rgba(0,0,0,.15)", flexShrink: 0, background: value }}>
         <input type="color" value={value.length === 7 ? value : "#ffffff"} onChange={e => onChange(colorKey, e.target.value)}
           style={{ position: "absolute", inset: 0, opacity: 0, cursor: "pointer", width: "100%", height: "100%" }} />
       </div>
-      <span style={{ fontFamily: "'Space Mono',monospace", fontSize: 10, color: "#1e3a5f", textTransform: "uppercase", letterSpacing: ".06em", width: 70 }}>{label}</span>
+      <span className="md:w-max 2xl:w-[100px] w-[70px]" style={{ fontFamily: "'Space Mono',monospace", fontSize: 10, color: "#1e3a5f", textTransform: "uppercase", letterSpacing: ".06em" }}>{label}</span>
       <input value={value} onChange={handleHex}
-        style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, color: "#0d2b45", background: "rgba(0,0,0,.07)", border: "1px solid rgba(0,0,0,.15)", borderRadius: 6, padding: "4px 8px", width: "81%", outline: "none" }}
+        style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, color: "#0d2b45", background: "rgba(0,0,0,.07)", border: "1px solid rgba(0,0,0,.15)", borderRadius: 6, padding: "8px 8px", height: 38, width: "81%", outline: "none" }}
         maxLength={9} />
     </div>
   );
@@ -2120,10 +2120,10 @@ export function OverlayCustomizer({ C }) {
             {/* Warna */}
             <div style={ctrlCard}>
               <span style={sectionLabel}>Warna Alert</span>
-              <div style={{ display: "flex", gap: 10, width: "100%" }}>
+              <div className="grid md:grid-cols-3 grid-cols-1" style={{ gap: 10, width: "100%" }}>
                 <ColorRow label="Background" colorKey="bg" value={cfg.bg} onChange={upd} />
-                <ColorRow label="Highlight"  colorKey="hl" value={cfg.hl} onChange={upd} />
-                <ColorRow label="Teks"       colorKey="tx" value={cfg.tx} onChange={upd} />
+                <ColorRow label="Highlights"  colorKey="hl" value={cfg.hl} onChange={upd} />
+                <ColorRow label="TextColors"       colorKey="tx" value={cfg.tx} onChange={upd} />
               </div>
               <div style={{ height: 1, background: "rgba(0,0,0,.1)", margin: "4px 0" }} />
               <span style={{ ...sectionLabel, marginBottom: 8 }}>Preset Warna</span>
@@ -2465,116 +2465,6 @@ export default function TapTipTup() {
         </a>
 
       </footer>
-
-      {/* ==================== INTRO MODAL ==================== */}
-      {showModal && (
-        <div 
-        className="md:!p-[20px] !p-[10px]"  
-        style={{
-          position: "fixed",
-          top: 0, left: 0, right: 0, bottom: 0,
-          background: "rgba(0,0,0,0.92)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 999999,
-        }}>
-          <div 
-          className="bg-blue-900"
-          style={{
-            // background: "#0a0f1e",
-            border: `1px solid ${C.line}`,
-            borderRadius: "16px",
-            maxWidth: "860px",
-            width: "100%",
-            overflow: "hidden",
-            boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
-          }}>
-            {/* Header Modal */}
-            <div style={{
-              padding: "20px 24px",
-              borderBottom: `1px solid ${C.line}`,
-              display: "flex",
-              justifyContent: "space-center",
-              alignItems: "center",
-              textAlign: 'center'
-            }}>
-              <div className="!mt-1.5" style={{ fontSize: "18px", width: '100%', fontWeight: 700, color: C.text, textAlign: 'center' }}>
-                Selamat Datang di TapTipTup
-              </div>
-            </div>
-
-            {/* Video */}
-            <div style={{ padding: "20px 14px 0" }}>
-              <video
-                src="./live3.mp4"
-                controls={false}
-                autoPlay
-                muted
-                loop
-                style={{
-                  width: "100%",
-                  borderRadius: "12px",
-                  background: "#000",
-                  height: '40vh'
-                }}
-              />
-            </div>
-
-            {/* Content */}
-            <div 
-            className="text-[22px] md:text-[36px]"  
-            style={{
-              textAlign: "center",
-              padding: "32px 40px 30px",
-            }}>
-              <h2 style={{
-                fontFamily: "'Bebas Neue', sans-serif",
-                lineHeight: 1.1,
-                marginBottom: "14px",
-                color: C.text,
-              }}>
-                Ubah Streaming Kamu
-                Menjadi <span style={{ color: C.lime }}>Cuan</span>
-              </h2>
-
-              <p 
-              className="text-[12px] md:text-[15px]"  
-              style={{
-                lineHeight: 1.4,
-                color: C.muted,
-                maxWidth: "590px",
-                margin: "0 auto",
-              }}>
-                Platform Dukungan lokal terbaik untuk streamer Indonesia. 
-                Potongan hanya 3.0%
-              </p>
-
-              <button
-                className="md:!py-[14px] active:!scale-[0.98] md:!px-[42px] !py-[10px] !px-[30px]"
-                onClick={closeModal}
-                style={{
-                  marginTop: "32px",
-                  background: C.lime,
-                  color: C.bg,
-                  border: "none",
-                  borderRadius: "8px",
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                }}
-                onMouseOver={(e) => e.currentTarget.style.opacity = "0.9"}
-                onMouseOut={(e) => e.currentTarget.style.opacity = "1"}
-              >
-                Mulai Sekarang
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

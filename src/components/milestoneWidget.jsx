@@ -79,7 +79,7 @@ export const Miles2 = ({ displayList, totalDonation, color, bgcolor }) => {
               </span>
 
               {/* Progress bar dengan persentase di dalam */}
-              <div style={{ position: 'relative', height: 54, background: 'rgba(255,255,255,0.1)', borderRadius: 8, overflow: 'hidden', minWidth: 550, margin: '20px 0px'  }}>
+              <div style={{ position: 'relative', height: 40, background: 'rgba(255,255,255,0.1)', borderRadius: 8, overflow: 'hidden', minWidth: 600, margin: '20px 0px'  }}>
                 <div style={{ height: '100%', width: `${pct}%`, background: getBarBg(achieved), borderRadius: 4, transition: 'width 1s ease' }} />
                 <span style={{
                   position: 'absolute', inset: 0,
