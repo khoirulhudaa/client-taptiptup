@@ -1674,7 +1674,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-6">
       <SectionHeader
-        icon={<Timer size={22} />}
+        icon={<Timer size={18} />}
         title={mediaOnly ? 'Durasi Medshare' : alertOnly ? 'Durasi Alert' : 'Pengaturan Durasi'}
         color="bg-amber-500"
       />

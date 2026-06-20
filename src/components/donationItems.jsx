@@ -56,7 +56,7 @@ const getTierColor = (amount) => {
 // ── InputField with label ──────────────────────────────────────────────────────
 const InputField = ({ label, className = '', inputClassName = '', ...props }) => (
   <div className={`w-full flex pl-[1.5px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
-    <div className="w-max md:w-[90px] px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+    <div className="w-[96px] px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
       {label}
     </div>
     <input
@@ -106,7 +106,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
             <div className="relative" ref={pickerRef}>
             <button
               onClick={() => setShowEmojiPicker(v => !v)}
-              className="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-2xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-all cursor-pointer active:scale-95 border-2 border-slate-200 dark:border-slate-600"
+              className="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all cursor-pointer active:scale-95 border-2 border-slate-200 dark:border-slate-600"
             >
               {item.emoji || '❓'}
             </button>
@@ -151,14 +151,14 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
 
           <button
             onClick={() => onRemove(index)}
-            className="shrink-0 cursor-pointer bg-red-700 h-[40px] w-[40px] flex justify-center items-center text-slate-300 hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-800 rounded-xl transition-all active:scale-95"
+            className="shrink-0 cursor-pointer bg-red-700 h-[44px] w-[44px] flex justify-center items-center text-slate-300 hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-800 rounded-xl transition-all active:scale-95"
           >
-            <Trash2 size={16} className='relative left-[-1px]' />
+            <Trash2 size={18} className='relative left-[-1px]' />
           </button>
         </div>
 
         {/* Row 2: Nominal + Maks Qty */}
-        <div className="grid grid-cols-3 items-center gap-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-2.5">
           <InputField
             label="Nominal"
             type="number"
@@ -172,18 +172,19 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
           <InputField
             label="Maks Qty"
             type="number"
-            value={item.maxQty ?? 10}
+            value={item.maxQty ?? 1000}
             onChange={(e) => onChange(index, 'maxQty', Math.max(1, Number(e.target.value)))}
             min={1}
-            max={99}
-            className="w-[140px]"
-            inputClassName="text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            max={100}
+            className="hidden"
+            inputClassName="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           />
           {/* Row 3: Deskripsi */}
           <InputField
             label="Deskripsi"
             type="text"
-            value={item.description || ''}
+            className='md:flex hidden '
+            value={item.description || `Item`}
             onChange={(e) => onChange(index, 'description', e.target.value)}
             placeholder="Item 1"
             maxLength={60}
@@ -209,8 +210,8 @@ const ItemPreviewCard = ({ item }) => {
         <p className="font-black text-xs text-blue-600 dark:text-blue-400">
           Rp {Number(item.price || 0).toLocaleString('id-ID')}
         </p>
-        {(item.maxQty ?? 10) > 1 && (
-          <p className="text-[9px] text-slate-400 font-medium">maks {item.maxQty ?? 10}×</p>
+        {(item.maxQty ?? 100) > 1 && (
+          <p className="text-[9px] text-slate-400 font-medium">maks {item.maxQty ?? 1000}×</p>
         )}
       </div>
     </div>
@@ -284,7 +285,7 @@ const DonationItemsEditor = ({
     if (localItems.length >= 20) return;
     const next = [
       ...localItems,
-      { id: Date.now().toString(), emoji: '🎁', name: '', price: 10000, description: '', maxQty: 10 },
+      { id: Date.now().toString(), emoji: '🎁', name: '', price: 10000, description: '', maxQty: 1000 },
     ];
     setLocalItems(next);
     onChange(next);
