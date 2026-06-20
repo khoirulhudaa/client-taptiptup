@@ -316,7 +316,7 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
           </div>
         ))}
       </div>
-      <button onClick={add} className="cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full mt-4 py-2.5 border-2 border-dashed border-cyan-400/30 text-white rounded-xl font-black text-sm">
+      <button onClick={add} className="cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full mt-4 py-3.5 border-2 border-dashed border-cyan-400/30 text-white rounded-xl font-black text-sm">
         + Tambah Nominal
       </button>
       <button
@@ -526,13 +526,15 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
               setTestItem(null);
               setUseItem(false);
             }}
-            className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-xl text-xs font-black transition-all border-2 ${
+            className={`cursor-pointer active:scale-[0.99] px-5 py-3 rounded-xl text-xs font-black transition-all border-2 ${
               Number(customAmount) === v
                 ? 'bg-rose-500 border-rose-500 text-white'
                 : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
             }`}
           >
-            {v >= 1000000 ? `${v / 1000000}jt` : v >= 1000 ? `${v / 1000}K` : v}
+            <p className='relative top-[1.4px]'>
+              {v >= 1000000 ? `${v / 1000000}jt` : v >= 1000 ? `${v / 1000}K` : v}
+            </p>
           </button>
         ))}
       </div>
@@ -780,13 +782,15 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
               setTestItem(null);
               setUseItem(false);
             }}
-            className={`cursor-pointer active:scale-[0.99] px-3 py-2 rounded-xl text-xs font-black transition-all border-2 ${
+            className={`cursor-pointer active:scale-[0.99] px-5 py-3 rounded-xl text-xs font-black transition-all border-2 ${
               Number(formData.amount) === v && !testItem
                 ? 'bg-blue-600 border-blue-600 text-white'
                 : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
             }`}
           >
-            {v >= 1000000 ? `${v / 1000000}jt` : v >= 1000 ? `${v / 1000}K` : v}
+            <p className='relative top-[1.2px]'>
+              {v >= 1000000 ? `${v / 1000000}jt` : v >= 1000 ? `${v / 1000}K` : v}
+            </p>
           </button>
         ))}
       </div>
@@ -1035,25 +1039,25 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
                   <div className="flex flex-wrap gap-3">
                     {streamer.instagram && (
                       <a href={`https://instagram.com/${streamer.instagram.replace('@','')}`} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-3 px-4 py-2 bg-pink-50 dark:bg-pink-600 text-white rounded-xl  text-sm font-medium hover:bg-pink-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-3 bg-pink-50 dark:bg-pink-600 text-white rounded-xl  text-sm font-medium hover:bg-pink-700 active:scale-[0.98]">
                         📷 Instagram
                       </a>
                     )}
                     {streamer.facebook && (
                       <a href={streamer.facebook.startsWith('http') ? streamer.facebook : `https://facebook.com/${streamer.facebook}`} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-3 px-4 py-2 bg-blue-50 dark:bg-blue-600 text-white rounded-xl  text-sm font-medium hover:bg-blue-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-600 text-white rounded-xl  text-sm font-medium hover:bg-blue-700 active:scale-[0.98]">
                         👍 Facebook
                       </a>
                     )}
                     {streamer.youtube && (
                       <a href={streamer.youtube} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-3 px-4 py-2 bg-red-50 dark:bg-red-600 text-white rounded-xl  text-sm font-medium hover:bg-red-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-3 bg-red-50 dark:bg-red-600 text-white rounded-xl  text-sm font-medium hover:bg-red-700 active:scale-[0.98]">
                         ▶ YouTube
                       </a>
                     )}
                     {streamer.twitter && (
                       <a href={`https://twitter.com/${streamer.twitter.replace('@','')}`} target="_blank" rel="noreferrer"
-                        className="flex items-center gap-3 px-4 py-2 bg-sky-50 dark:bg-emerald-600 text-white rounded-xl  text-sm font-medium hover:bg-emerald-700 active:scale-[0.98]">
+                        className="flex items-center gap-3 px-4 py-3 bg-sky-50 dark:bg-emerald-600 text-white rounded-xl  text-sm font-medium hover:bg-emerald-700 active:scale-[0.98]">
                         𝕏 Twitter
                       </a>
                     )}
@@ -1164,7 +1168,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
               </div>
             : <div className="md:flex md:flex-wrap grid grid-cols-3 gap-3">
                 {words.map(word => (
-                  <span key={word} className="w-full md:w-max flex justify-center md:justify-start items-center gap-3 px-4 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl  text-sm font-black border border-red-100 dark:border-red-900">
+                  <span key={word} className="w-full md:w-max flex justify-center md:justify-start items-center gap-3 px-4 py-3 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl  text-sm font-black border border-red-100 dark:border-red-900">
                     {word}
                     <button onClick={() => remove(word)} className="cursor-pointer hover:text-red-800 dark:hover:text-red-300 transition-colors"><Trash2 size={12} /></button>
                   </span>
@@ -1492,7 +1496,7 @@ const AdminWithdrawalPage = () => {
       <div className="flex px-4 md:px-0 gap-3 flex-wrap">
         {[{ val: 'PENDING', label: '⏳ Pending' }, { val: 'COMPLETED', label: '✅ Selesai' }, { val: 'FAILED', label: '❌ Ditolak' }, { val: '', label: '📋 Semua' }].map(f => (
           <button key={f.val} onClick={() => setStatusFilter(f.val)}
-            className={`cursor-pointer active:scale-[0.98] px-4 py-2 rounded-xl font-black text-sm transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700'}`}>
+            className={`cursor-pointer active:scale-[0.98] px-4 py-3 rounded-xl font-black text-sm transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700'}`}>
             {f.label}
           </button>
         ))}
@@ -1503,10 +1507,10 @@ const AdminWithdrawalPage = () => {
             <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{statusFilter ? `Request ${statusFilter}` : 'Semua Request'}</p>
             <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{pagination.total || 0} total</p>
           </div>
-          {/* <span className="px-4 py-2 bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl  text-[10px] font-black uppercase tracking-widest">Super Admin Only</span> */}
+          {/* <span className="px-4 py-3 bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl  text-[10px] font-black uppercase tracking-widest">Super Admin Only</span> */}
         </div>
         {isLoading
-          ? <div className="flex items-center justify-center py-20 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-xl animate-spin" />Memuat data...</div>
+          ? <div className="flex items-center justify-center py-30 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-xl animate-spin" />Memuat data...</div>
           : withdrawals.length === 0
             ? <div className="py-16 text-center text-slate-400"><p className="text-4xl mb-3">📭</p><p className="font-black text-slate-500">Tidak ada request</p></div>
             : (
@@ -1525,15 +1529,15 @@ const AdminWithdrawalPage = () => {
                         <td className="px-6 py-5"><p className="font-bold text-slate-600 dark:text-slate-300 text-sm">{wd.paymentMethod || 'BANK'}</p></td>
                         <td className="px-6 py-5"><p className="font-mono font-bold text-slate-700 dark:text-slate-200 text-sm">{wd.accountNumber}</p></td>
                         <td className="px-6 py-5">
-                          <span className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-black ${wd.status === 'COMPLETED' ? 'bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400' : wd.status === 'FAILED' ? 'bg-red-100 dark:bg-red-950/40 text-red-500 dark:text-red-400' : 'bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400'}`}>{wd.status}</span>
+                          <span className={`inline-flex items-center gap-1.5 px-3 py-3 rounded-xl text-[10px] font-black ${wd.status === 'COMPLETED' ? 'bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400' : wd.status === 'FAILED' ? 'bg-red-100 dark:bg-red-950/40 text-red-500 dark:text-red-400' : 'bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400'}`}>{wd.status}</span>
                         </td>
                         <td className="px-6 py-5"><p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium whitespace-nowrap">{formatDate(wd.createdAt)}</p></td>
                           {statusFilter === 'PENDING' && (
                           <td className="px-6 py-5">
                             {wd.status === 'PENDING' && (
                             <div className="flex gap-3">
-                              <button onClick={() => { setSelectedId(wd._id); setShowApproveModal(true); }} className="cursor-pointer px-2.5 py-2 bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400 rounded-xl text-sm font-black hover:bg-green-200 transition-all flex items-center"><Check size={18} /></button>
-                              <button onClick={() => { setSelectedId(wd._id); setRejectNote(''); setShowRejectModal(true); }} className="cursor-pointer px-2.5 py-2 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900 rounded-xl  text-sm font-black hover:bg-red-100 transition-all"><X size={18} /></button>
+                              <button onClick={() => { setSelectedId(wd._id); setShowApproveModal(true); }} className="cursor-pointer px-2.5 py-3 bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400 rounded-xl text-sm font-black hover:bg-green-200 transition-all flex items-center"><Check size={18} /></button>
+                              <button onClick={() => { setSelectedId(wd._id); setRejectNote(''); setShowRejectModal(true); }} className="cursor-pointer px-2.5 py-3 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900 rounded-xl  text-sm font-black hover:bg-red-100 transition-all"><X size={18} /></button>
                             </div>
                           )}
                         </td>
@@ -2556,7 +2560,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
               <button onClick={triggerDemo} className="cursor-pointer active:scale-[0.99] flex items-center gap-3 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-xs transition-all">
                 <span className="w-1.5 h-1.5 bg-red-400 rounded-xl  animate-pulse" /> Simulasi Donasi
               </button>
-              <button onClick={() => handleFullScreen()} className="cursor-pointer active:scale-[0.99] flex items-center gap-3 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl  font-black text-xs transition-all border border-white/10">
+              <button onClick={() => handleFullScreen()} className="cursor-pointer active:scale-[0.99] flex items-center gap-3 px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl  font-black text-xs transition-all border border-white/10">
                 ✕ Tutup
               </button>
             </div>
@@ -2649,7 +2653,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           <div className="flex gap-3 mt-1">
             {MEDIA_PRESETS.map((p, i) => (
               <button key={i} onClick={() => setMediaUrl(p.url)}
-                className={`flex-1 py-2 text-[10px] font-black rounded-md border-2 transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-purple-300'}`}>
+                className={`flex-1 py-3 text-[10px] font-black rounded-md border-2 transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-purple-300'}`}>
                 {p.label}
               </button>
             ))}
@@ -2817,7 +2821,7 @@ const HistoryPage = () => {
             <div className="flex gap-1.5">
               {[{ id: 'received', label: 'Diterima' }, { id: 'sent', label: 'Terkirim' }].map((t) => (
                 <button key={t.id} onClick={() => { setHistoryTab(t.id); setPage(1); setStatusFilter(''); }}
-                  className={`px-4 py-2 text-xs cursor-pointer font-black rounded-md transition-all border border-slate-200 dark:border-slate-700 ${historyTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-blue-200'}`}>
+                  className={`px-4 py-3 text-xs cursor-pointer font-black rounded-md transition-all border border-slate-200 dark:border-slate-700 ${historyTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-blue-200'}`}>
                   {t.label}
                 </button>
               ))}
@@ -2828,14 +2832,14 @@ const HistoryPage = () => {
             <div className="flex gap-1.5 rounded-md overflow-hidden">
               <button
                 onClick={() => setViewMode('table')}
-                className={`px-4 py-2 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
+                className={`px-4 py-3 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
               >
                 <List size={13} className='relative top-[-0.5px]' />
                 Table
               </button>
               <button
                 onClick={() => setViewMode('card')}
-                className={`px-4 py-2 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'card' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
+                className={`px-4 py-3 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'card' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
               >
                 <Grid size={13} className='relative top-[-0.5px]' />
                 Card
@@ -2852,18 +2856,18 @@ const HistoryPage = () => {
                 setShowAmounts(next);
                 localStorage.setItem('showBalance', String(next)); // ← sync ke localStorage
               }}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl  text-[10px] font-black transition-all border-2 ${showAmounts ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
+                className={`flex items-center gap-1.5 px-3 py-3 rounded-xl  text-[10px] font-black transition-all border-2 ${showAmounts ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
                 {showAmounts ? <Eye size={12} /> : <EyeOff size={12} />} Nominal
               </button>
               <button onClick={() => setShowEmails(v => !v)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl  text-[10px] font-black transition-all border-2 ${showEmails ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
+                className={`flex items-center gap-1.5 px-3 py-3 rounded-xl  text-[10px] font-black transition-all border-2 ${showEmails ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
                 {showEmails ? <Eye size={12} /> : <EyeOff size={12} />} Email
               </button>
             </div>
             <div className="flex gap-1">
               {[{ val: '', label: 'Semua' }, { val: 'PAID', label: 'PAID' }].map((f) => (
                 <button key={f.val} onClick={() => { setStatusFilter(f.val); setPage(1); }}
-                  className={`px-3 py-2 rounded-xl  text-[10px] font-black transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200'}`}>
+                  className={`px-3 py-3 rounded-xl  text-[10px] font-black transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200'}`}>
                   {f.label}
                 </button>
               ))}
@@ -2877,7 +2881,7 @@ const HistoryPage = () => {
             viewMode === 'table' ? (
               /* ==================== TABLE VIEW ==================== */
               isLoading ? (
-                <div className="flex items-center justify-center py-20 text-slate-400 font-bold gap-3">
+                <div className="flex items-center justify-center py-30 text-slate-400 font-bold gap-3">
                   <div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-xl  animate-spin" />
                   Memuat riwayat...
                 </div>
@@ -2935,7 +2939,7 @@ const HistoryPage = () => {
                               <button
                                 onClick={() => replayDonation(item._id)}
                                 disabled={isReplaying}
-                                className={`cursor-pointer active:scale-[0.99] inline-flex items-center gap-1.5 px-4 py-2 rounded-xl  text-xs font-black transition-all ${isReplaying ? 'text-slate-400 cursor-not-allowed' : 'text-blue-500 hover:text-blue-300'}`}
+                                className={`cursor-pointer active:scale-[0.99] inline-flex items-center gap-1.5 px-4 py-3 rounded-xl  text-xs font-black transition-all ${isReplaying ? 'text-slate-400 cursor-not-allowed' : 'text-blue-500 hover:text-blue-300'}`}
                               >
                                 {isReplaying ? (
                                   <><Loader2 size={14} className="animate-spin" /> Replay...</>
@@ -2970,7 +2974,7 @@ const HistoryPage = () => {
               /* ==================== CARD VIEW ==================== */
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 md:p-6">
                 {donations.length === 0 ? (
-                  <div className="col-span-full text-center py-20 text-slate-400 font-bold">
+                  <div className="col-span-full text-center py-30 text-slate-400 font-bold">
                     Belum ada donasi masuk
                   </div>
                 ) : (
@@ -3061,7 +3065,7 @@ const HistoryPage = () => {
                 </thead>
                 <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
                   {sentLoading ? (
-                    <tr><td colSpan={5} className="text-center py-20">Memuat donasi terkirim...</td></tr>
+                    <tr><td colSpan={5} className="text-center py-30">Memuat donasi terkirim...</td></tr>
                   ) : (sentData?.donations || []).length === 0 ? (
                     <tr><td colSpan={5} className="text-center py-16 text-slate-400 font-bold">Belum ada donasi terkirim</td></tr>
                   ) : (
@@ -3109,7 +3113,7 @@ const HistoryPage = () => {
                         </td>
                         <td className="px-5 md:px-8 py-5 max-w-[250px]"><p className="text-slate-500 dark:text-slate-400 text-sm italic truncate">{item.message || '-'}</p></td>
                         <td className="px-5 md:px-8 py-5">
-                          <span className={`px-3 py-2 rounded-xl  text-[10px] font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600 dark:bg-green-950/40 dark:text-green-400' : 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400'}`}>{item.status}</span>
+                          <span className={`px-3 py-3 rounded-xl  text-[10px] font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600 dark:bg-green-950/40 dark:text-green-400' : 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400'}`}>{item.status}</span>
                         </td>
                         <td className="px-5 md:px-8 py-5 text-[10px] text-slate-400 dark:text-slate-500">{formatDate(item.createdAt)}</td>
                       </tr>
@@ -3122,7 +3126,7 @@ const HistoryPage = () => {
           {pagination.totalPages > 1 && (
             <div className="flex items-center justify-between px-6 py-3 md:py-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
               <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
-                className="px-4 py-2 rounded-xl bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-100 dark:hover:bg-slate-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                className="px-4 py-3 rounded-xl bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-100 dark:hover:bg-slate-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
                 ← Sebelumnya
               </button>
               <div className="flex items-center gap-3">
@@ -3130,7 +3134,7 @@ const HistoryPage = () => {
                 <span className="md:flex hidden text-xs text-slate-300 dark:text-slate-600">({pagination.total} total donasi)</span>
               </div>
               <button onClick={() => setPage(p => Math.min(pagination.totalPages, p + 1))} disabled={page === pagination.totalPages}
-                className="px-4 py-2 rounded-xl bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-100 dark:hover:bg-slate-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                className="px-4 py-3 rounded-xl bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-100 dark:hover:bg-slate-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
                 Berikutnya →
               </button>
             </div>
@@ -3189,8 +3193,8 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
   };
 
   const renderUsers = (users, isLoading, showFollowBtn = true) => {
-    if (isLoading) return <div className="flex items-center justify-center py-20 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-xl animate-spin" />Memuat...</div>;
-    if (!users?.length) return <div className="text-center py-20 text-slate-400"><p className="text-4xl mb-3">👥</p><p className="font-black text-slate-500">Belum ada streamer</p></div>;
+    if (isLoading) return <div className="flex items-center justify-center py-30 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-xl animate-spin" />Memuat...</div>;
+    if (!users?.length) return <div className="text-center py-30 text-slate-400"><p className="text-4xl mb-3">👥</p><p className="font-black text-slate-500">Belum ada streamer</p></div>;
     return (
       <div className="grid grid-cols-1 md:mt-0 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {users.map(u => (
@@ -3221,12 +3225,12 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
             )}
             <div className="flex gap-3 mt-auto">
               <button onClick={() => setViewingProfile(u.username)}
-                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl  border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:text-blue-600 transition-all cursor-pointer active:scale-[0.99]">
+                className="flex-1 flex items-center justify-center gap-1.5 py-3.5 rounded-xl  border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:text-blue-600 transition-all cursor-pointer active:scale-[0.99]">
                 <User size={12} /> Profil
               </button>
               {showFollowBtn && u._id !== currentUserId && (
                 <button onClick={() => toggleMutation.mutate(u._id)} disabled={toggleMutation.isPending}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl font-black text-xs transition-all disabled:opacity-60 cursor-pointer active:scale-[0.99] ${u.isFollowing ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-500 border border-slate-200 dark:border-slate-700' : 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm'}`}>
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-3.5 rounded-xl font-black text-xs transition-all disabled:opacity-60 cursor-pointer active:scale-[0.99] ${u.isFollowing ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-500 border border-slate-200 dark:border-slate-700' : 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm'}`}>
                   {toggleMutation.isPending ? <RefreshCw className="w-3 h-3 animate-spin" /> : u.isFollowing ? 'Unfollow' : '+ Follow'}
                 </button>
               )}
@@ -3273,7 +3277,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
       <div className="gap-3 grid grid-cols-3 md:grid-cols-5 mb-5 mt-5 md:px-0 px-4">
         {subTabs.map(t => (
           <button key={t.id} onClick={() => setSubTab(t.id)}
-            className={`w-full cursor-pointer active:scale-[0.99] px-5 py-2.5 rounded-xl  font-black text-sm transition-all ${subTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700 hover:brightness-[80%]'}`}>
+            className={`w-full cursor-pointer active:scale-[0.99] px-5 py-3.5 rounded-xl  font-black text-sm transition-all ${subTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700 hover:brightness-[80%]'}`}>
             {t.label}
           </button>
         ))}
@@ -3281,7 +3285,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
           <div className="flex gap-3">
             <input value={searchInput} onChange={e => setSearchInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && setSearch(searchInput)}
               placeholder="Cari username streamer..."
-              className="flex-1 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl px-5 py-2 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
+              className="flex-1 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
             <button onClick={() => setSearch(searchInput)} className="cursor-pointer active:scale-[0.99] px-6 py-3.5 bg-blue-600 text-white rounded-xl  font-black text-sm hover:bg-blue-700 transition-all">Cari</button>
           </div>
         )}
@@ -3457,7 +3461,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) =>
               <button 
                 onClick={handleTest} 
                 disabled={isTesting}
-                className="cursor-pointer px-5 py-2.5 bg-rose-500 hover:brightness-90 disabled:opacity-60 text-white font-black rounded-xl  transition-all active:scale-[0.99] flex items-center gap-3 whitespace-nowrap"
+                className="cursor-pointer px-5 py-3.5 bg-rose-500 hover:brightness-90 disabled:opacity-60 text-white font-black rounded-xl  transition-all active:scale-[0.99] flex items-center gap-3 whitespace-nowrap"
               >
                 {isTesting ? <><span className="animate-spin inline-block">⏳</span> Memutar...</> : <>▶ Test</>}
               </button>
@@ -4478,7 +4482,7 @@ const handleChangePin = async () => {
                                 slot: newSlot 
                               });
                             }}
-                            className={`w-full flex-1 flex items-center justify-between px-[14px] py-2.5 cursor-pointer rounded-sm font-black text-sm transition-all duration-200 active:scale-[0.99] relative overflow-hidden group ${
+                            className={`w-full flex-1 flex items-center justify-between px-[14px] py-3.5 cursor-pointer rounded-sm font-black text-sm transition-all duration-200 active:scale-[0.99] relative overflow-hidden group ${
                               activeSlot === slot 
                                 ? 'bg-blue-600 text-white' 
                                 : 'dark:bg-slate-700 hover:bg-slate-600 bg-white text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
@@ -4594,7 +4598,7 @@ const handleChangePin = async () => {
                                     if (m.id === 'emoji') upd('customIcon', '');
                                     setIconMode(m.id);
                                   }}
-                                  className={`cursor-pointer active:scale-[0.99] px-4 py-2 rounded-xl font-black text-xs transition-all ${
+                                  className={`cursor-pointer active:scale-[0.99] px-4 py-3 rounded-xl font-black text-xs transition-all ${
                                     iconMode === m.id
                                       ? 'bg-blue-600 text-white'
                                       : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -4645,7 +4649,7 @@ const handleChangePin = async () => {
                                     </p>
                                   </div>
                                   <a href="https://giphy.com/search/terima-kasih" target="_blank" rel="noopener noreferrer"
-                                    className="flex-shrink-0 px-3 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-xl  text-[10px] font-black transition-all active:scale-[0.99]">
+                                    className="flex-shrink-0 px-3 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-xl  text-[10px] font-black transition-all active:scale-[0.99]">
                                     Buka Giphy →
                                   </a>
                                 </div>
@@ -4868,7 +4872,7 @@ const handleChangePin = async () => {
                                 <p className="text-xs text-slate-400 font-medium mt-1">Perbarui semua Browser Source di OBS sekarang.</p>
                               </div>
                               {newOverlayToken && (
-                                <div className="flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 w-full max-w-xs">
+                                <div className="flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 w-full max-w-xs">
                                   <p className="font-mono text-sm text-violet-600 dark:text-violet-400 font-bold flex-1 truncate">{newOverlayToken}</p>
                                   <button onClick={() => copyToClipboard(newOverlayToken, 'Token Baru')} className="cursor-pointer p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl  transition-all">
                                     <Copy size={13} />
@@ -5306,13 +5310,13 @@ const handleChangePin = async () => {
                             <h2 className="text-3xl font-black text-white tracking-tighter">@{user.username}</h2> <Verified className='relative top-[3.9px] text-blue-400' />
                           </div>
                         </div>
-                        <div className="w-max px-4 md:flex hidden py-2 relative bg-green-100 relative top-1 text-green-600 rounded-xl text-[10px] font-black uppercase tracking-widest border border-green-200">Verified Creator</div>
+                        <div className="w-max px-4 md:flex hidden py-3 relative bg-green-100 relative top-1 text-green-600 rounded-xl text-[10px] font-black uppercase tracking-widest border border-green-200">Verified Creator</div>
                         <p className="text-slate-200 font-medium text-sm">{user.email}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex w-full flex-wrap gap-2 justify-center md:justify-start bg-gradient-to-r from-slate-50/50 to-blue-50/30 dark:from-slate-900/50 dark:to-blue-900/20 p-3 py-2 border border-slate-100/20 dark:border-slate-700/50 backdrop-blur-sm rounded-xl shadow-sm">
+                  <div className="flex w-full flex-wrap gap-2 justify-center md:justify-start bg-gradient-to-r from-slate-50/50 to-blue-50/30 dark:from-slate-900/50 dark:to-blue-900/20 p-3 py-3 border border-slate-100/20 dark:border-slate-700/50 backdrop-blur-sm rounded-xl shadow-sm">
                     {['10k','50k','100k','500k','1jt'].map(name => (
                       <Badge key={name} type="streamer" name={name} active={profileData?.user?.donationMilestones?.[name] || false} />
                     ))}
