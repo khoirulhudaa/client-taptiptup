@@ -1003,14 +1003,17 @@ function NominalSection({ C }) {
                 {/* Grid item */}
                 <div style={{ marginBottom: 14 }}>
                   {/* <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000", letterSpacing: "0.08em", marginBottom: 8 }}>PILIH ITEM</div> */}
-                  <div className="grid grid-cols-4 gap-2">
+                  <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
                     {ITEMS_GIFT.map((item, i) => (
-                      <div key={item.name} style={{
-                        borderRadius: 8, padding: "10px 6px",
-                        background: i === 0 ? "#99FFFF" : "#f8fafc",
-                        border: i === 0 ? "1px solid #0d2b45" : "1px solid #0d2b45",
-                        textAlign: "center", cursor: "pointer",
-                      }}>
+                      <div
+                        key={item.name}
+                        className={(item.name === "Controller" || item.name === "Fire") ? "hidden md:block" : ""}
+                        style={{
+                          borderRadius: 8, padding: "10px 6px",
+                          background: i === 0 ? "#99FFFF" : "#f8fafc",
+                          border: i === 0 ? "1px solid #0d2b45" : "1px solid #0d2b45",
+                          textAlign: "center", cursor: "pointer",
+                        }}>
                         <div style={{ fontSize: 22, marginBottom: 4 }}>{item.emoji}</div>
                         <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 10, fontWeight: 700, color: "#000", marginBottom: 2 }}>{item.name}</div>
                         <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 11, fontWeight: 500, color: "#000" }}>{item.price}</div>
