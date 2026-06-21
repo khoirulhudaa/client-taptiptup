@@ -448,7 +448,7 @@ export const OBSConnectPanel = ({ overlayToken }) => {
         {/* Form - hanya tampil jika belum connect */}
         {status !== 'connected' && (
           <div className="space-y-2.5">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-2.5">
+            <div className="md:grid md:grid-cols-5 space-y-2.5 md:space-y-0 md:gap-2.5">
               {/* Port */}
               <div className="col-span-1 rounded-xl flex p-[3px] pl-[4px] items-center bg-slate-700/50 border border-slate-600 overflow-hidden focus-within:border-blue-500 transition-all">
                 <div className="rounded-lg px-2.5 py-3.5 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-600 bg-slate-700/80 flex-shrink-0">
