@@ -158,7 +158,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
         </div>
 
         {/* Row 2: Nominal + Maks Qty */}
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-3">
           <InputField
             label="Nominal"
             type="number"
@@ -371,11 +371,11 @@ const DonationItemsEditor = ({
       </AnimatePresence>
 
       {/* Mode Selector */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
           Mode Tampilan Donasi
         </label>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {MODE_OPTIONS.map((opt) => (
             <button
               key={opt.value}

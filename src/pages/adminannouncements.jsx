@@ -147,7 +147,7 @@ const AnnouncementForm = ({ initial, onClose, onSuccess }) => {
       </div>
 
       {/* Type & Active row */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-1.5">Jenis Info</label>
           <div className="grid grid-cols-1 gap-1.5">
@@ -304,9 +304,9 @@ export const AdminAnnouncementsPage = () => {
     <div className="space-y-0 pb-8">
       <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
-          <div className="relative flex items-start justify-between gap-4">
+          <div className="relative flex items-start justify-between gap-3">
             <div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                 <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg">
                     <Megaphone size={20} />
                 </div>
@@ -323,7 +323,7 @@ export const AdminAnnouncementsPage = () => {
       {/* Header */}
       <div className="bg-gradient-to-br from-blue-700 to-indigo-800 rounded-xl p-4 md:p-5 md:p-4 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }} />
-        <div className="relative md:flex items-center justify-between gap-4">
+        <div className="relative md:flex items-center justify-between gap-3">
           <button
             onClick={() => { setEditItem(null); setShowForm(true); }}
             className="cursor-pointer flex-shrink-0 flex items-center gap-2 px-2 md:pl-2 md:pr-2.5 py-2 bg-white/20 hover:bg-white/30 text-white rounded-xl font-black text-sm border border-white/30 backdrop-blur-sm transition-all active:scale-[0.97]"
@@ -423,7 +423,7 @@ export const AdminAnnouncementsPage = () => {
               <div key={i} className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden h-[200px]">
                 {/* top accent */}
                 <div className="h-[3px] bg-slate-200 dark:bg-slate-700" />
-                <div className="p-4 md:p-5 flex items-start gap-4">
+                <div className="p-4 md:p-5 flex items-start gap-3">
                   {/* icon */}
                   <div className="w-9 h-9 flex-shrink-0 bg-slate-200 dark:bg-slate-700 rounded-xl" />
                   {/* content */}
@@ -473,7 +473,7 @@ export const AdminAnnouncementsPage = () => {
               >
                 <div className={`h-[3px] ${cfg.color}`} />
                 <div className="p-4 md:p-5">
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-3">
                     {/* Icon */}
                     <div className={`relative top-1 w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${cfg.color} text-white`}>
                       {cfg.icon}
@@ -502,7 +502,7 @@ export const AdminAnnouncementsPage = () => {
                       )}
 
                       {/* Meta */}
-                      <div className="flex items-center gap-4 mt-3 text-[10px] text-slate-400 dark:text-slate-500 font-medium flex-wrap">
+                      <div className="flex items-center gap-3 mt-3 text-[10px] text-slate-400 dark:text-slate-500 font-medium flex-wrap">
                         <span className="flex items-center gap-1">
                           <Calendar size={10} /> {fmtDate(ann.createdAt)}
                         </span>

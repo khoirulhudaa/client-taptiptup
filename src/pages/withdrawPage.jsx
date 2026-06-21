@@ -78,7 +78,7 @@ const AlertModal = ({ modal, onClose }) => {
           transition={{ duration: 0.2 }}
           className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-xl shadow-2xl overflow-hidden"
         >
-          <div className="p-7 flex flex-col items-center text-center gap-4">
+          <div className="p-7 flex flex-col items-center text-center gap-3">
             <div className={`w-14 h-14 flex items-center justify-center rounded-full
               ${isSuccess ? 'bg-green-50 dark:bg-green-950/40' : 'bg-red-50 dark:bg-red-950/40'}`}>
               {isSuccess ? (
@@ -622,7 +622,7 @@ export const WithdrawPage = () => {
             <CreditCard className="text-blue-600" size={20} /> Ajukan Penarikan Dana
           </h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
             {[
               { label: 'Min. Tarik',  value: `Rp ${MIN_TARIK.toLocaleString('id-ID')}` },
               { label: 'Maks. Tarik', value: `Rp 10.000.000` },
@@ -645,7 +645,7 @@ export const WithdrawPage = () => {
                   setMethod(m.id);
                   setFormData({ ...formData, channelCode: m.id === 'BANK' ? 'BCA' : 'DANA' });
                 }}
-                className={`cursor-pointer active:scale-[0.99] flex flex-col items-center gap-2 p-4 rounded-xl border transition-all font-black text-sm ${
+                className={`cursor-pointer active:scale-[0.99] flex flex-col items-center gap-3 p-4 rounded-xl border transition-all font-black text-sm ${
                   method === m.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-lg shadow-blue-50 dark:shadow-none'
                     : 'border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 hover:border-slate-200 dark:hover:border-slate-600'
@@ -658,7 +658,7 @@ export const WithdrawPage = () => {
           <div className="space-y-5">
             <div className={`grid grid-cols-1 ${method === 'BANK' || method === 'EWALLET' ? 'md:grid-cols-2' : ''} gap-3`}>
               {method === 'BANK' && (
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-3">
                   {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilih Bank</label> */}
                   <select
                     className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-xl font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100"
@@ -680,7 +680,7 @@ export const WithdrawPage = () => {
               )}
 
               {method === 'EWALLET' && (
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-3">
                   {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilih E-Wallet</label> */}
                   <select
                     className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-xl font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100"
@@ -708,7 +708,7 @@ export const WithdrawPage = () => {
               onChange={v => setFormData({ ...formData, accountName: v })}
             />
 
-            <div className="w-full flex flex-col gap-2">
+            <div className="w-full flex flex-col gap-3">
               <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nominal Penarikan (Rp)</label>
               <div className="w-full flex pl-[4px] items-center bg-slate-900 dark:bg-slate-950 border-2 border-slate-700 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 transition-all shadow-sm">
                 <div className="w-max px-4 py-4 text-[10px] rounded-lg font-black text-slate-400 uppercase tracking-widest whitespace-nowrap bg-slate-800/50">
@@ -812,7 +812,7 @@ export const WithdrawPage = () => {
                     </div>
                   </div>
 
-                  <div className="flex justify-center gap-4">
+                  <div className="flex justify-center gap-3">
                     {pin.map((digit, i) => (
                       <input
                         key={i}
@@ -839,7 +839,7 @@ export const WithdrawPage = () => {
                     </button>
                   </div>
                   {pinError && (
-                    <div className="flex w-max mx-auto items-center text-center justify-center gap-2 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 p-3 rounded-xl">
+                    <div className="flex w-max mx-auto items-center text-center justify-center gap-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 p-3 rounded-xl">
                       <AlertCircle size={16} className="text-red-500" />
                       <p className="text-sm font-medium text-red-600 dark:text-red-400">{pinError}</p>
                     </div>
@@ -855,7 +855,7 @@ export const WithdrawPage = () => {
                     <button
                       onClick={handlePinSubmit}
                       disabled={isSubmitting || pin.join("").length < 4 || isLocked}
-                      className="cursor-pointer active:scale-[0.98] flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold disabled:opacity-60 transition-all flex items-center justify-center gap-2"
+                      className="cursor-pointer active:scale-[0.98] flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold disabled:opacity-60 transition-all flex items-center justify-center gap-3"
                     >
                       {isSubmitting ? <Loader2 className="animate-spin" size={18} /> : <ShieldCheck size={18} />}
                       {isSubmitting ? "Memverifikasi..." : "Konfirmasi"}
@@ -905,7 +905,7 @@ export const WithdrawPage = () => {
               </div>
             ) : viewMode === 'card' ? (
               /* ==================== CARD VIEW ==================== */
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 md:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-4 md:p-8">
                 {withdrawals.map((wd) => {
                   const cfg = STATUS_CONFIG[wd.status] || STATUS_CONFIG.PENDING;
                   return (

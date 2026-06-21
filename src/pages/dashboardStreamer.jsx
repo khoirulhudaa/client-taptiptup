@@ -249,7 +249,7 @@ const getTokenPayload = () => {
 // ─── Sub Components ───────────────────────────────────────────────────────────
 
 const SectionHeader = ({ icon, title, color }) => (
-  <div className="flex items-center gap-4">
+  <div className="flex items-center gap-3">
     {icon && (
       <div className={`${color} p-3 rounded-xl  text-white shadow-lg`}>{icon}</div>
     )}
@@ -297,7 +297,7 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
         <SectionHeader icon={<Settings size={20} />} title={`Quick Nominal`} color="bg-red-600" />
-        <div className="gap-2.5 grid grid-cols-1 mt-5 md:grid-cols-2">
+        <div className="gap-3 grid grid-cols-1 mt-5 md:grid-cols-2">
         {amounts.map((amt, i) => (
           <div key={i} className="w-[100%] flex gap-3 items-center bg-slate-50 dark:bg-slate-800 p-3 rounded-xl">
            <InputField
@@ -336,7 +336,7 @@ const InstantTestAlertSkeleton = () => {
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
       {/* Header */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-xl animate-pulse" />
         <div className="space-y-2">
           <div className="h-6 w-48 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
@@ -344,7 +344,7 @@ const InstantTestAlertSkeleton = () => {
       </div>
 
       {/* Input Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {[...Array(4)].map((_, i) => (
           <div key={i} className="flex flex-col gap-1">
             <div className="h-3 w-24 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
@@ -374,9 +374,9 @@ const InstantTestAlertSkeleton = () => {
 
 const InstantTestMediaShareSkeleton = () => {
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-3">
       {/* Header */}
-      <div className="flex items-center gap-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+      <div className="flex items-center gap-3 pb-4 border-b border-slate-200 dark:border-slate-700">
         <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-xl animate-pulse" />
         <div className="space-y-2">
           <div className="h-6 w-52 bg-slate-200 dark:bg-slate-700 rounded animate-pulse" />
@@ -486,8 +486,8 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
   ];
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4.5">
-      <div className="flex items-center gap-4">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
+      <div className="flex items-center gap-3">
         <div className="bg-rose-500 p-3 rounded-xl  text-white shadow-lg">
           <Zap size={20} />
         </div>
@@ -496,7 +496,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div className="flex flex-col gap-1">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Donor</label>
           <InputField
@@ -740,8 +740,8 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
   const updateForm = (field, value) => setFormData(prev => ({ ...prev, [field]: value }));
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-4">
-      <div className="flex items-center gap-4 pb-[3px]">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-3">
+      <div className="flex items-center gap-3 pb-[3px]">
         <div className="bg-blue-600 p-3 rounded-xl  text-white shadow-lg">
           <Video size={20} />
         </div>
@@ -1025,7 +1025,7 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
               </div>
             </div>
 
-            <div className="md:w-[60%] p-6 md:p-8 bg-slate-50/50 dark:bg-slate-900/50 flex flex-col justify-end space-y-6">
+            <div className="md:w-[60%] p-6 md:p-8 bg-slate-50/50 dark:bg-slate-900/50 flex flex-col justify-end space-y-5">
               <div>
                 <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tentang Creator</h4>
                 <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
@@ -1145,7 +1145,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
         )}
       </div>
       <div className="border-t border-slate-100 dark:border-slate-800" />
-      <div className="space-y-4">
+      <div className="space-y-3">
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Daftar kata terlarang</label>
         <div className="md:flex gap-3 md:space-y-0 space-y-3">
           <InputField
@@ -1205,7 +1205,7 @@ const MilestonesEditor = () => {
   const upd    = (i, key, val) => setLocal(list.map((m, idx) => idx === i ? { ...m, [key]: val } : m));
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
       <SectionHeader icon={<TrendingUp size={20} />} title="Milestones" color="bg-green-500" />
       <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Tampilkan progress target donasi di halaman publik kamu.</p>
       {isLoading ? <div className="text-slate-400 text-sm font-bold animate-pulse">Memuat...</div> : (
@@ -1399,9 +1399,9 @@ const QrCodeCard = ({ username }) => {
   const [copied, setCopied] = useState(false);
   const copy = () => { navigator.clipboard.writeText(donateUrl); setCopied(true); setTimeout(() => setCopied(false), 2000); };
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-5">
       <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Tampilkan QR ini di stream / sosmed. Scan langsung ke halaman donasi kamu.</p>
-      <div className="flex flex-col items-start gap-4">
+      <div className="flex flex-col items-start gap-3">
         <div className="p-4 bg-white rounded-xl border-4 border-slate-900 shadow-xl inline-block">
           <img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(donateUrl)}&color=0f172a&bgcolor=ffffff&format=svg&margin=0`} alt="QR Code" width={200} height={200} />
         </div>
@@ -1436,7 +1436,7 @@ const LeaderboardCard = ({ stats }) => {
       <div className="py-0 md:px-2 space-y-3">
         {topDonors.slice(0, 3).map((donor, i) => (
           <motion.div key={donor.name} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }}
-            className={`flex items-center gap-4 p-4 dark:border-slate-100/10 border-t border-slate-200 dark:text-white text-black`}>
+            className={`flex items-center gap-3 p-4 dark:border-slate-100/10 border-t border-slate-200 dark:text-white text-black`}>
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-lg flex-shrink-0 ${i < 3 ? 'bg-white/20' : 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}>
               {i < 3 ? medals[i] : `#${i + 1}`}
             </div>
@@ -1594,7 +1594,7 @@ const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-8 animate-pulse">
       {/* Header */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <div className="bg-slate-200 dark:bg-slate-700 w-11 h-11 rounded-xl" />
         <div className="h-7 w-64 bg-slate-200 dark:bg-slate-700 rounded" />
       </div>
@@ -1605,7 +1605,7 @@ const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
           <div className="space-y-5">
             <div className="h-7 w-40 bg-slate-200 dark:bg-slate-700 rounded" /> {/* "Alert Biasa" */}
             
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               {/* Durasi Dasar */}
               <div>
                 <div className="h-3 w-40 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
@@ -1629,7 +1629,7 @@ const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
           <div className="space-y-5">
             <div className="h-7 w-40 bg-slate-200 dark:bg-slate-700 rounded" /> {/* "Media share" */}
             
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               {/* Durasi Dasar */}
               <div>
                 <div className="h-3 w-40 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
@@ -1652,7 +1652,7 @@ const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
       {/* Preview Kalkulasi */}
       <div className="bg-slate-50 dark:bg-slate-800/70 p-5 rounded-xl border border-dashed border-slate-200 dark:border-slate-700">
         <div className="h-4 w-40 bg-slate-200 dark:bg-slate-700 rounded mb-4" />
-        <div className="space-y-4">
+        <div className="space-y-3">
           {!mediaOnly && (
             <div className="flex justify-between items-center">
               <div className="h-4 w-52 bg-slate-200 dark:bg-slate-700 rounded" />
@@ -1676,7 +1676,7 @@ const DurationSettingsSkeleton = ({ alertOnly = false, mediaOnly = false }) => {
 
 const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly = false, mediaOnly = false, activeSlot }) => {
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-6">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-3 md:space-y-5">
       <SectionHeader
         icon={<Timer size={18} />}
         title={mediaOnly ? 'Durasi Medshare' : alertOnly ? 'Durasi Alert' : 'Pengaturan Durasi'}
@@ -1710,7 +1710,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
         {!alertOnly && (
           <div className="space-y-5">
             {/* <h4 className="font-black text-lg">Media share</h4> */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               <div>
                 <label className="text-xs font-black text-slate-500 block mb-1.5">Durasi Dasar (detik)</label>
                 <InputField
@@ -1802,7 +1802,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
     { value: 'both',  icon: <span className="flex items-center gap-0.5"><ImageIcon size={11} /><Video size={11} /></span>, label: 'Keduanya', desc: 'gambar & video' },
   ];
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {triggers.length === 0 && (
         <div className="rounded-xl  bg-slate-50 dark:bg-slate-800 border border-dashed border-slate-200 dark:border-slate-700 px-5 py-6 text-center">
           <div className="w-10 h-10 rounded-xl  bg-slate-100 dark:bg-slate-700 flex items-center justify-center mx-auto mb-3"><ImageIcon size={18} className="text-slate-400" /></div>
@@ -1815,7 +1815,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
             <span className="font-black text-slate-700 dark:text-slate-200 text-sm">{t.label || `Media Alert ${i + 1}`}</span>
             <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.99] text-red-400 hover:text-red-600 transition-colors p-1"><Trash2 size={15} /></button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[['Label (opsional)', 'label', t.label, 'text', 'contoh: Sultan Alert'], ['Nominal Min (Rp)', 'minAmount', t.minAmount, 'number', '']].map(([lbl, key, val, type, ph]) => (
               <InputField
                 key={key}
@@ -2587,7 +2587,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       <FullscreenPreview />
 
       {/* Tab switcher */}
-      <div className="flex gap-2.5">
+      <div className="flex gap-3">
         {/* Tombol toggle preview */}
         <button
           onClick={() => onTogglePreview?.()}
@@ -2793,8 +2793,8 @@ const HistoryPage = () => {
   };
 
   return (
-    <div className="space-y-6 pb-0">
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="space-y-5 pb-0">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {[
           { label: 'Total Semua Waktu', value: statsLoading ? '...' : maskAmount(stats?.allTime?.total || 0), sub: `${stats?.allTime?.count || 0} donasi`, color: 'bg-blue-600', icon: '❤️' },
           { label: 'Bulan Ini', value: statsLoading ? '...' : maskAmount(stats?.thisMonth?.total || 0), sub: `${stats?.thisMonth?.count || 0} donasi`, color: 'bg-violet-500', icon: '📅' },
@@ -2813,7 +2813,7 @@ const HistoryPage = () => {
       {stats && <LeaderboardCard stats={stats} />}
 
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 md:px-6 py-5 border-b border-slate-100 dark:border-slate-800 gap-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 md:px-6 py-5 border-b border-slate-100 dark:border-slate-800 gap-3">
           <div>
             <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Riwayat Donasi</p>
           </div>
@@ -2972,7 +2972,7 @@ const HistoryPage = () => {
               )
             ) : (
               /* ==================== CARD VIEW ==================== */
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 md:p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-4 md:p-6">
                 {donations.length === 0 ? (
                   <div className="col-span-full text-center py-30 text-slate-400 font-bold">
                     Belum ada donasi masuk
@@ -3034,7 +3034,7 @@ const HistoryPage = () => {
                         <div className="h-[20%] flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700 text-sm">
                           <p className="text-slate-400 text-xs">{formatDate(item.createdAt)}</p>
 
-                          <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-3">
                             {/* {item.mediaUrl && (
                               <a href={item.mediaUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600">
                                 <ImageIcon size={18} />
@@ -3196,10 +3196,10 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
     if (isLoading) return <div className="flex items-center justify-center py-30 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-xl animate-spin" />Memuat...</div>;
     if (!users?.length) return <div className="text-center py-30 text-slate-400"><p className="text-4xl mb-3">👥</p><p className="font-black text-slate-500">Belum ada streamer</p></div>;
     return (
-      <div className="grid grid-cols-1 md:mt-0 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:mt-0 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {users.map(u => (
-          <div key={u._id} className="md:bg-white/30 dark:md:bg-slate-900/60 md:backdrop-blur-sm rounded-xl p-4 md:p-6 md:mb-0 mb-0 border-b-slate-100/20 border border-slate-100 dark:border-slate-800 md:shadow-sm flex flex-col gap-4 hover:shadow-md hover:border-slate-200 dark:hover:border-slate-700 transition-all">
-            <div className="flex items-center gap-4">
+          <div key={u._id} className="md:bg-white/30 dark:md:bg-slate-900/60 md:backdrop-blur-sm rounded-xl p-4 md:p-6 md:mb-0 mb-0 border-b-slate-100/20 border border-slate-100 dark:border-slate-800 md:shadow-sm flex flex-col gap-3 hover:shadow-md hover:border-slate-200 dark:hover:border-slate-700 transition-all">
+            <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl  bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-black text-xl flex-shrink-0 shadow-lg">
                 {
                   u.profilePicture ? (
@@ -3258,9 +3258,9 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
 
       <div className="flex md:hidden mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl  p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #2e2f42 0%, transparent 50%)' }} />
-        <div className="relative flex items-start justify-between gap-4">
+        <div className="relative flex items-start justify-between gap-3">
           <div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <div className="bg-blue-500 p-3 rounded-xl  text-white shadow-lg">
                   <Users2 size={20} />
               </div>
@@ -3405,7 +3405,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) =>
 
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
-       <div className="flex items-center gap-5 mb-6">
+       <div className="flex items-center gap-3 mb-6">
         <div className="p-3 w-11 h-11 bg-rose-500 rounded-xl  flex items-center justify-center text-white shadow-lg"><Mic size={20} /></div>
         <div>
           <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-white">Text-to-speech</h4>
@@ -3426,8 +3426,8 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) =>
       </div>
 
       {settings.ttsEnabled && (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+        <div className="space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-3">
             {[
               // { label: 'Kecepatan', key: 'ttsRate',   min: 0.5, max: 2, step: 0.1, fmt: v => v.toFixed(1) + 'x' },
               { label: 'Volume',    key: 'ttsVolume', min: 0.1, max: 1, step: 0.1, fmt: v => Math.round(v*100) + '%' },
@@ -3499,7 +3499,7 @@ const PinRow = ({ label, groupKey, refs, pinForm, setPinForm, showPins, setShowP
           : <><Eye size={11} /> Tampilkan</>}
       </button>
     </div>
-    <div className="w-full flex gap-5">
+    <div className="w-full flex gap-3">
       {pinForm[groupKey].map((digit, i) => (
         <input
           key={i}
@@ -4027,7 +4027,7 @@ const handleChangePin = async () => {
     return (
       <div className="space-y-3">
         {localTiers.map((t, i) => (
-          <div key={i} className="bg-slate-50 dark:bg-slate-800 rounded-xl  p-4 border border-slate-100 dark:border-slate-700 space-y-4">
+          <div key={i} className="bg-slate-50 dark:bg-slate-800 rounded-xl  p-4 border border-slate-100 dark:border-slate-700 space-y-3">
             <div className="flex items-center justify-between">
               <span className="font-black text-slate-600 dark:text-slate-300 text-sm">{t.label || `Tier Suara ${i + 1}`}</span>
               <button onClick={() => remove(i)} className="cursor-pointer text-red-400 hover:text-red-600 p-1"><Trash2 size={15} /></button>
@@ -4177,7 +4177,7 @@ const handleChangePin = async () => {
             activeSlot={activeSlot}
           />
           <div className="pt-2 md:pt-8 md:border-t border-slate-200 dark:border-slate-700">
-            <div className="flex items-center gap-4 md:mb-6 mb-5">
+            <div className="flex items-center gap-3 md:mb-6 mb-5">
               <div className="p-3 w-11 h-11 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg"><Music size={20} /></div>
               <div>
                 <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-white">Quick Soundboard</h4>
@@ -4267,7 +4267,7 @@ const handleChangePin = async () => {
           <AnimatePresence>
             {donationToasts.map(t => (
               <motion.div key={t.id} initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 100, opacity: 0 }}
-                className="bg-white dark:bg-slate-800 rounded-xl  p-5 shadow-2xl border border-slate-100 dark:border-slate-700 flex items-start gap-4">
+                className="bg-white dark:bg-slate-800 rounded-xl  p-5 shadow-2xl border border-slate-100 dark:border-slate-700 flex items-start gap-3">
                 {t.isWithdrawal
                   ? <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl flex-shrink-0 ${t.status === 'COMPLETED' ? 'bg-green-500' : 'bg-red-500'}`}>{t.status === 'COMPLETED' ? '✓' : '✕'}</div>
                   : <div className="w-12 h-12 bg-blue-600 rounded-xl  flex items-center justify-center flex-shrink-0">{renderIconPreview(settings.customIcon, 24)}</div>
@@ -4388,7 +4388,7 @@ const handleChangePin = async () => {
                   key="voiceSettings"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="space-y-6 pb-0 w-full"
+                  className="space-y-5 pb-0 w-full"
                 >
                   <VoiceSettingsPage
                     user={user}
@@ -4448,9 +4448,9 @@ const handleChangePin = async () => {
               {activeTab === 'settings' && !isEffectiveAdmin && (
                 <div
                   key="settings"
-                  className="grid grid-cols-1 gap-5 xl:grid-cols-12"
+                  className="grid grid-cols-1 gap-3 xl:grid-cols-12"
                 >
-                <section className={`space-y-6 ${showPreviewPanel ? 'xl:col-span-7' : 'xl:col-span-12'}`}>
+                <section className={`space-y-5 ${showPreviewPanel ? 'xl:col-span-7' : 'xl:col-span-12'}`}>
                     {/* Konfigurasi Alert */}
                     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                       <div className="flex items-center justify-between gap-3">
@@ -4468,7 +4468,7 @@ const handleChangePin = async () => {
                           )
                         }
                       </div>
-                      <div id="tour-overlay-slot" className="md:flex mt-5.5 space-y-3 md:space-y-0 items-center gap-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-500">
+                      <div id="tour-overlay-slot" className="md:flex mt-5.5 space-y-3 md:space-y-0 items-center gap-3 rounded-xl bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-500">
                         {['A', 'B'].map((slot) => (
                           <button
                             key={slot}
@@ -4493,7 +4493,7 @@ const handleChangePin = async () => {
                               <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-30" />
                             )}
 
-                            <div className="flex items-center gap-2.5">
+                            <div className="flex items-center gap-3">
                               <div className={`w-6 h-6 flex items-center justify-center rounded border transition-all ${
                                 activeSlot === slot 
                                   ? 'border-white/50 bg-white/20' 
@@ -4568,7 +4568,7 @@ const handleChangePin = async () => {
                           )}
                         </div>
                           
-                        <div className='w-full md:flex space-y-2.5 md:space-y-0 items-center gap-2.5'>
+                        <div className='w-full md:flex space-y-2.5 md:space-y-0 items-center gap-3'>
                           {[  
                             { key: 'overlayEnabled', label: 'Overlay OBS',  desc: 'Alert tidak muncul di OBS' },
                             { key: 'showTimestamp',  label: 'Waktu Donasi',  desc: 'Waktu kapan donasi diterima' },
@@ -4609,7 +4609,7 @@ const handleChangePin = async () => {
                             </div>
 
                             {iconMode === 'emoji' ? (
-                              <div className="grid grid-cols-4 md:grid-cols-6 gap-2.5">
+                              <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
                                 {ICON_PRESETS.map(({ emoji, label }) => (
                                   <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
                                     className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
@@ -4686,7 +4686,7 @@ const handleChangePin = async () => {
                       </button>
                     </div>
                     
-                    <div id="tour-min-max-donasi" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
+                    <div id="tour-min-max-donasi" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
                         <SectionHeader icon={<BadgeDollarSign size={20} />} title={`Nominal Donasi`} color="bg-red-600" />
                         <InputField label="Min Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
                         <InputField label="Max Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
@@ -4697,7 +4697,7 @@ const handleChangePin = async () => {
                         </button>
                     </div>
 
-                    <div id="tour-tema-visual" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-5">
+                    <div id="tour-tema-visual" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
                       <SectionHeader icon={<Palette size={20} />} title={`Tema visual`} color="bg-cyan-600" />
                       <div className="md:col-span-2">
                         {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label> */}
@@ -4797,7 +4797,7 @@ const handleChangePin = async () => {
                       <div className='mb-5'>
                         <SectionHeader icon={<Monitor size={20} />} title={`URL Overlay`} color="bg-blue-500" />
                       </div>
-                      <div className="!mt-[21px] flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-3 py-4 rounded-xl  border border-slate-100/10 mb-3">
+                      <div className="!mt-[21px] flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-3 py-4 rounded-xl  border border-slate-100/10 mb-3">
                         <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">💝</div>
                         <div className='flex-1 min-w-0'>
                           <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-full uppercase tracking-widest">MY DONATE URL</label>
@@ -4815,7 +4815,7 @@ const handleChangePin = async () => {
                         { label: 'URL VOICE NOTE - OBS',      emoji: '🎙️', url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
                         { label: 'URL COMBINED', emoji: '🧩', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
                       ].map(({ label, emoji, url }) => (
-                        <div key={label} className="flex items-center gap-4 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-xl  border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
+                        <div key={label} className="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-xl  border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
                           <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
                           <div className='flex-1 min-w-0 relative top-[3px]'>
                             <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-fulll uppercase tracking-widest">{label}</label>
@@ -4831,7 +4831,7 @@ const handleChangePin = async () => {
                     </div>
 
                     {/* GANTI OVERLAY TOKEN */}
-                    <div id="tour-ganti-token" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                    <div id="tour-ganti-token" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-5">
                       <SectionHeader icon={<RefreshCw size={18} />} title="Ganti Overlay Token" color="bg-violet-500" />
                     
                       <div className="space-y-3">
@@ -4924,10 +4924,10 @@ const handleChangePin = async () => {
                     </div>
 
                     {/* HAPUS AKUN */}
-                    <div id="tour-hapus-akun" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 pb-4.5 md:pb-6 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-4.5">
+                    <div id="tour-hapus-akun" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 pb-4.5 md:pb-6 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-3">
                       <SectionHeader icon={<Trash2 size={18} />} title="Hapus Akun" color="bg-red-500" />
                     
-                      <div className="space-y-4">
+                      <div className="space-y-3">
                         <p className="text-xs text-slate-400 dark:text-slate-500 md:block hidden font-medium leading-relaxed">
                           Menghapus akun bersifat <span className="font-black text-red-400">permanen</span>.
                           Seluruh data akan dihapus selamanya.
@@ -4941,7 +4941,7 @@ const handleChangePin = async () => {
                             { icon: '⚙️', label: 'Semua URL overlay tidak aktif' },
                             { icon: '⚙️', label: 'Data komunitas & follower hilang' },
                           ].map(({ icon, label }) => (
-                            <div key={label} className="flex items-center gap-2.5 p-3 bg-slate-500/20 rounded-xl  border border-slate-500/30">
+                            <div key={label} className="flex items-center gap-3 p-3 bg-slate-500/20 rounded-xl  border border-slate-500/30">
                               <span className="text-base flex-shrink-0">{icon}</span>
                               <p className="text-[11px] font-bold text-white">{label}</p>
                             </div>
@@ -4997,7 +4997,7 @@ const handleChangePin = async () => {
                             </div>
                     
                             {/* PIN input row (inline, tanpa reuse PinRow agar bebas styling) */}
-                            <div className="flex flex-col items-center gap-4">
+                            <div className="flex flex-col items-center gap-3">
                               <div className="flex gap-3 justify-center">
                                 {deletePinForm.map((digit, idx) => (
                                   <input
@@ -5080,7 +5080,7 @@ const handleChangePin = async () => {
                             key="delete-loading"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            className="flex flex-col items-center gap-4 py-8"
+                            className="flex flex-col items-center gap-3 py-8"
                           >
                             <Loader2 size={32} className="animate-spin text-red-500" />
                             <p className="text-sm font-black text-slate-700 dark:text-slate-200">Menghapus akun...</p>
@@ -5094,7 +5094,7 @@ const handleChangePin = async () => {
                             key="delete-done"
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="flex flex-col items-center gap-4 py-8 bg-slate-50 dark:bg-slate-800/50 rounded-xl "
+                            className="flex flex-col items-center gap-3 py-8 bg-slate-50 dark:bg-slate-800/50 rounded-xl "
                           >
                             <div className="w-16 h-16 bg-red-100 dark:bg-red-950/40 rounded-xl flex items-center justify-center">
                               <Trash2 size={28} className="text-red-500" />
@@ -5150,7 +5150,7 @@ const handleChangePin = async () => {
 
               {/* ══════════════════════ ALERT SETTINGS ══════════════════════ */}
               {activeTab === 'alertSettings' && (
-                <motion.div key="alertSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 pb-0 w-full">
+                <motion.div key="alertSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-5 pb-0 w-full">
 
                   {/* Instant Test */}
                   {profileLoading ? <InstantTestAlertSkeleton /> : <InstantTestAlert overlayToken={user.overlayToken} settings={settings} user={user} />}
@@ -5187,7 +5187,7 @@ const handleChangePin = async () => {
 
               {/* ══════════════════════ MEDIA SETTINGS ══════════════════════ */}
               {activeTab === 'mediaSettings' && (
-                <motion.div key="mediaSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 pb-0 w-full">
+                <motion.div key="mediaSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-5 pb-0 w-full">
 
                   {/* Instant Test MediaShare */}
                   {profileLoading ? <InstantTestMediaShareSkeleton /> : <InstantTestMediaShare overlayToken={user.overlayToken} settings={settings} user={user}/>}
@@ -5246,7 +5246,7 @@ const handleChangePin = async () => {
                       className="bg-white dark:bg-slate-900 rounded-xl max-w-md w-full p-7 shadow-2xl border border-slate-100 dark:border-slate-800"
                       onClick={e => e.stopPropagation()}
                     >
-                      <div className="flex flex-col items-center gap-4 text-center">
+                      <div className="flex flex-col items-center gap-3 text-center">
                         <div className="w-16 h-16 bg-violet-100 dark:bg-violet-950/40 rounded-xl flex items-center justify-center">
                           <RefreshCw size={30} className="text-violet-500" />
                         </div>
@@ -5297,7 +5297,7 @@ const handleChangePin = async () => {
               {activeTab === 'profile' && (
                 <motion.div key="profile" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-3 pb-0">
                   <div className="relative bg-slate-900/70 backdrop-blur-sm rounded-xl  pt-8 pb-7 md:pl-7 pr-8 shadow-sm border border-slate-100 dark:border-slate-800 px-8 py-0 text-white relative overflow-hidden">
-                    <div className="relative z-2 flex flex-col md:flex-row items-center gap-6">
+                    <div className="relative z-2 flex flex-col md:flex-row items-center gap-3">
                       <div className="rounded-xl w-26 h-26 mt-[-1.6px] mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg border-4 border-white dark:border-slate-900">
                         {profileForm.profilePicture || user?.profilePicture ? (
                           <img src={profileForm.profilePicture || user?.profilePicture} alt={user.username} className="w-full h-full object-cover"
@@ -5324,10 +5324,10 @@ const handleChangePin = async () => {
 
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
                     <SectionHeader icon={<User size={18} />} title="Profil Publik" color="bg-blue-500" />
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-10">
                       <div className="md:col-span-2">
                         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">Foto Profil</label>
-                        <div className="flex flex-col sm:flex-row items-start gap-4">
+                        <div className="flex flex-col sm:flex-row items-start gap-3">
                           <div className="w-20 h-20 rounded-xl  border-2 border-slate-200 dark:border-slate-700 overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-5xl font-black flex-shrink-0">
                             {profileForm.profilePicture ? (
                               <img src={profileForm.profilePicture} alt="Profile Preview" className="w-full h-full object-cover" onError={(e) => e.target.src = ''} />
@@ -5387,7 +5387,7 @@ const handleChangePin = async () => {
 
                       <div className="md:col-span-2">
                         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Social Media</label>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           <InputField label="Instagram" value={profileForm.instagram} placeholder="@username" onChange={v => setProfileForm(f => ({ ...f, instagram: v }))} />
                           <InputField label="Facebook" value={profileForm.facebook} placeholder="facebook.com/username" onChange={v => setProfileForm(f => ({ ...f, facebook: v }))} />
                           <InputField label="YouTube" value={profileForm.youtube} placeholder="youtube.com/@channel" onChange={v => setProfileForm(f => ({ ...f, youtube: v }))} />
@@ -5405,7 +5405,7 @@ const handleChangePin = async () => {
                     </div>
                   </div>
                   <QrCodeCard username={user.username} />
-                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-5">
                       <SectionHeader icon={<ShieldCheck size={18} />} title="Ubah PIN Keamanan" color="bg-amber-500" />
                       <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">
                         PIN digunakan untuk konfirmasi transfer saldo. Pastikan tidak membagikannya ke siapapun.
@@ -5418,7 +5418,7 @@ const handleChangePin = async () => {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0 }}
-                            className="flex flex-col items-center gap-4 py-8"
+                            className="flex flex-col items-center gap-3 py-8"
                           >
                             <div className="w-16 h-16 bg-green-100 dark:bg-green-950/40 flex items-center justify-center">
                               <CheckCircle2 size={32} className="text-green-600 dark:text-green-400" />
@@ -5427,7 +5427,7 @@ const handleChangePin = async () => {
                             <p className="text-sm text-slate-400 font-medium">Gunakan PIN baru untuk konfirmasi transfer berikutnya.</p>
                           </motion.div>
                         ) : (
-                          <motion.div key="pin-form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl  w-full grid grid-cols-1 gap-4 md:gap-14 items-center justify-center md:grid-cols-3 space-y-0">
+                          <motion.div key="pin-form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl  w-full grid grid-cols-1 gap-3 md:gap-14 items-center justify-center md:grid-cols-3 space-y-0">
                             <PinRow
                               label="PIN Saat Ini"
                               groupKey="currentPin"
@@ -5535,9 +5535,9 @@ const handleChangePin = async () => {
                 <motion.div key="poll" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
                       <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #2e2f42 0%, transparent 50%)' }} />
-                      <div className="relative flex items-start justify-between gap-4">
+                      <div className="relative flex items-start justify-between gap-3">
                         <div>
-                          <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-3">
                             <div className="bg-orange-500 p-3 rounded-xl  text-white shadow-lg">
                                 <Vote size={20} />
                             </div>
@@ -5550,7 +5550,7 @@ const handleChangePin = async () => {
                         </div>
                       </div>
                     </div>
-                  <div className="space-y-6 mt-5">
+                  <div className="space-y-5 mt-5">
                     <PollManager overlayToken={user.overlayToken} username={user.username} />
                   </div>
                 </motion.div>
@@ -5564,9 +5564,9 @@ const handleChangePin = async () => {
                 <motion.div key="subathon" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                   <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl  p-4 md:p-5 text-white relative overflow-hidden">
                     <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #2e2f42 0%, transparent 50%)' }} />
-                    <div className="relative flex items-start justify-between gap-4">
+                    <div className="relative flex items-start justify-between gap-3">
                       <div>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                           <div className="bg-blue-500 p-3 rounded-xl  text-white shadow-lg">
                               <Vote size={20} />
                           </div>
@@ -5587,7 +5587,7 @@ const handleChangePin = async () => {
               {activeTab === 'leaderboard' && (
                 <motion.div key="leaderboard" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                   <LeaderboardSettings overlayToken={user?.overlayToken} />
-                  {/* <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+                  {/* <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-5">
                   </div> */}
                 </motion.div>
               )}
@@ -5646,7 +5646,7 @@ const handleChangePin = async () => {
                 initial={{ scale: 0.85, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.85, opacity: 0, y: 20 }}
-                className="flex rounded-xl  flex-col items-center w-[95vw] md:w-md gap-6 text-center p-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl"
+                className="flex rounded-xl  flex-col items-center w-[95vw] md:w-md gap-3 text-center p-12 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl"
               >
                 <div className="w-20 h-20 rounded-xl  bg-blue-100 dark:bg-blue-950/40 flex items-center justify-center">
                   <ShieldCheck size={40} className="text-blue-500" />

@@ -53,7 +53,7 @@ const FeeSimulator = ({ feeBearer }) => {
       </p>
 
       {/* Preset buttons */}
-      <div className="w-full grid grid-cols-5 md:grid-cols-5 gap-2">
+      <div className="w-full grid grid-cols-5 md:grid-cols-5 gap-3">
         {PRESETS.map(v => (
           <button
             key={v}
@@ -193,7 +193,7 @@ export const FeeConfigPage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-5 shadow-sm border border-slate-100 dark:border-slate-800 space-y-6">
+      <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-5 shadow-sm border border-slate-100 dark:border-slate-800 space-y-5">
         {isLoading ? (
           <div className="py-12 text-center text-slate-400">Memuat konfigurasi...</div>
         ) : (

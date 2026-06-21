@@ -286,7 +286,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
             <div className='relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white mb-2'>
               {superMode ? 'Mode Admin' : 'Mode Streamer'}
             </div>
-            <div className="flex items-center justify-stsrt gap-2 rounded-lg">
+            <div className="flex items-center justify-stsrt gap-3 rounded-lg">
               <button
                 onClick={handleAdminMode}
                 className={`relative cursor-pointer active:scale-[0.99] hover:brightness-95 w-16 h-8 rounded-lg transition-colors duration-200 ease-in-out ${
@@ -312,7 +312,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         )}
 
         {/* Navigation */}
-        <nav className={`${isCollapsed ? 'mt-[-4px]' : 'mt-0'} md:flex-1 space-y-4 px-2`}>
+        <nav className={`${isCollapsed ? 'mt-[-4px]' : 'mt-0'} md:flex-1 space-y-3 px-2`}>
           {menuGroups.map((group) => {
             const visibleItems = group.items.filter(item => {
               if (isSuperAdmin && hideForSuperAdmin.includes(item.id)) return false;
@@ -345,7 +345,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                         setIsSidebarOpen(false);
                       }}
                       title={isCollapsed ? item.label : undefined}
-                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex items-center gap-4 rounded-lg font-black text-sm 
+                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex items-center gap-3 rounded-lg font-black text-sm 
                         ${isCollapsed ? 'justify-center px-0 py-3' : 'px-4 py-3'}
                         ${
                           activeTab === item.id
@@ -376,7 +376,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
             <div className="pt-4 mt-2 border-t border-slate-200 dark:border-slate-800">
               <button
                 onClick={() => setShowLogoutConfirm(true)}
-                className="md:hidden w-full flex items-center gap-4 p-3 px-4 bg-red-100 dark:bg-red-900 text-white hover:bg-red-50 dark:hover:bg-red-950 rounded-lg cursor-pointer active:scale-[0.99] font-black"
+                className="md:hidden w-full flex items-center gap-3 p-3 px-4 bg-red-100 dark:bg-red-900 text-white hover:bg-red-50 dark:hover:bg-red-950 rounded-lg cursor-pointer active:scale-[0.99] font-black"
               >
                 <LogOut size={18} className='relative left-[1.2px]' />
                 <span className="text-sm ml-[2.2px]">Keluar</span>
@@ -395,7 +395,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
               }}
               title={isCollapsed ? 'Permintaan Penarikan' : undefined}
               className={`cursor-pointer mb-2 w-full flex items-center rounded-lg font-black text-sm
-                ${isCollapsed ? 'justify-center px-0 py-3' : 'gap-4 px-4 py-3'}
+                ${isCollapsed ? 'justify-center px-0 py-3' : 'gap-3 px-4 py-3'}
                 ${
                   activeTab === 'admin'
                     ? 'bg-blue-600 text-white shadow-xl shadow-blue-100 dark:shadow-blue-900/30'
@@ -429,7 +429,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                       key={item.id}
                       onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
                       title={isCollapsed ? item.label : undefined}
-                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex items-center gap-4 rounded-lg font-black text-sm
+                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex items-center gap-3 rounded-lg font-black text-sm
                         ${isCollapsed ? 'justify-center px-0 py-3' : 'px-4 py-3'}
                         ${activeTab === item.id
                           ? 'bg-blue-600 text-white'
@@ -451,7 +451,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
             <div className="pt-4 mt-2 border-t border-slate-200 dark:border-slate-800">
               <button
                 onClick={() => setShowLogoutConfirm(true)}
-                className="md:hidden w-full flex items-center gap-4 p-3 px-4 bg-red-100 dark:bg-red-900 text-white hover:bg-red-50 dark:hover:bg-red-950 rounded-lg cursor-pointer active:scale-[0.99] font-black"
+                className="md:hidden w-full flex items-center gap-3 p-3 px-4 bg-red-100 dark:bg-red-900 text-white hover:bg-red-50 dark:hover:bg-red-950 rounded-lg cursor-pointer active:scale-[0.99] font-black"
               >
                 <LogOut size={18} className='relative left-[1.2px]' />
                 <span className="text-sm ml-[2.2px]">Keluar</span>

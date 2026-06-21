@@ -141,7 +141,7 @@ export const InboxBell = ({ setActiveTab }) => {
             >
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <Bell size={14} className="text-blue-500" />
                   <span className="font-black text-sm text-slate-700 dark:text-slate-200">Inbox</span>
                   {unread > 0 && (
@@ -150,7 +150,7 @@ export const InboxBell = ({ setActiveTab }) => {
                     </span>
                   )}
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   {unread > 0 && (
                     <button
                       onClick={() => readAllMutation.mutate()}
@@ -169,7 +169,7 @@ export const InboxBell = ({ setActiveTab }) => {
               {/* List */}
               <div className="max-h-[68vh] overflow-y-auto">
                 {isLoading ? (
-                  <div className="flex items-center justify-center py-10 text-slate-400 gap-2">
+                  <div className="flex items-center justify-center py-10 text-slate-400 gap-3">
                     <Loader2 size={16} className="animate-spin" />
                     <span className="text-sm font-bold">Memuat...</span>
                   </div>
@@ -199,7 +199,7 @@ export const InboxBell = ({ setActiveTab }) => {
                               {cfg.icon}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="flex items-start justify-between gap-2">
+                              <div className="flex items-start justify-between gap-3">
                                 <p className={`text-sm font-black ${ann.isRead ? 'text-slate-700 dark:text-slate-300' : 'text-slate-900 dark:text-slate-100'}`}>
                                   {ann.title}
                                 </p>
@@ -309,9 +309,9 @@ export const InboxPage = () => {
       {/* Header */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
-        <div className="relative flex items-start justify-between gap-4">
+        <div className="relative flex items-start justify-between gap-3">
           <div>
-             <div className="flex items-center gap-4">
+             <div className="flex items-center gap-3">
               <div className="bg-orange-500 p-3 rounded-xl text-white shadow-lg">
                   <Inbox size={20} />
               </div>
@@ -326,7 +326,7 @@ export const InboxPage = () => {
             <button
               onClick={() => readAllMutation.mutate()}
               disabled={readAllMutation.isPending}
-              className="cursor-pointer flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl font-black text-sm border border-white/20 transition-all active:scale-[0.97] disabled:opacity-60"
+              className="cursor-pointer flex-shrink-0 flex items-center gap-3 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl font-black text-sm border border-white/20 transition-all active:scale-[0.97] disabled:opacity-60"
             >
               <CheckCheck size={15} />
               {readAllMutation.isPending ? 'Memproses...' : 'Tandai semua dibaca'}
@@ -336,7 +336,7 @@ export const InboxPage = () => {
       </div>
 
       {/* Type filters */}
-      <div className="flex gap-2 flex-wrap px-4 md:px-5">
+      <div className="flex gap-3 flex-wrap px-4 md:px-5">
         <button onClick={() => setTypeFilter('')}
           className={`px-3 py-2 rounded-xl text-[11px] font-black border transition-all cursor-pointer active:scale-[0.97] ${!typeFilter ? 'bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 border-transparent' : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'}`}>
           Semua
@@ -358,7 +358,7 @@ export const InboxPage = () => {
               <div key={i} className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden">
                 {/* top accent */}
                 <div className="h-[3px] bg-slate-200 dark:bg-slate-700" />
-                <div className="p-4 md:p-5 flex items-start gap-4">
+                <div className="p-4 md:p-5 flex items-start gap-3">
                   {/* icon */}
                   <div className="w-10 h-10 flex-shrink-0 bg-slate-200 dark:bg-slate-700 rounded-xl" />
                   {/* content */}
@@ -411,7 +411,7 @@ export const InboxPage = () => {
                   onClick={() => handleExpand(ann)}
                   className="w-full text-left p-4 md:p-5 cursor-pointer hover:bg-white/40 dark:hover:bg-slate-800/40 transition-all"
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-3">
                     {/* Icon */}
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0`}
                       style={{ background: cfg.color + '20', color: cfg.color }}>
@@ -422,7 +422,7 @@ export const InboxPage = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <div className="flex items-center gap-3 flex-wrap mb-1">
                             <h3 className={`font-medium text-sm md:text-md ${ann.isRead ? 'text-slate-700 dark:text-slate-300' : 'text-slate-900 dark:text-slate-100'}`}>
                               {ann.title}
                             </h3>
@@ -435,7 +435,7 @@ export const InboxPage = () => {
                           </p>
                         </div>
 
-                        {/* <div className="flex-shrink-0 flex items-center gap-2">
+                        {/* <div className="flex-shrink-0 flex items-center gap-3">
                           {ann.isRead ? (
                             <Check size={14} className="text-slate-300 dark:text-slate-600" />
                           ) : (
@@ -491,7 +491,7 @@ export const InboxPage = () => {
                           </p>
                         </div>
                         {ann.expiresAt && (
-                          <div className="flex items-center gap-2 px-4 py-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-xl">
+                          <div className="flex items-center gap-3 px-4 py-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-xl">
                             <Clock size={14} className="text-amber-500 flex-shrink-0" />
                             <p className="text-xs font-bold text-amber-600 dark:text-amber-400">
                               Kadaluwarsa : {new Date(ann.expiresAt).toLocaleDateString('id-ID', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' })}

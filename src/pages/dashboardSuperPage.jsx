@@ -76,7 +76,7 @@ const HealthBadge = ({ latency, status }) => {
   const color = ok ? '#22c55e' : warn ? '#f59e0b' : '#ef4444';
   const label = ok ? 'Healthy' : warn ? 'Degraded' : 'Down';
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-3">
       <span className="w-2 h-2 rounded-xl animate-pulse" style={{ background: color }} />
       <span className="relative top-[1px] text-xs font-black" style={{ color }}>{label}</span>
       <span className="text-[10px] text-slate-500 font-mono">{latency}ms</span>
@@ -127,7 +127,7 @@ export const DashboardSuperPage = () => {
           <div className="h-5 w-44 bg-slate-200 dark:bg-slate-800 rounded-xl" />
           <div className="h-3 w-64 bg-slate-100 dark:bg-slate-700 rounded-xl" />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <div className="h-8 w-28 bg-slate-200 dark:bg-slate-800 rounded-xl" />
           <div className="h-8 w-8 bg-slate-200 dark:bg-slate-800 rounded-xl" />
         </div>
@@ -163,7 +163,7 @@ export const DashboardSuperPage = () => {
       </div>
 
       {/* Row 3 - 3 cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
         {[70, 100, 100].map((h, i) => (
           <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 space-y-4">
             <div className="space-y-1.5">
@@ -185,9 +185,9 @@ export const DashboardSuperPage = () => {
 
       <div className="mb-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
-          <div className="relative flex items-start justify-between gap-4">
+          <div className="relative flex items-start justify-between gap-3">
             <div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                 <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg">
                     <ChartBar size={20} />
                 </div>
@@ -208,7 +208,7 @@ export const DashboardSuperPage = () => {
                   : <HealthBadge latency={health?.latency ?? 9999} status={health?.status ?? 'error'} />
                 }
               </div>
-              <div className="flex items-center gap-2 text-[10px] text-slate-500 font-bold">
+              <div className="flex items-center gap-3 text-[10px] text-slate-500 font-bold">
                 <span>Update: {lastUpdate}</span>
                 <button
                   onClick={() => { refetch(); refetchHealth(); }}
@@ -233,11 +233,11 @@ export const DashboardSuperPage = () => {
       </div>
 
       {/* ── Bottom Row ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
 
         {/* Top Donatur */}
         <motion.div {...staggerChild(10)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl p-4 px-0 md:p-6">
-          <div className="flex items-center px-4 gap-2 md:px-0 mb-5">
+          <div className="flex items-center px-4 gap-3 md:px-0 mb-5">
             <div className="w-8 h-8 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center">
               <Trophy size={14} className="text-amber-400" />
             </div>
@@ -270,8 +270,8 @@ export const DashboardSuperPage = () => {
 
         {/* Pending Withdrawals Alert */}
         <motion.div {...staggerChild(11)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl py-4 p-0 md:p-6">
-          <div className="flex items-center justify-between px-4 md:px-0 gap-2 mb-5">
-            <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between px-4 md:px-0 gap-3 mb-5">
+            <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center justify-center">
                 <Clock size={14} className="text-red-400" />
               </div>
@@ -302,7 +302,7 @@ export const DashboardSuperPage = () => {
 
         {/* Donasi Terbaru */}
         <motion.div {...staggerChild(12)} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm md:border dark:border-slate-800 rounded-xl py-4 p-0 md:p-6">
-          <div className="flex items-center px-4 gap-2 md:px-0 mb-5">
+          <div className="flex items-center px-4 gap-3 md:px-0 mb-5">
             <div className="w-8 h-8 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center justify-center">
               <Coins size={14} className="relative left-[0.1px] text-indigo-400" />
             </div>
