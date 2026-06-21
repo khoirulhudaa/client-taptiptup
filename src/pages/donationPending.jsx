@@ -13,7 +13,11 @@ const DonationPending = () => {
   const [pendingUrl, setPendingUrl] = useState(null);
   const [snapReady, setSnapReady] = useState(false);
   const [reopening, setReopening] = useState(false);
+  const [checking, setChecking] = useState(false);
+  const [modal, setModal] = useState(null); // { type: 'success'|'error'|'info', title, message }
 
+  const showModal = (type, title, message) => setModal({ type, title, message });
+  
   useEffect(() => {
     const token = localStorage.getItem('midtrans_pending_token');
     const url = localStorage.getItem('midtrans_pending_url');
@@ -43,6 +47,27 @@ const DonationPending = () => {
     document.head.appendChild(script);
   }, []);
 
+  useEffect(() => {
+    const orderId = localStorage.getItem('midtrans_pending_order_id');
+    if (!orderId) return;
+
+    const checkStatus = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/midtrans/status/${orderId}`);
+        const data = await res.json();
+        if (data.transaction_status === 'settlement') {
+          localStorage.removeItem('midtrans_pending_order_id');
+          clearPendingStorage();
+          navigate(`/donation/success?username=${username}`);
+        }
+      } catch {}
+    };
+
+    checkStatus();
+    const interval = setInterval(checkStatus, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
   const clearPendingStorage = () => {
     localStorage.removeItem('midtrans_pending_token');
     localStorage.removeItem('midtrans_pending_username');
@@ -53,7 +78,7 @@ const DonationPending = () => {
 
   const handleReopenPayment = () => {
     if (!pendingToken) {
-      alert('Token pembayaran tidak ditemukan. Silakan buat donasi baru.');
+      showModal('error', 'Token tidak ditemukan', 'Token pembayaran tidak ditemukan. Silakan buat donasi baru.');
       return;
     }
 
@@ -69,7 +94,7 @@ const DonationPending = () => {
         },
         onError: () => {
           clearPendingStorage();
-          alert('Pembayaran gagal. Silakan buat donasi baru.');
+          showModal('error', 'Pembayaran gagal', 'Silakan buat donasi baru');
           setReopening(false);
         },
         onClose: () => {
@@ -77,9 +102,10 @@ const DonationPending = () => {
         },
       });
     } else if (pendingUrl) {
+      // Fallback ke redirect URL kalau Snap tidak load
       window.location.href = pendingUrl;
     } else {
-      alert('Snap belum siap. Coba beberapa detik lagi.');
+      showModal('info', 'Belum siap', 'Snap belum siap. Coba beberapa detik lagi');
     }
   };
 
@@ -87,19 +113,19 @@ const DonationPending = () => {
     {
       icon: '🧾',
       title: 'Invoice dibuat',
-      desc: 'Transaksi sudah tercatat di sistem.',
+      desc: 'Transaksi sudah tercatat di sistem',
       done: true,
     },
     {
       icon: '💳',
       title: 'Menunggu pembayaran',
-      desc: 'Selesaikan pembayaran sesuai metode yang dipilih.',
+      desc: 'Selesaikan pembayaran sesuai metode yang dipilih',
       done: false,
     },
     {
       icon: '✅',
       title: 'Konfirmasi otomatis',
-      desc: 'Sistem akan memverifikasi pembayaran secara otomatis.',
+      desc: 'Sistem akan memverifikasi pembayaran secara otomatis',
       done: false,
     },
   ];
@@ -107,7 +133,7 @@ const DonationPending = () => {
   return (
     <div className={theme === 'dark' ? 'dark' : ''}>
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-yellow-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center p-6 font-sans">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-max">
           <motion.div
             initial={{ opacity: 0, scale: 0.85, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -178,15 +204,8 @@ const DonationPending = () => {
                           : 'bg-gray-50 dark:bg-slate-800 border-gray-100 dark:border-slate-700'
                       }`}
                     >
-                      <div className="relative shrink-0">
+                      <div className="relative shrink-0 relative top-[-2px]">
                         <span className="text-xl">{step.icon}</span>
-                        {i === 1 && (
-                          <motion.span
-                            className="absolute -top-1 -right-1 w-3 h-3 bg-amber-400 rounded-full"
-                            animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-                            transition={{ repeat: Infinity, duration: 1.2 }}
-                          />
-                        )}
                       </div>
                       <div className="flex-1">
                         <p className={`text-sm font-bold ${
@@ -216,23 +235,6 @@ const DonationPending = () => {
                 </div>
               </div>
 
-              {/* Info box */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.1 }}
-                className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border border-blue-100 dark:border-blue-800"
-              >
-                <p className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1">
-                  ℹ️ Informasi
-                </p>
-                <p className="text-xs text-blue-500 dark:text-blue-400 leading-relaxed">
-                  Jika kamu sudah melakukan pembayaran, konfirmasi akan diproses otomatis oleh sistem.
-                  Tidak perlu refresh halaman ini — donasi akan langsung muncul di overlay streamer
-                  setelah terverifikasi.
-                </p>
-              </motion.div>
-
               {/* Tombol Buka Kembali Pembayaran */}
               {pendingToken && (
                 <motion.div
@@ -245,7 +247,7 @@ const DonationPending = () => {
                     whileTap={{ scale: 0.98 }}
                     onClick={handleReopenPayment}
                     disabled={reopening}
-                    className="cursor-pointer w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-blue-600 text-white font-black text-sm hover:bg-blue-700 transition-all disabled:opacity-60 shadow-lg shadow-blue-200 dark:shadow-blue-900"
+                    className="cursor-pointer w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-blue-600 text-white font-black text-sm hover:bg-blue-700 transition-all disabled:opacity-60"
                   >
                     {reopening ? (
                       <>
@@ -260,23 +262,52 @@ const DonationPending = () => {
                     ) : (
                       <>
                         <CreditCard size={18} />
-                        💳 Buka Kembali Halaman Pembayaran
+                        Buka Kembali Halaman Pembayaran
                       </>
                     )}
                   </motion.button>
-                  <p className="text-center text-xs text-gray-400 dark:text-slate-500 mt-2">
+                  <p className="text-center mt-5 text-xs text-gray-400 dark:text-slate-500 mt-2">
                     Lihat BRIVA / QR Code yang belum kamu simpan
                   </p>
                 </motion.div>
               )}
 
               {/* Actions */}
-              <div className="grid grid-cols-2 gap-3 pt-1">
+              <div className="grid grid-cols-3 gap-3 pt-1">
+                <motion.button
+                  whileTap={{ scale: 0.98 }}
+                  onClick={async () => {
+                    const orderId = localStorage.getItem('midtrans_pending_order_id');
+                    if (!orderId) return showModal('error', 'Order ID tidak ditemukan', 'Coba refresh halaman atau buat donasi baru');
+                    setChecking(true);
+                    try {
+                      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/midtrans/status/${orderId}`);
+                      const data = await res.json();
+                      if (data.transaction_status === 'settlement') {
+                        localStorage.removeItem('midtrans_pending_order_id');
+                        clearPendingStorage();
+                        navigate(`/donation/success?username=${username}`);
+                      } else {
+                        showModal('info', 'Belum terkonfirmasi', 'Pembayaran belum terdeteksi. Tunggu beberapa saat dan coba lagi');
+                      }
+                    } catch {
+                      showModal('error', 'Gagal cek status', 'Terjadi kesalahan saat menghubungi server. Coba lagi');
+                    } finally {
+                      setChecking(false);
+                    }
+                  }}
+                  disabled={checking}
+                  className="cursor-pointer flex items-center justify-center gap-2 py-3 px-4 rounded-xl border-2 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"
+                  >
+                  {checking
+                    ? <><RefreshCcw size={16} className="animate-spin" /> Proses...</>
+                    : <><RefreshCcw size={16} /> Cek Status</>}
+                </motion.button>                
                 <motion.button
                   whileHover={{ scale: 1 }}
                   whileTap={{ scale: 0.99 }}
                   onClick={() => navigate(`/donate/${username}`)}
-                  className="cursor-pointer flex items-center justify-center gap-2 py-3 rounded-xl bg-amber-500 text-white font-bold text-sm hover:bg-amber-400 transition-all"
+                  className="cursor-pointer flex items-center justify-center gap-2 py-3 px-4 rounded-xl border-2 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"
                 >
                   <RefreshCcw size={16} />
                   Donasi Baru
@@ -285,7 +316,7 @@ const DonationPending = () => {
                   whileHover={{ scale: 1 }}
                   whileTap={{ scale: 0.99 }}
                   onClick={() => navigate(username ? `/donate/${username}` : '/')}
-                  className="cursor-pointer flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"
+                  className="cursor-pointer flex items-center justify-center gap-2 py-3 px-4 rounded-xl border-2 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"
                 >
                   <Home size={16} />
                   {username ? `@${username}` : 'Beranda'}
@@ -304,6 +335,38 @@ const DonationPending = () => {
           </motion.p>
         </div>
       </div>
+
+      {modal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+          onClick={() => setModal(null)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            onClick={e => e.stopPropagation()}
+            className="w-full max-w-sm bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-100 dark:border-slate-800"
+          >
+            <div className="p-6 flex flex-col items-center text-center gap-3">
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl ${
+                modal.type === 'success' ? 'bg-green-50 dark:bg-green-900/30' :
+                modal.type === 'error' ? 'bg-red-50 dark:bg-red-900/30' : 'bg-blue-50 dark:bg-blue-900/30'
+              }`}>
+                {modal.type === 'success' ? '✅' : modal.type === 'error' ? '❌' : 'ℹ️'}
+              </div>
+              <p className="font-black text-slate-800 dark:text-slate-100 text-base">{modal.title}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{modal.message}</p>
+              <button
+                onClick={() => setModal(null)}
+                className="mt-1 w-full py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-sm text-slate-700 dark:text-slate-300 transition-all cursor-pointer"
+              >
+                Tutup
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };

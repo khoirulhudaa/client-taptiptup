@@ -1699,6 +1699,13 @@ const SupporterPage = () => {
       };
 
       const res = await axios.post(`${BASE_URL}/api/midtrans/create-invoice`, payload);
+      if (res.data.token) {
+        localStorage.setItem('midtrans_pending_token', res.data.token);
+        localStorage.setItem('midtrans_pending_url', res.data.url);
+      }
+      if (res.data.orderId) {
+        localStorage.setItem('midtrans_pending_order_id', res.data.orderId);
+      }
 
       if (res.data.token && snapReady && window.snap) {
         window.snap.pay(res.data.token, {

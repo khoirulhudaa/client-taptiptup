@@ -50,6 +50,7 @@ const LeaderboardWidget = () => {
 
     socket.on('new-donation', refresh);
     socket.on('new-media-donation', refresh); // ✅ tambah
+    socket.on('leaderboard-updated', refresh); 
 
     return () => socket.disconnect();
   }, [token, fetchData]); // ✅ tambah fetchData ke dependency

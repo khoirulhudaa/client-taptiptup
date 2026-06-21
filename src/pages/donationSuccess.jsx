@@ -15,11 +15,11 @@ const DonationSuccess = () => {
       : window.location.origin;
 
     const shareText = username
-      ? `💜 Aku baru aja kirim donasi buat @${username}!\n\n` +
+      ? `🚀 Aku baru aja kirim donasi buat @${username}!\n\n` +
         `Kalau kamu juga suka sama kontennya, yuk dukung bareng biar dia makin semangat berkarya! ` +
         `Setiap dukungan sekecil apapun pasti sangat berarti buat mereka 🙌\n\n` +
         `👇 Klik link ini buat donasi sekarang:\n${donateUrl}`
-      : `💜 Aku baru aja support streamer favoritku!\n\n` +
+      : `🚀 Aku baru aja support streamer favoritku!\n\n` +
         `Yuk dukung creator favoritmu juga. Setiap donasi sekecil apapun sangat berarti ` +
         `dan membantu mereka terus berkarya untuk kita semua 🙌\n\n` +
         `👇 Mulai donasi sekarang:\n${donateUrl}`;
