@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircle, ArrowRight, CheckCircle2, Clock, CreditCard, Eye, EyeOff, Loader2, ShieldCheck, Smartphone, Wallet, XCircle, AlertTriangle, List, Grid } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import TwoFactorSetup from './twofactorSetup';
+import { v4 as uuidv4 } from 'uuid';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const authHeader = () => ({ Authorization: `Bearer ${localStorage.getItem('token')}` });
@@ -449,6 +450,31 @@ export const WithdrawPage = () => {
     setTotpError('');
   };
 
+  // const handleVerifyTOTP = async () => {
+  //   if (totpCode.length !== 6) {
+  //     setTotpError("Masukkan 6 digit kode dari Google Authenticator");
+  //     return;
+  //   }
+
+  //   setIsSubmitting(true);
+  //   setTotpError("");
+
+  //   try {
+  //     await withdrawMutation.mutateAsync({
+  //       amount: formData.amount,
+  //       paymentMethod: method === 'EWALLET' ? 'EWALLET' : 'BANK',
+  //       channelCode: formData.channelCode,
+  //       accountNumber: formData.accountNumber,
+  //       accountName: formData.accountName,
+  //       totpCode: totpCode,           // ← Kirim ke backend
+  //     });
+  //   } catch (err) {
+  //     setTotpError(err.response?.data?.message || "Kode Google Authenticator salah");
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
   const handleVerifyTOTP = async () => {
     if (totpCode.length !== 6) {
       setTotpError("Masukkan 6 digit kode dari Google Authenticator");
@@ -465,7 +491,8 @@ export const WithdrawPage = () => {
         channelCode: formData.channelCode,
         accountNumber: formData.accountNumber,
         accountName: formData.accountName,
-        totpCode: totpCode,           // ← Kirim ke backend
+        totpCode: totpCode,
+        idempotencyKey: uuidv4(), // ← UUID unik per klik tombol
       });
     } catch (err) {
       setTotpError(err.response?.data?.message || "Kode Google Authenticator salah");
@@ -509,7 +536,7 @@ export const WithdrawPage = () => {
       
         {/* Alert Modal */}
         <AlertModal modal={alertModal} onClose={closeAlert} />
-        
+
         {/* ── Balance Card ── */}
         <div className="bg-blue-600 py-7 md:w-full md:mt-0 mt-5 w-[90vw] mx-auto rounded-xl p-4 md:p-6 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 p-12 opacity-10 md:flex hidden"><Wallet size={120} /></div>
