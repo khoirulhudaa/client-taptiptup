@@ -299,7 +299,7 @@ const AuthModal = ({ isOpen, onClose, defaultTab = 'login', onAuthSuccess }) => 
                   </div>
                   <button
                     onClick={onClose}
-                    className="absolute top-0 right-0 cursor-pointer w-10 h-10 bg-red-200 dark:bg-slate-900 hover:bg-red-50 dark:hover:bg-red-700/80 hover:text-white text-red-700 dark:text-slate-500 flex items-center justify-center transition-all"
+                    className="absolute top-2 right-0 cursor-pointer w-10 h-10 bg-red-200 dark:bg-red-50 hover:bg-red-50 dark:hover:bg-red-700/80 hover:text-white text-red-700 dark:text-slate-500 flex items-center justify-center transition-all"
                   >
                     <X size={15} />
                   </button>
