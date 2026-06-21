@@ -675,8 +675,8 @@ const MARQUEE_ITEMS = [
   { name: "RizkyGamer",     amount: "50.000"  },
   { name: "SultanStream",   amount: "500.000" },
   { name: "AnonymDonatur",  amount: "25.000"  },
-  { name: "FansSetia99",    amount: "100.000" },
-  { name: "GacorBanget",    amount: "250.000" },
+  { name: "FansSetia",    amount: "100.000" },
+  { name: "DeniSetiawan",    amount: "250.000" },
   { name: "StreamerBro",    amount: "75.000"  },
   { name: "BudiGamer11",     amount: "1.000.000" },
 ];
@@ -1690,10 +1690,10 @@ const PRESETS = [
 ];
  
 const DEMO_DONORS = [
-  { name: "BudiGamer99",   amount: 150000,  msg: "Semangat terus streamnya bang!" },
-  { name: "SultanStream",  amount: 1000000, msg: "Sultan hadir, kuy naik rank!" },
+  { name: "BudiGamer99",   amount: 10000,  msg: "Semangat terus streamnya bang!" },
+  { name: "SultanStream",  amount: 10000, msg: "Sultan hadir, kuy naik rank!" },
   { name: "FansSetia01",   amount: 25000,   msg: "Sering-sering livestream ya kak" },
-  { name: "AnonymDragon",  amount: 500000,  msg: "GG banget, keep it up brooo!" },
+  { name: "AnonymDragon",  amount: 50000,  msg: "GG banget, keep it up brooo!" },
 ];
  
 const ANIM_VARIANTS = {
@@ -1736,6 +1736,7 @@ function getYouTubeEmbedUrl(url) {
 
  // ── Render persis sama dengan renderAlert() di dashboard ──────────────────────
 function AlertPreview({ cfg, animKey }) {
+  const isMobile = window.innerWidth < 800;  // ← tambah ini
   const donor = DEMO_DONORS[animKey % DEMO_DONORS.length];
   const variants = ANIM_VARIANTS[cfg.anim] || ANIM_VARIANTS.bounce;
 
@@ -1788,7 +1789,7 @@ function AlertPreview({ cfg, animKey }) {
       <div style={{ padding: "14px 16px", position: "relative", zIndex: 2 }}>
         <div style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 10 }}>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 26, fontWeight: 500, color: fg, marginTop: 4, lineHeight: 1.1, letterSpacing: "-0.5px" }}>
+            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 20 : 26, fontWeight: 500, color: fg, marginTop: 4, lineHeight: 1.1, letterSpacing: "-0.5px" }}>
               {donor.name}
             </div>
           </div>
@@ -1796,11 +1797,11 @@ function AlertPreview({ cfg, animKey }) {
             {renderIconPreview(settings.customIcon)}
           </div>
         </div>
-        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 26, fontWeight: 500, color: hl, letterSpacing: "-1px", lineHeight: 1, marginBottom: 8, textShadow: `0 0 12px ${hl}60` }}>
+        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 20 : 26, fontWeight: 500, color: hl, letterSpacing: "-1px", lineHeight: 1, marginBottom: 8, textShadow: `0 0 12px ${hl}60` }}>
           Rp {donor.amount.toLocaleString("id-ID")}
         </div>
         {donor.msg && (
-          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 22, color: fg, background: "rgba(255,255,255,0.04)", border: dimBorder, marginTop: 12, borderRadius: 10, padding: "7px 10px", lineHeight: 1.4, width: "100%", marginBottom: 8 }}>
+          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 16 : 22, color: fg, background: "rgba(255,255,255,0.04)", border: dimBorder, marginTop: 12, borderRadius: 10, padding: "7px 10px", lineHeight: 1.4, width: "100%", marginBottom: 8 }}>
             {donor.msg}
           </div>
         )}
@@ -1821,15 +1822,15 @@ function AlertPreview({ cfg, animKey }) {
       <div style={scanlineStyle} />
       <div style={{ padding: "14px 18px 18px", position: "relative", zIndex: 2 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-          <span style={{ fontFamily: "'Inter',sans-serif", fontSize: 26, fontWeight: 500, color: hl, letterSpacing: "-1px", textShadow: `0 0 8px ${hl}50` }}>
+          <span style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 20 : 26, fontWeight: 500, color: hl, letterSpacing: "-1px", textShadow: `0 0 8px ${hl}50` }}>
             Rp {donor.amount.toLocaleString("id-ID")}
           </span>
         </div>
-        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: "24px", fontWeight: 500, color: fg, marginBottom: 4, borderBottom: `1px solid ${hl}20`, paddingBottom: 7 }}>
+        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 20 : 24, fontWeight: 500, color: fg, marginBottom: 4, borderBottom: `1px solid ${hl}20`, paddingBottom: 7 }}>
           {donor.name}
         </div>
         {donor.msg && (
-          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 22, color: fg, lineHeight: 1.4, marginBottom: 5 }}>
+          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 16 : 22, color: fg, lineHeight: 1.4, marginBottom: 5 }}>
             {donor.msg}
           </div>
         )}
@@ -1844,17 +1845,17 @@ function AlertPreview({ cfg, animKey }) {
   const smoothInner = (
     <div style={{ fontFamily: "'Inter',sans-serif", padding: "18px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14 }}>
-        <div style={{ fontSize: 24, fontWeight: 500, color: fg, lineHeight: 1.2 }}>{donor.name}</div>
+        <div style={{ fontSize: isMobile ? 20 : 24, fontWeight: 500, color: fg, lineHeight: 1.2 }}>{donor.name}</div>
         <div style={{ width: 40, height: 40, borderRadius: 16, background: hl + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0, border: `1.5px solid ${hl}40`, position: 'relative', top: -3.2 }}>
           {renderIconPreview(settings.customIcon)}
         </div>
       </div>
       <div style={{ height: 1, background: hl + "25", borderRadius: 99 }} />
-      <div style={{ fontSize: 24, fontWeight: 500, color: hl, letterSpacing: "-0.5px", lineHeight: 1 }}>
+      <div style={{ fontSize: isMobile ? 18 : 24, fontWeight: 500, color: hl, letterSpacing: "-0.5px", lineHeight: 1 }}>
         Rp {donor.amount.toLocaleString("id-ID")}
       </div>
       {donor.msg && (
-        <div style={{ fontSize: 22, fontWeight: 400, color: fg, lineHeight: 1.5 }}>{donor.msg}</div>
+        <div style={{ fontSize: isMobile ? 16 : 22, fontWeight: 400, color: fg, lineHeight: 1.5 }}>{donor.msg}</div>
       )}
       <div style={{ height: 4, background: hl + "25", borderRadius: 99, overflow: "hidden" }}>
         <div style={{ height: "100%", width: "60%", background: settings.progressBarColor || hl, borderRadius: 99 }} />
@@ -1865,24 +1866,24 @@ function AlertPreview({ cfg, animKey }) {
   // ── GIF CARD ──────────────────────────────────────────────────────────────────
   const gifCardInner = (
     <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <div style={{ width: "100%", height: 130, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14, overflow: "hidden" }}>
+      <div style={{ width: "100%", height: isMobile ? 'max-content' : 130, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14, overflow: "hidden" }}>
         {settings.customIcon?.startsWith("http") || settings.customIcon?.startsWith("/") ? (
           <img src={settings.customIcon} alt="icon" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
         ) : (
-          <span style={{ fontSize: 76, lineHeight: 1 }}>{settings.customIcon || "❤️"}</span>
+          <span style={{ fontSize: isMobile ? 50 : 76, lineHeight: 1 }}>{settings.customIcon || "❤️"}</span>
         )}
       </div>
       <div style={{ padding: "10px 14px", display: "flex", textAlign: "center", flexDirection: "column", gap: 8, alignItems: "center" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: 6 }}>
-          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 20, fontWeight: 500, color: fg }}>
+          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 16 : 20, fontWeight: 500, color: fg }}>
             {donor.name} mengirim
           </div>
-          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 20, fontWeight: 500, color: hl, letterSpacing: "-0.5px", lineHeight: 1, textShadow: `0 0 10px ${hl}55` }}>
+          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 16 : 20, fontWeight: 500, color: hl, letterSpacing: "-0.5px", lineHeight: 1, textShadow: `0 0 10px ${hl}55` }}>
             Rp {donor.amount.toLocaleString("id-ID")}
           </div>
         </div>
         {donor.msg && (
-          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: 18, color: fg, fontWeight: 400, borderRadius: 10, background: hl + "12", border: `1px solid ${hl}25`, padding: "7px 10px", lineHeight: 1.5 }}>
+          <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 14 : 18, color: fg, fontWeight: 400, borderRadius: 10, background: hl + "12", border: `1px solid ${hl}25`, padding: "7px 10px", lineHeight: 1.5 }}>
             {donor.msg}
           </div>
         )}
@@ -1900,7 +1901,7 @@ function AlertPreview({ cfg, animKey }) {
     color: fg,
     borderRadius: 24,
     width: "100%",
-    maxWidth: "420px",
+    maxWidth: window.innerWidth < 800 ? "100%" : "max-content",
     border: settings.theme === "gifCard" ? "none" : `2.5px solid ${settings.borderColor || hl + "40"}`,
   };
 
@@ -2416,7 +2417,7 @@ export function OverlayCustomizer({ C }) {
                 position: "relative", 
                 zIndex: 10, 
                 width: "100%",      // ← tambah ini
-                maxWidth: "max-content",   // ← tambah ini
+                maxWidth: window.innerWidth < 800 ? "100%" : "max-content",
               }}>
                 {previewMode === "alert"
                   ? <AlertPreview cfg={cfg} animKey={animKey} />
