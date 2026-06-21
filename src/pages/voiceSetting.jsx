@@ -584,7 +584,7 @@
         );
 
     return (
-        <div className="space-y-6 pb-6 w-full">
+        <div className="space-y-5 pb-6 w-full">
         {/* ── Save Toast ── */}
         <AnimatePresence>
             {showToast && (
