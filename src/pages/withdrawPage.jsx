@@ -101,7 +101,7 @@ const AlertModal = ({ modal, onClose }) => {
 
             <button
               onClick={onClose}
-              className="cursor-pointer w-full py-3 bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-black text-sm transition-all active:scale-[0.98]"
+              className="rounded-xl cursor-pointer w-full py-3 bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-black text-sm transition-all active:scale-[0.98]"
             >
               Mengerti
             </button>
@@ -310,13 +310,13 @@ export const WithdrawPage = () => {
               <div className="flex gap-3 pt-4">
                 <button
                   onClick={onClose}
-                  className="cursor-pointer active:scale-[0.99] flex-1 py-3.5 border border-slate-300 dark:border-slate-700 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                  className="rounded-xl cursor-pointer active:scale-[0.99] flex-1 py-3.5 border border-slate-300 dark:border-slate-700 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
                 >
                   Batal
                 </button>
                 <button
                   onClick={onConfirm}
-                  className="cursor-pointer active:scale-[0.99] flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all active:scale-[0.98]"
+                  className="rounded-xl cursor-pointer active:scale-[0.99] flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all active:scale-[0.98]"
                 >
                   Lanjut ke PIN
                 </button>
@@ -1044,8 +1044,8 @@ export const WithdrawPage = () => {
                   <div className="flex justify-between font-bold text-emerald-600 border-t pt-2"><span>Diterima</span><span>Rp {netAmount.toLocaleString('id-ID')}</span></div>
                 </div>
                 <div className="flex gap-3 mt-8">
-                  <button onClick={() => setShowConfirmModal(false)} className="flex-1 py-3 border font-bold">Batal</button>
-                  <button onClick={handleConfirmWithdraw} className="flex-1 py-3 bg-blue-600 text-white font-bold">Lanjut Verifikasi 2FA</button>
+                  <button onClick={() => setShowConfirmModal(false)} className="flex-1 py-3 rounded-xl border font-bold">Batal</button>
+                  <button onClick={handleConfirmWithdraw} className="flex-1 py-3 bg-blue-600 rounded-xl text-white font-bold">Lanjut Verifikasi 2FA</button>
                 </div>
               </motion.div>
             </div>
@@ -1063,10 +1063,7 @@ export const WithdrawPage = () => {
                   <p className="text-sm text-slate-500 mt-1">Masukkan 6 digit kode dari aplikasi Google Authenticator kamu</p>
                 </div>
 
-                <div className="mt-8 flex pl-[1.5px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 transition-all shadow-sm">
-                  <div className="w-max px-3 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
-                    Kode 2FA
-                  </div>
+                <div className="mt-8 flex justify-center text-center pl-[1.5px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 transition-all shadow-sm">
                   <input
                     type="text"
                     maxLength={6}
@@ -1075,16 +1072,16 @@ export const WithdrawPage = () => {
                       setTotpCode(e.target.value.replace(/[^0-9]/g, ''));
                       setTotpError('');
                     }}
-                    className="flex-1 bg-transparent py-6 pl-4 outline-none font-mono text-4xl tracking-[12px] text-slate-900 dark:text-white"
+                    className="w-full text-center flex-1 bg-transparent py-6 pl-4 outline-none font-mono text-4xl tracking-[12px] text-slate-900 dark:text-white"
                     placeholder="000000"
                   />
                 </div>
 
-                {totpError && <p className="text-red-500 text-center mt-3 text-sm">{totpError}</p>}
+                {totpError && <p className="text-red-400 text-center mt-3 text-sm">{totpError}</p>}
 
                 <div className="flex gap-3 mt-8">
-                  <button onClick={() => { setShowTotpModal(false); setTotpCode(''); setTotpError(''); }} className="cursor-pointer active:scale-[0.99] flex-1 py-4 border font-bold hover:bg-slate-100 dark:hover:bg-slate-800">Batal</button>
-                  <button onClick={handleVerifyTOTP} disabled={isSubmitting || totpCode.length !== 6} className="cursor-pointer active:scale-[0.99] flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black disabled:opacity-60">
+                  <button onClick={() => { setShowTotpModal(false); setTotpCode(''); setTotpError(''); }} className="cursor-pointer active:scale-[0.99] flex-1 py-4 rounded-xl border font-bold hover:bg-slate-100 dark:hover:bg-slate-800">Batal</button>
+                  <button onClick={handleVerifyTOTP} disabled={isSubmitting || totpCode.length !== 6} className="cursor-pointer rounded-xl active:scale-[0.99] flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white font-black disabled:opacity-60">
                     {isSubmitting ? 'Memverifikasi...' : 'Verifikasi'}
                   </button>
                 </div>
