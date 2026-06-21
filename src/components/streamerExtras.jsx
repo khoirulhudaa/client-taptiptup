@@ -81,6 +81,20 @@ const TextareaField = ({ label, className = '', inputClassName = '', onChange, .
 
 // ─── PollManager ─────────────────────────────────────────────────────────────
 
+const PollManagerSkeleton = () => (
+  <div className="space-y-5 animate-pulse">
+    <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 py-10 text-center">
+      <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-xl mx-auto mb-3" />
+      <div className="h-4 w-32 bg-slate-200 dark:bg-slate-700 rounded mx-auto" />
+    </div>
+    <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+    <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl">
+      <div className="h-3 w-40 bg-slate-200 dark:bg-slate-700 rounded mb-3" />
+      <div className="h-8 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+    </div>
+  </div>
+);
+
 export const PollManager = ({ overlayToken, username }) => {
   const queryClient = useQueryClient();
   const [newQuestion, setNewQuestion] = useState('');
@@ -90,7 +104,7 @@ export const PollManager = ({ overlayToken, username }) => {
   const [livePolls, setLivePolls] = useState({});
   const [pollCopied, setPollCopied] = useState(false);
 
-  const { data: polls = [] } = useQuery({
+  const { data: polls = [], isLoading: pollsLoading } = useQuery({
     queryKey: ['myPolls'],
     queryFn: fetchMyPolls,
     refetchInterval: 10000,
@@ -145,6 +159,8 @@ export const PollManager = ({ overlayToken, username }) => {
   const getPollData = (poll) => livePolls[poll._id] || poll;
   const getTotalVotes = (poll) => (getPollData(poll).options || []).reduce((s, o) => s + (o.votes || 0), 0);
   const getPercent = (votes, total) => total === 0 ? 0 : Math.round((votes / total) * 100);
+
+  if (!pollsLoading) return <PollManagerSkeleton />;
 
   return (
     <div className="space-y-5">
@@ -494,7 +510,46 @@ export const SubathonManager = ({ overlayToken }) => {
   };
 
   if (isLoading || !localTimer) {
-    return <div className="text-slate-400 dark:text-slate-500 text-sm font-bold animate-pulse py-3 md:py-4">Memuat timer...</div>;
+    return (
+      <div className="space-y-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 animate-pulse">
+        {/* Timer Display */}
+        <div className="rounded-xl px-8 py-10 text-center bg-slate-800 dark:bg-slate-700">
+          <div className="h-4 w-32 bg-slate-600 rounded mx-auto mb-4" />
+          <div className="h-16 w-64 bg-slate-600 rounded mx-auto mb-4" />
+          <div className="h-3 w-24 bg-slate-600 rounded mx-auto" />
+          <div className="mt-5 h-2 bg-slate-600/50 rounded-xl overflow-hidden">
+            <div className="h-full w-1/2 bg-slate-500 rounded-xl" />
+          </div>
+        </div>
+
+        {/* Kontrol */}
+        <div className="grid grid-cols-3 gap-3">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="h-14 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+          ))}
+        </div>
+
+        {/* Slider */}
+        <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-5 border border-slate-100 dark:border-slate-700 space-y-3">
+          <div className="flex justify-between">
+            <div className="h-3 w-36 bg-slate-200 dark:bg-slate-700 rounded" />
+            <div className="h-3 w-16 bg-slate-200 dark:bg-slate-700 rounded" />
+          </div>
+          <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full" />
+        </div>
+
+        {/* Konfigurasi */}
+        <div className="space-y-5">
+          <div className="h-3 w-32 bg-slate-200 dark:bg-slate-700 rounded" />
+          <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+          <div className="grid grid-cols-2 gap-3">
+            <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+            <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+          </div>
+          <div className="h-14 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+        </div>
+      </div>
+    );
   }
 
   const isRunning = localTimer.isRunning;
@@ -871,7 +926,41 @@ export const LeaderboardSettings = ({ overlayToken }) => {
 
   const upd = (k, v) => setLocal(s => ({ ...s, [k]: v }));
 
-  if (isLoading || !local) return <div className="text-slate-400 dark:text-slate-500 text-sm animate-pulse py-3 md:py-4">Memuat...</div>;
+  if (isLoading || !local) return (
+    <div className="space-y-5 animate-pulse">
+      <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5">
+        <div className="flex items-center gap-4">
+          <div className="w-11 h-11 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+          <div className="h-5 w-32 bg-slate-200 dark:bg-slate-700 rounded" />
+        </div>
+      </div>
+      <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl p-4 md:p-6">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-5 h-5 bg-slate-200 dark:bg-slate-700 rounded" />
+          <div className="h-4 w-40 bg-slate-200 dark:bg-slate-700 rounded" />
+        </div>
+        <div className="space-y-2">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-xl px-4 py-2.5">
+              <div className="w-8 h-8 bg-slate-200 dark:bg-slate-700 rounded-xl flex-shrink-0" />
+              <div className="flex-1 h-4 bg-slate-200 dark:bg-slate-700 rounded" />
+              <div className="h-4 w-20 bg-slate-200 dark:bg-slate-700 rounded" />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+        <div className="h-4 w-36 bg-slate-200 dark:bg-slate-700 rounded" />
+        <div className="grid md:grid-cols-2 gap-3">
+          <div className="h-16 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+          <div className="h-16 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+        </div>
+        <div className="h-4 w-full bg-slate-200 dark:bg-slate-700 rounded" />
+        <div className="h-14 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+        <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+      </div>
+    </div>
+  );
 
   return (
     <div className="space-y-5">
@@ -1158,7 +1247,30 @@ export const MilestonesManager = ({ overlayToken }) => {
     list.forEach(m => fetchPreviewTotal(m.period || 'alltime', m.periodSince));
   }, [list]);
 
-  if (isLoading) return <div className="text-slate-400 dark:text-slate-500 text-sm font-bold animate-pulse py-3 md:py-4">Memuat...</div>;
+  if (isLoading) return (
+    <div className="space-y-5 animate-pulse">
+      <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5">
+        <div className="flex items-center gap-4">
+          <div className="w-11 h-11 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+          <div className="h-5 w-28 bg-slate-200 dark:bg-slate-700 rounded" />
+        </div>
+      </div>
+      {[...Array(2)].map((_, i) => (
+        <div key={i} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 space-y-4">
+          <div className="flex justify-between">
+            <div className="h-3 w-24 bg-slate-200 dark:bg-slate-700 rounded" />
+            <div className="w-6 h-6 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+            <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+          </div>
+          <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+        </div>
+      ))}
+      <div className="h-12 bg-slate-200 dark:bg-slate-700 rounded-xl" />
+    </div>
+  );
 
   return (
     <div className="space-y-5">
