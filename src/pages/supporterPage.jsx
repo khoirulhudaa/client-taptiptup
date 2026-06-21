@@ -101,6 +101,33 @@ const getYouTubeEmbedUrl = (url) => {
   return url;
 };
 
+const InputField = ({ label, disabled, ...props }) => (
+  <div className={`w-full flex pl-[2.8px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${disabled ? 'opacity-40 pointer-events-none' : ''}`}>
+    <div className="w-max px-3 py-2.5 md:py-3 rounded-lg h-[88%] text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      {label}
+    </div>
+    <input
+      className="flex-1 bg-transparent p-3 h-10 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
+      disabled={disabled}
+      {...props}
+      onChange={e => props.onChange?.(e.target.value)}
+    />
+  </div>
+);
+
+const TextareaField = ({ label, className = '', inputClassName = '', onChange, ...props }) => (
+  <div className={`w-full flex pl-[1.5px] items-start bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
+    <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      {label}
+    </div>
+    <textarea
+      className={`flex-1 bg-transparent p-3 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100 resize-y ${inputClassName}`}
+      {...props}
+      onChange={e => onChange?.(e.target.value)}
+    />
+  </div>
+);
+
 const getYouTubeStartTime = (seconds) => {
   if (!seconds || seconds < 0) return 0;
   return Math.floor(seconds);
@@ -172,21 +199,18 @@ const YouTubeTimePicker = ({ startTime, onChange }) => {
           { label: 'Jam', value: hours, set: setHours, max: 23 },
           { label: 'Menit', value: minutes, set: setMinutes, max: 59 },
           { label: 'Detik', value: seconds, set: setSeconds, max: 59 },
-        ].map(({ label, value, set, max }) => (
-          <div key={label} className="space-y-1">
-            <label className="block text-[9px] font-black text-yellow-600 dark:text-yellow-400 uppercase tracking-wider text-center">
-              {label}
-            </label>
-            <input
-              type="number"
-              min="0"
-              max={max}
-              value={value}
-              onChange={(e) => set(Math.max(0, Math.min(max, parseInt(e.target.value) || 0)))}
-              className="w-full p-2 text-center rounded-xl bg-white dark:bg-slate-900 border border-yellow-200 dark:border-yellow-700 focus:border-yellow-400 font-mono text-sm font-bold text-slate-700 dark:text-white outline-none"
-            />
-          </div>
-        ))}
+          ].map(({ label, value, set, max }) => (
+            <div key={label}>
+              <InputField
+                type="number"
+                min="0"
+                max={max}
+                value={value}
+                onChange={(v) => set(Math.max(0, Math.min(max, parseInt(v) || 0)))}
+                label={label}
+              />
+            </div>
+          ))}
       </div>
     </motion.div>
   );
@@ -651,14 +675,11 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
       {inputMode === 'url' && (
         <>
           <div className="space-y-1.5">
-            <label className="block text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest ml-1">
-              Link Media (YouTube)
-            </label>
-            <input
+            <InputField
+              label="Link Media"
               type="url"
               value={mediaUrl}
-              onChange={(e) => { setMediaUrl(e.target.value); setStartTime(0); }}
-              className="w-full p-4 rounded-xl bg-white dark:bg-slate-900 border-2 border-blue-100 dark:border-blue-800 focus:border-blue-400 outline-none font-mono text-xs text-slate-700 dark:text-white font-bold transition-all placeholder:font-sans placeholder:text-slate-400"
+              onChange={(v) => { setMediaUrl(v); setStartTime(0); }}
               placeholder={placeholderText}
             />
             <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium ml-1">
@@ -994,7 +1015,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
   ];
 
   return (
-    <div className="space-y-1">
+    <div className="md:mt-0 !mt-4 space-y-1.5 md:space-y-1">
       <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
         Tipe Dukungan
       </label>
@@ -1657,8 +1678,7 @@ const SupporterPage = () => {
         donorName: form.isAnonymous ? 'Anonim' : form.donorName || 'Anonim',
         message:      form.message,
         userId:       streamer._id,
-        email:     form.email.trim() || 'guest@mail.com',
-        donorUserId:  authPayload?.id,
+        email: form.isAnonymous ? 'anonymous@gmail.com' : form.email.trim(),        donorUserId:  authPayload?.id,
         mediaUrl:     hasMedia ? mediaUrl.trim() : null,
         mediaType:    detectedMediaType,
         isMediaShare: isMediaShareTab,
@@ -1827,14 +1847,46 @@ const SupporterPage = () => {
         {/* KOLOM TENGAH */}
         <div className="relative space-y-5 order-0 md:order-1">
 
+          {!isLoggedIn && (
+            <div className="md:hidden grid grid-cols-1 gap-3">
+              <InputField
+                label="Nama"
+                type="text"
+                disabled={form.isAnonymous || isLoggedIn}
+                value={form.isAnonymous ? '' : form.donorName}
+                onChange={(v) => setForm({ ...form, donorName: v })}
+                required={!isLoggedIn && !form.isAnonymous}
+                placeholder="Nama kamu"
+              />
+              <InputField
+                label="Email"
+                type="email"
+                disabled={isLoggedIn}
+                value={form.email}
+                onChange={(v) => setForm({ ...form, email: v })}
+                required={!isLoggedIn}
+                placeholder="email@kamu.com"
+              />
+            </div>
+          )}
+
+          {/* Anonymous toggle */}
+          <label className="md:pt-0 !pt-0 md:hidden flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
+            <div onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
+              className={`w-10 h-6 rounded-sm relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}>
+              <div className={`absolute top-1 w-4 h-4 bg-white rounded-sm shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
+            </div>
+            Dukungan sebagai anonim
+          </label>
+
           {/* ── Header Card ── */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-slate-900 px-8 pt-8 pb-8 rounded-xl shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 text-center border border-blue-100 dark:border-slate-800 relative overflow-hidden"
+            className="md:block hidden bg-white dark:bg-slate-900 px-5 md:px-8 pt-8 pb-8 rounded-xl shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:text-center border border-blue-100 dark:border-slate-800 relative overflow-hidden"
           >
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-500" />
-            <div className="w-20 h-20 mt-2 mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg mb-4 border-4 border-white dark:border-slate-900">
+            <div className="w-20 h-20 mt-2 md:ml-auto ml-[-2.5px] md:mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg mb-4 border-4 border-white dark:border-slate-900">
               {streamer?.profilePicture ? (
                 <img src={streamer.profilePicture} alt={streamer.username} className="w-full h-full object-cover"
                   onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = streamer.username?.charAt(0).toUpperCase() || '?'; }} />
@@ -1843,16 +1895,9 @@ const SupporterPage = () => {
             <h1 className="text-2xl font-black text-slate-800 dark:text-white">@{streamer.username}</h1>
             <p className="text-slate-400 dark:text-slate-500 text-sm mt-1">{streamer.donateIntro || 'Support aku biar makin semangat 🚀'}</p>
 
-            {isLoggedIn ? (
+            {isLoggedIn && (
               <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl text-[10px] font-black text-green-700 dark:text-green-400">
                 ✓ Dukungan akan tercatat di riwayat akun kamu
-              </div>
-            ) : (
-              <div className="mt-4 flex items-center justify-center gap-1.5">
-                <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">Punya akun?</span>
-                <button onClick={() => openAuth('login')} className="text-[10px] font-black text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
-                  Masuk dulu
-                </button>
               </div>
             )}
           </motion.div>
@@ -1862,7 +1907,7 @@ const SupporterPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-transparent md:bg-white dark:md:bg-slate-900 p-0 md:p-7 rounded-xl shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:border border-blue-100 dark:border-slate-800 space-y-5"
+          className="bg-transparent md:bg-white dark:md:bg-slate-900 p-0 md:p-7 rounded-xl shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:border border-blue-100 dark:border-slate-800 space-y-2 md:space-y-5"
         >
 
           {/* DONATION ITEMS SECTION */}
@@ -1919,26 +1964,17 @@ const SupporterPage = () => {
 
               {/* Custom Amount */}
               <div>
-                <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 ml-1">
-                  Nominal Kustom
-                </label>
-                <div className="relative">
-                  <span className={`absolute left-4 top-1/2 -translate-y-1/2 font-black ${!eligibleTrigger ? 'text-red-300' : 'text-blue-600 dark:text-blue-400'} text-sm`}>Rp</span>
-                  <input
-                    type="number"
-                    value={form.amount || ''}
-                    onChange={(e) => {
-                      setForm({ ...form, amount: Number(e.target.value) });
-                      setSelectedDonationItem(null);
-                    }}
-                    className={`w-full p-4 pl-12 rounded-xl font-black border-2 outline-none transition-all ${
-                      !eligibleTrigger 
-                        ? 'border-red-300 focus:border-red-200 text-red-300' 
-                        : 'bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-700 text-white focus:border-blue-300 dark:focus:border-blue-500'
-                    }`}
-                    placeholder="Nominal Kustom..."
-                  />
-                </div>
+                <InputField
+                  label="Nominal"
+                  type="number"
+                  value={form.amount || ''}
+                  onChange={(v) => {
+                    setForm({ ...form, amount: Number(v) });
+                    setSelectedDonationItem(null);
+                  }}
+                  placeholder="Nominal Kustom..."
+                />
+                {/* </div> */}
 
                 {/* Media Trigger Info */}
                 {sortedTriggers.length > 0 && (
@@ -1968,26 +2004,36 @@ const SupporterPage = () => {
 
             {/* Nama & Email */}
             {!isLoggedIn && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 ml-1">Nama</label>
-                  <input type="text" disabled={form.isAnonymous || isLoggedIn}
-                    value={form.isAnonymous ? '' : form.donorName}
-                    onChange={(e) => setForm({ ...form, donorName: e.target.value })}
-                    required={!isLoggedIn && !form.isAnonymous}
-                    className="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white"
-                    placeholder="Nama kamu" />
-                </div>
-                <div>
-                  <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 ml-1">Email</label>
-                  <input type="email" disabled={isLoggedIn} value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    required={!isLoggedIn}
-                    className="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 disabled:opacity-40 outline-none transition-all text-slate-700 dark:text-white"
-                    placeholder="email@kamu.com" />
-                </div>
+              <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-3">
+                <InputField
+                  label="Nama"
+                  type="text"
+                  disabled={form.isAnonymous || isLoggedIn}
+                  value={form.isAnonymous ? '' : form.donorName}
+                  onChange={(v) => setForm({ ...form, donorName: v })}
+                  required={!isLoggedIn && !form.isAnonymous}
+                  placeholder="Nama kamu"
+                />
+                <InputField
+                  label="Email"
+                  type="email"
+                  disabled={isLoggedIn}
+                  value={form.email}
+                  onChange={(v) => setForm({ ...form, email: v })}
+                  required={!isLoggedIn}
+                  placeholder="email@kamu.com"
+                />
               </div>
             )}
+
+            {/* Anonymous toggle */}
+            <label className="md:pt-0 !pt-0 hidden md:flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
+              <div onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
+                className={`w-10 h-6 rounded-sm relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}>
+                <div className={`absolute top-1 w-4 h-4 bg-white rounded-sm shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
+              </div>
+              Dukungan sebagai anonim
+            </label>
 
             {/* Tab Selector */}
             <DonationTabs
@@ -2000,18 +2046,14 @@ const SupporterPage = () => {
 
             {/* Message */}
             {activeTab !== 'voice' && (
-              <div>
-                <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 ml-1">
-                  Pesan Dukungan
-                </label>
-                <textarea
-                  value={form.message}
-                  rows={4}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 focus:border-blue-300 dark:focus:border-blue-500 min-h-[90px] outline-none transition-all resize-none text-slate-700 dark:text-white dark:placeholder:text-slate-500"
-                  placeholder="Semangat terus bang! 🔥"
-                />
-              </div>
+              <TextareaField
+                label="Pesan"
+                value={form.message}
+                rows={4}
+                onChange={(v) => setForm({ ...form, message: v })}
+                inputClassName="min-h-[90px]"
+                placeholder="Semangat terus bang! 🔥"
+              />
             )}
 
             {/* GIF Recommendation */}
@@ -2138,15 +2180,6 @@ const SupporterPage = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-
-            {/* Anonymous toggle */}
-            <label className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
-              <div onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
-                className={`w-10 h-6 rounded-xl relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}>
-                <div className={`absolute top-1 w-4 h-4 bg-white rounded-xl shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
-              </div>
-              Dukungan sebagai anonim
-            </label>
 
             {/* Login prompt */}
             <AnimatePresence>
