@@ -361,10 +361,10 @@ function Hero({ C, isDark }) {
         </svg>
       </div>
 
-      <img src="/man2.png" alt="image man" className="absolute md:flex hidden bottom-0 md:bottom-[-56px] left-[-40px] 2xl:left-[-280px] md:left-[-257px] w-[44%] md:w-[50%] z-[99999]" />
-      <img src="/woman1.png" alt="image woman" className="absolute bottom-0 md:flex hidden md:bottom-[-40px] left-[-34px] md:left-[-22px] 2xl:left-[-32px] w-[46%] md:w-[43.0%] z-[99999]" />
-      <img src="/woman2.png" alt="image woman" className="absolute bottom-0  md:flex hidden md:bottom-[-100px] right-12 w-[32%] z-[99999]" />
-      <img src="/man1.png" alt="image man" className="absolute bottom-0 md:flex hidden md:bottom-[-40px] right-[-17px] md:right-[-208px] w-[39.5%] md:w-[40%] z-[999]" />
+      <img src="/man2.png" alt="image man" className="absolute select-none md:flex hidden bottom-0 md:bottom-[-56px] left-[-40px] 2xl:left-[-280px] md:left-[-257px] w-[44%] md:w-[50%] z-[99999]" />
+      <img src="/woman1.png" alt="image woman" className="absolute select-none bottom-0 md:flex hidden md:bottom-[-40px] left-[-34px] md:left-[-22px] 2xl:left-[-32px] w-[46%] md:w-[43.0%] z-[99999]" />
+      <img src="/woman2.png" alt="image woman" className="absolute select-none bottom-0  md:flex hidden md:bottom-[-100px] right-12 w-[32%] z-[99999]" />
+      <img src="/man1.png" alt="image man" className="absolute select-none bottom-0 md:flex hidden md:bottom-[-40px] right-[-17px] md:right-[-208px] w-[39.5%] md:w-[40%] z-[999]" />
       <div className="absolute bottom-0 flex z-[5]">
         <Marquee C={C} />
       </div>
@@ -378,7 +378,15 @@ function Hero({ C, isDark }) {
           style={{ paddingBottom: "0px" }}
         >
 
-        <img src="/logttt.png" alt="img" loading="lazy" className="w-[90%] md:hidden 2xl:hidden !mt-[-53px]" />
+        <img
+          src="/logttt.png"
+          alt="img"
+          loading="lazy"
+          className="select-none w-[90%] md:hidden 2xl:hidden !mt-[-53px]"
+          onContextMenu={(e) => e.preventDefault()}
+          onDragStart={(e) => e.preventDefault()}
+          draggable={false}
+        />
         {/* Judul Hero */}
          <h1 className="select-none hero-title md:!mt-[-10px] 2xl:!mt-[-34px] font-['Bebas_Neue'] leading-[0.85] tracking-[-0.01em] text-white mb-4 text-center hidden md:flex flex-wrap items-center justify-center gap-[0.1em] transition-colors duration-400">
             

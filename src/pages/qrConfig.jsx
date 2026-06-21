@@ -48,6 +48,90 @@ const Row = ({ label, children }) => (
   </div>
 );
 
+// ── Skeleton ──────────────────────────────────────────────────────────────────
+const SkeletonBox = ({ className }) => (
+  <div className={`animate-pulse bg-slate-200 dark:bg-slate-700 rounded-xl ${className}`} />
+);
+
+const QrConfigSkeleton = () => (
+  <div className="space-y-6 pb-6">
+    <div className="grid grid-cols-1 xl:grid-cols-12 gap-5">
+      {/* Controls skeleton */}
+      <div className="xl:col-span-8 space-y-4">
+
+        {/* Ukuran & Padding */}
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+          <div className="flex items-center gap-4">
+            <SkeletonBox className="w-11 h-11 rounded-xl flex-shrink-0" />
+            <SkeletonBox className="w-40 h-6" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="space-y-2">
+                <SkeletonBox className="w-28 h-3" />
+                <SkeletonBox className="w-full h-2 rounded-full" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Warna */}
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+          <SkeletonBox className="w-16 h-3" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <SkeletonBox className="w-11 h-11 flex-shrink-0" />
+                <SkeletonBox className="flex-1 h-11" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Preset */}
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
+          <SkeletonBox className="w-24 h-3" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[...Array(4)].map((_, i) => (
+              <SkeletonBox key={i} className="h-11" />
+            ))}
+          </div>
+        </div>
+
+        {/* Opsi Tampilan */}
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-3">
+          <SkeletonBox className="w-28 h-3 mb-4" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {[...Array(3)].map((_, i) => (
+              <SkeletonBox key={i} className="h-16" />
+            ))}
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="grid md:grid-cols-2 grid-cols-1 px-4 md:px-0 gap-3">
+          <SkeletonBox className="h-12" />
+          <SkeletonBox className="h-12" />
+        </div>
+      </div>
+
+      {/* Preview skeleton */}
+      <div className="xl:col-span-4 space-y-4">
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-4">
+          <SkeletonBox className="w-20 h-3" />
+          <SkeletonBox className="w-full min-h-[360px]" />
+        </div>
+        <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-3">
+          <SkeletonBox className="w-28 h-3" />
+          <SkeletonBox className="w-full h-12" />
+          <SkeletonBox className="w-40 h-3" />
+          <SkeletonBox className="w-full h-11" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 const ColorRow = ({ label, value, onChange }) => (
   <Row label={label}>
     <div className="flex items-center gap-3">
@@ -199,6 +283,14 @@ const QrConfigPage = ({ overlayToken, username }) => {
   const [cfg, setCfg] = useState(loadConfig);
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Tunggu sampai username tersedia dari parent
+    if (username && overlayToken) {
+      setLoading(false);
+    }
+  }, [username]);
 
   const donateUrl = `https://taptiptup.vercel.app/donate/${username}`;
   const widgetUrl = `${window.location.origin}/widget/${overlayToken}/qrcode`;
@@ -270,8 +362,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
     });
   };
 
-  // Widget URL params to send config — stored locally and read by widget via URL hash
-  // (Widget reads from API; for local preview we just show live preview here)
+  if (loading) return <QrConfigSkeleton />;
 
   return (
     <div className="space-y-6 pb-6">

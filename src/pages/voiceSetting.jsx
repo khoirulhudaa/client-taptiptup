@@ -347,9 +347,6 @@
                 <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
                     Overlay VN
                 </h3>
-                {/* <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-                    Tambahkan URL ini ke OBS sebagai Browser
-                </p> */}
             </div>
         </div>
         {urls.map(({ label, url, desc }) => (
@@ -363,9 +360,15 @@
             <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mb-2">{desc}</p>
             <div className="flex gap-3 items-center">
                 <input
-                readOnly
-                value={url}
-                className="flex-1 bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis"
+                    readOnly
+                    value={url}
+                    onContextMenu={(e) => e.preventDefault()}
+                    onCopy={(e) => e.preventDefault()}
+                    onCut={(e) => e.preventDefault()}
+                    onSelect={(e) => e.target.blur()}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onKeyDown={(e) => e.preventDefault()}  
+                    className="select-none flex-1 bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis"
                 />
                 <button
                 onClick={() => onCopy(url, label)}
