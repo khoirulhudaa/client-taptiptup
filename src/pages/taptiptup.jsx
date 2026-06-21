@@ -814,9 +814,10 @@ function OverlayCustom({ C }) {
             const isLast = i === PLATFORMS.length - 1;
             return (
               <StaggerItem
+                className={'md:!!py-[36px] md:!px-[28px] !py-[36px] !px-4'}
                 key={item.num}
                 style={{
-                  padding: "36px 28px",
+                  // padding: "36px 28px",
                   borderRight: i < ITEMS.length - 1 ? "1px solid rgba(255,255,255,0.1)" : "none",
                   background: i % 2 === 0 ? "#0d2b45" : "#0d2b45",
                   position: "relative",
@@ -978,8 +979,11 @@ function NominalSection({ C }) {
             style={{ border: "1px solid #e2e8f0", background: "azure" }}>
 
             {/* Header tab */}
-            <div style={{
-              background: "#0d2b45", padding: "14px 20px",
+            <div 
+              className="md:!py-[14px] md:!px-[20px] !px-[16px] !py-[14px]"
+              style={{
+              background: "#0d2b45", 
+              // padding: "14px 20px",
               display: "flex", alignItems: "center", gap: 10,
             }}>
               <span style={{ fontSize: 18 }}>💸</span>
@@ -989,7 +993,7 @@ function NominalSection({ C }) {
               </div>
             </div>
 
-            <div style={{ padding: "24px 20px" }} className="w-full h-full flex flex-col justify-between">
+            <div className="w-full h-full md:!py-[24px] md:!px-[20px] !px-[16px] !py-[24px] flex flex-col justify-between">
               <div className="w-full h-[84%]">
                 {/* Nama */}
                 <div style={{ marginBottom: 14 }}>
@@ -1065,8 +1069,11 @@ function NominalSection({ C }) {
             style={{ border: "1px solid #e2e8f0", background: "azure" }}>
 
             {/* Header tab */}
-            <div style={{
-              background: "#0d2b45", padding: "14px 20px",
+            <div 
+            className="md:!py-[14px] md:!px-[20px] !px-[16px] !py-[20px]"
+            style={{
+              background: "#0d2b45", 
+              // padding: "14px 20px",
               display: "flex", alignItems: "center", gap: 10,
             }}>
               <span style={{ fontSize: 18 }}>🎁</span>
@@ -1076,7 +1083,7 @@ function NominalSection({ C }) {
               </div>
             </div>
 
-            <div style={{ padding: "24px 20px" }} className="w-full h-full flex flex-col justify-between">
+            <div className="w-full h-full md:!py-[24px] md:!px-[20px] !px-[16px] !py-[24px] flex flex-col justify-between">
 
               <div className="w-full h-[84%]">
                 {/* Nama */}
@@ -1273,10 +1280,11 @@ function FeeComparison({ C }) {
 
             return (
               <StaggerItem key={p.name}
+                className={'md:!py-[24px] md:!px-[24px] !py-[24px] !px-4'}
                 style={{
                   position: 'relative',
                   overflow: 'hidden',   // ← wajib agar pita terpotong rapi
-                  padding: "24px 24px",
+                  // padding: "24px 24px",
                   borderRadius: 10,
                   borderBottom: isMobile ? `1px solid ${C.line}` : "none",
                   background: "azure",
@@ -1789,7 +1797,7 @@ function AlertPreview({ cfg, animKey }) {
       <div style={{ padding: "14px 16px", position: "relative", zIndex: 2 }}>
         <div style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 10 }}>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 20 : 26, fontWeight: 500, color: fg, marginTop: 4, lineHeight: 1.1, letterSpacing: "-0.5px" }}>
+            <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 18 : 26, fontWeight: 500, color: fg, marginTop: 4, lineHeight: 1.1, letterSpacing: "-0.5px" }}>
               {donor.name}
             </div>
           </div>
@@ -1797,7 +1805,7 @@ function AlertPreview({ cfg, animKey }) {
             {renderIconPreview(settings.customIcon)}
           </div>
         </div>
-        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 20 : 26, fontWeight: 500, color: hl, letterSpacing: "-1px", lineHeight: 1, marginBottom: 8, textShadow: `0 0 12px ${hl}60` }}>
+        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 18 : 26, fontWeight: 500, color: hl, letterSpacing: "-1px", lineHeight: 1, marginBottom: 8, textShadow: `0 0 12px ${hl}60` }}>
           Rp {donor.amount.toLocaleString("id-ID")}
         </div>
         {donor.msg && (
@@ -1822,11 +1830,11 @@ function AlertPreview({ cfg, animKey }) {
       <div style={scanlineStyle} />
       <div style={{ padding: "14px 18px 18px", position: "relative", zIndex: 2 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-          <span style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 20 : 26, fontWeight: 500, color: hl, letterSpacing: "-1px", textShadow: `0 0 8px ${hl}50` }}>
+          <span style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 18 : 26, fontWeight: 500, color: hl, letterSpacing: "-1px", textShadow: `0 0 8px ${hl}50` }}>
             Rp {donor.amount.toLocaleString("id-ID")}
           </span>
         </div>
-        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 20 : 24, fontWeight: 500, color: fg, marginBottom: 4, borderBottom: `1px solid ${hl}20`, paddingBottom: 7 }}>
+        <div style={{ fontFamily: "'Inter',sans-serif", fontSize: isMobile ? 18 : 24, fontWeight: 500, color: fg, marginBottom: 4, borderBottom: `1px solid ${hl}20`, paddingBottom: 7 }}>
           {donor.name}
         </div>
         {donor.msg && (
@@ -1845,7 +1853,7 @@ function AlertPreview({ cfg, animKey }) {
   const smoothInner = (
     <div style={{ fontFamily: "'Inter',sans-serif", padding: "18px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 14 }}>
-        <div style={{ fontSize: isMobile ? 20 : 24, fontWeight: 500, color: fg, lineHeight: 1.2 }}>{donor.name}</div>
+        <div style={{ fontSize: isMobile ? 18 : 24, fontWeight: 500, color: fg, lineHeight: 1.2 }}>{donor.name}</div>
         <div style={{ width: 40, height: 40, borderRadius: 16, background: hl + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0, border: `1.5px solid ${hl}40`, position: 'relative', top: -3.2 }}>
           {renderIconPreview(settings.customIcon)}
         </div>
@@ -2006,7 +2014,7 @@ function MediaSharePreview({ cfg, animKey }) {
           style={{ ...wrapperBase, borderRadius: 16, border: `1.5px solid ${hl}30` }}>
           <MediaBlock />
           <div style={{ fontFamily: "'Inter', sans-serif", padding: '14px 14px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <div style={{ fontSize: isMobile ? 18 : 20, color: fg, lineHeight: 1.6 }}>
+            <div style={{ fontSize: isMobile ? 16 : 20, color: fg, lineHeight: 1.6 }}>
               <span style={{ color: hl, fontWeight: 500 }}>{donor.name}</span>
               <span> mengirim </span>
               <span style={{ fontWeight: 500, color: hl, letterSpacing: '-0.5px' }}>Rp {donor.amount.toLocaleString('id-ID')}</span>
@@ -2035,7 +2043,7 @@ function MediaSharePreview({ cfg, animKey }) {
           <div style={scanlineStyle} />
           <MediaBlock />
           <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
-            <div style={{ fontFamily: monospace, fontSize: isMobile ? 18 : 20, color: fg, lineHeight: 1.6, marginBottom: 6 }}>
+            <div style={{ fontFamily: monospace, fontSize: isMobile ? 16 : 20, color: fg, lineHeight: 1.6, marginBottom: 6 }}>
               <span style={{ fontWeight: 500 }}>{donor.name} - </span>
               <span style={{ fontWeight: 500, color: hl, letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}50` }}>
                 Rp {donor.amount.toLocaleString('id-ID')}
@@ -2064,7 +2072,7 @@ function MediaSharePreview({ cfg, animKey }) {
         <div style={scanlineStyle} />
         <MediaBlock />
         <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
-          <div style={{ fontFamily: monospace, fontSize: isMobile ? 18 : 20, color: fg, lineHeight: 1.5, marginBottom: 6 }}>
+          <div style={{ fontFamily: monospace, fontSize: isMobile ? 16 : 20, color: fg, lineHeight: 1.5, marginBottom: 6 }}>
             <span style={{ fontWeight: 500 }}>{donor.name}</span>
             <span> mengirim </span>
             <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}55` }}>
@@ -2238,7 +2246,7 @@ export function OverlayCustomizer({ C }) {
         <div className="overlay-builder-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 20, alignItems: "start" }}>
  
           {/* ── KIRI: Controls ── */}
-          <Reveal x={-40} y={0} delay={0.05} className='md:p-[16px] !p-[6px] !py-[17px] md:!w-full !w-[90vw]' style={{ background: "azure", borderRadius: 14, display: "flex", flexDirection: "column", gap: 12 }}>
+          <Reveal x={-40} y={0} delay={0.05} className='md:!p-[16px] !p-[4px] !py-[17px] md:!w-full !w-[90vw]' style={{ background: "azure", borderRadius: 14, display: "flex", flexDirection: "column", gap: 12 }}>
  
             {/* Tema */}
             <div style={ctrlCard}>
