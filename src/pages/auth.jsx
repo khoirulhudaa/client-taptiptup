@@ -178,12 +178,13 @@
         {/* Toggle password */}
         {isPassword && (
           <button
+            className='w-14 h-full flex justify-center items-center'
             type="button"
             onClick={() => setShowPassword(v => !v)}
             style={{
               background: 'none', border: 'none', cursor: 'pointer',
               color: T.iconDefault, display: 'flex',
-              paddingRight: 14, flexShrink: 0,
+              flexShrink: 0,
             }}
           >
             {showPassword ? <EyeOff size={18}/> : <Eye size={18}/>}
@@ -1076,11 +1077,12 @@
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            className='!right-0 ml-auto w-full md:w-[62.5vw] p-0 md:px-[86px] 2xl:p-[0px]'
             style={{
-              position: 'fixed', inset: 0, zIndex: 99999,
+              position: 'fixed', 
+              inset: 0, zIndex: 99999,
               background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(12px)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              padding: '16px',
             }}
           >
             <motion.div
@@ -1088,15 +1090,12 @@
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.85, opacity: 0, y: 32 }}
               transition={{ type: 'spring', stiffness: 340, damping: 28 }}
-              className='w-[90vw] md:max-w-3xl'
+              className='w-[90vw] md:w-full h-full flex flex-col items-start justify-center md:!px-[30px] md:!py-[30px] !px-4 !py-[20px]'
               style={{
                 background: 'linear-gradient(145deg, #0f0c29, #1a1535)',
                 border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: 20,
-                padding: '40px 32px',
-                // maxWidth: 600,
                 width: '100%',
-                textAlign: 'center',
                 boxShadow: '0 32px 80px rgba(0,0,0,0.6)',
                 position: 'relative',
                 overflow: 'hidden',
@@ -1104,9 +1103,10 @@
             >
               {/* Glow background */}
               <div style={{
-                position: 'absolute', top: -60, left: '50%',
-                transform: 'translateX(-50%)',
-                width: 200, height: 200,
+                position: 'absolute', 
+                top: '-70%', 
+                right: '-60%',
+                width: 1000, height: 1000,
                 borderRadius: '50%',
                 background: 'radial-gradient(circle, rgba(239,68,68,0.3) 0%, transparent 70%)',
                 pointerEvents: 'none',
@@ -1119,46 +1119,56 @@
                 transition={{ type: 'spring', stiffness: 400, damping: 20, delay: 0.1 }}
                 style={{
                   width: 80, height: 80,
-                  margin: '0 auto 24px',
+                  margin: '0 0 24px',
                   background: 'rgba(239,68,68,0.15)',
                   border: '1.5px solid rgba(239,68,68,0.4)',
                   borderRadius: 20,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
                 }}
               >
                 <ShieldCheck size={36} style={{ color: '#ef4444' }} />
               </motion.div>
 
               {/* Title */}
-              <h3 style={{
-                fontSize: 22, fontWeight: 900,
-                color: '#ffffff', marginBottom: 10,
-                letterSpacing: '-0.01em',
-              }}>
+              <h3 
+                className='md:!mb-[10px] !mb-[20px] !text-[11px] md:!text-[22px] !tracking-[0.1em] md:!tracking-[-0.01em] !font-[800] md:!font-[900] !uppercase md:!normal-case'
+                style={{
+                  color: '#ffffff',
+                }}
+              >
                 Aktivitas Terlarang
               </h3>
 
               {/* Subtitle */}
-              <p style={{
-                fontSize: 14, color: 'rgba(255,255,255,0.55)',
-                lineHeight: 1.6, width: '70%', textAlign: 'center', margin: '20px auto 28px auto'
+              <p 
+              className='md:!w-[70%] !w-[100%] md:!text-[14px] !text-[10px] !py-[10px] md:!py-[20px] '
+              style={{
+                color: 'rgba(255,255,255,0.55)',
+                lineHeight: 1.6,
+                // textAlign: 'center', 
+                // margin: '10px auto 28px auto'
               }}>
                 Tindakan yang kamu lakukan tidak diizinkan di halaman ini.
                 Semua aktivitas dicatat dan dipantau.
               </p>
 
               {/* Warning pills — aktivitas */}
-                <div style={{
-                  display: 'flex', flexWrap: 'wrap',
-                  gap: 8, justifyContent: 'center',
+              <div 
+                className='w-full grid !grid-cols-2 md:!grid-cols-5'
+                style={{
+                  gap: 8, 
                   marginBottom: 20,
                 }}>
                   {['Screenshot', 'Copy & Paste', 'Klik Kanan', 'DevTools', 'Windows Key'].map(label => (
-                    <span key={label} style={{
-                      padding: '6px 14px',
+                    <span 
+                    className='w-full'
+                    key={label} style={{
+                      padding: '12px 14px',
                       background: 'rgba(239,68,68,0.12)',
                       border: '1px solid rgba(239,68,68,0.25)',
-                      borderRadius: 999,
+                      borderRadius: 10,
                       fontSize: 12, fontWeight: 700,
                       color: '#fca5a5',
                     }}>
@@ -1171,26 +1181,22 @@
                 <div style={{ height: 1, background: 'rgba(255,255,255,0.07)', marginBottom: 20 }} />
 
                 {/* Karakter terlarang */}
-                <div style={{
-                  background: 'rgba(239,68,68,0.07)',
-                  border: '1px solid rgba(239,68,68,0.18)',
-                  borderRadius: 14,
-                  padding: '16px 20px',
-                  marginBottom: 24,
-                  textAlign: 'center',
-                }}>
-                  <p style={{
-                    fontSize: 11, fontWeight: 800,
-                    color: 'rgba(255,255,255,0.5)',
+                <div 
+                  className='!md:mb-[24px] w-full !mb-[16px] md:!px-[20px] !px-[0px] !py-[16px] md:rounded-[14px] md:border md:border-[rgba(239,68,68,0.18)] md:bg-[rgba(239,68,68,0.07)]'
+                >
+                <p 
+                  className='!text-[10px] md:!text-[11px] !mb-[12px] md:!mb-[10px]'
+                  style={{
+                    fontWeight: 800,
+                    color: '#ffffff',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    margin: '10px auto',
                     width: '100%',
                     marginBottom: 12,
                   }}>
-                    Karakter yang tidak diizinkan untuk diketik
+                    Karakter yang tidak diizinkan 
                   </p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 8 }}>
+                  <div className='grid grid-cols-5 w-max md:w-full' style={{ flexWrap: 'wrap', justifyContent: 'center', gap: 8 }}>
                     {[
                       { char: '<',  name: 'Less Than'    },
                       { char: '>',  name: 'Greater Than' },
@@ -1198,9 +1204,13 @@
                       { char: ';',  name: 'Semicolon'    },
                       { char: '=',  name: 'Equal Sign'   },
                     ].map(({ char, name }) => (
-                      <div key={char} style={{
+                      <div 
+                      className='w-max md:w-full'
+                      key={char} style={{
                         display: 'flex', alignItems: 'center', gap: 8,
-                        padding: '6px 12px',
+                        padding: '12px 12px',
+                        textAlign: 'center',
+                        justifyContent: 'center',
                         background: 'rgba(0,0,0,0.3)',
                         border: '1px solid rgba(239,68,68,0.2)',
                         borderRadius: 8,
@@ -1210,14 +1220,17 @@
                           fontSize: 18, fontWeight: 900,
                           color: '#f87171',
                           lineHeight: 1,
-                          minWidth: 16,
                           textAlign: 'center',
+                          minWidth: 16,
                         }}>
                           {char}
                         </span>
-                        <span style={{
+                        <span 
+                        className='md:flex hidden'
+                        style={{
                           fontSize: 11, fontWeight: 600,
                           color: 'rgba(255,255,255,0.35)',
+                          textAlign: 'center',
                           letterSpacing: '0.02em',
                         }}>
                           {name}
@@ -1225,7 +1238,9 @@
                       </div>
                     ))}
                   </div>
-                  <p style={{
+                  <p 
+                  className='md:flex hidden'
+                  style={{
                     fontSize: 11, color: 'rgba(255,255,255,0.5)',
                     marginTop: 12, lineHeight: 1.6,
                   }}>
@@ -1251,7 +1266,7 @@
                   onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.1)'}
                   onMouseLeave={e => e.currentTarget.style.filter = 'brightness(1)'}
                 >
-                  Saya Mengerti
+                  Ya, Saya Mengerti
                 </button>
             </motion.div>
           </motion.div>
