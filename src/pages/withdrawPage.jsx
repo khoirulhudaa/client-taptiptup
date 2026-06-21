@@ -506,10 +506,10 @@ export const WithdrawPage = () => {
       
       <TwoFactorSetup />
       <div className='space-y-5 mt-0'>
-        
+      
         {/* Alert Modal */}
         <AlertModal modal={alertModal} onClose={closeAlert} />
-
+        
         {/* ── Balance Card ── */}
         <div className="bg-blue-600 py-7 md:w-full md:mt-0 mt-5 w-[90vw] mx-auto rounded-xl p-4 md:p-6 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 p-12 opacity-10 md:flex hidden"><Wallet size={120} /></div>
