@@ -682,7 +682,7 @@ export const WithdrawPage = () => {
 
               {method === 'EWALLET' && (
                 <div className="flex flex-col gap-2">
-                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilih E-Wallet</label>
+                  {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilih E-Wallet</label> */}
                   <select
                     className="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 border-1 border-slate-100 dark:border-slate-700 rounded-xl font-bold outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-all text-slate-800 dark:text-slate-100"
                     value={formData.channelCode}
