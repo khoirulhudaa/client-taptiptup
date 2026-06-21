@@ -538,14 +538,13 @@ export const WithdrawPage = () => {
         <AlertModal modal={alertModal} onClose={closeAlert} />
 
         {/* ── Balance Card ── */}
-        <div className="bg-blue-600 py-7 md:w-full md:mt-0 mt-5 w-[90vw] mx-auto rounded-xl p-4 md:p-6 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-12 opacity-10 md:flex hidden"><Wallet size={120} /></div>
+        <div className="bg-blue-600 py-7 md:w-full !mt-5 w-[90vw] mx-auto rounded-xl p-4 md:p-6 text-white relative overflow-hidden">
           <div className="relative z-[2]">
             <div className="flex flex-col items-start gap-3 mb-2">
               <p className="text-blue-100 font-bold uppercase tracking-widest text-xs">Saldo Bisa Ditarik</p>
               <div className='flex w-max items-center'>
-                <h1 className="text-3xl font-black">
-                  Rp {showBalance ? availableBalance.toLocaleString('id-ID') : "*********"}
+                <h1 className="text-3xl font-black flex items-center">
+                  Rp {showBalance ? availableBalance.toLocaleString('id-ID') : <p className='ml-2 relative top-1'>*********</p>}
                 </h1>
                 <button
                   onClick={() => {
@@ -554,7 +553,7 @@ export const WithdrawPage = () => {
                     localStorage.setItem('showBalance', String(next));
                     window.dispatchEvent(new Event('balanceUpdate'));
                   }}
-                  className="relative bg-white top-[1.4px] ml-3 cursor-pointer active:scale-[0.98] flex items-center gap-1 bg-blue-500/40 hover:bg-white/90 border border-blue-400/40 rounded-xl px-2 py-0.5 text-[10px] font-black text-slate-900 transition-all active:scale-95"
+                  className="relative bg-white top-[0px] ml-3 cursor-pointer active:scale-[0.98] flex items-center gap-1 bg-blue-500/40 hover:bg-white/90 border border-blue-400/40 rounded-xl px-2 py-0.5 text-[10px] font-black text-slate-900 transition-all active:scale-95"
                 >
                   {showBalance ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
