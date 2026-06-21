@@ -448,7 +448,7 @@ export const OBSConnectPanel = ({ overlayToken }) => {
         {/* Form - hanya tampil jika belum connect */}
         {status !== 'connected' && (
           <div className="space-y-2.5">
-            <div className="grid grid-cols-5 gap-2.5">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-2.5">
               {/* Port */}
               <div className="col-span-1 rounded-xl flex p-[3px] pl-[4px] items-center bg-slate-700/50 border border-slate-600 overflow-hidden focus-within:border-blue-500 transition-all">
                 <div className="rounded-lg px-2.5 py-3.5 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-600 bg-slate-700/80 flex-shrink-0">
@@ -459,7 +459,7 @@ export const OBSConnectPanel = ({ overlayToken }) => {
                   value={port}
                   onChange={e => setPort(e.target.value)}
                   placeholder="4455"
-                  className="flex-1 bg-transparent px-3 py-3.5 text-slate-200 font-mono text-xs outline-none w-full min-w-0"
+                  className="w-full flex-1 bg-transparent px-3 py-3.5 text-slate-200 font-mono text-xs outline-none min-w-0"
                 />
               </div>
 
@@ -489,7 +489,7 @@ export const OBSConnectPanel = ({ overlayToken }) => {
             <button
               onClick={handleConnect}
               disabled={status === 'connecting'}
-              className="cursor-pointer active:scale-[0.99] w-full py-3.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-none"
+              className="cursor-pointer rounded-xl active:scale-[0.99] w-full py-3.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-none"
             >
               {status === 'connecting' ? (
                 <><Loader2 size={13} className="animate-spin" /> Menghubungkan...</>
