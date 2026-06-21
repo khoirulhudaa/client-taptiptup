@@ -27,7 +27,7 @@ export const Subath1 = ({ timer, displaySeconds, timerColor, bgColor, labelColor
       borderRadius: 20, padding: '16px 16px 14px 16px',
       minWidth: 280, fontFamily: "'Inter','Segoe UI',sans-serif",
       border: `2px solid ${isLow ? '#ef444460' : 'rgba(255,255,255,0.08)'}`,
-      boxShadow: isLow ? '0 0 30px rgba(239,68,68,0.3)' : '0 8px 32px rgba(0,0,0,0.5)',
+      // boxShadow: isLow ? '0 0 30px rgba(239,68,68,0.3)' : '0 8px 32px rgba(0,0,0,0.5)',
       transition: 'border 0.5s, box-shadow 0.5s',
     }}>
       <p style={{ color: labelColor ? `#${labelColor}` : 'white', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 6px 0' }}>
