@@ -103,7 +103,7 @@ const getYouTubeEmbedUrl = (url) => {
 
 const InputField = ({ label, disabled, ...props }) => (
   <div className={`w-full flex pl-[2.8px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${disabled ? 'opacity-40 pointer-events-none' : ''}`}>
-    <div className="w-max px-3 py-2.5 md:py-3 rounded-lg h-[88%] text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+    <div className="w-max px-3 py-3 md:py-4 rounded-lg h-[88%] text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
       {label}
     </div>
     <input
@@ -116,12 +116,12 @@ const InputField = ({ label, disabled, ...props }) => (
 );
 
 const TextareaField = ({ label, className = '', inputClassName = '', onChange, ...props }) => (
-  <div className={`w-full flex pl-[1.5px] items-start bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
-    <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+  <div className={`w-full flex pl-[3.5px] pt-1 items-start bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
+    <div className="w-max px-3 py-2 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
       {label}
     </div>
     <textarea
-      className={`flex-1 bg-transparent p-3 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100 resize-y ${inputClassName}`}
+      className={`flex-1 bg-transparent p-1.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100 resize-y ${inputClassName}`}
       {...props}
       onChange={e => onChange?.(e.target.value)}
     />
@@ -476,14 +476,14 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
                     </div>
                     <div className="p-1.5 space-y-0.5">
                       <Link to="/dashboard" onClick={() => setDropdownOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all text-sm font-bold text-slate-700 dark:text-slate-300">
+                        className="flex items-center gap-3 px-3 py-3.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all text-sm font-bold text-slate-700 dark:text-slate-300">
                         <div className="w-7 h-7 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
                           <User size={13} className="text-blue-500" />
                         </div>
                         Dashboard Saya
                       </Link>
                       <Link to="/dashboard?tab=history" onClick={() => setDropdownOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all text-sm font-bold text-slate-700 dark:text-slate-300">
+                        className="flex items-center gap-3 px-3 py-3.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all text-sm font-bold text-slate-700 dark:text-slate-300">
                         <div className="w-7 h-7 bg-pink-50 dark:bg-pink-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
                           <Heart size={13} className="text-pink-500" />
                         </div>
@@ -492,7 +492,7 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
                     </div>
                     <div className="p-1.5 border-t border-slate-100 dark:border-slate-800">
                       <button onClick={() => { setDropdownOpen(false); onLogout(); }}
-                        className="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all text-sm font-bold text-red-500 dark:text-red-400 cursor-pointer">
+                        className="w-full flex items-center gap-3 px-3 py-3.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all text-sm font-bold text-red-500 dark:text-red-400 cursor-pointer">
                         <div className="w-7 h-7 bg-red-50 dark:bg-red-900/20 rounded-xl flex items-center justify-center flex-shrink-0">
                           <LogOut size={13} className="text-red-400" />
                         </div>
@@ -505,7 +505,7 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
             </div>
           ) : (
             <button onClick={() => onOpenAuth('login')}
-              className="px-4 py-2 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl font-black text-sm hover:brightness-110 transition-all cursor-pointer active:scale-[0.98]">
+              className="px-4 py-3 bg-gradient-to-r from-blue-600 to-violet-600 text-white rounded-xl font-black text-sm hover:brightness-110 transition-all cursor-pointer active:scale-[0.98]">
               Masuk
             </button>
           )}
@@ -647,10 +647,10 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
 
       {/* Toggle URL / Upload — hanya muncul kalau allowImage */}
       {allowImage && (
-        <div className="grid grid-cols-2 border border-blue-200 dark:border-blue-700 overflow-hidden">
+        <div className="grid grid-cols-2 gap-3 rounded-lg overflow-hidden">
           <button
             onClick={() => handleModeSwitch('url')}
-            className={`flex items-center justify-center gap-1.5 py-2 text-[10px] font-black transition-all cursor-pointer ${
+            className={`flex items-center justify-center gap-1.5 py-3 text-[10px] font-black transition-all rounded-md cursor-pointer ${
               inputMode === 'url'
                 ? 'bg-blue-600 text-white'
                 : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-800'
@@ -660,7 +660,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
           </button>
           <button
             onClick={() => handleModeSwitch('upload')}
-            className={`flex items-center justify-center gap-1.5 py-2 text-[10px] font-black transition-all cursor-pointer border-l border-blue-200 dark:border-blue-700 ${
+            className={`flex items-center justify-center gap-1.5 py-3 text-[10px] font-black rounded-md transition-all cursor-pointer ${
               inputMode === 'upload'
                 ? 'bg-blue-600 text-white'
                 : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-800'
@@ -699,7 +699,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-3 px-3 py-2.5 bg-amber-900/30 border border-amber-800 rounded-xl flex items-center gap-2"
+                className="mt-3 px-3 py-3.5 bg-amber-900/30 border border-amber-800 rounded-xl flex items-center gap-2"
               >
                 <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse flex-shrink-0" />
                 <p className="text-[10px] font-black text-amber-600 dark:text-amber-400">
@@ -833,7 +833,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
 
                 {/* Warning 15 menit */}
                 {uploadedFile.serverUrl && (
-                  <div className="flex items-center gap-2 px-3 py-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl">
+                  <div className="flex items-center gap-2 px-3 py-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl">
                     <span className="text-amber-500 flex-shrink-0">⏱</span>
                     <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400">
                       Gambar otomatis terhapus dari server dalam 15 menit
@@ -844,7 +844,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 {/* Ganti gambar */}
                 <button
                   onClick={() => { clearUpload(); setTimeout(() => fileInputRef.current?.click(), 100); }}
-                  className="w-full py-2 text-[10px] font-black text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all cursor-pointer rounded-xl"
+                  className="w-full py-3 text-[10px] font-black text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all cursor-pointer rounded-xl"
                 >
                   Ganti Gambar
                 </button>
@@ -859,7 +859,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex items-center gap-2 px-3 py-2.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-[10px] font-bold text-red-500"
+                className="flex items-center gap-2 px-3 py-3.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-[10px] font-bold text-red-500"
               >
                 <X size={12} /> {uploadError}
               </motion.div>
@@ -1038,8 +1038,8 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
                   key={tab.id}
                   onClick={() => onTabChange(tab.id)}
                   className={`
-                    flex items-center justify-center gap-1.5 py-5 px-3
-                    text-[10px] font-black transition-all cursor-pointer select-none rounded-xl
+                    flex items-center justify-center gap-1.5 py-3 md:py-5 px-3
+                    text-[10px] font-black transition-all cursor-pointer select-none rounded-lg md:rounded-xl
                     ${isActive
                       ? 'bg-blue-600 text-white'
                       : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
@@ -1104,7 +1104,7 @@ const RecentDonations = ({ username }) => {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
-            className="px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl"
+            className="px-3 py-3.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl"
           >
             <div className="flex items-center justify-between gap-2 mb-1">
               <div className="flex items-center gap-2 min-w-0">
@@ -1164,7 +1164,7 @@ const LeaderboardMini = ({ username }) => {
       </label>
       <div className="space-y-1.5">
         {donors.slice(0, 5).map((d, i) => (
-          <div key={i} className="flex items-center gap-3 px-3 py-2.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl">
+          <div key={i} className="flex items-center gap-3 px-3 py-3.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl">
             <span className="text-base w-6 text-center flex-shrink-0">
               {medals[i] || `${i + 1}`}
             </span>
@@ -1949,7 +1949,7 @@ const SupporterPage = () => {
                           setForm({ ...form, amount: val });
                           setSelectedDonationItem(null);
                         }}
-                        className={`cursor-pointer py-4 rounded-xl font-black text-sm transition-all border-2 active:scale-[0.99] ${
+                        className={`cursor-pointer py-2.5 md:py-4 rounded-xl font-black text-sm transition-all border-2 active:scale-[0.99] ${
                           form.amount === val && !selectedDonationItem
                             ? 'bg-blue-600 border-blue-600 text-white shadow-lg'
                             : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:text-blue-600 dark:hover:text-blue-400 text-slate-700 dark:text-slate-300'
@@ -2106,13 +2106,13 @@ const SupporterPage = () => {
                       </div>
                     </div>
                   ) : !eligibleTrigger ? (
-                    <div className="flex items-center gap-3 px-4 py-4 bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-xl">
-                      <span className="text-2xl flex-shrink-0">🔒</span>
+                    <div className="flex items-center gap-3 px-3.5 py-4 bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-xl">
+                      {/* <span className="text-2xl flex-shrink-0">🔒</span> */}
                       <div>
                         <p className="text-xs font-black text-amber-700 dark:text-amber-400">Nominal belum cukup untuk Media Share</p>
                         <p className="text-[10px] text-amber-500 font-medium mt-0.5">Dukungan minimal Rp {Number(minMedia).toLocaleString('id-ID')} untuk mengirim media</p>
                         <button onClick={() => setForm({ ...form, amount: minMedia })}
-                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-xl hover:bg-amber-600 transition-all cursor-pointer">
+                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-md hover:bg-amber-600 transition-all cursor-pointer">
                           Set Rp {Number(minMedia).toLocaleString('id-ID')}
                         </button>
                       </div>
@@ -2170,7 +2170,7 @@ const SupporterPage = () => {
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      <div className="flex items-center gap-2 px-3 py-2 bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-xl">
+                      <div className="flex items-center gap-2 px-3 py-3 bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-xl">
                         <Mic size={13} className="text-violet-500 flex-shrink-0" />
                         <p className="text-[10px] font-bold text-violet-600 dark:text-violet-400">Rekam pesan suaramu — max 60 detik</p>
                       </div>
@@ -2205,7 +2205,7 @@ const SupporterPage = () => {
             <AnimatePresence>
               {isSubmitDisabled && !loading && submitHint && (
                 <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
-                  className="flex items-center gap-2 px-3 py-2.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl">
+                  className="flex items-center gap-2 px-3 py-3.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl">
                   <span className="text-slate-300 dark:text-slate-600 flex-shrink-0">⚠️</span>
                   <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500">{submitHint}</p>
                 </motion.div>
