@@ -737,6 +737,51 @@ function OverlayCustom({ C }) {
         </svg>
       </div>
 
+      {/* Galaxy Stars Decoration (Mobile only) */}
+      <div className="select-none flex md:hidden absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{ position: "absolute", inset: 0 }}>
+          {Array.from({ length: 60 }).map((_, i) => (
+            <circle
+              key={i}
+              cx={`${Math.random() * 100}%`}
+              cy={`${Math.random() * 100}%`}
+              r={Math.random() * 1.4 + 0.3}
+              fill="white"
+              opacity={Math.random() * 0.6 + 0.15}
+              style={{
+                animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`,
+                animationDelay: `${Math.random() * 3}s`,
+              }}
+            />
+          ))}
+        </svg>
+
+        {/* Aurora blob kecil untuk mobile */}
+        <div
+          className="aurora-blob"
+          style={{
+            top: "-15%",
+            left: "-20%",
+            width: "70vw",
+            height: "70vw",
+            background: "radial-gradient(circle, rgba(99,102,241,0.25), transparent 70%)",
+            animationDuration: "16s",
+          }}
+        />
+        <div
+          className="aurora-blob"
+          style={{
+            bottom: "-10%",
+            right: "-25%",
+            width: "65vw",
+            height: "65vw",
+            background: "radial-gradient(circle, rgba(168,85,247,0.2), transparent 70%)",
+            animationDuration: "22s",
+            animationDelay: "-4s",
+          }}
+        />
+      </div>
+
       <div className="relative w-[90vw] md:w-[82vw] mx-auto" style={{ zIndex: 10 }}>
 
         {/* ── HEADER ── */}
@@ -842,6 +887,52 @@ function NominalSection({ C }) {
     <section
       className="bg-blue-900 relative overflow-hidden flex md:!py-[50px] !py-[20px] !pt-[0px] flex-col justify-center items-center"
     >
+
+    {/* Galaxy Stars Decoration (Mobile only) */}
+    <div className="select-none flex md:hidden absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{ position: "absolute", inset: 0 }}>
+        {Array.from({ length: 60 }).map((_, i) => (
+          <circle
+            key={i}
+            cx={`${Math.random() * 100}%`}
+            cy={`${Math.random() * 100}%`}
+            r={Math.random() * 1.4 + 0.3}
+            fill="white"
+            opacity={Math.random() * 0.6 + 0.15}
+            style={{
+              animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 3}s`,
+            }}
+          />
+        ))}
+      </svg>
+
+      {/* Aurora blob kecil untuk mobile */}
+      <div
+        className="aurora-blob"
+        style={{
+          top: "-15%",
+          left: "-20%",
+          width: "70vw",
+          height: "70vw",
+          background: "radial-gradient(circle, rgba(99,102,241,0.25), transparent 70%)",
+          animationDuration: "16s",
+        }}
+      />
+      <div
+        className="aurora-blob"
+        style={{
+          bottom: "-10%",
+          right: "-25%",
+          width: "65vw",
+          height: "65vw",
+          background: "radial-gradient(circle, rgba(168,85,247,0.2), transparent 70%)",
+          animationDuration: "22s",
+          animationDelay: "-4s",
+        }}
+      />
+    </div>
+      
       {/* Grid bg */}
       <div className="select-none hidden md:flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -1808,7 +1899,8 @@ function AlertPreview({ cfg, animKey }) {
     backgroundColor: settings.theme === "gifCard" ? "transparent" : bg,
     color: fg,
     borderRadius: 24,
-    width: "max-content",
+    width: "100%",
+    maxWidth: "420px",
     border: settings.theme === "gifCard" ? "none" : `2.5px solid ${settings.borderColor || hl + "40"}`,
   };
 
@@ -1860,8 +1952,10 @@ function MediaSharePreview({ cfg, animKey }) {
 
   const wrapperBase = {
     backgroundColor: bg, color: fg,
-    maxWidth: '340px', minWidth: '280px',
-    width: '100%', overflow: 'hidden',
+    maxWidth: 'max-content',
+    minWidth: 'unset',  // ← hapus minWidth 280px
+    width: '100%',      // ← sudah ada, pastikan tetap
+    overflow: 'hidden',
   };
 
   const theme = cfg.theme || 'modern';
@@ -2063,9 +2157,99 @@ export function OverlayCustomizer({ C }) {
           <rect width="100%" height="100%" fill="url(#overlay-cust-grid)" />
         </svg>
       </div>
+
+      {/* Galaxy Stars Decoration (Mobile only) */}
+      <div className="select-none flex md:hidden absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{ position: "absolute", inset: 0 }}>
+          {Array.from({ length: 60 }).map((_, i) => (
+            <circle
+              key={i}
+              cx={`${Math.random() * 100}%`}
+              cy={`${Math.random() * 100}%`}
+              r={Math.random() * 1.4 + 0.3}
+              fill="white"
+              opacity={Math.random() * 0.6 + 0.15}
+              style={{
+                animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`,
+                animationDelay: `${Math.random() * 3}s`,
+              }}
+            />
+          ))}
+        </svg>
+
+        {/* Aurora blob kecil untuk mobile */}
+        <div
+          className="aurora-blob"
+          style={{
+            top: "-15%",
+            left: "-20%",
+            width: "70vw",
+            height: "70vw",
+            background: "radial-gradient(circle, rgba(99,102,241,0.25), transparent 70%)",
+            animationDuration: "16s",
+          }}
+        />
+        <div
+          className="aurora-blob"
+          style={{
+            bottom: "-10%",
+            right: "-25%",
+            width: "65vw",
+            height: "65vw",
+            background: "radial-gradient(circle, rgba(168,85,247,0.2), transparent 70%)",
+            animationDuration: "22s",
+            animationDelay: "-4s",
+          }}
+        />
+      </div>
  
       <div className="md:w-[82vw] w-[90vw]" style={{ position: "relative", zIndex: 10, margin: "0 auto" }}>
- 
+
+        {/* Galaxy Stars Decoration (Mobile only) */}
+        <div className="select-none flex md:hidden absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{ position: "absolute", inset: 0 }}>
+            {Array.from({ length: 60 }).map((_, i) => (
+              <circle
+                key={i}
+                cx={`${Math.random() * 100}%`}
+                cy={`${Math.random() * 100}%`}
+                r={Math.random() * 1.4 + 0.3}
+                fill="white"
+                opacity={Math.random() * 0.6 + 0.15}
+                style={{
+                  animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`,
+                  animationDelay: `${Math.random() * 3}s`,
+                }}
+              />
+            ))}
+          </svg>
+
+          {/* Aurora blob kecil untuk mobile */}
+          <div
+            className="aurora-blob"
+            style={{
+              top: "-15%",
+              left: "-20%",
+              width: "70vw",
+              height: "70vw",
+              background: "radial-gradient(circle, rgba(99,102,241,0.25), transparent 70%)",
+              animationDuration: "16s",
+            }}
+          />
+          <div
+            className="aurora-blob"
+            style={{
+              bottom: "-10%",
+              right: "-25%",
+              width: "65vw",
+              height: "65vw",
+              background: "radial-gradient(circle, rgba(168,85,247,0.2), transparent 70%)",
+              animationDuration: "22s",
+              animationDelay: "-4s",
+            }}
+          />
+        </div>
+
         <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
           <Kicker C={C}>Kustomisasi Overlay</Kicker>
           <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px,7vw,80px)", lineHeight: 1.05, letterSpacing: "0.01em", color: "white", marginBottom: 14 }}>
@@ -2219,9 +2403,21 @@ export function OverlayCustomizer({ C }) {
  
           {/* ── KANAN: Preview OBS ── */}
           <Reveal x={40} y={0} delay={0.15} className="h-full md:!bg-[rgba(0,0,0,.25)] !bg-transparent" style={{ borderRadius: 14, overflow: "hidden", position: "sticky", top: 100 }}>
-            <div className="md:!bg-[azure] !bg-transparent" style={{ position: "relative", height: '100%', display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+            <div className="md:!bg-[azure] !bg-transparent" style={{ 
+              position: "relative", 
+              height: '100%', 
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center", 
+              overflow: "hidden" 
+            }}>
               <div style={obsGridStyle} />
-              <div style={{ position: "relative", zIndex: 10, maxWidth: '100%' }}>
+              <div style={{ 
+                position: "relative", 
+                zIndex: 10, 
+                width: "100%",      // ← tambah ini
+                maxWidth: "max-content",   // ← tambah ini
+              }}>
                 {previewMode === "alert"
                   ? <AlertPreview cfg={cfg} animKey={animKey} />
                   : <MediaSharePreview cfg={cfg} animKey={animKey} />}
@@ -2341,6 +2537,51 @@ export default function TapTipTup() {
       <OverlayCustom C={C} />
       
       <section className="w-screen md:!min-h-[70vh] !pb-20 !pt-0 md:!pt-14 flex flex-col justify-center items-center bg-blue-900 !px-[20px] gap-6 relative overflow-hidden">
+
+        {/* Galaxy Stars Decoration (Mobile only) */}
+        <div className="select-none flex md:hidden absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{ position: "absolute", inset: 0 }}>
+            {Array.from({ length: 60 }).map((_, i) => (
+              <circle
+                key={i}
+                cx={`${Math.random() * 100}%`}
+                cy={`${Math.random() * 100}%`}
+                r={Math.random() * 1.4 + 0.3}
+                fill="white"
+                opacity={Math.random() * 0.6 + 0.15}
+                style={{
+                  animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`,
+                  animationDelay: `${Math.random() * 3}s`,
+                }}
+              />
+            ))}
+          </svg>
+
+          {/* Aurora blob kecil untuk mobile */}
+          <div
+            className="aurora-blob"
+            style={{
+              top: "-15%",
+              left: "-20%",
+              width: "70vw",
+              height: "70vw",
+              background: "radial-gradient(circle, rgba(99,102,241,0.25), transparent 70%)",
+              animationDuration: "16s",
+            }}
+          />
+          <div
+            className="aurora-blob"
+            style={{
+              bottom: "-10%",
+              right: "-25%",
+              width: "65vw",
+              height: "65vw",
+              background: "radial-gradient(circle, rgba(168,85,247,0.2), transparent 70%)",
+              animationDuration: "22s",
+              animationDelay: "-4s",
+            }}
+          />
+        </div>
 
         <div className="select-none flex absolute inset-0 pointer-events-none" style={{ zIndex: 3 }}>
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
