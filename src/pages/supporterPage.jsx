@@ -1025,7 +1025,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
 
         return (
           <div
-            className="w-full md:gap-0 gap-2 md:border border-slate-300/20 rounded-xl overflow-hidden"
+            className="w-full md:gap-3 gap-2 md:border border-slate-300/20 rounded-xl overflow-hidden"
             style={{ display: 'grid', gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))` }}
           >
             {visibleTabs.map((tab) => {
@@ -2205,8 +2205,8 @@ const SupporterPage = () => {
             <AnimatePresence>
               {isSubmitDisabled && !loading && submitHint && (
                 <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
-                  className="flex items-center gap-2 px-3 py-3.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl">
-                  <span className="text-slate-300 dark:text-slate-600 flex-shrink-0">⚠️</span>
+                  className="flex items-center gap-2 px-3 py-3 md:py-3.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl">
+                  <span className="relative top-[-2px] text-slate-300 dark:text-slate-600 flex-shrink-0">⚠️</span>
                   <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500">{submitHint}</p>
                 </motion.div>
               )}
@@ -2217,7 +2217,7 @@ const SupporterPage = () => {
               whileTap={!isSubmitDisabled ? { scale: 0.99 } : {}}
               onClick={handleDonate}
               disabled={isSubmitDisabled}
-              className={`w-full py-4 rounded-xl font-black text-sm flex items-center justify-center gap-2 transition-all ${
+              className={`w-full py-3 md:py-4 rounded-xl font-black text-sm flex items-center justify-center gap-2 transition-all ${
                 isSubmitDisabled
                   ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
                   : 'active:scale-[0.99] cursor-pointer bg-gradient-to-r from-violet-600 to-blue-600 text-white hover:brightness-110'
