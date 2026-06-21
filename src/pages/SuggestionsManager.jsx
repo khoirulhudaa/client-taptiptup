@@ -115,7 +115,7 @@ export const SuggestionsManager = () => {
   };
 
   return (
-    <div className="md:space-y-6">
+    <div className="md:space-y-5">
       {/* Toast */}
       <AnimatePresence>
         {toast && (
@@ -179,7 +179,7 @@ export const SuggestionsManager = () => {
                 <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">
                   Kategori
                 </label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {CATEGORIES.map((cat) => (
                     <button
                       key={cat.value}
@@ -191,7 +191,7 @@ export const SuggestionsManager = () => {
                           : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-blue-200'
                       }`}
                     >
-                      <span className="flex items-center justify-center gap-1.5">
+                      <span className="flex items-center justify-center gap-3.5">
                         {cat.icon}
                         {cat.label}
                       </span>
@@ -236,7 +236,7 @@ export const SuggestionsManager = () => {
               <button
                 type="submit"
                 disabled={createMutation.isPending || !formData.title.trim() || !formData.message.trim()}
-                className="active:scale-[0.99] cursor-pointer w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-sm shadow-lg shadow-blue-200 dark:shadow-blue-900/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 transition-all"
+                className="active:scale-[0.99] cursor-pointer w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-sm shadow-lg shadow-blue-200 dark:shadow-blue-900/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3.5 transition-all"
               >
                 {createMutation.isPending ? (
                   <>
@@ -279,7 +279,7 @@ export const SuggestionsManager = () => {
           <div className="divide-y divide-slate-100 dark:divide-slate-800">
             {mySuggestions.map((s) => (
               <div key={s._id} className="p-5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all">
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-3">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
                     s.category === 'feature' ? 'bg-blue-100 dark:bg-blue-950/40 text-blue-600' :
                     s.category === 'bug' ? 'bg-red-100 dark:bg-red-950/40 text-red-600' :
@@ -289,7 +289,7 @@ export const SuggestionsManager = () => {
                     {CATEGORY_ICONS[s.category]}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-3 mb-1">
                       <span className="font-black text-sm text-slate-700 dark:text-slate-200 truncate">{s.title}</span>
                       <span className={`px-2 py-0.5 rounded-xl text-[9px] font-black ${STATUS_COLORS[s.status]}`}>
                         {STATUS_LABELS[s.status]}

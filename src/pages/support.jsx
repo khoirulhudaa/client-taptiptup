@@ -82,11 +82,11 @@ export const ContactPage = () => {
 
       {/* Hero — gradient stays dark by design */}
       <motion.div
-        className="relative overflow-hidden rounded-xl mx-0 mb-8 px-4 md:px-8 py-12"
+        className="relative overflow-hidden rounded-xl mx-0 mb-5 px-4 md:px-8 py-12"
         style={{ background: 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)' }}
       >
         <div className="relative z-[2] max-w-full">
-          <div className="flex items-center gap-2 mb-5">
+          <div className="flex items-center gap-3 mb-5">
             <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center">
               <Headphones size={16} className="text-white/80" />
             </div>
@@ -100,7 +100,7 @@ export const ContactPage = () => {
           </p>
         </div>
 
-        <div className="relative z-2 hidden md:grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 pt-8 border-t border-white/10">
+        <div className="relative z-2 hidden md:grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 pt-8 border-t border-white/10">
           {[
             { val: '1x24 Jam', label: 'Avg. Response'     },
             { val: '98%',      label: 'Resolved Tickets'  },
@@ -123,7 +123,7 @@ export const ContactPage = () => {
         <motion.div {...fadeUp(0.1)} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 overflow-hidden">
 
           <div className="px-4 md:px-8 pt-8 pb-6 border-b border-slate-50 dark:border-slate-800">
-            <div className="flex items-start gap-5">
+            <div className="flex items-start gap-3">
               <div
                 className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0"
                 style={{ background: 'linear-gradient(135deg, #0f172a, #1e293b)' }}
@@ -131,12 +131,12 @@ export const ContactPage = () => {
                 <Sparkles size={24} className="text-amber-400" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex items-center gap-3 flex-wrap">
                   <h3 className="text-lg font-black text-slate-800 dark:text-slate-100">{PLATFORM.name}</h3>
                   <span className="px-2.5 py-1 bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 rounded-xl text-[10px] font-black uppercase tracking-widest">
                     Platform
                   </span>
-                  <span className="md:px-2.5 py-1 md:bg-green-50 dark:md:bg-green-950/40 text-green-600 dark:text-green-400 rounded-xl text-[10px] font-black uppercase tracking-widest hidden md:flex items-center gap-1">
+                  <span className="md:px-2.5 py-1 md:bg-green-50 dark:md:bg-green-950/40 text-green-600 dark:text-green-400 rounded-xl text-[10px] font-black uppercase tracking-widest hidden md:flex items-center gap-3">
                     <span className="w-1.5 h-1.5 bg-green-500 rounded-xl animate-pulse" />
                     Online
                   </span>
@@ -212,7 +212,7 @@ export const ContactPage = () => {
             href={`https://wa.me/${PLATFORM.whatsapp.replace(/\D/g, '')}`}
             target="_blank"
             rel="noreferrer"
-            className="md:inline-flex w-full md:w-max flex justify-center items-center gap-2.5 px-6 py-3.5 bg-white text-slate-800 rounded-xl font-black text-sm hover:bg-slate-100 active:scale-[0.97] transition-all"
+            className="md:inline-flex w-full md:w-max flex justify-center items-center gap-3.5 px-6 py-3.5 bg-white text-slate-800 rounded-xl font-black text-sm hover:bg-slate-100 active:scale-[0.97] transition-all"
           >
             <MessageCircle size={16} className="text-green-500" />
             Chat WhatsApp Admin
