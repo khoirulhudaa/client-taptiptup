@@ -369,7 +369,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
 
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-5">
         {/* ── Controls ── */}
-        <div className="xl:col-span-8 space-y-4">
+        <div className="xl:col-span-8 space-y-5">
 
           {/* Ukuran & Padding */}
           <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
