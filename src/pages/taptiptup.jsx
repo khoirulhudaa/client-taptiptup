@@ -1922,6 +1922,7 @@ function AlertPreview({ cfg, animKey }) {
 
 // ── Render persis sama dengan renderMediaAlert() di dashboard ─────────────────
 function MediaSharePreview({ cfg, animKey }) {
+  const isMobile = window.innerWidth < 800;
   const donor = DEMO_DONORS[animKey % DEMO_DONORS.length];
   const hl = cfg.hl;
   const fg = cfg.tx;
@@ -1953,9 +1954,7 @@ function MediaSharePreview({ cfg, animKey }) {
 
   const wrapperBase = {
     backgroundColor: bg, color: fg,
-    maxWidth: 'max-content',
-    minWidth: 'unset',  // ← hapus minWidth 280px
-    width: '100%',      // ← sudah ada, pastikan tetap
+    width: '100%',
     overflow: 'hidden',
   };
 
@@ -2007,13 +2006,13 @@ function MediaSharePreview({ cfg, animKey }) {
           style={{ ...wrapperBase, borderRadius: 16, border: `1.5px solid ${hl}30` }}>
           <MediaBlock />
           <div style={{ fontFamily: "'Inter', sans-serif", padding: '14px 14px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <div style={{ fontSize: 20, color: fg, lineHeight: 1.6 }}>
+            <div style={{ fontSize: isMobile ? 18 : 20, color: fg, lineHeight: 1.6 }}>
               <span style={{ color: hl, fontWeight: 500 }}>{donor.name}</span>
               <span> mengirim </span>
               <span style={{ fontWeight: 500, color: hl, letterSpacing: '-0.5px' }}>Rp {donor.amount.toLocaleString('id-ID')}</span>
             </div>
             {donor.msg && (
-              <div style={{ fontWeight: 400, fontSize: 18, color: fg, background: hl + '10', borderRadius: 8, padding: '7px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
+              <div style={{ fontWeight: 400, fontSize: isMobile ? 16 : 18, color: fg, background: hl + '10', borderRadius: 8, padding: '7px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
                 {donor.msg}
               </div>
             )}
@@ -2036,14 +2035,14 @@ function MediaSharePreview({ cfg, animKey }) {
           <div style={scanlineStyle} />
           <MediaBlock />
           <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
-            <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 6 }}>
+            <div style={{ fontFamily: monospace, fontSize: isMobile ? 18 : 20, color: fg, lineHeight: 1.6, marginBottom: 6 }}>
               <span style={{ fontWeight: 500 }}>{donor.name} - </span>
               <span style={{ fontWeight: 500, color: hl, letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}50` }}>
                 Rp {donor.amount.toLocaleString('id-ID')}
               </span>
             </div>
             {donor.msg && (
-              <div style={{ fontWeight: 500, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, borderTop: `1px solid ${hl}20`, paddingTop: 8, paddingBottom: 6 }}>
+              <div style={{ fontWeight: 500, fontFamily: monospace, fontSize: isMobile ? 16 : 18, color: fg, lineHeight: 1.5, borderTop: `1px solid ${hl}20`, paddingTop: 8, paddingBottom: 6 }}>
                 {donor.msg}
               </div>
             )}
@@ -2061,11 +2060,11 @@ function MediaSharePreview({ cfg, animKey }) {
     <AnimatePresence mode="wait">
       <motion.div key={animKey + '-media-modern-' + cfg.anim}
         initial={variants.initial} animate={variants.animate} exit={variants.exit}
-        style={{ ...wrapperBase, border: `2px solid ${hl}40`, width: 'max-content', position: 'relative', borderRadius: 18 }}>
+        style={{ ...wrapperBase, border: `2px solid ${hl}40`, position: 'relative', borderRadius: 18 }}>
         <div style={scanlineStyle} />
         <MediaBlock />
-        <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2, width: 'max-content' }}>
-          <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6, width: 'max-content' }}>
+        <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
+          <div style={{ fontFamily: monospace, fontSize: isMobile ? 18 : 20, color: fg, lineHeight: 1.5, marginBottom: 6 }}>
             <span style={{ fontWeight: 500 }}>{donor.name}</span>
             <span> mengirim </span>
             <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}55` }}>
@@ -2073,7 +2072,7 @@ function MediaSharePreview({ cfg, animKey }) {
             </span>
           </div>
           {donor.msg && (
-            <div style={{ fontWeight: 500, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5, paddingBottom: 6 }}>
+            <div style={{ fontWeight: 500, fontFamily: monospace, fontSize: isMobile ? 16 : 18, color: fg, lineHeight: 1.5, paddingBottom: 6 }}>
               {donor.msg}
             </div>
           )}
@@ -2111,6 +2110,7 @@ export function OverlayCustomizer({ C }) {
     icon: "❤️", anim: "bounce",
     mediaUrl: MEDIA_PRESETS[0].url, // ← tambahan untuk Media Share
   });
+  const isMobile = window.innerWidth < 800;
   const [animKey, setAnimKey] = useState(0);
   const [donorLabel, setDonorLabel] = useState(1);
   const [previewMode, setPreviewMode] = useState("alert"); // "alert" | "mediaShare" ← tambahan
@@ -2206,51 +2206,6 @@ export function OverlayCustomizer({ C }) {
  
       <div className="md:w-[82vw] w-[90vw]" style={{ position: "relative", zIndex: 10, margin: "0 auto" }}>
 
-        {/* Galaxy Stars Decoration (Mobile only) */}
-        <div className="select-none flex md:hidden absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 2 }}>
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style={{ position: "absolute", inset: 0 }}>
-            {Array.from({ length: 60 }).map((_, i) => (
-              <circle
-                key={i}
-                cx={`${Math.random() * 100}%`}
-                cy={`${Math.random() * 100}%`}
-                r={Math.random() * 1.4 + 0.3}
-                fill="white"
-                opacity={Math.random() * 0.6 + 0.15}
-                style={{
-                  animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`,
-                  animationDelay: `${Math.random() * 3}s`,
-                }}
-              />
-            ))}
-          </svg>
-
-          {/* Aurora blob kecil untuk mobile */}
-          <div
-            className="aurora-blob"
-            style={{
-              top: "-15%",
-              left: "-20%",
-              width: "70vw",
-              height: "70vw",
-              background: "radial-gradient(circle, rgba(99,102,241,0.25), transparent 70%)",
-              animationDuration: "16s",
-            }}
-          />
-          <div
-            className="aurora-blob"
-            style={{
-              bottom: "-10%",
-              right: "-25%",
-              width: "65vw",
-              height: "65vw",
-              background: "radial-gradient(circle, rgba(168,85,247,0.2), transparent 70%)",
-              animationDuration: "22s",
-              animationDelay: "-4s",
-            }}
-          />
-        </div>
-
         <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
           <Kicker C={C}>Kustomisasi Overlay</Kicker>
           <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px,7vw,80px)", lineHeight: 1.05, letterSpacing: "0.01em", color: "white", marginBottom: 14 }}>
@@ -2259,7 +2214,7 @@ export function OverlayCustomizer({ C }) {
         </Reveal>
 
         {/* Tab switch Alert / Media Share */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 19, marginBottom: 24 }}>
+        <div className="md:flex grid grid-cols-2 gap-3 md:gap-4" style={{ justifyContent: "center", marginBottom: 24 }}>
           {[
             { id: "alert", label: "💬 Alert Dukungan" },
             { id: "mediaShare", label: "🖼️ Media Share" },
@@ -2268,7 +2223,7 @@ export function OverlayCustomizer({ C }) {
               style={{
                 padding: "12px 20px", 
                 borderRadius: 12,
-                minWidth: 170,
+                minWidth: isMobile ? '100%' : 170,
                 border: previewMode === m.id ? "2px solid azure" : "1.5px solid rgba(255,255,255",
                 background: previewMode === m.id ? "azure" : "rgba(255,255,255,.06)",
                 color: previewMode === m.id ? "#0d2b45" : "rgba(255,255,255,.7)",
