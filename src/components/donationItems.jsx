@@ -326,7 +326,7 @@ const DonationItemsEditor = ({
           </div>
           <div>
             <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
-              Item Donasi
+              Jenis Dukungan
             </h4>
           </div>
         </div>
@@ -343,7 +343,7 @@ const DonationItemsEditor = ({
           >
             <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
               <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3">
-                Tampilan di halaman donasi
+                Tampilan di halaman dukungan
               </p>
               <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
                 {sortedPreview.map((item, i) => (
@@ -368,7 +368,7 @@ const DonationItemsEditor = ({
       {/* Mode Selector */}
       <div className="space-y-3">
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-          Mode Tampilan Donasi
+          Mode Tampilan Dukungan
         </label>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {MODE_OPTIONS.map((opt) => (
@@ -434,7 +434,7 @@ const DonationItemsEditor = ({
             disabled={localItems.length >= 20}
             className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-pink-200 dark:border-pink-900 text-pink-500 dark:text-pink-400 rounded-xl font-black text-sm hover:border-pink-400 hover:bg-pink-50 dark:hover:bg-pink-950/30 transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            <Plus size={16} /> Tambah Item Donasi
+            <Plus size={16} /> Tambah Item Dukungan
           </button>
 
           <div className="flex items-center justify-between">
@@ -452,7 +452,7 @@ const DonationItemsEditor = ({
             className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3"
           >
             <Save size={20} />
-            {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Item Donasi'}
+            {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
           </button>
         </>
       )}

@@ -429,7 +429,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
   const [lastSent, setLastSent] = useState(null);
   const [customAmount, setCustomAmount] = useState(50000);
   const [customName, setCustomName] = useState('Seseorang');
-  const [customMsg, setCustomMsg] = useState('Ini test donasi dari dashboard! 🎉');
+  const [customMsg, setCustomMsg] = useState('Ini test dukungan dari dashboard! 🎉');
   const [customVoiceUrl, setCustomVoiceUrl] = useState('');
   const [testItem, setTestItem] = useState(null);
   const [useItem, setUseItem] = useState(false);
@@ -480,7 +480,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
 
   // 4 Template Pesan Cepat
   const messageTemplates = [
-    "Terima kasih banyak atas donasinya! Semangat 🔥",
+    "Terima kasih banyak atas dukungannya! Semangat 🔥",
     "Mantap banget! Dukungan ini sangat berarti ❤️",
     "Salam dari fans setia! Keep going 👏"
   ];
@@ -546,7 +546,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
           label="Pesan"
           value={customMsg}
           onChange={v => setCustomMsg(v)}
-          placeholder="Tulis pesan donasi di sini..."
+          placeholder="Tulis pesan dukungan di sini..."
           inputClassName="h-20"
         />
       </div>
@@ -647,9 +647,9 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-dashed border-slate-200 dark:border-slate-700 rounded-xl ">
           <span className="text-xl flex-shrink-0">🎁</span>
           <div>
-            <p className="font-black text-xs text-slate-500 dark:text-slate-400">Belum ada item donasi</p>
+            <p className="font-black text-xs text-slate-500 dark:text-slate-400">Belum ada item dukungan</p>
             <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-              Tambahkan item donasi di bagian <span className="font-black text-blue-500">Item Donasi</span> di bawah terlebih dahulu
+              Tambahkan item dukungan di bagian <span className="font-black text-blue-500">Item Dukungan</span> di bawah terlebih dahulu
             </p>
           </div>
         </div>
@@ -911,9 +911,9 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
          <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-dashed border-slate-200 dark:border-slate-700 rounded-xl">
           <span className="text-xl flex-shrink-0">🎁</span>
           <div>
-            <p className="font-black text-xs text-slate-500 dark:text-slate-400">Belum ada item donasi</p>
+            <p className="font-black text-xs text-slate-500 dark:text-slate-400">Belum ada item dukungan</p>
             <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-              Tambahkan item donasi di bagian <span className="font-black text-blue-500">Item Donasi</span> di bawah terlebih dahulu
+              Tambahkan item dukungan di bagian <span className="font-black text-blue-500">Item Dukungan</span> di bawah terlebih dahulu
             </p>
           </div>
         </div>
@@ -1112,8 +1112,8 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
   const remove = (word) => save({ words: words.filter(w => w !== word) });
 
   const ACTION_OPTIONS = [
-    { id: 'block',   emoji: '🚫', title: 'Tolak Pesan',  desc: 'Donasi dengan kata terlarang langsung ditolak.', active: 'border-red-500 bg-red-50 dark:bg-red-950/30' },
-    { id: 'censor',  emoji: '✱',  title: 'Sensor Kata',  desc: 'Kata diganti dengan bintang (***). Donasi tetap masuk.', active: 'border-amber-500 bg-amber-50 dark:bg-amber-950/30' },
+    { id: 'block',   emoji: '🚫', title: 'Tolak Pesan',  desc: 'Dukungan dengan kata terlarang langsung ditolak.', active: 'border-red-500 bg-red-50 dark:bg-red-950/30' },
+    { id: 'censor',  emoji: '✱',  title: 'Sensor Kata',  desc: 'Kata diganti dengan bintang (***). Dukungan tetap masuk.', active: 'border-amber-500 bg-amber-50 dark:bg-amber-950/30' },
     { id: 'replace', emoji: '✏️', title: 'Ganti Teks',   desc: 'Kata diganti dengan teks pilihanmu.', active: 'border-blue-500 bg-blue-50 dark:bg-blue-950/30' },
   ];
 
@@ -1208,7 +1208,7 @@ const MilestonesEditor = () => {
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
       <SectionHeader icon={<TrendingUp size={20} />} title="Milestones" color="bg-green-500" />
-      <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Tampilkan progress target donasi di halaman publik kamu.</p>
+      <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Tampilkan progress target dukungan di halaman publik kamu.</p>
       {isLoading ? <div className="text-slate-400 text-sm font-bold animate-pulse">Memuat...</div> : (
         <div className="space-y-3">
           {list.length === 0 && (
@@ -1401,7 +1401,7 @@ const QrCodeCard = ({ username }) => {
   const copy = () => { navigator.clipboard.writeText(donateUrl); setCopied(true); setTimeout(() => setCopied(false), 2000); };
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-5">
-      <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Tampilkan QR ini di stream / sosmed. Scan langsung ke halaman donasi kamu.</p>
+      <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Tampilkan QR ini di stream / sosmed. Scan langsung ke halaman dukungan kamu.</p>
       <div className="flex flex-col items-start gap-3">
         <div className="p-4 bg-white rounded-xl border-4 border-slate-900 shadow-xl inline-block">
           <img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(donateUrl)}&color=0f172a&bgcolor=ffffff&format=svg&margin=0`} alt="QR Code" width={200} height={200} />
@@ -1413,7 +1413,7 @@ const QrCodeCard = ({ username }) => {
           {copied ? <><CheckCircle2 size={16} /> Tersalin!</> : <><Copy size={16} /> Salin URL</>}
         </button>
         <a href={`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(donateUrl)}&color=0f172a&format=png`}
-          download={`qr-donasi-${username}.png`} target="_blank" rel="noreferrer"
+          download={`qr-dukungan-${username}.png`} target="_blank" rel="noreferrer"
           className="cursor-pointer active:scale-[0.99] flex items-center justify-center gap-3 py-3 md:py-4 rounded-xl  font-black text-sm bg-slate-900/70 dark:bg-slate-700 text-white hover:bg-slate-800 dark:hover:bg-slate-600 transition-all">
           ↓ Download QR
         </a>
@@ -1443,7 +1443,7 @@ const LeaderboardCard = ({ stats }) => {
             </div>
             <div className="flex-1 min-w-0">
               <p className={`font-black text-sm truncate ${i < 3 ? 'dark:text-white text-black' : 'text-slate-800 dark:text-slate-100'}`}>{donor.name}</p>
-              <p className={`text-[10px] font-medium ${i < 3 ? 'dark:text-white text-black/70' : 'text-slate-400 dark:text-slate-500'}`}>{donor.count}x donasi</p>
+              <p className={`text-[10px] font-medium ${i < 3 ? 'dark:text-white text-black/70' : 'text-slate-400 dark:text-slate-500'}`}>{donor.count}x dukungan</p>
             </div>
             <p className={`font-black text-sm flex-shrink-0 ${i < 3 ? 'dark:text-white text-black' : 'text-blue-600 dark:text-blue-400'}`}>
               Rp {Number(donor.totalAmount).toLocaleString('id-ID')}
@@ -2559,7 +2559,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             </div>
             <div className="flex items-center gap-3">
               <button onClick={triggerDemo} className="cursor-pointer active:scale-[0.99] flex items-center gap-3 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-xs transition-all">
-                <span className="w-1.5 h-1.5 bg-red-400 rounded-xl  animate-pulse" /> Simulasi Donasi
+                <span className="w-1.5 h-1.5 bg-red-400 rounded-xl  animate-pulse" /> Simulasi Dukungan
               </button>
               <button onClick={() => handleFullScreen()} className="cursor-pointer active:scale-[0.99] flex items-center gap-3 px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl  font-black text-xs transition-all border border-white/10">
                 ✕ Tutup
@@ -2659,9 +2659,6 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
               </button>
             ))}
           </div>
-          {/* <input value={mediaUrl} onChange={e => setMediaUrl(e.target.value)}
-            className="w-full p-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-mono text-[10px] text-slate-600 dark:text-slate-300 outline-none focus:border-purple-400 transition-all"
-            placeholder="https://... (gambar, video, atau YouTube)" /> */}
         </div>
       )}
 
@@ -2797,9 +2794,9 @@ const HistoryPage = () => {
     <div className="space-y-5 pb-0">
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: 'Total Semua Waktu', value: statsLoading ? '...' : maskAmount(stats?.allTime?.total || 0), sub: `${stats?.allTime?.count || 0} donasi`, color: 'bg-blue-600', icon: '❤️' },
-          { label: 'Bulan Ini', value: statsLoading ? '...' : maskAmount(stats?.thisMonth?.total || 0), sub: `${stats?.thisMonth?.count || 0} donasi`, color: 'bg-violet-500', icon: '📅' },
-          { label: 'Hari Ini', value: statsLoading ? '...' : maskAmount(stats?.today?.total || 0), sub: `${stats?.today?.count || 0} donasi`, color: 'bg-purple-500', icon: '⚡' },
+          { label: 'Total Semua Waktu', value: statsLoading ? '...' : maskAmount(stats?.allTime?.total || 0), sub: `${stats?.allTime?.count || 0} dukungan`, color: 'bg-blue-600', icon: '❤️' },
+          { label: 'Bulan Ini', value: statsLoading ? '...' : maskAmount(stats?.thisMonth?.total || 0), sub: `${stats?.thisMonth?.count || 0} dukungan`, color: 'bg-violet-500', icon: '📅' },
+          { label: 'Hari Ini', value: statsLoading ? '...' : maskAmount(stats?.today?.total || 0), sub: `${stats?.today?.count || 0} dukungan`, color: 'bg-purple-500', icon: '⚡' },
           { label: 'Top Donatur', value: statsLoading ? '...' : (stats?.topDonors?.[0]?.name || '-'), sub: stats?.topDonors?.[0] ? maskAmount(stats.topDonors[0].totalAmount) : 'Belum ada', color: 'bg-amber-500', icon: '🏆' },
         ].map((card) => (
           <div key={card.label} className={`${card.color} rounded-xl  p-4 md:p-6 text-white relative overflow-hidden`}>
@@ -2816,7 +2813,7 @@ const HistoryPage = () => {
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 md:px-6 py-5 border-b border-slate-100 dark:border-slate-800 gap-3">
           <div>
-            <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Riwayat Donasi</p>
+            <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Riwayat Dukungan</p>
           </div>
           <div className='flex items-center gap-1.5'>
             <div className="flex gap-1.5">
@@ -2901,7 +2898,7 @@ const HistoryPage = () => {
                   </thead>
                   <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
                     {donations.length === 0 ? (
-                      <tr><td colSpan={7} className="text-center py-16 text-slate-400 font-bold">Belum ada donasi masuk</td></tr>
+                      <tr><td colSpan={7} className="text-center py-16 text-slate-400 font-bold">Belum ada dukungan masuk</td></tr>
                     ) : (
                       donations.map((item) => {
                         const isReplaying = replayLoading.has(item._id);
@@ -2976,7 +2973,7 @@ const HistoryPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-4 md:p-6">
                 {donations.length === 0 ? (
                   <div className="col-span-full text-center py-30 text-slate-400 font-bold">
-                    Belum ada donasi masuk
+                    Belum ada dukungan masuk
                   </div>
                 ) : (
                   donations.map((item) => {
@@ -3066,9 +3063,9 @@ const HistoryPage = () => {
                 </thead>
                 <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
                   {sentLoading ? (
-                    <tr><td colSpan={5} className="text-center py-30">Memuat donasi terkirim...</td></tr>
+                    <tr><td colSpan={5} className="text-center py-30">Memuat dukungan terkirim...</td></tr>
                   ) : (sentData?.donations || []).length === 0 ? (
-                    <tr><td colSpan={5} className="text-center py-16 text-slate-400 font-bold">Belum ada donasi terkirim</td></tr>
+                    <tr><td colSpan={5} className="text-center py-16 text-slate-400 font-bold">Belum ada dukungan terkirim</td></tr>
                   ) : (
                     (sentData?.donations || []).map((item) => (
                       <tr key={item._id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-all">
@@ -3132,7 +3129,7 @@ const HistoryPage = () => {
               </button>
               <div className="flex items-center gap-3">
                 <span className="text-xs font-bold text-slate-400 dark:text-slate-500 flex items-center gap-1"><span className='md:flex hidden'>Halaman</span> <span className="text-blue-600 dark:text-blue-400 font-black">{page}</span> dari {pagination.totalPages}</span>
-                <span className="md:flex hidden text-xs text-slate-300 dark:text-slate-600">({pagination.total} total donasi)</span>
+                <span className="md:flex hidden text-xs text-slate-300 dark:text-slate-600">({pagination.total} total dukungan)</span>
               </div>
               <button onClick={() => setPage(p => Math.min(pagination.totalPages, p + 1))} disabled={page === pagination.totalPages}
                 className="px-4 py-3 rounded-xl bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-black text-xs hover:bg-slate-100 dark:hover:bg-slate-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
@@ -3370,7 +3367,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) =>
   const [isTesting, setIsTesting] = useState(false);
 
   const handleTest = async () => {
-    const text = testText.trim() || `Developer berdonasi Rp 50.000. Semangat terus kak!`;
+    const text = testText.trim() || `Developer berdukungan Rp 50.000. Semangat terus kak!`;
     
     setIsTesting(true);
     
@@ -3417,7 +3414,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) =>
         <div>
           <p className="font-black text-slate-700 dark:text-slate-200">Aktifkan TTS</p>
           <p className="md:flex hidden text-xs text-slate-400 dark:text-slate-500">
-            Otomatis membaca: Nama + Nominal + Pesan donasi
+            Otomatis membaca: Nama + Nominal + Pesan dukungan
           </p>
         </div>
         <button onClick={() => upd('ttsEnabled', !settings.ttsEnabled)}
@@ -3456,7 +3453,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) =>
                 value={testText}
                 onChange={v => setTestText(v)}
                 onKeyDown={e => e.key === 'Enter' && !isTesting && handleTest()}
-                placeholder="Developer berdonasi Rp 50.000. Semangat terus kak!"
+                placeholder="Developer berdukungan Rp 50.000. Semangat terus kak!"
                 className="flex-1"
               />
               <button 
@@ -4117,17 +4114,17 @@ const handleChangePin = async () => {
     qrConfig: 'Kustom QR Code',
     marquee: 'Marquee Donor',
     mediaSettings: 'Media share',
-    donatePageConfig: 'Halaman Donasi',
+    donatePageConfig: 'Halaman Dukungan',
     store: 'Toko OBS',
     streamerManager: 'Kelola Streamer',
     history:       'Riwayat',
     inbox: 'Inbox',
-    terminal: 'Log Donasi',
+    terminal: 'Log Dukungan',
     announcements: 'Pengumuman',
     feeConfig:     'Konfigurasi Fee',
     wallet:        'Wallet',
     community:     'Community',
-    myDonations:   'Riwayat Berdonasi',
+    myDonations:   'Riwayat Berdukungan',
     profile:       'Profil',
     poll:          'Poll & Voting',
     subathon:      'Subathon',
@@ -4162,7 +4159,7 @@ const handleChangePin = async () => {
           <audio ref={previewAudioRef} />
           <SectionHeader icon={<Music size={20} />} title="Pengaturan Suara Alert" color="bg-gradient-to-r from-emerald-500 to-blue-500" />
           <div className="md:p-5 md:bg-slate-50 md:dark:bg-slate-800/50 rounded-xl  md:border border-slate-200 dark:border-slate-700">
-            <h4 className="font-black text-sm text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-3">📢 Suara Default (Semua Donasi)</h4>
+            <h4 className="font-black text-sm text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-3">📢 Suara Default (Semua Dukungan)</h4>
             <SoundPicker
               label="Pilih suara default"
               value={settings.soundUrl || ''}
@@ -4182,7 +4179,7 @@ const handleChangePin = async () => {
               <div className="p-3 w-11 h-11 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg"><Music size={20} /></div>
               <div>
                 <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-white">Quick Soundboard</h4>
-                {/* <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Donatur bisa pilih suara ini saat donasi ke streamer</p> */}
+                {/* <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Donatur bisa pilih suara ini saat dukungan ke streamer</p> */}
               </div>
             </div>
             <AudioManager
@@ -4275,7 +4272,7 @@ const handleChangePin = async () => {
                 }
                 <div className="flex-1 min-w-0">
                   <span className={`text-[10px] font-black uppercase tracking-widest ${t.isWithdrawal ? (t.status === 'COMPLETED' ? 'text-green-600 dark:text-green-400' : 'text-red-500') : 'text-blue-600 dark:text-blue-400'}`}>
-                    {t.isWithdrawal ? (t.status === 'COMPLETED' ? 'Penarikan Berhasil!' : 'Penarikan Gagal') : t.isTestAlert ? '🧪 Test Alert!' : 'Donasi Masuk!'}
+                    {t.isWithdrawal ? (t.status === 'COMPLETED' ? 'Penarikan Berhasil!' : 'Penarikan Gagal') : t.isTestAlert ? '🧪 Test Alert!' : 'Dukungan Masuk!'}
                   </span>
                   <p className="text-slate-700 dark:text-slate-200 text-sm font-medium mt-1">{t.message}</p>
                 </div>
@@ -4572,7 +4569,7 @@ const handleChangePin = async () => {
                         <div className='w-full md:flex space-y-2.5 md:space-y-0 items-center gap-3'>
                           {[  
                             { key: 'overlayEnabled', label: 'Overlay OBS',  desc: 'Alert tidak muncul di OBS' },
-                            { key: 'showTimestamp',  label: 'Waktu Donasi',  desc: 'Waktu kapan donasi diterima' },
+                            { key: 'showTimestamp',  label: 'Waktu Dukungan',  desc: 'Waktu kapan dukungan diterima' },
                           ].map(({ key, label, desc }) => (
                             <div key={key} className="w-full flex items-center justify-between p-4 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-100 dark:border-slate-700">
                               <div>
@@ -4590,7 +4587,7 @@ const handleChangePin = async () => {
                         {/* Icon Alert */}
                           <div className="space-y-3 mt-4.5">
                             <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Icon Alert</label>
-                            
+                       
                             {/* Mode selector */}
                             <div className="flex gap-3">
                               {[{ id: 'emoji', label: '😊 Emoji' }, { id: 'gif', label: '🎬 GIF / URL' }].map(m => (
@@ -4656,6 +4653,24 @@ const handleChangePin = async () => {
                                 </div>
                               </div>
                             )}
+
+                            {/* ✅ Catatan tema */}
+                            <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-xl">
+                              <div className='w-7 h-7 rounded-md flex items-center justify-center bg-slate-500/30'>
+                                <span className="text-sm flex-shrink-0">💡</span>
+                              </div>
+                              <p className="text-[11px] font-bold text-blue-600 dark:text-blue-400">
+                                Icon hanya tampil di overlay tema <span className="font-black text-white">taptip 1</span> dan <span className="font-black text-white">taptip 3</span>.
+                              </p>
+                              {/* ✅ Tombol scroll ke Tema Visual */}
+                              <button
+                                onClick={() => document.getElementById('tour-tema-visual')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                                className="cursor-pointer ml-auto flex-shrink-0 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-lg transition-all active:scale-[0.98] whitespace-nowrap"
+                              >
+                                Ganti Tema →
+                              </button>
+                            </div>
+
                           </div>
                       </div>
 
@@ -4669,28 +4684,31 @@ const handleChangePin = async () => {
                             transition={{ duration: 0.2 }}
                           >
 
-                          <YouTubeLivePreview2
-                            settings={settings}
-                            username={user.username}
-                            testFullScreen={() => setNavbar(!navbar)}
-                            onPreviewModeChange={setPreviewMode}
-                            autoPreviewTick={autoPreviewTick}
-                            onTogglePreview={() => setShowPreviewPanel(v => !v)}
-                          />
-
                           </motion.div>
                         </section>
                       </div>
                       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
+                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 md:mt-8">
                         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
                       </button>
                     </div>
+
+                    <div id="tour-donation-items" className='relative z-[999999]'>
+                      <DonationItemsEditor
+                        items={settings.donationItems || []}
+                        onChange={v => upd('donationItems', v)}
+                        saveSettingsMutation={saveSettingsMutation}
+                        settings={settings}
+                        activeSlot={activeSlot}
+                      />
+                    </div>
                     
-                    <div id="tour-min-max-donasi" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
-                        <SectionHeader icon={<BadgeDollarSign size={20} />} title={`Nominal Donasi`} color="bg-red-600" />
-                        <InputField label="Min Donasi" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
-                        <InputField label="Max Donasi" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
+                    <div id="tour-min-max-dukungan" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
+                        <SectionHeader icon={<BadgeDollarSign size={20} />} title={`Nominal Dukungan`} color="bg-red-600" />
+                        <div className='grid grid-cols-1 md:space-y-0 md:grid-cols-2 gap-3'>
+                          <InputField label="Min Nominal" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
+                          <InputField label="Max Nominal" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
+                        </div>
                         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                           className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
                           
@@ -4705,9 +4723,9 @@ const handleChangePin = async () => {
                         <div className="grid grid-cols-2 gap-3">
                         {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
                           const themeLabels = {
-                            modern:  'Taptip 1',
-                            minimal: 'Taptip 2',
-                            smooth:  'Taptip 3',
+                            modern:  'Taptip Play 1',
+                            minimal: 'Taptip Play 2',
+                            smooth:  'Taptip Play 3',
                             gifCard: 'Pop Card',
                           };
 
@@ -4725,7 +4743,7 @@ const handleChangePin = async () => {
                         </div>
                       </div>
 
-                      <div className="md:col-span-2 w-full flex flex-col gap-3">
+                      <div className="md:col-span-2 w-full flex flex-col !mt-4 gap-3">
                         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label>
                         <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
                           className="w-full px-2 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
@@ -4733,17 +4751,26 @@ const handleChangePin = async () => {
                           <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
                         </select>
                       </div>
+                      
+                      <YouTubeLivePreview2
+                          settings={settings}
+                          username={user.username}
+                          testFullScreen={() => setNavbar(!navbar)}
+                          onPreviewModeChange={setPreviewMode}
+                          autoPreviewTick={autoPreviewTick}
+                          onTogglePreview={() => setShowPreviewPanel(v => !v)}
+                      />
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:mt-4 mt-6">
                         {[
-                          { key: 'primaryColor',   label: 'Background Alert',  fallback: '#2e2f42' },
-                          { key: 'highlightColor', label: 'Highlight Nominal', fallback: '#ffffff' },
-                          { key: 'textColor',      label: 'Warna Teks',        fallback: '#ffffff' },
+                          { key: 'primaryColor',   label: 'Background',  fallback: '#2e2f42' },
+                          { key: 'highlightColor', label: 'Nominal', fallback: '#ffffff' },
+                          { key: 'textColor',      label: 'Teks',        fallback: '#ffffff' },
                         ].map(({ key, label, fallback }) => (
                           <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
                         ))}
-                        <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
-                        <ColorInput id="color-progressBarColor" label="Warna Progress Bar" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
+                        <ColorInput id="color-borderColor" label="WarnBorder" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
+                        <ColorInput id="color-progressBarColor" label="Progress" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
                       </div>
                       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
@@ -4782,16 +4809,6 @@ const handleChangePin = async () => {
 
                     {/* Quick Nominal */}
                     <QuickAmountsEditor amounts={settings.quickAmounts || DEFAULT_SETTINGS.quickAmounts} onChange={v => upd('quickAmounts', v)} saveSettingsMutation={saveSettingsMutation} settings={settings} activeSlot={activeSlot} />
-                    
-                    <div id="tour-donation-items" className='relative z-[999999]'>
-                      <DonationItemsEditor
-                        items={settings.donationItems || []}
-                        onChange={v => upd('donationItems', v)}
-                        saveSettingsMutation={saveSettingsMutation}
-                        settings={settings}
-                        activeSlot={activeSlot}
-                      />
-                    </div>
 
                     {/* OBS URLs */}
                     <div id="tour-overlay-url" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 md:pb-2.5 shadow-xs border border-slate-100 dark:border-slate-800">
@@ -4802,7 +4819,7 @@ const handleChangePin = async () => {
                         <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">💝</div>
                         <div className='flex-1 min-w-0'>
                           <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-full uppercase tracking-widest">MY DONATE URL</label>
-                          <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman donasi" className="w-[86%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden truncate" />
+                          <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman dukungan" className="w-[86%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden truncate" />
                         </div>
                         <div className="flex gap-3">
                           <button onClick={() => copyToClipboard(`https://taptiptup.vercel.app/donate/${user.username}`)} className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-xl transition-all flex-shrink-0">
@@ -4938,7 +4955,7 @@ const handleChangePin = async () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                           {[
                             { icon: '⚙️', label: 'Saldo tidak dapat dikembalikan' },
-                            { icon: '⚙️', label: 'Riwayat donasi terhapus permanen' },
+                            { icon: '⚙️', label: 'Riwayat dukungan terhapus permanen' },
                             { icon: '⚙️', label: 'Semua URL overlay tidak aktif' },
                             { icon: '⚙️', label: 'Data komunitas & follower hilang' },
                           ].map(({ icon, label }) => (
@@ -5349,7 +5366,7 @@ const handleChangePin = async () => {
                       </div>
 
                       <div className="md:col-span-2 mb-1 border-t border-slate-100/10 pt-5 mt-2">
-                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Link Halaman Donasi</label>
+                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Link Halaman Dukungan</label>
                         <div className="flex gap-3">
                           <input readOnly value={`${window.location.origin}/donate/${user.username}`}
                             className="flex-1 bg-blue-50 dark:bg-blue-950/40 border-2 border-blue-100 dark:border-blue-900 rounded-xl p-5 font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none" />

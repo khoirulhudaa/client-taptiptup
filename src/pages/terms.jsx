@@ -297,14 +297,14 @@ export default function TermsConditions() {
         {/* 2 */}
         <SectionTitle>2. Deskripsi Layanan</SectionTitle>
         <PolicyText>
-          TapTipTup adalah platform donasi dan tipping real-time yang dirancang
+          TapTipTup adalah platform dukungan dan tipping real-time yang dirancang
           untuk streamer dan kreator konten. Layanan kami meliputi:
         </PolicyText>
         <div style={{ marginBottom: 20 }}>
-          <ListItem>Sistem donasi real-time dengan alert OBS overlay.</ListItem>
-          <ListItem>Leaderboard dan milestone donasi yang dapat dikustomisasi.</ListItem>
+          <ListItem>Sistem dukungan real-time dengan alert OBS overlay.</ListItem>
+          <ListItem>Leaderboard dan milestone dukungan yang dapat dikustomisasi.</ListItem>
           <ListItem>Integrasi dengan platform streaming seperti Twitch dan YouTube.</ListItem>
-          <ListItem>Dashboard analitik untuk memantau performa donasi.</ListItem>
+          <ListItem>Dashboard analitik untuk memantau performa dukungan.</ListItem>
           <ListItem>Pencairan dana ke rekening bank atau e-wallet pilihan Anda.</ListItem>
         </div>
 
@@ -326,13 +326,13 @@ export default function TermsConditions() {
         {/* 4 */}
         <SectionTitle>4. Transaksi dan Pembayaran</SectionTitle>
         <PolicyText>
-          Semua transaksi donasi yang dilakukan melalui platform TapTipTup tunduk
+          Semua transaksi dukungan yang dilakukan melalui platform TapTipTup tunduk
           pada ketentuan berikut:
         </PolicyText>
         <div style={{ marginBottom: 20 }}>
           <ListItem>
             <strong style={{ color: C.text }}>Biaya Layanan:</strong> TapTipTup
-            mengenakan biaya platform sebesar 5% dari setiap donasi yang diterima.
+            mengenakan biaya platform sebesar 5% dari setiap dukungan yang diterima.
           </ListItem>
           <ListItem>
             <strong style={{ color: C.text }}>Pencairan Dana:</strong> Permintaan
@@ -343,8 +343,8 @@ export default function TermsConditions() {
             minimum untuk pencairan adalah Rp 50.000.
           </ListItem>
           <ListItem>
-            <strong style={{ color: C.text }}>Donasi Tidak Dapat Dikembalikan:</strong>{" "}
-            Semua donasi yang telah diproses bersifat final dan tidak dapat
+            <strong style={{ color: C.text }}>Dukungan Tidak Dapat Dikembalikan:</strong>{" "}
+            Semua dukungan yang telah diproses bersifat final dan tidak dapat
             dikembalikan (non-refundable).
           </ListItem>
         </div>
@@ -356,10 +356,10 @@ export default function TermsConditions() {
           berikut:
         </PolicyText>
         <div style={{ marginBottom: 20 }}>
-          <ListItem>Penipuan atau penyalahgunaan sistem donasi.</ListItem>
+          <ListItem>Penipuan atau penyalahgunaan sistem dukungan.</ListItem>
           <ListItem>Penyebaran konten yang melanggar hukum, pornografi, atau SARA.</ListItem>
           <ListItem>Pencucian uang atau aktivitas keuangan ilegal lainnya.</ListItem>
-          <ListItem>Manipulasi sistem leaderboard atau data donasi.</ListItem>
+          <ListItem>Manipulasi sistem leaderboard atau data dukungan.</ListItem>
           <ListItem>Penggunaan bot atau skrip otomatis tanpa izin tertulis dari kami.</ListItem>
         </div>
 

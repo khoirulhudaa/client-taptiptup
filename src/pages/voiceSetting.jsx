@@ -226,7 +226,7 @@
                     </div>
                 </div>
 
-                {/* Form data donasi */}
+                {/* Form data dukungan */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* ... input nama, nominal, pesan tetap sama ... */}
                     <div className="flex flex-col gap-1.5">
@@ -405,12 +405,12 @@
             {
             icon: '🎤',
             title: 'Donatur Rekam Langsung',
-            desc: 'Donatur bisa rekam pesan suara langsung dari halaman donasi, tanpa perlu app tambahan',
+            desc: 'Donatur bisa rekam pesan suara langsung dari halaman dukungan, tanpa perlu app tambahan',
             },
             {
             icon: '📡',
             title: 'Stream ke OBS Real-time',
-            desc: 'Suara diputar otomatis di overlay OBS kamu segera setelah donasi dikonfirmasi',
+            desc: 'Suara diputar otomatis di overlay OBS kamu segera setelah dukungan dikonfirmasi',
             },
             {
             icon: '⏱️',

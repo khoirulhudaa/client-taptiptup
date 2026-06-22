@@ -67,7 +67,7 @@ const DonationFailed = () => {
                 className="text-red-100 text-sm mt-1"
               >
                 Jangan khawatir, tidak ada dana yang terpotong
-                {username && <> · donasi untuk <span className="font-bold">@{username}</span></>}
+                {username && <> · dukungan untuk <span className="font-bold">@{username}</span></>}
               </motion.p>
             </div>
 

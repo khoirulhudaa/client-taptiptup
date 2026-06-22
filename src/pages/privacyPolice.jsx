@@ -92,7 +92,7 @@
 //         <div className="text-slate-400" style={{ fontSize: 14, marginBottom: 20, lineHeight: 2 }}>
 //           <p>Nama lengkap dan nama pengguna (username).</p>
 //           <p>Alamat email untuk verifikasi dan notifikasi.</p>
-//           <p>Data akun bank atau e-wallet (untuk pencairan donasi).</p>
+//           <p>Data akun bank atau e-wallet (untuk pencairan dukungan).</p>
 //           <p>Informasi profil media sosial yang Anda hubungkan (seperti Twitch atau YouTube).</p>
 //         </div>
 
@@ -101,9 +101,9 @@
 //           Data yang kami kumpulkan digunakan untuk tujuan berikut:
 //         </PolicyText>
 //         <div className="text-slate-400" style={{ fontSize: 14, marginBottom: 20, lineHeight: 2 }}>
-//           <p>Memproses transaksi donasi secara real-time.</p>
-//           <p>Menampilkan alert donasi pada overlay OBS Anda.</p>
-//           <p>Mengelola sistem leaderboard dan milestone donasi.</p>
+//           <p>Memproses transaksi dukungan secara real-time.</p>
+//           <p>Menampilkan alert dukungan pada overlay OBS Anda.</p>
+//           <p>Mengelola sistem leaderboard dan milestone dukungan.</p>
 //           <p>Meningkatkan keamanan akun dan mencegah tindakan penipuan (fraud).</p>
 //         </div>
 
@@ -435,7 +435,7 @@ export default function PrivacyPolicy() {
         >
           <p>Nama lengkap dan nama pengguna (username).</p>
           <p>Alamat email untuk verifikasi dan notifikasi.</p>
-          <p>Data akun bank atau e-wallet (untuk pencairan donasi).</p>
+          <p>Data akun bank atau e-wallet (untuk pencairan dukungan).</p>
           <p>
             Informasi profil media sosial yang Anda hubungkan (seperti Twitch atau
             YouTube).
@@ -450,9 +450,9 @@ export default function PrivacyPolicy() {
           className="text-slate-400"
           style={{ fontSize: 14, marginBottom: 20, lineHeight: 2, position: "relative", zIndex: 1 }}
         >
-          <p>Memproses transaksi donasi secara real-time.</p>
-          <p>Menampilkan alert donasi pada overlay OBS Anda.</p>
-          <p>Mengelola sistem leaderboard dan milestone donasi.</p>
+          <p>Memproses transaksi dukungan secara real-time.</p>
+          <p>Menampilkan alert dukungan pada overlay OBS Anda.</p>
+          <p>Mengelola sistem leaderboard dan milestone dukungan.</p>
           <p>
             Meningkatkan keamanan akun dan mencegah tindakan penipuan (fraud).
           </p>

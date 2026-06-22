@@ -194,7 +194,7 @@ const SoundSettings = ({ settings, upd, saveSettingsMutation, formData, setFormD
       <div className="space-y-6">
         <div className="p-5 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
           <h4 className="font-black text-sm text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">
-            📢 Suara Default (Semua Donasi)
+            📢 Suara Default (Semua Dukungan)
           </h4>
           <SoundPicker
             label="Pilih suara default"

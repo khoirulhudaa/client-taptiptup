@@ -887,7 +887,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
   );
 
     return (
-    <div className="relative space-y-2.5">
+    <div className="relative space-y-2.5 block md:hidden">
       <FullscreenPreview />
 
       {/* Tab switcher */}

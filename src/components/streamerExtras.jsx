@@ -321,7 +321,7 @@ export const PollManager = ({ overlayToken, username }) => {
             Link Vote untuk Donor
           </p>
           <p className="text-[10px] text-blue-400 dark:text-blue-500 font-medium mb-2">
-            Bagikan link ini ke penonton agar bisa vote sambil donasi
+            Bagikan link ini ke penonton agar bisa vote sambil dukungan
           </p>
           <div className="flex gap-3">
             <input
@@ -686,8 +686,8 @@ export const SubathonManager = ({ overlayToken }) => {
         <div className="border-t border-slate-100 dark:border-slate-800 pt-5 space-y-3">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Auto Tambah Waktu dari Donasi</p>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Waktu otomatis bertambah saat ada donasi</p>
+              <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Auto Tambah Waktu dari Dukungan</p>
+              <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Waktu otomatis bertambah saat ada dukungan</p>
             </div>
             <button
               onClick={() => upd('autoAddEnabled', !localTimer.autoAddEnabled)}
@@ -700,9 +700,9 @@ export const SubathonManager = ({ overlayToken }) => {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Kelipatan Durasi Donasi</p>
+                  <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Kelipatan Durasi Dukungan</p>
                   <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-                    Setiap tier donasi tambah durasi otomatis
+                    Setiap tier dukungan tambah durasi otomatis
                   </p>
                 </div>
                 {/* Tombol Edit Tabel */}
@@ -1008,8 +1008,8 @@ export const LeaderboardSettings = ({ overlayToken }) => {
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Periode Leaderboard</label>
           <div className="grid md:grid-cols-2 gap-3 pt-1">
             {[
-              { id: 'alltime', label: '⏳ Semua Waktu', desc: 'Total donasi sejak awal' },
-              { id: 'today',   label: '📅 Hari Ini',    desc: 'Donasi hari ini saja' },
+              { id: 'alltime', label: '⏳ Semua Waktu', desc: 'Total dukungan sejak awal' },
+              { id: 'today',   label: '📅 Hari Ini',    desc: 'Dukungan hari ini saja' },
             ].map(p => (
               <button key={p.id} onClick={() => upd('leaderboardPeriod', p.id)}
                 className={`cursor-pointer active:scale-[0.99] p-4 rounded-xl border-2 text-left font-black text-xs transition-all ${
@@ -1041,7 +1041,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
 
         <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700">
           <div>
-            <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Tampilkan Nominal Donasi</p>
+            <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Tampilkan Nominal Dukungan</p>
             <p className="text-[11px] md:flex hidden text-slate-400 dark:text-slate-500 font-medium mt-0.5">Sembunyikan jika tidak ingin nominal terlihat publik</p>
           </div>
           <button
@@ -1276,7 +1276,7 @@ export const MilestonesManager = ({ overlayToken }) => {
           <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 py-10 text-center">
             <p className="text-3xl mb-2">🎯</p>
             <p className="font-black text-slate-500 dark:text-slate-400 text-sm">Belum ada milestone</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-1">Tambah target donasi untuk ditampilkan ke donor</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-1">Tambah target dukungan untuk ditampilkan ke donor</p>
           </div>
         )}
 
@@ -1330,7 +1330,7 @@ export const MilestonesManager = ({ overlayToken }) => {
               {/* Tambah di dalam grid form milestone, setelah input targetAmount */}
               <div className="space-y-1.5 md:col-span-2">
                 <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                  Periode Penghitungan Donasi
+                  Periode Penghitungan Dukungan
                 </label>
                 {/* Periode */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

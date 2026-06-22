@@ -155,7 +155,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
   return (
     <div className="space-y-5 pb-6">
 
-      {/* ── Mode: Top Donor vs Donasi Terbaru ─────────────────── */}
+      {/* ── Mode: Top Donor vs Dukungan Terbaru ─────────────────── */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
          <div className="flex items-center gap-4 pb-[2px]">
           <div className="bg-cyan-600 p-3 rounded-xl text-white shadow-lg">
@@ -169,8 +169,8 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
         </div>
         <div className="grid md:grid-cols-2 gap-3">
           {[
-            { val: 'top',    label: '🏆 Top Donor',       desc: 'Berdasarkan total donasi terbesar' },
-            { val: 'recent', label: '⚡ Donasi Terbaru',   desc: 'Donasi yang baru masuk' },
+            { val: 'top',    label: '🏆 Top Donor',       desc: 'Berdasarkan total dukungan terbesar' },
+            { val: 'recent', label: '⚡ Dukungan Terbaru',   desc: 'Dukungan yang baru masuk' },
           ].map(m => (
             <button
               key={m.val}
@@ -198,7 +198,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
           </div>
           <div>
             <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
-              {cfg.mode === 'top' ? 'Jumlah Top Donor' : 'Jumlah Donasi Terbaru'}
+              {cfg.mode === 'top' ? 'Jumlah Top Donor' : 'Jumlah Dukungan Terbaru'}
             </h3>
           </div>
         </div>

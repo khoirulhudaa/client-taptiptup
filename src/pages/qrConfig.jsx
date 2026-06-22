@@ -270,7 +270,7 @@ const QrPreview = ({ donateUrl, cfg }) => {
               margin: '2px 0 0',
             }}
           >
-            Scan untuk donasi
+            Scan untuk dukungan
           </p>
         )}
       </div>
@@ -439,7 +439,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">Opsi Tampilan</p>
             <div className='w-full grid md:grid-cols-2 grid-cols-1 gap-3'>
                 <Toggle label="Bayangan (Box Shadow)" desc="Efek shadow di sekitar card" value={cfg.boxShadow} onChange={v => upd('boxShadow', v)} />
-                <Toggle label="Tampilkan Teks Donasi" desc="Teks 'Scan untuk donasi' di bawah QR" value={cfg.showUsername} onChange={v => upd('showUsername', v)} />
+                <Toggle label="Tampilkan Teks Dukungan" desc="Teks 'Scan untuk dukungan' di bawah QR" value={cfg.showUsername} onChange={v => upd('showUsername', v)} />
                 <Toggle label="Tampilkan Logo" desc="Logo kecil di tengah QR Code" value={cfg.showLogo} onChange={v => upd('showLogo', v)} />
                 {cfg.showLogo && (
                 <div className="md:col-span-1">

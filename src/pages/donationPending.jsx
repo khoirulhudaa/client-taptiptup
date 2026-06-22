@@ -78,7 +78,7 @@ const DonationPending = () => {
 
   const handleReopenPayment = () => {
     if (!pendingToken) {
-      showModal('error', 'Token tidak ditemukan', 'Token pembayaran tidak ditemukan. Silakan buat donasi baru.');
+      showModal('error', 'Token tidak ditemukan', 'Token pembayaran tidak ditemukan. Silakan buat dukungan baru.');
       return;
     }
 
@@ -94,7 +94,7 @@ const DonationPending = () => {
         },
         onError: () => {
           clearPendingStorage();
-          showModal('error', 'Pembayaran gagal', 'Silakan buat donasi baru');
+          showModal('error', 'Pembayaran gagal', 'Silakan buat dukungan baru');
           setReopening(false);
         },
         onClose: () => {
@@ -278,7 +278,7 @@ const DonationPending = () => {
                   whileTap={{ scale: 0.98 }}
                   onClick={async () => {
                     const orderId = localStorage.getItem('midtrans_pending_order_id');
-                    if (!orderId) return showModal('error', 'Order ID tidak ditemukan', 'Coba refresh halaman atau buat donasi baru');
+                    if (!orderId) return showModal('error', 'Order ID tidak ditemukan', 'Coba refresh halaman atau buat dukungan baru');
                     setChecking(true);
                     try {
                       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/midtrans/status/${orderId}`);
@@ -310,7 +310,7 @@ const DonationPending = () => {
                   className="cursor-pointer flex items-center justify-center gap-2 py-3 px-4 rounded-xl border-2 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"
                 >
                   <RefreshCcw size={16} />
-                  Donasi Baru
+                  Dukungan Baru
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1 }}

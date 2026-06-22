@@ -43,7 +43,7 @@ const DEVELOPER = {
 
 const PLATFORM = {
   name: 'TapTipTup',
-  tagline: 'Platform donasi & monetisasi untuk kreator Indonesia',
+  tagline: 'Platform dukungan & monetisasi untuk kreator Indonesia',
   email: 'taptiptup.support@gmail.com',
   emailBiz: 'taptiptup.support@gmail.com',
   whatsapp: '+62 895-1309-3406',
@@ -186,7 +186,7 @@ export const ContactPage = () => {
               { q: 'Berapa lama proses penarikan dana?',   a: 'Proses penarikan manual dilakukan admin dalam 1×24 jam di hari kerja.' },
               { q: 'Apakah ada biaya untuk membuat akun?', a: 'Tidak. TapTipTup gratis untuk semua streamer. Kami hanya mengambil fee kecil per transaksi.' },
               { q: 'Bagaimana cara pasang widget di OBS?', a: 'Salin Widget URL dari menu Editor Overlay lalu tambahkan sebagai Browser Source di OBS.' },
-              { q: 'Kenapa donasi saya belum masuk?',      a: 'Pastikan status pembayaran sudah Settlement di Midtrans. Jika sudah 1 jam belum masuk, hubungi support.' },
+              { q: 'Kenapa dukungan saya belum masuk?',      a: 'Pastikan status pembayaran sudah Settlement di Midtrans. Jika sudah 1 jam belum masuk, hubungi support.' },
               { q: 'Apakah bisa ganti metode pembayaran?', a: 'Semua metode pembayaran Midtrans tersedia: QRIS, transfer bank, e-wallet, kartu kredit.' },
             ].map((item, i) => (
               <div key={i} className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 space-y-1.5">

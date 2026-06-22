@@ -57,7 +57,7 @@ function StaggerItem({ children, className, style }) {
 
 const FEATURES = [
   { num: "01", ico: "🎨", name: "Overlay OBS Kustom", desc: "Alert Dukungan tampil langsung di stream. Tema modern, classic, atau minimal dengan animasi dan warna sesukamu" },
-  { num: "02", ico: "🔊", name: "Suara per Nominal", desc: "Suara notif donasi masuk! Atur efek suara berbeda untuk setiap tier Dukungan. 16+ preset siap pakai" },
+  { num: "02", ico: "🔊", name: "Suara per Nominal", desc: "Suara notif dukungan masuk! Atur efek suara berbeda untuk setiap tier Dukungan. 16+ preset siap pakai" },
   { num: "03", ico: "🛡️", name: "Filter Kata Terlarang", desc: "Blokir, sensor, atau ganti kata tidak pantas otomatis. Jagain konten tetap aman dan profesional" },
   { num: "04", ico: "🎯", name: "Milestones & Goals", desc: "Tampilkan progress target Dukungan di OBS. Donor bisa lihat seberapa dekat goal tercapai" },
   { num: "05", ico: "🖼️", name: "Media Alert", desc: "Izinkan donor kirim gambar atau video saat Dukungan mencapai nominal tertentu. Sultan alert yang epic" },
