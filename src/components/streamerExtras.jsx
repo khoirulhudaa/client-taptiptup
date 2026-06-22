@@ -10,6 +10,7 @@ import {
   Play,
   Trash2,
   Trophy,
+  X,
   Vote,
   Milestone,
 } from 'lucide-react';
@@ -168,22 +169,22 @@ export const PollManager = ({ overlayToken, username }) => {
       {activePoll ? (
         <div className="mt-5 bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 md:py-4 border-b border-slate-100 dark:border-slate-800 bg-green-50 dark:bg-green-950/30">
-            <div className="flex w-full justify-between gap-2">
+            <div className="flex w-full justify-between gap-3">
               <button
                 onClick={() => closeMutation.mutate(activePoll._id)}
                 disabled={closeMutation.isPending}
-                className="cursor-pointer active:scale-[0.99] px-4 py-2 hover:bg-slate-600/20 border border-slate-200/20 text-white rounded-xl font-black text-xs transition-all disabled:opacity-60">
+                className="cursor-pointer active:scale-[0.99] px-4 py-3 hover:bg-slate-600/20 border border-slate-200/20 text-white rounded-xl font-black text-xs transition-all disabled:opacity-60">
                 Tutup Poll
               </button>
               <button
                 onClick={() => { if (window.confirm('Hapus poll ini?')) deleteMutation.mutate(activePoll._id); }}
-                className="relative top-[-1px] cursor-pointer active:scale-[0.99] text-red-500 hover:bg-red-200 dark:hover:bg-red-950/60 rounded-xl transition-all">
+                className="relative top-[-1px] cursor-pointer active:scale-[0.99] text-red-400 hover:bg-red-200 dark:hover:bg-red-950/60 rounded-xl transition-all">
                 <Trash2 size={24} />
               </button>
             </div>
           </div>
 
-          <div className="p-5 space-y-4">
+          <div className="p-5 space-y-3">
             <h3 className="font-black text-slate-800 dark:text-slate-100 text-md md:text-lg">{getPollData(activePoll).question}</h3>
             <div className="space-y-3">
               {(getPollData(activePoll).options || []).map((opt, i) => {
@@ -221,7 +222,7 @@ export const PollManager = ({ overlayToken, username }) => {
       {/* Buat Poll Baru */}
       <button
         onClick={() => setShowCreate(!showCreate)}
-        className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 rounded-xl font-black text-sm hover:border-blue-400 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-2">
+        className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 rounded-xl font-black text-sm hover:border-blue-400 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
         <Plus size={16} /> {showCreate ? 'Batal' : 'Buat Poll Baru'}
       </button>
 
@@ -252,7 +253,7 @@ export const PollManager = ({ overlayToken, username }) => {
             <div className="space-y-3">
               <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilihan Jawaban</label>
               {newOptions.map((opt, i) => (
-                <div key={i} className="flex gap-2">
+                <div key={i} className="flex gap-3">
                   <InputField
                     label={`Opsi ${i + 1}`}
                     value={opt}
@@ -267,7 +268,7 @@ export const PollManager = ({ overlayToken, username }) => {
                 </div>
               ))}
               <button onClick={addOption}
-                className="cursor-pointer active:scale-[0.99] text-sm font-black text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1.5">
+                className="cursor-pointer active:scale-[0.99] text-sm font-black text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-3.5">
                 <Plus size={14} /> Tambah Opsi
               </button>
             </div>
@@ -288,7 +289,7 @@ export const PollManager = ({ overlayToken, username }) => {
             <button
               onClick={handleCreate}
               disabled={createMutation.isPending}
-              className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70">
+              className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-70">
               <Vote size={16} /> {createMutation.isPending ? 'Membuat...' : 'Mulai Poll Sekarang'}
             </button>
           </motion.div>
@@ -299,7 +300,7 @@ export const PollManager = ({ overlayToken, username }) => {
       {overlayToken && (
         <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
           <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Widget URL untuk OBS (420×300px)</p>
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <input readOnly value={`${window.location.origin}/widget/${overlayToken}/poll`}
               className="flex-1 bg-transparent font-mono text-xs text-blue-600 dark:text-blue-400 font-bold outline-none truncate" />
             <button onClick={() => {
@@ -307,7 +308,7 @@ export const PollManager = ({ overlayToken, username }) => {
                 setPollCopied(true);
                 setTimeout(() => setPollCopied(false), 2000);
               }}
-              className={`cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${pollCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
+              className={`cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 ${pollCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
               {pollCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
             </button>
           </div>
@@ -322,7 +323,7 @@ export const PollManager = ({ overlayToken, username }) => {
           <p className="text-[10px] text-blue-400 dark:text-blue-500 font-medium mb-2">
             Bagikan link ini ke penonton agar bisa vote sambil donasi
           </p>
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <input
               readOnly
               value={`${window.location.origin}/poll/${/* username dari props atau context */ 'USERNAME'}`}
@@ -330,13 +331,10 @@ export const PollManager = ({ overlayToken, username }) => {
             />
             <button
               onClick={() => {
-                // Ganti USERNAME dengan username streamer yang login
-                // Bisa diambil dari props, context, atau localStorage
                 const pollUrl = `${window.location.origin}/poll/USERNAME`;
                 navigator.clipboard.writeText(pollUrl);
-                // Tambahkan state copied jika mau (opsional)
               }}
-              className="cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-2 rounded-xl text-xs font-black bg-blue-600 hover:bg-blue-700 text-white transition-all"
+              className="cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black bg-blue-600 hover:bg-blue-700 text-white transition-all"
             >
               Salin
             </button>
@@ -354,7 +352,7 @@ export const PollManager = ({ overlayToken, username }) => {
             const total = getTotalVotes(poll);
             const winner = [...(data.options || [])].sort((a, b) => b.votes - a.votes)[0];
             return (
-              <div key={poll._id || poll.question || i} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 flex items-center gap-4">
+              <div key={poll._id || poll.question || i} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 flex items-center gap-3">
                 <div className="flex-1 min-w-0">
                   <p className="font-black text-slate-700 dark:text-slate-200 text-sm truncate">{data.question}</p>
                   {winner && (
@@ -363,10 +361,10 @@ export const PollManager = ({ overlayToken, username }) => {
                     </p>
                   )}
                 </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
+                <div className="flex items-center gap-3 flex-shrink-0">
                   <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl text-[10px] font-black">Closed</span>
                   <button onClick={() => { if (window.confirm('Hapus poll ini?')) deleteMutation.mutate(poll._id); }}
-                    className="cursor-pointer p-2 text-red-400 hover:text-red-600 transition-colors">
+                    className="cursor-pointer p-3 text-red-400 hover:text-red-600 transition-colors">
                     <Trash2 size={13} />
                   </button>
                 </div>
@@ -593,7 +591,7 @@ export const SubathonManager = ({ overlayToken }) => {
             : startMutation.mutate()
           }
           disabled={startMutation.isPending || pauseMutation.isPending}
-          className={`cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-xl font-black text-sm transition-all disabled:opacity-60 ${
+          className={`cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-3 py-3 md:py-4 rounded-xl font-black text-sm transition-all disabled:opacity-60 ${
             isRunning ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-green-500 hover:bg-green-600 text-white'
           }`}>
           {isRunning ? <Pause size={20} /> : <Play size={20} />}
@@ -602,14 +600,14 @@ export const SubathonManager = ({ overlayToken }) => {
         <button
           onClick={() => { if (window.confirm('Reset timer ke waktu awal?')) resetMutation.mutate(); }}
           disabled={resetMutation.isPending}
-          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-xl font-black text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all disabled:opacity-60">
+          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-3 py-3 md:py-4 rounded-xl font-black text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all disabled:opacity-60">
           <RotateCcw size={20} />
           Reset
         </button>
         <button
           onClick={() => addTimeMutation.mutate(manualAdd)}
           disabled={addTimeMutation.isPending}
-          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-2 py-3 md:py-4 rounded-xl font-black text-sm bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-60">
+          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-3 py-3 md:py-4 rounded-xl font-black text-sm bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-60">
           <Plus size={20} />
           Waktu
         </button>
@@ -661,7 +659,7 @@ export const SubathonManager = ({ overlayToken }) => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-3">
           <div className="space-y-1.5">
             <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Waktu Awal (detik)</label>
             <InputField
@@ -685,7 +683,7 @@ export const SubathonManager = ({ overlayToken }) => {
           </div>
         </div>
 
-        <div className="border-t border-slate-100 dark:border-slate-800 pt-5 space-y-4">
+        <div className="border-t border-slate-100 dark:border-slate-800 pt-5 space-y-3">
           <div className="flex items-center justify-between">
             <div>
               <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Auto Tambah Waktu dari Donasi</p>
@@ -699,7 +697,7 @@ export const SubathonManager = ({ overlayToken }) => {
           </div>
 
           {localTimer.autoAddEnabled && (
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Kelipatan Durasi Donasi</p>
@@ -710,24 +708,23 @@ export const SubathonManager = ({ overlayToken }) => {
                 {/* Tombol Edit Tabel */}
                 <button
                   onClick={() => setShowTiersTable(!showTiersTable)}
-                  className="cursor-pointer active:scale-[0.99] px-3 py-1.5 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-xl text-xs font-black hover:bg-blue-200 dark:hover:bg-blue-800 transition-all">
+                  className="cursor-pointer active:scale-[0.99] px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-2xl text-xs font-black hover:bg-blue-200 dark:hover:bg-blue-800 transition-all">
                   {showTiersTable ? 'Tutup' : 'Edit'}
                 </button>
               </div>
 
               {/* **PREVIEW Tiers** */}
-              <div className="grid grid-cols-2 md:flex flex-wrap gap-2">
+              <div className="grid grid-cols-2 md:flex flex-wrap gap-3">
                 {(localTimer.durationTiers || []).length === 0 && (
                   <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Belum ada tier</p>
                 )}
                 {(localTimer.durationTiers || []).map((tier, i) => {
                   const totalSec = (tier.hours * 3600) + (tier.minutes * 60) + tier.seconds;
                   return (
-                    <div key={i} className="w-full justify-between md:w-max flex items-center gap-1.5 px-3 py-3 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <div key={i} className="w-full justify-between md:w-max flex items-center gap-3.5 px-3 py-3 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
                       <span className="font-black text-blue-600 dark:text-blue-400 text-xs">
-                        Rp {tier.amount.toLocaleString('id-ID')}
+                        Rp {tier.amount >= 1000 ? `${tier.amount / 1000}K` : tier.amount.toLocaleString('id-ID')}
                       </span>
-                      <span className="text-slate-300 dark:text-slate-600 text-xs">→</span>
                       <span className="font-black text-green-600 dark:text-green-400 text-xs font-mono">
                         {formatSeconds(totalSec)}
                       </span>
@@ -743,9 +740,9 @@ export const SubathonManager = ({ overlayToken }) => {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-700"
+                    className="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-700"
                   >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                       <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-1">
                         Tambah Tier Baru
                       </p>
@@ -794,13 +791,13 @@ export const SubathonManager = ({ overlayToken }) => {
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Widget URL OBS</p>
 
             {/* Color pickers */}
-            <div className="md:flex gap-1.5 w-full">
+            <div className="grid grid-cols-2 md:flex gap-3.5 w-full">
               {[
-                { label: 'Warna Timer', value: subTimerColor, onChange: setSubTimerColor, default: 'ffffff' },
-                { label: 'Warna Overlay', value: subBgColor, onChange: setSubBgColor, default: '0f0f19' },
-                { label: 'Warna Label', value: subLabelColor, onChange: setSubLabelColor, default: 'ffffff' },
+                { label: 'Timer', value: subTimerColor, onChange: setSubTimerColor, default: 'ffffff' },
+                { label: 'Overlay', value: subBgColor, onChange: setSubBgColor, default: '0f0f19' },
+                { label: 'Label', value: subLabelColor, onChange: setSubLabelColor, default: 'ffffff' },
               ].map(({ label, value, onChange, default: def }) => (
-                <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-2 px-3 py-2.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
+                <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-3.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
                   <input
                     type="color"
                     value={`#${value}`}
@@ -817,49 +814,49 @@ export const SubathonManager = ({ overlayToken }) => {
             {/* ─── PREVIEW SUBATHON ─── */}
             <div className="space-y-2 md:mt-0 mt-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                           {[
-              {
-                key: 'subath1',
-                label: 'Subath 1',
-                Component: Subath1,
-                scale: 'scale-[1.16] md:scale-[1]',  // ← custom scale
-                props: {
-                  timer: { ...localTimer, title: localTimer.title || 'Subathon Timer' },
-                  displaySeconds,
-                  timerColor: subTimerColor,
-                  bgColor: subBgColor,
-                  labelColor: subLabelColor
-                }
-              },
-              {
-                key: 'subath2',
-                label: 'Subath 2',
-                Component: Subath2,
-                scale: 'scale-[0.93] md:scale-[1]',    // ← scale lama
-                props: {
-                  displaySeconds,
-                  isRunning: localTimer.isRunning,
-                  timerColor: subTimerColor,
-                  bgColor: subBgColor,
-                  labelColor: subLabelColor
-                }
-              },
-            ].map(({ key, label, Component, props, scale }) => (
-              <div key={key} className="space-y-1">
-                <p className="text-[10px] mb-2.5 font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
-                <div className="bg-slate-500/20 min-h-[250px] py-10 rounded-xl overflow-hidden relative flex justify-center items-center">
-                  <div className={`flex justify-center items-center ${scale}`}>
-                    <Component {...props} />
+              {[
+                  {
+                    key: 'subath1',
+                    label: 'Subath 1',
+                    Component: Subath1,
+                    scale: 'scale-[1.16] md:scale-[1]',  // ← custom scale
+                    props: {
+                      timer: { ...localTimer, title: localTimer.title || 'Subathon Timer' },
+                      displaySeconds,
+                      timerColor: subTimerColor,
+                      bgColor: subBgColor,
+                      labelColor: subLabelColor
+                    }
+                  },
+                  {
+                    key: 'subath2',
+                    label: 'Subath 2',
+                    Component: Subath2,
+                    scale: 'scale-[0.93] md:scale-[1]',    // ← scale lama
+                    props: {
+                      displaySeconds,
+                      isRunning: localTimer.isRunning,
+                      timerColor: subTimerColor,
+                      bgColor: subBgColor,
+                      labelColor: subLabelColor
+                    }
+                  },
+                ].map(({ key, label, Component, props, scale }) => (
+                  <div key={key} className="space-y-1">
+                    <p className="text-[10px] mb-2.5 font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
+                    <div className="bg-slate-500/20 md:min-h-[250px] py-10 rounded-xl overflow-hidden relative flex justify-center items-center">
+                      <div className={`flex justify-center items-center ${scale}`}>
+                        <Component {...props} />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                ))}
               </div>
             </div>
             {/* ─── END PREVIEW ─── */}
 
             {['subath1', 'subath2'].map(t => (
-              <div key={t} className="w-full justify-between flex gap-2 items-center bg-slate-500/20 px-3 p-2 rounded-xl">
+              <div key={t} className="w-full justify-between flex gap-3 items-center bg-slate-500/20 px-3 p-3 rounded-xl">
                 <div className='flex items-center w-full'>
                   <span className="text-[12px] font-black text-slate-400 w-14 flex-shrink-0">{t === 'subath1' ? 'Subath 1' : 'Subath 2'}</span>
                   <input readOnly
@@ -872,7 +869,7 @@ export const SubathonManager = ({ overlayToken }) => {
                     setSubCopied(prev => ({ ...prev, [t]: true }));
                     setTimeout(() => setSubCopied(prev => ({ ...prev, [t]: false })), 500);
                   }}
-                  className={`cursor-pointer active:scale-[0.98] px-3 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 flex-shrink-0 ${
+                  className={`cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 flex-shrink-0 ${
                     subCopied[t] ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
                   }`}>
                   {subCopied[t] ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
@@ -883,7 +880,7 @@ export const SubathonManager = ({ overlayToken }) => {
         )}
 
         <button onClick={save} disabled={configMutation.isPending}
-          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-3.5 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 ${
+          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-3.5 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 ${
             saved ? 'bg-green-500 text-white' : 'bg-slate-900 dark:bg-slate-100 hover:bg-blue-600 dark:hover:bg-blue-500 text-white dark:text-slate-900 dark:hover:text-white'
           } disabled:opacity-70`}>
           {saved ? <><CheckCircle2 size={16} /> Tersimpan!</> : configMutation.isPending ? 'Menyimpan...' : <><Save size={16} /> Simpan Konfigurasi</>}
@@ -929,7 +926,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
   if (isLoading || !local) return (
     <div className="space-y-5 animate-pulse">
       <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <div className="w-11 h-11 bg-slate-200 dark:bg-slate-700 rounded-xl" />
           <div className="h-5 w-32 bg-slate-200 dark:bg-slate-700 rounded" />
         </div>
@@ -941,7 +938,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
         </div>
         <div className="space-y-2">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-xl px-4 py-2.5">
+            <div key={i} className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-xl px-4 py-3.5">
               <div className="w-8 h-8 bg-slate-200 dark:bg-slate-700 rounded-xl flex-shrink-0" />
               <div className="flex-1 h-4 bg-slate-200 dark:bg-slate-700 rounded" />
               <div className="h-4 w-20 bg-slate-200 dark:bg-slate-700 rounded" />
@@ -966,9 +963,9 @@ export const LeaderboardSettings = ({ overlayToken }) => {
     <div className="space-y-5">
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
-        <div className="relative flex items-start justify-between gap-4">
+        <div className="relative flex items-start justify-between gap-3">
           <div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <div className="bg-rose-500 p-3 rounded-xl text-white shadow-lg">
                   <Milestone size={20} />
               </div>
@@ -992,7 +989,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
             { rank: 2, name: 'Budi Gacor',     amount: 250000, count: 7  },
             { rank: 3, name: 'Anonymous',       amount: 100000, count: 3  },
           ].slice(0, Math.min(local.leaderboardLimit, 3)).map((d, i) => (
-            <div key={i} className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-xl px-2 md:px-4 py-2.5">
+            <div key={i} className="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-xl px-2 md:px-4 py-3.5">
               <span className="text-lg w-8 text-center">{['🥇','🥈','🥉'][i]}</span>
               <span className="flex-1 text-sm font-bold text-slate-900 dark:text-slate-100 truncate">{d.name}</span>
               {local.leaderboardShowAmount && (
@@ -1061,7 +1058,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
         {overlayToken && (
           <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Widget URL untuk OBS (420×300px)</p>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               <input
                 readOnly
                 value={`${window.location.origin}/widget/${overlayToken}/leaderboard`}
@@ -1073,7 +1070,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
                   setLbCopied(true);
                   setTimeout(() => setLbCopied(false), 500);
                 }}
-                className={`cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
+                className={`cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 ${
                   lbCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
                 }`}>
                 {lbCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
@@ -1085,7 +1082,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
         <button
           onClick={() => saveMutation.mutate(local)}
           disabled={saveMutation.isPending}
-          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 ${
+          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 ${
             saved ? 'bg-green-500 text-white' : 'bg-slate-900 dark:bg-slate-100 hover:bg-blue-600 dark:hover:bg-blue-500 text-white dark:text-slate-900 dark:hover:text-white'
           } disabled:opacity-70`}>
           {saved ? <><CheckCircle2 size={16} /> Tersimpan!</> : saveMutation.isPending ? 'Menyimpan...' : <><Save size={16} /> Simpan Pengaturan Leaderboard</>}
@@ -1149,21 +1146,21 @@ const TierForm = ({
   return (
     <div className="space-y-3">
       {isEditing && (
-        <div className="flex items-center justify-between p-2 bg-slate-50 dark:bg-slate-800/50 rounded-xl border">
-          <span className="text-[10px] font-black text-slate-500 dark:text-slate-400">
-            Tier {index + 1} • {formatSeconds(totalSec)}
+        <div className="mb-8 flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-500/30">
+          <span className="text-[12px] font-medium text-slate-500 dark:text-slate-400">
+            Tier {index + 1} - {formatSeconds(totalSec)}
           </span>
           <button
             onClick={() => onRemove(index)}
-            className="p-1 text-red-500 hover:text-red-700 transition-colors"
+            className="p-0 text-red-400 hover:text-red-500 transition-colors"
             title="Hapus tier"
           >
-            <Trash2 size={12} />
+            <X size={18} className='cursor-pointer active:scale-[0.98]' />
           </button>
         </div>
       )}
 
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
         <InputField label="Rp"  type="number" value={amount}  onChange={val => handleChange('amount', val)}  placeholder="5000" min="1" />
         <InputField label="Jam" type="number" value={hours}   onChange={val => handleChange('hours', val)}   placeholder="0"    min="0" />
         <InputField label="Mnt" type="number" value={minutes} onChange={val => handleChange('minutes', val)} placeholder="1"    min="0" />
@@ -1171,14 +1168,14 @@ const TierForm = ({
       </div>
 
       {isEditing ? (
-        <div className="text-xs text-center text-green-600 dark:text-green-400 font-bold bg-green-50 dark:bg-green-950/30 p-2 rounded-xl">
+        <div className="md:w-full w-max md:px-0 px-3 text-xs text-center text-green-600 dark:text-green-200 font-bold bg-green-50 dark:bg-green-700 p-3 rounded-lg">
           {formatSeconds(totalSec)}
         </div>
       ) : (
         <button
           onClick={handleAdd}
           disabled={!amount || Number(amount) <= 0}
-          className="w-full py-2 bg-green-500 hover:bg-green-600 disabled:bg-green-300 text-white rounded-xl font-bold text-xs disabled:cursor-not-allowed transition-all"
+          className="w-full py-3 bg-green-500 hover:bg-green-700 disabled:bg-green-900 text-white disabled:text-green-500/50 rounded-xl font-bold text-xs disabled:cursor-not-allowed transition-all"
         >
           Tambah Tier
         </button>
@@ -1250,13 +1247,13 @@ export const MilestonesManager = ({ overlayToken }) => {
   if (isLoading) return (
     <div className="space-y-5 animate-pulse">
       <div className="bg-white/30 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <div className="w-11 h-11 bg-slate-200 dark:bg-slate-700 rounded-xl" />
           <div className="h-5 w-28 bg-slate-200 dark:bg-slate-700 rounded" />
         </div>
       </div>
       {[...Array(2)].map((_, i) => (
-        <div key={i} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 space-y-4">
+        <div key={i} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 space-y-3">
           <div className="flex justify-between">
             <div className="h-3 w-24 bg-slate-200 dark:bg-slate-700 rounded" />
             <div className="w-6 h-6 bg-slate-200 dark:bg-slate-700 rounded-xl" />
@@ -1285,9 +1282,9 @@ export const MilestonesManager = ({ overlayToken }) => {
 
         <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-100 dark:border-slate-800 rounded-xl p-4 md:p-5 text-white relative overflow-hidden !mb-5">
           <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)' }} />
-          <div className="relative flex items-start justify-between gap-4">
+          <div className="relative flex items-start justify-between gap-3">
             <div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <div className="bg-purple-500 p-3 rounded-xl text-white shadow-lg">
                     <Milestone size={20} />
                 </div>
@@ -1302,12 +1299,12 @@ export const MilestonesManager = ({ overlayToken }) => {
         </div>
 
         {list.map((m, i) => (
-          <div key={`milestone-${m._id || ''}-${i}`} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 space-y-4">
+          <div key={`milestone-${m._id || ''}-${i}`} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Milestone {i + 1}</span>
               <button
                 onClick={() => remove(i)}
-                className="cursor-pointer relative top-[-2px] p-2 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-all">
+                className="cursor-pointer relative top-[-2px] p-3 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-all">
                 <Trash2 size={14} />
               </button>
             </div>
@@ -1374,7 +1371,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                 {/* Date picker — muncul kalau pilih since */}
                 {(m.period || 'alltime') === 'since' && (
                   <div className="mt-2 flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 border-2 border-green-200 dark:border-green-800 rounded-xl">
-                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest whitespace-nowrap">
+                    <label className="md:flex hidden text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest whitespace-nowrap">
                       Mulai Tanggal
                     </label>
                     <input
@@ -1383,24 +1380,20 @@ export const MilestonesManager = ({ overlayToken }) => {
                       max={new Date().toISOString().slice(0, 10)}
                       onClick={e => e.target.showPicker?.()}
                       onChange={e => upd(i, 'periodSince', e.target.value || null)}
-                      className="flex-1 p-2 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100"
+                      className="flex-1 p-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100"
                     />
                     {m.periodSince && (
                       <>
-                        <span className="text-[10px] font-bold text-green-600 dark:text-green-400 whitespace-nowrap">
-                          Donasi ≥ {new Date(m.periodSince).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
-                        </span>
-                        {/* ← tombol reset */}
                         <button
                           type="button"
                           onClick={() => {
                             upd(i, 'periodSince', null);
                             upd(i, 'period', 'alltime'); // balik ke alltime
                           }}
-                          className="cursor-pointer flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-red-100 dark:bg-red-600 text-white hover:bg-red-200 dark:hover:bg-red-900 transition-all text-xs font-medium"
+                          className="cursor-pointer flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full text-white hover:text-red-200 dark:hover:text-red-400 transition-all text-xs font-medium"
                         >
                           <p className='relative left-[-1px]'>
-                            ×
+                            <Trash2 size={19} />
                           </p>
                         </button>
                       </>
@@ -1445,7 +1438,7 @@ export const MilestonesManager = ({ overlayToken }) => {
       <div className='md:w-full w-[100vw] p-5 mx-auto space-y-3 bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800'>
         <button
           onClick={add}
-          className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 rounded-xl font-black text-sm hover:border-green-400 dark:hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-2">
+          className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 rounded-xl font-black text-sm hover:border-green-400 dark:hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-3">
           <Plus size={16} /> Tambah Milestone
         </button>
 
@@ -1453,7 +1446,7 @@ export const MilestonesManager = ({ overlayToken }) => {
           <button
             onClick={() => mutation.mutate(list)}
             disabled={mutation.isPending}
-            className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70">
+            className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-70">
             <Save size={16} /> {mutation.isPending ? 'Menyimpan...' : 'Simpan Milestone'}
           </button>
         )}
@@ -1463,9 +1456,9 @@ export const MilestonesManager = ({ overlayToken }) => {
             {/* <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Widget URL OBS</p> */}
               
               {/* ─── PRESET WARNA ─── */}
-              <div className="space-y-1 mt-4">
+              <div className="space-y-1 md:mt-0 mt-4">
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Preset Warna</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-4 md:flex md:flex-wrap gap-3">
                   {COLOR_PRESETS.map((preset) => (
                     <button
                       key={preset.label}
@@ -1475,15 +1468,15 @@ export const MilestonesManager = ({ overlayToken }) => {
                         setMlBgcolor(preset.bgcolor);
                         setMlTextcolor(preset.textcolor);
                       }}
-                      className="cursor-pointer active:scale-[0.97] flex items-center gap-2 px-3 py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 transition-all"
+                      className="md:w-max w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 pr-3.5 md:pr-3 py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 transition-all"
                     >
                       {/* Swatch mini 3 warna */}
-                      <div className="flex rounded-md overflow-hidden w-9 h-4 flex-shrink-0 border border-black/10">
+                      <div className="flex rounded-md overflow-hidden w-full md:w-9 h-4 flex-shrink-0 border border-black/10">
                         <div style={{ background: `#${preset.bgcolor}`, flex: 1 }} />
                         <div style={{ background: `#${preset.color}`,  flex: 1 }} />
                         <div style={{ background: `#${preset.textcolor}`, flex: 1 }} />
                       </div>
-                      <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap">
+                      <span className="md:flex hidden text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap">
                         {preset.label}
                       </span>
                     </button>
@@ -1492,20 +1485,20 @@ export const MilestonesManager = ({ overlayToken }) => {
               </div>
               
               {/* Color pickers */}
-              <div className="space-y-2 md:flex gap-1.5 w-full">
+              <div className="space-y-2 mt-3 grid grid-cols-2 md:flex gap-3.5 w-full">
                 {[
-                  { label: 'Warna Progres', value: mlColor, onChange: setMlColor, default: '6366f1' },
-                  { label: 'Warna Overlay',  value: mlBgcolor, onChange: setMlBgcolor, default: '0f0f19' },
-                  { label: 'Warna Teks', value: mlTextcolor, onChange: setMlTextcolor, default: 'ffffff' },
+                  { label: 'Progres', value: mlColor, onChange: setMlColor, default: '6366f1' },
+                  { label: 'Overlay',  value: mlBgcolor, onChange: setMlBgcolor, default: '0f0f19' },
+                  { label: 'Teks', value: mlTextcolor, onChange: setMlTextcolor, default: 'ffffff' },
                 ].map(({ label, value, onChange, default: def }) => (
-                  <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-2.5 bg-slate-500/20 rounded-xl border border-slate-200 dark:border-slate-700">
+                  <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-3.5 bg-slate-500/20 rounded-xl border border-slate-200 dark:border-slate-700">
                     <input
                       type="color"
                       value={`#${value}`}
                       onChange={e => onChange(e.target.value.replace('#', ''))}
                       className="w-10 h-7 rounded cursor-pointer border-0 bg-transparent flex-shrink-0"
                     />
-                    <span className="font-mono text-xs text-slate-500 dark:text-slate-400 flex-1">#{value}</span>
+                    <span className="md:flex hidden font-mono text-xs text-slate-500 dark:text-slate-400 flex-1">#{value}</span>
                     <label className="text-[10px] ml-4 min-w-max font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest w-16 flex-shrink-0">{label}</label>
                   </div>
                 ))}
@@ -1549,7 +1542,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                       <div key={key} className="space-y-1">
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">{label}</p>
                         <div
-                          className="bg-slate-500/20 h-max md:min-h-[300px] py-10 rounded-xl overflow-hidden relative flex justify-center items-center"
+                          className="bg-slate-500/20 h-max md:min-h-[300px] md:py-10 rounded-xl overflow-hidden relative flex justify-center items-center"
                         >
                           <div 
                             className='flex justify-center items-center scale-[0.55] md:scale-[0.8] 2xl: 2xl:scale-[]scale-[1]'>
@@ -1564,7 +1557,7 @@ export const MilestonesManager = ({ overlayToken }) => {
 
             <div className="space-y-3 mt-8">
               {['miles1', 'miles2'].map(t => (
-                <div key={t} className="flex gap-2 items-center bg-slate-500/20 px-4 p-2 rounded-xl">
+                <div key={t} className="flex gap-3 items-center bg-slate-500/20 px-4 p-3 rounded-xl">
                   <span className="text-[12px] font-black text-slate-400 w-14 flex-shrink-0">{t === 'miles1' ? 'Miles 1' : 'Miles 2'}</span>
                   <input
                     readOnly
@@ -1577,7 +1570,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                       setMlCopied(prev => ({ ...prev, [t]: true }));
                       setTimeout(() => setMlCopied(prev => ({ ...prev, [t]: false })), 500);
                     }}
-                    className={`cursor-pointer active:scale-[0.98] px-3 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 flex-shrink-0 ${
+                    className={`cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 flex-shrink-0 ${
                       mlCopied[t] ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
                     }`}>
                     {mlCopied[t] ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
