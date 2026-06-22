@@ -370,7 +370,7 @@ const DonationItemsEditor = ({
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
           Mode Tampilan Dukungan
         </label>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {MODE_OPTIONS.map((opt) => (
             <button
               key={opt.value}
@@ -381,7 +381,7 @@ const DonationItemsEditor = ({
                   : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300'
               }`}
             >
-              <div className="flex items-center gap-2 relative top-[1px]">
+              <div className="flex items-center justify-center md:justify-start gap-2 relative top-[1px]">
                 <div>
                   <span className={`font-black text-xs ${
                     currentMode === opt.value
@@ -390,7 +390,7 @@ const DonationItemsEditor = ({
                   }`}>
                     {opt.label}
                   </span>
-                  <p className={`text-[10px] font-medium leading-relaxed ${
+                  <p className={`text-[10px] md:flex hidden font-medium leading-relaxed ${
                     currentMode === opt.value
                       ? 'text-blue-500 dark:text-blue-400'
                       : 'text-slate-400 dark:text-slate-500'
