@@ -1210,7 +1210,16 @@ export const MilestonesManager = ({ overlayToken }) => {
   const [previewTotals, setPreviewTotals] = useState({});
 
   useEffect(() => {
-    if (raw && !local) setLocal(Array.isArray(raw) ? raw : []);
+    if (raw && !local) {
+      const today = new Date().toISOString().slice(0, 10);
+      const normalized = (Array.isArray(raw) ? raw : []).map(m => {
+        if (!m.period || m.period === '') {
+          return { ...m, period: 'since', periodSince: m.periodSince || today };
+        }
+        return m;
+      });
+      setLocal(normalized);
+    }
   }, [raw]);
 
   const mutation = useMutation({
@@ -1319,86 +1328,43 @@ export const MilestonesManager = ({ overlayToken }) => {
                   onChange={val => upd(i, 'targetAmount', Number(val))}
                 />
               </div>
-              {/* Tambah di dalam grid form milestone, setelah input targetAmount */}
               <div className="space-y-1.5 md:col-span-2">
-                <p className="md:mb-0 !mb-2 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                  Periode Penghitungan Dukungan
+                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                  Sejak Tanggal
                 </p>
-                {/* Periode */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                  {[
-                    { id: 'alltime',   label: '⏳ Semua Waktu' },
-                    { id: 'today',     label: '📅 Hari Ini' },
-                    { id: 'thismonth', label: '📆 Bulan Ini' },
-                    { id: 'since',     label: '📌 Sejak Tanggal' },
-                  ].map(p => {
-                    const hasSinceDate = p.id !== 'since' && m.period === 'since' && !!m.periodSince;
-                    const isActive = (m.period || 'alltime') === p.id && !hasSinceDate;
-
-                    return (
-                      <button
-                        key={p.id}
-                        type="button"
-                        disabled={hasSinceDate} // ← disabled kalau sudah ada tanggal
-                        onClick={() => {
-                          if (p.id !== 'since') {
-                            upd(i, 'periodSince', null); // reset tanggal
-                          }
-                          upd(i, 'period', p.id);
-                        }}
-                        className={`cursor-pointer active:scale-[0.99] p-3 rounded-xl border-2 text-left font-black text-xs transition-all
-                          ${isActive
-                            ? 'border-green-500 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300'
-                            : hasSinceDate
-                              ? 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-300 dark:text-slate-600 opacity-40 cursor-not-allowed' // greyed out
-                              : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
-                          }`}
-                      >
-                        <p className="relative top-[1.6px]">{p.label}</p>
-                      </button>
-                    );
-                  })}
-
-                  <button
-                    onClick={() => remove(i)}
-                    className="w-full bg-red-500 flex items-center font-bold gap-2 justify-center text-white cursor-pointer relative top-[-2px] p-3 text-red-400 hover:bg-red-50 dark:hover:bg-red-600 rounded-xl transition-all">
-                    <Trash2 size={14} className='relative top-[-1px]' />
-                    <p className='text-xs'>Hapus</p>
-                  </button>
-                </div>
-
-                {/* Date picker — muncul kalau pilih since */}
-                {(m.period || 'alltime') === 'since' && (
-                  <div className="mt-2 flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 border-2 border-green-200 dark:border-green-800 rounded-xl">
-                    <label className="md:flex hidden text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest whitespace-nowrap">
-                      Mulai Tanggal
-                    </label>
+                <div className="flex gap-3 items-center">
+                  <div className="flex-1 flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 h-[44px] rounded-xl">
                     <input
                       type="date"
                       value={m.periodSince ? m.periodSince.slice(0, 10) : ''}
                       max={new Date().toISOString().slice(0, 10)}
                       onClick={e => e.target.showPicker?.()}
-                      onChange={e => upd(i, 'periodSince', e.target.value || null)}
-                      className="flex-1 p-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg font-bold text-sm outline-none focus:border-green-400 dark:focus:border-green-500 transition-all text-slate-800 dark:text-slate-100"
+                      onChange={e => {
+                        upd(i, 'periodSince', e.target.value || null);
+                        upd(i, 'period', 'since');
+                      }}
+                      className="flex-1 bg-transparent font-bold text-sm outline-none text-slate-800 dark:text-slate-100"
                     />
                     {m.periodSince && (
-                      <>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            upd(i, 'periodSince', null);
-                            upd(i, 'period', 'alltime'); // balik ke alltime
-                          }}
-                          className="cursor-pointer flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full text-white hover:text-red-200 dark:hover:text-red-400 transition-all text-xs font-medium"
-                        >
-                          <p className='relative left-[-1px]'>
-                            <Trash2 size={19} />
-                          </p>
-                        </button>
-                      </>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          upd(i, 'periodSince', null);
+                          upd(i, 'period', 'alltime');
+                        }}
+                        className="cursor-pointer flex-shrink-0 text-slate-400 hover:text-red-400 transition-all"
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     )}
                   </div>
-                )}
+                  <button
+                    onClick={() => remove(i)}
+                    className="h-[44px] w-max flex-shrink-0 bg-red-500 flex items-center font-bold gap-2 justify-center text-white cursor-pointer p-3 hover:bg-red-600 rounded-xl transition-all">
+                    <Trash2 size={14} />
+                    <p className="text-xs">Hapus</p>
+                  </button>
+                </div>
               </div>
             </div>
 
