@@ -1299,7 +1299,7 @@ export const MilestonesManager = ({ overlayToken }) => {
         </div>
 
         {list.map((m, i) => (
-          <div key={`milestone-${m._id || ''}-${i}`} className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-slate-800 space-y-3">
+          <div key={`milestone-${m._id || ''}-${i}`} className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-5 border border-slate-100 dark:border-slate-800 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Milestone {i + 1}</span>
               <button
@@ -1435,7 +1435,7 @@ export const MilestonesManager = ({ overlayToken }) => {
         ))}
       </div>
       
-      <div className='md:w-full w-[100vw] p-5 mx-auto space-y-3 bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800'>
+      <div className='md:w-full w-[100vw] p-4 md:p-5 mx-auto space-y-3 bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800'>
         <button
           onClick={add}
           className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 rounded-xl font-black text-sm hover:border-green-400 dark:hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-3">
@@ -1485,13 +1485,13 @@ export const MilestonesManager = ({ overlayToken }) => {
               </div>
               
               {/* Color pickers */}
-              <div className="space-y-2 mt-3 grid grid-cols-2 md:flex gap-3.5 w-full">
+              <div className="mt-4 md:mt-0 grid grid-cols-2 md:flex gap-3 w-full">
                 {[
                   { label: 'Progres', value: mlColor, onChange: setMlColor, default: '6366f1' },
                   { label: 'Overlay',  value: mlBgcolor, onChange: setMlBgcolor, default: '0f0f19' },
                   { label: 'Teks', value: mlTextcolor, onChange: setMlTextcolor, default: 'ffffff' },
                 ].map(({ label, value, onChange, default: def }) => (
-                  <div key={label} className="w-full justify-between md:w-max flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-3 bg-slate-500/20 rounded-xl border border-slate-200 dark:border-slate-700">
+                  <div key={label} className="w-full justify-between md:w-max flex items-center gap-3 px-3 py-3 bg-slate-500/20 rounded-xl border border-slate-200 dark:border-slate-700">
                     <input
                       type="color"
                       value={`#${value}`}
