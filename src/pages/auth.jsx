@@ -406,8 +406,8 @@
             </h2>
             <p className='md:mt-[8px] mt-[24px]' style={{ color: T.subtext, fontSize:14, lineHeight:1.55 }}>
               {isLogin 
-                ? 'Masuk untuk mengelola overlay mu.' 
-                : 'Daftar mulai kustom alert mu.'
+                ? 'Waktunya mengelola overlay mu' 
+                : 'Daftar mulai kustom alert mu'
               }
             </p>
           </div>
