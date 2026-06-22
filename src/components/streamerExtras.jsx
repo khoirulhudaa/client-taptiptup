@@ -1491,7 +1491,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                   { label: 'Overlay',  value: mlBgcolor, onChange: setMlBgcolor, default: '0f0f19' },
                   { label: 'Teks', value: mlTextcolor, onChange: setMlTextcolor, default: 'ffffff' },
                 ].map(({ label, value, onChange, default: def }) => (
-                  <div key={label} className="w-full justify-between md:w-max flex items-center gap-3 px-3 py-3 bg-slate-500/20 rounded-xl border border-slate-200 dark:border-slate-700">
+                  <div key={label} className="w-full justify-between md:w-max flex items-center gap-3 px-3 py-3.5 bg-slate-500/20 rounded-xl border border-slate-200 dark:border-slate-700">
                     <input
                       type="color"
                       value={`#${value}`}
