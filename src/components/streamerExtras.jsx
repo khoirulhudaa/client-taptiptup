@@ -161,10 +161,10 @@ export const PollManager = ({ overlayToken, username }) => {
   const getTotalVotes = (poll) => (getPollData(poll).options || []).reduce((s, o) => s + (o.votes || 0), 0);
   const getPercent = (votes, total) => total === 0 ? 0 : Math.round((votes / total) * 100);
 
-  if (!pollsLoading) return <PollManagerSkeleton />;
+  if (pollsLoading) return <PollManagerSkeleton />;
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 px-4 md:px-0">
       {/* Active Poll */}
       {activePoll ? (
         <div className="mt-5 bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
@@ -591,7 +591,7 @@ export const SubathonManager = ({ overlayToken }) => {
             : startMutation.mutate()
           }
           disabled={startMutation.isPending || pauseMutation.isPending}
-          className={`cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-3 py-3 md:py-4 rounded-xl font-black text-sm transition-all disabled:opacity-60 ${
+          className={`cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-1.5 md:gap-3 py-3 md:py-4 rounded-xl font-black text-sm transition-all disabled:opacity-60 ${
             isRunning ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-green-500 hover:bg-green-600 text-white'
           }`}>
           {isRunning ? <Pause size={20} /> : <Play size={20} />}
@@ -600,14 +600,14 @@ export const SubathonManager = ({ overlayToken }) => {
         <button
           onClick={() => { if (window.confirm('Reset timer ke waktu awal?')) resetMutation.mutate(); }}
           disabled={resetMutation.isPending}
-          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-3 py-3 md:py-4 rounded-xl font-black text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all disabled:opacity-60">
+          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-1.5 md:gap-3 py-3 md:py-4 rounded-xl font-black text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all disabled:opacity-60">
           <RotateCcw size={20} />
           Reset
         </button>
         <button
           onClick={() => addTimeMutation.mutate(manualAdd)}
           disabled={addTimeMutation.isPending}
-          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-3 py-3 md:py-4 rounded-xl font-black text-sm bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-60">
+          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-1.5 md:gap-3 py-3 md:py-4 rounded-xl font-black text-sm bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-60">
           <Plus size={20} />
           Waktu
         </button>
@@ -661,9 +661,9 @@ export const SubathonManager = ({ overlayToken }) => {
 
         <div className="grid md:grid-cols-2 gap-3">
           <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Waktu Awal (detik)</label>
+            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Durasi (dtk)</label>
             <InputField
-              label="Waktu Awal (dtk)"
+              label="Durasi (dtk)"
               type="number"
               value={localTimer.initialSeconds}
               onChange={val => upd('initialSeconds', Number(val))}
@@ -698,7 +698,7 @@ export const SubathonManager = ({ overlayToken }) => {
 
           {localTimer.autoAddEnabled && (
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
+              <div className="mb-3 md:mb-0 flex items-center justify-between">
                 <div>
                   <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Kelipatan Durasi Dukungan</p>
                   <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
@@ -791,7 +791,7 @@ export const SubathonManager = ({ overlayToken }) => {
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Widget URL OBS</p>
 
             {/* Color pickers */}
-            <div className="grid grid-cols-2 md:flex gap-3.5 w-full">
+            <div className="grid grid-cols-1 md:flex gap-3.5 w-full">
               {[
                 { label: 'Timer', value: subTimerColor, onChange: setSubTimerColor, default: 'ffffff' },
                 { label: 'Overlay', value: subBgColor, onChange: setSubBgColor, default: '0f0f19' },
@@ -1299,15 +1299,7 @@ export const MilestonesManager = ({ overlayToken }) => {
         </div>
 
         {list.map((m, i) => (
-          <div key={`milestone-${m._id || ''}-${i}`} className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-5 border border-slate-100 dark:border-slate-800 space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Milestone {i + 1}</span>
-              <button
-                onClick={() => remove(i)}
-                className="cursor-pointer relative top-[-2px] p-3 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-all">
-                <Trash2 size={14} />
-              </button>
-            </div>
+          <div key={`milestone-${m._id || ''}-${i}`} className="bg-white dark:bg-slate-900 rounded-xl p-4 py-2 md:p-5 md:py-5 border border-slate-100 dark:border-slate-800 space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Judul</label>
@@ -1329,11 +1321,11 @@ export const MilestonesManager = ({ overlayToken }) => {
               </div>
               {/* Tambah di dalam grid form milestone, setelah input targetAmount */}
               <div className="space-y-1.5 md:col-span-2">
-                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                <p className="md:mb-0 !mb-2 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                   Periode Penghitungan Dukungan
-                </label>
+                </p>
                 {/* Periode */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
                   {[
                     { id: 'alltime',   label: '⏳ Semua Waktu' },
                     { id: 'today',     label: '📅 Hari Ini' },
@@ -1354,7 +1346,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                           }
                           upd(i, 'period', p.id);
                         }}
-                        className={`cursor-pointer active:scale-[0.99] p-3 py-4 rounded-xl border-2 text-left font-black text-xs transition-all
+                        className={`cursor-pointer active:scale-[0.99] p-3 rounded-xl border-2 text-left font-black text-xs transition-all
                           ${isActive
                             ? 'border-green-500 bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300'
                             : hasSinceDate
@@ -1366,6 +1358,13 @@ export const MilestonesManager = ({ overlayToken }) => {
                       </button>
                     );
                   })}
+
+                  <button
+                    onClick={() => remove(i)}
+                    className="w-full bg-red-500 flex items-center font-bold gap-2 justify-center text-white cursor-pointer relative top-[-2px] p-3 text-red-400 hover:bg-red-50 dark:hover:bg-red-600 rounded-xl transition-all">
+                    <Trash2 size={14} className='relative top-[-1px]' />
+                    <p className='text-xs'>Hapus</p>
+                  </button>
                 </div>
 
                 {/* Date picker — muncul kalau pilih since */}
