@@ -28,7 +28,7 @@
     heading:          dark ? '#ffffff'                       : '#1e1b4b',
     subtext:          dark ? 'white'                       : '#64748b',
     label:            dark ? '#818cf8'                       : '#2754FF',
-    inputText:        dark ? 'white'                       : '#1e1b4b',
+    inputText:        dark ? 'black'                       : '#black',
     iconDefault:      dark ? '#94a3b8'                       : '#94a3b8',
     switchText:       dark ? 'white'                       : '#64748b',
     switchLink:       dark ? '#818cf8'                       : '#2754FF',
@@ -135,7 +135,7 @@
         className="w-full flex p-1 items-center rounded-xl overflow-hidden transition-all shadow-sm"
         style={{
           border: `1px solid ${focused ? T.inputBorderFocus : 'black'}`,
-          background: focused ? T.inputBgFocus : 'white',
+          background: 'white',
           transition: 'all 0.2s',
         }}
       >
@@ -1278,7 +1278,7 @@
 
   // ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
   const Auth = () => {
-    const [isDark, setIsDark] = useState(false);
+    const [isDark, setIsDark] = useState(true);
     const T = getTheme(isDark);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
