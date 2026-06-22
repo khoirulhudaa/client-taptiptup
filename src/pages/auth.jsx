@@ -317,7 +317,7 @@
   // ─── MAIN AUTH FORM ───────────────────────────────────────────────────────────
   const MainAuthForm = ({ 
       T, isLogin, setIsLogin, loading, formData, setFormData, 
-      isTabActive, handleSubmit, setCurrentPage 
+      isTabActive, handleSubmit, setCurrentPage, isDark 
     }) => {
       // State untuk error messages
       const [errors, setErrors] = useState({ username: '', email: '', password: '' });
@@ -418,7 +418,7 @@
             className='md:!mb-[24px] !mb-[8px]'
             style={{
               display: 'flex',
-              border: `1px solid ${T.tabBorder}`,
+              border: `1px solid ${!isDark ? 'black' : T.tabBorder}`,
               borderRadius: 10,
               overflow: 'hidden',
               position: 'relative',
@@ -1567,7 +1567,9 @@
         default:
           return (
             <MainAuthForm 
-              T={T} isLogin={isLogin} setIsLogin={setIsLogin}
+              T={T} 
+              isDark={isDark}
+              isLogin={isLogin} setIsLogin={setIsLogin}
               loading={loading} formData={formData} setFormData={setFormData}
               isTabActive={isTabActive} handleSubmit={handleSubmit}
               setCurrentPage={setCurrentPage}
