@@ -5240,8 +5240,9 @@ const handleChangePin = async () => {
                       <InputField
                         label="Min. Nominal"
                         type="number"
-                        value={settings.songRequestMinAmount ?? 25000}
-                        onChange={v => upd('songRequestMinAmount', Number(v))}
+                        placeholder="30.000"
+                        value={settings.songRequestMinAmount}
+                        onChange={v => upd('songRequestMinAmount', v === '' ? '' : Number(v))}
                       />
                     </div>
 
