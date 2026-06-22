@@ -731,8 +731,8 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
   };
 
   const PRESET_MEDIA = [
-    { url: 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXd5djgzdm84Z3Q5eWNpaWlobjVmbnd1bmwza2E2N3JmeXZoazY1NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0vcCfc5y3MXCHzpzRw/giphy.gif', type: 'image', label: '🖼️ Random Image', thumb: 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXd5djgzdm84Z3Q5eWNpaWlobjVmbnd1bmwza2E2N3JmeXZoazY1NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0vcCfc5y3MXCHzpzRw/giphy.gif' },
-    { url: 'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTF2OGtyYnAxZWoybHd4MzlpeWU2dG0yZHVlanN2ejM1dzhjNXhjdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QFdW38uNImT0pYQjqL/giphy.gif', type: 'image', label: '🖼️ Image 2', thumb: 'https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTF2OGtyYnAxZWoybHd4MzlpeWU2dG0yZHVlanN2ejM1dzhjNXhjdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QFdW38uNImT0pYQjqL/giphy.gif' },
+    { url: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXd5djgzdm84Z3Q5eWNpaWlobjVmbnd1bmwza2E2N3JmeXZoazY1NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0vcCfc5y3MXCHzpzRw/giphy.gif', type: 'image', label: '🖼️ Random Image', thumb: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXd5djgzdm84Z3Q5eWNpaWlobjVmbnd1bmwza2E2N3JmeXZoazY1NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0vcCfc5y3MXCHzpzRw/giphy.gif' },
+    { url: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTF2OGtyYnAxZWoybHd4MzlpeWU2dG0yZHVlanN2ejM1dzhjNXhjdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QFdW38uNImT0pYQjqL/giphy.gif', type: 'image', label: '🖼️ Image 2', thumb: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTF2OGtyYnAxZWoybHd4MzlpeWU2dG0yZHVlanN2ejM1dzhjNXhjdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QFdW38uNImT0pYQjqL/giphy.gif' },
     { url: 'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif', type: 'image', label: '🎬 GIF', thumb: 'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy-preview.webp' },
     { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', type: 'video', label: '📺 YouTube', thumb: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
   ];
@@ -810,9 +810,10 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-1">Media URL</label>
         <InputField
           label="Media URL"
-          value={formData.mediaUrl}
+          value={formData.mediaUrl.slice(0, 50) + (formData.mediaUrl.length > 50 ? '...' : '')}
           onChange={v => updateForm('mediaUrl', v)}
           placeholder="https://example.com/image.jpg"
+          title={formData.mediaUrl}
         />
       </div>
 
