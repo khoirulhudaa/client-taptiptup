@@ -62,7 +62,7 @@ import {
   ChevronLeft,
   ChevronRight,
   BadgeDollarSign,
-  Palette
+  Palette,
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
@@ -113,13 +113,6 @@ const fetchHistory    = async ({ page = 1, limit = 50, status = '' } = {}) => {
   return (await api.get(`/api/donations/history?${params}`)).data;
 };
 const fetchStats      = async () => (await api.get('/api/donations/stats')).data;
-// const saveSettings = async (s) => {
-//   const clean = JSON.parse(JSON.stringify(s, (key, val) => {
-//     if (val instanceof HTMLElement || val instanceof Element) return undefined;
-//     return val;
-//   }));
-//   return (await api.put('/api/overlay/settings', clean)).data;
-// };
 
 const saveSettings = async (s, slot = 'A') => {
   const clean = JSON.parse(JSON.stringify(s, (key, val) => {
@@ -3819,7 +3812,7 @@ const handleChangePin = async () => {
     if (tabFromUrl && [
       'settings','alertSettings','mediaSettings','history','wallet','community',
       'feeConfig','myDonations','profile','poll','subathon','milestones',
-      'leaderboard','contact','ghostAlert','admin'
+      'leaderboard','contact','ghostAlert','admin', 'songSettings'
     ].includes(tabFromUrl)) {
       setActiveTab(tabFromUrl);
     }
@@ -4113,6 +4106,7 @@ const handleChangePin = async () => {
     voiceSettings: 'Voice Note',
     qrConfig: 'Kustom QR Code',
     marquee: 'Marquee Donor',
+    songSettings: 'Song Request',
     mediaSettings: 'Media share',
     donatePageConfig: 'Halaman Dukungan',
     store: 'Toko OBS',
@@ -5223,6 +5217,39 @@ const handleChangePin = async () => {
                       activeSlot={activeSlot} 
                     />
                   )}
+                </motion.div>
+              )}
+
+              {activeTab === 'songSettings' && (
+                <motion.div key="songSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-5 pb-0 w-full">
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
+                    <SectionHeader icon={<Music size={20} />} title="Song Request (SoundCloud)" color="bg-orange-500" />
+
+                    <div className="flex items-center justify-between p-4 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+                      <div>
+                        <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Aktifkan Song Request</p>
+                        <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Donor bisa request lagu SoundCloud lewat halaman donasi</p>
+                      </div>
+                      <button onClick={() => upd('songRequestEnabled', !settings.songRequestEnabled)}
+                        className={`relative inline-flex h-7 w-14 items-center rounded-xl transition-colors duration-300 cursor-pointer focus:outline-none ${settings.songRequestEnabled ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
+                        <span className={`inline-block h-5 w-5 transform rounded-xl bg-white shadow-md transition-transform duration-300 ${settings.songRequestEnabled ? 'translate-x-8' : 'translate-x-1'}`} />
+                      </button>
+                    </div>
+
+                    <div>
+                      <InputField
+                        label="Min. Nominal"
+                        type="number"
+                        value={settings.songRequestMinAmount ?? 25000}
+                        onChange={v => upd('songRequestMinAmount', Number(v))}
+                      />
+                    </div>
+
+                    <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                      className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+                      {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
+                    </button>
+                  </div>
                 </motion.div>
               )}
 

@@ -12,6 +12,7 @@ import {
   LogOut,
   Mail,
   Mic,
+  Music,
   Monitor,
   Moon, Sun,
   User,
@@ -71,6 +72,18 @@ const isDirectVideoUrl = (url) => /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url);
 const isYouTubeUrl = (url) => {
   if (!url) return false;
   return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be|youtube-nocookie\.com)/i.test(url);
+};
+
+const isSoundCloudUrl = (url) => {
+  if (!url) return false;
+  return /^(https?:\/\/)?(www\.|m\.)?soundcloud\.com\//i.test(url);
+};
+
+const formatDuration = (seconds) => {
+  if (!seconds) return '00:00';
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 };
 
 const getYouTubeEmbedUrl = (url) => {
@@ -512,6 +525,105 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
         </div>
       </div>
     </nav>
+  );
+};
+
+const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSongUrl }) => {
+  const [resolving, setResolving] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleResolve = async () => {
+    if (!songUrl.trim()) return;
+    setResolving(true);
+    setError('');
+    setSongData(null);
+    try {
+      const res = await axios.get(`${BASE_URL}/api/midtrans/soundcloud-resolve`, {
+        params: { url: songUrl.trim() },
+      });
+      setSongData(res.data.track);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Gagal mengambil data lagu');
+    } finally {
+      setResolving(false);
+    }
+  };
+
+  const clear = () => { setSongData(null); setSongUrl(''); setError(''); };
+
+  return (
+    <div className="rounded-xl border-2 border-orange-200 dark:border-orange-800 bg-orange-50/60 dark:bg-orange-900/20 p-5 space-y-4">
+      <div className="flex items-center gap-2.5">
+        <div className="w-7 h-7 rounded-xl bg-orange-500 flex items-center justify-center text-white flex-shrink-0">
+          <Music size={13} />
+        </div>
+        <div>
+          <p className="text-xs font-black text-orange-700 dark:text-orange-400 leading-none">🎵 Song Request</p>
+          <p className="text-[10px] text-orange-400 dark:text-orange-500 font-medium mt-0.5">
+            Tersedia mulai Rp {Number(minAmount).toLocaleString('id-ID')}
+          </p>
+        </div>
+      </div>
+
+      {!songData && (
+        <div className="space-y-2">
+          <div className="flex gap-2">
+            <InputField
+              label="Link SoundCloud"
+              type="url"
+              value={songUrl}
+              onChange={(v) => setSongUrl(v)}
+              placeholder="https://soundcloud.com/artis/judul-lagu"
+            />
+          </div>
+          <button
+            onClick={handleResolve}
+            disabled={resolving || !songUrl.trim()}
+            className="w-full py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-black text-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+          >
+            {resolving ? <><Loader2 size={14} className="animate-spin" /> Mengecek lagu...</> : 'Cek Lagu'}
+          </button>
+          {error && (
+            <p className="text-[10px] font-bold text-red-500 flex items-center gap-1.5"><X size={11} /> {error}</p>
+          )}
+        </div>
+      )}
+
+      <AnimatePresence>
+        {songData && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex items-center gap-3 p-3 bg-white dark:bg-slate-900 rounded-xl border border-orange-200 dark:border-orange-800"
+          >
+            <img
+              src={songData.artworkUrl || '/default-cover.png'}
+              alt={songData.title}
+              className="w-14 h-14 rounded-lg object-cover flex-shrink-0 bg-slate-200"
+              onError={(e) => { e.target.src = '/default-cover.png'; }}
+            />
+            <div className="flex-1 min-w-0">
+              <p className="font-black text-sm text-slate-800 dark:text-white truncate">{songData.title}</p>
+              <p className="text-[11px] text-slate-400 font-bold truncate">{songData.artist}</p>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-[10px] font-bold text-orange-500">{formatDuration(songData.duration)}</span>
+                <a href={songData.permalinkUrl} target="_blank" rel="noopener noreferrer"
+                   className="text-[10px] font-bold text-blue-500 hover:underline flex items-center gap-1">
+                  Dengar di SoundCloud
+                </a>
+              </div>
+            </div>
+            <button onClick={clear} className="w-7 h-7 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-red-900 text-slate-400 hover:text-red-500 flex items-center justify-center transition-all flex-shrink-0">
+              <X size={13} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <p className="text-[9px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1">
+        🔗 Powered by SoundCloud — artis & sumber selalu ditampilkan
+      </p>
+    </div>
   );
 };
 
@@ -1012,6 +1124,16 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
       warning: amount < minDonate,
       warningMsg: `Perlu Rp ${Number(minDonate).toLocaleString('id-ID')}`,
     },
+    {
+      id: 'song',
+      label: 'Share Lagu',
+      icon: Music,
+      locked: !overlaySetting?.songRequestEnabled,
+      lockMsg: 'Tidak tersedia',
+      desc: 'Request lagu bebas',
+      warning: overlaySetting?.songRequestEnabled && amount < (overlaySetting?.songRequestMinAmount || 25000),
+      warningMsg: `Perlu Rp ${Number(overlaySetting?.songRequestMinAmount || 25000).toLocaleString('id-ID')}`,
+    },
   ];
 
   return (
@@ -1437,6 +1559,8 @@ const SupporterPage = () => {
   const [snapReady, setSnapReady] = useState(false);
   const [mediaUrl, setMediaUrl] = useState('');
   const [startTime, setStartTime] = useState(0);
+  const [songUrl, setSongUrl] = useState('');
+  const [songData, setSongData] = useState(null);
   const { theme, toggle: toggleTheme } = useTheme();
   const [feeBearer, setFeeBearer] = useState('streamer');
   const [ytChecking, setYtChecking] = useState(false);
@@ -1624,6 +1748,10 @@ const SupporterPage = () => {
     const overlaySetting = streamer?.overlaySetting || streamer?.OverlaySetting || {};
     const minDonate = overlaySetting?.minDonate || 1000;
     const maxDonate = overlaySetting?.maxDonate || 10000000;
+   
+    if (activeTab === 'song' && !songData)
+    return alert('Pilih lagu SoundCloud dulu sebelum kirim dukungan');
+    
     if (!isLoggedIn && !form.isAnonymous) {
       if (!form.donorName?.trim()) {
         return alert('Nama wajib diisi untuk dukungan sebagai tamu');
@@ -1682,6 +1810,7 @@ const SupporterPage = () => {
         mediaUrl:     hasMedia ? mediaUrl.trim() : null,
         mediaType:    detectedMediaType,
         isMediaShare: isMediaShareTab,
+        songData: activeTab === 'song' ? songData : null,
         startTime: hasMedia && isYouTubeUrl(mediaUrl) && !/youtube\.com\/live\//i.test(mediaUrl)
           ? startTime
           : 0,
@@ -1783,6 +1912,8 @@ const SupporterPage = () => {
       if (!form.email?.trim()) return true;
     }
 
+    if (activeTab === 'song' && !songData) return true;
+
     if (activeTab === 'mediashare') {
       if (!eligibleTrigger) return true;
       if (!mediaUrl.trim()) return true;
@@ -1809,6 +1940,8 @@ const SupporterPage = () => {
       if (!mediaUrl.trim())
         return 'Link media wajib diisi untuk Media Share';
     }
+    if (activeTab === 'song' && !songData)
+      return 'Pilih lagu SoundCloud dulu';
     if (activeTab === 'voice' && !form.voiceUrl?.trim())
       return 'Rekam atau upload voice message dulu';
     return null;
@@ -2049,6 +2182,7 @@ const SupporterPage = () => {
               mediaTriggers={mediaTriggers}
               amount={form.amount}
               minDonate={minDonate}
+              overlaySetting={overlaySetting}
             />
 
             {/* Message */}
@@ -2074,6 +2208,35 @@ const SupporterPage = () => {
                   setMediaUrl(gifUrl);
                 }}
               />
+            )}
+
+            {activeTab === 'song' && (
+              <motion.div key="tab-song" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
+                {!overlaySetting?.songRequestEnabled ? (
+                  <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-xl">
+                    <Music size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
+                    <p className="text-xs font-black text-slate-500 dark:text-slate-400">Streamer belum mengaktifkan Song Request</p>
+                  </div>
+                ) : form.amount < (overlaySetting?.songRequestMinAmount || 25000) ? (
+                  <div className="flex items-center gap-3 px-3.5 py-4 bg-amber-50 dark:bg-amber-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-xl">
+                    <div>
+                      <p className="text-xs font-black text-amber-700 dark:text-amber-400">Nominal belum cukup untuk Song Request</p>
+                      <button onClick={() => setForm({ ...form, amount: overlaySetting.songRequestMinAmount || 25000 })}
+                        className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-md hover:bg-amber-600 transition-all cursor-pointer">
+                        Set Rp {Number(overlaySetting.songRequestMinAmount || 25000).toLocaleString('id-ID')}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <SongRequestSection
+                    minAmount={overlaySetting?.songRequestMinAmount || 25000}
+                    songData={songData}
+                    setSongData={setSongData}
+                    songUrl={songUrl}
+                    setSongUrl={setSongUrl}
+                  />
+                )}
+              </motion.div>
             )}
 
             {/* Tab Content */}
