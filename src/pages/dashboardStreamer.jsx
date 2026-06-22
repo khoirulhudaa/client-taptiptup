@@ -4782,7 +4782,7 @@ const handleChangePin = async () => {
                     {/* Quick Nominal */}
                     <QuickAmountsEditor amounts={settings.quickAmounts || DEFAULT_SETTINGS.quickAmounts} onChange={v => upd('quickAmounts', v)} saveSettingsMutation={saveSettingsMutation} settings={settings} activeSlot={activeSlot} />
                     
-                    <div id="tour-donation-items">
+                    <div id="tour-donation-items" className='relative z-[999999]'>
                       <DonationItemsEditor
                         items={settings.donationItems || []}
                         onChange={v => upd('donationItems', v)}

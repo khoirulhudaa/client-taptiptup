@@ -12,7 +12,6 @@ const EMOJI_PRESETS = [
   { emoji: '🎁', label: 'Hadiah' },
   { emoji: '🍜', label: 'Mie' },
   { emoji: '🧋', label: 'Boba' },
-  { emoji: '🎵', label: 'Musik' },
   { emoji: '🔥', label: 'Fire' },
   { emoji: '⭐', label: 'Bintang' },
   { emoji: '🍣', label: 'Sushi' },
@@ -25,7 +24,6 @@ const EMOJI_PRESETS = [
   { emoji: '💰', label: 'Uang' },
   { emoji: '👑', label: 'Mahkota' },
   { emoji: '❤️', label: 'Love' },
-  { emoji: '🎤', label: 'Mic' },
   { emoji: '🎸', label: 'Gitar' },
   { emoji: '🏎️', label: 'Mobil Balap' },
   { emoji: '✈️', label: 'Pesawat' },
@@ -40,9 +38,6 @@ const EMOJI_PRESETS = [
   { emoji: '🛥️', label: 'Yacht' },
   { emoji: '🚁', label: 'Helikopter' },
   { emoji: '🦁', label: 'Singa' },
-  { emoji: '🐻', label: 'Beruang' },
-  { emoji: '🌙', label: 'Bulan' },
-  { emoji: '☀️', label: 'Matahari' },
 ];
 
 const getTierColor = (amount) => {
@@ -116,7 +111,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
                   initial={{ opacity: 0, scale: 0.9, y: -4 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  className="absolute shadow-2xl right-[-2.1px] top-13 z-[99999] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 md:w-max w-[83.5vw] h-max overflow-y-auto"
+                  className="absolute z-[999999999999999999] shadow-2xl right-[-56px] top-13 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 md:w-max w-[83.5vw] h-max overflow-y-auto"
                 >
                   <div className="grid grid-cols-7 md:grid-cols-10 gap-1.5">
                     {EMOJI_PRESETS.map(({ emoji, label }) => (
