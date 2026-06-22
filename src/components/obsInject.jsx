@@ -33,8 +33,7 @@ const StatusBadge = ({ status }) => {
   };
   const s = map[status] || map.idle;
   return (
-    <span className={`hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-none text-[10px] font-black uppercase tracking-widest ${s.color}`}>
-      {/* <span className={`w-1.5 h-1.5 rounded-full ${s.dot}`} /> */}
+    <span className={`hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest ${s.color}`}>
       {s.label}
     </span>
   );
@@ -489,7 +488,7 @@ export const OBSConnectPanel = ({ overlayToken }) => {
             <button
               onClick={handleConnect}
               disabled={status === 'connecting'}
-              className="cursor-pointer rounded-xl active:scale-[0.99] w-full py-3.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-none"
+              className="cursor-pointer rounded-xl active:scale-[0.99] w-full py-3.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-lg"
             >
               {status === 'connecting' ? (
                 <><Loader2 size={13} className="animate-spin" /> Menghubungkan...</>
@@ -505,13 +504,13 @@ export const OBSConnectPanel = ({ overlayToken }) => {
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => setShowModal(true)}
-              className="cursor-pointer active:scale-[0.99] py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-none"
+              className="cursor-pointer active:scale-[0.99] py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-lg"
             >
               <Plus size={13} /> Tambah ke OBS
             </button>
             <button
               onClick={handleDisconnect}
-              className="cursor-pointer active:scale-[0.99] py-3.5 bg-slate-700 hover:bg-slate-600 text-slate-300 font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-none"
+              className="cursor-pointer active:scale-[0.99] py-3.5 bg-slate-700 hover:bg-slate-600 text-slate-300 font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-lg"
             >
               <WifiOff size={13} className='mr-[1px]' /> Disconnect
             </button>
