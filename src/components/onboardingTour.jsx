@@ -40,7 +40,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 //   {
 //     target: 'tour-history',
 //     icon: <History size={18} />,
-//     title: 'Riwayat Donasi',
+//     title: 'Riwayat Dukungan',
 //     desc: 'Lihat semua riwayat donasi yang masuk lengkap dengan nama, jumlah, dan pesan dari donatur.',
 //   },
 //   {
@@ -134,7 +134,7 @@ const TOUR_STEPS = [
     target: 'tour-sidebar-group',
     icon: <Layout size={18} />,
     title: 'Menu Navigasi',
-    desc: 'Semua fitur ada di sini — Editor Overlay, Notif Alert, Media Share, Voice Note, Toko, Riwayat Donasi, Penarikan Dana, Poll, Subathon, Milestones, Leaderboard, dan Konfigurasi Fee.',
+    desc: 'Semua fitur ada di sini — Editor Overlay, Notif Alert, Media Share, Voice Note, Toko, Riwayat Dukungan, Penarikan Dana, Poll, Subathon, Milestones, Leaderboard, dan Konfigurasi Fee.',
   },
   {
     target: 'tour-overlay-slot',
@@ -143,22 +143,22 @@ const TOUR_STEPS = [
     desc: 'Kamu bisa simpan 2 konfigurasi overlay berbeda. Aktifkan salah satu sebagai overlay yang tampil live di OBS, dan simpan yang lain sebagai cadangan atau tema alternatif.',
   },
   {
-    target: 'tour-min-max-donasi',
+    target: 'tour-min-max-dukungan',
     icon: <Wallet size={18} />,
-    title: 'Minimal & Maksimal Donasi',
+    title: 'Minimal & Maksimal Dukungan',
     desc: 'Atur batas nominal donasi yang bisa diterima dari supporter di halaman donasimu.',
+  },
+  {
+    target: 'tour-donation-items',
+    icon: <ShoppingBag size={18} />,
+    title: 'Item Dukungan',
+    desc: 'Buat paket donasi dengan nominal dan label khusus, supaya supporter bisa pilih dengan cepat tanpa input manual.',
   },
   {
     target: 'tour-tema-visual',
     icon: <ImageIcon size={18} />,
     title: 'Tema Visual Overlay',
     desc: 'Pilih tampilan alert donasi yang muncul di OBS — Taptip 1, Taptip 2, Taptip 3, atau Pop Card. Tiap tema punya gaya visual berbeda.',
-  },
-  {
-    target: 'tour-donation-items',
-    icon: <ShoppingBag size={18} />,
-    title: 'Item Donasi',
-    desc: 'Buat paket donasi dengan nominal dan label khusus, supaya supporter bisa pilih dengan cepat tanpa input manual.',
   },
   {
     target: 'tour-overlay-url',
@@ -719,14 +719,14 @@ const DonationModeModal = ({ onComplete }) => {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.92, y: 20 }}
         transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-        className="relative bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl shadow-2xl w-full max-w-7xl pb-6 h-max md:h-[76vh] overflow-hidden my-auto"
+        className="relative bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-500/30 rounded-xl shadow-2xl w-full max-w-7xl pb-6 h-max md:h-[76vh] overflow-hidden my-auto"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
         <div className="h-[19%] px-6 pt-6 pb-4 border-b border-slate-100 dark:border-slate-800 flex items-start justify-between gap-4">
           <div>
             <p className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1">Langkah Awal</p>
-            <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 leading-tight">Pilih Mode Donasi</h2>
+            <h2 className="text-xl font-black text-slate-800 dark:text-slate-100 leading-tight">Pilih Mode Dukungan</h2>
             <p className="text-xs text-slate-400 font-medium mt-1">Cara donatur mengirim dukungan ke halamanmu</p>
           </div>
         </div>
