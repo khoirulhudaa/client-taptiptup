@@ -4668,14 +4668,20 @@ const handleChangePin = async () => {
                           <span className="text-sm flex-shrink-0">💡</span>
                         </div>
                         <p className="text-[11px] font-bold text-blue-600 dark:text-blue-400">
-                          Icon untuk overlay <span className="font-black text-white">taptip 1</span> dan <span className="font-black text-white">taptip 3</span>.
+                          Icon untuk tema <span className="font-black text-white">taptip 1</span> dan <span className="font-black text-white">taptip 3</span>
                         </p>
                         {/* ✅ Tombol scroll ke Tema Visual */}
                         <button
                           onClick={() => document.getElementById('tour-tema-visual')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-                          className="cursor-pointer ml-auto flex-shrink-0 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-lg transition-all active:scale-[0.98] whitespace-nowrap"
+                          className="md:flex hidden cursor-pointer ml-auto flex-shrink-0 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-lg transition-all active:scale-[0.98] whitespace-nowrap"
                         >
                           Ganti Tema →
+                        </button>
+                        <button
+                          onClick={() => document.getElementById('tour-tema-visual')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                          className="flex md:hidden cursor-pointer ml-auto flex-shrink-0 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-lg transition-all active:scale-[0.98] whitespace-nowrap"
+                        >
+                          Tema →
                         </button>
                       </div>
                     </div>
