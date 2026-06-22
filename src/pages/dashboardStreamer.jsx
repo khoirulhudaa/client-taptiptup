@@ -4761,7 +4761,7 @@ const handleChangePin = async () => {
                           onTogglePreview={() => setShowPreviewPanel(v => !v)}
                       />
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:mt-4 mt-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
                         {[
                           { key: 'primaryColor',   label: 'Background',  fallback: '#2e2f42' },
                           { key: 'highlightColor', label: 'Nominal', fallback: '#ffffff' },

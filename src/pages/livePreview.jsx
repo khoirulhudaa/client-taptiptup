@@ -957,7 +957,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
       )}
 
       <button onClick={triggerDemo}
-        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 rounded-xl  bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-950 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-3">
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 rounded-xl  bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-950 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all hidden md:flex items-center justify-center gap-3">
         Simulasi notifikasi
       </button>
     </div>
