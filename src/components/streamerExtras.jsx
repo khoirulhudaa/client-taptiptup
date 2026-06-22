@@ -812,7 +812,7 @@ export const SubathonManager = ({ overlayToken }) => {
             </div>
 
             {/* ─── PREVIEW SUBATHON ─── */}
-            <div className="space-y-2 md:mt-5.5 mt-0">
+            <div className="space-y-2 md:mt-5.5 mt-2">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {[
                   {
