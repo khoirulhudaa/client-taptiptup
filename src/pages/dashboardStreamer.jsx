@@ -526,7 +526,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
               setTestItem(null);
               setUseItem(false);
             }}
-            className={`cursor-pointer active:scale-[0.99] px-5 py-3 rounded-xl text-xs font-black transition-all border-2 ${
+            className={`cursor-pointer active:scale-[0.99] px-3 md:px-5 py-2 md:py-3 rounded-xl text-xs font-black transition-all border-2 ${
               Number(customAmount) === v
                 ? 'bg-rose-500 border-rose-500 text-white'
                 : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
@@ -782,7 +782,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
               setTestItem(null);
               setUseItem(false);
             }}
-            className={`cursor-pointer active:scale-[0.99] px-5 py-3 rounded-xl text-xs font-black transition-all border-2 ${
+            className={`cursor-pointer active:scale-[0.99] px-3 md:px-5 py-2 md:py-3 rounded-xl text-xs font-black transition-all border-2 ${
               Number(formData.amount) === v && !testItem
                 ? 'bg-blue-600 border-blue-600 text-white'
                 : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
@@ -1817,7 +1817,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
             <button onClick={() => remove(i)} className="cursor-pointer active:scale-[0.99] text-red-400 hover:text-red-600 transition-colors p-1"><Trash2 size={15} /></button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {[['Label (opsional)', 'label', t.label, 'text', 'contoh: Sultan Alert'], ['Nominal Min (Rp)', 'minAmount', t.minAmount, 'number', '']].map(([lbl, key, val, type, ph]) => (
+            {[['Label', 'label', t.label, 'text', 'contoh: Sultan Alert'], ['Min-Nominal', 'minAmount', t.minAmount, 'number', '']].map(([lbl, key, val, type, ph]) => (
               <InputField
                 key={key}
                 label={lbl}
