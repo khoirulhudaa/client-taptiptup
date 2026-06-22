@@ -132,7 +132,7 @@
 
     return (
       <div
-        className="w-full flex p-1 items-center rounded-xl overflow-hidden transition-all shadow-sm"
+        className="w-full h-[56px] flex p-1 items-center rounded-xl overflow-hidden transition-all shadow-sm"
         style={{
           border: `1px solid ${focused ? T.inputBorderFocus : 'black'}`,
           background: 'white',
@@ -164,12 +164,14 @@
             padding: '15px 12px',
             color: T.inputText,
             fontSize: 15,
+            WebkitBoxShadow: '0 0 0px 1000px white inset',
+            WebkitTextFillColor: T.inputText,
             fontWeight: 600,
             outline: 'none',
             boxSizing: 'border-box',
             width: '100%',
           }}
-          className={`auth-input-field ${className}`}
+          className={`auth-input-field focus:bg-white ${className}`}
         />
 
         {/* Toggle password */}
@@ -1585,6 +1587,12 @@
           input, textarea {
             -webkit-user-select: text;
             user-select: text;
+          }
+
+          .auth-input-field::placeholder {
+            font-weight: 700;
+            color: #9CA3AF !important;
+            opacity: 0.3 !important; 
           }
 
           @keyframes spin { to { transform: rotate(360deg); } }
