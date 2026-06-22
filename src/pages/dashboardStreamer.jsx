@@ -4654,43 +4654,30 @@ const handleChangePin = async () => {
                               </div>
                             )}
 
-                            {/* ✅ Catatan tema */}
-                            <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-xl">
-                              <div className='w-7 h-7 rounded-md flex items-center justify-center bg-slate-500/30'>
-                                <span className="text-sm flex-shrink-0">💡</span>
-                              </div>
-                              <p className="text-[11px] font-bold text-blue-600 dark:text-blue-400">
-                                Icon hanya tampil di overlay tema <span className="font-black text-white">taptip 1</span> dan <span className="font-black text-white">taptip 3</span>.
-                              </p>
-                              {/* ✅ Tombol scroll ke Tema Visual */}
-                              <button
-                                onClick={() => document.getElementById('tour-tema-visual')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-                                className="cursor-pointer ml-auto flex-shrink-0 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-lg transition-all active:scale-[0.98] whitespace-nowrap"
-                              >
-                                Ganti Tema →
-                              </button>
-                            </div>
-
                           </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 space-y-1 md:space-y-2 mt-4.5">
-                        <section
-                          key="preview-panel"
-                          className="xl:col-span-5 mt-2.5 z-[2] py-0 h-max relative mb-2.5 block md:hidden"
-                        >
-                          <motion.div 
-                            animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
-                            transition={{ duration: 0.2 }}
-                          >
-
-                          </motion.div>
-                        </section>
-                      </div>
                       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 md:mt-8">
+                        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 md:mt-3">
                         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
                       </button>
+
+                      {/* ✅ Catatan tema */}
+                      <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-xl mt-3">
+                        <div className='w-7 h-7 rounded-md flex items-center justify-center bg-slate-500/30'>
+                          <span className="text-sm flex-shrink-0">💡</span>
+                        </div>
+                        <p className="text-[11px] font-bold text-blue-600 dark:text-blue-400">
+                          Icon hanya tampil di overlay tema <span className="font-black text-white">taptip 1</span> dan <span className="font-black text-white">taptip 3</span>.
+                        </p>
+                        {/* ✅ Tombol scroll ke Tema Visual */}
+                        <button
+                          onClick={() => document.getElementById('tour-tema-visual')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                          className="cursor-pointer ml-auto flex-shrink-0 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-lg transition-all active:scale-[0.98] whitespace-nowrap"
+                        >
+                          Ganti Tema →
+                        </button>
+                      </div>
                     </div>
 
                     <div id="tour-donation-items" className='relative z-[999999]'>
