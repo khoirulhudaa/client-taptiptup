@@ -282,7 +282,7 @@
         style={{
           position: 'absolute',
           // top: '2.62px',
-          left: isDark ? 24 : 5,
+          left: isDark ? 25 : 5,
           width: 20, 
           // height: 20,
           borderRadius: 4,
