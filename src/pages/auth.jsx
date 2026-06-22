@@ -736,16 +736,16 @@
               <button 
                 onClick={handleVerifyPin} 
                 disabled={loading || pin.length !== 4}
-                className='flex justify-center items-center active:scale-[0.99] text-center'
+                className={`flex justify-center items-center active:scale-[0.99] text-center`}
                 style={{ 
                   width:'100%', padding:'16px 0', borderRadius:10, fontWeight:900, fontSize:14, 
                   border:'none', cursor:'pointer', 
-                  background: pin.length === 4 ? 'linear-gradient(135deg, #10b981, #059669)' : '#e2e8f0', 
+                  background: pin.length === 4 ? '#2754FF' : '#e2e8f0', 
                   color: pin.length === 4 ? 'white' : '#64748b', 
                   opacity: loading ? 0.6 : 1 
                 }}
               >
-                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Verifikasi PIN'}
+                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Verifikasi Kode PIN'}
               </button>
             </>
           )}
@@ -987,10 +987,16 @@
           onClick={() => setCurrentPage('main')}
           className='active:scale-[0.99] hover:brightness-80'
           style={{ 
-            position: 'absolute', top: 40, marginLeft: -3,
+            position: 'absolute', 
+            top: 30, 
+            marginLeft: '0',
+            width: '100%',
+            paddingRight: 60,
             background:'none', border:'none', cursor:'pointer', 
             color: T.backBtn, fontSize:14, fontWeight:700, 
-            display:'flex', alignItems:'center', gap:6 
+            display:'flex', alignItems:'end',
+            justifyContent: 'end',
+            gap:6 
           }}
         >
           <ArrowLeft size={18} /> Kembali
@@ -1053,11 +1059,15 @@
               type="submit" 
               disabled={loading}
               className="submit-btn"
-              className="flex justify-center items-center text-center"
+              className="flex justify-center items-center text-center rounded-xl"
               style={{ 
-                width: '100%', padding: '16px 0', borderRadius: 0, fontWeight: 900, fontSize: 14, 
+                width: '100%', padding: '16px 0', 
+                // borderRadius: 0, 
+                fontWeight: 900, 
+                fontSize: 14, 
                 border: 'none', cursor: 'pointer', 
-                background: 'linear-gradient(135deg, #10b981, #059669)', color: 'white', 
+                background: '#2754FF', 
+                color: 'white', 
                 opacity: loading ? 0.7 : 1 
               }}
             >
