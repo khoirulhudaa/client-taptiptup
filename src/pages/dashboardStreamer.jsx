@@ -250,18 +250,38 @@ const SectionHeader = ({ icon, title, color }) => (
   </div>
 );
 
-const InputField = ({ label, ...props }) => (
-  <div className="w-full flex pl-[3px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
-    <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
-      {label}
+const InputField = ({ label, ...props }) => {
+  const isNominal = /nominal/i.test(label);
+
+  const handleChange = (val) => {
+    if (isNominal) {
+      const raw = val.replace(/\./g, '').replace(/[^0-9]/g, '');
+      props.onChange?.(raw === '' ? '' : Number(raw));
+    } else {
+      props.onChange?.(val);
+    }
+  };
+
+  const displayValue = isNominal && props.value !== '' && props.value !== undefined
+    ? Number(props.value).toLocaleString('id-ID')
+    : props.value ?? '';
+
+  return (
+    <div className="w-full flex pl-[3px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+      <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+        {label}
+      </div>
+      <input
+        className="flex-1 bg-transparent p-3 h-11.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
+        {...props}
+        type={isNominal ? 'text' : props.type}
+        inputMode={isNominal ? 'numeric' : props.inputMode}
+        value={displayValue}
+        onChange={e => handleChange(e.target.value)}
+      />
     </div>
-    <input
-      className="flex-1 bg-transparent p-3 h-11.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
-      {...props}
-      onChange={e => props.onChange?.(e.target.value)}
-    />
-  </div>
-);
+  );
+};
 
 const TextareaField = ({ label, className = '', inputClassName = '', onChange, ...props }) => (
   <div className={`w-full flex pl-[3px] pt-[3px] items-start bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>

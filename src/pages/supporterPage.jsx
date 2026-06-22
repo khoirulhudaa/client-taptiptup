@@ -531,6 +531,10 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
 const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSongUrl }) => {
   const [resolving, setResolving] = useState(false);
   const [error, setError] = useState('');
+  const [searchMode, setSearchMode] = useState('search');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleResolve = async () => {
     if (!songUrl.trim()) return;
@@ -549,7 +553,36 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
     }
   };
 
-  const clear = () => { setSongData(null); setSongUrl(''); setError(''); };
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) return;
+    setLoading(true);
+    setError('');
+
+    try {
+      const res = await axios.get(`${BASE_URL}/api/midtrans/soundcloud-search`, {
+        params: { q: searchQuery.trim() }
+      });
+      setSearchResults(res.data.tracks || []);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Gagal mencari lagu');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const selectTrack = (track) => {
+    setSongData(track);
+    setSearchResults([]);
+    setSearchQuery('');
+  };
+
+  const clear = () => {
+    setSongData(null);
+    setSongUrl('');
+    setSearchResults([]);
+    setSearchQuery('');
+    setError('');
+  };
 
   return (
     <div className="rounded-xl border-2 border-orange-200 dark:border-orange-800 bg-orange-50/60 dark:bg-orange-900/20 p-5 space-y-4">
@@ -558,14 +591,71 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
           <Music size={13} />
         </div>
         <div>
-          <p className="text-xs font-black text-orange-700 dark:text-orange-400 leading-none">🎵 Song Request</p>
-          <p className="text-[10px] text-orange-400 dark:text-orange-500 font-medium mt-0.5">
-            Tersedia mulai Rp {Number(minAmount).toLocaleString('id-ID')}
-          </p>
+          <p className="text-xs font-black text-orange-700 dark:text-orange-400">🎵 Song Request</p>
+          <p className="text-[10px] text-orange-400 dark:text-orange-500">Minimal Rp {Number(minAmount).toLocaleString('id-ID')}</p>
         </div>
       </div>
 
-      {!songData && (
+      {/* Toggle Mode */}
+      <div className="grid grid-cols-2 gap-2">
+        <button
+          onClick={() => setSearchMode('search')}
+          className={`py-2.5 text-sm font-bold rounded-xl ${searchMode === 'search' ? 'bg-orange-500 text-white' : 'bg-white dark:bg-slate-900 border border-orange-200'}`}
+        >
+          🔍 Cari Judul Lagu
+        </button>
+        <button
+          onClick={() => setSearchMode('url')}
+          className={`py-2.5 text-sm font-bold rounded-xl ${searchMode === 'url' ? 'bg-orange-500 text-white' : 'bg-white dark:bg-slate-900 border border-orange-200'}`}
+        >
+          🔗 Paste Link
+        </button>
+      </div>
+
+      {/* MODE SEARCH */}
+      {searchMode === 'search' && (
+        <div className="space-y-3">
+          <div className="flex gap-2">
+            <InputField
+              label="Judul Lagu / Artis"
+              value={searchQuery}
+              onChange={setSearchQuery}
+              placeholder="Contoh: faded alan walker"
+            />
+            <button
+              onClick={handleSearch}
+              disabled={loading || !searchQuery.trim()}
+              className="px-6 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl disabled:opacity-50"
+            >
+              {loading ? <Loader2 className="animate-spin" size={18} /> : 'Cari'}
+            </button>
+          </div>
+
+          {error && <p className="text-red-500 text-xs">{error}</p>}
+
+          {/* Hasil Pencarian */}
+          {searchResults.length > 0 && (
+            <div className="max-h-80 overflow-y-auto space-y-2 pr-1">
+              {searchResults.map(track => (
+                <div
+                  key={track.id}
+                  onClick={() => selectTrack(track)}
+                  className="flex gap-3 p-3 bg-white dark:bg-slate-900 rounded-xl border border-orange-100 dark:border-orange-800 hover:border-orange-400 cursor-pointer transition-all"
+                >
+                  <img src={track.artworkUrl} alt="" className="w-14 h-14 rounded-lg object-cover" />
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-sm line-clamp-1">{track.title}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{track.artist}</p>
+                    <p className="text-[10px] text-orange-500">{formatDuration(track.duration)}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {searchMode === 'url' && (
         <div className="space-y-2">
           <div className="flex gap-2">
             <InputField
@@ -1090,7 +1180,7 @@ const QuickAudioSection = ({ publicSounds = [], selectedSound, onSoundChange, am
 // ============================================================
 // TAB SELECTOR COMPONENT
 // ============================================================
-const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate }) => {
+const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate, overlaySetting }) => {
   const minMedia = mediaTriggers.length > 0
     ? Math.min(...mediaTriggers.map(t => t.minAmount))
     : null;
