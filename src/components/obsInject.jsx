@@ -520,7 +520,9 @@ export const OBSConnectPanel = ({ overlayToken }) => {
         {/* Guide toggle */}
         <details className="group">
           <summary className="cursor-pointer text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-slate-300 transition-colors list-none flex items-center gap-1.5">
-            <span className="group-open:rotate-90 transition-transform inline-block relative">▶</span>
+            <span className="group-open:rotate-90 transition-transform inline-block relative">
+              <AlertCircle size={13} />
+            </span>
             Cara aktifkan OBS WebSocket
           </summary>
           <div className="mt-2.5 space-y-1.5 pl-4 border-l border-slate-700">
