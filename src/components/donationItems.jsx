@@ -89,7 +89,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
       exit={{ opacity: 0, y: -8 }}
       className="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 overflow-visible"
     >
-      <div className="p-4 space-y-2">
+      <div className="p-3 space-y-2">
         {/* Row 1: Emoji + Nama + Hapus */}
         <div className="flex items-center gap-3">
           {/* Nama item */}
