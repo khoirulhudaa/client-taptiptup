@@ -262,7 +262,7 @@
     <motion.button
       onClick={onToggle}
       whileTap={{ scale: 0.97 }}
-      className="relative border border-black md:top-[-12px] top-[-2px] left-[0px] mb-8 z-20"
+      className="relative border border-blue-500 md:top-[-12px] top-[-2px] left-[0px] mb-8 z-20"
       style={{
         width: 52, height: 28,
         borderRadius: 7,
@@ -276,7 +276,7 @@
     >
       {/* Thumb + icon */}
       <motion.div
-        className='border border-black h-[70%]'
+        className='h-[70%]'
         layout
         transition={{ type: 'spring', stiffness: 500, damping: 35 }}
         style={{
