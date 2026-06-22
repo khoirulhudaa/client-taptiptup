@@ -1491,15 +1491,15 @@ export const MilestonesManager = ({ overlayToken }) => {
                   { label: 'Overlay',  value: mlBgcolor, onChange: setMlBgcolor, default: '0f0f19' },
                   { label: 'Teks', value: mlTextcolor, onChange: setMlTextcolor, default: 'ffffff' },
                 ].map(({ label, value, onChange, default: def }) => (
-                  <div key={label} className="w-full md:w-max flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-3.5 bg-slate-500/20 rounded-xl border border-slate-200 dark:border-slate-700">
+                  <div key={label} className="w-full justify-between md:w-max flex items-center md:mb-0 mb-2.5 gap-3 px-3 py-3 bg-slate-500/20 rounded-xl border border-slate-200 dark:border-slate-700">
                     <input
                       type="color"
                       value={`#${value}`}
                       onChange={e => onChange(e.target.value.replace('#', ''))}
-                      className="w-10 h-7 rounded cursor-pointer border-0 bg-transparent flex-shrink-0"
+                      className="w-10 h-full rounded cursor-pointer border-0 bg-transparent flex-shrink-0"
                     />
-                    <span className="md:flex hidden font-mono text-xs text-slate-500 dark:text-slate-400 flex-1">#{value}</span>
-                    <label className="text-[10px] ml-4 min-w-max font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest w-16 flex-shrink-0">{label}</label>
+                    <span className="md:flex relative top-[1px] hidden font-mono text-xs text-slate-500 dark:text-slate-400 flex-1">#{value}</span>
+                    <label className="text-[10px] ml-4 relative top-[0px] min-w-max font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-shrink-0">{label}</label>
                   </div>
                 ))}
               </div>
