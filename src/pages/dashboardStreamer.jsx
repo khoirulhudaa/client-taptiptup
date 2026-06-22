@@ -810,7 +810,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
         <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-1">Media URL</label>
         <InputField
           label="Media URL"
-          value={formData.mediaUrl.slice(0, 50) + (formData.mediaUrl.length > 50 ? '...' : '')}
+          value={formData.mediaUrl.slice(0, 46) + (formData.mediaUrl.length > 50 ? '...' : '')}
           onChange={v => updateForm('mediaUrl', v)}
           placeholder="https://example.com/image.jpg"
           title={formData.mediaUrl}
