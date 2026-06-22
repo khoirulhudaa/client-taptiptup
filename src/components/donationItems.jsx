@@ -116,7 +116,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
                   initial={{ opacity: 0, scale: 0.9, y: -4 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  className="absolute shadow-2xl left-[-2.1px] top-13 z-[99999] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 md:w-max w-[83.5vw] h-max overflow-y-auto"
+                  className="absolute shadow-2xl right-[-2.1px] top-13 z-[99999] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 md:w-max w-[83.5vw] h-max overflow-y-auto"
                 >
                   <div className="grid grid-cols-7 md:grid-cols-10 gap-1.5">
                     {EMOJI_PRESETS.map(({ emoji, label }) => (
@@ -321,7 +321,7 @@ const DonationItemsEditor = ({
   const sortedPreview = [...localItems].filter(i => i.name && i.price > 0).sort((a, b) => a.price - b.price);
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4.5">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-2xl p-3 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4.5">
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4">

@@ -295,7 +295,7 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
   };
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
         <SectionHeader icon={<Settings size={20} />} title={`Quick Nominal`} color="bg-red-600" />
         <div className="gap-3 grid grid-cols-1 mt-5 md:grid-cols-2">
         {amounts.map((amt, i) => (
@@ -4526,7 +4526,7 @@ const handleChangePin = async () => {
                       <div className="mt-2.5 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
                         <button
                           onClick={() => setShowVideoTutorial(v => !v)}
-                          className="cursor-pointer w-full flex items-center justify-between px-5 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
+                          className="cursor-pointer w-full flex items-center justify-between px-3 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
                         >
                           <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
                           Tutorial Video
@@ -4549,7 +4549,7 @@ const handleChangePin = async () => {
                         <div className="mb-2.5 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
                           <button
                             onClick={() => setShowOBSConnect(v => !v)}
-                            className="cursor-pointer w-full flex items-center justify-between px-5 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
+                            className="cursor-pointer w-full flex items-center justify-between px-3 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
                           >
                             <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
                             OBS Auto-connection 
@@ -4793,7 +4793,7 @@ const handleChangePin = async () => {
                     </div>
 
                     {/* OBS URLs */}
-                    <div id="tour-overlay-url" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 md:pb-2.5 shadow-xs border border-slate-100 dark:border-slate-800">
+                    <div id="tour-overlay-url" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 md:pb-2.5 shadow-xs border border-slate-100 dark:border-slate-800">
                       <div className='mb-5'>
                         <SectionHeader icon={<Monitor size={20} />} title={`URL Overlay`} color="bg-blue-500" />
                       </div>
