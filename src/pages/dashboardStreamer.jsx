@@ -731,8 +731,8 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
   };
 
   const PRESET_MEDIA = [
-    { url: 'https://picsum.photos/400/300?random=1', type: 'image', label: '🖼️ Random Image', thumb: 'https://picsum.photos/80/60?random=1' },
-    { url: 'https://picsum.photos/400/300?random=2', type: 'image', label: '🖼️ Image 2', thumb: 'https://picsum.photos/80/60?random=2' },
+    { url: 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXd5djgzdm84Z3Q5eWNpaWlobjVmbnd1bmwza2E2N3JmeXZoazY1NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0vcCfc5y3MXCHzpzRw/giphy.gif', type: 'image', label: '🖼️ Random Image', thumb: 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXd5djgzdm84Z3Q5eWNpaWlobjVmbnd1bmwza2E2N3JmeXZoazY1NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0vcCfc5y3MXCHzpzRw/giphy.gif' },
+    { url: 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTViYWp1Ymo0aWhhNXF4dHI3Z3UzdnI0N3BrejJrcGlia2k3dGo1cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/i17zHLTMt1SmJMv6Aw/giphy.gif', type: 'image', label: '🖼️ Image 2', thumb: 'https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTViYWp1Ymo0aWhhNXF4dHI3Z3UzdnI0N3BrejJrcGlia2k3dGo1cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/i17zHLTMt1SmJMv6Aw/giphy.gif' },
     { url: 'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif', type: 'image', label: '🎬 GIF', thumb: 'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy-preview.webp' },
     { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', type: 'video', label: '📺 YouTube', thumb: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg' },
   ];
