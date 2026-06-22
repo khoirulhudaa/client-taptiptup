@@ -12,7 +12,7 @@
 
   // ─── Theme tokens ──────────────────────────────────────────────────────────────
   const getTheme = (dark) => ({
-    pageBg:           dark ? '#0f0c29'                       : '#f5f4ff',
+    pageBg:           dark ? '#0f0c29'                       : '#ffff',
     rightBg:          dark ? '#13111f'                       : '#ffffff',
     inputBg: dark ? 'rgba(255,255,255,0.04)' : 'rgba(79,70,229,0.04)',
     inputBgFocus: dark ? 'rgba(255,255,255,0.08)' : 'rgba(79,70,229,0.07)',
@@ -120,7 +120,7 @@
   );
 
   // ─── Auth Input Component ─────────────────────────────────────────────────────
-  const AuthInput = ({ icon: Icon, type='text', value, onChange, placeholder, T, className = "" }) => {
+  const AuthInput = ({ icon: Icon, type='text', label, value, onChange, placeholder, T, className = "" }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [focused, setFocused] = useState(false);
     const isPassword = type === 'password';
@@ -132,21 +132,18 @@
 
     return (
       <div
-        className="w-full flex pl-[1.5px] items-center rounded-xl overflow-hidden transition-all shadow-sm"
+        className="w-full flex p-1 items-center rounded-xl overflow-hidden transition-all shadow-sm"
         style={{
-          border: `1.5px solid ${focused ? T.inputBorderFocus : T.inputBorder}`,
-          background: focused ? T.inputBgFocus : T.inputBg,
+          border: `1px solid ${focused ? T.inputBorderFocus : 'black'}`,
+          background: focused ? T.inputBgFocus : 'white',
           transition: 'all 0.2s',
         }}
       >
-        {/* Label kiri (icon) */}
         <div
-          className="flex items-center justify-center flex-shrink-0 h-full px-3 w-16 py-0 border-r border-slate-500/20"
+          className="flex items-center rounded-lg justify-center bg-blue-600 flex-shrink-0 h-full px-3 w-16 py-0"
           style={{
-            color: focused ? '#2754FF' : T.iconDefault,
-            // borderColor: focused ? T.inputBorderFocus : T.inputBorder,
+            color: 'white',
             transition: 'color 0.2s, border-color 0.2s',
-            background: focused ? T.inputBgFocus : T.inputBg,
           }}
         >
           <Icon size={18} />
@@ -162,7 +159,7 @@
           onBlur={() => setFocused(false)}
           style={{
             flex: 1,
-            background: 'transparent',
+            background: 'white',
             border: 'none',
             padding: '15px 12px',
             color: T.inputText,
@@ -265,12 +262,13 @@
     <motion.button
       onClick={onToggle}
       whileTap={{ scale: 0.97 }}
-      className="relative md:top-[-12px] top-[-2px] left-[0px] mb-8 z-20"
+      className="relative border border-black md:top-[-12px] top-[-2px] left-[0px] mb-8 z-20"
       style={{
         width: 52, height: 28,
         borderRadius: 7,
         background: isDark ? '#4f46e5' : '#e2e8f0',
-        border: 'none', cursor: 'pointer', padding: 0,
+        // border: 'none', 
+        cursor: 'pointer', padding: 0,
         outline: 'none', transition: 'background 0.3s ease',
         display: 'flex', alignItems: 'center',
         position: 'relative',
@@ -278,13 +276,15 @@
     >
       {/* Thumb + icon */}
       <motion.div
+        className='border border-black h-[70%]'
         layout
         transition={{ type: 'spring', stiffness: 500, damping: 35 }}
         style={{
           position: 'absolute',
-          top: 4,
+          // top: '2.62px',
           left: isDark ? 24 : 5,
-          width: 20, height: 20,
+          width: 20, 
+          // height: 20,
           borderRadius: 4,
           background: isDark ? '#818cf8' : 'white',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -465,14 +465,8 @@
               style={{ display:'flex', flexDirection:'column', gap:16, marginBottom:20 }}>
               <div className={`grid ${isLogin ? 'grid-cols-1' : ' grid-cols-1 md:grid-cols-2 mt-5.5'} gap-4`}>
                   {!isLogin && (
-                    // <motion.div 
-                    //   key="username" 
-                    //   initial={{ opacity:0, height:0, marginBottom:0 }} 
-                    //   animate={{ opacity:1, height:'auto', marginBottom:0 }} 
-                    //   transition={{ duration:0.2 }}
-                    // >
-                    // </motion.div>
                     <AuthInput 
+                      label={'Username'}
                       icon={User} 
                       placeholder="Username" 
                       value={formData.username} 
@@ -482,6 +476,7 @@
                 )}
                 {!isLogin && (
                   <AuthInput 
+                    label={'PIN'}
                     icon={ShieldCheck} 
                     type="text" 
                     maxLength={4}
@@ -494,6 +489,7 @@
               </div>
               <div className={`grid ${!isLogin ? 'md:grid-cols-2' : 'md:grid-cols-1' } grid-cols-1 gap-4`}>
                 <AuthInput 
+                  label={'Email'}
                   icon={Mail} 
                   type="email" 
                   placeholder="Alamat Email" 
@@ -507,6 +503,7 @@
                   </p>
                 )}
                 <AuthInput 
+                  label={'Password'}
                   icon={Lock} 
                   type="password" 
                   placeholder="Password" 
@@ -688,6 +685,7 @@
           {step === 1 ? (
             <>
               <AuthInput 
+                label={'Email'}
                 icon={Mail} 
                 placeholder="Email kamu" 
                 value={emailReset} 
@@ -724,6 +722,7 @@
           ) : (
             <>
               <AuthInput 
+                label={'PIN'}
                 icon={ShieldCheck} 
                 type="text" 
                 maxLength={4}
@@ -1026,6 +1025,7 @@
         <form onSubmit={handleReset}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <AuthInput 
+              label={'Password'}
               icon={Lock} 
               type="password" 
               placeholder="Password baru (min 6 karakter)" 
@@ -1039,6 +1039,7 @@
               </p>
             )}
             <AuthInput 
+              label={'Konfirmasi Password'}
               icon={Lock} 
               type="password" 
               placeholder="Konfirmasi password" 
