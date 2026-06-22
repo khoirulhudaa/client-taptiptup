@@ -568,7 +568,7 @@ export const SubathonManager = ({ overlayToken }) => {
             {formatSeconds(displaySeconds)}
           </div>
           <p className="text-white/50 text-xs font-medium mt-3">
-            {localTimer.mode === 'countdown' ? 'Countdown' : 'Count Up'} ·
+            {localTimer.mode === 'countdown' ? 'Count-down' : 'Count-up'} ·
             {isRunning ? <span className="text-green-300"> Berjalan</span> : <span className="text-slate-300"> Berhenti</span>}
           </p>
           {localTimer.mode === 'countdown' && (
@@ -686,8 +686,8 @@ export const SubathonManager = ({ overlayToken }) => {
         <div className="border-t border-slate-100 dark:border-slate-800 pt-5 space-y-3">
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Auto Tambah Waktu dari Dukungan</p>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Waktu otomatis bertambah saat ada dukungan</p>
+              <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Tambah Waktu per Dukungan</p>
+              <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Waktu otomatis bertambah</p>
             </div>
             <button
               onClick={() => upd('autoAddEnabled', !localTimer.autoAddEnabled)}
@@ -698,11 +698,11 @@ export const SubathonManager = ({ overlayToken }) => {
 
           {localTimer.autoAddEnabled && (
             <div className="space-y-3">
-              <div className="mb-3 md:mb-0 flex items-center justify-between">
+              <div className="mb-4 md:mb-0 flex items-center justify-between">
                 <div>
-                  <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Kelipatan Durasi Dukungan</p>
+                  <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Kelipatan Durasi</p>
                   <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-                    Setiap tier dukungan tambah durasi otomatis
+                    Setiap tier dukungan
                   </p>
                 </div>
                 {/* Tombol Edit Tabel */}
@@ -791,7 +791,7 @@ export const SubathonManager = ({ overlayToken }) => {
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Widget URL OBS</p>
 
             {/* Color pickers */}
-            <div className="grid grid-cols-1 md:flex gap-3.5 w-full">
+            <div className="grid grid-cols-1 md:flex gap-0 w-full">
               {[
                 { label: 'Timer', value: subTimerColor, onChange: setSubTimerColor, default: 'ffffff' },
                 { label: 'Overlay', value: subBgColor, onChange: setSubBgColor, default: '0f0f19' },
