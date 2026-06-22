@@ -20,7 +20,7 @@
     inputBorderFocus: dark ? 'rgba(99,102,241,0.6)' : 'rgba(79,70,229,0.8)',
     tabBg:            dark ? 'rgba(255,255,255,0.04)'        : 'rgba(79,70,229,0.06)',
     tabBorder:        dark ? 'rgba(255,255,255,0.2)'        : 'rgba(79,70,229,0.14)',
-    tabInactive:      dark ? '#475569'                       : '#94a3b8',
+    tabInactive:      dark ? 'white'                       : '#94a3b8',
     divider:          dark ? 'rgba(255,255,255,0.2)'        : 'rgba(0,0,0,0.08)',
     dividerText:      dark ? '#ffffff'                       : '#94a3b8',
     toggleBg:         dark ? 'rgba(255,255,255,0.08)'        : 'rgba(79,70,229,0.08)',
@@ -140,7 +140,7 @@
         }}
       >
         <div
-          className="flex items-center rounded-lg justify-center bg-blue-600 flex-shrink-0 h-full px-3 w-16 py-0"
+          className="flex items-center rounded-lg justify-center bg-blue-600 flex-shrink-0 h-full px-3 w-13 py-0"
           style={{
             color: 'white',
             transition: 'color 0.2s, border-color 0.2s',
