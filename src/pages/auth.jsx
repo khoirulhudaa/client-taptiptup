@@ -659,7 +659,7 @@
           <div style={{ 
             width: 72, height: 72, margin: '50px 0 20px 0px', 
             background: '#fef3c7', borderRadius: 20, 
-            display: 'flex', alignItems: 'center', justifyContent: 'center' 
+            display: 'flex', alignItems: 'center', justifyContent: 'center'  
           }}>
             <Mail size={32} style={{ color: '#d97706' }} />
           </div>
@@ -1003,10 +1003,11 @@
         </button>
         <div style={{ textAlign: 'left', marginBottom: 32 }}>
           <div style={{ 
-            width: 80, height: 80, margin: '50px 0 24px 0px', background: '#ecfdf5', 
-            borderRadius: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' 
+            width: 72, height: 69, margin: '50px 0 20px 0px', 
+            background: '#fef3c7', borderRadius: 20, 
+            display: 'flex', alignItems: 'center', justifyContent: 'center' 
           }}>
-            <ShieldCheck size={36} style={{ color: '#059669' }} />
+            <ShieldCheck size={38} style={{ color: '#d97706' }} />
           </div>
           <h2 style={{ fontSize: 28, fontWeight: 900, color: T.heading, marginBottom: 8 }}>
             Reset Password
