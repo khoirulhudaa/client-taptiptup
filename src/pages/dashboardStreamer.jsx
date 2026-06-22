@@ -4668,7 +4668,7 @@ const handleChangePin = async () => {
                           <span className="text-sm flex-shrink-0">💡</span>
                         </div>
                         <p className="text-[11px] font-bold text-blue-600 dark:text-blue-400">
-                          Icon hanya tampil di overlay tema <span className="font-black text-white">taptip 1</span> dan <span className="font-black text-white">taptip 3</span>.
+                          Icon untuk overlay <span className="font-black text-white">taptip 1</span> dan <span className="font-black text-white">taptip 3</span>.
                         </p>
                         {/* ✅ Tombol scroll ke Tema Visual */}
                         <button
