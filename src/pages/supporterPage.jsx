@@ -114,19 +114,38 @@ const getYouTubeEmbedUrl = (url) => {
   return url;
 };
 
-const InputField = ({ label, disabled, ...props }) => (
-  <div className={`w-full flex pl-[2.8px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${disabled ? 'opacity-40 pointer-events-none' : ''}`}>
-    <div className="w-max px-3 py-3 md:py-4 rounded-lg h-[88%] text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
-      {label}
+const InputField = ({ label, ...props }) => {
+  const isNominal = /nominal/i.test(label);
+
+  const handleChange = (val) => {
+    if (isNominal) {
+      const raw = val.replace(/\./g, '').replace(/[^0-9]/g, '');
+      props.onChange?.(raw === '' ? '' : Number(raw));
+    } else {
+      props.onChange?.(val);
+    }
+  };
+
+  const displayValue = isNominal && props.value !== '' && props.value !== undefined
+    ? Number(props.value).toLocaleString('id-ID')
+    : props.value ?? '';
+
+  return (
+    <div className="w-full flex pl-[3px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+      <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+        {label}
+      </div>
+      <input
+        className="flex-1 bg-transparent p-3 h-11.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
+        {...props}
+        type={isNominal ? 'text' : props.type}
+        inputMode={isNominal ? 'numeric' : props.inputMode}
+        value={displayValue}
+        onChange={e => handleChange(e.target.value)}
+      />
     </div>
-    <input
-      className="flex-1 bg-transparent p-3 h-10 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100"
-      disabled={disabled}
-      {...props}
-      onChange={e => props.onChange?.(e.target.value)}
-    />
-  </div>
-);
+  );
+};
 
 const TextareaField = ({ label, className = '', inputClassName = '', onChange, ...props }) => (
   <div className={`w-full flex pl-[3.5px] pt-1 items-start bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
@@ -199,7 +218,7 @@ const YouTubeTimePicker = ({ startTime, onChange }) => {
     <motion.div
       initial={{ opacity: 0, height: 0 }}
       animate={{ opacity: 1, height: 'auto' }}
-      className="mt-4 p-4 bg-gradient-to-r from-yellow-50/70 to-orange-50/70 dark:from-yellow-900/30 dark:to-orange-900/30 border border-yellow-200 dark:border-yellow-800 rounded-xl space-y-3"
+      className="mt-4 p-4 bg-gradient-to-r from-yellow-50/70 to-blue-50/70 dark:from-yellow-900/30 dark:to-blue-900/30 border border-yellow-200 dark:border-yellow-800 rounded-xl space-y-3"
     >
       <p className="text-xs font-black text-yellow-700 dark:text-yellow-400 leading-none">
         Kustom Waktu Mulai Video
@@ -529,37 +548,128 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
 };
 
 const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSongUrl }) => {
-  const [resolving, setResolving] = useState(false);
-  const [error, setError] = useState('');
-  const [searchMode, setSearchMode] = useState('search');
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const playerRef = useRef(null);
+  const playerContainerRef = useRef(null);
+  const progressInterval = useRef(null);
+  const ytPlayerRef = useRef(null);
 
-  const handleResolve = async () => {
-    if (!songUrl.trim()) return;
-    setResolving(true);
-    setError('');
-    setSongData(null);
-    try {
-      const res = await axios.get(`${BASE_URL}/api/midtrans/soundcloud-resolve`, {
-        params: { url: songUrl.trim() },
-      });
-      setSongData(res.data.track);
-    } catch (err) {
-      setError(err.response?.data?.message || 'Gagal mengambil data lagu');
-    } finally {
-      setResolving(false);
+  // Init YouTube IFrame API
+  useEffect(() => {
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
     }
+  }, []);
+
+  // Buat player saat songData berubah
+  useEffect(() => {
+    if (!songData?.videoId) return;
+
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
+    clearInterval(progressInterval.current);
+
+    const initPlayer = () => {
+      if (ytPlayerRef.current) {
+        ytPlayerRef.current.destroy();
+        ytPlayerRef.current = null;
+      }
+
+      ytPlayerRef.current = new window.YT.Player(playerRef.current, {
+        videoId: songData.videoId,
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          modestbranding: 1,
+          rel: 0,
+          disablekb: 1,
+        },
+        events: {
+          onReady: (e) => {
+            setDuration(e.target.getDuration());
+          },
+          onStateChange: (e) => {
+            if (e.data === window.YT.PlayerState.PLAYING) {
+              setIsPlaying(true);
+              progressInterval.current = setInterval(() => {
+                setCurrentTime(ytPlayerRef.current?.getCurrentTime() || 0);
+                setDuration(ytPlayerRef.current?.getDuration() || 0);
+              }, 500);
+            } else {
+              setIsPlaying(false);
+              clearInterval(progressInterval.current);
+              if (e.data === window.YT.PlayerState.ENDED) {
+                setCurrentTime(0);
+              }
+            }
+          },
+        },
+      });
+    };
+
+    if (window.YT && window.YT.Player) {
+      initPlayer();
+    } else {
+      window.onYouTubeIframeAPIReady = initPlayer;
+    }
+
+    return () => {
+      clearInterval(progressInterval.current);
+    };
+  }, [songData?.videoId]);
+
+  // Cleanup saat unmount
+  useEffect(() => {
+    return () => {
+      clearInterval(progressInterval.current);
+      if (ytPlayerRef.current) {
+        ytPlayerRef.current.destroy();
+        ytPlayerRef.current = null;
+      }
+    };
+  }, []);
+
+  const togglePlay = () => {
+    if (!ytPlayerRef.current) return;
+    if (isPlaying) {
+      ytPlayerRef.current.pauseVideo();
+    } else {
+      ytPlayerRef.current.playVideo();
+    }
+  };
+
+  const handleSeek = (e) => {
+    if (!ytPlayerRef.current || !duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percent = x / rect.width;
+    const seekTo = percent * duration;
+    ytPlayerRef.current.seekTo(seekTo, true);
+    setCurrentTime(seekTo);
+  };
+
+  const formatTime = (s) => {
+    if (!s || isNaN(s)) return '0:00';
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return `${m}:${sec.toString().padStart(2, '0')}`;
   };
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
     setLoading(true);
     setError('');
-
     try {
-      const res = await axios.get(`${BASE_URL}/api/midtrans/soundcloud-search`, {
+      const res = await axios.get(`${BASE_URL}/api/midtrans/youtube-search`, {
         params: { q: searchQuery.trim() }
       });
       setSearchResults(res.data.tracks || []);
@@ -574,144 +684,196 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
     setSongData(track);
     setSearchResults([]);
     setSearchQuery('');
+    setIsPlaying(false);
+    setCurrentTime(0);
   };
 
   const clear = () => {
+    if (ytPlayerRef.current) {
+      ytPlayerRef.current.stopVideo();
+    }
     setSongData(null);
     setSongUrl('');
     setSearchResults([]);
     setSearchQuery('');
     setError('');
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
   };
 
+  const effectiveDuration = duration || songData?.duration || 0;
+  const progressPercent = effectiveDuration > 0 ? (currentTime / effectiveDuration) * 100 : 0;
+
   return (
-    <div className="rounded-xl border-2 border-orange-200 dark:border-orange-800 bg-orange-50/60 dark:bg-orange-900/20 p-5 space-y-4">
-      <div className="flex items-center gap-2.5">
-        <div className="w-7 h-7 rounded-xl bg-orange-500 flex items-center justify-center text-white flex-shrink-0">
-          <Music size={13} />
-        </div>
-        <div>
-          <p className="text-xs font-black text-orange-700 dark:text-orange-400">🎵 Song Request</p>
-          <p className="text-[10px] text-orange-400 dark:text-orange-500">Minimal Rp {Number(minAmount).toLocaleString('id-ID')}</p>
-        </div>
+    <div className="rounded-xl border-2 border-blue-200 dark:border-blue-800 bg-blue-50/60 dark:bg-blue-900/20 p-3 space-y-4">
+      {/* YouTube IFrame — tersembunyi */}
+      <div style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', opacity: 0, pointerEvents: 'none' }}>
+        <div ref={playerRef} />
       </div>
 
-      {/* Toggle Mode */}
-      <div className="grid grid-cols-2 gap-2">
+      {/* Search */}
+      <div className="flex gap-2">
+        <InputField
+          label="Cari Lagu"
+          value={searchQuery}
+          onChange={setSearchQuery}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          placeholder="Judul lagu atau nama artis..."
+        />
         <button
-          onClick={() => setSearchMode('search')}
-          className={`py-2.5 text-sm font-bold rounded-xl ${searchMode === 'search' ? 'bg-orange-500 text-white' : 'bg-white dark:bg-slate-900 border border-orange-200'}`}
+          onClick={handleSearch}
+          disabled={loading || !searchQuery.trim()}
+          className="px-5 bg-blue-500 hover:bg-blue-600 text-white font-black text-sm rounded-xl disabled:opacity-50 flex-shrink-0 transition-all"
         >
-          🔍 Cari Judul Lagu
-        </button>
-        <button
-          onClick={() => setSearchMode('url')}
-          className={`py-2.5 text-sm font-bold rounded-xl ${searchMode === 'url' ? 'bg-orange-500 text-white' : 'bg-white dark:bg-slate-900 border border-orange-200'}`}
-        >
-          🔗 Paste Link
+          {loading ? <Loader2 className="animate-spin" size={18} /> : 'Cari'}
         </button>
       </div>
 
-      {/* MODE SEARCH */}
-      {searchMode === 'search' && (
-        <div className="space-y-3">
-          <div className="flex gap-2">
-            <InputField
-              label="Judul Lagu / Artis"
-              value={searchQuery}
-              onChange={setSearchQuery}
-              placeholder="Contoh: faded alan walker"
-            />
-            <button
-              onClick={handleSearch}
-              disabled={loading || !searchQuery.trim()}
-              className="px-6 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-xl disabled:opacity-50"
+      {error && <p className="text-red-500 text-xs font-bold">{error}</p>}
+
+      {/* Hasil Pencarian */}
+      {searchResults.length > 0 && (
+        <div className="max-h-72 overflow-y-auto space-y-2 pr-1">
+          {searchResults.map(track => (
+            <div
+              key={track.id}
+              onClick={() => selectTrack(track)}
+              className="flex gap-3 p-3 items-center bg-white dark:bg-slate-900 rounded-xl border border-blue-100 dark:border-blue-800 hover:border-blue-400 cursor-pointer transition-all active:scale-[0.99]"
             >
-              {loading ? <Loader2 className="animate-spin" size={18} /> : 'Cari'}
-            </button>
-          </div>
-
-          {error && <p className="text-red-500 text-xs">{error}</p>}
-
-          {/* Hasil Pencarian */}
-          {searchResults.length > 0 && (
-            <div className="max-h-80 overflow-y-auto space-y-2 pr-1">
-              {searchResults.map(track => (
-                <div
-                  key={track.id}
-                  onClick={() => selectTrack(track)}
-                  className="flex gap-3 p-3 bg-white dark:bg-slate-900 rounded-xl border border-orange-100 dark:border-orange-800 hover:border-orange-400 cursor-pointer transition-all"
-                >
-                  <img src={track.artworkUrl} alt="" className="w-14 h-14 rounded-lg object-cover" />
-                  <div className="flex-1 min-w-0">
-                    <p className="font-bold text-sm line-clamp-1">{track.title}</p>
+              <img src={track.artworkUrl} alt="" className="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
+              <div className="flex-1 h-max min-w-0 pt-1">
+                <p className="font-bold truncate max-w-[80%] text-sm text-slate-800 dark:text-white">{track.title}</p>
+                <div className="flex-1 h-max min-w-0 pt-1">
+                  <div className="flex items-center justify-between mt-1">
                     <p className="text-xs text-slate-500 dark:text-slate-400">{track.artist}</p>
-                    <p className="text-[10px] text-orange-500">{formatDuration(track.duration)}</p>
+                    <div className='w-max gap-2 flex items-center'>
+                      {track.duration && (
+                        <span className="text-[10px] font-bold text-slate-400 flex-shrink-0 ml-2">
+                          {formatTime(track.duration)}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-          )}
+          ))}
         </div>
       )}
 
-      {searchMode === 'url' && (
-        <div className="space-y-2">
-          <div className="flex gap-2">
-            <InputField
-              label="Link SoundCloud"
-              type="url"
-              value={songUrl}
-              onChange={(v) => setSongUrl(v)}
-              placeholder="https://soundcloud.com/artis/judul-lagu"
-            />
-          </div>
-          <button
-            onClick={handleResolve}
-            disabled={resolving || !songUrl.trim()}
-            className="w-full py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-black text-xs disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
-          >
-            {resolving ? <><Loader2 size={14} className="animate-spin" /> Mengecek lagu...</> : 'Cek Lagu'}
-          </button>
-          {error && (
-            <p className="text-[10px] font-bold text-red-500 flex items-center gap-1.5"><X size={11} /> {error}</p>
-          )}
-        </div>
-      )}
-
+      {/* MP3 Player UI */}
       <AnimatePresence>
         {songData && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex items-center gap-3 p-3 bg-white dark:bg-slate-900 rounded-xl border border-orange-200 dark:border-orange-800"
+            initial={{ opacity: 0, scale: 0.96, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            className="bg-white dark:bg-slate-900 rounded-xl border border-blue-200 dark:border-blue-800 overflow-hidden"
           >
-            <img
-              src={songData.artworkUrl || '/default-cover.png'}
-              alt={songData.title}
-              className="w-14 h-14 rounded-lg object-cover flex-shrink-0 bg-slate-200"
-              onError={(e) => { e.target.src = '/default-cover.png'; }}
-            />
-            <div className="flex-1 min-w-0">
-              <p className="font-black text-sm text-slate-800 dark:text-white truncate">{songData.title}</p>
-              <p className="text-[11px] text-slate-400 font-bold truncate">{songData.artist}</p>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-[10px] font-bold text-orange-500">{formatDuration(songData.duration)}</span>
-                <a href={songData.permalinkUrl} target="_blank" rel="noopener noreferrer"
-                   className="text-[10px] font-bold text-blue-500 hover:underline flex items-center gap-1">
-                  Dengar di SoundCloud
-                </a>
+            {/* Album art + info */}
+            <div className="relative flex items-center gap-3 p-3">
+              <div className="relative flex-shrink-0">
+                <img
+                  src={songData.artworkUrl || '/default-cover.png'}
+                  alt={songData.title}
+                  className={`w-14 h-14 rounded-xl object-cover transition-all ${isPlaying ? 'ring-2 ring-blue-400 ring-offset-2' : ''}`}
+                  onError={(e) => { e.target.src = '/default-cover.png'; }}
+                />
+                {isPlaying && (
+                  <div className="absolute inset-0 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                    <div className="flex items-end gap-[2px] h-4">
+                      {[1, 2, 3].map(i => (
+                        <div
+                          key={i}
+                          className="w-[3px] bg-blue-500 rounded-full animate-bounce"
+                          style={{ height: `${[60, 100, 70][i-1]}%`, animationDelay: `${i * 0.1}s` }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <p className="font-black truncate max-w-[86%] text-sm text-slate-800 dark:text-white truncate">{songData.title}</p>
+                <p className="text-[11px] text-slate-400 font-bold truncate mt-0.5">{songData.artist}</p>
+              </div>
+
+              <button
+                onClick={clear}
+                className="cursor-pointer active:scale-[0.98] absolute top-2 right-2 w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-red-700 text-slate-400 hover:text-white flex items-center justify-center transition-all flex-shrink-0"
+              >
+                <X size={13} />
+              </button>
+            </div>
+
+            {/* Progress bar */}
+            <div className="px-3 pb-1">
+              <div
+                className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full cursor-pointer overflow-hidden"
+                onClick={handleSeek}
+              >
+                <div
+                  className="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+              <div className="flex justify-between mt-1">
+                <span className="text-[10px] font-bold text-slate-400">{formatTime(currentTime)}</span>
+                <span className="text-[10px] font-bold text-slate-400">{formatTime(duration)}</span>
               </div>
             </div>
-            <button onClick={clear} className="w-7 h-7 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-red-900 text-slate-400 hover:text-red-500 flex items-center justify-center transition-all flex-shrink-0">
-              <X size={13} />
-            </button>
+
+            {/* Controls */}
+            <div className="flex items-center justify-center gap-4 pb-4 pt-1">
+              {/* Rewind 10s */}
+              <button
+                onClick={() => {
+                  const t = Math.max(0, currentTime - 10);
+                  ytPlayerRef.current?.seekTo(t, true);
+                  setCurrentTime(t);
+                }}
+                className="w-8 h-8 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 flex items-center justify-center transition-all text-xs font-black"
+              >
+                ↩10
+              </button>
+
+              {/* Play/Pause */}
+              <button
+                onClick={togglePlay}
+                className="cursor-pointer active:scale-[0.98] w-12 h-12 rounded-full bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center transition-all active:scale-95 shadow-lg shadow-blue-200 dark:shadow-blue-900"
+              >
+                {isPlaying ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="6" y="4" width="4" height="16" rx="1"/>
+                    <rect x="14" y="4" width="4" height="16" rx="1"/>
+                  </svg>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5.14v14l11-7-11-7z"/>
+                  </svg>
+                )}
+              </button>
+
+              {/* Forward 10s */}
+              <button
+                onClick={() => {
+                  const t = Math.min(duration, currentTime + 10);
+                  ytPlayerRef.current?.seekTo(t, true);
+                  setCurrentTime(t);
+                }}
+                className="w-8 h-8 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 flex items-center justify-center transition-all text-xs font-black"
+              >
+                10↪
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <p className="text-[9px] text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1">
-        🔗 Powered by SoundCloud — artis & sumber selalu ditampilkan
+      <p className="text-[9px] text-slate-400 dark:text-slate-500 font-medium">
+        ▶ Powered by YouTube — preview lagu sebelum dikirim
       </p>
     </div>
   );
@@ -1165,7 +1327,7 @@ const QuickAudioSection = ({ publicSounds = [], selectedSound, onSoundChange, am
                 </div>
               )}
               <span className="text-lg relative z-20">{sound.emoji || '🎵'}</span>
-              <span className="leading-tight text-slate-900 dark:text-white relative z-20 truncate max-w-[80%] text-xs font-medium">
+              <span className="leading-tight text-slate-900 dark:text-white relative z-20 truncate max-w-[86%] text-xs font-medium">
                 {sound.label || `S${i + 1}`}
               </span>
             </button>
@@ -1251,7 +1413,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
                   onClick={() => onTabChange(tab.id)}
                   className={`
                     flex items-center justify-center gap-1.5 py-3 md:py-5 px-3
-                    text-[10px] font-black transition-all cursor-pointer select-none rounded-lg md:rounded-xl
+                    text-[10px] md:!text-[12px] font-black transition-all cursor-pointer select-none rounded-lg md:rounded-xl
                     ${isActive
                       ? 'bg-blue-600 text-white'
                       : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
@@ -1259,7 +1421,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
                   `}
                 >
                   <Icon size={13} className={isActive ? 'text-white' : 'text-slate-400 dark:text-slate-500'} />
-                  <span>{tab.label}</span>
+                  <p>{tab.label}</p>
                 </button>
               );
             })}
@@ -2123,7 +2285,7 @@ const SupporterPage = () => {
               ) : (streamer.username?.charAt(0).toUpperCase() || '?')}
             </div>
             <h1 className="text-2xl font-black text-slate-800 dark:text-white">@{streamer.username}</h1>
-            <p className="text-slate-400 dark:text-slate-500 text-sm mt-1">{streamer.donateIntro || 'Support aku biar makin semangat 🚀'}</p>
+            <p className="text-slate-400 dark:text-slate-500 text-sm mt-1">{streamer.donateIntro || 'Support aku biar makin semangat'}</p>
 
             {isLoggedIn && (
               <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl text-[10px] font-black text-green-700 dark:text-green-400">
@@ -2153,7 +2315,7 @@ const SupporterPage = () => {
               {donationItemsMode === 'both' && donationItems.filter(i => i.name && i.price > 0).length > 0 && (
                 <div className="mt-7 flex items-center gap-2">
                   <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
-                  <span className="text-[10px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-widest">
+                  <span className="text-[10px] font-black text-slate-300 dark:text-slate-500 uppercase tracking-widest">
                     atau nominal langsung
                   </span>
                   <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
@@ -2204,7 +2366,6 @@ const SupporterPage = () => {
                   }}
                   placeholder="Nominal Kustom..."
                 />
-                {/* </div> */}
 
                 {/* Media Trigger Info */}
                 {sortedTriggers.length > 0 && (
@@ -2526,7 +2687,7 @@ const SupporterPage = () => {
             exit={{ opacity: 0, scale: 0.92, y: 16 }}
             className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-xl shadow-2xl overflow-hidden"
           >
-            <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
+            <div className="h-1 bg-gradient-to-r from-amber-400 to-blue-500" />
             <div className="p-7 flex flex-col items-center text-center gap-4">
               <div className="w-14 h-14 flex items-center justify-center bg-amber-50 dark:bg-amber-900/30">
                 <span className="text-3xl">⏰</span>
