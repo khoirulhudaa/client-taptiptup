@@ -5266,10 +5266,48 @@ const handleChangePin = async () => {
                       />
                     </div>
 
+                    <div>
+                      <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2">
+                        Volume Player ({settings.songRequestVolume ?? 80}%)
+                      </label>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={settings.songRequestVolume ?? 80}
+                        onChange={e => upd('songRequestVolume', Number(e.target.value))}
+                        className="w-full cursor-pointer accent-orange-500"
+                      />
+                    </div>
+
                     <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                       className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
                       {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
                     </button>
+
+                    <div className="mt-4 flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700">
+                      <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">🎵</div>
+                      <div className="flex-1 min-w-0 relative top-[3px]">
+                        <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white uppercase tracking-widest">
+                          URL NOW PLAYING - OBS
+                        </label>
+                        <input
+                          readOnly
+                          value={`${window.location.origin}/overlay/${user.overlayToken}/now-playing`}
+                          aria-label="URL Now Playing Overlay"
+                          className="w-[90%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis"
+                        />
+                      </div>
+                      <button
+                        onClick={() => copyToClipboard(
+                          `${window.location.origin}/overlay/${user.overlayToken}/now-playing`,
+                          'Now Playing Overlay'
+                        )}
+                        className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 rounded-xl transition-all flex-shrink-0"
+                      >
+                        <Copy size={15} />
+                      </button>
+                    </div>
                   </div>
                 </motion.div>
               )}
