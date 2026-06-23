@@ -324,15 +324,6 @@ const DonationPending = () => {
               </div>
             </motion.div>
           </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.3 }}
-            className="text-center text-xs text-gray-400 dark:text-slate-500 mt-4"
-          >
-            Butuh bantuan? Hubungi dukungan kami 💬
-          </motion.p>
         </div>
       </div>
 

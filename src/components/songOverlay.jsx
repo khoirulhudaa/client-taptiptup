@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { motion } from 'framer-motion';
+import { Music } from 'lucide-react';
 
 const SERVER_URL = 'https://taptiptup-server-1ee47f2895cb.herokuapp.com';
 
@@ -224,7 +225,7 @@ const SongOverlay = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         style={{
-          width: 340,
+          width: 440,
           background: bg,
           borderRadius: 16,
           overflow: 'hidden',
@@ -246,18 +247,7 @@ const SongOverlay = () => {
         }} />
 
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px 4px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <EqualizerBars playing={isPlaying} idle={isIdle} color={accent} />
-            <span style={{
-              fontSize: 10, fontWeight: 700,
-              color: isIdle ? accent + '60' : accent,
-              letterSpacing: '0.08em', textTransform: 'uppercase',
-              transition: 'color 0.4s ease',
-            }}>
-              {isIdle ? 'Waiting for request...' : 'Now Playing'}
-            </span>
-          </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0px 12px 4px' }}>
           {!isIdle && (
             <span style={{ fontSize: 10, color: `${fg}60`, fontWeight: 500 }}>
               req. {nowPlaying.donorName}
@@ -266,38 +256,36 @@ const SongOverlay = () => {
         </div>
 
         {/* Album art + info */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 12px 10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 0px 10px' }}>
           {/* Artwork */}
           <div style={{ position: 'relative', flexShrink: 0 }}>
             {/* Konten */}
             {isIdle ? (
-            <div style={{ padding: '14px 14px 12px' }}>
+            <div style={{ padding: '14px 16px 12px' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                <div style={{
-                    width: 32, height: 32, borderRadius: 8,
-                    background: fg + '1A',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    flexShrink: 0, marginTop: 2, fontSize: 16,
-                }}>
-                    🎵
-                </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 14, fontWeight: 800, color: fg, lineHeight: 1.3 }}>
-                    Tidak Ada Lagu Yang Diputar
+                    <div style={{
+                        width: 40, height: 40, borderRadius: 8,
+                        background: fg + '1A',
+                        color: 'white',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        flexShrink: 0, marginTop: 2, fontSize: 16, padding: 6,
+                    }}>
+                        <Music />
                     </div>
-                    <div style={{ fontSize: 12, fontWeight: 500, color: `${fg}B3`, marginTop: 3 }}>
-                    Kirim hadiah untuk me-request lagu
+                    <div style={{ flex: 1, minWidth: 0 ,position: 'relative', top: 3 }}>
+                        <div style={{ fontSize: 14, fontWeight: 800, color: fg, lineHeight: 1.3 }}>
+                        Tidak Ada Lagu Yang Diputar
+                        </div>
+                        <div style={{ fontSize: 12, fontWeight: 500, color: `${fg}B3`, marginTop: 3 }}>
+                        Kirim hadiah untuk me-request lagu
+                        </div>
                     </div>
-                </div>
-                </div>
-                <div style={{ marginTop: 12, height: 5, borderRadius: 999, background: `${fg}26`, overflow: 'hidden' }}>
-                <ShimmerBar width="100%" height={5} radius={999} color={fg} />
                 </div>
             </div>
             ) : (
             <>
                 {/* Header + Album art + info lama (Now Playing) tetap di sini, tidak berubah */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px 4px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px 12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <EqualizerBars playing={isPlaying} idle={isIdle} color={accent} />
                     <span style={{ fontSize: 10, fontWeight: 700, color: accent, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
@@ -317,7 +305,9 @@ const SongOverlay = () => {
                     style={{ width: 54, height: 54, borderRadius: 10, objectFit: 'cover', border: `2px solid ${accent}40`, display: 'block' }}
                     onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
                     />
-                    <div style={{ display: 'none', width: 54, height: 54, borderRadius: 10, background: accent + '22', border: `2px solid ${accent}40`, alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🎵</div>
+                    <div style={{ color: 'white', display: 'none', width: 54, height: 54, borderRadius: 10, background: accent + '22', border: `2px solid ${accent}40`, alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>
+                        <Music />
+                    </div>
                     {isPlaying && (
                     <div style={{ position: 'absolute', inset: -3, borderRadius: 13, border: `2px solid ${accent}`, animation: 'pulse-ring 1.5s ease-in-out infinite' }} />
                     )}
@@ -345,8 +335,7 @@ const SongOverlay = () => {
           <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
             {isIdle ? (
               <>
-                <ShimmerBar width="80%" height={12} color={fg} />
-                <ShimmerBar width="55%" height={10} color={fg} />
+                
               </>
             ) : (
               <>
@@ -369,10 +358,10 @@ const SongOverlay = () => {
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
             <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}${isIdle ? '30' : '60'}` }}>
-              {isIdle ? '--:--' : formatTime(currentTime)}
+              {isIdle ? "" : formatTime(currentTime)}
             </span>
             <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}${isIdle ? '30' : '60'}` }}>
-              {isIdle ? '--:--' : formatTime(nowPlaying.duration || 0)}
+              {isIdle ? "" : formatTime(nowPlaying.duration || 0)}
             </span>
           </div>
         </div>
