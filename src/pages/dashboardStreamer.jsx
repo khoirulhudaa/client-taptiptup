@@ -4237,9 +4237,9 @@ const handleChangePin = async () => {
                   <div className="w-16 h-16 mx-auto mb-6 mt-1 md:mt-2 bg-green-100 dark:bg-green-950/40 rounded-xl  flex items-center justify-center">
                     <CheckCircle2 size={40} className="text-green-600 dark:text-green-400" />
                   </div>
-                  <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2">URL Tersalin!</h3>
-                  <p className="text-slate-600 dark:text-slate-400 mb-6">Widget <span className="font-bold text-blue-600 dark:text-blue-400">{copiedLabel}</span> berhasil disalin.</p>
-                  <button onClick={() => setShowCopyModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-xl  transition-all active:scale-[0.99]">OK, Mengerti</button>
+                  <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2">Berhasil</h3>
+                  <p className="text-slate-600 dark:text-slate-400 mb-6"><span className="font-bold text-blue-600 dark:text-blue-400">{"URL"}</span> sudah selesai disalin</p>
+                  <button onClick={() => setShowCopyModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-xl  transition-all active:scale-[0.99]">Tutup sekarang</button>
                 </div>
               </motion.div>
             </motion.div>
@@ -5327,6 +5327,26 @@ const handleChangePin = async () => {
                         className="px-4 py-3 bg-orange-500 hover:bg-orange-600 text-white font-black text-sm rounded-xl transition-all active:scale-[0.99] cursor-pointer flex items-center gap-2"
                       >
                         ⏭ Skip
+                      </button>
+                    </div>
+                    <div className="mt-4 flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
+                      <div className="flex-1 min-w-0">
+                        <p className="font-black text-sm text-slate-700 dark:text-white">Stream Deck — Skip Lagu</p>
+                        <input
+                          readOnly
+                          value={`${import.meta.env.VITE_API_URL}/api/midtrans/song-shortcut/${user.overlayToken}/skip`}
+                          aria-label="URL Stream Deck Skip Lagu"
+                          className="w-[95%] bg-transparent font-mono text-xs text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis"
+                        />
+                      </div>
+                      <button
+                        onClick={() => copyToClipboard(
+                          `${import.meta.env.VITE_API_URL}/api/midtrans/song-shortcut/${user.overlayToken}/skip`,
+                          'Stream Deck Skip Lagu'
+                        )}
+                        className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 rounded-xl transition-all flex-shrink-0"
+                      >
+                        <Copy size={15} />
                       </button>
                     </div>
                   </div>
