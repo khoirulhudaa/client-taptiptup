@@ -282,6 +282,8 @@ const SongOverlay = () => {
         style={{
           width: 440,
           background: bg,
+          display: 'flex',
+          height: 110, 
           padding: `${isIdle ? '0px' : '12px'} 6px 0px 6px`,
           borderRadius: 16,
           overflow: 'hidden',
