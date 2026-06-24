@@ -132,7 +132,7 @@ export const AdminWithdrawalPage = () => {
                         </td>
                         <td className="px-6 py-5">
                           <p className="text-blue-600 font-black text-sm">Rp {Number(wd.amount).toLocaleString('id-ID')}</p>
-                          <p className="text-[10px] text-slate-400 font-medium">+Rp 5.000 fee</p>
+                          <p className="text-[10px] text-slate-400 font-medium">+Rp 4.000 fee</p>
                         </td>
                         <td className="px-6 py-5">
                           <p className="font-bold text-slate-600 text-sm">{wd.paymentMethod || 'BANK'}</p>

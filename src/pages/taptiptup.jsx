@@ -1686,7 +1686,7 @@ function SharePromo({ C }) {
 
 const THEMES2 = [
   { id: "modern",  label: "Taptip 1" },
-  { id: "minimal", label: "Taptip 2" },
+  // { id: "minimal", label: "Taptip 2" },
   { id: "smooth",  label: "Taptip 3" },
   { id: "gifCard", label: "Pop Card" },
 ];
@@ -2259,7 +2259,7 @@ export function OverlayCustomizer({ C }) {
             {/* Tema */}
             <div style={ctrlCard}>
               <span style={sectionLabel}>Tema Alert</span>
-              <div className="grid-cols-1 md:grid-cols-2" style={{ display: "grid", gap: 8 }}>
+              <div className="grid-cols-1 md:grid-cols-3" style={{ display: "grid", gap: 8 }}>
                 {THEMES2.map(t => (
                   <button key={t.id} onClick={() => upd("theme", t.id)}
                     style={{

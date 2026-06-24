@@ -1493,6 +1493,40 @@ const AdminWithdrawalPage = () => {
 
   return (
     <div className="w-full space-y-5 pb-0">
+      <AnimatePresence>
+          {showApproveModal && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed z-[99999] inset-0 bg-black/70 h-screen backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowApproveModal(false)}>
+              <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl max-w-md w-full p-8 text-center border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
+                <div className="w-20 h-20 mx-auto mb-6 bg-green-100 dark:bg-green-950/40 rounded-xl flex items-center justify-center text-5xl">✅</div>
+                <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2">Konfirmasi Approve</h3>
+                <p className="text-slate-600 dark:text-slate-400 mb-8">Apakah Anda yakin sudah mentransfer dana ke streamer ini?</p>
+                <div className="flex gap-3">
+                  <button onClick={() => setShowApproveModal(false)} className="cursor-pointer flex-1 py-3 md:py-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-black rounded-xl ">Batal</button>
+                  <button onClick={() => updateMutation.mutate({ id: selectedId, status: 'COMPLETED' })} disabled={updateMutation.isPending} className="cursor-pointer flex-1 py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white font-black rounded-xl transition-all disabled:opacity-70">
+                    {updateMutation.isPending ? 'Memproses...' : 'Ya, Sudah Transfer'}
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {showRejectModal && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowRejectModal(false)}>
+              <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl max-w-md w-full p-8 border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
+                <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2 text-center">Tolak Penarikan</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-center mb-6">Berikan alasan penolakan (opsional)</p>
+                <textarea value={rejectNote} onChange={e => setRejectNote(e.target.value)} placeholder="Contoh: Rekening tidak valid..." className="w-full h-32 p-4 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl  focus:border-red-400 outline-none resize-y font-medium" />
+                <div className="flex gap-3 mt-6">
+                  <button onClick={() => setShowRejectModal(false)} className="cursor-pointer flex-1 py-3 md:py-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-black rounded-xl">Batal</button>
+                  <button onClick={() => updateMutation.mutate({ id: selectedId, status: 'FAILED', note: rejectNote || 'Ditolak oleh admin' })} disabled={updateMutation.isPending} className="cursor-pointer flex-1 py-3 md:py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl  transition-all disabled:opacity-70">
+                    {updateMutation.isPending ? 'Memproses...' : 'Konfirmasi Tolak'}
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       <div className="bg-gradient-to-br dark:from-slate-800 dark:to-slate-900 from-blue-700 to-indigo-800  rounded-xl p-4 md:p-6 text-white">
         <div className="flex items-center justify-between">
           <div>
@@ -1539,7 +1573,7 @@ const AdminWithdrawalPage = () => {
                     {withdrawals.map(wd => (
                       <tr key={wd._id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all">
                         <td className="px-6 py-5"><p className="font-black text-slate-700 dark:text-slate-200 text-sm">@{wd.userId?.username || '-'}</p></td>
-                        <td className="px-6 py-5"><p className="text-white dark:text-white font-black text-sm">Rp {formatRupiah(Number(wd.amount) - 3500)}</p></td>
+                        <td className="px-6 py-5"><p className="text-white dark:text-white font-black text-sm">Rp {formatRupiah(Number(wd.amount) - 4000)}</p></td>
                         <td className="px-6 py-5"><p className="font-bold text-slate-600 dark:text-slate-300 text-sm">{wd.paymentMethod || 'BANK'}</p></td>
                         <td className="px-6 py-5"><p className="font-mono font-bold text-slate-700 dark:text-slate-200 text-sm">{wd.accountNumber}</p></td>
                         <td className="px-6 py-5">
@@ -1560,40 +1594,6 @@ const AdminWithdrawalPage = () => {
                     ))}
                   </tbody>
                 </table>
-                <AnimatePresence>
-                  {showApproveModal && (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowApproveModal(false)}>
-                      <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl max-w-md w-full p-8 text-center border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
-                        <div className="w-20 h-20 mx-auto mb-6 bg-green-100 dark:bg-green-950/40 rounded-xl flex items-center justify-center text-5xl">✅</div>
-                        <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2">Konfirmasi Approve</h3>
-                        <p className="text-slate-600 dark:text-slate-400 mb-8">Apakah Anda yakin sudah mentransfer dana ke streamer ini?</p>
-                        <div className="flex gap-3">
-                          <button onClick={() => setShowApproveModal(false)} className="cursor-pointer flex-1 py-3 md:py-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-black rounded-xl ">Batal</button>
-                          <button onClick={() => updateMutation.mutate({ id: selectedId, status: 'COMPLETED' })} disabled={updateMutation.isPending} className="cursor-pointer flex-1 py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white font-black rounded-xl transition-all disabled:opacity-70">
-                            {updateMutation.isPending ? 'Memproses...' : 'Ya, Sudah Transfer'}
-                          </button>
-                        </div>
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                <AnimatePresence>
-                  {showRejectModal && (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowRejectModal(false)}>
-                      <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl max-w-md w-full p-8 border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
-                        <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2 text-center">Tolak Penarikan</h3>
-                        <p className="text-slate-600 dark:text-slate-400 text-center mb-6">Berikan alasan penolakan (opsional)</p>
-                        <textarea value={rejectNote} onChange={e => setRejectNote(e.target.value)} placeholder="Contoh: Rekening tidak valid..." className="w-full h-32 p-4 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl  focus:border-red-400 outline-none resize-y font-medium" />
-                        <div className="flex gap-3 mt-6">
-                          <button onClick={() => setShowRejectModal(false)} className="cursor-pointer flex-1 py-3 md:py-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-black rounded-xl">Batal</button>
-                          <button onClick={() => updateMutation.mutate({ id: selectedId, status: 'FAILED', note: rejectNote || 'Ditolak oleh admin' })} disabled={updateMutation.isPending} className="cursor-pointer flex-1 py-3 md:py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl  transition-all disabled:opacity-70">
-                            {updateMutation.isPending ? 'Memproses...' : 'Konfirmasi Tolak'}
-                          </button>
-                        </div>
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             )
         }
@@ -4727,11 +4727,11 @@ const handleChangePin = async () => {
                       <SectionHeader icon={<Palette size={20} />} title={`Tema visual`} color="bg-cyan-600" />
                       <div className="md:col-span-2">
                         {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label> */}
-                        <div className="grid grid-cols-2 gap-3">
-                        {['modern', 'minimal', 'smooth', 'gifCard'].map(t => {
+                        <div className="grid grid-cols-3 gap-3">
+                        {['modern', 'smooth', 'gifCard'].map(t => {
                           const themeLabels = {
                             modern:  'Taptip Play 1',
-                            minimal: 'Taptip Play 2',
+                            // minimal: 'Taptip Play 2',
                             smooth:  'Taptip Play 3',
                             gifCard: 'Pop Card',
                           };
@@ -5192,6 +5192,7 @@ const handleChangePin = async () => {
                       activeSlot={activeSlot} 
                     />
                   )}
+                  
 
                   {/* Suara */}
                   <SoundSection activeSlot={activeSlot} />
