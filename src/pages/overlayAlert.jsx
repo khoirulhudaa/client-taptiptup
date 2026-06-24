@@ -670,6 +670,7 @@
                     style={{
                       backgroundColor: theme === 'gifCard' ? 'transparent' : bg,
                       color: fg,
+                      position: 'relative',
                       padding: 6,
                       width: theme === 'gifCard' ? '500px' : 'max-content',
                       minWidth: theme === 'gifCard' ? undefined : 320,

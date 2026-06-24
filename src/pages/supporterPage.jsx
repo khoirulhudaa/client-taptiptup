@@ -2464,9 +2464,9 @@ const SupporterPage = () => {
                           <button
                             key={gif.id}
                             onClick={() => setDonorGifChoice(gif.path)}
-                            className={`relative rounded-xl border-2 overflow-hidden transition-all cursor-pointer active:scale-[0.98] ${
+                            className={`relative rounded-xl border overflow-hidden transition-all cursor-pointer active:scale-[0.98] ${
                               donorGifChoice === gif.path
-                                ? 'border-blue-600 ring-2 ring-blue-300'
+                                ? 'border-blue-600 ring-blue-300'
                                 : 'border-slate-200 dark:border-slate-700'
                             }`}
                           >
@@ -2726,7 +2726,7 @@ const SupporterPage = () => {
               className={`w-full py-3 md:py-4 rounded-xl font-black text-sm flex items-center justify-center gap-2 transition-all ${
                 isSubmitDisabled
                   ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
-                  : 'active:scale-[0.99] cursor-pointer bg-gradient-to-r from-violet-600 to-blue-600 text-white hover:brightness-110'
+                  : 'active:scale-[0.99] cursor-pointer bg-blue-600 text-white hover:brightness-110'
               }`}
             >
               {loading ? (
