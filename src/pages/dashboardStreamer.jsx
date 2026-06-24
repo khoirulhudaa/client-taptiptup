@@ -2586,6 +2586,20 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
                 {showAlert && (
                   <motion.div key={animKey} initial={animVariants[settings.animation]?.initial || animVariants.bounce.initial} animate={animVariants[settings.animation]?.animate || animVariants.bounce.animate} exit={animVariants[settings.animation]?.exit || animVariants.bounce.exit} style={{ position: 'absolute', ...posMap[settings.overlayPosition || 'bottom-left'], zIndex: 10 }}>
                     {renderAlert()}
+                     <img
+                      src="/galaksi.gif"
+                      alt=""
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        opacity: 0.1,        // ← ubah sesuai selera
+                        pointerEvents: 'none',
+                        zIndex: 0,
+                      }}
+                    />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -2634,6 +2648,20 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             {showAlert && previewMode === 'alert' && (
               <motion.div className='ml-1.5 md:ml-4 w-[90.7%] 2xl:w-[90%] md:w-[87%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
                 {renderAlert()}
+                 <img
+                  src="/galaksi.gif"
+                  alt=""
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    opacity: 0.1,        // ← ubah sesuai selera
+                    pointerEvents: 'none',
+                    zIndex: 0,
+                  }}
+                />
               </motion.div>
             )}
             {showAlert && previewMode === 'media' && (

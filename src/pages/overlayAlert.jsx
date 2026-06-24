@@ -626,12 +626,27 @@
         if (!config) return (
           <div style={{
             width: '100vw', height: '100vh',
+            position: 'relative',
             display: 'flex', flexDirection: 'column',
             alignItems: 'center', justifyContent: 'center',
             background: 'transparent', gap: 12,
             color: 'rgba(255,255,255,0.5)',
             fontFamily: 'monospace',
           }}>
+            <img
+              src="/mov1.gif"
+              alt=""
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                opacity: 0.18,        // ← ubah sesuai selera
+                pointerEvents: 'none',
+                zIndex: 0,
+              }}
+            />
             <span style={{ fontSize: 32 }}>📶</span>
             <span style={{ fontSize: 13 }}>Menghubungkan...</span>
           </div>
@@ -646,27 +661,46 @@
             <audio ref={audioRef} />
             <AnimatePresence>
               {alert && (
-                <motion.div
-                  key={alert.receivedAt || Date.now()}
-                  initial={anim.initial}
-                  animate={anim.animate}
-                  exit={anim.exit}
-                  style={{
-                    backgroundColor: theme === 'gifCard' ? 'transparent' : bg,
-                    color: fg,
-                    padding: 6,
-                    width: theme === 'gifCard' ? '500px' : 'max-content',
-                    minWidth: theme === 'gifCard' ? undefined : 320,
-                    maxWidth: theme === 'gifCard' ? undefined : 460,
-                    borderRadius: 20,
-                    border: theme === 'gifCard' ? 'none' : `1px solid ${borderColor}`,
-                    boxShadow: theme === 'gifCard' ? 'none' : '0 16px 40px rgba(0,0,0,0.55)',
-                    overflow: theme === 'gifCard' ? 'visible' : 'hidden',
-                    fontFamily: "'Inter', -apple-system, 'Segoe UI', sans-serif",
-                  }}
-                >
-                  {renderInner()}
-                </motion.div>
+                <>
+                  {alert.donorGifChoice && (
+                    <img
+                      src={alert.donorGifChoice}
+                      alt=""
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        opacity: 0.25,
+                        pointerEvents: 'none',
+                        zIndex: 0,
+                      }}
+                    />
+                  )}
+                  
+                  <motion.div
+                    key={alert.receivedAt || Date.now()}
+                    initial={anim.initial}
+                    animate={anim.animate}
+                    exit={anim.exit}
+                    style={{
+                      backgroundColor: theme === 'gifCard' ? 'transparent' : bg,
+                      color: fg,
+                      padding: 6,
+                      width: theme === 'gifCard' ? '500px' : 'max-content',
+                      minWidth: theme === 'gifCard' ? undefined : 320,
+                      maxWidth: theme === 'gifCard' ? undefined : 460,
+                      borderRadius: 20,
+                      border: theme === 'gifCard' ? 'none' : `1px solid ${borderColor}`,
+                      boxShadow: theme === 'gifCard' ? 'none' : '0 16px 40px rgba(0,0,0,0.55)',
+                      overflow: theme === 'gifCard' ? 'visible' : 'hidden',
+                      fontFamily: "'Inter', -apple-system, 'Segoe UI', sans-serif",
+                    }}
+                  >
+                    {renderInner()}
+                  </motion.div>
+                </>
               )}
           </AnimatePresence>
         </div>

@@ -1839,6 +1839,7 @@ const SupporterPage = () => {
   const [songUrl, setSongUrl] = useState('');
   const [songData, setSongData] = useState(null);
   const { theme, toggle: toggleTheme } = useTheme();
+  const [donorGifChoice, setDonorGifChoice] = useState(null);
   const [feeBearer, setFeeBearer] = useState('streamer');
   const [ytChecking, setYtChecking] = useState(false);
   const [ytBlockedReason, setYtBlockedReason] = useState(null);
@@ -1859,6 +1860,11 @@ const SupporterPage = () => {
     message: '',
     soundUrl: '',
   });
+
+  const GIF_CHOICES = [
+    { id: 'gold',    path: '/gold.gif',    label: '🥇 Gold'   },
+    { id: 'galaksi', path: '/galaksi.gif', label: '🌌 Galaksi' },
+  ];
 
   const [authPayload, setAuthPayload] = useState(getPayload());
   const [authProfile, setAuthProfile] = useState(null);
@@ -2083,6 +2089,7 @@ const SupporterPage = () => {
         mediaUrl:     hasMedia ? mediaUrl.trim() : null,
         mediaType:    detectedMediaType,
         songData:     activeTab === 'song' ? songData : null,
+        donorGifChoice: form.amount >= 50000 ? donorGifChoice : null,
         isMediaShare: isMediaShareTab,
         songData: activeTab === 'song' ? songData : null,
         startTime: hasMedia && isYouTubeUrl(mediaUrl) && !/youtube\.com\/live\//i.test(mediaUrl)
@@ -2385,6 +2392,49 @@ const SupporterPage = () => {
                   }}
                   placeholder="Nominal Kustom..."
                 />
+
+                {form.amount >= 50000 && (
+                  <div className="space-y-2">
+                    <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+                      Pilih Background Alert 🎬
+                    </label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {/* Pilihan "tidak pakai" */}
+                      <button
+                        onClick={() => setDonorGifChoice(null)}
+                        className={`p-3 rounded-xl border-2 text-[11px] font-black transition-all cursor-pointer ${
+                          !donorGifChoice
+                            ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600'
+                            : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-400'
+                        }`}
+                      >
+                        🚫 Default
+                      </button>
+
+                      {GIF_CHOICES.map(gif => (
+                        <button
+                          key={gif.id}
+                          onClick={() => setDonorGifChoice(gif.path)}
+                          className={`relative rounded-xl border-2 overflow-hidden transition-all cursor-pointer active:scale-[0.98] ${
+                            donorGifChoice === gif.path
+                              ? 'border-blue-600 ring-2 ring-blue-300'
+                              : 'border-slate-200 dark:border-slate-700'
+                          }`}
+                        >
+                          <img src={gif.path} alt={gif.label} className="w-full h-16 object-cover" />
+                          <div className="absolute bottom-0 left-0 right-0 bg-black/60 py-1 text-[10px] font-black text-white text-center">
+                            {gif.label}
+                          </div>
+                          {donorGifChoice === gif.path && (
+                            <div className="absolute top-1 right-1 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
+                              <span className="text-white text-[8px]">✓</span>
+                            </div>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Media Trigger Info */}
                 {sortedTriggers.length > 0 && (
