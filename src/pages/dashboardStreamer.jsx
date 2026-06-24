@@ -5308,6 +5308,27 @@ const handleChangePin = async () => {
                         <Copy size={15} />
                       </button>
                     </div>
+
+                    {/* Tombol Skip Lagu Sekarang */}
+                    <div className="mt-4 flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
+                      <div className="flex-1">
+                        <p className="font-black text-sm text-slate-700 dark:text-white">Skip Lagu Sekarang</p>
+                        <p className="text-[10px] text-slate-400 font-medium mt-0.5">Lewati lagu yang sedang diputar, lanjut ke antrian berikutnya</p>
+                      </div>
+                      <button
+                        onClick={async () => {
+                          try {
+                            await api.post('/api/midtrans/song-skip', { overlayToken: user.overlayToken });
+                            toast.success('⏭ Lagu di-skip!');
+                          } catch {
+                            toast.error('Gagal skip lagu');
+                          }
+                        }}
+                        className="px-4 py-3 bg-orange-500 hover:bg-orange-600 text-white font-black text-sm rounded-xl transition-all active:scale-[0.99] cursor-pointer flex items-center gap-2"
+                      >
+                        ⏭ Skip
+                      </button>
+                    </div>
                   </div>
                 </motion.div>
               )}
