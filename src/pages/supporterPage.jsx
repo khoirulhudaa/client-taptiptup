@@ -2042,8 +2042,8 @@ const SupporterPage = () => {
       return alert(`Minimal dukungan Rp ${minDonate.toLocaleString('id-ID')}`);
     if (form.amount > maxDonate)
       return alert(`Maksimal dukungan Rp ${maxDonate.toLocaleString('id-ID')}`);
-    if (!form.message.trim() && activeTab !== 'voice')
-      return alert('Pesan dukungan tidak boleh kosong');
+    if (!form.message.trim() && activeTab !== 'voice' && activeTab !== 'song')
+        return alert('Pesan dukungan tidak boleh kosong');
     if (!streamer?._id) return alert('Data streamer belum siap.');
 
     if (activeTab === 'mediashare') {
@@ -2076,7 +2076,7 @@ const SupporterPage = () => {
       const payload = {
         amount:       Math.round(Number(form.amount)),     // nominal input
         donorName: form.isAnonymous ? 'Anonim' : form.donorName || 'Anonim',
-        message:      form.message,
+        message: activeTab === 'song' ? '-' : form.message,
         userId:       streamer._id,
         email: form.isAnonymous ? 'anonymous@gmail.com' : form.email.trim(),        donorUserId:  authPayload?.id,
         mediaUrl:     hasMedia ? mediaUrl.trim() : null,
@@ -2174,7 +2174,7 @@ const SupporterPage = () => {
     if (ytChecking) return true;          // ← tambah
     if (ytBlockedReason) return true;     // ← tambah
     if (!form.amount || form.amount < minDonate) return true;
-    if (!form.message.trim() && activeTab !== 'voice') return true;
+    if (!form.message.trim() && activeTab !== 'voice' && activeTab !== 'song') return true;
 
     // ⬅️ TAMBAHKAN INI - Validasi nama & email kalau belum login
     if (!isLoggedIn && !form.isAnonymous) {
@@ -2202,8 +2202,8 @@ const SupporterPage = () => {
     if (ytBlockedReason) return `Video diblokir: ${ytBlockedReason}`; // ← tambah
     if (!form.amount || form.amount < minDonate)
       return `Masukkan nominal min. Rp ${Number(minDonate).toLocaleString('id-ID')}`;
-    if (!form.message.trim() && activeTab !== 'voice') // ← UBAH INI
-      return 'Pesan dukungan tidak boleh kosong';
+    if (!form.message.trim() && activeTab !== 'voice' && activeTab !== 'song')
+        return 'Pesan dukungan tidak boleh kosong';
     if (activeTab === 'mediashare') {
       if (!eligibleTrigger)
         return `Nominal min. Rp ${Number(minMedia).toLocaleString('id-ID')} untuk Media Share`;
@@ -2458,11 +2458,12 @@ const SupporterPage = () => {
             {activeTab !== 'voice' && (
               <TextareaField
                 label="Pesan"
-                value={form.message}
+                value={activeTab === 'song' ? '-' : form.message}
                 rows={4}
-                onChange={(v) => setForm({ ...form, message: v })}
-                inputClassName="min-h-[90px]"
-                placeholder="Semangat terus bang! 🔥"
+                onChange={(v) => { if (activeTab !== 'song') setForm({ ...form, message: v }); }}
+                inputClassName={`min-h-[90px] ${activeTab === 'song' ? 'opacity-50 cursor-not-allowed' : ''}`}
+                placeholder={activeTab === 'song' ? 'Pesan otomatis untuk song request' : 'Semangat terus bang! 🔥'}
+                disabled={activeTab === 'song'}
               />
             )}
 
