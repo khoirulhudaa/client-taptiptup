@@ -2061,6 +2061,7 @@ const SupporterPage = () => {
         email: form.isAnonymous ? 'anonymous@gmail.com' : form.email.trim(),        donorUserId:  authPayload?.id,
         mediaUrl:     hasMedia ? mediaUrl.trim() : null,
         mediaType:    detectedMediaType,
+        songData:     activeTab === 'song' ? songData : null,
         isMediaShare: isMediaShareTab,
         songData: activeTab === 'song' ? songData : null,
         startTime: hasMedia && isYouTubeUrl(mediaUrl) && !/youtube\.com\/live\//i.test(mediaUrl)
@@ -2068,15 +2069,12 @@ const SupporterPage = () => {
           : 0,
         soundUrl:     activeTab === 'alert' ? (form.soundUrl || null) : null,
         voiceUrl:     activeTab === 'voice' ? (form.voiceUrl || null) : null,
-        donationItem: selectedDonationItem
-          ? { 
-              name: selectedDonationItem.name, 
-              emoji: selectedDonationItem.emoji, 
-              price: selectedDonationItem.price,
-              quantity: selectedDonationItem.quantity || 1,
-              total: selectedDonationItem.price * (selectedDonationItem.quantity || 1)
-            }
-          : null,
+        donationItem: selectedDonationItem ? { 
+          name: selectedDonationItem.name, 
+          emoji: selectedDonationItem.emoji, 
+          price: selectedDonationItem.price,
+          quantity: selectedDonationItem.quantity || 1 
+        } : null,
       };
 
       const res = await axios.post(`${BASE_URL}/api/midtrans/create-invoice`, payload);

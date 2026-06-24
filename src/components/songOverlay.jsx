@@ -95,6 +95,55 @@ const SongOverlay = () => {
   const progressTimerRef = useRef(null);
   const autoResetTimer   = useRef(null);
 
+    // ── TAMBAH: antrian lagu lokal ──────────────────────────
+  const songQueueRef     = useRef([]);   // array of song objects
+  const isPlayingRef     = useRef(false); // mirror isPlaying untuk diakses di closure
+
+  // Sync ref setiap isPlaying berubah
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
+
+  // ── Helper: ambil lagu berikutnya dari antrian ──────────
+  const playNext = useRef(null); // forward-declare agar bisa dipanggil rekursif
+
+  playNext.current = () => {
+    if (songQueueRef.current.length === 0) {
+      // Antrian kosong → idle
+      setNowPlaying(null);
+      setCurrentTime(0);
+      setProgress(0);
+      return;
+    }
+    const next = songQueueRef.current.shift();
+    setNowPlaying(next);
+    setCurrentTime(0);
+    setProgress(0);
+  };
+
+  // ── Helper: tambah lagu ke antrian ──────────────────────
+  const enqueueSong = (songData, donorName) => {
+    const song = {
+      videoId:    songData.videoId,
+      title:      songData.title      || 'Untitled',
+      artist:     songData.artist     || 'Unknown Artist',
+      artworkUrl: songData.artworkUrl || '',
+      duration:   songData.duration   || 0,
+      donorName:  donorName           || 'Seseorang',
+    };
+
+    if (!nowPlaying && songQueueRef.current.length === 0) {
+      // Tidak ada yang diputar → langsung play
+      setNowPlaying(song);
+      setCurrentTime(0);
+      setProgress(0);
+    } else {
+      // Ada yang diputar → masuk antrian
+      songQueueRef.current = [...songQueueRef.current, song];
+      console.log(`[SongOverlay] 🎵 Antrian: ${songQueueRef.current.length} lagu menunggu`);
+    }
+  };
+
   // Load config warna
   useEffect(() => {
     if (!token) return;
@@ -113,11 +162,11 @@ const SongOverlay = () => {
     }
   }, []);
 
-  // Build/rebuild YT player saat nowPlaying berubah
   useEffect(() => {
     if (!nowPlaying?.videoId) return;
 
     clearInterval(progressTimerRef.current);
+    clearTimeout(autoResetTimer.current);
     setIsPlaying(false);
     setCurrentTime(0);
     setProgress(0);
@@ -128,11 +177,11 @@ const SongOverlay = () => {
         videoId: nowPlaying.videoId,
         playerVars: { autoplay: 1, controls: 0, mute: 0, rel: 0, modestbranding: 1 },
         events: {
-            onReady: (e) => {
-                if (config?.songRequestVolume != null) {
-                e.target.setVolume(config.songRequestVolume);
-                }
-            },
+          onReady: (e) => {
+            if (config?.songRequestVolume != null) {
+              e.target.setVolume(config.songRequestVolume);
+            }
+          },
           onStateChange: (e) => {
             if (e.data === window.YT.PlayerState.PLAYING) {
               setIsPlaying(true);
@@ -145,13 +194,12 @@ const SongOverlay = () => {
             } else {
               setIsPlaying(false);
               clearInterval(progressTimerRef.current);
-              // Saat selesai → reset ke idle (bukan hilang)
+
               if (e.data === window.YT.PlayerState.ENDED) {
+                // ── UBAH: setelah selesai → cek antrian ──
                 autoResetTimer.current = setTimeout(() => {
-                  setNowPlaying(null);
-                  setCurrentTime(0);
-                  setProgress(0);
-                }, 3000);
+                  playNext.current();
+                }, 2000); // jeda 2 detik antar lagu
               }
             }
           },
@@ -166,37 +214,46 @@ const SongOverlay = () => {
   }, [nowPlaying?.videoId]);
 
   // Socket
-  useEffect(() => {
+   useEffect(() => {
     if (!token) return;
-    const socket = io(SERVER_URL, { reconnection: true, reconnectionAttempts: Infinity, reconnectionDelay: 1500 });
-    socket.emit('join-room', token);
-    socket.on('new-donation', (data) => {
-      if (!data.songData?.videoId) return;
-      clearTimeout(autoResetTimer.current);
-      clearInterval(progressTimerRef.current);
-      setNowPlaying({
-        videoId:    data.songData.videoId,
-        title:      data.songData.title      || 'Unknown Title',
-        artist:     data.songData.artist     || 'Unknown Artist',
-        artworkUrl: data.songData.artworkUrl || '',
-        duration:   data.songData.duration   || 0,
-        donorName:  data.donorName           || 'Seseorang',
-      });
-      setCurrentTime(0);
-      setProgress(0);
+
+    const socket = io(SERVER_URL, {
+      reconnection: true,
+      reconnectionAttempts: Infinity,
+      reconnectionDelay: 1500
     });
+
+    socket.emit('join-room', token);
+
+    // ── UBAH: gunakan enqueueSong, bukan setNowPlaying langsung ──
+    socket.on('new-song-request', (data) => {
+      console.log('[SongOverlay] 🎵 new-song-request diterima:', data);
+      if (data.songData?.videoId) {
+        clearTimeout(autoResetTimer.current);
+        enqueueSong(data.songData, data.donorName);
+      }
+    });
+
+    // Fallback
+    socket.on('new-donation', (data) => {
+      if (data.songData?.videoId) {
+        console.log('[SongOverlay] Fallback new-donation song');
+        enqueueSong(data.songData, data.donorName);
+      }
+    });
+
     socket.on('settings-updated', () => {
-        fetch(`${SERVER_URL}/api/overlay/config/${token}?slot=A&t=${Date.now()}`)
+      fetch(`${SERVER_URL}/api/overlay/config/${token}?slot=A&t=${Date.now()}`)
         .then(r => r.json())
-        .then(d => {
-        setConfig(d);
-        if (ytPlayerRef.current?.setVolume && d.songRequestVolume != null) {
-            ytPlayerRef.current.setVolume(d.songRequestVolume);
-        }
-        })
+        .then(d => setConfig(d))
         .catch(() => {});
     });
-    return () => { socket.disconnect(); clearInterval(progressTimerRef.current); clearTimeout(autoResetTimer.current); };
+
+    return () => {
+      socket.disconnect();
+      clearInterval(progressTimerRef.current);
+      clearTimeout(autoResetTimer.current);
+    };
   }, [token]);
 
   const accent      = config?.highlightColor || config?.primaryColor || '#60a5fa';
@@ -210,7 +267,7 @@ const SongOverlay = () => {
       width: '100vw', height: '100vh',
       background: 'transparent',
       display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-start',
-      padding: '0 0 24px 24px',
+      // padding: '0 24px 0px 24px',
       overflow: 'hidden',
       fontFamily: "'Inter', -apple-system, 'Segoe UI', sans-serif",
     }}>
@@ -227,6 +284,7 @@ const SongOverlay = () => {
         style={{
           width: 440,
           background: bg,
+          padding: `${isIdle ? '0px' : '12px'} 6px 0px 6px`,
           borderRadius: 16,
           overflow: 'hidden',
           border: `1px solid ${isIdle ? accent + '18' : accent + '35'}`,
@@ -237,28 +295,11 @@ const SongOverlay = () => {
           transition: 'opacity 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease',
         }}
       >
-        {/* Top accent line */}
-        <div style={{
-          height: 3,
-          background: isIdle
-            ? `linear-gradient(90deg, ${accent}40, ${accent}18)`
-            : `linear-gradient(90deg, ${accent}, ${accent}66)`,
-          transition: 'background 0.4s ease',
-        }} />
-
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0px 12px 4px' }}>
-          {!isIdle && (
-            <span style={{ fontSize: 10, color: `${fg}60`, fontWeight: 500 }}>
-              req. {nowPlaying.donorName}
-            </span>
-          )}
-        </div>
 
         {/* Album art + info */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 0px 10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '4px 0px 10px', width: '100%' }}>
           {/* Artwork */}
-          <div style={{ position: 'relative', flexShrink: 0 }}>
+          <div style={{ position: 'relative', flexShrink: 0, width: '100%' }}>
             {/* Konten */}
             {isIdle ? (
             <div style={{ padding: '14px 16px 12px' }}>
@@ -285,20 +326,8 @@ const SongOverlay = () => {
             ) : (
             <>
                 {/* Header + Album art + info lama (Now Playing) tetap di sini, tidak berubah */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px 12px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <EqualizerBars playing={isPlaying} idle={isIdle} color={accent} />
-                    <span style={{ fontSize: 10, fontWeight: 700, color: accent, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                    Now Playing
-                    </span>
-                </div>
-                <span style={{ fontSize: 10, color: `${fg}60`, fontWeight: 500 }}>
-                    req. {nowPlaying.donorName}
-                </span>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 12px 10px' }}>
-                <div style={{ position: 'relative', flexShrink: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '0px 12px 10px' }}>
+                <div style={{ position: 'relative', flexShrink: 0, margin: '0px 4px 0px 0px' }}>
                     <img
                     src={nowPlaying.artworkUrl || ''}
                     alt=""
@@ -314,55 +343,26 @@ const SongOverlay = () => {
                 </div>
                 <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
                     <Marquee text={nowPlaying.title} style={{ fontSize: 14, fontWeight: 700, color: fg, marginBottom: 3 }} />
+                    <div style={{display: 'flex', alignItems: 'center', gap: 3, width: 'max-content'}}>
                     <Marquee text={nowPlaying.artist} style={{ fontSize: 12, fontWeight: 500, color: `${fg}80` }} />
+                    <span style={{ fontSize: 11, color: `white`, fontWeight: 500 }}>
+                      - Request dari @{nowPlaying.donorName}
+                    </span>
+                  </div>
                 </div>
                 </div>
 
-                <div style={{ padding: '0 12px 12px' }}>
-                <div style={{ height: 4, borderRadius: 999, background: accentFaint, overflow: 'hidden' }}>
-                    <div style={{ height: '100%', borderRadius: 999, background: accent, width: `${progress}%`, transition: 'width 0.5s linear' }} />
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
-                    <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}60` }}>{formatTime(currentTime)}</span>
-                    <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}60` }}>{formatTime(nowPlaying.duration || 0)}</span>
-                </div>
+                <div style={{ padding: '0 12px 0px', marginTop: 10, width: '100%' }}>
+                  <div style={{ width: '100%', height: 4, borderRadius: 999, background: accentFaint, overflow: 'hidden' }}>
+                      <div style={{ height: '100%', borderRadius: 999, background: accent, width: `${progress}%`, transition: 'width 0.5s linear' }} />
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
+                      <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}60` }}>{formatTime(currentTime)}</span>
+                      <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}60` }}>{formatTime(nowPlaying.duration || 0)}</span>
+                  </div>
                 </div>
             </>
             )}
-          </div>
-
-          {/* Title + artist */}
-          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {isIdle ? (
-              <>
-                
-              </>
-            ) : (
-              <>
-                <Marquee text={nowPlaying.title}  style={{ fontSize: 14, fontWeight: 700, color: fg, marginBottom: 3 }} />
-                <Marquee text={nowPlaying.artist} style={{ fontSize: 12, fontWeight: 500, color: `${fg}80` }} />
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Progress bar + timestamp */}
-        <div style={{ padding: '0 12px 12px' }}>
-          <div style={{ height: 4, borderRadius: 999, background: accentFaint, overflow: 'hidden' }}>
-            <div style={{
-              height: '100%', borderRadius: 999,
-              background: isIdle ? accent + '30' : accent,
-              width: isIdle ? '0%' : `${progress}%`,
-              transition: 'width 0.5s linear, background 0.4s ease',
-            }} />
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
-            <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}${isIdle ? '30' : '60'}` }}>
-              {isIdle ? "" : formatTime(currentTime)}
-            </span>
-            <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}${isIdle ? '30' : '60'}` }}>
-              {isIdle ? "" : formatTime(nowPlaying.duration || 0)}
-            </span>
           </div>
         </div>
 
