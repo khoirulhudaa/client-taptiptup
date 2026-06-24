@@ -2294,15 +2294,15 @@ const SupporterPage = () => {
             )}
           </motion.div>
 
-          {!isLoggedIn && (
+          {!isLoggedIn && !form.isAnonymous && (
             <div className="md:hidden grid grid-cols-1 gap-3">
               <InputField
                 label="Nama"
                 type="text"
-                disabled={form.isAnonymous || isLoggedIn}
-                value={form.isAnonymous ? '' : form.donorName}
+                disabled={isLoggedIn}
+                value={form.donorName}
                 onChange={(v) => setForm({ ...form, donorName: v })}
-                required={!isLoggedIn && !form.isAnonymous}
+                required
                 placeholder="Nama kamu"
               />
               <InputField
@@ -2311,29 +2311,20 @@ const SupporterPage = () => {
                 disabled={isLoggedIn}
                 value={form.email}
                 onChange={(v) => setForm({ ...form, email: v })}
-                required={!isLoggedIn}
+                required
                 placeholder="email@kamu.com"
               />
             </div>
           )}
 
-             {/* Anonymous toggle */}
-            <label className="md:pt-0 !pt-0 flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
-              <div onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
-                className={`w-10 h-6 rounded-sm relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}>
-                <div className={`absolute top-1 w-4 h-4 bg-white rounded-sm shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
-              </div>
-              Mode Anonim
-            </label>
-
           {/* Anonymous toggle */}
-          {/* <label className="md:pt-0 !pt-0 md:hidden flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
+          <label className="md:pt-0 !pt-0 md:hidden flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
             <div onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
               className={`w-10 h-6 rounded-sm relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}>
               <div className={`absolute top-1 w-4 h-4 bg-white rounded-sm shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
             </div>
             Mode Anonim
-          </label> */}
+          </label>
 
           {/* ── Form Card ── */}
           <motion.div
@@ -2367,15 +2358,15 @@ const SupporterPage = () => {
 
             
             {/* Nama & Email */}
-            {!isLoggedIn && (
+            {!isLoggedIn && !form.isAnonymous && (
               <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-3">
                 <InputField
                   label="Nama"
                   type="text"
-                  disabled={form.isAnonymous || isLoggedIn}
-                  value={form.isAnonymous ? '' : form.donorName}
+                  disabled={isLoggedIn}
+                  value={form.donorName}
                   onChange={(v) => setForm({ ...form, donorName: v })}
-                  required={!isLoggedIn && !form.isAnonymous}
+                  required
                   placeholder="Nama kamu"
                 />
                 <InputField
@@ -2384,7 +2375,7 @@ const SupporterPage = () => {
                   disabled={isLoggedIn}
                   value={form.email}
                   onChange={(v) => setForm({ ...form, email: v })}
-                  required={!isLoggedIn}
+                  required
                   placeholder="email@kamu.com"
                 />
               </div>
