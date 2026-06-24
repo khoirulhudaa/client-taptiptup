@@ -662,23 +662,6 @@
             <AnimatePresence>
               {alert && (
                 <>
-                  {alert.donorGifChoice && (
-                    <img
-                      src={alert.donorGifChoice}
-                      alt=""
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        opacity: 0.25,
-                        pointerEvents: 'none',
-                        zIndex: 0,
-                      }}
-                    />
-                  )}
-                  
                   <motion.div
                     key={alert.receivedAt || Date.now()}
                     initial={anim.initial}
@@ -698,7 +681,27 @@
                       fontFamily: "'Inter', -apple-system, 'Segoe UI', sans-serif",
                     }}
                   >
-                    {renderInner()}
+                      {/* Background GIF di dalam card */}
+                      {alert.donorGifChoice && (
+                        <img
+                          src={alert.donorGifChoice}
+                          alt=""
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            opacity: 0.25,
+                            pointerEvents: 'none',
+                            zIndex: 0,
+                            borderRadius: 20,
+                          }}
+                        />
+                      )}
+                      <div style={{ position: 'relative', zIndex: 1 }}>
+                        {renderInner()}
+                      </div>
                   </motion.div>
                 </>
               )}

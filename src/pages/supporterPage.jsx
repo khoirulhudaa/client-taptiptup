@@ -132,7 +132,7 @@ const InputField = ({ label, ...props }) => {
     : props.value ?? '';
 
   return (
-    <div className="w-full flex p-[3px] pl-[5.2px] items-center bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-500/50 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+    <div className="w-full flex p-[2.5px] pl-[5px] items-center bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-500/50 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
       <div className="relative w-max px-3 py-3 rounded-lg text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-500/50 bg-slate-200/50 dark:bg-slate-700/50">
         {label}
       </div>
@@ -149,7 +149,7 @@ const InputField = ({ label, ...props }) => {
 };
 
 const TextareaField = ({ label, className = '', inputClassName = '', onChange, ...props }) => (
-  <div className={`w-full flex pl-[3.5px] pt-1 items-start bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-500/50 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
+  <div className={`w-full flex pl-[5px] p-[5px] items-start bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-500/50 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
     <div className="w-max px-3 py-2 rounded-lg text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-500/50 bg-slate-200/50 dark:bg-slate-700/50">
       {label}
     </div>
@@ -1897,6 +1897,12 @@ const SupporterPage = () => {
   };
 
   useEffect(() => {
+    if (activeTab !== 'alert') {
+      setDonorGifChoice(null);
+    }
+  }, [activeTab]);
+
+  useEffect(() => {
     const handler = () => {
       setAuthPayload(null);
       setAuthProfile(null);
@@ -2265,38 +2271,6 @@ const SupporterPage = () => {
         {/* KOLOM TENGAH */}
         <div className="relative space-y-5 order-0 md:order-1">
 
-          {!isLoggedIn && (
-            <div className="md:hidden grid grid-cols-1 gap-3">
-              <InputField
-                label="Nama"
-                type="text"
-                disabled={form.isAnonymous || isLoggedIn}
-                value={form.isAnonymous ? '' : form.donorName}
-                onChange={(v) => setForm({ ...form, donorName: v })}
-                required={!isLoggedIn && !form.isAnonymous}
-                placeholder="Nama kamu"
-              />
-              <InputField
-                label="Email"
-                type="email"
-                disabled={isLoggedIn}
-                value={form.email}
-                onChange={(v) => setForm({ ...form, email: v })}
-                required={!isLoggedIn}
-                placeholder="email@kamu.com"
-              />
-            </div>
-          )}
-
-          {/* Anonymous toggle */}
-          {/* <label className="md:pt-0 !pt-0 md:hidden flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
-            <div onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
-              className={`w-10 h-6 rounded-sm relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}>
-              <div className={`absolute top-1 w-4 h-4 bg-white rounded-sm shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
-            </div>
-            Dukungan sebagai anonim
-          </label> */}
-
           {/* ── Header Card ── */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -2320,148 +2294,78 @@ const SupporterPage = () => {
             )}
           </motion.div>
 
-        {/* ── Form Card ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="bg-transparent md:bg-white dark:md:bg-slate-900 p-0 md:p-7 rounded-xl shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:border border-blue-100 dark:border-slate-500/50 space-y-2 md:space-y-5"
-        >
-
-          {/* DONATION ITEMS SECTION */}
-          {donationItemsMode !== 'amount_only' && donationItems.length > 0 && (
-            <div>
-              <DonationItemPicker
-                items={donationItems}
-                selectedItem={selectedDonationItem}
-                onSelect={handleSelectItem}
-                mode={donationItemsMode}
+          {!isLoggedIn && (
+            <div className="md:hidden grid grid-cols-1 gap-3">
+              <InputField
+                label="Nama"
+                type="text"
+                disabled={form.isAnonymous || isLoggedIn}
+                value={form.isAnonymous ? '' : form.donorName}
+                onChange={(v) => setForm({ ...form, donorName: v })}
+                required={!isLoggedIn && !form.isAnonymous}
+                placeholder="Nama kamu"
               />
-              
-              {donationItemsMode === 'both' && donationItems.filter(i => i.name && i.price > 0).length > 0 && (
-                <div className="mt-7 flex items-center gap-2">
-                  <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
-                  <span className="text-[11px] font-black text-slate-300 dark:text-slate-500 uppercase tracking-widest">
-                    atau nominal langsung
-                  </span>
-                  <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
-                </div>
-              )}
+              <InputField
+                label="Email"
+                type="email"
+                disabled={isLoggedIn}
+                value={form.email}
+                onChange={(v) => setForm({ ...form, email: v })}
+                required={!isLoggedIn}
+                placeholder="email@kamu.com"
+              />
             </div>
           )}
 
-          {/* QUICK AMOUNTS + CUSTOM NOMINAL — Hanya muncul jika bukan items_only */}
-          {(donationItemsMode === 'both' || donationItemsMode === 'amount_only') && (
-            <>
-              {/* Quick Amounts */}
-              {quickAmounts.length > 0 && (
-                <div>
-                  <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">
-                    Pilih Nominal Cepat
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {quickAmounts.map((val) => (
-                      <button
-                        key={val}
-                        onClick={() => {
-                          setForm({ ...form, amount: val });
-                          setSelectedDonationItem(null);
-                        }}
-                        className={`cursor-pointer py-2.5 md:py-4 rounded-xl font-black text-sm transition-all border active:scale-[0.99] ${
-                          form.amount === val && !selectedDonationItem
-                            ? 'bg-blue-600 border-blue-600 text-white shadow-lg'
-                            : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-500/50 hover:border-blue-300 dark:hover:border-blue-600 hover:text-blue-600 dark:hover:text-blue-400 text-slate-700 dark:text-slate-300'
-                        }`}
-                      >
-                        Rp {val.toLocaleString('id-ID')}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+             {/* Anonymous toggle */}
+            <label className="md:pt-0 !pt-0 flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
+              <div onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
+                className={`w-10 h-6 rounded-sm relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}>
+                <div className={`absolute top-1 w-4 h-4 bg-white rounded-sm shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
+              </div>
+              Mode Anonim
+            </label>
 
-              {/* Custom Amount */}
+          {/* Anonymous toggle */}
+          {/* <label className="md:pt-0 !pt-0 md:hidden flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
+            <div onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
+              className={`w-10 h-6 rounded-sm relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}>
+              <div className={`absolute top-1 w-4 h-4 bg-white rounded-sm shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
+            </div>
+            Mode Anonim
+          </label> */}
+
+          {/* ── Form Card ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-transparent md:bg-white dark:md:bg-slate-900 p-0 md:p-7 rounded-xl shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:border border-blue-100 dark:border-slate-500/50 space-y-2 md:space-y-5"
+          >
+
+            {/* DONATION ITEMS SECTION */}
+            {donationItemsMode !== 'amount_only' && donationItems.length > 0 && (
               <div>
-                <InputField
-                  label="Nominal"
-                  type="number"
-                  value={form.amount || ''}
-                  onChange={(v) => {
-                    setForm({ ...form, amount: Number(v) });
-                    setSelectedDonationItem(null);
-                  }}
-                  placeholder="Nominal Kustom..."
+                <DonationItemPicker
+                  items={donationItems}
+                  selectedItem={selectedDonationItem}
+                  onSelect={handleSelectItem}
+                  mode={donationItemsMode}
                 />
-
-                {form.amount >= 50000 && (
-                  <div className="space-y-2">
-                    <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
-                      Pilih Background Alert 🎬
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      {/* Pilihan "tidak pakai" */}
-                      <button
-                        onClick={() => setDonorGifChoice(null)}
-                        className={`p-3 rounded-xl border-2 text-[11px] font-black transition-all cursor-pointer ${
-                          !donorGifChoice
-                            ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600'
-                            : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-400'
-                        }`}
-                      >
-                        🚫 Default
-                      </button>
-
-                      {GIF_CHOICES.map(gif => (
-                        <button
-                          key={gif.id}
-                          onClick={() => setDonorGifChoice(gif.path)}
-                          className={`relative rounded-xl border-2 overflow-hidden transition-all cursor-pointer active:scale-[0.98] ${
-                            donorGifChoice === gif.path
-                              ? 'border-blue-600 ring-2 ring-blue-300'
-                              : 'border-slate-200 dark:border-slate-700'
-                          }`}
-                        >
-                          <img src={gif.path} alt={gif.label} className="w-full h-16 object-cover" />
-                          <div className="absolute bottom-0 left-0 right-0 bg-black/60 py-1 text-[10px] font-black text-white text-center">
-                            {gif.label}
-                          </div>
-                          {donorGifChoice === gif.path && (
-                            <div className="absolute top-1 right-1 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
-                              <span className="text-white text-[8px]">✓</span>
-                            </div>
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Media Trigger Info */}
-                {sortedTriggers.length > 0 && (
-                  <div className="mt-3 space-y-1.5">
-                    {sortedTriggers.map((t, i) => {
-                      const reached = form.amount >= t.minAmount;
-                      const isNext = !reached && (i === 0 || form.amount >= sortedTriggers[i - 1]?.minAmount);
-                      if (!reached && !isNext) return null;
-                      return (
-                        <div key={i} className={`flex items-center gap-2 text-[11px] font-bold px-2 py-1.5 rounded-md ${
-                          reached ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'bg-slate-50 dark:bg-slate-900/50 text-red-300'
-                        }`}>
-                          <span>{reached ? '✅' : '🔒'}</span>
-                          <span>
-                            {reached
-                              ? <>{t.label || 'Media Alert'} unlocked!</>
-                              : <>Minimal Rp {Number(t.minAmount).toLocaleString('id-ID')}</>}
-                          </span>
-                        </div>
-                      );
-                    })}
+                
+                {donationItemsMode === 'both' && donationItems.filter(i => i.name && i.price > 0).length > 0 && (
+                  <div className="mt-7 mb-4 flex items-center gap-2">
+                    <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
+                    <span className="text-[11px] font-black text-slate-300 dark:text-slate-500 uppercase tracking-widest">
+                      atau nominal langsung
+                    </span>
+                    <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
                   </div>
                 )}
               </div>
-            </>
-          )}
+            )}
 
+            
             {/* Nama & Email */}
             {!isLoggedIn && (
               <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -2487,13 +2391,125 @@ const SupporterPage = () => {
             )}
 
             {/* Anonymous toggle */}
-            <label className="md:pt-0 !pt-0 flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
+            <label className="md:pt-0 !pt-0 hidden md:flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
               <div onClick={() => setForm({ ...form, isAnonymous: !form.isAnonymous })}
                 className={`w-10 h-6 rounded-sm relative flex-shrink-0 transition-all cursor-pointer ${form.isAnonymous ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-700'}`}>
                 <div className={`absolute top-1 w-4 h-4 bg-white rounded-sm shadow transition-all ${form.isAnonymous ? 'left-5' : 'left-1'}`} />
               </div>
-              Dukungan sebagai anonim
+              Mode Anonim
             </label>
+
+            {/* QUICK AMOUNTS + CUSTOM NOMINAL — Hanya muncul jika bukan items_only */}
+            {(donationItemsMode === 'both' || donationItemsMode === 'amount_only') && (
+              <>
+                {/* Quick Amounts */}
+                {quickAmounts.length > 0 && (
+                  <div>
+                    <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">
+                      Pilih Nominal Cepat
+                    </label>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      {quickAmounts.map((val) => (
+                        <button
+                          key={val}
+                          onClick={() => {
+                            setForm({ ...form, amount: val });
+                            setSelectedDonationItem(null);
+                          }}
+                          className={`cursor-pointer py-2.5 md:py-4 rounded-xl font-black text-sm transition-all border active:scale-[0.99] ${
+                            form.amount === val && !selectedDonationItem
+                              ? 'bg-blue-600 border-blue-600 text-white shadow-lg'
+                              : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-500/50 hover:border-blue-300 dark:hover:border-blue-600 hover:text-blue-600 dark:hover:text-blue-400 text-slate-700 dark:text-slate-300'
+                          }`}
+                        >
+                          Rp {val.toLocaleString('id-ID')}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Custom Amount */}
+                <div>
+                  <InputField
+                    label="Nominal"
+                    type="number"
+                    value={form.amount || ''}
+                    onChange={(v) => {
+                      setForm({ ...form, amount: Number(v) });
+                      setSelectedDonationItem(null);
+                    }}
+                    placeholder="Nominal Kustom..."
+                  />
+
+                  {form.amount >= 50000 && activeTab === 'alert' && (
+                    <div className="space-y-2">
+                      <label className="block mt-4 text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+                        Pilih Background Alert 🎬
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {/* Pilihan "tidak pakai" */}
+                        <button
+                          onClick={() => setDonorGifChoice(null)}
+                          className={`p-3 rounded-xl border-2 text-[11px] font-black transition-all cursor-pointer ${
+                            !donorGifChoice
+                              ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600'
+                              : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-400'
+                          }`}
+                        >
+                          🚫 Default
+                        </button>
+
+                        {GIF_CHOICES.map(gif => (
+                          <button
+                            key={gif.id}
+                            onClick={() => setDonorGifChoice(gif.path)}
+                            className={`relative rounded-xl border-2 overflow-hidden transition-all cursor-pointer active:scale-[0.98] ${
+                              donorGifChoice === gif.path
+                                ? 'border-blue-600 ring-2 ring-blue-300'
+                                : 'border-slate-200 dark:border-slate-700'
+                            }`}
+                          >
+                            <img src={gif.path} alt={gif.label} className="w-full h-16 object-cover" />
+                            <div className="absolute bottom-0 left-0 right-0 bg-black/60 py-1 text-[10px] font-black text-white text-center">
+                              {gif.label}
+                            </div>
+                            {donorGifChoice === gif.path && (
+                              <div className="absolute top-1 right-1 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
+                                <span className="text-white text-[8px]">✓</span>
+                              </div>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Media Trigger Info */}
+                  {sortedTriggers.length > 0 && (
+                    <div className="mt-3 space-y-1.5">
+                      {sortedTriggers.map((t, i) => {
+                        const reached = form.amount >= t.minAmount;
+                        const isNext = !reached && (i === 0 || form.amount >= sortedTriggers[i - 1]?.minAmount);
+                        if (!reached && !isNext) return null;
+                        return (
+                          <div key={i} className={`flex items-center gap-2 text-[11px] font-bold px-2 py-1.5 rounded-md ${
+                            reached ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'bg-slate-50 dark:bg-slate-900/50 text-red-300'
+                          }`}>
+                            <span>{reached ? '✅' : '🔒'}</span>
+                            <span>
+                              {reached
+                                ? <>{t.label || 'Media Alert'} unlocked!</>
+                                : <>Minimal Rp {Number(t.minAmount).toLocaleString('id-ID')}</>}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
 
             {/* Tab Selector */}
             <DonationTabs
