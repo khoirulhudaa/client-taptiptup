@@ -9,6 +9,7 @@ import {
   Heart,
   ImageIcon, Loader2,
   Lock,
+  Search,
   LogOut,
   Mail,
   Mic,
@@ -131,8 +132,8 @@ const InputField = ({ label, ...props }) => {
     : props.value ?? '';
 
   return (
-    <div className="w-full flex pl-[3px] items-center bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-500/50 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
-      <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-500/50 bg-slate-200/50 dark:bg-slate-700/50">
+    <div className="w-full flex p-[3px] pl-[5.2px] items-center bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-500/50 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+      <div className="relative w-max px-3 py-3 rounded-lg text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-500/50 bg-slate-200/50 dark:bg-slate-700/50">
         {label}
       </div>
       <input
@@ -149,7 +150,7 @@ const InputField = ({ label, ...props }) => {
 
 const TextareaField = ({ label, className = '', inputClassName = '', onChange, ...props }) => (
   <div className={`w-full flex pl-[3.5px] pt-1 items-start bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-500/50 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
-    <div className="w-max px-3 py-2 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-500/50 bg-slate-200/50 dark:bg-slate-700/50">
+    <div className="w-max px-3 py-2 rounded-lg text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-500/50 bg-slate-200/50 dark:bg-slate-700/50">
       {label}
     </div>
     <textarea
@@ -223,7 +224,7 @@ const YouTubeTimePicker = ({ startTime, onChange }) => {
       <p className="text-xs font-black text-yellow-700 dark:text-yellow-400 leading-none">
         Kustom Waktu Mulai Video
       </p>
-      <p className="text-[10px] text-yellow-500 dark:text-yellow-400 font-medium">
+      <p className="text-[11px] text-yellow-500 dark:text-yellow-400 font-medium">
         Video akan dimulai dari waktu yang kamu pilih
       </p>
       <div className="grid grid-cols-3 gap-2">
@@ -421,7 +422,7 @@ const AuthModal = ({ isOpen, onClose, defaultTab = 'login', onAuthSuccess }) => 
                   </button>
                 </div>
 
-                <p className="text-center text-[10px] text-slate-400 dark:text-slate-500 font-medium">
+                <p className="text-center text-[11px] text-slate-400 dark:text-slate-500 font-medium">
                   Dengan mendaftar, kamu menyetujui syarat & ketentuan Sawer.in
                 </p>
               </div>
@@ -503,7 +504,7 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
                       </div>
                       <div className="min-w-0">
                         <p className="font-black text-slate-800 dark:text-white text-sm truncate">@{displayName}</p>
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium truncate">{displayEmail}</p>
+                        <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium truncate">{displayEmail}</p>
                       </div>
                     </div>
                     <div className="p-1.5 space-y-0.5">
@@ -706,7 +707,7 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
   const progressPercent = effectiveDuration > 0 ? (currentTime / effectiveDuration) * 100 : 0;
 
   return (
-    <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/60 dark:bg-blue-900/20 p-3 space-y-4">
+    <div className="rounded-xl space-y-4">
       {/* YouTube IFrame — tersembunyi */}
       <div style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', opacity: 0, pointerEvents: 'none' }}>
         <div ref={playerRef} />
@@ -715,7 +716,7 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
       {/* Search */}
       <div className="flex gap-2">
         <InputField
-          label="Cari Lagu"
+          label="Lagu"
           value={searchQuery}
           onChange={setSearchQuery}
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
@@ -724,9 +725,9 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
         <button
           onClick={handleSearch}
           disabled={loading || !searchQuery.trim()}
-          className="px-5 bg-blue-500 hover:bg-blue-600 text-white font-black text-sm rounded-xl disabled:opacity-50 flex-shrink-0 transition-all"
+          className="cursor-pointer active:scale-[0.99] pl-[0.5px] flex justify-center items-center bg-blue-500 hover:bg-blue-600 text-white font-black text-sm rounded-xl w-[70px] disabled:opacity-50 flex-shrink-0 transition-all"
         >
-          {loading ? <Loader2 className="animate-spin" size={18} /> : 'Cari'}
+          {loading ? <Loader2 className="animate-spin" size={18} /> : <Search />}
         </button>
       </div>
 
@@ -749,7 +750,7 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
                     <p className="text-xs text-slate-500 dark:text-slate-400">{track.artist}</p>
                     <div className='w-max gap-2 flex items-center'>
                       {track.duration && (
-                        <span className="text-[10px] font-bold text-slate-400 flex-shrink-0 ml-2">
+                        <span className="text-[11px] font-bold text-slate-400 flex-shrink-0 ml-2">
                           {formatTime(track.duration)}
                         </span>
                       )}
@@ -820,8 +821,8 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
                 />
               </div>
               <div className="flex justify-between mt-1">
-                <span className="text-[10px] font-bold text-slate-400">{formatTime(currentTime)}</span>
-                <span className="text-[10px] font-bold text-slate-400">{formatTime(duration)}</span>
+                <span className="text-[11px] font-bold text-slate-400">{formatTime(currentTime)}</span>
+                <span className="text-[11px] font-bold text-slate-400">{formatTime(duration)}</span>
               </div>
             </div>
 
@@ -873,7 +874,7 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
       </AnimatePresence>
 
       <p className="text-[9px] text-slate-400 dark:text-slate-500 font-medium">
-        ▶ Powered by YouTube — preview lagu sebelum dikirim
+        Powered by YouTube — preview lagu sebelum dikirim
       </p>
     </div>
   );
@@ -980,7 +981,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
             <p className="text-xs font-black text-blue-700 dark:text-blue-400 leading-none">
               🎉 {trigger.label || 'Media Alert'} Unlocked!
             </p>
-            <p className="text-[10px] text-blue-400 dark:text-blue-500 font-medium mt-0.5">
+            <p className="text-[11px] text-blue-400 dark:text-blue-500 font-medium mt-0.5">
               Tersedia mulai Rp {Number(trigger.minAmount).toLocaleString('id-ID')}
             </p>
           </div>
@@ -998,12 +999,12 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
       {/* Badge tipe media — sama persis aslinya */}
       <div className="flex items-center gap-2">
         {allowImage && (
-          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-blue-800 rounded-xl text-[10px] font-bold text-blue-600 dark:text-blue-400">
+          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-blue-800 rounded-xl text-[11px] font-bold text-blue-600 dark:text-blue-400">
             <ImageIcon size={10} /> Animasi GIF
           </span>
         )}
         {allowVideo && (
-          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-purple-800 rounded-xl text-[10px] font-bold text-purple-600 dark:text-purple-400">
+          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-purple-800 rounded-xl text-[11px] font-bold text-purple-600 dark:text-purple-400">
             <Video size={10} /> Video YouTube
           </span>
         )}
@@ -1014,7 +1015,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
         <div className="grid grid-cols-2 gap-3 rounded-lg overflow-hidden">
           <button
             onClick={() => handleModeSwitch('url')}
-            className={`flex items-center justify-center gap-1.5 py-3 text-[10px] font-black transition-all rounded-md cursor-pointer ${
+            className={`flex items-center justify-center gap-1.5 py-3 text-[11px] font-black transition-all rounded-md cursor-pointer ${
               inputMode === 'url'
                 ? 'bg-blue-600 text-white'
                 : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-800'
@@ -1024,7 +1025,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
           </button>
           <button
             onClick={() => handleModeSwitch('upload')}
-            className={`flex items-center justify-center gap-1.5 py-3 text-[10px] font-black rounded-md transition-all cursor-pointer ${
+            className={`flex items-center justify-center gap-1.5 py-3 text-[11px] font-black rounded-md transition-all cursor-pointer ${
               inputMode === 'upload'
                 ? 'bg-blue-600 text-white'
                 : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-800'
@@ -1046,7 +1047,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
               onChange={(v) => { setMediaUrl(v); setStartTime(0); }}
               placeholder={placeholderText}
             />
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium ml-1">
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium ml-1">
               * Opsional — Gambar (jpg, gif, png), Video (.mp4), atau YouTube
             </p>
           </div>
@@ -1066,7 +1067,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 className="mt-3 px-3 py-3.5 bg-amber-900/30 border border-amber-800 rounded-xl flex items-center gap-2"
               >
                 <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse flex-shrink-0" />
-                <p className="text-[10px] font-black text-amber-600 dark:text-amber-400">
+                <p className="text-[11px] font-black text-amber-600 dark:text-amber-400">
                   YouTube Live — akan diputar dari waktu terkini
                 </p>
               </motion.div>
@@ -1101,7 +1102,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                     style={{ maxHeight: 200 }} onError={() => setPreviewError(true)} />
                 )}
                 <div className="absolute bottom-0 left-0 right-0 px-3 py-1.5 bg-black/60 backdrop-blur-sm">
-                  <p className="text-[10px] text-white/90 font-bold">
+                  <p className="text-[11px] text-white/90 font-bold">
                     {mediaType === 'youtube' ? (
                       <>▶️ YouTube {startTime > 0 && (
                         <span className="ml-1 bg-yellow-500/30 px-1 py-0.5 text-[9px]">
@@ -1151,8 +1152,8 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                   <ImageIcon size={24} className="text-blue-400" />
                   <div className="text-center">
                     <p className="text-xs font-black text-blue-600 dark:text-blue-400">Klik untuk pilih gambar</p>
-                    <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-1">JPG, PNG, GIF, WebP — maks 5MB</p>
-                    <p className="text-[10px] text-amber-500 font-bold mt-1.5">⏱ Otomatis terhapus setelah 15 menit</p>
+                    <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-1">JPG, PNG, GIF, WebP — maks 5MB</p>
+                    <p className="text-[11px] text-amber-500 font-bold mt-1.5">⏱ Otomatis terhapus setelah 15 menit</p>
                   </div>
                 </>
               )}
@@ -1182,13 +1183,13 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                     <X size={13} />
                   </button>
                   <div className="absolute bottom-0 left-0 right-0 px-3 py-1.5 bg-black/60 backdrop-blur-sm flex items-center justify-between">
-                    <p className="text-[10px] text-white/90 font-bold truncate max-w-[70%]">
+                    <p className="text-[11px] text-white/90 font-bold truncate max-w-[70%]">
                       🖼️ {uploadedFile.name}
                     </p>
                     {uploadedFile.serverUrl ? (
-                      <span className="text-[10px] text-green-400 font-black">✓ Terupload</span>
+                      <span className="text-[11px] text-green-400 font-black">✓ Terupload</span>
                     ) : (
-                      <span className="text-[10px] text-yellow-400 font-black flex items-center gap-1">
+                      <span className="text-[11px] text-yellow-400 font-black flex items-center gap-1">
                         <Loader2 size={10} className="animate-spin" /> Uploading...
                       </span>
                     )}
@@ -1199,7 +1200,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 {uploadedFile.serverUrl && (
                   <div className="flex items-center gap-2 px-3 py-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl">
                     <span className="text-amber-500 flex-shrink-0">⏱</span>
-                    <p className="text-[10px] font-bold text-amber-600 dark:text-amber-400">
+                    <p className="text-[11px] font-bold text-amber-600 dark:text-amber-400">
                       Gambar otomatis terhapus dari server dalam 15 menit
                     </p>
                   </div>
@@ -1208,7 +1209,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 {/* Ganti gambar */}
                 <button
                   onClick={() => { clearUpload(); setTimeout(() => fileInputRef.current?.click(), 100); }}
-                  className="w-full py-3 text-[10px] font-black text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all cursor-pointer rounded-xl"
+                  className="w-full py-3 text-[11px] font-black text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all cursor-pointer rounded-xl"
                 >
                   Ganti Gambar
                 </button>
@@ -1223,7 +1224,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex items-center gap-2 px-3 py-3.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-[10px] font-bold text-red-500"
+                className="flex items-center gap-2 px-3 py-3.5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-[11px] font-bold text-red-500"
               >
                 <X size={12} /> {uploadError}
               </motion.div>
@@ -1283,7 +1284,7 @@ const QuickAudioSection = ({ publicSounds = [], selectedSound, onSoundChange, am
 
   return (
     <div className="space-y-3">
-      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+      <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
         Pilih Suara Notif 🎵
       </label>
       <div className="grid grid-cols-3 md:grid-cols-2 gap-2">
@@ -1390,7 +1391,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
 
   return (
     <div className="md:mt-0 !mt-4 space-y-1.5 md:space-y-1">
-      <label className="block text-[10px] !mb-3 font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+      <label className="block text-[11px] !mb-3 font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
         Tipe Dukungan
       </label>
       {(() => {
@@ -1399,7 +1400,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
 
         return (
           <div
-            className="w-full md:gap-3 gap-2 md:grid-cols-4 grid-cols-2 rounded-xl overflow-hidden"
+            className="w-full md:gap-3 gap-2 md:grid-cols-2 grid-cols-2 rounded-xl overflow-hidden"
             style={{ display: 'grid'}}
           >
             {visibleTabs.map((tab) => {
@@ -1412,8 +1413,8 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
                   key={tab.id}
                   onClick={() => onTabChange(tab.id)}
                   className={`
-                    flex items-center justify-center gap-1.5 py-3 md:py-5 px-3
-                    text-[10px] md:!text-[12px] font-black transition-all cursor-pointer select-none rounded-lg md:rounded-xl
+                    flex items-center justify-center gap-1.5 py-3 px-3
+                    text-[11px] md:!text-[13px] font-black transition-all cursor-pointer select-none rounded-lg md:rounded-xl
                     ${isActive
                       ? 'bg-blue-600 text-white'
                       : 'bg-white dark:bg-slate-500/10 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
@@ -1462,13 +1463,13 @@ const RecentDonations = ({ username }) => {
     <div className="text-center py-6">
       <p className="text-2xl mb-2">💝</p>
       <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500">Belum ada dukungan</p>
-      <p className="text-[10px] text-slate-300 dark:text-slate-600 font-medium mt-0.5">Jadilah yang pertama!</p>
+      <p className="text-[11px] text-slate-300 dark:text-slate-600 font-medium mt-0.5">Jadilah yang pertama!</p>
     </div>
   );
 
   return (
     <div className="space-y-2">
-      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+      <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
         Dukungan Terbaru 💝
       </label>
       <div className="space-y-2">
@@ -1482,7 +1483,7 @@ const RecentDonations = ({ username }) => {
           >
             <div className="flex items-center justify-between gap-2 mb-1">
               <div className="flex items-center gap-2 min-w-0">
-                <div className="w-6 h-6 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-black text-[10px] flex-shrink-0">
+                <div className="w-6 h-6 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-black text-[11px] flex-shrink-0">
                   {(d.donorName || 'A').charAt(0).toUpperCase()}
                 </div>
                 <span className="font-black text-sm text-slate-700 dark:text-slate-200 truncate">
@@ -1533,7 +1534,7 @@ const LeaderboardMini = ({ username }) => {
 
   return (
     <div className="space-y-2">
-      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+      <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
         Top Donor 🏆
       </label>
       <div className="space-y-1.5">
@@ -1570,13 +1571,13 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+        <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
           Pilih Item Dukungan 🎁
         </label>
         {selectedItem && (
           <button
             onClick={() => onSelect(null)}
-            className="text-[10px] font-black text-slate-400 hover:text-red-400 transition-colors cursor-pointer px-2 py-1 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20"
+            className="text-[11px] font-black text-slate-400 hover:text-red-400 transition-colors cursor-pointer px-2 py-1 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20"
           >
             ✕ Batal
           </button>
@@ -1780,7 +1781,7 @@ const GifRecommendation = ({ message, onSelect }) => {
           className="overflow-hidden"
         >
           <div className="space-y-2 pt-1">
-            <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+            <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
               Rekomendasi GIF ✨
             </label>
             {loading ? (
@@ -1806,7 +1807,7 @@ const GifRecommendation = ({ message, onSelect }) => {
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-blue-500/0 group-hover:bg-blue-500/20 transition-all flex items-center justify-center">
-                        <span className="opacity-0 group-hover:opacity-100 text-white font-black text-[10px] bg-blue-600/80 px-2 py-1 rounded-xl transition-all">
+                        <span className="opacity-0 group-hover:opacity-100 text-white font-black text-[11px] bg-blue-600/80 px-2 py-1 rounded-xl transition-all">
                           Pilih
                         </span>
                       </div>
@@ -2306,7 +2307,7 @@ const SupporterPage = () => {
             <p className="text-slate-400 dark:text-slate-500 text-sm mt-1">{streamer.donateIntro || 'Support aku biar makin semangat'}</p>
 
             {isLoggedIn && (
-              <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl text-[10px] font-black text-green-700 dark:text-green-400">
+              <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl text-[11px] font-black text-green-700 dark:text-green-400">
                 ✓ Dukungan akan tercatat di riwayat akun kamu
               </div>
             )}
@@ -2333,7 +2334,7 @@ const SupporterPage = () => {
               {donationItemsMode === 'both' && donationItems.filter(i => i.name && i.price > 0).length > 0 && (
                 <div className="mt-7 flex items-center gap-2">
                   <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
-                  <span className="text-[10px] font-black text-slate-300 dark:text-slate-500 uppercase tracking-widest">
+                  <span className="text-[11px] font-black text-slate-300 dark:text-slate-500 uppercase tracking-widest">
                     atau nominal langsung
                   </span>
                   <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
@@ -2348,7 +2349,7 @@ const SupporterPage = () => {
               {/* Quick Amounts */}
               {quickAmounts.length > 0 && (
                 <div>
-                  <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">
+                  <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">
                     Pilih Nominal Cepat
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -2393,7 +2394,7 @@ const SupporterPage = () => {
                       const isNext = !reached && (i === 0 || form.amount >= sortedTriggers[i - 1]?.minAmount);
                       if (!reached && !isNext) return null;
                       return (
-                        <div key={i} className={`flex items-center gap-2 text-[10px] font-bold px-2 py-1.5 rounded-md ${
+                        <div key={i} className={`flex items-center gap-2 text-[11px] font-bold px-2 py-1.5 rounded-md ${
                           reached ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'bg-slate-50 dark:bg-slate-900/50 text-red-300'
                         }`}>
                           <span>{reached ? '✅' : '🔒'}</span>
@@ -2455,15 +2456,14 @@ const SupporterPage = () => {
             />
 
             {/* Message */}
-            {activeTab !== 'voice' && (
+            {activeTab !== 'voice' && activeTab !== 'song' && (
               <TextareaField
                 label="Pesan"
-                value={activeTab === 'song' ? '-' : form.message}
+                value={form.message}
                 rows={4}
-                onChange={(v) => { if (activeTab !== 'song') setForm({ ...form, message: v }); }}
-                inputClassName={`min-h-[90px] ${activeTab === 'song' ? 'opacity-50 cursor-not-allowed' : ''}`}
-                placeholder={activeTab === 'song' ? 'Pesan otomatis untuk song request' : 'Semangat terus bang! 🔥'}
-                disabled={activeTab === 'song'}
+                onChange={(v) => setForm({ ...form, message: v })}
+                inputClassName="min-h-[90px]"
+                placeholder="Semangat terus bang! 🔥"
               />
             )}
 
@@ -2492,7 +2492,7 @@ const SupporterPage = () => {
                     <div>
                       <p className="text-xs font-black text-amber-700 dark:text-amber-400">Nominal belum cukup untuk Song Request</p>
                       <button onClick={() => setForm({ ...form, amount: overlaySetting.songRequestMinAmount || 25000 })}
-                        className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-md hover:bg-amber-600 transition-all cursor-pointer">
+                        className="mt-2 px-3 py-1 bg-amber-500 text-white text-[11px] font-black rounded-md hover:bg-amber-600 transition-all cursor-pointer">
                         Set Rp {Number(overlaySetting.songRequestMinAmount || 25000).toLocaleString('id-ID')}
                       </button>
                     </div>
@@ -2520,7 +2520,7 @@ const SupporterPage = () => {
                       <Bell size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
                       <div>
                         <p className="text-xs font-black text-slate-500 dark:text-slate-400">Dukungan Alert Biasa</p>
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Masukkan nominal min. Rp {Number(minDonate).toLocaleString('id-ID')} untuk aktifkan pilihan suara</p>
+                        <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Masukkan nominal min. Rp {Number(minDonate).toLocaleString('id-ID')} untuk aktifkan pilihan suara</p>
                       </div>
                     </div>
                   ) : publicSounds.length === 0 ? (
@@ -2528,7 +2528,7 @@ const SupporterPage = () => {
                       <Bell size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
                       <div>
                         <p className="text-xs font-black text-slate-500 dark:text-slate-400">Dukungan Alert Biasa</p>
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Notifikasi dukungan akan muncul di OBS streamer</p>
+                        <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Notifikasi dukungan akan muncul di OBS streamer</p>
                       </div>
                     </div>
                   ) : null}
@@ -2542,7 +2542,7 @@ const SupporterPage = () => {
                       <Film size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
                       <div>
                         <p className="text-xs font-black text-slate-500 dark:text-slate-400">Media Share Tidak Tersedia</p>
-                        <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Streamer belum mengaktifkan fitur Media Share</p>
+                        <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Streamer belum mengaktifkan fitur Media Share</p>
                       </div>
                     </div>
                   ) : !eligibleTrigger ? (
@@ -2550,9 +2550,9 @@ const SupporterPage = () => {
                       {/* <span className="text-2xl flex-shrink-0">🔒</span> */}
                       <div>
                         <p className="text-xs font-black text-amber-700 dark:text-amber-400">Nominal belum cukup untuk Media Share</p>
-                        <p className="text-[10px] text-amber-500 font-medium mt-0.5">Dukungan minimal Rp {Number(minMedia).toLocaleString('id-ID')} untuk mengirim media</p>
+                        <p className="text-[11px] text-amber-500 font-medium mt-0.5">Dukungan minimal Rp {Number(minMedia).toLocaleString('id-ID')} untuk mengirim media</p>
                         <button onClick={() => setForm({ ...form, amount: minMedia })}
-                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-md hover:bg-amber-600 transition-all cursor-pointer">
+                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[11px] font-black rounded-md hover:bg-amber-600 transition-all cursor-pointer">
                           Set Rp {Number(minMedia).toLocaleString('id-ID')}
                         </button>
                       </div>
@@ -2563,7 +2563,7 @@ const SupporterPage = () => {
                       <AnimatePresence>
                         {isYouTubeUrl(mediaUrl) && (ytChecking || ytBlockedReason) && (
                           <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
-                            className={`flex items-center mt-3 gap-2.5 px-4 py-3 rounded-xl border text-[10px] font-bold ${
+                            className={`flex items-center mt-3 gap-2.5 px-4 py-3 rounded-xl border text-[11px] font-bold ${
                               ytChecking ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400'
                                          : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-600 dark:text-red-400'
                             }`}>
@@ -2573,7 +2573,7 @@ const SupporterPage = () => {
                         )}
                       </AnimatePresence>
                       <div className="mt-8 md:mt-3 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-4 space-y-2">
-                        <p className="border-b border-amber-600/30 pb-3 mb-4 text-[10px] font-black text-amber-700 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <p className="border-b border-amber-600/30 pb-3 mb-4 text-[11px] font-black text-amber-700 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
                           Konten yang diblokir sistem
                         </p>
                         <ul className="space-y-1.5">
@@ -2582,7 +2582,7 @@ const SupporterPage = () => {
                             { icon: '🩸', text: 'Konten kekerasan / gore yang tidak dibatasi YouTube' },
                             { icon: '🚫', text: 'Video yang di blokir oleh negara' },
                           ].map(({ icon, text }) => (
-                            <li key={text} className="flex items-start gap-2 text-[10px] font-bold text-amber-700 dark:text-amber-400">
+                            <li key={text} className="flex items-start gap-2 text-[11px] font-bold text-amber-700 dark:text-amber-400">
                               <span className="flex-shrink-0 mt-px">{icon}</span>
                               <span>{text}</span>
                             </li>
@@ -2601,9 +2601,9 @@ const SupporterPage = () => {
                       <span className="text-2xl flex-shrink-0">🔒</span>
                       <div>
                         <p className="text-xs font-black text-amber-700 dark:text-amber-400">Voice Message belum aktif</p>
-                        <p className="text-[10px] text-amber-500 font-medium mt-0.5">Masukkan nominal minimal Rp {Number(minDonate).toLocaleString('id-ID')} untuk merekam suara</p>
+                        <p className="text-[11px] text-amber-500 font-medium mt-0.5">Masukkan nominal minimal Rp {Number(minDonate).toLocaleString('id-ID')} untuk merekam suara</p>
                         <button onClick={() => setForm({ ...form, amount: minDonate })}
-                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[10px] font-black rounded-xl hover:bg-amber-600 transition-all cursor-pointer">
+                          className="mt-2 px-3 py-1 bg-amber-500 text-white text-[11px] font-black rounded-xl hover:bg-amber-600 transition-all cursor-pointer">
                           Set Rp {Number(minDonate).toLocaleString('id-ID')}
                         </button>
                       </div>
@@ -2612,7 +2612,7 @@ const SupporterPage = () => {
                     <div className="space-y-3">
                       <div className="flex items-center gap-2 px-3 py-3 bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-xl">
                         <Mic size={13} className="text-violet-500 flex-shrink-0" />
-                        <p className="text-[10px] font-bold text-violet-600 dark:text-violet-400">Rekam pesan suaramu — max 60 detik</p>
+                        <p className="text-[11px] font-bold text-violet-600 dark:text-violet-400">Rekam pesan suaramu — max 60 detik</p>
                       </div>
                       <VoiceRecorder onVoiceReady={(url) => setForm(f => ({ ...f, voiceUrl: url || '' }))} maxSeconds={60} disabled={false} />
                     </div>
@@ -2628,10 +2628,10 @@ const SupporterPage = () => {
                   <div className="flex items-center justify-between px-4 py-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl">
                     <div>
                       <p className="text-xs font-black text-blue-700 dark:text-blue-400">Dukungan kamu tidak akan tercatat</p>
-                      <p className="text-[10px] text-blue-400 dark:text-blue-500 font-medium mt-0.5">Masuk atau daftar agar dukungan muncul di riwayat akun</p>
+                      <p className="text-[11px] text-blue-400 dark:text-blue-500 font-medium mt-0.5">Masuk atau daftar agar dukungan muncul di riwayat akun</p>
                     </div>
                     <button onClick={() => openAuth('login')}
-                      className="ml-3 flex-shrink-0 px-3 py-1.5 text-[10px] font-black text-blue-600 dark:text-blue-400 bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-700 rounded-xl hover:bg-blue-50 transition-all cursor-pointer">
+                      className="ml-3 flex-shrink-0 px-3 py-1.5 text-[11px] font-black text-blue-600 dark:text-blue-400 bg-white dark:bg-slate-900 border border-blue-200 dark:border-blue-700 rounded-xl hover:bg-blue-50 transition-all cursor-pointer">
                       Masuk
                     </button>
                   </div>
@@ -2647,7 +2647,7 @@ const SupporterPage = () => {
                 <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
                   className="flex items-center gap-2 px-3 py-3 md:py-3.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-500/50 rounded-xl">
                   <span className="relative top-[-2px] text-slate-300 dark:text-slate-600 flex-shrink-0">⚠️</span>
-                  <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500">{submitHint}</p>
+                  <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{submitHint}</p>
                 </motion.div>
               )}
             </AnimatePresence>

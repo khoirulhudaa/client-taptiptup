@@ -52,34 +52,20 @@ const Marquee = ({ text, style }) => {
 
   return (
     <div ref={containerRef} style={{ overflow: 'hidden', whiteSpace: 'nowrap', ...style }}>
-      {shouldScroll ? (
+      {/* {shouldScroll ? (
         <div style={{ display: 'inline-block', animation: `marquee ${dur}s linear infinite` }}>
-          <span ref={textRef} style={{ paddingRight: 60 }}>{text}</span>
-          <span style={{ paddingRight: 60 }}>{text}</span>
+          <span className='truncate max-w-[140px]' ref={textRef} style={{ paddingRight: 40 }}>{text}</span>
+          <span style={{ paddingRight: 40 }}>{text}</span>
           <style>{`@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }`}</style>
         </div>
       ) : (
-        <span ref={textRef}>{text}</span>
-      )}
+        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '330px', display: 'block' }} ref={textRef}>{text}</span>      
+      )} */}
+      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '330px', display: 'block' }} ref={textRef}>{text}</span>      
+
     </div>
   );
 };
-
-// Shimmer placeholder bar
-const ShimmerBar = ({ width = '70%', height = 10, radius = 6, color = '#ffffff' }) => (
-  <div style={{
-    width, height, borderRadius: radius,
-    background: color + '15',
-    overflow: 'hidden', position: 'relative', flexShrink: 0,
-  }}>
-    <div style={{
-      position: 'absolute', inset: 0,
-      background: `linear-gradient(90deg, transparent 0%, ${color}25 50%, transparent 100%)`,
-      animation: 'shimmer 1.8s ease-in-out infinite',
-    }} />
-    <style>{`@keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }`}</style>
-  </div>
-);
 
 const SongOverlay = () => {
   const { token } = useParams();
@@ -283,7 +269,7 @@ const SongOverlay = () => {
           width: 440,
           background: bg,
           display: 'flex',
-          height: 110, 
+          height: 125, 
           padding: `${isIdle ? '0px' : '12px'} 6px 0px 6px`,
           borderRadius: 16,
           overflow: 'hidden',
