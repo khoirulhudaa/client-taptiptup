@@ -75,6 +75,7 @@ const SongOverlay = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [progress, setProgress]     = useState(0);
   const [config, setConfig]         = useState(null);
+  const [isSkipping, setIsSkipping] = useState(false);
 
 
   const ytPlayerRef      = useRef(null);
@@ -199,6 +200,26 @@ const SongOverlay = () => {
     return () => clearInterval(progressTimerRef.current);
   }, [nowPlaying?.videoId]);
 
+  const handleSkip = () => {
+    if (!nowPlayingRef.current) return;
+    setIsSkipping(true);
+    
+    // Stop player
+    if (ytPlayerRef.current) {
+      ytPlayerRef.current.stopVideo();
+      ytPlayerRef.current.destroy();
+      ytPlayerRef.current = null;
+    }
+    
+    clearInterval(progressTimerRef.current);
+    clearTimeout(autoResetTimer.current);
+    
+    setTimeout(() => {
+      setIsSkipping(false);
+      playNext.current();
+    }, 500);
+  };
+
   // Socket — panggil enqueueSong.current, bukan enqueueSong langsung
   useEffect(() => {
     if (!token) return;
@@ -217,6 +238,11 @@ const SongOverlay = () => {
         clearTimeout(autoResetTimer.current);
         enqueueSong.current(data.songData, data.donorName); // ← .current
       }
+    });
+
+    socket.on('song-skip', () => {
+      console.log('[SongOverlay] ⏭️ Skip dari dashboard');
+      handleSkip(); // tidak bisa langsung, pakai ref
     });
 
     socket.on('new-donation', (data) => {
