@@ -5242,7 +5242,7 @@ const handleChangePin = async () => {
 
               {activeTab === 'songSettings' && (
                 <motion.div key="songSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-5 pb-0 w-full">
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
                     <SectionHeader icon={<Music size={20} />} title="Share Song" color="bg-orange-500" />
 
                     <div className="flex items-center justify-between p-4 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
