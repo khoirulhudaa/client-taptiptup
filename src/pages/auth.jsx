@@ -418,7 +418,7 @@
             className='md:!mb-[24px] !mb-[8px]'
             style={{
               display: 'flex',
-              border: `1px solid ${!isDark ? 'black' : T.tabBorder}`,
+              border: `1px solid ${!isDark ? 'black' : '#ffffff80'}`,
               borderRadius: 10,
               overflow: 'hidden',
               position: 'relative',
