@@ -358,43 +358,13 @@
 
                 {/* Body */}
                 <div style={{ padding: '10px 6px', position: 'relative', zIndex: 2 }}>
-
-                  {/* {alert.donationItem && (
-                    <div style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 6,
-                      background: highlight + '22',
-                      border: `1px solid ${highlight}40`,
-                      borderRadius: 999,
-                      padding: '2px 10px',
-                      marginTop: 6,
-                      fontSize: 15,
-                    }}>
-                      <span style={{ fontSize: 18 }}>{alert.donationItem.emoji}</span>
-                      <span style={{ fontWeight: 600, color: hl }}>
-                        {alert.donationItem.name}
-                      </span>
-                    </div>
-                  )}
-                   */}
                   <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 0 }}>
                     <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
                       <div style={{ fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg, marginBottom: 8 }}>
                         {alert.donorName}
                       </div>
-                      {/* <div style={{
-                        marginLeft: 0,
-                        position: 'relative',
-                        top: 1,
-                        fontFamily: monospace, fontSize: 18, fontWeight: 500, color: hl,
-                        marginBottom: 6,
-                        textShadow: `0 0 10px ${hl}55`,
-                      }}>
-                        Rp {Number(alert.amount).toLocaleString('id-ID')}
-                      </div> */}
                       {renderAmountOrItem(alert, hl, { 
-                        marginLeft: '-2px',
+                        marginLeft: '-3px',
                         position: 'relative',
                         top: 1,
                         fontFamily: monospace, fontSize: 18, fontWeight: 500, color: hl,
@@ -576,9 +546,6 @@
                 
                 {/* Divider */}
                 <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} />
-                {/* <div style={{ fontSize: 18, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1 }}>
-                  Rp {Number(alert.amount).toLocaleString('id-ID')}
-                </div> */}
                 {renderAmountOrItem(alert, hl, { fontSize: 18, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1, marginLeft: '-3px' })}
               
 

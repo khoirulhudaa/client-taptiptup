@@ -1663,7 +1663,7 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
               onChange={(e) => {
                 const raw = e.target.value.replace(/[^0-9]/g, '');
                 const val = parseInt(raw) || 1;
-                const clamped = Math.min(selectedItem.maxQty ?? 100, Math.max(1, val));
+                const clamped = Math.min(selectedItem.maxQty ?? 1000, Math.max(1, val));
                 onSelect({ ...selectedItem, quantity: raw === '' ? 1 : clamped, _qtyRaw: raw });
               }}
               onBlur={() => {
@@ -1677,7 +1677,7 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
 
             <button
               onClick={() => {
-                const newQty = Math.min(selectedItem.maxQty ?? 100, (selectedItem.quantity || 1) + 1);
+                const newQty = Math.min(selectedItem.maxQty ?? 1000, (selectedItem.quantity || 1) + 1);
                 onSelect({ ...selectedItem, quantity: newQty });
               }}
               className="rounded-md w-8 h-8 flex items-center justify-center cursor-pointer text-lg font-bold text-slate-700 dark:text-white hover:text-slate-400"
