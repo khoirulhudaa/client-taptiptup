@@ -200,6 +200,8 @@ const QrPreview = ({ donateUrl, cfg }) => {
     });
   }, [donateUrl, cfg.darkColor, cfg.lightColor, cfg.size]);
 
+  const blockContextMenu = (e) => e.preventDefault();  // ← tambah ini
+
   return (
     <div
       style={{
@@ -236,7 +238,7 @@ const QrPreview = ({ donateUrl, cfg }) => {
             position: 'relative',
           }}
         >
-          <canvas ref={canvasRef} />
+        <canvas ref={canvasRef} onContextMenu={blockContextMenu} /> 
           {cfg.showLogo && (
             <div
               style={{
@@ -255,6 +257,8 @@ const QrPreview = ({ donateUrl, cfg }) => {
               <img
                 src={cfg.logoUrl || '/jellyfish.png'}
                 alt="Logo"
+                onContextMenu={blockContextMenu}  
+                draggable={false}                  
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               />
             </div>
@@ -440,7 +444,6 @@ const QrConfigPage = ({ overlayToken, username }) => {
             <div className='w-full grid md:grid-cols-2 grid-cols-1 gap-3'>
                 <Toggle label="Bayangan (Box Shadow)" desc="Efek shadow di sekitar card" value={cfg.boxShadow} onChange={v => upd('boxShadow', v)} />
                 <Toggle label="Tampilkan Teks Dukungan" desc="Teks 'Scan untuk dukungan' di bawah QR" value={cfg.showUsername} onChange={v => upd('showUsername', v)} />
-                <Toggle label="Tampilkan Logo" desc="Logo kecil di tengah QR Code" value={cfg.showLogo} onChange={v => upd('showLogo', v)} />
                 {cfg.showLogo && (
                 <div className="md:col-span-1">
                     {/* <Label>Ukuran Logo</Label> */}
@@ -466,6 +469,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
                     </div>
                 </div>
                 )}
+                <Toggle label="Tampilkan Logo" desc="Logo kecil di tengah QR Code" value={cfg.showLogo} onChange={v => upd('showLogo', v)} />
                 {cfg.showUsername && (
                 <div className="md:col-span-2">
                     <ColorRow label="Warna Teks" value={cfg.usernameColor} onChange={v => upd('usernameColor', v)} />
