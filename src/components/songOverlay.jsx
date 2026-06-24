@@ -90,26 +90,26 @@ const SongOverlay = () => {
   const [progress, setProgress]     = useState(0);
   const [config, setConfig]         = useState(null);
 
+
   const ytPlayerRef      = useRef(null);
   const playerDivRef     = useRef(null);
   const progressTimerRef = useRef(null);
   const autoResetTimer   = useRef(null);
 
-    // ── TAMBAH: antrian lagu lokal ──────────────────────────
+  // ── TAMBAH: antrian lagu lokal ──────────────────────────
   const songQueueRef     = useRef([]);   // array of song objects
-  const isPlayingRef     = useRef(false); // mirror isPlaying untuk diakses di closure
+  const nowPlayingRef     = useRef(null); // mirror isPlaying untuk diakses di closure
 
   // Sync ref setiap isPlaying berubah
   useEffect(() => {
-    isPlayingRef.current = isPlaying;
-  }, [isPlaying]);
+    nowPlayingRef.current = nowPlaying;
+  }, [nowPlaying]);
 
   // ── Helper: ambil lagu berikutnya dari antrian ──────────
-  const playNext = useRef(null); // forward-declare agar bisa dipanggil rekursif
-
+    // ── playNext ───────────────────────────────────────────
+  const playNext = useRef(null);
   playNext.current = () => {
     if (songQueueRef.current.length === 0) {
-      // Antrian kosong → idle
       setNowPlaying(null);
       setCurrentTime(0);
       setProgress(0);
@@ -121,8 +121,9 @@ const SongOverlay = () => {
     setProgress(0);
   };
 
-  // ── Helper: tambah lagu ke antrian ──────────────────────
-  const enqueueSong = (songData, donorName) => {
+  // ── enqueueSong — baca nowPlayingRef, bukan nowPlaying ─
+  const enqueueSong = useRef(null);
+  enqueueSong.current = (songData, donorName) => {
     const song = {
       videoId:    songData.videoId,
       title:      songData.title      || 'Untitled',
@@ -132,19 +133,19 @@ const SongOverlay = () => {
       donorName:  donorName           || 'Seseorang',
     };
 
-    if (!nowPlaying && songQueueRef.current.length === 0) {
-      // Tidak ada yang diputar → langsung play
+    // ← pakai nowPlayingRef.current, bukan nowPlaying
+    if (!nowPlayingRef.current && songQueueRef.current.length === 0) {
+      console.log('[SongOverlay] ▶️ Langsung play:', song.title);
       setNowPlaying(song);
       setCurrentTime(0);
       setProgress(0);
     } else {
-      // Ada yang diputar → masuk antrian
-      songQueueRef.current = [...songQueueRef.current, song];
-      console.log(`[SongOverlay] 🎵 Antrian: ${songQueueRef.current.length} lagu menunggu`);
+      songQueueRef.current.push(song);
+      console.log(`[SongOverlay] 🎵 Masuk antrian [${songQueueRef.current.length}]:`, song.title);
     }
   };
 
-  // Load config warna
+  // Load config
   useEffect(() => {
     if (!token) return;
     fetch(`${SERVER_URL}/api/overlay/config/${token}?slot=A&t=${Date.now()}`)
@@ -162,6 +163,7 @@ const SongOverlay = () => {
     }
   }, []);
 
+  // Build/rebuild YT player
   useEffect(() => {
     if (!nowPlaying?.videoId) return;
 
@@ -194,12 +196,10 @@ const SongOverlay = () => {
             } else {
               setIsPlaying(false);
               clearInterval(progressTimerRef.current);
-
               if (e.data === window.YT.PlayerState.ENDED) {
-                // ── UBAH: setelah selesai → cek antrian ──
                 autoResetTimer.current = setTimeout(() => {
                   playNext.current();
-                }, 2000); // jeda 2 detik antar lagu
+                }, 2000);
               }
             }
           },
@@ -213,8 +213,8 @@ const SongOverlay = () => {
     return () => clearInterval(progressTimerRef.current);
   }, [nowPlaying?.videoId]);
 
-  // Socket
-   useEffect(() => {
+  // Socket — panggil enqueueSong.current, bukan enqueueSong langsung
+  useEffect(() => {
     if (!token) return;
 
     const socket = io(SERVER_URL, {
@@ -225,20 +225,18 @@ const SongOverlay = () => {
 
     socket.emit('join-room', token);
 
-    // ── UBAH: gunakan enqueueSong, bukan setNowPlaying langsung ──
     socket.on('new-song-request', (data) => {
       console.log('[SongOverlay] 🎵 new-song-request diterima:', data);
       if (data.songData?.videoId) {
         clearTimeout(autoResetTimer.current);
-        enqueueSong(data.songData, data.donorName);
+        enqueueSong.current(data.songData, data.donorName); // ← .current
       }
     });
 
-    // Fallback
     socket.on('new-donation', (data) => {
       if (data.songData?.videoId) {
         console.log('[SongOverlay] Fallback new-donation song');
-        enqueueSong(data.songData, data.donorName);
+        enqueueSong.current(data.songData, data.donorName); // ← .current
       }
     });
 
