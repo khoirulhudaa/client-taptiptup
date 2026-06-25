@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 const InputField = ({ label, ...props }) => (
     <div className="w-full flex pl-[3px] items-center bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
-      <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      <div className="min-w-[9%] px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
         {label}
       </div>
       <input
@@ -19,7 +19,7 @@ const InputField = ({ label, ...props }) => (
 
   const TextareaField = ({ label, className = '', inputClassName = '', onChange, ...props }) => (
     <div className={`w-full flex pl-[1.5px] items-start bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
-      <div className="w-max px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
+      <div className="min-w-[9%] px-3 py-3 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-700 bg-slate-200/50 dark:bg-slate-700/50">
         {label}
       </div>
       <textarea
@@ -100,7 +100,8 @@ const StoreManager = ({ overlayToken }) => {
   };
 
   const removeProduct = (index) => {
-    setProducts([]);
+    setProducts(prev => prev.filter((_, i) => i !== index));
+    toast.success('Produk dihapus');
   };
 
   return (
@@ -128,12 +129,7 @@ const StoreManager = ({ overlayToken }) => {
 
             return (
             <div key={i} className="md:border-2 border-slate-200 md:dark:border-slate-700 p-0 md:p-6 md:py-4.5 md:bg-slate-50 md:dark:bg-slate-800 rounded-xl">
-              {/* <div className="flex justify-between mb-4">
-                <button onClick={() => removeProduct(i)} className="text-blue-500 hover:text-blue-700">
-                  <Trash2 size={20} />
-                </button>
-              </div> */}
-
+      
               {/* Upload Gambar */}
               <div className="mb-4">
                 <label className="block text-sm font-bold mb-2">Gambar Produk</label>
@@ -171,7 +167,7 @@ const StoreManager = ({ overlayToken }) => {
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 mt-4 md:grid-cols-1 gap-4">
                 <InputField
                   label="Harga (Rp)"
                   type="number"
@@ -185,17 +181,16 @@ const StoreManager = ({ overlayToken }) => {
                     value={p.link}
                     onChange={v => updateProduct(i, 'link', v)}
                     placeholder="https://..."
-                    // className={!isLinkValid ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20' : ''}
                   />
-                  {!isLinkValid && (
-                    <p className="text-xs text-blue-500 mt-1 font-bold">
+                  {/* {!isLinkValid && (
+                    <p className="text-xs text-red-300 mt-2 font-bold">
                       ⚠️ Link tidak valid! Wajib diawali dengan http:// atau https://
                     </p>
-                  )}
+                  )} */}
                 </div>
               </div>
 
-              <div className="mt-3">
+              <div className="mt-4">
                 <TextareaField
                   label="Deskripsi"
                   value={p.description}
@@ -204,6 +199,13 @@ const StoreManager = ({ overlayToken }) => {
                   inputClassName="h-24"
                 />
               </div>
+              {/* Tombol Hapus Produk */}
+              <button
+                onClick={() => removeProduct(i)}
+                className="cursor-pointer w-full bg-red-500 text-white flex justify-center py-4 mt-5 items-center gap-1.5 text-xs font-black text-red-500 hover:text-white hover:bg-red-50 dark:hover:bg-red-600 px-3 py-1.5 rounded-lg transition-all"
+              >
+                <Trash2 size={14} /> Hapus
+              </button>
             </div>
             )
           })}
