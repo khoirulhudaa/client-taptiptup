@@ -484,13 +484,13 @@ const QrConfigPage = ({ overlayToken, username }) => {
               onClick={handleReset}
               className="cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl font-black text-sm flex items-center justify-center gap-3 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
             >
-              <RotateCcw size={16} /> Reset ke Default
+              <RotateCcw size={16} /> Reset
             </button>
             <button
               onClick={handleSave}
-              className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 md:py-4 bg-blue-600 text-white rounded-xl font-black text-sm flex items-center justify-center gap-3 transition-all"
+              className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 md:py-3 bg-blue-600 text-white rounded-xl font-black text-sm flex items-center justify-center gap-3 transition-all"
             >
-              {saved ? <><CheckCircle2 size={18} /> Tersimpan!</> : <><Save size={18} /> Simpan Konfigurasi</>}
+              {saved ? <><CheckCircle2 size={18} /> Tersimpan!</> : <><Save size={18} /> Simpan</>}
             </button>
           </div>
         </div>

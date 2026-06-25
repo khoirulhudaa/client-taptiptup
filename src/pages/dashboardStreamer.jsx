@@ -335,9 +335,9 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
       <button
         onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })}
         disabled={saveSettingsMutation.isPending}
-        className="mt-3 md:mt-6 cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full py-3 bg-cyan-600 text-white rounded-xl text-sm font-black"
-      >
-        Simpan Quick Nominal
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
+        <Save size={18} className='relative top-[-1px]' />
+        Simpan Sekarang
       </button>
     </div>
   );
@@ -879,8 +879,8 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
               </div>
         }
         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-          
+          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">          
+          <Save size={18} className='relative top-[-1px]' />
           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
         </button>
       </div>
@@ -1486,8 +1486,8 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
 
       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-        
-        {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan Durasi'}
+        <Save size={18} className='relative top-[-1px]' />
+        {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Durasi'}
       </button>
     </div>
   );
@@ -1546,7 +1546,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
       </button>
       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-        
+        <Save size={18} className='relative top-[-1px]' />
         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Izin Media'}
       </button>
     </div>
@@ -3182,9 +3182,8 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) =>
           <button 
             onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} 
             disabled={saveSettingsMutation.isPending}
-            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-rose-500 to-orange-500 hover:brightness-90 text-white font-black rounded-xl transition-all disabled:opacity-60 flex items-center justify-center gap-3"
-          >
-            <Save size={18} />
+            className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+            <Save size={18} className='relative top-[-1px]' />
             {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Pengaturan TTS'}
           </button>
         </div>
@@ -3794,8 +3793,8 @@ const handleChangePin = async () => {
           }} 
           disabled={saveSettingsMutation.isPending}
           className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-          
-          {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Audio Terbaru'}
+          <Save size={18} className='relative top-[-1px]' />
+          {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Audio'}
         </button>
       </div>
     );
@@ -3905,9 +3904,9 @@ const handleChangePin = async () => {
             />
             <div className='w-full h-[1px] bg-slate-100/10 my-4' />
             <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending || uploading}
-              className="cursor-pointer active:scale-[0.99] w-full py-3 bg-gradient-to-r from-blue-600 to-violet-600 hover:brightness-90 text-white font-black rounded-xl transition-all disabled:opacity-60 flex items-center justify-center gap-3">
-              
-              {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Suara'}
+            className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+              <Save size={18} className='relative top-[-1px]' />
+              {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Soundboard'}
             </button>
           </div>
         </div>
@@ -3968,7 +3967,7 @@ const handleChangePin = async () => {
         <AnimatePresence>
           {showToast && (
             <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} exit={{ y: -50, opacity: 0 }}
-              className="fixed bottom-10 right-11 shadow-2xl z-[100] bg-slate-900/70 text-white px-8 py-3 md:py-4 rounded-xl  flex items-center gap-3 font-bold border border-white/10 backdrop-blur-md">
+              className="fixed bottom-10 right-6 shadow-2xl z-[100] bg-slate-900/70 text-white px-8 py-3 md:py-4 rounded-xl  flex items-center gap-3 font-bold border border-white/10 backdrop-blur-md">
               <CheckCircle2 size={18} className="text-green-500" /> Pengaturan Tersimpan!
             </motion.div>
           )}
@@ -4418,7 +4417,7 @@ const handleChangePin = async () => {
                         </div>
                         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                           className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-                          
+                          <Save size={18} className='relative top-[-1px]' />
                           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
                         </button>
                     </div>
@@ -4481,6 +4480,7 @@ const handleChangePin = async () => {
                       </div>
                       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
+                        <Save size={18} className='relative top-[-1px]' />
                         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
                       </button>
                     </div>
@@ -4628,12 +4628,12 @@ const handleChangePin = async () => {
                           <button
                             onClick={() => setShowTokenConfirm(true)}
                             disabled={tokenStep === 'loading'}
-                            className="cursor-pointer active:scale-[0.99] w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
-                          >
+                          className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+                          
                             {tokenStep === 'loading' ? (
                               <><Loader2 size={16} className="animate-spin" /> Memproses...</>
                             ) : (
-                              <><RefreshCw size={16} /> Ganti Overlay Token</>
+                              <><RefreshCw size={16} className='relative top-[-0.7px]' /> Ganti Overlay Token</>
                             )}
                           </button>
                         )}
@@ -4701,7 +4701,7 @@ const handleChangePin = async () => {
                               disabled={deleteConfirmText !== 'HAPUS AKUN SAYA'}
                               className="cursor-pointer active:scale-[0.99] w-full py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
                             >
-                              <Trash2 size={16} /> Lanjut ke Verifikasi PIN
+                              <Trash2 className='relative top-[-1px]' size={16} /> Lanjut ke Verifikasi PIN
                             </button>
                           </div>
                         )}
