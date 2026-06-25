@@ -247,7 +247,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           transition-all duration-300 ease-in-out
           w-full lg:w-auto
           px-2
-          ${isCollapsed ? '2xl:w-[160px]' : 'lg:max-w-[19vw] lg:min-w-[20vw]'}
+          ${isCollapsed ? '2xl:w-[160px]' : 'lg:max-w-[19vw] lg:min-w-[16vw]'}
           ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
       >
