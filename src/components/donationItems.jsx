@@ -409,15 +409,17 @@ const DonationItemsEditor = ({
         <>
           <div className="space-y-3">
             <AnimatePresence initial={false}>
-              {localItems.map((item, index) => (
-                <ItemRow
-                  key={item.id || index}
-                  item={item}
-                  index={index}
-                  onChange={handleChange}
-                  onRemove={handleRemove}
-                />
-              ))}
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+                {localItems.map((item, index) => (
+                  <ItemRow
+                    key={item.id || index}
+                    item={item}
+                    index={index}
+                    onChange={handleChange}
+                    onRemove={handleRemove}
+                  />
+                ))}
+              </div>
             </AnimatePresence>
 
             {localItems.length === 0 && (

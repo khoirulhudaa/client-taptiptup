@@ -854,7 +854,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
     <AnimatePresence>
       {isFullscreen && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed w-[100%] right-0 inset-0 z-[999999999] bg-black flex flex-col">
-          <div className="flex items-center justify-between px- py-3 md:py-4 bg-black/80 backdrop-blur-sm border-b border-white/10 flex-shrink-0">
+          <div className="flex items-center justify-between py-3 md:py-4 bg-black/80 backdrop-blur-sm border-b border-white/10 flex-shrink-0">
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 bg-red-500 rounded-xl  animate-pulse" />
               <span className="text-white font-black text-sm tracking-wide">LIVE PREVIEW</span>

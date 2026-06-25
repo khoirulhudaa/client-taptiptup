@@ -4424,20 +4424,29 @@ const handleChangePin = async () => {
 
                     <div id="tour-tema-visual" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
                       <SectionHeader icon={<Palette size={20} />} title={`Tema visual`} color="bg-cyan-600" />
-                      <div className="md:col-span-2">
+                      
+                      <YouTubeLivePreview2
+                        settings={settings}
+                        username={user.username}
+                        testFullScreen={() => setNavbar(!navbar)}
+                        onPreviewModeChange={setPreviewMode}
+                        autoPreviewTick={autoPreviewTick}
+                        onTogglePreview={() => setShowPreviewPanel(v => !v)}
+                      />
+
+                      <div className="md:col-span-2 md:mt-0 mt-4">
                         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label>
                         <div className="grid grid-cols-3 gap-3">
                         {['modern', 'smooth', 'gifCard'].map(t => {
                           const themeLabels = {
-                            modern:  'Taptip Play 1',
-                            // minimal: 'Taptip Play 2',
-                            smooth:  'Taptip Play 3',
+                            modern:  'Taptip 1',
+                            smooth:  'Taptip 2',
                             gifCard: 'Pop Card',
                           };
 
                           return (
                             <button key={t} onClick={() => upd('theme', t)}
-                              className={`cursor-pointer active:scale-[0.99] py-3 md:py-4 text-left pl-3 rounded-xl border-2 transition-all font-black text-sm capitalize ${
+                              className={`cursor-pointer active:scale-[0.99] py-3 md:py-4 text-center md:text-left md:pl-3 rounded-xl border-2 transition-all font-black text-sm capitalize ${
                                 settings.theme === t
                                   ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
                                   : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
@@ -4457,15 +4466,6 @@ const handleChangePin = async () => {
                           <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
                         </select>
                       </div>
-                      
-                      <YouTubeLivePreview2
-                          settings={settings}
-                          username={user.username}
-                          testFullScreen={() => setNavbar(!navbar)}
-                          onPreviewModeChange={setPreviewMode}
-                          autoPreviewTick={autoPreviewTick}
-                          onTogglePreview={() => setShowPreviewPanel(v => !v)}
-                      />
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
                         {[
