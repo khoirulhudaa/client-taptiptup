@@ -133,38 +133,38 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     {
       groupLabel: 'OBS & Overlay',
       items: [
-        { id: 'settings',      label: isSuperAdmin ? 'Statistik Overall' : 'Editor Overlay', icon: <Layout size={20} /> },
-        { id: 'alertSettings', label: 'Notifikasi Alert',      icon: <ZapIcon size={20} /> },
-        { id: 'mediaSettings', label: 'Media Share',    icon: <Video size={20} /> },
-        { id: 'songSettings', label: 'Song Request', icon: <Music size={20} /> },
-        { id: 'marquee', label: 'Running Text', icon: <Users size={20} /> },
+        { id: 'settings',      label: isSuperAdmin ? 'Statistik Overall' : 'Overlay', icon: <Layout size={20} /> },
+        { id: 'alertSettings', label: 'Notif Alert',      icon: <ZapIcon size={20} /> },
+        { id: 'mediaSettings', label: 'Mediashare',    icon: <Video size={20} /> },
+        { id: 'songSettings', label: 'Share song', icon: <Music size={20} /> },
+        { id: 'marquee', label: 'Marquee', icon: <Users size={20} /> },
         { id: 'qrConfig', label: 'QR Code', icon: <QrCode size={20} /> },
         { id: 'voiceSettings', label: 'Voice Note',     icon: <Mic size={20} /> },
-        { id: 'store',         label: 'Label produk',       icon: <ShoppingBag size={20} /> },
+        { id: 'store',         label: 'Produk',       icon: <ShoppingBag size={20} /> },
       ]
     },
     {
       groupLabel: 'Keuangan',
       items: [
-        { id: 'history', label: 'Riwayat Donasi', icon: <History size={20} /> },
-        { id: 'wallet',  label: 'Penarikan Dana', icon: <Wallet size={20} /> },
+        { id: 'history', label: 'Riwayat', icon: <History size={20} /> },
+        { id: 'wallet',  label: 'Pencairan', icon: <Wallet size={20} /> },
       ]
     },
     {
       groupLabel: 'Interaksi',
       items: [
         { id: 'inbox',       label: 'Pesan Masuk',        icon: <Mail size={20} /> },
-        { id: 'poll',        label: 'Poll & Voting', icon: <Vote size={20} /> },
+        { id: 'poll',        label: 'Polling', icon: <Vote size={20} /> },
         { id: 'subathon',    label: 'Subathon',      icon: <Timer size={20} /> },
         { id: 'milestones',  label: 'Milestones',    icon: <TrendingUp size={20} /> },
-        { id: 'leaderboard', label: 'Leaderboard',   icon: <Trophy size={20} /> },
+        { id: 'leaderboard', label: 'Peringkat',   icon: <Trophy size={20} /> },
       ]
     },
     {
       groupLabel: 'Konfigurasi',
       items: [
-        { id: 'donatePageConfig', label: 'Halaman Donasi', icon: <Heart size={20} /> },
-        { id: 'feeConfig',        label: 'Biaya layanan',    icon: <ReceiptText size={20} /> },
+        { id: 'donatePageConfig', label: 'Hal. Donasi', icon: <Heart size={20} /> },
+        { id: 'feeConfig',        label: 'Biaya 3.0%',    icon: <ReceiptText size={20} /> },
       ]
     },
 
@@ -247,7 +247,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           transition-all duration-300 ease-in-out
           w-full lg:w-auto
           px-2
-          ${isCollapsed ? 'lg:max-w-[120px] lg:min-w-[120px]' : 'lg:max-w-[19vw] lg:min-w-[20vw]'}
+          ${isCollapsed ? '2xl:w-[160px]' : 'lg:max-w-[19vw] lg:min-w-[20vw]'}
           ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
       >
@@ -346,9 +346,9 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                         setActiveTab(item.id);
                         setIsSidebarOpen(false);
                       }}
-                      title={isCollapsed ? item.label : undefined}
-                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex items-center gap-3 rounded-lg font-black text-sm 
-                        ${isCollapsed ? 'justify-center px-0 py-3' : 'px-4 py-3'}
+                      title={undefined}
+                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex rounded-lg font-black text-sm 
+                        ${isCollapsed ? 'flex-col items-center justify-center px-1 py-2 gap-1' : 'flex-row items-center gap-3 px-4 py-3'}
                         ${
                           activeTab === item.id
                             ? 'bg-blue-600 text-white'
@@ -356,7 +356,11 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                         }`}
                     >
                       <span className="flex-shrink-0">{item.icon}</span>
-                      {!isCollapsed && (
+                      {isCollapsed ? (
+                        <span className="text-[12px] font-bold text-center leading-tight break-words w-full">
+                          {item.label}
+                        </span>
+                      ) : (
                         <motion.span
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}

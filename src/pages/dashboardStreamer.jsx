@@ -193,6 +193,7 @@ const DEFAULT_SETTINGS = {
 
 const ICON_PRESETS = [
   { emoji: '❤️', label: 'Default' }, { emoji: '💜',  label: 'Ungu'  },
+  { emoji: '🧧',  label: 'Angpau'  },
   { emoji: '🐧', label: 'Penguin' },
   { emoji: '🔥',  label: 'Api'    }, { emoji: '⭐',  label: 'Bintang'},
   { emoji: '🎮',  label: 'Gamer'  }, { emoji: '🎵',  label: 'Musik'  },
@@ -4025,7 +4026,7 @@ const handleChangePin = async () => {
         </div>
 
         <Sidebar 
-          isCollapsed={isCollapsed}         // ← tambah ini
+          isCollapsed={true}         // ← tambah ini
           setIsCollapsed={setIsCollapsed}
           activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
 
@@ -4299,18 +4300,16 @@ const handleChangePin = async () => {
 
                         {/* Icon Alert */}
                           <div className="space-y-3 mt-4.5">
-                            {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Icon Alert</label> */}
-                       
                             <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
                               {ICON_PRESETS.map(({ emoji, label }) => (
                                 <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
-                                  className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
+                                  className={`flex flex-col items-center gap-1 px-3 pb-2.5 pt-1.5 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
                                     (settings.customIcon || '❤️') === emoji || (!settings.customIcon && emoji === '❤️')
                                       ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40'
                                       : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
                                   }`}>
                                   <span>{emoji}</span>
-                                  <span className="text-[8px] font-black text-slate-400 leading-none">{label}</span>
+                                  <span className="text-[10px] font-black text-slate-400 leading-none">{label}</span>
                                 </button>
                               ))}
                             </div>
@@ -5364,7 +5363,7 @@ const handleChangePin = async () => {
         </main>
 
         {isSidebarOpen && (
-          <div onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-50 lg:hidden" />
+          <div onClick={() => setIsSidebarOpen(true)} className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-50 lg:hidden" />
         )}
 
         {showUpgradeModal && (
