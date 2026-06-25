@@ -4281,7 +4281,7 @@ const handleChangePin = async () => {
                           
                         <div className='w-full md:flex space-y-2.5 md:space-y-0 items-center gap-3'>
                           {[  
-                            { key: 'overlayEnabled', label: 'Overlay OBS',  desc: 'Alert tidak muncul di OBS' },
+                            // { key: 'overlayEnabled', label: 'Overlay OBS',  desc: 'Alert tidak muncul di OBS' },
                             { key: 'showTimestamp',  label: 'Waktu Dukungan',  desc: 'Waktu kapan dukungan diterima' },
                           ].map(({ key, label, desc }) => (
                             <div key={key} className="w-full flex items-center justify-between p-4 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-100 dark:border-slate-700">
@@ -4301,71 +4301,19 @@ const handleChangePin = async () => {
                           <div className="space-y-3 mt-4.5">
                             {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Icon Alert</label> */}
                        
-                            {/* Mode selector */}
-                            <div className="flex gap-3">
-                              {[{ id: 'emoji', label: '😊 Emoji' }, { id: 'gif', label: '🎬 GIF / URL' }].map(m => (
-                                <button key={m.id}
-                                  onClick={() => {
-                                    if (m.id === 'emoji') upd('customIcon', '');
-                                    setIconMode(m.id);
-                                  }}
-                                  className={`cursor-pointer active:scale-[0.99] px-4 py-3 rounded-xl font-black text-xs transition-all ${
-                                    iconMode === m.id
-                                      ? 'bg-blue-600 text-white'
-                                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                            <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
+                              {ICON_PRESETS.map(({ emoji, label }) => (
+                                <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
+                                  className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
+                                    (settings.customIcon || '❤️') === emoji || (!settings.customIcon && emoji === '❤️')
+                                      ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40'
+                                      : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
                                   }`}>
-                                  {m.label}
+                                  <span>{emoji}</span>
+                                  <span className="text-[8px] font-black text-slate-400 leading-none">{label}</span>
                                 </button>
                               ))}
                             </div>
-
-                            {iconMode === 'emoji' ? (
-                              <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
-                                {ICON_PRESETS.map(({ emoji, label }) => (
-                                  <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
-                                    className={`flex flex-col items-center gap-1 p-3 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
-                                      (settings.customIcon || '❤️') === emoji || (!settings.customIcon && emoji === '❤️')
-                                        ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40'
-                                        : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
-                                    }`}>
-                                    <span>{emoji}</span>
-                                    <span className="text-[8px] font-black text-slate-400 leading-none">{label}</span>
-                                  </button>
-                                ))}
-                              </div>
-                            ) : (
-                              <div className="space-y-3">
-                                <div className="flex gap-3 items-center">
-                                  <input
-                                    type="url"
-                                    value={settings.customIcon?.startsWith('http') ? settings.customIcon : ''}
-                                    onChange={e => upd('customIcon', e.target.value)}
-                                    placeholder="https://media.giphy.com/media/xxxx/giphy.gif"
-                                    className="flex-1 p-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-mono text-xs text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all"
-                                  />
-                                  {settings.customIcon?.startsWith('http') && (
-                                    <div className="w-12 h-12 flex-shrink-0 border-2 border-slate-200 dark:border-slate-700 rounded-xl  overflow-hidden bg-slate-900 flex items-center justify-center">
-                                      <img src={settings.customIcon} alt="preview" className="w-full h-full object-contain" />
-                                    </div>
-                                  )}
-                                </div>
-
-                                {/* Giphy reference */}
-                                <div className="flex items-center gap-3 p-3 bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 rounded-xl">
-                                  <span className="text-lg flex-shrink-0">🎬</span>
-                                  <div className="flex-1 min-w-0">
-                                    <p className="text-[11px] md:text-[10px] font-black text-pink-700 dark:text-pink-400 uppercase tracking-wider md:mb-0.5">Cari GIF di Giphy</p>
-                                    <p className="text-[10px] text-pink-500 dark:text-pink-500 md:flex hidden font-medium">
-                                      Buka Giphy → klik GIF → Share → Copy GIF Link → paste di atas
-                                    </p>
-                                  </div>
-                                  <a href="https://giphy.com/search/terima-kasih" target="_blank" rel="noopener noreferrer"
-                                    className="flex-shrink-0 px-3 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-xl  text-[10px] font-black transition-all active:scale-[0.99]">
-                                    Buka Giphy →
-                                  </a>
-                                </div>
-                              </div>
-                            )}
 
                           </div>
                       </div>
@@ -4374,29 +4322,6 @@ const handleChangePin = async () => {
                         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-3">
                         {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
                       </button>
-
-                      {/* ✅ Catatan tema */}
-                      <div className="flex items-center gap-2 p-2 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-xl mt-3">
-                        <div className='w-7 h-7 rounded-md flex items-center justify-center bg-slate-500/30'>
-                          <span className="text-sm flex-shrink-0">💡</span>
-                        </div>
-                        <p className="text-[11px] font-bold text-blue-600 dark:text-blue-400">
-                          Icon untuk tema <span className="font-black text-white">taptip 1</span> dan <span className="font-black text-white">taptip 3</span>
-                        </p>
-                        {/* ✅ Tombol scroll ke Tema Visual */}
-                        <button
-                          onClick={() => document.getElementById('tour-tema-visual')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-                          className="md:flex hidden cursor-pointer ml-auto flex-shrink-0 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-lg transition-all active:scale-[0.98] whitespace-nowrap"
-                        >
-                          Ganti Tema →
-                        </button>
-                        <button
-                          onClick={() => document.getElementById('tour-tema-visual')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-                          className="flex md:hidden cursor-pointer ml-auto flex-shrink-0 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black rounded-lg transition-all active:scale-[0.98] whitespace-nowrap"
-                        >
-                          Tema →
-                        </button>
-                      </div>
                     </div>
 
                     <div id="tour-donation-items" className='relative z-[999999]'>

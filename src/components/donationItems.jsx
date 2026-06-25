@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Plus, Save, Trash2 } from 'lucide-react';
+import { Diamond, Flower, Plus, Save, Trash2 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const EMOJI_PRESETS = [
@@ -217,19 +217,19 @@ const ItemPreviewCard = ({ item }) => {
 const MODE_OPTIONS = [
   {
     value: 'both',
-    label: 'Item + Nominal',
+    label: 'Semua',
     desc: 'Donor bisa item atau isi nominal',
     icon: '🔀',
   },
   {
     value: 'items_only',
-    label: 'Item Saja',
+    label: 'Gift Item',
     desc: 'Donor hanya bisa pilih item',
     icon: '🎁',
   },
   {
     value: 'amount_only',
-    label: 'Nominal Saja',
+    label: 'Nominal',
     desc: 'Donor hanya bisa pilih nominal',
     icon: '💸',
   },
@@ -321,8 +321,8 @@ const DonationItemsEditor = ({
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="p-3 w-11 h-11 bg-gradient-to-br from-pink-500 to-orange-500 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
-            🎁
+          <div className="p-3 w-11 h-11 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+            <Flower />
           </div>
           <div>
             <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
@@ -370,7 +370,7 @@ const DonationItemsEditor = ({
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
           Mode Tampilan Dukungan
         </label>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-3">
           {MODE_OPTIONS.map((opt) => (
             <button
               key={opt.value}
@@ -409,7 +409,7 @@ const DonationItemsEditor = ({
         <>
           <div className="space-y-3">
             <AnimatePresence initial={false}>
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+              <div className='grid grid-cols-1 md:grid-cols-1 gap-3'>
                 {localItems.map((item, index) => (
                   <ItemRow
                     key={item.id || index}
