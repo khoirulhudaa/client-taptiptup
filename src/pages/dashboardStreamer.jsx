@@ -509,169 +509,10 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div className="flex flex-col gap-1">
-          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Donor</label>
-          <InputField
-            label="Nama"
-            value={customName}
-            onChange={v => setCustomName(v)}
-            placeholder="Seseorang"
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nominal (Rp)</label>
-          <InputField
-            label="Nominal"
-            type="number"
-            value={customAmount}
-            onChange={v => { setCustomAmount(v); if (testItem) { setTestItem(null); setUseItem(false); } }}
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-wrap gap-2">
-        {[10000, 50000, 100000, 500000, 1000000].map(v => (
-          <button 
-            key={v} 
-            onClick={() => {
-              setCustomAmount(v);
-              setTestItem(null);
-              setUseItem(false);
-            }}
-            className={`cursor-pointer active:scale-[0.99] px-3 md:px-5 py-2 md:py-3 rounded-xl text-xs font-black transition-all border-2 ${
-              Number(customAmount) === v
-                ? 'bg-rose-500 border-rose-500 text-white'
-                : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
-            }`}
-          >
-            <p className='relative top-[1.4px]'>
-              {v >= 1000000 ? `${v / 1000000}jt` : v >= 1000 ? `${v / 1000}K` : v}
-            </p>
-          </button>
-        ))}
-      </div>
-
-      {/* Textarea tetap ada */}
-      <div className="flex flex-col gap-1">
-        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pesan</label>
-        <TextareaField
-          label="Pesan"
-          value={customMsg}
-          onChange={v => setCustomMsg(v)}
-          placeholder="Tulis pesan dukungan di sini..."
-          inputClassName="h-20"
-        />
-      </div>
-
-      {/* 4 Template Pesan Cepat */}
-      <div>
-        <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Template Pesan Cepat</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {messageTemplates.map((template, index) => (
-            <button
-              key={index}
-              onClick={() => setCustomMsg(template)}
-              className={`cursor-pointer active:scale-[0.99] text-left text-xs p-3 rounded-xl border transition-all hover:bg-rose-50 dark:hover:bg-rose-950/30 ${
-                customMsg === template 
-                  ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/40 font-medium' 
-                  : 'border-slate-200 dark:border-slate-700 hover:border-rose-300'
-              }`}
-            >
-              {template}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {donationItems.length > 0 ? (
-        <>
-          <label className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
-            <div onClick={() => { setUseItem(v => !v); setTestItem(null); }}
-              className={`w-10 h-6 rounded-xl relative flex-shrink-0 transition-all cursor-pointer ${useItem ? 'bg-rose-500' : 'bg-slate-200 dark:bg-slate-700'}`}>
-              <div className={`absolute top-1 w-4 h-4 bg-white rounded-xl shadow transition-all ${useItem ? 'left-5' : 'left-1'}`} />
-            </div>
-            Test dengan Donation Item
-          </label>
-
-         {useItem && (
-            <div className="space-y-2">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pilih Item</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                {donationItems.map(item => (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      const selected = testItem?.id === item.id ? null : { ...item, quantity: 1 };
-                      setTestItem(selected);
-                      if (selected) {
-                        updateForm('amount', selected.price * 1);
-                      }
-                    }}
-                    className={`p-3 flex items-center justify-between rounded-xl  border-2 text-center transition-all cursor-pointer active:scale-[0.99] ${
-                      testItem?.id === item.id
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40'
-                        : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800'
-                    }`}
-                  >
-                    <div className='w-max flex items-center gap-3'>
-                      <div className="text-xl mb-[2px]">{item.emoji}</div>
-                      <p className="font-black relative top-[1px] text-[12.5px] text-slate-700 dark:text-slate-200 truncate">{item.name}</p>
-                    </div>
-                    <p className="font-black text-xs text-white mt-0.5">
-                      Rp {Number(item.price).toLocaleString('id-ID')}
-                    </p>
-                  </button>
-                ))}
-              </div>
-
-              {testItem && (
-                <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl ">
-                  <span className="text-2xl">{testItem.emoji}</span>
-                  <div className="flex-1">
-                    <p className="font-black text-sm text-slate-700 dark:text-white">{testItem.name}</p>
-                    <p className="text-[10px] text-white font-bold">
-                      Rp {(testItem.price * (testItem.quantity || 1)).toLocaleString('id-ID')}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-1">
-                    <button 
-                      onClick={() => {
-                        const newQty = Math.max(1, (testItem.quantity||1) - 1);
-                        setTestItem(p => ({ ...p, quantity: newQty }));
-                        updateForm('amount', testItem.price * newQty);
-                      }}
-                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-blue-500 cursor-pointer">−</button>
-                    <span className="w-6 text-center font-black text-sm text-slate-700 dark:text-white">{testItem.quantity || 1}</span>
-                    <button 
-                      onClick={() => {
-                        const newQty = Math.min(testItem.maxQty ?? 10, (testItem.quantity||1) + 1);
-                        setTestItem(p => ({ ...p, quantity: newQty }));
-                        updateForm('amount', testItem.price * newQty);
-                      }}
-                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-blue-500 cursor-pointer">+</button>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-        </>
-      ): (
-        <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-dashed border-slate-200 dark:border-slate-700 rounded-xl ">
-          <span className="text-xl flex-shrink-0">🎁</span>
-          <div>
-            <p className="font-black text-xs text-slate-500 dark:text-slate-400">Belum ada item dukungan</p>
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-              Tambahkan item dukungan di bagian <span className="font-black text-blue-500">Item Dukungan</span> di bawah terlebih dahulu
-            </p>
-          </div>
-        </div>
-      )}
-
       <button 
         onClick={sendTest} 
         disabled={isSending || !overlayToken}
-        className="cursor-pointer active:scale-[0.99] w-full py-3 hover:brightness-90 bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60"
+        className="cursor-pointer active:scale-[0.99] w-full mt-5.5 py-3 hover:brightness-90 bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60"
       >
         {isSending ? (
           <><RefreshCw size={18} className="animate-spin" /> Mengirim...</>
@@ -725,7 +566,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
           ? testItem.price * (testItem.quantity || 1)
           : Number(formData.amount) || 0,
         message: formData.message || null,
-        mediaUrl: formData.mediaUrl,
+        mediaUrl: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXd5djgzdm84Z3Q5eWNpaWlobjVmbnd1bmwza2E2N3JmeXZoazY1NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0vcCfc5y3MXCHzpzRw/giphy.gif',
         mediaType: formData.mediaType,
         donationItem: useItem && testItem ? {
           name: testItem.name,
@@ -763,75 +604,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div className="flex flex-col gap-1">
-          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nama Donor</label>
-          <InputField
-            label="Nama"
-            value={formData.donorName}
-            onChange={v => updateForm('donorName', v)}
-            placeholder="@Seseorang"
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Nominal</label>
-          <InputField
-            label="Nominal"
-            type="number"
-            value={formData.amount}
-            onChange={v => { updateForm('amount', v === '' ? '' : v); if (testItem) { setTestItem(null); setUseItem(false); } }}
-            placeholder="25000"
-          />
-        </div>
-      </div>
-
-      {/* Quick Amounts */}
-      <div className="flex flex-wrap gap-2">
-        {[10000, 25000, 50000, 100000, 500000].map(v => (
-          <button
-            key={v}
-            onClick={() => {
-              updateForm('amount', v);
-              setTestItem(null);
-              setUseItem(false);
-            }}
-            className={`cursor-pointer active:scale-[0.99] px-3 md:px-5 py-2 md:py-3 rounded-xl text-xs font-black transition-all border-2 ${
-              Number(formData.amount) === v && !testItem
-                ? 'bg-blue-600 border-blue-600 text-white'
-                : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
-            }`}
-          >
-            <p className='relative top-[1.2px]'>
-              {v >= 1000000 ? `${v / 1000000}jt` : v >= 1000 ? `${v / 1000}K` : v}
-            </p>
-          </button>
-        ))}
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pesan (opsional)</label>
-        <TextareaField
-          label="Pesan"
-          value={formData.message}
-          onChange={v => updateForm('message', v)}
-          placeholder="Terima kasih dukungannya!"
-          inputClassName="h-20"
-        />
-      </div>
-
-      <div className="space-y-3 mt-[-4px]">
-        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-1">Media URL</label>
-        <InputField
-          label="Media URL"
-          value={formData.mediaUrl.slice(0, 46) + (formData.mediaUrl.length > 50 ? '...' : '')}
-          onChange={v => updateForm('mediaUrl', v)}
-          placeholder="https://example.com/image.jpg"
-          title={formData.mediaUrl}
-        />
-      </div>
-
       <div className="pt-2">
-        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 pb-1">Quick Presets</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
           {PRESET_MEDIA.map((preset, i) => (
             <button key={i} onClick={() => { updateForm('mediaUrl', preset.url); updateForm('mediaType', preset.type); }}
@@ -847,90 +620,6 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
           ))}
         </div>
       </div>
-
-       {donationItems.length > 0 ? (
-        <>
-          <label className="flex items-center my-5 gap-3 text-sm font-bold text-slate-600 dark:text-slate-300 cursor-pointer select-none">
-            <div onClick={() => { setUseItem(v => !v); setTestItem(null); }}
-              className={`w-10 h-6 rounded-xl relative flex-shrink-0 transition-all cursor-pointer ${useItem ? 'bg-blue-500' : 'bg-slate-200 dark:bg-slate-700'}`}>
-              <div className={`absolute top-1 w-4 h-4 bg-white rounded-xl shadow transition-all ${useItem ? 'left-5' : 'left-1'}`} />
-            </div>
-            Test dengan Donation Item
-          </label>
-
-          {useItem && (
-            <div className="space-y-2">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pilih Item</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                {donationItems.map(item => (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      const selected = testItem?.id === item.id ? null : { ...item, quantity: 1 };
-                      setTestItem(selected);
-                      if (selected) {
-                        updateForm('amount', selected.price * 1);
-                      }
-                    }}
-                    className={`p-3 flex items-center justify-between rounded-xl  border-2 text-center transition-all cursor-pointer active:scale-[0.99] ${
-                      testItem?.id === item.id
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40'
-                        : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800'
-                    }`}
-                  >
-                    <div className='w-max flex items-center gap-3'>
-                      <div className="text-xl mb-[2px]">{item.emoji}</div>
-                      <p className="font-black relative top-[1px] text-[12.5px] text-slate-700 dark:text-slate-200 truncate">{item.name}</p>
-                    </div>
-                    <p className="font-black text-xs text-white mt-0.5">
-                      Rp {Number(item.price).toLocaleString('id-ID')}
-                    </p>
-                  </button>
-                ))}
-              </div>
-
-              {testItem && (
-                <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl ">
-                  <span className="text-2xl">{testItem.emoji}</span>
-                  <div className="flex-1">
-                    <p className="font-black text-sm text-slate-700 dark:text-white">{testItem.name}</p>
-                    <p className="text-[10px] text-white font-bold">
-                      Rp {(testItem.price * (testItem.quantity || 1)).toLocaleString('id-ID')}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-1">
-                    <button 
-                      onClick={() => {
-                        const newQty = Math.max(1, (testItem.quantity||1) - 1);
-                        setTestItem(p => ({ ...p, quantity: newQty }));
-                        updateForm('amount', testItem.price * newQty);
-                      }}
-                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-blue-500 cursor-pointer">−</button>
-                    <span className="w-6 text-center font-black text-sm text-slate-700 dark:text-white">{testItem.quantity || 1}</span>
-                    <button 
-                      onClick={() => {
-                        const newQty = Math.min(testItem.maxQty ?? 10, (testItem.quantity||1) + 1);
-                        setTestItem(p => ({ ...p, quantity: newQty }));
-                        updateForm('amount', testItem.price * newQty);
-                      }}
-                      className="w-7 h-7 flex items-center justify-center font-black text-slate-500 hover:text-blue-500 cursor-pointer">+</button>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-        </>
-      ): (
-         <div className="flex items-center gap-3 px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-dashed border-slate-200 dark:border-slate-700 rounded-xl">
-          <span className="text-xl flex-shrink-0">🎁</span>
-          <div>
-            <p className="font-black text-xs text-slate-500 dark:text-slate-400">Belum ada item dukungan</p>
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-              Tambahkan item dukungan di bagian <span className="font-black text-blue-500">Item Dukungan</span> di bawah terlebih dahulu
-            </p>
-          </div>
-        </div>
-      )}
 
       <button onClick={sendTestMedia} disabled={isSending || !overlayToken || !formData.mediaUrl}
         className="cursor-pointer hover:brightness-90 w-full py-3 hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl  font-black text-sm active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
@@ -1134,7 +823,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
       <SectionHeader icon={<ShieldCheck size={20} />} title="Filter Kata Terlarang" color="bg-red-500" />
       <div className="space-y-3">
-        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Aksi saat kata terlarang terdeteksi</label>
+        {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Aksi saat kata terlarang terdeteksi</label> */}
         <div className="grid grid-cols-1 gap-3">
           {ACTION_OPTIONS.map(opt => (
             <button key={opt.id}
@@ -1160,7 +849,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
       </div>
       <div className="border-t border-slate-100 dark:border-slate-800" />
       <div className="space-y-3">
-        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Daftar kata terlarang</label>
+        {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Daftar kata terlarang</label> */}
         <div className="md:flex gap-3 md:space-y-0 space-y-3">
           <InputField
             label="Kata-kata"
@@ -1318,7 +1007,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
 
   return (
     <div className="space-y-3">
-      {label && <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</label>}
+      {/* {label && <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</label>} */}
 
       <div className="flex md:gap-3 gap-2">
         {[{ id: 'preset', label: 'Preset' }, { id: 'upload', label: 'Upload MP3' }].map(m => (
@@ -1713,7 +1402,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                 min={5} max={60}
                 inputClassName="text-center"
               />
-              <p className="text-xs text-slate-500 mt-2">
+              <p className="text-[10px] text-slate-500 mt-2">
                 Jika TTS lebih lama, akan mengikuti TTS
               </p>
             </div>
@@ -1726,7 +1415,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
             {/* <h4 className="font-black text-lg">Media share</h4> */}
             <div className="flex flex-col gap-3">
               <div>
-                <label className="text-xs font-black text-slate-500 block mb-1.5">Durasi Dasar (detik)</label>
+                {/* <label className="text-xs font-black text-slate-500 block mb-1.5">Durasi Dasar (detik)</label> */}
                 <InputField
                   label="Detik"
                   type="number"
@@ -1738,7 +1427,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
               <div>
                 <div className="md:flex items-center gap-3">
                   <div className='w-full'>
-                    <label className="text-xs font-black text-slate-500 block mb-1.5">Tambahan tiap Rp</label>
+                    {/* <label className="text-xs font-black text-slate-500 block mb-1.5">Tambahan tiap Rp</label> */}
                     <div className='md:flex items-center'>
                       <InputField
                         label="Tiap Rp"
@@ -1751,7 +1440,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                     </div>
                   </div>
                   <div className='md:mt-0 mt-4'>
-                    <label className="text-xs font-black text-slate-500 block mb-1.5">Detik</label>
+                    {/* <label className="text-xs font-black text-slate-500 block mb-1.5">Detik</label> */}
                     <InputField
                       label="Detik"
                       type="number"
@@ -2674,7 +2363,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       {/* Media URL picker — hanya muncul saat tab media aktif */}
       {previewMode === 'media' && (
         <div className="space-y-3">
-          <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Media URL (preview)</label>
+          {/* <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Media URL (preview)</label> */}
           <div className="flex gap-3 mt-1">
             {MEDIA_PRESETS.map((p, i) => (
               <button key={i} onClick={() => setMediaUrl(p.url)}
@@ -3455,7 +3144,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) =>
               { label: 'Volume',    key: 'ttsVolume', min: 0.1, max: 1, step: 0.1, fmt: v => Math.round(v*100) + '%' },
             ].map(({ label, key, min, max, step, fmt }) => (
               <div key={key}>
-                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">{label}</label>
+                {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">{label}</label> */}
                 <input 
                   type="range" 
                   min={min} 
@@ -4056,7 +3745,7 @@ const handleChangePin = async () => {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-1">
-                <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Min (Rp)</label>
+                {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Min (Rp)</label> */}
                 <InputField
                   label="Min"
                   type="number"
@@ -4067,7 +3756,7 @@ const handleChangePin = async () => {
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Max (kosong=∞)</label>
+                {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Max (kosong=∞)</label> */}
                 <InputField
                   label="Max"
                   type="number"
@@ -4079,7 +3768,7 @@ const handleChangePin = async () => {
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Label (opsional)</label>
+              {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Label (opsional)</label> */}
               <InputField
                 label="Label"
                 value={t.label || ''}
@@ -4611,7 +4300,7 @@ const handleChangePin = async () => {
 
                         {/* Icon Alert */}
                           <div className="space-y-3 mt-4.5">
-                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Icon Alert</label>
+                            {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Icon Alert</label> */}
                        
                             {/* Mode selector */}
                             <div className="flex gap-3">
@@ -4737,7 +4426,7 @@ const handleChangePin = async () => {
                     <div id="tour-tema-visual" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
                       <SectionHeader icon={<Palette size={20} />} title={`Tema visual`} color="bg-cyan-600" />
                       <div className="md:col-span-2">
-                        {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label> */}
+                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label>
                         <div className="grid grid-cols-3 gap-3">
                         {['modern', 'smooth', 'gifCard'].map(t => {
                           const themeLabels = {
@@ -4762,7 +4451,7 @@ const handleChangePin = async () => {
                       </div>
 
                       <div className="md:col-span-2 w-full flex flex-col !mt-4 gap-3">
-                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label>
+                        {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label> */}
                         <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
                           className="w-full px-2 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
                           <option value="bounce">Bounce</option><option value="slide-left">Slide Kiri</option>
@@ -5257,7 +4946,7 @@ const handleChangePin = async () => {
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
                     <SectionHeader icon={<Music size={20} />} title="Share Song" color="bg-orange-500" />
 
-                    <div className="flex items-center justify-between p-4 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+                    <div className="flex items-center justify-between p-4 mt-5 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
                       <div>
                         <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Aktifkan Song Request</p>
                         <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Donor bisa request lagu SoundCloud lewat halaman donasi</p>
@@ -5513,7 +5202,7 @@ const handleChangePin = async () => {
                       <InputField label="Email Address" type="email" value={profileForm.email} onChange={v => setProfileForm(f => ({ ...f, email: v }))} />
 
                       <div className="md:col-span-2">
-                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Bio Singkat</label>
+                        {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Bio Singkat</label> */}
                         <TextareaField
                           label="Bio"
                           value={profileForm.bio}
