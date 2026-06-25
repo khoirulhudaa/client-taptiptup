@@ -10,8 +10,8 @@ import { sanitizeInput, isValidEmail, isValidUsername, validatePassword, detectX
 
 // ─── Theme tokens ──────────────────────────────────────────────────────────────
 const getTheme = (dark) => ({
-  pageBg:           dark ? '#0f0c29'                       : '#f5f4ff',
-  rightBg:          dark ? '#13111f'                       : '#ffffff',
+  pageBg:           dark ? '#172126'                       : '#f5f4ff',
+  rightBg:          dark ? '#172126'                       : '#ffffff',
   inputBg: dark ? 'rgba(255,255,255,0.04)' : 'rgba(79,70,229,0.04)',
   inputBgFocus: dark ? 'rgba(255,255,255,0.08)' : 'rgba(79,70,229,0.07)',
   inputBorder: dark ? 'rgba(255,255,255,0.10)' : 'rgba(79,70,229,0.18)',
@@ -216,7 +216,7 @@ const ThemeToggle = ({ isDark, onToggle, T }) => (
 const RightPanel = ({ T, isDark, setIsDark, children }) => (
   <div className='md:min-h-[100vh] h-max pb-8 md:pb-[40px] md:py-[40px] md:px-[0px] py-[20px]' 
     style={{
-      flex:1, position:'relative', background: T.rightBg, display:'flex', 
+      flex:1, position:'relative', background: '#172126', display:'flex', 
       alignItems:'center', justifyContent:'center', transition:'background 0.35s',
     }}
   >
