@@ -12,6 +12,23 @@ const formatRp = (n) => {
   return `${Number(n).toLocaleString('id-ID')}`;
 };
 
+// ── Sama seperti di OverlayAlert ─────────────────────────────────────────────
+const renderAmountOrItem = (alert, hl, style = {}) => {
+  if (alert?.donationItem?.name) {
+    const qty = alert.donationItem.quantity || 1;
+    return (
+      <span style={style}>
+        {alert.donationItem.emoji || '🎁'} {alert.donationItem.name}{qty > 1 ? ` ×${qty}` : ''}
+      </span>
+    );
+  }
+  return (
+    <span style={style}>
+      {formatRp(alert.amount)}
+    </span>
+  );
+};
+
 const VoiceNoteOverlay = () => {
   const { token } = useParams();
   const [config, setConfig] = useState(null);
@@ -62,10 +79,6 @@ const VoiceNoteOverlay = () => {
         finalConfig = resB.data;
       }
 
-      // if (!configRef.current || finalConfig.slot !== configRef.current.slot) {
-      //   setConfig(finalConfig);
-      //   configRef.current = finalConfig;
-      // }
       setConfig(finalConfig);
       configRef.current = finalConfig;
     } catch (err) {
@@ -185,7 +198,6 @@ const VoiceNoteOverlay = () => {
 
         if (knownDuration && !countdownStarted) {
           countdownStarted = true;
-          setAudioDuration(knownDuration);
           startCountdownAndDismiss(knownDuration * 1000);
         }
       };
@@ -267,7 +279,6 @@ const VoiceNoteOverlay = () => {
   const highlight = config.highlightColor || '#a5b4fc';
   const borderColor = config.borderColor || 'rgba(255,255,255,0.15)';
   const animation = config.animation || 'bounce';
-  const maxW = config.maxWidth || 340;
 
   const animVariants = {
     bounce: {
@@ -294,20 +305,6 @@ const VoiceNoteOverlay = () => {
 
   const anim = animVariants[animation] || animVariants.bounce;
 
-  if (!config) return (
-    <div style={{
-      width: '100vw', height: '100vh',
-      display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center',
-      background: 'transparent', gap: 12,
-      color: 'rgba(255,255,255,0.5)',
-      fontFamily: 'monospace',
-    }}>
-      <span style={{ fontSize: 32 }}>📶</span>
-      <span style={{ fontSize: 13 }}>Menghubungkan...</span>
-    </div>
-  );
-
   return (
     <div style={{
       width: '100vw', height: '100vh',
@@ -327,14 +324,13 @@ const VoiceNoteOverlay = () => {
               backgroundColor: bg,
               color: fg,
               width: `max-content`,
-              borderRadius: config.theme === 'smooth' ? 20 : 0,
+              borderRadius: config.theme === 'smooth' ? 20 : 20,
               border: `1px solid ${borderColor}`,
               boxShadow: '0 16px 40px rgba(0,0,0,0.6)',
               overflow: 'hidden',
               fontFamily: "'Inter', -apple-system, 'Segoe UI', sans-serif",
             }}
           >
-            {/* ↓↓↓ GANTI SEMUA KONTEN DI SINI ↓↓↓ */}
             {(() => {
               const monospace = "'Inter', 'Courier New', monospace";
               const hl = highlight;
@@ -344,24 +340,31 @@ const VoiceNoteOverlay = () => {
                 pointerEvents: 'none', zIndex: 1,
               };
 
+              // ── SMOOTH theme ────────────────────────────────────────────────
               if (config.theme === 'smooth') {
                 return (
                   <div style={{ fontFamily: "'Inter', sans-serif", padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {/* Icon + Nama + Amount */}
+                    {/* Icon + Nama + Amount/Item */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                       <div style={{
                         width: 44, height: 44, borderRadius: 14,
-                        background: hl + '22', border: `1.5px solid ${hl}40`,
+                        background: hl + '22', 
+                        border: `1px solid ${hl}40`,
                         display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0,
                       }}>
                         🎙️
                       </div>
                       <div>
-                        <div className='flex items-center gap-2'>
-                          <div style={{ fontSize: 20, fontWeight: 500, color: fg, textTransform: 'lowercase' }}>{alert.donorName}</div>
-                          <div style={{ fontSize: 20, fontWeight: 500, color: hl, letterSpacing: '-0.5px' }}>
-                            {formatRp(alert.amount)}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, top: 2 }}>
+                          <div style={{ fontSize: 20, fontWeight: 500, color: fg, textTransform: 'lowercase' }}>
+                            {alert.donorName}
                           </div>
+                          {renderAmountOrItem(alert, hl, {
+                            fontSize: 20,
+                            fontWeight: 500,
+                            color: hl,
+                            letterSpacing: '-0.5px',
+                          })}
                         </div>
                       </div>
                     </div>
@@ -373,7 +376,7 @@ const VoiceNoteOverlay = () => {
                     {alert.message && (
                       <div style={{
                         fontSize: 18, color: fg,
-                        background: hl + '10', borderRadius: 10, padding: '8px 12px',
+                        background: hl + '10', borderRadius: 20, padding: '8px 12px',
                         lineHeight: 1.5, border: `1px solid ${hl}20`, maxWidth: 500
                       }}>
                         {alert.message}
@@ -382,13 +385,13 @@ const VoiceNoteOverlay = () => {
 
                     {/* Visualizer smooth */}
                     <div style={{
-                      background: hl + '0d', borderRadius: 10, padding: '8px 12px',
+                      background: hl + '0d', borderRadius: 16, padding: '8px 12px',
                       border: `1px solid ${hl}20`, display: 'flex', flexDirection: 'column', gap: 6,
                     }}>
                       <div style={{ display: 'flex', alignItems: 'flex-end', gap: 3, height: 24 }}>
                         {Array.from({ length: 68 }).map((_, i) => (
                           <span key={i} style={{
-                            width: 4, display: 'inline-block', borderRadius: 2,
+                            width: 4, display: 'inline-block', borderRadius: 20,
                             background: isPlaying ? hl : hl + '40',
                             height: isPlaying ? `${30 + Math.abs(Math.sin(i * 0.7)) * 70}%` : '20%',
                             animation: isPlaying ? `vbar${i % 5} ${0.35 + (i % 4) * 0.07}s ease-in-out infinite alternate` : 'none',
@@ -403,7 +406,7 @@ const VoiceNoteOverlay = () => {
 
                     {/* Timestamp + overall progress */}
                     {alert.receivedAt && (
-                      <div style={{ fontSize: 11, color: fg}}>
+                      <div style={{ fontSize: 11, color: fg }}>
                         {new Date(alert.receivedAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
                       </div>
                     )}
@@ -422,6 +425,7 @@ const VoiceNoteOverlay = () => {
                 );
               }
 
+              // ── MODERN / default theme ───────────────────────────────────────
               return (
                 <div style={{ position: 'relative', overflow: 'hidden' }}>
                   <div style={scanlineStyle} />
@@ -456,21 +460,26 @@ const VoiceNoteOverlay = () => {
                   <div style={{ padding: '10px 12px', position: 'relative', zIndex: 2 }}>
                     <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 8 }}>
                       <div style={{
-                        width: 40, height: 40, border: `2px solid ${hl}`, flexShrink: 0,
+                        width: 40, height: 40, 
+                        border: `1px solid ${hl}40`, flexShrink: 0,
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 20, background: hl + '12',
+                        fontSize: 20, background: hl + '12', borderRadius: 14
                       }}>
                         🎙️
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div className='flex items-center gap-2 w-max relative top-1'>
-                          <div style={{ position: 'relative', top: 1, fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg, lineHeight: 1.1, textTransform: 'lowercase' }}>{alert.donorName} mengirim</div>
-                          <div style={{
-                            fontFamily: monospace, fontSize: 20, fontWeight: 500, color: hl,
-                            letterSpacing: '-0.5px', textShadow: `0 0 8px ${hl}55`,
-                          }}>
-                            {formatRp(alert.amount)}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, position: 'relative', top: "3.5px" }}>
+                          <div style={{ fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg, lineHeight: 1.1, textTransform: 'lowercase' }}>
+                            {alert.donorName} mengirim
                           </div>
+                          {renderAmountOrItem(alert, hl, {
+                            fontFamily: monospace,
+                            fontSize: 20,
+                            fontWeight: 500,
+                            color: hl,
+                            letterSpacing: '-0.5px',
+                            textShadow: `0 0 8px ${hl}55`,
+                          })}
                         </div>
                       </div>
                     </div>
@@ -488,7 +497,7 @@ const VoiceNoteOverlay = () => {
                     {/* Visualizer block */}
                     <div style={{
                       border: `1px solid ${hl}35`, background: 'rgba(0,0,0,0.25)',
-                      padding: '7px 10px', marginBottom: 6,
+                      padding: '7px 10px', marginBottom: 6, borderRadius: 16
                     }}>
                       <div style={{ display: 'flex', alignItems: 'flex-end', gap: 3, height: 24, marginBottom: 5 }}>
                         {Array.from({ length: 68 }).map((_, i) => (
@@ -512,9 +521,6 @@ const VoiceNoteOverlay = () => {
 
                     {/* Footer */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <div style={{ fontFamily: monospace, fontSize: 9, color: 'rgba(255,255,255,0.35)' }}>
-                        {'> VOICE · '}{alert.receivedAt ? new Date(alert.receivedAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) : ''}
-                      </div>
                       <div style={{ display: 'flex', gap: 2 }}>
                         {Array.from({ length: 8 }).map((_, i) => (
                           <span key={i} style={{ width: 6, height: 6, display: 'inline-block', background: i < Math.round(progress / 12.5) ? hl : hl + '22' }} />
