@@ -3262,7 +3262,7 @@ export const DashboardStreamer = () => {
   const [modeToastLabel, setModeToastLabel] = useState('');
   const [autoPreviewTick, setAutoPreviewTick] = useState(0);
   const [iconMode, setIconMode] = useState('emoji');
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [pinStep, setPinStep] = useState('idle'); // idle | success | error
   const [overlayDone, setOverlayDone] = useState(false);
   const [showPreviewPanel, setShowPreviewPanel] = useState(true);
@@ -4026,7 +4026,7 @@ const handleChangePin = async () => {
         </div>
 
         <Sidebar 
-          isCollapsed={true}         // ← tambah ini
+          isCollapsed={isCollapsed}         // ← tambah ini
           setIsCollapsed={setIsCollapsed}
           activeTab={activeTab} setActiveTab={setActiveTab} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
 
