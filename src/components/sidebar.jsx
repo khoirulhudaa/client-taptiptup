@@ -79,9 +79,11 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     'mediaSettings',
     'voiceSettings',
     'store',
+    'songSettings',
     'history',
     'marquee',
     'wallet',
+    'donatePageConfig',
     'qrConfig',
     'poll',
     'feeConfig',
@@ -91,7 +93,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
   ];
 
   const hideForAdminMode = [
-    'alertSettings', 'mediaSettings', 'voiceSettings', 'store',
+    'alertSettings', 'mediaSettings', 'voiceSettings', 'store', 'songSettings', 'donatePageConfig',
     'history', 'wallet', 'poll', 'marquee', 'qrConfig', 'feeConfig', 'subathon', 'milestones', 'leaderboard'
   ];
 
@@ -101,21 +103,21 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     { id: 'mediaSettings', label: 'Media Share',       icon: <Video size={20} /> },
     { id: 'voiceSettings', label: 'Voice Note',        icon: <Mic size={20} /> },
     { id: 'store',         label: 'Label produk',          icon: <ShoppingBag size={20} /> },
-    { id: 'history',       label: 'Riwayat Donasi',    icon: <History size={20} /> },
-    { id: 'wallet',        label: 'Penarikan Dana',    icon: <Wallet size={20} /> },
-    { id: 'poll',          label: 'Poll & Voting',     icon: <Vote size={20} /> },
-    { id: 'feeConfig',     label: 'Konfigurasi Fee',   icon: <ReceiptText size={20} /> },
-    { id: 'subathon',      label: 'Subathon timer',          icon: <Timer size={20} /> },
+    { id: 'history',       label: 'Riwayat',    icon: <History size={20} /> },
+    { id: 'wallet',        label: 'Pencairan',    icon: <Wallet size={20} /> },
+    { id: 'poll',          label: 'Polling',     icon: <Vote size={20} /> },
+    { id: 'feeConfig',     label: 'Biaya',   icon: <ReceiptText size={20} /> },
+    { id: 'subathon',      label: 'Subathon',          icon: <Timer size={20} /> },
     { id: 'milestones',    label: 'Milestones',        icon: <TrendingUp size={20} /> },
-    { id: 'leaderboard',   label: 'Leaderboard',       icon: <Trophy size={20} /> },
+    { id: 'leaderboard',   label: 'Peringkat',       icon: <Trophy size={20} /> },
 
     ...(isSuperAdmin ? [
       { id: 'whatsapp',    label: 'WhatsApp',          icon: <MessageSquare size={20} /> },
-      { id: 'suggestions', label: 'Masukan Streamer',  icon: <MessageSquare size={20} /> },
-      { id: 'ghostAlert',  label: 'Admin Notif Hantu', icon: <Zap size={20} /> },
+      { id: 'suggestions', label: 'Saran',  icon: <MessageSquare size={20} /> },
+      { id: 'ghostAlert',  label: 'Test Notif', icon: <Zap size={20} /> },
       {
         id: 'streamerManager',
-        label: 'Kelola Streamer',
+        label: 'Data User',
         icon: <Users size={20} />,
       },
     ] : [])
@@ -133,7 +135,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     {
       groupLabel: 'OBS & Overlay',
       items: [
-        { id: 'settings',      label: isSuperAdmin ? 'Statistik Overall' : 'Overlay', icon: <Layout size={20} /> },
+        { id: 'settings',      label: isSuperAdmin ? 'Statistik' : 'Overlay', icon: <Layout size={20} /> },
         { id: 'alertSettings', label: 'Notif Alert',      icon: <ZapIcon size={20} /> },
         { id: 'mediaSettings', label: 'Mediashare',    icon: <Video size={20} /> },
         { id: 'songSettings', label: 'Share song', icon: <Music size={20} /> },
@@ -171,16 +173,16 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     ...(isSuperAdmin ? [{
       groupLabel: 'Admin',
       items: [
-        { id: 'suggestions',  label: 'Masukan Streamer', icon: <MessageSquare size={20} /> },
-        { id: 'ghostAlert',   label: 'Testing notif',      icon: <Zap size={20} /> },
+        { id: 'suggestions',  label: 'Saran', icon: <MessageSquare size={20} /> },
+        { id: 'ghostAlert',   label: 'Test notif',      icon: <Zap size={20} /> },
         {
           id: 'streamerManager',
-          label: 'Kelola Streamer',
+          label: 'Data User',
           icon: <Users size={20} />,
         },
         { id: 'terminal',     label: 'Log Donasi',       icon: <Terminal size={20} /> },
-        { id: 'maintenance',  label: 'Maintenance Mode', icon: <ShieldAlert size={20} /> },
-        { id: 'announcements',label: 'Pengumuman',       icon: <Megaphone size={20} /> },
+        { id: 'maintenance',  label: 'Perbaikan', icon: <ShieldAlert size={20} /> },
+        { id: 'announcements',label: 'Info Umum',       icon: <Megaphone size={20} /> },
       ]
     }] : [])
   ];
@@ -424,12 +426,12 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
               {superMode && (
                 <div className="space-y-1">
                   {[
-                    { id: 'suggestions',     label: 'Masukan Streamer', icon: <MessageSquare size={20} /> },
-                    { id: 'ghostAlert',      label: 'Testing notif',      icon: <Zap size={20} /> },
-                    { id: 'streamerManager', label: 'Kelola Streamer',  icon: <Users size={20} /> },
+                    { id: 'suggestions',     label: 'Saran', icon: <MessageSquare size={20} /> },
+                    { id: 'ghostAlert',      label: 'Test Notif',      icon: <Zap size={20} /> },
+                    { id: 'streamerManager', label: 'Data User',  icon: <Users size={20} /> },
                     { id: 'terminal',        label: 'Log Donasi',       icon: <Terminal size={20} /> },
-                    { id: 'maintenance',     label: 'Maintenance Mode', icon: <ShieldAlert size={20} /> },
-                    { id: 'announcements',   label: 'Pengumuman',       icon: <Megaphone size={20} /> },
+                    { id: 'maintenance',     label: 'Perbaikan', icon: <ShieldAlert size={20} /> },
+                    { id: 'announcements',   label: 'Info Umum',       icon: <Megaphone size={20} /> },
                   ].map((item) => (
                     <button
                       key={item.id}
