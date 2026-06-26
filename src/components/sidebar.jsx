@@ -99,16 +99,16 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
 
   const menuItems = [
     { id: 'settings',      label: 'Editor Overlay',   icon: <Layout size={20} /> },
-    { id: 'alertSettings', label: 'Notif Alert',         icon: <ZapIcon size={20} /> },
-    { id: 'mediaSettings', label: 'Media Share',       icon: <Video size={20} /> },
-    { id: 'voiceSettings', label: 'Voice Note',        icon: <Mic size={20} /> },
-    { id: 'store',         label: 'Label produk',          icon: <ShoppingBag size={20} /> },
+    { id: 'alertSettings', label: 'Alert',         icon: <ZapIcon size={20} /> },
+    { id: 'mediaSettings', label: 'Mediashare',       icon: <Video size={20} /> },
+    { id: 'voiceSettings', label: 'Voice',        icon: <Mic size={20} /> },
+    { id: 'store',         label: 'Produk',          icon: <ShoppingBag size={20} /> },
     { id: 'history',       label: 'Riwayat',    icon: <History size={20} /> },
     { id: 'wallet',        label: 'Pencairan',    icon: <Wallet size={20} /> },
     { id: 'poll',          label: 'Polling',     icon: <Vote size={20} /> },
     { id: 'feeConfig',     label: 'Biaya',   icon: <ReceiptText size={20} /> },
     { id: 'subathon',      label: 'Subathon',          icon: <Timer size={20} /> },
-    { id: 'milestones',    label: 'Milestones',        icon: <TrendingUp size={20} /> },
+    { id: 'milestones',    label: 'Target',        icon: <TrendingUp size={20} /> },
     { id: 'leaderboard',   label: 'Peringkat',       icon: <Trophy size={20} /> },
 
     ...(isSuperAdmin ? [
@@ -136,12 +136,12 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
       groupLabel: 'OBS & Overlay',
       items: [
         { id: 'settings',      label: isSuperAdmin ? 'Statistik' : 'Overlay', icon: <Layout size={20} /> },
-        { id: 'alertSettings', label: 'Notif Alert',      icon: <ZapIcon size={20} /> },
-        { id: 'mediaSettings', label: 'Mediashare',    icon: <Video size={20} /> },
-        { id: 'songSettings', label: 'Share song', icon: <Music size={20} /> },
+        { id: 'alertSettings', label: 'Alert',      icon: <ZapIcon size={20} /> },
+        { id: 'mediaSettings', label: 'Medser',    icon: <Video size={20} /> },
+        { id: 'songSettings', label: 'Req-Song', icon: <Music size={20} /> },
         { id: 'marquee', label: 'Marquee', icon: <Users size={20} /> },
         { id: 'qrConfig', label: 'QR Code', icon: <QrCode size={20} /> },
-        { id: 'voiceSettings', label: 'Voice Note',     icon: <Mic size={20} /> },
+        { id: 'voiceSettings', label: 'Voice',     icon: <Mic size={20} /> },
         { id: 'store',         label: 'Produk',       icon: <ShoppingBag size={20} /> },
       ]
     },
@@ -155,18 +155,18 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     {
       groupLabel: 'Interaksi',
       items: [
-        { id: 'inbox',       label: 'Pesan Masuk',        icon: <Mail size={20} /> },
+        { id: 'inbox',       label: 'Pesan',        icon: <Mail size={20} /> },
         { id: 'poll',        label: 'Polling', icon: <Vote size={20} /> },
         { id: 'subathon',    label: 'Subathon',      icon: <Timer size={20} /> },
-        { id: 'milestones',  label: 'Milestones',    icon: <TrendingUp size={20} /> },
+        { id: 'milestones',  label: 'Target',    icon: <TrendingUp size={20} /> },
         { id: 'leaderboard', label: 'Peringkat',   icon: <Trophy size={20} /> },
       ]
     },
     {
       groupLabel: 'Konfigurasi',
       items: [
-        { id: 'donatePageConfig', label: 'Hal. Donasi', icon: <Heart size={20} /> },
-        { id: 'feeConfig',        label: 'Biaya 3.0%',    icon: <ReceiptText size={20} /> },
+        { id: 'donatePageConfig', label: 'Donasi', icon: <Heart size={20} /> },
+        { id: 'feeConfig',        label: 'Biaya',    icon: <ReceiptText size={20} /> },
       ]
     },
 
