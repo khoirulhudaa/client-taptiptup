@@ -2041,14 +2041,6 @@ const SupporterPage = () => {
       if (!form.donorName?.trim()) {
         return alert('Nama wajib diisi untuk dukungan sebagai tamu');
       }
-      // if (!form.email?.trim()) {
-      //   return alert('Email wajib diisi untuk dukungan sebagai tamu');
-      // }
-      // Validasi format email
-      const emailRegex = /^\S+@\S+\.\S+$/;
-      if (!emailRegex.test(form.email.trim())) {
-        return alert('Format email tidak valid');
-      }
     }
 
     if (!form.amount || form.amount < minDonate)
@@ -2193,7 +2185,7 @@ const SupporterPage = () => {
     // ⬅️ TAMBAHKAN INI - Validasi nama & email kalau belum login
     if (!isLoggedIn && !form.isAnonymous) {
       if (!form.donorName?.trim()) return true;
-      if (!form.email?.trim()) return true;
+      // if (!form.email?.trim()) return true;
     }
 
     if (activeTab === 'song' && !songData) return true;
@@ -2303,7 +2295,7 @@ const SupporterPage = () => {
                 value={form.donorName}
                 onChange={(v) => setForm({ ...form, donorName: v })}
                 required
-                placeholder="masukan nama"
+                placeholder="..................."
               />
               {/* <InputField
                 label="Email"
@@ -2367,7 +2359,7 @@ const SupporterPage = () => {
                   value={form.donorName}
                   onChange={(v) => setForm({ ...form, donorName: v })}
                   required
-                  placeholder="Nama kamu"
+                  placeholder=".........................."
                 />
                 <InputField
                   label="Email"
@@ -2376,7 +2368,7 @@ const SupporterPage = () => {
                   value={form.email}
                   onChange={(v) => setForm({ ...form, email: v })}
                   required
-                  placeholder="email@kamu.com"
+                  placeholder=".........................."
                 />
               </div>
             )}
