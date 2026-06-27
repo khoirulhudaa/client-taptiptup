@@ -27,13 +27,13 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 3px;
     background-color: white;
-    display: none; 
+    /* display: none;  */
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(194, 194, 194);
+    background-color: rgb(138, 138, 138);
 }
 
 @keyframes gradientMove {
