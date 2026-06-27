@@ -2220,7 +2220,7 @@ export function OverlayCustomizer({ C }) {
         />
       </div>
  
-      <div className="md:w-[82vw] w-[90vw]" style={{ position: "relative", zIndex: 10, margin: "0 auto" }}>
+      <div className="md:w-[83vw] w-[90vw]" style={{ position: "relative", zIndex: 10, margin: "0 auto" }}>
 
         <Reveal style={{ textAlign: "center", marginBottom: 48 }}>
           <Kicker C={C}>Kustomisasi Overlay</Kicker>
