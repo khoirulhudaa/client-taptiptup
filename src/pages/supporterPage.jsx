@@ -2263,14 +2263,27 @@ const SupporterPage = () => {
         {/* KOLOM TENGAH */}
         <div className="relative space-y-5 order-0 md:order-1">
 
-          {/* ── Header Card ── */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-slate-900 px-5 md:px-8 pt-8 pb-8 rounded-xl border border-slate-500/50 shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:text-center relative overflow-hidden"
-          >
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-500" />
-            <div className="w-20 h-20 mt-2 md:ml-auto ml-[-2.5px] md:mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg mb-4 border-4 border-white dark:border-slate-900">
+        {/* ── Header Card ── */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white dark:bg-slate-900 px-5 md:px-7 pt-8 pb-8 rounded-xl border border-slate-500/50 shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:text-left relative overflow-hidden"
+        >
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-500" />
+
+          {/* GIF pojok kanan atas + gradasi */}
+          <div className="absolute top-2 right-0 w-[100%] md:w-[60%] opacity-[8%] h-full pointer-events-none">
+              <img
+                src="/gold.gif"
+                alt=""
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/20 to-white dark:via-slate-900/20 dark:to-slate-900" />
+              <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-white/90 dark:to-slate-900/90" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90 dark:to-slate-900/90" />
+            </div>
+
+            <div className="w-20 h-20 mt-2 md:ml-0 ml-[-2.5px] md:mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg mb-4 border-4 border-white dark:border-slate-900">
               {streamer?.profilePicture ? (
                 <img src={streamer.profilePicture} alt={streamer.username} className="w-full h-full object-cover"
                   onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = streamer.username?.charAt(0).toUpperCase() || '?'; }} />
@@ -2297,15 +2310,6 @@ const SupporterPage = () => {
                 required
                 placeholder="..................."
               />
-              {/* <InputField
-                label="Email"
-                type="email"
-                disabled={isLoggedIn}
-                value={form.email}
-                onChange={(v) => setForm({ ...form, email: v })}
-                required
-                placeholder="masukan email"
-              /> */}
             </div>
           )}
 
