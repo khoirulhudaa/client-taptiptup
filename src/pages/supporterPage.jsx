@@ -1017,8 +1017,8 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
             onClick={() => handleModeSwitch('url')}
             className={`flex items-center justify-center gap-1.5 py-3 text-[11px] font-black transition-all rounded-md cursor-pointer ${
               inputMode === 'url'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-800'
+                ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-900/70'
             }`}
           >
             <Video size={10} /> Youtube
@@ -1027,8 +1027,8 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
             onClick={() => handleModeSwitch('upload')}
             className={`flex items-center justify-center gap-1.5 py-3 text-[11px] font-black rounded-md transition-all cursor-pointer ${
               inputMode === 'upload'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-800'
+                ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-900/70'
             }`}
           >
             <ImageIcon size={10} /> Gambar
