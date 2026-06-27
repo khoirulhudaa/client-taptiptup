@@ -4162,7 +4162,7 @@ const handleChangePin = async () => {
                   key="settings"
                   className="grid grid-cols-1 gap-3 xl:grid-cols-12"
                 >
-                <section className={`space-y-5 ${showPreviewPanel ? 'xl:col-span-7' : 'xl:col-span-12'}`}>
+                <section className={`space-y-5 ${showPreviewPanel ? 'xl:col-span-8' : 'xl:col-span-12'}`}>
                     {/* Konfigurasi Alert */}
                     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                       <div className="flex items-center justify-between gap-3">
@@ -4776,7 +4776,7 @@ const handleChangePin = async () => {
                   {showPreviewPanel && (
                     <section
                       key="preview-panel"
-                      className="xl:col-span-5 md:block hidden sticky top-26 self-start z-[2]"
+                      className="xl:col-span-4 md:block hidden sticky top-26 self-start z-[2]"
                     >
                     <motion.div 
                       animate={{ opacity: showPreviewPanel ? 1 : 0.6 }}
