@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Diamond, Flower, Plus, Save, Trash2 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const EMOJI_PRESETS = [
   { emoji: '☕', label: 'Kopi' },
@@ -287,6 +288,15 @@ const DonationItemsEditor = ({
   };
 
   const syncAndSave = () => {
+    // Validasi: jika mode item, minimal harus ada 1 item valid
+    if (currentMode !== 'amount_only') {
+      const validItems = localItems.filter(i => i.name && i.price > 0);
+      if (validItems.length === 0) {
+        toast.error('❌ Tambahkan minimal 1 item sebelum menyimpan!');
+        return;
+      }
+    }
+
     onChange(localItems);
     saveSettingsMutation.mutate({
       settings: {
@@ -300,6 +310,14 @@ const DonationItemsEditor = ({
   };
 
   const handleModeChange = (mode) => {
+    if (mode !== 'amount_only') {
+      const validItems = localItems.filter(i => i.name && i.price > 0);
+      if (validItems.length === 0) {
+        toast.error('❌ Tambahkan minimal 1 item dulu sebelum mengaktifkan mode ini!');
+        return;
+      }
+    }
+
     setLocalMode(mode);
     const enabled = mode !== 'amount_only';
     saveSettingsMutation.mutate({

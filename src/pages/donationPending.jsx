@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Clock, Home, RefreshCcw, CreditCard } from 'lucide-react';
+import { Clock, Home, RefreshCcw, CreditCard, CardSim, IdCard, Coins, Container, Gift } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTheme } from '../hooks/useTheme';
 
@@ -273,7 +273,7 @@ const DonationPending = () => {
               )}
 
               {/* Actions */}
-              <div className="grid grid-cols-3 gap-3 pt-1">
+              <div className="grid grid-cols-2 gap-3 pt-1">
                 <motion.button
                   whileTap={{ scale: 0.98 }}
                   onClick={async () => {
@@ -300,8 +300,8 @@ const DonationPending = () => {
                   className="cursor-pointer flex items-center justify-center gap-2 py-3 px-4 rounded-xl border-2 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"
                   >
                   {checking
-                    ? <><RefreshCcw size={16} className="animate-spin" /> Proses...</>
-                    : <><RefreshCcw size={16} /> Cek Status</>}
+                    ? <><RefreshCcw size={15.5} className="animate-spin" /> Proses...</>
+                    : <><RefreshCcw size={15.5} /> Cek Status</>}
                 </motion.button>                
                 <motion.button
                   whileHover={{ scale: 1 }}
@@ -309,10 +309,10 @@ const DonationPending = () => {
                   onClick={() => navigate(`/donate/${username}`)}
                   className="cursor-pointer flex items-center justify-center gap-2 py-3 px-4 rounded-xl border-2 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-slate-400 font-bold text-sm hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"
                 >
-                  <RefreshCcw size={16} />
-                  Dukungan Baru
+                  <Gift size={16} />
+                  Buat Baru
                 </motion.button>
-                <motion.button
+                {/* <motion.button
                   whileHover={{ scale: 1 }}
                   whileTap={{ scale: 0.99 }}
                   onClick={() => navigate(username ? `/donate/${username}` : '/')}
@@ -320,7 +320,7 @@ const DonationPending = () => {
                 >
                   <Home size={16} />
                   {username ? `@${username}` : 'Beranda'}
-                </motion.button>
+                </motion.button> */}
               </div>
             </motion.div>
           </motion.div>
