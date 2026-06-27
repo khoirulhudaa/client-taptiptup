@@ -454,12 +454,12 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-500/50 px-4 md:px-6.5 2xl:px-30 py-3">
-      <div className="w-full flex items-center justify-between gap-3">
-        <div className="flex items-center justify-start md:justify-end w-full gap-2">
+      <div className="w-full md:w-[56.2vw] mx-auto flex items-center justify-between gap-3">
+        <div className="flex items-center justify-start md:justify-between w-full gap-2">
           <div className='flex items-center gap-3'>
             {streamerUsername && (
               <div className="relative flex items-center gap-2 px-2 h-[40px] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-500/50 rounded-xl">
-                <div className="w-7 h-7 rounded-xl overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-black text-xs flex-shrink-0">
+                <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-black text-xs flex-shrink-0">
                   {streamerProfilePicture ? (
                     <img src={streamerProfilePicture} alt={streamerUsername} className="w-full h-full object-cover"
                       onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = streamerUsername?.charAt(0).toUpperCase() || '?'; }} />
@@ -496,7 +496,7 @@ const SupporterNavbar = ({ onOpenAuth, authPayload, profile, onLogout, theme, to
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 mt-2 w-60 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-100 dark:border-slate-500/50 overflow-hidden"
+                    className="absolute right-4 mt-2 w-60 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-100 dark:border-slate-500/50 overflow-hidden"
                   >
                     <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-500/50 flex items-center gap-3">
                       <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-violet-600 rounded-xl flex items-center justify-center text-white font-black text-sm flex-shrink-0">
@@ -2242,7 +2242,18 @@ const SupporterPage = () => {
     <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} defaultTab={authModalTab} onAuthSuccess={handleAuthSuccess} />
     <SupporterNavbar onOpenAuth={openAuth} authPayload={authPayload} profile={authProfile} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} streamerUsername={streamer?.username} streamerProfilePicture={streamer?.profilePicture} />
 
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex justify-center items-start p-4 md:p-6 font-sans pt-20 md:pt-24">
+    <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex justify-center items-start p-4 md:p-6 font-sans pt-20 md:pt-24">
+
+      {/* Background GIF layer */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <img
+          src="/gold.gif"
+          alt=""
+          className="w-full h-full object-cover opacity-[0.04] dark:opacity-[0.035]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/60 to-blue-50 dark:via-slate-900/60 dark:to-slate-900" />
+      </div>
+
       <div className={`w-full grid grid-cols-1 gap-0 2xl:px-24 ${gridClass}`}>
 
         {/* KOLOM KIRI */}
@@ -2690,17 +2701,6 @@ const SupporterPage = () => {
               )}
             </AnimatePresence>
 
-            {/* Submit hint */}
-            {/* <AnimatePresence>
-              {isSubmitDisabled && !loading && submitHint && (
-                <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
-                  className="flex items-center gap-2 px-3 py-3 md:py-3.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-500/50 rounded-xl">
-                  <span className="relative top-[-2px] text-slate-300 dark:text-slate-600 flex-shrink-0">⚠️</span>
-                  <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{submitHint}</p>
-                </motion.div>
-              )}
-            </AnimatePresence> */}
-
             {/* Submit Button */}
             <motion.button
               whileTap={!isSubmitDisabled ? { scale: 0.99 } : {}}
@@ -2743,6 +2743,7 @@ const SupporterPage = () => {
         )}
 
       </div>
+      
     </div>
 
     {/* Session Expired Modal */}
