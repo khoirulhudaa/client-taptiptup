@@ -388,17 +388,43 @@ function Hero({ C, isDark }) {
           draggable={false}
         />
         {/* Judul Hero */}
-         <h1 className="select-none hero-title md:!mt-[-20px] 2xl:!mt-[-34px] font-['Bebas_Neue'] leading-[0.85] tracking-[-0.01em] text-white mb-4 text-center hidden md:flex flex-wrap items-center justify-center gap-[0.1em] transition-colors duration-400">
+         <h1 className="select-none hero-title md:!mt-[-10px] 2xl:!mt-[-34px] font-['Bebas_Neue'] leading-[0.85] tracking-[-0.01em] text-white mb-4 text-center hidden md:flex flex-wrap items-center justify-center gap-[0.1em] transition-colors duration-400">
             
           <span className="relative top-[-10px] text-[2.81rem] lg:text-8xl 2xl:text-[7rem] w-[100vw] md:w-[80vw] select-none hidden md:flex items-center justify-center">
             <span className="flex md:gap-x-5 flex-wrap w-[100vw] md:w-[80vw] relative mt-10 text-center justify-center items-center">
 
               {/* Banner + tali */}
               <motion.div
+                style={{
+                  rotate: isMobile ? 0 : smoothRotate,
+                  transformOrigin: "top center",
+                }}
+                animate={
+                  isMobile
+                    ? {}
+                    : {
+                        x: [-8, 8, -8],
+                      }
+                }
+                transition={{
+                  x: {
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                }}
+                onMouseMove={!isMobile ? handleMouseMove : undefined}
+                onMouseLeave={!isMobile ? handleMouseLeave : undefined}
                 className="relative inline-block"
               >
+                {/* Tali kiri */}
+                <div className="absolute w-[1px] h-[40vh] bg-white -rotate-30 top-[-34vh] left-[-64px] md:flex hidden" />
+
+                {/* Tali kanan */}
+                <div className="absolute w-[1px] h-[40vh] bg-white rotate-30 top-[-34vh] right-[-64px] md:flex hidden" />
+
                 {/* Banner */}
-                <span className="md:!inline-block !hidden md:!px-2 2xl:min-w-[68vw] rounded-xl min-w-[100vw] md:min-w-max relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure]">
+                <span className="md:!inline-block !hidden md:!px-2 2xl:min-w-[68vw] rounded-xl min-w-[100vw] md:min-w-[69vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure]">
                   POTONGAN HANYA 3.0% UNTUK
                 </span>
                 <span className="!inline-block md:!hidden md:!px-2 2xl:min-w-[70vw] rounded-xl min-w-[100vw] md:min-w-[64vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure]">
@@ -2420,32 +2446,6 @@ export default function TapTipTup() {
     }, 500);
     return () => clearTimeout(timer);
   }, []);
-
-  // useEffect(() => {
-  //   const audio = new Audio('/sound2.mp3');
-  //   audio.loop = true;
-  //   audio.volume = 1.0;
-    
-  //   const play = () => {
-  //     audio.play().catch(() => {});
-  //     document.removeEventListener('click', play);
-  //     document.removeEventListener('touchstart', play);
-  //   };
-
-  //   // Coba autoplay langsung
-  //   audio.play().catch(() => {
-  //     // Kalau browser blokir, tunggu interaksi pertama user
-  //     document.addEventListener('click', play);
-  //     document.addEventListener('touchstart', play);
-  //   });
-
-  //   return () => {
-  //     audio.pause();
-  //     audio.src = '';
-  //     document.removeEventListener('click', play);
-  //     document.removeEventListener('touchstart', play);
-  //   };
-  // }, [trigger]);
 
   const closeModal = () => {
     setShowModal(false);
