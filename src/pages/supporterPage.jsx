@@ -1584,7 +1584,7 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
         )}
       </div>
 
-      <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 md:gap-3">
         {sorted.map((item, i) => {
           const tier = getItemTierColor(item.price);
           const active = selectedItem?.id === item.id || selectedItem?.name === item.name;
