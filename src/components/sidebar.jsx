@@ -180,9 +180,9 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           label: 'Data User',
           icon: <Users size={20} />,
         },
-        { id: 'terminal',     label: 'Log Donasi',       icon: <Terminal size={20} /> },
+        { id: 'terminal',     label: 'Riwayat',       icon: <Terminal size={20} /> },
         { id: 'maintenance',  label: 'Perbaikan', icon: <ShieldAlert size={20} /> },
-        { id: 'announcements',label: 'Info Umum',       icon: <Megaphone size={20} /> },
+        { id: 'announcements',label: 'Informasi',       icon: <Megaphone size={20} /> },
       ]
     }] : [])
   ];
@@ -243,13 +243,11 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         className={`
           fixed lg:sticky top-0 left-0 h-[100dvh] lg:h-screen overflow-y-auto overflow-x-hidden
           bg-white/5 dark:bg-slate-900
-          // backdrop-blur-sm
           border-r border-slate-100 dark:border-slate-800
           py-4 z-[99999] lg:z-[1] flex flex-col
           transition-all duration-300 ease-in-out
-          w-full lg:w-auto
-          px-2
-          ${isCollapsed ? '2xl:w-[160px]' : 'lg:max-w-[19vw] lg:min-w-[16vw]'}
+          w-full px-2
+          ${isCollapsed ? 'lg:w-[130px] 2xl:w-[142px]' : 'lg:w-[200px] 2xl:w-[20vw]'}
           ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
       >
@@ -429,25 +427,28 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                     { id: 'suggestions',     label: 'Saran', icon: <MessageSquare size={20} /> },
                     { id: 'ghostAlert',      label: 'Test Notif',      icon: <Zap size={20} /> },
                     { id: 'streamerManager', label: 'Data User',  icon: <Users size={20} /> },
-                    { id: 'terminal',        label: 'Log Donasi',       icon: <Terminal size={20} /> },
+                    { id: 'terminal',        label: 'Riwayat',       icon: <Terminal size={20} /> },
                     { id: 'maintenance',     label: 'Perbaikan', icon: <ShieldAlert size={20} /> },
-                    { id: 'announcements',   label: 'Info Umum',       icon: <Megaphone size={20} /> },
+                    { id: 'announcements',   label: 'Informasi',       icon: <Megaphone size={20} /> },
                   ].map((item) => (
                     <button
                       key={item.id}
                       onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
                       title={isCollapsed ? item.label : undefined}
-                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex items-center gap-3 rounded-lg font-black text-sm
-                        ${isCollapsed ? 'justify-center px-0 py-3' : 'px-4 py-3'}
-                        ${activeTab === item.id
-                          ? 'bg-blue-600 text-white'
-                          : 'text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-600 dark:hover:text-slate-300'
+                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex rounded-lg font-black text-sm 
+                        ${isCollapsed ? 'flex-col items-center justify-center px-1 py-2 gap-1' : 'flex-row items-center gap-3 px-4 py-3'}
+                        ${
+                          activeTab === item.id
+                            ? 'bg-blue-600 text-white'
+                            : 'text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-600 dark:hover:text-slate-300'
                         }`}
                     >
                       <span className="flex-shrink-0">{item.icon}</span>
-                      {!isCollapsed && (
-                        <span className="whitespace-nowrap overflow-hidden">{item.label}</span>
-                      )}
+                      <span className="text-[12px] font-bold text-center leading-tight break-words w-full">
+                        {item.label}
+                      </span>
+                      {/* {!isCollapsed && (
+                      )} */}
                     </button>
                   ))}
                 </div>
