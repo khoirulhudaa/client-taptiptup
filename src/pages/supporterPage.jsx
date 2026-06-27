@@ -2512,7 +2512,7 @@ const SupporterPage = () => {
               overlaySetting={overlaySetting}
             />
 
-            <div className='md:my-0 my-3'>
+            <div className='my-3'>
               {/* Message */}
               {activeTab !== 'voice' && activeTab !== 'song' && (
                 <TextareaField
@@ -2699,7 +2699,7 @@ const SupporterPage = () => {
             </AnimatePresence>
 
             {/* Submit hint */}
-            <AnimatePresence>
+            {/* <AnimatePresence>
               {isSubmitDisabled && !loading && submitHint && (
                 <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
                   className="flex items-center gap-2 px-3 py-3 md:py-3.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-500/50 rounded-xl">
@@ -2707,7 +2707,7 @@ const SupporterPage = () => {
                   <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500">{submitHint}</p>
                 </motion.div>
               )}
-            </AnimatePresence>
+            </AnimatePresence> */}
 
             {/* Submit Button */}
             <motion.button
