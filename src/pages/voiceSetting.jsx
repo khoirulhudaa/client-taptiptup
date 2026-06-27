@@ -330,7 +330,7 @@
     const VoiceSettingsInfo = () => (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
         <div className="!mb-5.5 flex items-center gap-4">
-            <div className="bg-rose-500 p-3 rounded-xl text-white shadow-lg">
+            <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg">
                 <Mic size={20} />
             </div>
             <div>

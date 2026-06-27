@@ -312,7 +312,7 @@ export const InboxPage = () => {
         <div className="relative flex items-start justify-between gap-3">
           <div>
              <div className="flex items-center gap-3">
-              <div className="bg-orange-500 p-3 rounded-xl text-white shadow-lg">
+              <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg">
                   <Inbox size={20} />
               </div>
               <div>

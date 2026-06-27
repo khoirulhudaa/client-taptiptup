@@ -13,6 +13,7 @@ import {
   X,
   Vote,
   Milestone,
+  Medal,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
@@ -966,8 +967,8 @@ export const LeaderboardSettings = ({ overlayToken }) => {
         <div className="relative flex items-start justify-between gap-3">
           <div>
             <div className="flex items-center gap-3">
-              <div className="bg-rose-500 p-3 rounded-xl text-white shadow-lg">
-                  <Milestone size={20} />
+              <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg">
+                  <Medal size={20} />
               </div>
               <div>
                   <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
@@ -1294,7 +1295,7 @@ export const MilestonesManager = ({ overlayToken }) => {
           <div className="relative flex items-start justify-between gap-3">
             <div>
               <div className="flex items-center gap-3">
-                <div className="bg-purple-500 p-3 rounded-xl text-white shadow-lg">
+                <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg">
                     <Milestone size={20} />
                 </div>
                 <div>

@@ -108,7 +108,7 @@ const StoreManager = ({ overlayToken }) => {
     <div className="space-y-6 pb-0">
       <div className="bg-white dark:bg-slate-900 p-4 md:p-6 rounded-xl border border-slate-200 dark:border-slate-700">
         <div className="flex items-center gap-4">
-            <div className="bg-blue-500 p-3 rounded-xl text-white shadow-lg"><StoreIcon size={20} /></div>
+            <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg"><StoreIcon size={20} /></div>
             <div>
             <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Label produk </h3>
             </div>

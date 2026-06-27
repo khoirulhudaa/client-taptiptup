@@ -502,7 +502,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
       <div className="flex items-center gap-3">
-        <div className="bg-rose-500 p-3 rounded-xl  text-white shadow-lg">
+        <div className="bg-blue-600 p-3 rounded-xl  text-white shadow-lg">
           <Zap size={20} />
         </div>
         <div>
@@ -4166,7 +4166,7 @@ const handleChangePin = async () => {
                     {/* Konfigurasi Alert */}
                     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                       <div className="flex items-center justify-between gap-3">
-                        <SectionHeader icon={<Settings size={20} />} title="Konfigurasi Utama" color="bg-blue-500" />
+                        <SectionHeader icon={<Settings size={20} />} title="Konfigurasi Utama" color="bg-blue-600" />
                       
                         {
                           !showPreviewPanel && (
@@ -4868,7 +4868,7 @@ const handleChangePin = async () => {
               {activeTab === 'songSettings' && (
                 <motion.div key="songSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-5 pb-0 w-full">
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
-                    <SectionHeader icon={<Music size={20} />} title="Share Song" color="bg-orange-500" />
+                    <SectionHeader icon={<Music size={20} />} title="Share Song" color="bg-blue-600" />
 
                     <div className="flex items-center justify-between p-4 mt-5 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
                       <div>
@@ -5301,7 +5301,7 @@ const handleChangePin = async () => {
                       <div className="relative flex items-start justify-between gap-3">
                         <div>
                           <div className="flex items-center gap-3">
-                            <div className="bg-orange-500 p-3 rounded-xl  text-white shadow-lg">
+                            <div className="bg-blue-600 p-3 rounded-xl  text-white shadow-lg">
                                 <Vote size={20} />
                             </div>
                             <div>
@@ -5330,7 +5330,7 @@ const handleChangePin = async () => {
                     <div className="relative flex items-start justify-between gap-3">
                       <div>
                         <div className="flex items-center gap-3">
-                          <div className="bg-blue-500 p-3 rounded-xl  text-white shadow-lg">
+                          <div className="bg-blue-600 p-3 rounded-xl  text-white shadow-lg">
                               <Vote size={20} />
                           </div>
                           <div>

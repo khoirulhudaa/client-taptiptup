@@ -15,7 +15,7 @@ const DonatePageConfig = ({ settings, upd, saveSettingsMutation, activeSlot }) =
           <div className="relative flex items-start justify-between gap-4">
           <div>
               <div className="flex items-center gap-4">
-              <div className="bg-blue-500 p-3 rounded-xl text-white shadow-lg">
+              <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg">
                   <HandCoins size={20} />
               </div>
               <div>

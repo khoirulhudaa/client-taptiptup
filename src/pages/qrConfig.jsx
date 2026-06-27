@@ -379,12 +379,12 @@ const QrConfigPage = ({ overlayToken, username }) => {
           <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
             {/* Header */}
             <div className="flex items-center gap-4">
-                <div className="bg-violet-600 p-3 rounded-xl text-white shadow-lg flex-shrink-0">
+                <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg flex-shrink-0">
                     <QrCode size={20} />
                     </div>
                     <div>
                     <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
-                        Kustom QR Code
+                      QR Code
                     </h3>
                 </div>
             </div>
