@@ -967,7 +967,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
   };
 
   return (
-    <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/60 dark:bg-blue-900/30 p-5 space-y-4">
+    <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/60 dark:bg-blue-900/30 p-4 md:p-5 space-y-4">
 
       {/* Header — sama persis aslinya */}
       <div className="flex items-center justify-between">
@@ -981,9 +981,9 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
             <p className="text-xs font-black text-blue-700 dark:text-blue-400 leading-none">
               🎉 {trigger.label || 'Media Alert'} Unlocked!
             </p>
-            <p className="text-[11px] text-blue-400 dark:text-blue-500 font-medium mt-0.5">
+            {/* <p className="text-[11px] text-blue-400 dark:text-blue-500 font-medium mt-0.5">
               Tersedia mulai Rp {Number(trigger.minAmount).toLocaleString('id-ID')}
-            </p>
+            </p> */}
           </div>
         </div>
         {(mediaUrl || uploadedFile) && (
@@ -999,12 +999,12 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
       {/* Badge tipe media — sama persis aslinya */}
       <div className="flex items-center gap-2">
         {allowImage && (
-          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-blue-800 rounded-xl text-[11px] font-bold text-blue-600 dark:text-blue-400">
+          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-blue-800 rounded-md text-[11px] font-bold text-blue-600 dark:text-blue-400">
             <ImageIcon size={10} /> Animasi GIF
           </span>
         )}
         {allowVideo && (
-          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-purple-800 rounded-xl text-[11px] font-bold text-purple-600 dark:text-purple-400">
+          <span className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-slate-900 border border-blue-100 dark:border-purple-800 rounded-md text-[11px] font-bold text-purple-600 dark:text-purple-400">
             <Video size={10} /> Video YouTube
           </span>
         )}
@@ -1021,7 +1021,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-800'
             }`}
           >
-            <Video size={10} /> Link URL
+            <Video size={10} /> Youtube
           </button>
           <button
             onClick={() => handleModeSwitch('upload')}
@@ -1031,7 +1031,7 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
                 : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-800'
             }`}
           >
-            <ImageIcon size={10} /> Upload Gambar
+            <ImageIcon size={10} /> Gambar
           </button>
         </div>
       )}
@@ -1041,15 +1041,15 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
         <>
           <div className="space-y-1.5">
             <InputField
-              label="Link Media"
+              label="Link"
               type="url"
               value={mediaUrl}
               onChange={(v) => { setMediaUrl(v); setStartTime(0); }}
-              placeholder={placeholderText}
+              placeholder={'......'}
             />
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium ml-1">
+            {/* <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium ml-1">
               * Opsional — Gambar (jpg, gif, png), Video (.mp4), atau YouTube
-            </p>
+            </p> */}
           </div>
 
           <AnimatePresence>
@@ -2041,9 +2041,9 @@ const SupporterPage = () => {
       if (!form.donorName?.trim()) {
         return alert('Nama wajib diisi untuk dukungan sebagai tamu');
       }
-      if (!form.email?.trim()) {
-        return alert('Email wajib diisi untuk dukungan sebagai tamu');
-      }
+      // if (!form.email?.trim()) {
+      //   return alert('Email wajib diisi untuk dukungan sebagai tamu');
+      // }
       // Validasi format email
       const emailRegex = /^\S+@\S+\.\S+$/;
       if (!emailRegex.test(form.email.trim())) {
@@ -2091,7 +2091,7 @@ const SupporterPage = () => {
         donorName: form.isAnonymous ? 'Anonim' : form.donorName || 'Anonim',
         message: activeTab === 'song' ? '-' : form.message,
         userId:       streamer._id,
-        email: form.isAnonymous ? 'anonymous@gmail.com' : form.email.trim(),        donorUserId:  authPayload?.id,
+        email: 'anoanim@gmail.com',
         mediaUrl:     hasMedia ? mediaUrl.trim() : null,
         mediaType:    detectedMediaType,
         songData:     activeTab === 'song' ? songData : null,
@@ -2303,17 +2303,17 @@ const SupporterPage = () => {
                 value={form.donorName}
                 onChange={(v) => setForm({ ...form, donorName: v })}
                 required
-                placeholder="Nama kamu"
+                placeholder="masukan nama"
               />
-              <InputField
+              {/* <InputField
                 label="Email"
                 type="email"
                 disabled={isLoggedIn}
                 value={form.email}
                 onChange={(v) => setForm({ ...form, email: v })}
                 required
-                placeholder="email@kamu.com"
-              />
+                placeholder="masukan email"
+              /> */}
             </div>
           )}
 
@@ -2399,7 +2399,7 @@ const SupporterPage = () => {
                     <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">
                       Pilih Nominal Cepat
                     </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <div className="mb-3 md:grid flex flex-wrap grid-cols-4 gap-2">
                       {quickAmounts.map((val) => (
                         <button
                           key={val}
@@ -2407,13 +2407,13 @@ const SupporterPage = () => {
                             setForm({ ...form, amount: val });
                             setSelectedDonationItem(null);
                           }}
-                          className={`cursor-pointer py-2.5 md:py-4 rounded-xl font-black text-sm transition-all border active:scale-[0.99] ${
+                          className={`cursor-pointer py-2.5 md:px-0 px-3 md:py-4 rounded-xl font-black text-sm transition-all border active:scale-[0.99] ${
                             form.amount === val && !selectedDonationItem
                               ? 'bg-blue-600 border-blue-600 text-white shadow-lg'
                               : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-500/50 hover:border-blue-300 dark:hover:border-blue-600 hover:text-blue-600 dark:hover:text-blue-400 text-slate-700 dark:text-slate-300'
                           }`}
                         >
-                          Rp {val.toLocaleString('id-ID')}
+                            Rp {val.toLocaleString('id-ID')}
                         </button>
                       ))}
                     </div>
@@ -2478,13 +2478,13 @@ const SupporterPage = () => {
 
                   {/* Media Trigger Info */}
                   {sortedTriggers.length > 0 && (
-                    <div className="mt-3 space-y-1.5">
+                    <div className="mt-3 gap-1.5 flex items-center">
                       {sortedTriggers.map((t, i) => {
                         const reached = form.amount >= t.minAmount;
                         const isNext = !reached && (i === 0 || form.amount >= sortedTriggers[i - 1]?.minAmount);
                         if (!reached && !isNext) return null;
                         return (
-                          <div key={i} className={`flex items-center gap-2 text-[11px] font-bold px-2 py-1.5 rounded-md ${
+                          <div key={i} className={`w-max flex items-center gap-2 text-[11px] font-bold px-2 py-1.5 rounded-md ${
                             reached ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'bg-slate-50 dark:bg-slate-900/50 text-red-300'
                           }`}>
                             <span>{reached ? '✅' : '🔒'}</span>
@@ -2512,17 +2512,19 @@ const SupporterPage = () => {
               overlaySetting={overlaySetting}
             />
 
-            {/* Message */}
-            {activeTab !== 'voice' && activeTab !== 'song' && (
-              <TextareaField
-                label="Pesan"
-                value={form.message}
-                rows={4}
-                onChange={(v) => setForm({ ...form, message: v })}
-                inputClassName="min-h-[90px]"
-                placeholder="Semangat terus bang! 🔥"
-              />
-            )}
+            <div className='md:my-0 my-3'>
+              {/* Message */}
+              {activeTab !== 'voice' && activeTab !== 'song' && (
+                <TextareaField
+                  label="Pesan"
+                  value={form.message}
+                  rows={4}
+                  onChange={(v) => setForm({ ...form, message: v })}
+                  inputClassName="min-h-[90px]"
+                  placeholder="Semangat terus bang! 🔥"
+                />
+              )}
+            </div>
 
             {/* GIF Recommendation */}
             {activeTab !== 'voice' && overlaySetting?.giphyOnDonate !== false && (
@@ -2629,7 +2631,7 @@ const SupporterPage = () => {
                           </motion.div>
                         )}
                       </AnimatePresence>
-                      <div className="mt-8 md:mt-3 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-4 space-y-2">
+                      <div className="mt-3 md:mt-3 rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-4 space-y-2">
                         <p className="border-b border-amber-600/30 pb-3 mb-4 text-[11px] font-black text-amber-700 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
                           Konten yang diblokir sistem
                         </p>
@@ -2695,8 +2697,6 @@ const SupporterPage = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-
-            <hr className="border-slate-100 dark:border-slate-500/50" />
 
             {/* Submit hint */}
             <AnimatePresence>
