@@ -1472,7 +1472,7 @@ const RecentDonations = ({ username }) => {
       <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
         Dukungan Terbaru 💝
       </label>
-      <div className="space-y-2">
+      <div className="space-y-3">
         {donations.map((d, i) => (
           <motion.div
             key={d._id || i}
@@ -1537,7 +1537,7 @@ const LeaderboardMini = ({ username }) => {
       <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
         Top Donor 🏆
       </label>
-      <div className="space-y-1.5">
+      <div className="space-y-3">
         {donors.slice(0, 5).map((d, i) => (
           <div key={i} className="flex items-center gap-3 px-3 py-3.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-500/50 rounded-xl">
             <span className="text-base w-6 text-center flex-shrink-0">
@@ -1569,11 +1569,11 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
   if (!sorted.length) return null;
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-0">
       <div className="flex items-center justify-between">
-        <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+        {/* <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
           Pilih Item Dukungan 🎁
-        </label>
+        </label> */}
         {selectedItem && (
           <button
             onClick={() => onSelect(null)}
@@ -2243,7 +2243,7 @@ const SupporterPage = () => {
     <SupporterNavbar onOpenAuth={openAuth} authPayload={authPayload} profile={authProfile} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} streamerUsername={streamer?.username} streamerProfilePicture={streamer?.profilePicture} />
 
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex justify-center items-start p-4 md:p-6 font-sans pt-20 md:pt-24">
-      <div className={`w-full grid grid-cols-1 gap-3 2xl:px-24 ${gridClass}`}>
+      <div className={`w-full grid grid-cols-1 gap-0 2xl:px-24 ${gridClass}`}>
 
         {/* KOLOM KIRI */}
         {overlaySetting?.showRecentDonationsOnDonate && (
@@ -2665,10 +2665,6 @@ const SupporterPage = () => {
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      <div className="flex items-center gap-2 px-3 py-3 bg-violet-50 dark:bg-violet-900/20 border border-violet-200 dark:border-violet-800 rounded-xl">
-                        <Mic size={13} className="text-violet-500 flex-shrink-0" />
-                        <p className="text-[11px] font-bold text-violet-600 dark:text-violet-400">Rekam pesan suaramu — max 60 detik</p>
-                      </div>
                       <VoiceRecorder onVoiceReady={(url) => setForm(f => ({ ...f, voiceUrl: url || '' }))} maxSeconds={60} disabled={false} />
                     </div>
                   )}
@@ -2737,7 +2733,7 @@ const SupporterPage = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="w-full lg:sticky lg:top-24 lg:self-start md:mt-0 mt-6 order-2 md:order-2"
+            className="w-full lg:sticky lg:top-24 lg:self-start md:mt-0 mt-3 order-2 md:order-2"
           >
             <div className="bg-white dark:bg-slate-900 p-5 rounded-xl shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-500/50 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-500" />

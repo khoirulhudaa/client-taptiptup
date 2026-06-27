@@ -4323,7 +4323,7 @@ const handleChangePin = async () => {
                       </button>
                     </div>
 
-                    <div id="tour-donation-items" className='relative z-[999999]'>
+                    <div id="tour-donation-items" className='relative z-[1]'>
                       <DonationItemsEditor
                         items={settings.donationItems || []}
                         onChange={v => upd('donationItems', v)}
