@@ -167,7 +167,7 @@ export const VoiceRecorder = ({ onVoiceReady, maxSeconds = 60, disabled = false 
         disabled={disabled}
         onClick={startRecording}
         whileTap={{ scale: 0.97 }}
-        className={`w-full flex items-center justify-center gap-3 py-3 rounded-xl border-2 font-black text-xs transition-all
+        className={`w-full flex items-center justify-center gap-3 py-4 rounded-xl border-2 font-black text-xs transition-all
           ${disabled
             ? 'border-slate-100 dark:border-slate-700 text-slate-300 dark:text-slate-600 cursor-not-allowed'
             : 'border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-950/50 cursor-pointer'

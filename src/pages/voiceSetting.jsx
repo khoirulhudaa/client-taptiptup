@@ -211,7 +211,7 @@
         };
 
         return (
-            <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-6">
+            <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
                 <div className="flex items-center gap-4">
                     <div className="bg-rose-500 p-3 rounded-xl text-white shadow-lg">
                         <Zap size={20} />
@@ -220,69 +220,11 @@
                         <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
                             Testing VN
                         </h3>
-                        {/* <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-                            Rekam suara → kirim langsung ke OBS overlay
-                        </p> */}
                     </div>
-                </div>
-
-                {/* Form data dukungan */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* ... input nama, nominal, pesan tetap sama ... */}
-                    <div className="flex flex-col gap-1.5">
-                        {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                            Nama Donor
-                        </label> */}
-                        <InputField
-                        label="Nama Donor"
-                        value={customName}
-                        onChange={v => setCustomName(v)}
-                        placeholder="Seseorang"
-                        />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                        {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                            Nominal (Rp)
-                        </label> */}
-                        <InputField
-                            label="Nominal (Rp)"
-                            type="number"
-                            value={customAmount}
-                            onChange={v => setCustomAmount(v)}
-                            />
-                    </div>
-                    <div className="flex flex-col gap-1.5 md:col-span-2">
-                        {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                            Pesan Teks <span className="normal-case font-medium text-slate-300 dark:text-slate-600">(opsional)</span>
-                        </label> */}
-                        <InputField
-                            label="Pesan"
-                            value={customMsg}
-                            onChange={v => setCustomMsg(v)}
-                            placeholder="Semangat terus bang! (opsional)"
-                        />
-                    </div>
-                </div>
-
-                {/* Quick amount */}
-                <div className="grid grid-cols-6 gap-3">
-                    {[1000, 5000, 10000, 50000, 100000, 500000].map(v => (
-                        <button
-                            key={v}
-                            onClick={() => setCustomAmount(v)}
-                            className={`w-full cursor-pointer active:scale-[0.97] px-3 py-3 rounded-xl text-xs font-black transition-all border-2 ${
-                                Number(customAmount) === v
-                                    ? 'bg-rose-500 border-rose-500 text-white'
-                                    : 'bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-500 hover:border-rose-300'
-                            }`}
-                        >
-                            {v >= 1000000 ? `${v / 1000000}jt` : `${v / 1000}K`}
-                        </button>
-                    ))}
                 </div>
 
                 {/* VoiceRecorder */}
-                <div className="space-y-2">
+                <div className="space-y-2 mt-6">
                     <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">
                         <span className="text-white font-medium">
                             Maksimal {maxRecordSeconds} detik 
