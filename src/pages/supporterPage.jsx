@@ -1400,7 +1400,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
 
         return (
           <div
-            className="w-full md:gap-3 gap-2 md:grid-cols-2 grid-cols-2 rounded-xl overflow-hidden"
+            className="w-full md:gap-3 gap-2 md:grid-cols-2 grid-cols-2 rounded-xl"
             style={{ display: 'grid'}}
           >
             {visibleTabs.map((tab) => {
@@ -1413,7 +1413,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
                   key={tab.id}
                   onClick={() => onTabChange(tab.id)}
                   className={`
-                    flex items-center justify-center gap-1.5 py-3 px-3
+                    flex items-center justify-center gap-1.5 py-3.5 border border-slate-500/40 px-3
                     text-[11px] md:!text-[13px] font-black transition-all cursor-pointer select-none rounded-lg md:rounded-xl
                     ${isActive
                       ? 'bg-blue-600 text-white'
@@ -2323,7 +2323,7 @@ const SupporterPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-transparent md:bg-white dark:md:bg-slate-900 p-0 md:p-7 rounded-xl shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:border border-blue-100 dark:border-slate-500/50 space-y-2 md:space-y-5"
+            className="bg-transparent md:bg-white dark:md:bg-slate-900 p-0 md:p-7 rounded-xl shadow-blue-100/50 dark:shadow-slate-800/50 md:border border-blue-100 dark:border-slate-500/50 space-y-2 md:space-y-5"
           >
 
             {/* DONATION ITEMS SECTION */}
@@ -2391,7 +2391,7 @@ const SupporterPage = () => {
                     <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">
                       Pilih Nominal Cepat
                     </label>
-                    <div className="mb-3 md:grid flex flex-wrap grid-cols-4 gap-2">
+                    <div className="mb-3 md:grid flex flex-wrap grid-cols-4 gap-2 md:gap-3">
                       {quickAmounts.map((val) => (
                         <button
                           key={val}
@@ -2399,7 +2399,7 @@ const SupporterPage = () => {
                             setForm({ ...form, amount: val });
                             setSelectedDonationItem(null);
                           }}
-                          className={`cursor-pointer py-2.5 md:px-0 px-3 md:py-4 rounded-xl font-black text-sm transition-all border active:scale-[0.99] ${
+                          className={`cursor-pointer py-3.5 md:px-0 px-3 md:py-3.5 rounded-xl font-black text-sm transition-all border active:scale-[0.99] ${
                             form.amount === val && !selectedDonationItem
                               ? 'bg-blue-600 border-blue-600 text-white shadow-lg'
                               : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-500/50 hover:border-blue-300 dark:hover:border-blue-600 hover:text-blue-600 dark:hover:text-blue-400 text-slate-700 dark:text-slate-300'
