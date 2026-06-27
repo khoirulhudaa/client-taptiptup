@@ -2091,7 +2091,7 @@ const SupporterPage = () => {
         donorName: form.isAnonymous ? 'Anonim' : form.donorName || 'Anonim',
         message: activeTab === 'song' ? '-' : form.message,
         userId:       streamer._id,
-        email: 'anoanim@gmail.com',
+        email: form.email ? form.email : 'anoanim@gmail.com',
         mediaUrl:     hasMedia ? mediaUrl.trim() : null,
         mediaType:    detectedMediaType,
         songData:     activeTab === 'song' ? songData : null,
