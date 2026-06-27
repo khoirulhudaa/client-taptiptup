@@ -236,6 +236,7 @@ const MODE_OPTIONS = [
   },
 ];
 
+
 // ── Main Editor ────────────────────────────────────────────────────────────────
 const DonationItemsEditor = ({
   items = [],
@@ -246,6 +247,7 @@ const DonationItemsEditor = ({
 }) => {
   const [localItems, setLocalItems] = useState(() => items.map(i => ({ ...i })));
   const [showPreview, setShowPreview] = useState(false);
+  const [blockModal, setBlockModal] = useState(null); // { title, body }
   const [localMode, setLocalMode] = useState(
     settings.donationItemsMode ||
     (settings.donationItemsEnabled ? 'both' : 'amount_only')
@@ -271,6 +273,43 @@ const DonationItemsEditor = ({
     });
   }, []);
 
+  const BlockModal = () => {
+    if (!blockModal) return null;
+    return (
+      <div
+        style={{
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)',
+          backdropFilter: 'blur(4px)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center',
+          zIndex: 3, padding: '1rem',
+        }}
+        onClick={() => setBlockModal(null)}
+      >
+        <motion.div
+          initial={{ scale: 0.92, opacity: 0, y: 12 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.92, opacity: 0 }}
+          onClick={e => e.stopPropagation()}
+          className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 w-full max-w-sm text-center flex justify-center items-center flex-col shadow-2xl space-y-4"
+        >
+          <div className="w-11 h-11 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-2xl">
+            ⚠️
+          </div>
+          <div>
+            <h3 className="font-black text-slate-800 dark:text-slate-100 text-base">{blockModal.title}</h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">{blockModal.body}</p>
+          </div>
+          <button
+            onClick={() => setBlockModal(null)}
+            className="cursor-pointer w-full py-3 bg-slate-900 dark:bg-slate-700 text-white font-black text-sm rounded-xl active:scale-[0.99] hover:brightness-90 transition-all"
+          >
+            Oke, tambah item dulu
+          </button>
+        </motion.div>
+      </div>
+    );
+  };
+
   const handleRemove = useCallback((index) => {
     const next = localItems.filter((_, i) => i !== index);
     setLocalItems(next);
@@ -288,15 +327,16 @@ const DonationItemsEditor = ({
   };
 
   const syncAndSave = () => {
-    // Validasi: jika mode item, minimal harus ada 1 item valid
     if (currentMode !== 'amount_only') {
-      const validItems = localItems.filter(i => i.name && i.price > 0);
-      if (validItems.length === 0) {
-        toast.error('❌ Tambahkan minimal 1 item sebelum menyimpan!');
+      const valid = localItems.filter(i => i.name && i.price > 0);
+      if (valid.length === 0) {
+        setBlockModal({
+          title: 'Tambahkan item',
+          body: 'Kamu harus mengisi minimal 1 item sebelum menyimpan mode ini',
+        });
         return;
       }
     }
-
     onChange(localItems);
     saveSettingsMutation.mutate({
       settings: {
@@ -310,24 +350,7 @@ const DonationItemsEditor = ({
   };
 
   const handleModeChange = (mode) => {
-    if (mode !== 'amount_only') {
-      const validItems = localItems.filter(i => i.name && i.price > 0);
-      if (validItems.length === 0) {
-        toast.error('❌ Tambahkan minimal 1 item dulu sebelum mengaktifkan mode ini!');
-        return;
-      }
-    }
-
     setLocalMode(mode);
-    const enabled = mode !== 'amount_only';
-    saveSettingsMutation.mutate({
-      settings: {
-        ...settings,
-        donationItemsEnabled: enabled,
-        donationItemsMode: mode,
-      },
-      slot: activeSlot,
-    });
   };
 
   const currentMode = localMode;
@@ -349,6 +372,10 @@ const DonationItemsEditor = ({
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {blockModal && <BlockModal />}
+      </AnimatePresence>
 
       {/* Preview grid */}
       <AnimatePresence>
@@ -466,16 +493,16 @@ const DonationItemsEditor = ({
             )}
           </div>
 
-          <button
-            onClick={syncAndSave}
-            disabled={saveSettingsMutation.isPending}
-            className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3"
-          >
-            <Save size={20} />
-            {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
-          </button>
         </>
       )}
+      <button
+        onClick={syncAndSave}
+        disabled={saveSettingsMutation.isPending}
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3"
+      >
+        <Save size={20} />
+        {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
+      </button>
     </div>
   );
 };
