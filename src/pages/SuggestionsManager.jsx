@@ -134,8 +134,7 @@ export const SuggestionsManager = () => {
       </AnimatePresence>
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-violet-600 md:flex flex-col hidden rounded-xl p-4 md:p-8 text-white relative overflow-hidden">
-        <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/10 rounded-xl" />
+      <div className="bg-slate-900 md:flex flex-col hidden rounded-xl p-4 md:p-8 text-white relative overflow-hidden">
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-2">
             <MessageCircle size={20} />
