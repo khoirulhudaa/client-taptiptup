@@ -344,7 +344,7 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                   <button
                     key={v}
                     onClick={() => { setAmount(String(v)); setError(""); }}
-                    className={`rounded-xl cursor-pointer py-1.5 text-xs font-bold border transition-all active:scale-[0.97] ${
+                    className={`rounded-lg cursor-pointer py-1.5 text-xs font-bold border transition-all active:scale-[0.97] ${
                       numAmount === v
                         ? "bg-blue-600 border-blue-600 text-white"
                         : "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-blue-400 hover:text-blue-600"
