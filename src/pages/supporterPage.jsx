@@ -2247,7 +2247,7 @@ const SupporterPage = () => {
     <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-blue-50 to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex justify-center items-start p-4 md:p-6 font-sans pt-20 md:pt-24">
 
       {/* Background GIF layer */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 md:flex hidden pointer-events-none overflow-hidden">
         <img
           src="/gold.gif"
           alt=""
