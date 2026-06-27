@@ -132,8 +132,8 @@ const InputField = ({ label, ...props }) => {
     : props.value ?? '';
 
   return (
-    <div className="w-full flex p-[2.5px] pl-[5px] items-center bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-500/50 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
-      <div className="relative w-max px-3 py-3 rounded-lg text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-500/50 bg-slate-200/50 dark:bg-slate-700/50">
+    <div className="w-full flex p-[2.5px] pl-[5px] items-center bg-transparent dark:bg-slate-900 border border-slate-100 dark:border-slate-500/50 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm">
+      <div className="relative w-max px-3 py-3 rounded-lg text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap bg-slate-200/50 dark:bg-slate-800">
         {label}
       </div>
       <input
@@ -149,12 +149,12 @@ const InputField = ({ label, ...props }) => {
 };
 
 const TextareaField = ({ label, className = '', inputClassName = '', onChange, ...props }) => (
-  <div className={`w-full flex pl-[5px] p-[5px] items-start bg-slate-100 dark:bg-slate-800 border border-slate-100 dark:border-slate-500/50 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
-    <div className="w-max px-3 py-2 rounded-lg text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap border-r border-slate-200 dark:border-slate-500/50 bg-slate-200/50 dark:bg-slate-700/50">
+  <div className={`w-full flex pl-[5px] p-[5px] items-start bg-transparent dark:bg-slate-900 border border-slate-100 dark:border-slate-500/50 rounded-xl overflow-hidden focus-within:border-blue-500 dark:focus-within:border-blue-500 transition-all shadow-sm ${className}`}>
+    <div className="w-max px-3 py-2 rounded-lg text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap bg-slate-200/50 dark:bg-slate-800">
       {label}
     </div>
     <textarea
-      className={`flex-1 bg-transparent p-1.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100 resize-y ${inputClassName}`}
+      className={`flex-1 bg-transparent dark:bg-slate-900 p-1.5 pl-3 outline-none font-bold text-sm text-slate-900 dark:text-slate-100 resize-y ${inputClassName}`}
       {...props}
       onChange={e => onChange?.(e.target.value)}
     />
@@ -972,10 +972,12 @@ const MediaInputSection = ({ trigger, mediaUrl, setMediaUrl, startTime, setStart
       {/* Header — sama persis aslinya */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-xl bg-blue-600 flex items-center justify-center text-white flex-shrink-0">
+          <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white flex-shrink-0">
             {allowVideo && allowImage
-              ? <span className="flex items-center gap-0.5"><ImageIcon size={9} /><Video size={9} /></span>
-              : allowVideo ? <Video size={13} /> : <ImageIcon size={13} />}
+              ? <span className="flex items-center justify-center">
+                  <Video size={16} className='relative left-[1px]' />
+                </span>
+              : allowVideo ? <Video size={16} className='relative left-[1px]' /> : <ImageIcon size={16} className='relative left-[1px]' />}
           </div>
           <div>
             <p className="text-xs font-black text-blue-700 dark:text-blue-400 leading-none">
@@ -1417,7 +1419,7 @@ const DonationTabs = ({ activeTab, onTabChange, mediaTriggers, amount, minDonate
                     text-[11px] md:!text-[13px] font-black transition-all cursor-pointer select-none rounded-lg md:rounded-xl
                     ${isActive
                       ? 'bg-blue-600 text-white'
-                      : 'bg-white dark:bg-slate-500/10 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
+                      : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
                     }
                   `}
                 >
