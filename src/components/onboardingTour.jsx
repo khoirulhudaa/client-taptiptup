@@ -508,9 +508,9 @@ const TourFinishModal = ({ onDone }) => (
       <div className="w-16 h-16 bg-green-50 dark:bg-green-950/40 text-green-600 rounded-xl flex items-center justify-center mx-auto mb-5">
         <Check size={28} />
       </div>
-      <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-2">Tur selesai! 🎉</h3>
+      <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-2">Tour selesai</h3>
       <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
-        Kamu sudah mengenal semua fitur TAPTIPTUP. Selamat streaming dan semoga donasimu melimpah!
+        Kamu sudah mengenal semua fitur TAPTIPTUP. Selamat streaming dan semoga donasimu melimpah
       </p>
       <button
         onClick={onDone}
@@ -557,10 +557,6 @@ const DonationModeModal = ({ onComplete }) => {
       color: 'blue',
       preview: (
         <div className="bg-slate-900 px-4 py-4 relative h-full w-full">
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
-            backgroundSize: '24px 24px',
-          }} />
           <div className="relative z-10 space-y-2">
             <div className="bg-white/10 border border-white/20 rounded-xl px-3 py-2 flex justify-between items-center">
               <span className="text-white/50 text-[10px] font-mono uppercase">Nominal</span>
@@ -595,10 +591,6 @@ const DonationModeModal = ({ onComplete }) => {
         <div className="relative h-full w-full overflow-hidden">
           {/* Nominal kiri */}
           <div className="absolute inset-0 bg-slate-900 px-3 py-3">
-            <div className="absolute inset-0 opacity-20" style={{
-              backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
-              backgroundSize: '20px 20px',
-            }} />
             <div className="relative z-10 space-y-2 gap-2 h-full">
               <div className="flex-1">
                 <div className="grid grid-cols-3 gap-1">
@@ -655,10 +647,6 @@ const DonationModeModal = ({ onComplete }) => {
       color: 'violet',
       preview: (
         <div className="p-3 relative h-full w-full" style={{ background: '#0d1b2a' }}>
-          <div className="absolute inset-0 opacity-15" style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
-            backgroundSize: '24px 24px',
-          }} />
           <div className="relative z-10 space-y-2">
             <div className="grid grid-cols-3 gap-1.5">
               {[

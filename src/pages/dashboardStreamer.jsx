@@ -2334,7 +2334,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         </div>
       </div>
 
-      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[77.9vh] h-[62.8vh]' : '2xl:h-[71.5vh] h-[51.8vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
+      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[77.9vh] h-[62.8vh]' : '2xl:h-[77.9vh] h-[51.8vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
         <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
           <span style={{ fontSize: 80, fontWeight: 500, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span>
         </div>
@@ -2370,19 +2370,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       </div>
 
       {/* Media URL picker — hanya muncul saat tab media aktif */}
-      {previewMode === 'media' && (
-        <div className="space-y-3">
-          {/* <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Media URL (preview)</label> */}
-          <div className="flex gap-3 mt-1">
-            {MEDIA_PRESETS.map((p, i) => (
-              <button key={i} onClick={() => setMediaUrl(p.url)}
-                className={`flex-1 py-3 text-[10px] font-black rounded-md border-2 transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-purple-300'}`}>
-                {p.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+     
     </div>
   );
 }
@@ -4421,10 +4409,10 @@ const handleChangePin = async () => {
                           className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
                           <Save size={18} className='relative top-[-1px]' />
                           {saveSettingsMutation.isPending ? (
-  <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
-) : (
-  <> Simpan Sekarang</>
-)}
+                            <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+                          ) : (
+                            <> Simpan Sekarang</>
+                          )}
                         </button>
                     </div>
 
@@ -4669,7 +4657,7 @@ const handleChangePin = async () => {
                         </p>
                     
                         {/* Daftar konsekuensi */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 gap-2">
                           {[
                             { icon: '⚙️', label: 'Saldo tidak dapat dikembalikan' },
                             { icon: '⚙️', label: 'Riwayat dukungan terhapus permanen' },
@@ -4681,6 +4669,12 @@ const handleChangePin = async () => {
                               <p className="text-[11px] font-bold text-white">{label}</p>
                             </div>
                           ))}
+                        </div>
+                        <div className="grid md:hidden grid-cols-1 sm:grid-cols-2 gap-2">
+                          <div key={"Note"} className="md:hidden flex items-center gap-3 p-3 py-2.5 bg-slate-500/20 rounded-xl  border border-slate-500/30">
+                            <span className="text-base flex-shrink-0">{'⚙️'}</span>
+                            <p className="text-[11px] font-bold text-white">{"Semua data dan saldo terhapus permanent"}</p>
+                          </div>
                         </div>
                     
                         {/* Step 1: ketik konfirmasi */}
