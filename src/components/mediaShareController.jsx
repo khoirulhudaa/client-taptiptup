@@ -4,7 +4,7 @@ import { Check, Copy, SkipForward, Volume2, VolumeX, Zap } from 'lucide-react';
 import api from '../lib/axiosInstance';
 
 const PRESETS = [
-  { label: 'Mute', value: 0 },
+  // { label: 'Mute', value: 0 },
   { label: '25%',  value: 25 },
   { label: '50%',  value: 50 },
   { label: '70%',  value: 70 },
@@ -26,7 +26,7 @@ export const MediaShareControl = ({ overlayToken }) => {
   const BASE = window.location.origin;
   const shortcuts = [
     { label: 'skip',     icon: <SkipForward size={14} />, url: `${BASE}/api/mediashare/shortcut/${overlayToken}/skip` },
-    { label: 'mute',     icon: <VolumeX size={14} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=0` },
+    // { label: 'mute',     icon: <VolumeX size={14} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=0` },
     { label: 'vol 50%',  icon: <Volume2 size={14} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=50` },
     { label: 'vol 100%', icon: <Volume2 size={14} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=100` },
   ];
@@ -114,7 +114,7 @@ export const MediaShareControl = ({ overlayToken }) => {
         </div>
 
         {/* Preset buttons */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 md:mt-0 mt-6 justify-between">
           {PRESETS.map(({ label, value }) => (
             <button
               key={value}

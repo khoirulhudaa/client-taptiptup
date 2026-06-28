@@ -1474,8 +1474,8 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
 
             {!alertOnly && (
               <div className="flex justify-between items-center">
-                <span>Media Share (contoh Rp 50.000)</span>
-                <span className="font-bold text-slate-900 dark:text-white">
+                <span className='text-sm'>Rp 50.000</span>
+                <span className="text-slate-900 text-sm dark:text-white">
                   {(Number(settings.mediaShareBaseDuration) || 15) + 
                   Math.floor(50000 / (Number(settings.mediaShareExtraPerAmount) || 10000)) * 
                   (Number(settings.mediaShareExtraDuration) || 2)} detik
@@ -1503,7 +1503,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
   const mediaTypeOptions = [
     { value: 'image', icon: <ImageIcon size={13} />, label: 'Gambar', desc: 'jpg, gif, png' },
     { value: 'video', icon: <Video size={13} />,     label: 'Video',  desc: 'mp4, webm'    },
-    { value: 'both',  icon: <span className="flex items-center gap-0.5"><ImageIcon size={11} /><Video size={11} /></span>, label: 'Keduanya', desc: 'gambar & video' },
+    { value: 'both',  icon: <span className="flex items-center gap-0.5"><ImageIcon size={11} /><Video size={11} /></span>, label: 'Semua', desc: 'gambar & video' },
   ];
   return (
     <div className="space-y-3">
@@ -1531,12 +1531,15 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
               />
             ))}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             {mediaTypeOptions.map(opt => (
               <button key={opt.value} onClick={() => update(i, 'mediaType', opt.value)}
                 className={`cursor-pointer active:scale-[0.99] flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl  border-2 font-black text-xs transition-all ${t.mediaType === opt.value ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-slate-300 hover:bg-white dark:hover:bg-slate-700'}`}>
-                {opt.icon}<span>{opt.label}</span>
-                <span className="text-[9px] font-medium text-slate-300 dark:text-slate-500">{opt.desc}</span>
+                <span className='md:flex hidden'>
+                  {opt.icon}
+                </span>
+                <span>{opt.label}</span>
+                <span className="md:flex hidden text-[9px] font-medium text-slate-300 dark:text-slate-500">{opt.desc}</span>
               </button>
             ))}
           </div>
@@ -4873,7 +4876,7 @@ const handleChangePin = async () => {
                     <div className="flex items-center justify-between p-4 mt-5 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
                       <div>
                         <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Aktifkan Song Request</p>
-                        <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Donor bisa request lagu SoundCloud lewat halaman donasi</p>
+                        <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Donor bisa request lagu</p>
                       </div>
                       <button onClick={() => upd('songRequestEnabled', !settings.songRequestEnabled)}
                         className={`relative inline-flex h-7 w-14 items-center rounded-xl transition-colors duration-300 cursor-pointer focus:outline-none ${settings.songRequestEnabled ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
@@ -4935,10 +4938,10 @@ const handleChangePin = async () => {
                     </div>
 
                     {/* Tombol Skip Lagu Sekarang */}
-                    <div className="mt-4 flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
+                    <div className="mt-4 md:flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
                       <div className="flex-1">
                         <p className="font-black text-sm text-slate-700 dark:text-white">Skip Lagu Sekarang</p>
-                        <p className="text-[10px] text-slate-400 font-medium mt-0.5">Lewati lagu yang sedang diputar, lanjut ke antrian berikutnya</p>
+                        <p className="text-[10px] text-slate-400 font-medium mt-0.5">Lewati lagu yang sedang diputar</p>
                       </div>
                       <button
                         onClick={async () => {
@@ -4949,9 +4952,9 @@ const handleChangePin = async () => {
                             toast.error('Gagal skip lagu');
                           }
                         }}
-                        className="px-4 py-3 bg-orange-500 hover:bg-orange-600 text-white font-black text-sm rounded-xl transition-all active:scale-[0.99] cursor-pointer flex items-center gap-2"
+                        className="md:!mt-0 !mt-3 w-full flex items-center justify-center px-4 py-3 bg-orange-500 hover:bg-orange-600 text-white font-black text-sm rounded-xl transition-all active:scale-[0.99] cursor-pointer flex items-center gap-2"
                       >
-                        ⏭ Skip
+                        Skip
                       </button>
                     </div>
                     <div className="mt-4 flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">

@@ -74,7 +74,7 @@ export const Subath2 = ({ displaySeconds, isRunning, timerColor, bgColor, labelC
         borderRadius: 16,
         padding: '14px 5px 20px 14px',
         width: 'max-content',
-        border: '1.5px solid rgba(255,60,0,0.15)',
+        border: '1.5px solid rgba(255,60,as0,0.15)',
       }}>
         {/* Ghost digits (bayangan segmen mati) */}
         <div style={{ position: 'relative', display: 'inline-block' }}>

@@ -1471,7 +1471,7 @@ const RecentDonations = ({ username }) => {
 
   return (
     <div className="space-y-2">
-      <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+      <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
         Dukungan Terbaru 💝
       </label>
       <div className="space-y-3">
@@ -1485,7 +1485,7 @@ const RecentDonations = ({ username }) => {
           >
             <div className="flex items-center justify-between gap-2 mb-1">
               <div className="flex items-center gap-2 min-w-0">
-                <div className="w-6 h-6 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-black text-[11px] flex-shrink-0">
+                <div className="w-4 md:w-6 h-4 md:h-6 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-black text-[9px] md:text-[11px] flex-shrink-0">
                   {(d.donorName || 'A').charAt(0).toUpperCase()}
                 </div>
                 <span className="font-black text-sm text-slate-700 dark:text-slate-200 truncate">
@@ -1497,11 +1497,11 @@ const RecentDonations = ({ username }) => {
               </span>
             </div>
             {d.message && (
-              <p className="text-[12px] text-slate-400 dark:text-slate-400 font-medium leading-relaxed line-clamp-2 ml-8">
+              <p className="text-[12px] text-slate-400 dark:text-slate-400 font-medium leading-relaxed line-clamp-2 ml-6 md:ml-8">
                 {d.message}
               </p>
             )}
-            <p className="text-[11px] text-slate-300 dark:text-slate-500 font-medium mt-1 ml-8">
+            <p className="text-[11px] text-slate-300 dark:text-slate-500 font-medium mt-1 ml-6 md:ml-8">
               {timeAgo(d.createdAt)}
             </p>
           </motion.div>
@@ -1536,12 +1536,12 @@ const LeaderboardMini = ({ username }) => {
 
   return (
     <div className="space-y-2">
-      <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
+      <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
         Top Donor 🏆
       </label>
       <div className="space-y-3">
         {donors.slice(0, 5).map((d, i) => (
-          <div key={i} className="flex items-center gap-3 px-3 py-3.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-500/50 rounded-xl">
+          <div key={i} className="flex items-center gap-1 md:gap-3 px-2 pr-3 md:px-3 py-3.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-500/50 rounded-xl">
             <span className="text-base w-6 text-center flex-shrink-0">
               {medals[i] || `${i + 1}`}
             </span>
@@ -1572,20 +1572,6 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
 
   return (
     <div className="space-y-0">
-      <div className="flex items-center justify-between">
-        {/* <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">
-          Pilih Item Dukungan 🎁
-        </label> */}
-        {selectedItem && (
-          <button
-            onClick={() => onSelect(null)}
-            className="text-[11px] font-black text-slate-400 hover:text-red-400 transition-colors cursor-pointer px-2 py-1 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20"
-          >
-            ✕ Batal
-          </button>
-        )}
-      </div>
-
       <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 md:gap-3">
         {sorted.map((item, i) => {
           const tier = getItemTierColor(item.price);
@@ -1632,7 +1618,7 @@ const DonationItemPicker = ({ items = [], selectedItem, onSelect, mode = 'both' 
         <motion.div
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800/10 border border-slate-200 dark:border-slate-500/50 rounded-xl"
+          className="flex items-center mt-2.5 gap-3 p-3 bg-slate-50 dark:bg-slate-800/10 border border-slate-200 dark:border-slate-500/50 rounded-xl"
         >
           <span className="text-3xl flex-shrink-0">{selectedItem.emoji || '🎁'}</span>
           
@@ -2256,7 +2242,7 @@ const SupporterPage = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-50/60 to-blue-50 dark:via-slate-900/60 dark:to-slate-900" />
       </div>
 
-      <div className={`w-full grid grid-cols-1 gap-0 2xl:px-24 ${gridClass}`}>
+      <div className={`w-full grid grid-cols-1 gap-0 md:gap-3 2xl:px-24 ${gridClass}`}>
 
         {/* KOLOM KIRI */}
         {overlaySetting?.showRecentDonationsOnDonate && (
@@ -2264,7 +2250,7 @@ const SupporterPage = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.15 }}
-              className="w-full lg:sticky lg:top-24 lg:self-start md:mt-0 mt-6 order-1 md:order-0"
+              className="w-full lg:sticky lg:top-24 lg:self-start md:mt-0 mt-3 order-1 md:order-0"
             >
               <div className="bg-white dark:bg-slate-900 p-5 rounded-xl shadow-xl shadow-blue-100/50 dark:shadow-slate-800/50 border border-blue-100 dark:border-slate-500/50 relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-green-400" />
@@ -2708,7 +2694,7 @@ const SupporterPage = () => {
               whileTap={!isSubmitDisabled ? { scale: 0.99 } : {}}
               onClick={handleDonate}
               disabled={isSubmitDisabled}
-              className={`w-full py-3 md:py-4 rounded-xl font-black text-sm flex items-center justify-center gap-2 transition-all ${
+              className={`w-full py-3.5 md:py-4 rounded-xl font-black text-sm flex items-center justify-center gap-2 transition-all ${
                 isSubmitDisabled
                   ? 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed'
                   : 'active:scale-[0.99] cursor-pointer bg-blue-600 text-white hover:brightness-110'
@@ -2728,6 +2714,14 @@ const SupporterPage = () => {
           </motion.div>
 
         </div>{/* end kolom kiri */}
+
+         <div className="mt-8 mb-5 md:hidden flex items-center gap-2">
+          <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
+          <span className="text-[11px] font-black text-slate-300 dark:text-slate-500 uppercase tracking-widest">
+            Informasi lainnya
+          </span>
+          <div className="flex-1 h-px bg-slate-100 dark:bg-slate-800" />
+        </div>
 
         {/* KOLOM KANAN */}
         {overlaySetting?.showLeaderboardOnDonate && (
