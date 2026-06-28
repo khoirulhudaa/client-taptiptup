@@ -308,14 +308,6 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           </div>
         )}
 
-        {/* Section label */}
-        {!isCollapsed && (
-          <div className="md:flex hidden pt-2 pb-2 px-2 relative mb-4">
-            <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
-            <p className="text-[10px] font-black text-slate-400 dark:text-slate-100 uppercase tracking-widest">Menu Utama</p>
-          </div>
-        )}
-
         {/* Navigation */}
         <nav className={`${isCollapsed ? 'mt-[-20px]' : 'mt-0'} md:flex-1 space-y-3 px-2`}>
           {menuGroups.map((group) => {
