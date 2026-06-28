@@ -252,21 +252,24 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         `}
       >
         {/* Logo */}
-        <div className={`flex items-center mb-8 md:mb-11 ${isCollapsed ? 'justify-center px-2' : 'px-2 justify-between md:px-[8.5px] relative top-[1px]'}`}>
-          {!isCollapsed && (
+        <div className={`flex items-center mb-8 md:mb-11 ${isCollapsed ? 'md:justify-center px-2' : 'px-2 justify-between md:px-[8.5px] relative top-[1px]'}`}>
+        {/* Desktop collapsed — hanya icon */}
+          {isCollapsed && (
             <a href='/'>
-              <div className="flex shadow-none items-center gap-3">
-                <div className="ml-0 mt-[-2px] w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black text-xl italic">
-                  <img src="/tttnews.png" alt="icon" className="w-[88%]" />
-                </div>
-                <h1 className="text-lg ml-0 font-black tracking-tight text-slate-800 dark:text-slate-100 whitespace-nowrap">TAPTIPTUP</h1>
+              <div className="w-full h-12 bg-blue-600 shadow-none rounded-lg flex items-center justify-center">
+                <img src="/tttnews.png" alt="icon" className="w-[40%]" />
               </div>
             </a>
           )}
-          {isCollapsed && ( 
+
+          {/* Desktop expanded / Mobile — icon + teks */}
+          {!isCollapsed && (
             <a href='/'>
-              <div className="w-full h-12 bg-blue-600 shadow-none rounded-lg flex items-center justify-center">
-                <img src="/tttnews.png" alt="icon" className={`${isCollapsed ? 'w-[40%]' : 'w-[60%]'}`} />
+              <div className="flex shadow-none items-center gap-3">
+                <div className="ml-0 mt-[-2px] w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <img src="/tttnews.png" alt="icon" className="w-[88%]" />
+                </div>
+                <h1 className="text-lg ml-0 font-black tracking-tight text-slate-800 dark:text-slate-100 whitespace-nowrap">TAPTIPTUP</h1>
               </div>
             </a>
           )}
@@ -314,7 +317,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         )}
 
         {/* Navigation */}
-        <nav className={`${isCollapsed ? 'mt-[-4px]' : 'mt-0'} md:flex-1 space-y-3 px-2`}>
+        <nav className={`${isCollapsed ? 'mt-[-20px]' : 'mt-0'} md:flex-1 space-y-3 px-2`}>
           {menuGroups.map((group) => {
             const visibleItems = group.items.filter(item => {
               if (isSuperAdmin && hideForSuperAdmin.includes(item.id)) return false;
@@ -332,12 +335,15 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                     <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
                   </div>
                 )}
+
                 {isCollapsed && (
-                  <div className="w-6 h-[1px] mx-auto bg-slate-300 dark:bg-slate-700 mb-1" />
+                  <div className="md:hidden flex text-[8px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 text-left mb-1 md:px-1 leading-tight">
+                    {group.groupLabel}
+                  </div>
                 )}
 
                 {/* Items */}
-                <div className="space-y-1">
+                <div className="space-y-1 flex md:block flex-wrap gap-2 md:gap-0 pt-4">
                   {visibleItems.map((item) => (
                     <button
                       key={item.id}
@@ -347,8 +353,8 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                         setIsSidebarOpen(false);
                       }}
                       title={undefined}
-                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex rounded-lg font-black text-sm 
-                        ${isCollapsed ? 'flex-col items-center justify-center px-1 py-2 gap-1' : 'flex-row items-center gap-3 px-4 py-3'}
+                      className={`cursor-pointer mb-2 active:scale-[0.99] w-max md:w-full flex rounded-lg font-black text-sm 
+                        ${isCollapsed ? 'md:flex-col items-center justify-center px-3 md:px-1 py-2 gap-1' : 'flex-row items-center gap-3 px-4 py-3'}
                         ${
                           activeTab === item.id
                             ? 'bg-blue-600 text-white'

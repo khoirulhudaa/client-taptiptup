@@ -2334,7 +2334,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         </div>
       </div>
 
-      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[70.5vh] h-[62.8vh]' : '2xl:h-[61.9vh] h-[51.8vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
+      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[77.9vh] h-[62.8vh]' : '2xl:h-[71.5vh] h-[51.8vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
         <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
           <span style={{ fontSize: 80, fontWeight: 500, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span>
         </div>
@@ -2383,11 +2383,6 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           </div>
         </div>
       )}
-
-      <button onClick={triggerDemo}
-        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 rounded-xl  bg-slate-50 dark:bg-slate-950/40 hover:bg-slate-950 text-slate-600 dark:text-slate-400 font-black text-sm border-2 border-slate-100 dark:border-slate-900 transition-all flex items-center justify-center gap-3">
-        Simulasi notifikasi
-      </button>
     </div>
   );
 }
@@ -4419,8 +4414,8 @@ const handleChangePin = async () => {
                     <div id="tour-min-max-dukungan" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
                         <SectionHeader icon={<BadgeDollarSign size={20} />} title={`Nominal Dukungan`} color="bg-red-600" />
                         <div className='grid grid-cols-1 md:space-y-0 md:grid-cols-2 gap-3'>
-                          <InputField label="Min Nominal" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
-                          <InputField label="Max Nominal" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
+                          <InputField label="Minimal" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
+                          <InputField label="Maksimal" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
                         </div>
                         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                           className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
