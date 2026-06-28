@@ -4950,7 +4950,7 @@ const handleChangePin = async () => {
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
                     <SectionHeader icon={<Music size={20} />} title="Share Song" color="bg-blue-600" />
 
-                    <div className="flex items-center justify-between p-4 mt-5 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+                    <div className="flex items-center justify-between p-4 mt-5 px-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
                       <div>
                         <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Aktifkan Song Request</p>
                         <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Donor bisa request lagu</p>
@@ -4994,7 +4994,7 @@ const handleChangePin = async () => {
 )}
                     </button>
 
-                    <div className="mt-4 flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700">
+                    <div className="mt-4 flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700">
                       <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">🎵</div>
                       <div className="flex-1 min-w-0 relative top-[3px]">
                         <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white uppercase tracking-widest">
@@ -5033,7 +5033,7 @@ const handleChangePin = async () => {
                             toast.error('Gagal skip lagu');
                           }
                         }}
-                        className="md:!mt-0 !mt-3 w-full flex items-center justify-center px-4 py-3 bg-orange-500 hover:bg-orange-600 text-white font-black text-sm rounded-xl transition-all active:scale-[0.99] cursor-pointer flex items-center gap-2"
+                        className="md:!mt-0 !mt-3 md:w-max w-full flex items-center justify-center px-4 py-3 bg-orange-500 hover:bg-orange-600 text-white font-black text-sm rounded-xl transition-all active:scale-[0.99] cursor-pointer flex items-center gap-2"
                       >
                         Skip
                       </button>

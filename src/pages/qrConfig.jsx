@@ -174,7 +174,7 @@ const Slider = ({ label, value, min, max, step = 1, unit = '', onChange }) => (
 );
 
 const Toggle = ({ label, desc, value, onChange }) => (
-  <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+  <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
     <div>
       <p className="font-black text-sm text-slate-700 dark:text-slate-200">{label}</p>
       {desc && <p className="text-[11px] text-slate-400 mt-0.5">{desc}</p>}

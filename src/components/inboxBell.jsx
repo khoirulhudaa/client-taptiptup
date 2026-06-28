@@ -405,7 +405,7 @@ export const InboxPage = () => {
                 }`}
               >
                 {/* Top accent */}
-                <div className="h-[3px]" style={{ background: cfg.color }} />
+                {/* <div className="h-[3px]" style={{ background: cfg.color }} /> */}
 
                 <button
                   onClick={() => handleExpand(ann)}

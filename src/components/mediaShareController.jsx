@@ -94,7 +94,7 @@ export const MediaShareControl = ({ overlayToken }) => {
       </button>
 
       {/* Volume */}
-      <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 space-y-3">
+      <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-3 space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
             Volume Overlay
@@ -146,7 +146,7 @@ export const MediaShareControl = ({ overlayToken }) => {
               <button
                 key={idx}
                 onClick={() => copyShortcut(url, idx)}
-                className={`w-full cursor-pointer flex items-center gap-3 px-3 py-2.5 border transition-all active:scale-[0.99] rounded-xl text-left ${
+                className={`w-full cursor-pointer flex items-center gap-3 p-3 border transition-all active:scale-[0.99] rounded-xl text-left ${
                   copied
                     ? 'border-green-400 bg-green-50 dark:bg-green-950/30'
                     : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800/50'

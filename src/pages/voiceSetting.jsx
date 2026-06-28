@@ -73,9 +73,6 @@
                 <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
                     Durasi VN
                 </h3>
-                {/* <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-                    Atur berapa lama voice note overlay
-                </p> */}
             </div>
         </div>
 
@@ -135,7 +132,7 @@
         </div>
 
         {/* Preview kalkulasi */}
-        <div className="mt-3 md:bg-slate-50 md:dark:bg-slate-800/70 md:p-5 md:rounded-xl md:border border-dashed border-slate-200 dark:border-slate-700">
+        <div className="mt-3 md:bg-slate-50 md:dark:bg-slate-800/70 p-3 md:rounded-xl md:border border-dashed border-slate-200 dark:border-slate-700">
             <p className="font-black text-xs text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">
             Simulasi Durasi
             </p>
@@ -293,9 +290,9 @@
         </div>
         {urls.map(({ label, url, desc }) => (
             <div
-            key={label}
-            className="bg-slate-100 dark:bg-slate-800 p-5 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700"
-            >
+                key={label}
+                className="bg-slate-100 dark:bg-slate-800 p-3 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700"
+                >
             <div className="block text-[10px] font-black text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-widest">
                 {label}
             </div>
@@ -337,9 +334,6 @@
                 <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
                     Tentang VN
                 </h3>
-                {/* <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
-                    Kirim pesan suara saat memberi dukungan
-                </p> */}
             </div>
         </div>
         <div className="gap-4 grid grid-cols-1 md:grid-cols-2">

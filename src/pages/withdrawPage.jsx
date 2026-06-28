@@ -909,7 +909,7 @@ export const WithdrawPage = () => {
                 {withdrawals.map((wd) => {
                   const cfg = STATUS_CONFIG[wd.status] || STATUS_CONFIG.PENDING;
                   return (
-                    <div key={wd._id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-5 hover:shadow-md transition-all">
+                    <div key={wd._id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-3 hover:shadow-md transition-all">
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <p className="text-xl font-medium text-slate-800 dark:text-slate-100">

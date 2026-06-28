@@ -195,7 +195,7 @@ export const PollManager = ({ overlayToken, username }) => {
                   <div key={opt._id || opt.text || i} className="space-y-1.5">
                     <div className="flex items-center justify-between text-sm">
                       <span className="font-bold text-slate-700 dark:text-slate-300">{opt.text}</span>
-                      <span className="font-black text-blue-600 dark:text-blue-400">{pct}% <span className="text-slate-400 dark:text-slate-500 font-medium text-xs">({opt.votes} votes)</span></span>
+                      <span className="font-black text-blue-600 dark:text-blue-400">{pct}% <span className="text-slate-400 dark:text-slate-400 font-medium text-xs">({opt.votes} votes)</span></span>
                     </div>
                     <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden">
                       <motion.div
@@ -209,14 +209,14 @@ export const PollManager = ({ overlayToken, username }) => {
                 );
               })}
             </div>
-            <p className="text-xs text-slate-400 dark:text-slate-500 font-bold">Total: {getTotalVotes(activePoll)} votes</p>
+            <p className="text-xs text-slate-400 dark:text-slate-400 font-bold">Total: {getTotalVotes(activePoll)} votes</p>
           </div>
         </div>
       ) : (
         <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 py-8 text-center">
           <p className="text-3xl mb-2">🗳️</p>
           <p className="font-black text-slate-500 dark:text-slate-400 text-sm">Tidak ada poll aktif</p>
-          <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-1">Buat poll baru agar donor bisa ikut voting</p>
+          <p className="text-xs text-slate-400 dark:text-slate-400 font-medium mt-1">Buat poll baru agar donor bisa ikut voting</p>
         </div>
       )}
 
@@ -242,7 +242,7 @@ export const PollManager = ({ overlayToken, username }) => {
             )}
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pertanyaan</label>
+              <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Pertanyaan</label>
               <InputField
                 label="Pertanyaan"
                 value={newQuestion}
@@ -252,7 +252,7 @@ export const PollManager = ({ overlayToken, username }) => {
             </div>
 
             <div className="space-y-3">
-              <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pilihan Jawaban</label>
+              <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Pilihan Jawaban</label>
               {newOptions.map((opt, i) => (
                 <div key={i} className="flex gap-3">
                   <InputField
@@ -278,7 +278,7 @@ export const PollManager = ({ overlayToken, username }) => {
             <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
               <div>
                 <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Tampilkan Hasil di OBS</p>
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Persentase vote terlihat live di widget OBS</p>
+                <p className="text-[10px] text-slate-400 dark:text-slate-400 font-medium mt-0.5">Persentase vote terlihat live di widget OBS</p>
               </div>
               <button
                 onClick={() => setShowResults(!showResults)}
@@ -300,7 +300,7 @@ export const PollManager = ({ overlayToken, username }) => {
       {/* OBS Widget URL */}
       {overlayToken && (
         <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-          <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Widget URL untuk OBS (420×300px)</p>
+          <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest mb-2">Widget URL untuk OBS (420×300px)</p>
           <div className="flex gap-3">
             <input readOnly value={`${window.location.origin}/widget/${overlayToken}/poll`}
               className="flex-1 bg-transparent font-mono text-xs text-blue-600 dark:text-blue-400 font-bold outline-none truncate" />
@@ -347,7 +347,7 @@ export const PollManager = ({ overlayToken, username }) => {
       {/* Riwayat Poll */}
       {closedPolls.length > 0 && (
         <div className="space-y-3">
-          <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest px-1">Riwayat Poll ({closedPolls.length})</p>
+          <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest px-1">Riwayat Poll ({closedPolls.length})</p>
           {closedPolls.slice(0, 5).map((poll, i) => {
             const data = getPollData(poll);
             const total = getTotalVotes(poll);
@@ -357,7 +357,7 @@ export const PollManager = ({ overlayToken, username }) => {
                 <div className="flex-1 min-w-0">
                   <p className="font-black text-slate-700 dark:text-slate-200 text-sm truncate">{data.question}</p>
                   {winner && (
-                    <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+                    <p className="text-xs text-slate-400 dark:text-slate-400 font-medium mt-0.5">
                       🏆 {winner.text} — {getPercent(winner.votes, total)}% ({total} votes total)
                     </p>
                   )}
@@ -617,7 +617,7 @@ export const SubathonManager = ({ overlayToken }) => {
       {/* Slider tambah waktu manual */}
       <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-5 border border-slate-100 dark:border-slate-700 space-y-3">
         <div className="flex items-center justify-between">
-          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Tambah Waktu Manual</label>
+          <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Tambah Waktu Manual</label>
           <span className="font-black text-blue-600 dark:text-blue-400 text-sm">{formatSeconds(manualAdd)}</span>
         </div>
         <input
@@ -625,17 +625,17 @@ export const SubathonManager = ({ overlayToken }) => {
           onChange={e => setManualAdd(Number(e.target.value))}
           className="w-full accent-blue-600"
         />
-        <div className="flex justify-between text-[10px] text-slate-400 dark:text-slate-500 font-bold">
+        <div className="flex justify-between text-[10px] text-slate-400 dark:text-slate-400 font-bold">
           <span>30 detik</span><span>30 menit</span><span>1 jam</span>
         </div>
       </div>
 
       {/* Konfigurasi */}
       <div className="md:bg-white md:dark:bg-slate-900 rounded-xl md:p-6 md:border border-slate-100 dark:border-slate-800 space-y-5">
-        <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Konfigurasi Timer</p>
+        <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Konfigurasi Timer</p>
 
         <div className="space-y-1.5">
-          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Judul Timer</label>
+          <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Judul Timer</label>
           <InputField
             label="Judul Timer"
             value={localTimer.title || ''}
@@ -645,7 +645,7 @@ export const SubathonManager = ({ overlayToken }) => {
         </div>
 
         <div className="space-y-2">
-          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Mode</label>
+          <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Mode</label>
           <div className="grid grid-cols-2 gap-3">
             {[{ id: 'countdown', label: 'Countdown', desc: 'Waktu berkurang' }, { id: 'countup', label: 'Count Up', desc: 'Waktu bertambah' }].map(m => (
               <button key={m.id} onClick={() => upd('mode', m.id)}
@@ -654,7 +654,7 @@ export const SubathonManager = ({ overlayToken }) => {
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
                     : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
                 }`}>
-                {m.label}<br/><span className="font-medium text-[10px] text-slate-400 dark:text-slate-500">{m.desc}</span>
+                {m.label}<br/><span className="font-medium text-[10px] text-slate-400 dark:text-slate-400">{m.desc}</span>
               </button>
             ))}
           </div>
@@ -662,17 +662,17 @@ export const SubathonManager = ({ overlayToken }) => {
 
         <div className="grid md:grid-cols-2 gap-3">
           <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Durasi (dtk)</label>
+            <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Durasi (dtk)</label>
             <InputField
               label="Durasi (dtk)"
               type="number"
               value={localTimer.initialSeconds}
               onChange={val => upd('initialSeconds', Number(val))}
             />
-            <p className="text-[10px] text-slate-400 dark:text-slate-500">{formatSeconds(localTimer.initialSeconds)}</p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-400">{formatSeconds(localTimer.initialSeconds)}</p>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Batas Maks (kosong=∞)</label>
+            <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Batas Maks (kosong=∞)</label>
             <InputField
               label="Batas Maks"
               type="number"
@@ -680,7 +680,7 @@ export const SubathonManager = ({ overlayToken }) => {
               placeholder="∞"
               onChange={val => upd('maxSeconds', val === '' ? null : Number(val))}
             />
-            {localTimer.maxSeconds && <p className="text-[10px] text-slate-400 dark:text-slate-500">{formatSeconds(localTimer.maxSeconds)}</p>}
+            {localTimer.maxSeconds && <p className="text-[10px] text-slate-400 dark:text-slate-400">{formatSeconds(localTimer.maxSeconds)}</p>}
           </div>
         </div>
 
@@ -688,7 +688,7 @@ export const SubathonManager = ({ overlayToken }) => {
           <div className="flex items-center justify-between">
             <div>
               <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Tambah Waktu per Dukungan</p>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Waktu otomatis bertambah</p>
+              <p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium mt-0.5">Waktu otomatis bertambah</p>
             </div>
             <button
               onClick={() => upd('autoAddEnabled', !localTimer.autoAddEnabled)}
@@ -702,7 +702,7 @@ export const SubathonManager = ({ overlayToken }) => {
               <div className="mb-4 md:mb-0 flex items-center justify-between">
                 <div>
                   <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Kelipatan Durasi</p>
-                  <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+                  <p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium mt-0.5">
                     Setiap tier dukungan
                   </p>
                 </div>
@@ -717,7 +717,7 @@ export const SubathonManager = ({ overlayToken }) => {
               {/* **PREVIEW Tiers** */}
               <div className="grid grid-cols-2 md:flex flex-wrap gap-3">
                 {(localTimer.durationTiers || []).length === 0 && (
-                  <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Belum ada tier</p>
+                  <p className="text-xs text-slate-400 dark:text-slate-400 font-medium">Belum ada tier</p>
                 )}
                 {(localTimer.durationTiers || []).map((tier, i) => {
                   const totalSec = (tier.hours * 3600) + (tier.minutes * 60) + tier.seconds;
@@ -744,7 +744,7 @@ export const SubathonManager = ({ overlayToken }) => {
                     className="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-700"
                   >
                     <div className="flex items-center gap-3">
-                      <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-1">
+                      <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest flex-1">
                         Tambah Tier Baru
                       </p>
                       <button
@@ -789,7 +789,7 @@ export const SubathonManager = ({ overlayToken }) => {
 
         {overlayToken && (
           <div className="md:mt-0 mt-8 rounded-xl space-y-3">
-            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Widget URL OBS</p>
+            <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Widget URL OBS</p>
 
             {/* Color pickers */}
             <div className="grid grid-cols-1 md:flex gap-0 w-full">
@@ -806,7 +806,7 @@ export const SubathonManager = ({ overlayToken }) => {
                     className="w-7 h-7 rounded cursor-pointer border-0 bg-transparent flex-shrink-0"
                   />
                   <span className="font-mono text-xs text-slate-500 dark:text-slate-400 flex-1">#{value}</span>
-                  <span className="text-[10px] ml-5 font-black text-slate-400 dark:text-slate-500 uppercase whitespace-nowrap">{label}</span>
+                  <span className="text-[10px] ml-5 font-black text-slate-400 dark:text-slate-400 uppercase whitespace-nowrap">{label}</span>
                   {/* <button onClick={() => onChange(def)} className="text-[10px] font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-all flex-shrink-0">↺</button> */}
                 </div>
               ))}
@@ -1006,7 +1006,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
       <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
 
         <div className="space-y-2">
-          <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Periode Leaderboard</label>
+          <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Periode Leaderboard</label>
           <div className="grid md:grid-cols-2 gap-3 pt-1">
             {[
               { id: 'alltime', label: '⏳ Semua Waktu', desc: 'Total dukungan sejak awal' },
@@ -1019,7 +1019,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
                     : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
                 }`}>
                 {p.label}<br/>
-                <span className="font-medium text-[10px] text-slate-400 dark:text-slate-500">{p.desc}</span>
+                <span className="font-medium text-[10px] text-slate-400 dark:text-slate-400">{p.desc}</span>
               </button>
             ))}
           </div>
@@ -1027,7 +1027,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
 
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Jumlah Donatur Ditampilkan</label>
+            <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Jumlah Donatur Ditampilkan</label>
             <span className="font-black text-blue-600 dark:text-blue-400 text-sm">Top {local.leaderboardLimit}</span>
           </div>
           <input
@@ -1035,7 +1035,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
             onChange={e => upd('leaderboardLimit', Number(e.target.value))}
             className="w-full accent-blue-600"
           />
-          <div className="flex justify-between text-[10px] text-slate-400 dark:text-slate-500 font-bold">
+          <div className="flex justify-between text-[10px] text-slate-400 dark:text-slate-400 font-bold">
             <span>Top 3</span><span>Top 10</span><span>Top 20</span>
           </div>
         </div>
@@ -1043,7 +1043,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
         <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700">
           <div>
             <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Tampilkan Nominal Dukungan</p>
-            <p className="text-[11px] md:flex hidden text-slate-400 dark:text-slate-500 font-medium mt-0.5">Sembunyikan jika tidak ingin nominal terlihat publik</p>
+            <p className="text-[11px] md:flex hidden text-slate-400 dark:text-slate-400 font-medium mt-0.5">Sembunyikan jika tidak ingin nominal terlihat publik</p>
           </div>
           <button
             onClick={() => upd('leaderboardShowAmount', !local.leaderboardShowAmount)}
@@ -1058,7 +1058,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
 
         {overlayToken && (
           <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Widget URL untuk OBS (420×300px)</p>
+            <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest mb-2">Widget URL untuk OBS (420×300px)</p>
             <div className="flex gap-3">
               <input
                 readOnly
@@ -1286,7 +1286,7 @@ export const MilestonesManager = ({ overlayToken }) => {
           <div className="rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 py-10 text-center">
             <p className="text-3xl mb-2">🎯</p>
             <p className="font-black text-slate-500 dark:text-slate-400 text-sm">Belum ada milestone</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 font-medium mt-1">Tambah target dukungan untuk ditampilkan ke donor</p>
+            <p className="text-xs text-slate-400 dark:text-slate-400 font-medium mt-1">Tambah target dukungan untuk ditampilkan ke donor</p>
           </div>
         )}
 
@@ -1312,7 +1312,7 @@ export const MilestonesManager = ({ overlayToken }) => {
           <div key={`milestone-${m._id || ''}-${i}`} className="bg-white dark:bg-slate-900 rounded-xl p-4 py-2 md:p-5 md:py-5 border border-slate-100 dark:border-slate-800 space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Judul</label>
+                <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Judul</label>
                 <InputField
                   label="Judul"
                   value={m.title}
@@ -1321,7 +1321,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Target (Rp)</label>
+                <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Target (Rp)</label>
                 <InputField
                   label="Target (Rp)"
                   type="number"
@@ -1330,7 +1330,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                 />
               </div>
               <div className="space-y-1.5 md:col-span-2">
-                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">
                   Sejak Tanggal
                 </p>
                 <div className="flex gap-3 items-center">
@@ -1370,7 +1370,7 @@ export const MilestonesManager = ({ overlayToken }) => {
             </div>
 
             <div className="space-y-1.5">
-              <div className="flex justify-between text-[10px] font-black text-slate-400 dark:text-slate-500">
+              <div className="flex justify-between text-[10px] font-black text-slate-400 dark:text-slate-400">
                 <span>
                   {(() => {
                     const key = m.period === 'since' && m.periodSince
@@ -1465,7 +1465,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                       className="w-10 h-full rounded cursor-pointer border-0 bg-transparent flex-shrink-0"
                     />
                     <span className="md:flex relative top-[1px] hidden font-mono text-xs text-slate-500 dark:text-slate-400 flex-1">#{value}</span>
-                    <label className="text-[10px] ml-4 relative top-[0px] min-w-max font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex-shrink-0">{label}</label>
+                    <label className="text-[10px] ml-4 relative top-[0px] min-w-max font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest flex-shrink-0">{label}</label>
                   </div>
                 ))}
               </div>
@@ -1473,7 +1473,7 @@ export const MilestonesManager = ({ overlayToken }) => {
               {/* ─── PREVIEW MILES ─── */}
               {list.length > 0 && (
                 <div className="space-y-2 mt-3">
-                  {/* <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Preview</p> */}
+                  {/* <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Preview</p> */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {[
                       {
