@@ -309,7 +309,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         )}
 
         {/* Navigation */}
-        <nav className={`${isCollapsed ? 'mt-[-20px]' : 'mt-0'} md:flex-1 space-y-3 px-2`}>
+        <nav className={`${isCollapsed ? 'mt-[-14.5px] md:mt-[-20px]' : 'mt-0'} md:border-0 border-t border-slate-500/30 pt-5 md:flex-1 space-y-3 px-2`}>
           {menuGroups.map((group) => {
             const visibleItems = group.items.filter(item => {
               if (isSuperAdmin && hideForSuperAdmin.includes(item.id)) return false;
