@@ -275,10 +275,10 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           )}
 
           {/* Close button (mobile only) */}
-          {!isCollapsed && (
+          {isCollapsed && (
             <button
               onClick={() => setIsSidebarOpen(false)}
-              className="relative right-0 top-[-0.9px] bg-slate-500/30 hover:bg-slate-500/40 rounded-lg w-max cursor-pointer active:scale-[0.95] hover:text-slate-400 lg:hidden p-1.5 text-slate-400"
+              className="relative right-0 h-11 ml-auto bg-red-600 hover:bg-red-700 rounded-lg w-max cursor-pointer active:scale-[0.95] lg:hidden p-1.5 text-white"
             >
               <X size={30} />
             </button>
