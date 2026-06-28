@@ -4981,17 +4981,17 @@ const handleChangePin = async () => {
                         max="100"
                         value={settings.songRequestVolume ?? 80}
                         onChange={e => upd('songRequestVolume', Number(e.target.value))}
-                        className="w-full cursor-pointer accent-orange-500"
+                        className="w-full cursor-pointer accent-blue-600"
                       />
                     </div>
 
                     <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                       className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
                       {saveSettingsMutation.isPending ? (
-  <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
-) : (
-  <> Simpan Sekarang</>
-)}
+                        <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+                      ) : (
+                        <> Simpan Sekarang</>
+                      )}
                     </button>
 
                     <div className="mt-4 flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700">
@@ -5033,7 +5033,7 @@ const handleChangePin = async () => {
                             toast.error('Gagal skip lagu');
                           }
                         }}
-                        className="md:!mt-0 !mt-3 md:w-max w-full flex items-center justify-center px-4 py-3 bg-orange-500 hover:bg-orange-600 text-white font-black text-sm rounded-xl transition-all active:scale-[0.99] cursor-pointer flex items-center gap-2"
+                        className="md:!mt-0 !mt-3 md:w-max w-full flex items-center justify-center px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm rounded-xl transition-all active:scale-[0.99] cursor-pointer flex items-center gap-2"
                       >
                         Skip
                       </button>
