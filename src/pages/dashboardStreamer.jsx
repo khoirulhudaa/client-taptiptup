@@ -4378,7 +4378,7 @@ const handleChangePin = async () => {
                         </div>
 
                         {/* Icon Alert */}
-                          <div className="space-y-3 mt-4.5">
+                          <div className="space-y-3">
                             <div className="grid grid-cols-4 md:grid-cols-6 gap-2.5">
                               {ICON_PRESETS.map(({ emoji, label }) => (
                                 <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
