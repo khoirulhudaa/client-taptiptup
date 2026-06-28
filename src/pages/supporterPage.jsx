@@ -1539,7 +1539,7 @@ const LeaderboardMini = ({ username }) => {
       <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
         Top Donor 🏆
       </label>
-      <div className="space-y-3">
+      <div className="space-y-[11px]">
         {donors.slice(0, 5).map((d, i) => (
           <div key={i} className="flex items-center gap-1 md:gap-3 px-2 pr-3 md:px-3 py-3.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-500/50 rounded-xl">
             <span className="text-base w-6 text-center flex-shrink-0">
