@@ -198,6 +198,7 @@ const ICON_PRESETS = [
   { emoji: '🔥',  label: 'Api'    }, { emoji: '⭐',  label: 'Bintang'},
   { emoji: '🎮',  label: 'Gamer'  }, { emoji: '🎵',  label: 'Musik'  },
   { emoji: '🐉',  label: 'Naga'   }, { emoji: '💰',  label: 'Duit'   },
+  { emoji: '🪷',  label: 'Flower'  },
   { emoji: '🎯',  label: 'Target' }, { emoji: '👑',  label: 'Raja'   },
   { emoji: '🌟',  label: 'Gemilang'}, { emoji: '🚀', label: 'Roket'  },
   { emoji: '⚡',  label: 'Kilat'  },
@@ -882,7 +883,11 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
           className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">          
           <Save size={18} className='relative top-[-1px]' />
-          {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
+          {saveSettingsMutation.isPending ? (
+            <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+          ) : (
+            <> Simpan Sekarang</>
+          )}
         </button>
       </div>
     </div>
@@ -3249,6 +3254,8 @@ export const DashboardStreamer = () => {
   const [obsActiveSlot, setObsActiveSlot] = useState('A');
   const [previewMode, setPreviewMode] = useState('alert'); 
   const [donationToasts, setDonationToasts] = useState([]);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({ publicSounds: [], publicSoundDefault: '' });
   const [uploading, setUploading] = useState(false);
   const [profileForm, setProfileForm] = useState({ username: '', email: '', bio: '', instagram: '', facebook: '', youtube: '', donateIntro: '', twitter: '' });
@@ -3572,19 +3579,26 @@ const handleChangePin = async () => {
 
   const saveSettingsMutation = useMutation({
     mutationFn: ({ settings, slot }) => saveSettings(settings, slot),
-    onSuccess: (_, variables) => { 
-      // Hanya invalidate slot yang baru saja disave
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['profile', variables.slot] });
-      setShowToast(true); 
-      setTimeout(() => setShowToast(false), 3000); 
+      setShowToast(true);
     },
-    onError: (err) => alert(err?.response?.data?.message || 'Gagal menyimpan pengaturan'),
+    onError: (err) => {
+      setErrorMessage(err?.response?.data?.message || 'Gagal menyimpan pengaturan. Coba lagi.');
+      setShowErrorModal(true);
+    },
   });
   
   const updateProfileMutation = useMutation({
     mutationFn: updateProfile,
-    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['profile'] }); setShowToast(true); setTimeout(() => setShowToast(false), 3000); },
-    onError: (err) => alert(err.response?.data?.message || 'Gagal update profil'),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      setShowToast(true);
+    },
+    onError: (err) => {
+      setErrorMessage(err?.response?.data?.message || 'Gagal update profil. Coba lagi.');
+      setShowErrorModal(true);
+    },
   });
 
   const handleFollowAction = (username, actionType) => {
@@ -3968,14 +3982,76 @@ const handleChangePin = async () => {
         </AnimatePresence>
 
         {/* ── Save Toast ── */}
-        <AnimatePresence>
-          {showToast && (
-            <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} exit={{ y: -50, opacity: 0 }}
-              className="fixed bottom-10 right-6 shadow-2xl z-[100] bg-slate-900/70 text-white px-8 py-3 md:py-4 rounded-xl  flex items-center gap-3 font-bold border border-white/10 backdrop-blur-md">
-              <CheckCircle2 size={18} className="text-green-500" /> Pengaturan Tersimpan!
+       <AnimatePresence>
+        {showToast && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 backdrop-blur-md"
+            onClick={() => setShowToast(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0, y: 24 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.85, opacity: 0, y: 24 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+              onClick={e => e.stopPropagation()}
+              className="flex flex-col items-center gap-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-2xl p-10 mx-4 w-full max-w-sm text-center"
+            >
+              <div className="w-20 h-20 bg-green-100 dark:bg-green-950/40 rounded-2xl flex items-center justify-center">
+                <CheckCircle2 size={40} className="text-green-500" />
+              </div>
+              <div>
+                <p className="text-2xl font-black text-slate-800 dark:text-slate-100">Berhasil</p>
+                <p className="text-sm text-slate-400 font-medium mt-1">Pengaturan diperbarui</p>
+              </div>
+              <button
+                onClick={() => setShowToast(false)}
+                className="cursor-pointer w-full py-3 bg-green-600 hover:bg-green-700 active:scale-[0.99] text-white font-black rounded-xl transition-all"
+              >
+                OK, Mengerti
+              </button>
             </motion.div>
-          )}
-        </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Error Modal ── */}
+      <AnimatePresence>
+        {showErrorModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 backdrop-blur-md"
+            onClick={() => setShowErrorModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0, y: 24 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.85, opacity: 0, y: 24 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+              onClick={e => e.stopPropagation()}
+              className="flex flex-col items-center gap-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-2xl p-10 mx-4 w-full max-w-sm text-center"
+            >
+              <div className="w-20 h-20 bg-red-100 dark:bg-red-950/40 rounded-2xl flex items-center justify-center">
+                <AlertCircle size={40} className="text-red-500" />
+              </div>
+              <div>
+                <p className="text-2xl font-black text-slate-800 dark:text-slate-100">Gagal Menyimpan</p>
+                <p className="text-sm text-slate-400 font-medium mt-1">{errorMessage}</p>
+              </div>
+              <button
+                onClick={() => setShowErrorModal(false)}
+                className="cursor-pointer w-full py-3 bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white font-black rounded-xl transition-all"
+              >
+                Tutup
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
         {/* ── Donation Toasts ── */}
         <div className="fixed bottom-6 right-4.5 md:right-11 z-[100] flex flex-col gap-3 max-w-sm w-full">
@@ -4322,7 +4398,11 @@ const handleChangePin = async () => {
 
                       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-3">
-                        {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
+                        {saveSettingsMutation.isPending ? (
+                          <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+                        ) : (
+                          <> Simpan Sekarang</>
+                        )}
                       </button>
                     </div>
 
@@ -4345,7 +4425,11 @@ const handleChangePin = async () => {
                         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                           className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
                           <Save size={18} className='relative top-[-1px]' />
-                          {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
+                          {saveSettingsMutation.isPending ? (
+  <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+) : (
+  <> Simpan Sekarang</>
+)}
                         </button>
                     </div>
 
@@ -4408,7 +4492,11 @@ const handleChangePin = async () => {
                       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                         className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
                         <Save size={18} className='relative top-[-1px]' />
-                        {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
+                        {saveSettingsMutation.isPending ? (
+  <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+) : (
+  <> Simpan Sekarang</>
+)}
                       </button>
                     </div>
 
@@ -4910,7 +4998,11 @@ const handleChangePin = async () => {
 
                     <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                       className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-                      {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Sekarang'}
+                      {saveSettingsMutation.isPending ? (
+  <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+) : (
+  <> Simpan Sekarang</>
+)}
                     </button>
 
                     <div className="mt-4 flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700">
