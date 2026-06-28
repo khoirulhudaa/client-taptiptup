@@ -273,16 +273,6 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
               </div>
             </a>
           )}
-
-          {/* Close button (mobile only) */}
-          {isCollapsed && (
-            <button
-              onClick={() => setIsSidebarOpen(false)}
-              className="relative right-0 h-11 ml-auto bg-red-600 hover:bg-red-700 rounded-lg w-max cursor-pointer active:scale-[0.95] lg:hidden p-1.5 text-white"
-            >
-              <X size={30} />
-            </button>
-          )}
         </div>
 
         {/* Toggle Admin/Streamer Mode (Mobile Only) */}
@@ -464,6 +454,15 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                 <span className="text-sm ml-[2.2px]">Keluar</span>
               </button>
             </div>
+          )}
+
+          {isCollapsed && (
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className="relative right-0 w-full h-11 text-sm bg-red-600 hover:bg-red-700 rounded-lg cursor-pointer active:scale-[0.95] lg:hidden p-1.5 text-white"
+            >
+              <p>Tutup</p>
+            </button>
           )}
         </nav>
       </aside>
