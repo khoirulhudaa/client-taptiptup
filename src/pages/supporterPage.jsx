@@ -1471,7 +1471,7 @@ const RecentDonations = ({ username }) => {
 
   return (
     <div className="space-y-2">
-      <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+      <label className="block text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">
         Dukungan Terbaru 💝
       </label>
       <div className="space-y-3">
@@ -1485,8 +1485,10 @@ const RecentDonations = ({ username }) => {
           >
             <div className="flex items-center justify-between gap-2 mb-1">
               <div className="flex items-center gap-2 min-w-0">
-                <div className="w-4 md:w-6 h-4 md:h-6 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-black text-[9px] md:text-[11px] flex-shrink-0">
-                  {(d.donorName || 'A').charAt(0).toUpperCase()}
+                <div className="w-4 md:w-5 md:h-5 h-4 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-black text-[9px] flex-shrink-0">
+                  <p className='relative top-[1.6px]'>
+                    {(d.donorName || 'A').charAt(0).toUpperCase()}
+                  </p>
                 </div>
                 <span className="font-black text-sm text-slate-700 dark:text-slate-200 truncate">
                   {d.donorName || 'Anonim'}
@@ -1536,10 +1538,10 @@ const LeaderboardMini = ({ username }) => {
 
   return (
     <div className="space-y-2">
-      <label className="block text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+      <label className="block text-[11px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">
         Top Donor 🏆
       </label>
-      <div className="space-y-[11px]">
+      <div className="space-y-[12px] md:space-y-[11.5px]">
         {donors.slice(0, 5).map((d, i) => (
           <div key={i} className="flex items-center gap-1 md:gap-3 px-2 pr-3 md:px-3 py-3.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-500/50 rounded-xl">
             <span className="text-base w-6 text-center flex-shrink-0">
@@ -2516,7 +2518,7 @@ const SupporterPage = () => {
                   rows={4}
                   onChange={(v) => setForm({ ...form, message: v })}
                   inputClassName="min-h-[90px]"
-                  placeholder="Semangat terus bang! 🔥"
+                  placeholder="......................"
                 />
               )}
             </div>
