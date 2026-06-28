@@ -4259,7 +4259,7 @@ const handleChangePin = async () => {
                           )
                         }
                       </div>
-                      <div id="tour-overlay-slot" className="md:flex mt-5.5 space-y-3 md:space-y-0 items-center gap-3 rounded-xl bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-500">
+                      <div id="tour-overlay-slot" className="md:flex mt-5.5 space-y-2.5 md:space-y-0 items-center gap-3 rounded-xl bg-slate-100 dark:bg-slate-800 p-1.5 border border-slate-200 dark:border-slate-500">
                         {['A', 'B'].map((slot) => (
                           <button
                             key={slot}
