@@ -2385,7 +2385,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       )}
 
       <button onClick={triggerDemo}
-        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 rounded-xl  bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-950 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all flex items-center justify-center gap-3">
+        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 rounded-xl  bg-slate-50 dark:bg-slate-950/40 hover:bg-slate-950 text-slate-600 dark:text-slate-400 font-black text-sm border-2 border-slate-100 dark:border-slate-900 transition-all flex items-center justify-center gap-3">
         Simulasi notifikasi
       </button>
     </div>
@@ -4243,7 +4243,7 @@ const handleChangePin = async () => {
                 >
                 <section className={`space-y-5 ${showPreviewPanel ? 'xl:col-span-8' : 'xl:col-span-12'}`}>
                     {/* Konfigurasi Alert */}
-                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl space-y-3 p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                       <div className="flex items-center justify-between gap-3">
                         <SectionHeader icon={<Settings size={20} />} title="Konfigurasi Utama" color="bg-blue-600" />
                       
@@ -4314,7 +4314,7 @@ const handleChangePin = async () => {
                         ))}
                       </div>
 
-                      <div className="mt-2.5 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+                      <div className="mt-3 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
                         <button
                           onClick={() => setShowVideoTutorial(v => !v)}
                           className="cursor-pointer w-full flex items-center justify-between px-3 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
@@ -4336,7 +4336,7 @@ const handleChangePin = async () => {
                         )}
                       </div>
 
-                      <div className="mt-2.5 space-y-2.5">
+                      <div className="mt-2.5 space-y-3">
                         <div className="mb-2.5 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
                           <button
                             onClick={() => setShowOBSConnect(v => !v)}
@@ -4359,9 +4359,9 @@ const handleChangePin = async () => {
                           )}
                         </div>
                           
-                        <div className='w-full md:flex space-y-2.5 md:space-y-0 items-center gap-3'>
+                        <div className='w-full md:flex space-y-2.5 mt-3 md:space-y-0 items-center gap-2.5'>
                           {[  
-                            // { key: 'overlayEnabled', label: 'Overlay OBS',  desc: 'Alert tidak muncul di OBS' },
+                            { key: 'overlayEnabled', label: 'Overlay OBS',  desc: 'Alert tidak muncul di OBS' },
                             { key: 'showTimestamp',  label: 'Waktu Dukungan',  desc: 'Waktu kapan dukungan diterima' },
                           ].map(({ key, label, desc }) => (
                             <div key={key} className="w-full flex items-center justify-between p-4 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-100 dark:border-slate-700">
@@ -4379,7 +4379,7 @@ const handleChangePin = async () => {
 
                         {/* Icon Alert */}
                           <div className="space-y-3 mt-4.5">
-                            <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
+                            <div className="grid grid-cols-4 md:grid-cols-6 gap-2.5">
                               {ICON_PRESETS.map(({ emoji, label }) => (
                                 <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
                                   className={`flex flex-col items-center gap-1 px-3 pb-2.5 pt-1.5 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
