@@ -256,8 +256,8 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         {/* Desktop collapsed — hanya icon */}
           {isCollapsed && (
             <a href='/'>
-              <div className="w-full h-12 bg-blue-600 shadow-none rounded-lg flex items-center justify-center">
-                <img src="/tttnews.png" alt="icon" className="w-[40%]" />
+              <div className="w-11 md:w-full h-11 md:h-12 bg-blue-600 shadow-none rounded-lg flex items-center justify-center">
+                <img src="/tttnews.png" alt="icon" className="w-[75%] md:w-[40%]" />
               </div>
             </a>
           )}
