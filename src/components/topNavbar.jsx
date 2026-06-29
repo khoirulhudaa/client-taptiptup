@@ -240,7 +240,13 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               <span className="font-bold text-blue-600 dark:text-blue-400 text-md tracking-wide">
                 {showBalance
                   ? `Rp ${parseFloat(currentBalance).toLocaleString('id-ID')}`
-                  : "Rp *********"
+                  : 
+                  <div className="gap-1.5 flex">
+                    Rp 
+                    <span className="relative top-1">
+                      *********
+                    </span>
+                  </div>
                 }
               </span>
               <button
