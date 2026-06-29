@@ -1586,7 +1586,7 @@ function FAQ({ C }) {
         style={{ zIndex: 2 }}
       >
       <StaggerGroup
-        className="grid rounded-xl grid-cols-1 md:grid-cols-3 w-[90vw]"
+        className="grid rounded-xl gap-7 grid-cols-1 md:grid-cols-3 w-[90vw]"
         style={{
           border: "1px solid rgba(255,255,255,0.08)", // border terluar
         }}
@@ -1599,11 +1599,22 @@ function FAQ({ C }) {
           return (
             <StaggerItem
               key={i}
-              className="w-full rounded-xl cursor-pointer hover:bg-slate-100/5 active:scale-[0.99]"
+              className="
+              text-slate-900 dark:text-white 
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              w-full rounded-xl cursor-pointer hover:bg-slate-100/5 active:scale-[0.99]"
               onClick={() => toggle(i)}
               style={{
-                borderLeft: !isLeftCol ? "1px solid rgba(255,255,255,0.08)" : "none",
-                borderTop: !isTopRow ? "1px solid rgba(255,255,255,0.08)" : "none",
+                // borderLeft: !isLeftCol ? "1px solid rgba(255,255,255,0.08)" : "none",
+                // borderTop: !isTopRow ? "1px solid rgba(255,255,255,0.08)" : "none",
                 padding: "54px 20px",
               }}
             >
