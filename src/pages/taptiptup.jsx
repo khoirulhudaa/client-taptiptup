@@ -1035,7 +1035,7 @@ function NominalSection({ C }) {
                       <div key={v} style={{
                         padding: "6px 12px", borderRadius: 6,
                         background: i === 4 ? "#99FFFF" : "#f1f5f9",
-                        border: i === 4 ? "1px solid #99FFFF" : "1px solid #0d2b45",
+                        border: "1px solid #0d2b45",
                         color: "#000",
                         cursor: "pointer",
                       }}>
