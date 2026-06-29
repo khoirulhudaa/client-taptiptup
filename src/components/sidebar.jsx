@@ -149,8 +149,9 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     {
       groupLabel: 'Keuangan',
       items: [
-        { id: 'history', label: 'Riwayat', icon: <History size={20} /> },
         { id: 'wallet',  label: 'Pencairan', icon: <Wallet size={20} /> },
+        { id: 'history', label: 'Riwayat', icon: <History size={20} /> },
+        { id: 'ipBlacklist',      label: 'IP Blokir', icon: <Shield size={20} /> },
       ]
     },
     {
@@ -168,7 +169,6 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
       items: [
         { id: 'donatePageConfig', label: 'Donasi', icon: <Heart size={20} /> },
         { id: 'feeConfig',        label: 'Biaya',    icon: <ReceiptText size={20} /> },
-        { id: 'ipBlacklist',      label: 'IP Blokir', icon: <Shield size={20} /> },
       ]
     },
 
