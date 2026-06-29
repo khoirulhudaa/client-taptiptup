@@ -1975,7 +1975,10 @@ const SupporterPage = () => {
     if (!username) return;
     const cleanUsername = username.replace(/^@+/, '');
     axios.get(`${BASE_URL}/api/overlay/public/${cleanUsername}`)
-      .then((res) => setStreamer(res.data))
+      .then((res) => {
+        setStreamer(res.data)
+        console.log('res._id', res.data._id)
+      })
       .catch(() => alert('Streamer tidak ditemukan'));
   }, [username]);
 
@@ -2020,6 +2023,31 @@ const SupporterPage = () => {
       setFeeBearer(fb);
     }
   }, [streamer]);
+
+ // ✅ BENAR
+  useEffect(() => {
+    if (!streamer?._id) return;  // ← ganti id → _id
+    const checkIp = async () => {
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        console.log('[SupporterPage] Donor IP Address:', data.ip);
+
+        const checkRes = await axios.post(`${BASE_URL}/api/ip-blacklist/check`, {
+          userId: streamer._id,
+          ip: data.ip,
+        });
+        console.log('checkRes', checkRes);
+        if (checkRes.data?.blocked) {
+          console.warn('[SupporterPage] IP diblokir oleh streamer ini');
+          setIpBlocked(true);
+        }
+      } catch (err) {
+        console.warn('[SupporterPage] Gagal mengambil/cek IP:', err.message);
+      }
+    };
+    checkIp();
+  }, [streamer?._id]);  // ← ganti id → _id
 
   // Hitung total yang harus dibayar donor
   const donorTotalAmount = useMemo(() => {
@@ -2588,28 +2616,37 @@ const SupporterPage = () => {
             )}
 
             <AnimatePresence>
-            {ipBlocked && (
-              <div className="fixed inset-0 z-[9999] h-screen flex items-center justify-center md:p-4 bg-slate-950/30 backdrop-blur-sm">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.92, y: 16 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.92, y: 16 }}
-                  className="bg-white dark:bg-slate-950 w-full md:max-w-[48vw] h-[100vh] flex items-center justify-center rounded-xl shadow-2xl overflow-hidden"
-                >
-                  <div className="p-7 flex flex-col items-center text-center gap-4">
-                    <div className="w-22 h-22 flex items-center justify-center bg-red-50 dark:bg-red-900/30 rounded-xl border border-slate-500/39">
-                      <span className="text-[50px]">🚫</span>
+              {ipBlocked && (
+                <div className="fixed inset-0 z-[9999] flex items-center justify-center md:p-4 bg-black/50 backdrop-blur-sm">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.93, y: 16 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.93, y: 16 }}
+                    transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                    className="bg-white dark:bg-slate-900 w-full md:max-w-md rounded-2xl shadow-2xl overflow-hidden border border-slate-100 dark:border-slate-500/30"
+                  >
+                    <div className="px-7 py-7 flex flex-col items-center text-center gap-5">
+                      <div className="w-16 h-16 border border-slate-500/30 rounded-2xl bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-red-500">
+                          <circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                        </svg>
+                      </div>
+                      <div className="space-y-1.5">
+                        <p className="text-lg font-black text-slate-800 dark:text-slate-100">Akses Diblokir</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                          Kamu tidak dapat mengirim dukungan ke streamer ini Hubungi streamer jika kamu merasa ini adalah kesalahan
+                        </p>
+                      </div>
+                      <div className="w-full flex items-center justify-center gap-2.5 px-3.5 py-3 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-xl text-left">
+                        <p className="text-[11px] font-bold text-center flex items-center justify-center text-red-600 dark:text-red-400">
+                          IP address kamu telah diblokir oleh streamer ini
+                        </p>
+                      </div>
                     </div>
-                    <div className='mt-3'>
-                      <p className="uppercase font-bold text-slate-800 dark:text-slate-100 text-xl">
-                        Akses Diblokir
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            )}
-          </AnimatePresence>
+                  </motion.div>
+                </div>
+              )}
+            </AnimatePresence>
 
             {/* Tab Content */}
             <AnimatePresence mode="wait">

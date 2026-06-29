@@ -454,7 +454,7 @@ const IpBlacklistPage = () => {
               exit={{ opacity: 0, y: -8 }}
             >
               {fetchError ? (
-                <div className="text-center py-8 text-red-500 font-bold text-sm">{fetchError}</div>
+                <div className="text-center py-8 text-slate-500 font-medium text-sm">{fetchError}</div>
               ) : (
                 <BlockedIpList
                   blacklist={blacklist}
