@@ -1857,6 +1857,19 @@ const SupporterPage = () => {
     { id: 'galaksi', path: '/galaksi.gif', label: '🌌 Galaksi' },
   ];
 
+  useEffect(() => {
+    const fetchIp = async () => {
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        console.log('[SupporterPage] Donor IP Address:', data.ip);
+      } catch (err) {
+        console.warn('[SupporterPage] Gagal mengambil IP:', err.message);
+      }
+    };
+    fetchIp();
+  }, []);
+
   const [authPayload, setAuthPayload] = useState(getPayload());
   const [authProfile, setAuthProfile] = useState(null);
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -1879,6 +1892,7 @@ const SupporterPage = () => {
   };
 
   const openAuth = (tab = 'login') => { setAuthModalTab(tab); setAuthModalOpen(true); };
+
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -2575,33 +2589,22 @@ const SupporterPage = () => {
 
             <AnimatePresence>
             {ipBlocked && (
-              <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+              <div className="fixed inset-0 z-[9999] h-screen flex items-center justify-center md:p-4 bg-slate-950/30 backdrop-blur-sm">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.92, y: 16 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.92, y: 16 }}
-                  className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-xl shadow-2xl overflow-hidden border border-red-100 dark:border-red-900/50"
+                  className="bg-white dark:bg-slate-950 w-full md:max-w-[48vw] h-[100vh] flex items-center justify-center rounded-xl shadow-2xl overflow-hidden"
                 >
-                  <div className="h-1 bg-gradient-to-r from-red-500 to-rose-600" />
                   <div className="p-7 flex flex-col items-center text-center gap-4">
-                    <div className="w-16 h-16 flex items-center justify-center bg-red-50 dark:bg-red-900/30 rounded-xl">
-                      <span className="text-3xl">🚫</span>
+                    <div className="w-22 h-22 flex items-center justify-center bg-red-50 dark:bg-red-900/30 rounded-xl border border-slate-500/39">
+                      <span className="text-[50px]">🚫</span>
                     </div>
-                    <div>
-                      <p className="font-black text-slate-800 dark:text-slate-100 text-base">
+                    <div className='mt-3'>
+                      <p className="uppercase font-bold text-slate-800 dark:text-slate-100 text-xl">
                         Akses Diblokir
                       </p>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
-                        Kamu tidak dapat mengirim dukungan ke streamer ini.
-                        Hubungi streamer jika kamu merasa ini adalah kesalahan.
-                      </p>
                     </div>
-                    <button
-                      onClick={() => setIpBlocked(false)}
-                      className="w-full py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 font-black text-sm text-slate-600 dark:text-slate-300 rounded-xl transition-all cursor-pointer"
-                    >
-                      Mengerti
-                    </button>
                   </div>
                 </motion.div>
               </div>
