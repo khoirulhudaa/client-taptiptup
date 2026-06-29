@@ -2702,18 +2702,18 @@ const HistoryPage = () => {
                       >
                         <div className='h-[80%]'>
 
-                          <div className="flex justify-between items-start mb-5">
-                            <div>
-                              <p className="font-black text-lg text-slate-800 dark:text-slate-100">
-                                {item.donorName || 'Anonim'}
+                        <div className="flex justify-between items-start mb-5 gap-2">
+                            <div className="min-w-0 max-w-[70%] flex-1">
+                              <p className="font-black text-lg text-slate-800 dark:text-slate-100 truncate">
+                                {item.donorName || 'Anonim'} 
                               </p>
                               {showEmails && item.donorEmail && (
-                                <p className="text-xs text-slate-500 mt-1">{item.donorEmail}</p>
+                                <p className="text-xs text-slate-500 mt-1 truncate">{item.donorEmail}</p>
                               )}
                             </div>
-                            <p className="text-[11px] relative mt-[2px] flex items-center gap-1">
+                            <p className="text-[11px] relative mt-[2.4px] flex items-center gap-1 flex-shrink-0">
                               <span className="font-mono text-slate-400 dark:text-white bg-slate-100 dark:bg-slate-500/50 px-2 py-0.5 rounded-md">
-                                {item.donorIp}
+                                {item.donorIp || 'NO-IP'}
                               </span>
                             </p>
                           </div>
