@@ -192,19 +192,24 @@ const DEFAULT_SETTINGS = {
 };
 
 const ICON_PRESETS = [
-  { emoji: '❤️', label: 'Default' }, { emoji: '💜',  label: 'Ungu'  },
-  { emoji: '🧧',  label: 'Angpau'  },
+  { emoji: '❤️', label: 'Default' }, 
+  { emoji: '💜', label: 'Ungu'    },
+  { emoji: '🧧', label: 'Angpau'  },
   { emoji: '🐧', label: 'Penguin' },
-  { emoji: '🔥',  label: 'Api'    }, { emoji: '⭐',  label: 'Bintang'},
-  { emoji: '🎮',  label: 'Gamer'  }, { emoji: '🎵',  label: 'Musik'  },
-  { emoji: '🐉',  label: 'Naga'   }, { emoji: '💰',  label: 'Duit'   },
-  { emoji: '🪷',  label: 'Flower'  },
-  { emoji: '🎯',  label: 'Target' }, { emoji: '👑',  label: 'Raja'   },
-  { emoji: '💎',  label: 'Permata'},
-  { emoji: '🌟',  label: 'Gemilang'}, 
-  { emoji: '🚀', label: 'Roket'  },
-  { emoji: '⚡',  label: 'Kilat'  },
-  { emoji: '🤖',  label: 'Robot'  },
+  { emoji: '🔥', label: 'Api'     }, 
+  { emoji: '⭐', label: 'Bintang' },
+  { emoji: '💰', label: 'Duit'    },
+  { emoji: '🪷', label: 'Flower'  },
+  { emoji: '🎯', label: 'Target'  }, 
+  { emoji: '👑', label: 'Raja'    },
+  { emoji: '💎', label: 'Permata' },
+  { emoji: '🌟', label: 'Gemilang'},
+  { emoji: '🚀', label: 'Roket'   },
+  { emoji: '🤖', label: 'Robot'   },
+  { emoji: '🦋', label: 'Kupu'    },
+  { emoji: '🦊', label: 'Rubah'   },
+  { emoji: '🎲', label: 'Dadu'    },
+  { emoji: '🛸', label: 'UFO'     },
 ];
 
 const renderIconPreview = (customIcon, size = 20) => {
