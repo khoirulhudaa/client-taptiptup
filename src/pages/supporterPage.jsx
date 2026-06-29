@@ -1828,6 +1828,7 @@ const SupporterPage = () => {
   const [startTime, setStartTime] = useState(0);
   const [songUrl, setSongUrl] = useState('');
   const [songData, setSongData] = useState(null);
+  const [ipBlocked, setIpBlocked] = useState(false);
   const { theme, toggle: toggleTheme } = useTheme();
   const [donorGifChoice, setDonorGifChoice] = useState(null);
   const [feeBearer, setFeeBearer] = useState('streamer');
@@ -2114,6 +2115,13 @@ const SupporterPage = () => {
       }
     } catch (err) {
       console.error(err);
+
+      // ── BARU: Handle IP Blocked ────────────────────────────────────────────
+      if (err.response?.status === 403 && err.response?.data?.message === 'IP_BLOCKED') {
+        setIpBlocked(true); // ← trigger modal/state khusus
+        return;
+      }
+
       const msg = err.response?.data?.message || 'Gagal membuat invoice.';
       alert(msg);  // Donor akan lihat: "Video tidak dapat ditampilkan: Video dibatasi usia (18+)"
     } finally {
@@ -2564,6 +2572,41 @@ const SupporterPage = () => {
                 )}
               </motion.div>
             )}
+
+            <AnimatePresence>
+            {ipBlocked && (
+              <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.92, y: 16 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.92, y: 16 }}
+                  className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-xl shadow-2xl overflow-hidden border border-red-100 dark:border-red-900/50"
+                >
+                  <div className="h-1 bg-gradient-to-r from-red-500 to-rose-600" />
+                  <div className="p-7 flex flex-col items-center text-center gap-4">
+                    <div className="w-16 h-16 flex items-center justify-center bg-red-50 dark:bg-red-900/30 rounded-xl">
+                      <span className="text-3xl">🚫</span>
+                    </div>
+                    <div>
+                      <p className="font-black text-slate-800 dark:text-slate-100 text-base">
+                        Akses Diblokir
+                      </p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+                        Kamu tidak dapat mengirim dukungan ke streamer ini.
+                        Hubungi streamer jika kamu merasa ini adalah kesalahan.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setIpBlocked(false)}
+                      className="w-full py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 font-black text-sm text-slate-600 dark:text-slate-300 rounded-xl transition-all cursor-pointer"
+                    >
+                      Mengerti
+                    </button>
+                  </div>
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>
 
             {/* Tab Content */}
             <AnimatePresence mode="wait">

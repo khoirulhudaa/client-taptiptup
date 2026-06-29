@@ -27,7 +27,8 @@ import {
   X,
   Music,
   Zap,
-  ZapIcon
+  ZapIcon,
+  Shield
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -167,6 +168,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
       items: [
         { id: 'donatePageConfig', label: 'Donasi', icon: <Heart size={20} /> },
         { id: 'feeConfig',        label: 'Biaya',    icon: <ReceiptText size={20} /> },
+        { id: 'ipBlacklist',      label: 'IP Blokir', icon: <Shield size={20} /> },
       ]
     },
 

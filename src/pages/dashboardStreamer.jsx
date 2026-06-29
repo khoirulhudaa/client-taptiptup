@@ -104,6 +104,7 @@ import DonatePageConfig from './donateConfig';
 import { createPortal } from 'react-dom';
 import QrConfigPage from './qrConfig';
 import { YouTubeLivePreview2 } from './livePreview';
+import IpBlacklistPage from './ipBlack';
 
 // ─── API ──────────────────────────────────────────────────────────────────────
 const fetchBadges = async () => (await api.get('/api/midtrans/badges')).data;
@@ -3827,6 +3828,7 @@ const handleChangePin = async () => {
     voiceSettings: 'Voice Note',
     qrConfig: 'Kustom QR Code',
     marquee: 'Marquee Donor',
+    ipBlacklist:      'IP Blacklist',
     songSettings: 'Song Request',
     mediaSettings: 'Media share',
     donatePageConfig: 'Halaman Dukungan',
@@ -4878,6 +4880,16 @@ const handleChangePin = async () => {
                     </section>
                   )}
                 </div>
+              )}
+
+              {activeTab === 'ipBlacklist' && (
+                <motion.div
+                  key="ipBlacklist"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <IpBlacklistPage />
+                </motion.div>
               )}
 
               {/* ══════════════════════ ALERT SETTINGS ══════════════════════ */}
