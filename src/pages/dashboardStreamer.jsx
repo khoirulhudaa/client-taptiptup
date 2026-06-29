@@ -200,9 +200,10 @@ const ICON_PRESETS = [
   { emoji: '🐉',  label: 'Naga'   }, { emoji: '💰',  label: 'Duit'   },
   { emoji: '🪷',  label: 'Flower'  },
   { emoji: '🎯',  label: 'Target' }, { emoji: '👑',  label: 'Raja'   },
-  { emoji: '🌟',  label: 'Gemilang'}, { emoji: '🚀', label: 'Roket'  },
-  { emoji: '⚡',  label: 'Kilat'  },
   { emoji: '💎',  label: 'Permata'},
+  { emoji: '🌟',  label: 'Gemilang'}, 
+  { emoji: '🚀', label: 'Roket'  },
+  { emoji: '⚡',  label: 'Kilat'  },
   { emoji: '🤖',  label: 'Robot'  },
 ];
 
@@ -4363,17 +4364,19 @@ const handleChangePin = async () => {
                         {/* Icon Alert */}
                           <div className="space-y-3">
                             <div className="grid grid-cols-4 md:grid-cols-6 gap-2.5">
-                              {ICON_PRESETS.map(({ emoji, label }) => (
-                                <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
-                                  className={`flex flex-col items-center gap-1 px-3 pb-2.5 pt-1.5 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
-                                    (settings.customIcon || '❤️') === emoji || (!settings.customIcon && emoji === '❤️')
-                                      ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40'
-                                      : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
-                                  }`}>
-                                  <span>{emoji}</span>
-                                  <span className="text-[10px] font-black text-slate-400 leading-none">{label}</span>
-                                </button>
-                              ))}
+                             {ICON_PRESETS
+                                .slice(0, window.innerWidth < 768 ? -2 : undefined)
+                                .map(({ emoji, label }) => (
+                                  <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
+                                    className={`flex flex-col items-center gap-1 px-3 pb-2.5 pt-1.5 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
+                                      (settings.customIcon || '❤️') === emoji || (!settings.customIcon && emoji === '❤️')
+                                        ? 'border-blue-600/50 bg-blue-50 dark:bg-blue-950/20'
+                                        : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
+                                    }`}>
+                                    <span>{emoji}</span>
+                                    <span className="text-[10px] font-black text-slate-400 leading-none">{label}</span>
+                                  </button>
+                                ))}
                             </div>
 
                           </div>
