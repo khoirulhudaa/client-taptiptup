@@ -1601,9 +1601,8 @@ function FAQ({ C }) {
               key={i}
               className="
               text-slate-900 dark:text-white 
-              -translate-y-[3px] translate-x-[-3px]
-              [box-shadow:4px_6px_0_#f1f5f9]
-              dark:[box-shadow:4px_4px_0_#99a3b1]
+              -translate-y-0px] translate-x-[0px]
+              [box-shadow:4px_4px_0_#f1f5f9]
               hover:translate-y-0 hover:translate-x-0
               border border-slate-300
               hover:[box-shadow:0_0_0_#f1f5f9]
