@@ -192,24 +192,19 @@ const DEFAULT_SETTINGS = {
 };
 
 const ICON_PRESETS = [
-  { emoji: '❤️', label: 'Default' }, 
-  { emoji: '💜', label: 'Ungu'    },
-  { emoji: '🧧', label: 'Angpau'  },
+  { emoji: '❤️', label: 'Default' }, { emoji: '💜',  label: 'Ungu'  },
+  { emoji: '🧧',  label: 'Angpau'  },
   { emoji: '🐧', label: 'Penguin' },
-  { emoji: '🔥', label: 'Api'     }, 
-  { emoji: '⭐', label: 'Bintang' },
-  { emoji: '💰', label: 'Duit'    },
-  { emoji: '🪷', label: 'Flower'  },
-  { emoji: '🎯', label: 'Target'  }, 
-  { emoji: '👑', label: 'Raja'    },
-  { emoji: '💎', label: 'Permata' },
-  { emoji: '🌟', label: 'Gemilang'},
-  { emoji: '🚀', label: 'Roket'   },
-  { emoji: '🤖', label: 'Robot'   },
-  { emoji: '🦋', label: 'Kupu'    },
-  { emoji: '🦊', label: 'Rubah'   },
-  { emoji: '🎲', label: 'Dadu'    },
-  { emoji: '🛸', label: 'UFO'     },
+  { emoji: '🔥',  label: 'Api'    }, { emoji: '⭐',  label: 'Bintang'},
+  { emoji: '🎮',  label: 'Gamer'  }, { emoji: '🎵',  label: 'Musik'  },
+  { emoji: '🐉',  label: 'Naga'   }, { emoji: '💰',  label: 'Duit'   },
+  { emoji: '🪷',  label: 'Flower'  },
+  { emoji: '🎯',  label: 'Target' }, { emoji: '👑',  label: 'Raja'   },
+  { emoji: '💎',  label: 'Permata'},
+  { emoji: '🌟',  label: 'Gemilang'}, 
+  { emoji: '🚀', label: 'Roket'  },
+  { emoji: '⚡',  label: 'Kilat'  },
+  { emoji: '🤖',  label: 'Robot'  },
 ];
 
 const renderIconPreview = (customIcon, size = 20) => {
@@ -4375,7 +4370,7 @@ const handleChangePin = async () => {
                                   <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
                                     className={`flex flex-col items-center gap-1 px-3 pb-2.5 pt-1.5 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
                                       (settings.customIcon || '❤️') === emoji || (!settings.customIcon && emoji === '❤️')
-                                        ? 'border-blue-600/50 bg-blue-50 dark:bg-blue-950/20'
+                                        ? 'border-white/40 bg-blue-50 dark:bg-slate-500/30'
                                         : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
                                     }`}>
                                     <span>{emoji}</span>
