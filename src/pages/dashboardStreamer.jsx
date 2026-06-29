@@ -63,6 +63,8 @@ import {
   ChevronRight,
   BadgeDollarSign,
   Palette,
+  Box,
+  Clock,
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { io } from 'socket.io-client';
@@ -5413,7 +5415,7 @@ const handleChangePin = async () => {
                         <div>
                           <div className="flex items-center gap-3">
                             <div className="bg-blue-600 p-3 rounded-xl  text-white shadow-lg">
-                                <Vote size={20} />
+                                <Box size={20} />
                             </div>
                             <div>
                                 <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
@@ -5442,7 +5444,7 @@ const handleChangePin = async () => {
                       <div>
                         <div className="flex items-center gap-3">
                           <div className="bg-blue-600 p-3 rounded-xl  text-white shadow-lg">
-                              <Vote size={20} />
+                              <Timer size={20} className='relative left-[0.5px]' />
                           </div>
                           <div>
                               <h3 className="md:capitalize text-sm uppercase md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">

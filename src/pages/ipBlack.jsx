@@ -8,6 +8,7 @@ import {
   Clock,
   Loader2,
   Plus,
+  PlusCircle,
   Search,
   Shield,
   Trash2,
@@ -72,7 +73,7 @@ const BlockedIpList = ({ blacklist, onDelete, loading }) => {
     <div className="space-y-4">
       {/* Search */}
       <div className="relative">
-        <Search size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+        <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
         <input
           type="text"
           placeholder="Cari IP, nama donor, atau alasan..."
@@ -395,16 +396,16 @@ const IpBlacklistPage = () => {
 
   const tabs = [
     { id: 'list', label: `Diblokir (${blacklist.length})`, icon: Shield },
-    { id: 'add',  label: 'Tambah / Riwayat',              icon: Plus   },
+    { id: 'add',  label: 'Tambah / Riwayat',              icon: PlusCircle   },
   ];
 
   return (
     <div className="space-y-5 pb-0 w-full">
       {/* ── Header Card ── */}
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-white shadow-lg">
-            <Shield size={20} />
+        <div className="flex items-center gap-3">
+          <div className="w-11 h-11 bg-red-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+            <Shield size={20} className='relative top-[-1.5px]' />
           </div>
           <div>
             <h2 className="font-black text-slate-800 dark:text-white text-base md:text-lg">
@@ -415,19 +416,10 @@ const IpBlacklistPage = () => {
             </p>
           </div>
         </div>
-
-        {/* Info box */}
-        <div className="mt-4 flex items-start gap-2.5 px-4 py-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl">
-          <AlertCircle size={13} className="text-amber-500 flex-shrink-0 mt-0.5" />
-          <p className="text-[11px] font-bold text-amber-700 dark:text-amber-400 leading-relaxed">
-            IP yang diblokir akan mendapat pesan error saat mencoba mengirim dukungan.
-            Blokir tidak berlaku retroaktif — hanya mencegah donasi baru.
-          </p>
-        </div>
       </div>
 
       {/* ── Tab Navigation ── */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 md:px-0 px-4 gap-3">
         {tabs.map(({ id, label, icon: Icon }) => (
           <button
             key={id}
@@ -438,13 +430,13 @@ const IpBlacklistPage = () => {
                 : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'
             }`}
           >
-            <Icon size={14} /> {label}
+            <Icon size={16} /> {label}
           </button>
         ))}
       </div>
 
       {/* ── Tab Content ── */}
-      <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
+      <div className="md:bg-white/30 dark:md:bg-slate-900/60 backdrop-blur-sm md:rounded-xl px-4 md:p-6 md:shadow-xs md:border border-slate-100 dark:border-slate-800">
         <AnimatePresence mode="wait">
           {activeTab === 'list' ? (
             <motion.div
