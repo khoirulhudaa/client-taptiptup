@@ -191,7 +191,18 @@ function BtnMain({ children, href, style, C }) {
     <Link 
       to={href || "/"} 
       draggable={false}
-      className="rounded-xl hover:bg-[azure] active:scale-[0.98] opacity-100 text-[azure] hover:text-blue-900 select-none w-[90vw] relative flex justify-center items-center md:w-max text-center" // Tambahkan class ini
+      className="
+      -translate-y-[3px] translate-x-[-3px]
+      [box-shadow:4px_6px_0_#f1f5f9]
+      dark:[box-shadow:4px_4px_0_#99a3b1]
+      hover:translate-y-0 hover:translate-x-0
+      border border-slate-300
+      hover:[box-shadow:0_0_0_#f1f5f9]
+      dark:hover:[box-shadow:0_0_0_#94a3b8]
+      active:translate-y-[2px] active:translate-x-[2px]
+      active:[box-shadow:none]
+      active:bg-slate-300 dark:active:bg-slate-800
+      rounded-xl hover:bg-[azure] active:scale-[0.98] opacity-100 text-[azure] hover:text-blue-900 select-none w-[90vw] relative flex justify-center items-center md:w-max text-center" // Tambahkan class ini
       style={{
         fontFamily: "'Space Grotesk', sans-serif",
         fontSize: 13, fontWeight: 700, 
@@ -2235,7 +2246,19 @@ export function OverlayCustomizer({ C }) {
             { id: "alert", label: "💬 Alert Dukungan" },
             { id: "mediaShare", label: "🖼️ Media Share" },
           ].map(m => (
-            <button key={m.id} onClick={() => setPreviewMode(m.id)}
+            <button key={m.id} 
+              className="  text-slate-900 dark:text-white 
+                              -translate-y-[3px] translate-x-[-3px]
+                              [box-shadow:4px_6px_0_#f1f5f9]
+                              dark:[box-shadow:4px_4px_0_#99a3b1]
+                              hover:translate-y-0 hover:translate-x-0
+                              border border-slate-300
+                              hover:[box-shadow:0_0_0_#f1f5f9]
+                              dark:hover:[box-shadow:0_0_0_#94a3b8]
+                              active:translate-y-[2px] active:translate-x-[2px]
+                              active:[box-shadow:none]
+                              active:bg-slate-300 dark:active:bg-slate-800"
+              onClick={() => setPreviewMode(m.id)}
               style={{
                 padding: "12px 20px", 
                 borderRadius: 12,
@@ -2401,7 +2424,18 @@ export function OverlayCustomizer({ C }) {
         {/* CTA */}
         <div style={{ textAlign: "center", marginTop: 48 }}>
           <a href="/register"
-            className="rounded-xl hover:bg-[azure] active:scale-[0.98] hover:text-blue-900 select-none"
+            className="
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            rounded-xl hover:bg-[azure] active:scale-[0.98] hover:text-blue-900 select-none"
             style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: ".05em", textTransform: "uppercase", padding: "16px 46px", border: "1px solid azure", cursor: "pointer", textDecoration: "none", display: "inline-block", transition: "all .2s" }}>
             Mulai Kustomisasi Gratis
           </a>
