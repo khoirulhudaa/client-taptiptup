@@ -2279,7 +2279,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             </div>
           </div>
           <div className="flex-1 relative overflow-hidden">
-            <span className="absolute inset-0 flex items-center justify-center text-[clamp(60px,15vw,180px)] font-black text-white/[0.02] pointer-events-none select-none" style={{ letterSpacing: -8 }}>LIVE</span>
+            {/* <span className="absolute inset-0 flex items-center justify-center text-[clamp(60px,15vw,180px)] font-black text-white/[0.02] pointer-events-none select-none" style={{ letterSpacing: -8 }}>LIVE</span> */}
             <div className="absolute inset-0 pointer-events-none">
               <AnimatePresence>
                 {showAlert && (
@@ -2340,7 +2340,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
 
       <div className={`relative overflow-hidden border-[1px] border-white/60 dark:border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[77.9vh] h-[73.4vh]' : '2xl:h-[77.9vh] h-[73vh]'} w-full`} style={{ aspectRatio: '16/9' }}>
         <div className="absolute inset-0 flex items-center justify-center bg-white/30 dark:bg-slate-900/60">
-          <span style={{ fontSize: 80, fontWeight: 500, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span>
+          {/* <span style={{ fontSize: 80, fontWeight: 500, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span> */}
         </div>
         <div className="absolute inset-0 pointer-events-none">
           <AnimatePresence>
