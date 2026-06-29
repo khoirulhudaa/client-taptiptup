@@ -427,7 +427,7 @@ const IpBlacklistPage = () => {
             className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-black text-sm transition-all cursor-pointer border ${
               activeTab === id
                 ? 'bg-slate-900 dark:bg-slate-700 text-white border-transparent'
-                : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'
+                : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-500/70'
             }`}
           >
             <Icon size={16} /> {label}
