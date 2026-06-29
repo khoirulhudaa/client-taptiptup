@@ -2700,7 +2700,7 @@ const HistoryPage = () => {
                     return (
                       <div
                         key={item._id}
-                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl  p-6 hover:shadow-lg transition-all duration-200"
+                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 md:p-6 hover:shadow-lg transition-all duration-200"
                       >
                         <div className='h-[80%]'>
 
