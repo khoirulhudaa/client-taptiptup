@@ -58,7 +58,19 @@ const FeeSimulator = ({ feeBearer }) => {
           <button
             key={v}
             onClick={() => setNominal(v)}
-            className={`px-3 py-3 rounded-xl text-xs font-black transition-all border-2 cursor-pointer active:scale-[0.97] ${
+            className={`
+                text-slate-900 dark:text-white
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+              px-3 py-3 rounded-xl text-xs font-black transition-all border-2 cursor-pointer active:scale-[0.97] ${
               nominal === v
                 ? 'bg-indigo-600 border-indigo-600 text-white'
                 : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 hover:border-indigo-300'
@@ -202,7 +214,19 @@ export const FeeConfigPage = () => {
               <button
                 key={opt.id}
                 onClick={() => setFeeBearer(opt.id)}
-                className={`cursor-pointer active:scale-[0.98] text-left p-6 rounded-xl border-2 transition-all space-y-4 ${
+                className={`
+                    text-slate-900 dark:text-white 
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                      active:bg-slate-300 dark:active:bg-slate-800
+                  cursor-pointer active:scale-[0.98] text-left p-6 rounded-xl border-2 transition-all space-y-4 ${
                   feeBearer === opt.id
                     ? `${opt.borderActive} ${opt.bgActive} shadow-lg`
                     : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300'
@@ -252,7 +276,21 @@ export const FeeConfigPage = () => {
         <button
           onClick={() => saveMutation.mutate(feeBearer)}
           disabled={saveMutation.isPending}
-          className="cursor-pointer active:scale-[0.98] hover:brightness-90 w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black md-text-md text-sm rounded-xl transition-all active:scale-[0.98] disabled:opacity-60"
+          className="
+            text-slate-900 dark:text-white 
+          bg-slate-100 dark:bg-white/20
+          -translate-y-[3px] translate-x-[-3px]
+          [box-shadow:4px_6px_0_#f1f5f9]
+          dark:[box-shadow:4px_4px_0_#99a3b1]
+          hover:translate-y-0 hover:translate-x-0
+          hover:bg-slate-200 dark:hover:bg-slate-700
+          border border-slate-300
+          hover:[box-shadow:0_0_0_#f1f5f9]
+          dark:hover:[box-shadow:0_0_0_#94a3b8]
+          active:translate-y-[2px] active:translate-x-[2px]
+          active:[box-shadow:none]
+          active:bg-slate-300 dark:active:bg-slate-800
+          cursor-pointer active:scale-[0.98] hover:brightness-90 w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black md-text-md text-sm rounded-xl transition-all active:scale-[0.98] disabled:opacity-60"
         >
           {saveMutation.isPending ? 'Menyimpan...' : 'Simpan Konfigurasi Fee'}
         </button>

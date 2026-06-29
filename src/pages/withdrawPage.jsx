@@ -553,7 +553,21 @@ export const WithdrawPage = () => {
                     localStorage.setItem('showBalance', String(next));
                     window.dispatchEvent(new Event('balanceUpdate'));
                   }}
-                  className="relative bg-white top-[0px] ml-3 cursor-pointer active:scale-[0.98] flex items-center gap-1 bg-blue-500/40 hover:bg-white/90 border border-blue-400/40 rounded-xl px-2 py-0.5 text-[10px] font-black text-slate-900 transition-all active:scale-95"
+                  className="
+                   text-slate-900 dark:text-white 
+                      bg-slate-100 dark:bg-white/20
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      hover:bg-slate-200 dark:hover:bg-slate-700
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                    active:bg-slate-300 dark:active:bg-slate-800
+                  relative bg-white top-[0px] ml-3 cursor-pointer active:scale-[0.98] flex items-center gap-1 bg-blue-500/40 hover:bg-white/90 border border-blue-400/40 rounded-xl px-2 py-0.5 text-[10px] font-black text-slate-900 transition-all active:scale-95"
                 >
                   {showBalance ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -645,7 +659,19 @@ export const WithdrawPage = () => {
                   setMethod(m.id);
                   setFormData({ ...formData, channelCode: m.id === 'BANK' ? 'BCA' : 'DANA' });
                 }}
-                className={`cursor-pointer active:scale-[0.99] flex flex-col items-center gap-3 p-4 rounded-xl border transition-all font-black text-sm ${
+                className={`
+                   text-slate-900 dark:text-white
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+                  cursor-pointer active:scale-[0.99] flex flex-col items-center gap-3 p-4 rounded-xl border transition-all font-black text-sm ${
                   method === m.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-lg shadow-blue-50 dark:shadow-none'
                     : 'border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 hover:border-slate-200 dark:hover:border-slate-600'
@@ -749,7 +775,21 @@ export const WithdrawPage = () => {
             <button
               onClick={handleSubmit}
               disabled={withdrawMutation.isPending || !canSubmit}
-              className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-blue-600 text-white py-4 rounded-xl font-black text-base hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 dark:shadow-blue-900/20 flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed">
+              className="
+               text-slate-900 dark:text-white 
+                bg-slate-100 dark:bg-white/20
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                hover:bg-slate-200 dark:hover:bg-slate-700
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-blue-600 text-white py-4 rounded-xl font-black text-base hover:bg-blue-700 transition-all shadow-xl shadow-blue-100 dark:shadow-blue-900/20 flex items-center justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed">
               {withdrawMutation.isPending ? (
                 <><div className="w-5 h-5 border-4 border-white/30 border-t-white rounded-xl animate-spin" /> Memproses...</>
               ) : (
@@ -832,7 +872,21 @@ export const WithdrawPage = () => {
                     <button
                       type="button"
                       onClick={() => setShowPin(!showPin)}
-                      className="text-xs cursor-pointer active:scale-[0.99] flex items-center gap-1 text-slate-400 hover:text-blue-600"
+                      className="
+                       text-slate-900 dark:text-white 
+                      bg-slate-100 dark:bg-white/20
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      hover:bg-slate-200 dark:hover:bg-slate-700
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                    active:bg-slate-300 dark:active:bg-slate-800
+                      text-xs cursor-pointer active:scale-[0.99] flex items-center gap-1 text-slate-400 hover:text-blue-600"
                     >
                       {showPin ? <EyeOff size={14} /> : <Eye size={14} />}
                       {showPin ? 'Sembunyikan' : 'Tampilkan'} PIN
@@ -848,14 +902,42 @@ export const WithdrawPage = () => {
                   <div className="flex gap-3 pt-4">
                     <button
                       onClick={() => { setShowPinModal(false); resetPinState(); }}
-                      className="flex-1 py-3.5 border border-slate-300 dark:border-slate-700 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                      className="
+                       text-slate-900 dark:text-white 
+                      bg-slate-100 dark:bg-white/20
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      hover:bg-slate-200 dark:hover:bg-slate-700
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                    active:bg-slate-300 dark:active:bg-slate-800
+                      flex-1 py-3.5 border border-slate-300 dark:border-slate-700 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
                     >
                       Batal
                     </button>
                     <button
                       onClick={handlePinSubmit}
                       disabled={isSubmitting || pin.join("").length < 4 || isLocked}
-                      className="cursor-pointer active:scale-[0.98] flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold disabled:opacity-60 transition-all flex items-center justify-center gap-3"
+                      className="
+                       text-slate-900 dark:text-white 
+                      bg-slate-100 dark:bg-white/20
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      hover:bg-slate-200 dark:hover:bg-slate-700
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                    active:bg-slate-300 dark:active:bg-slate-800
+                      cursor-pointer active:scale-[0.98] flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold disabled:opacity-60 transition-all flex items-center justify-center gap-3"
                     >
                       {isSubmitting ? <Loader2 className="animate-spin" size={18} /> : <ShieldCheck size={18} />}
                       {isSubmitting ? "Memverifikasi..." : "Konfirmasi"}
@@ -877,14 +959,14 @@ export const WithdrawPage = () => {
             <div className="flex gap-1.5 rounded-xl overflow-hidden">
                 <button
                   onClick={() => setViewMode('table')}
-                  className={`px-4 py-1 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
+                  className={`px-4 py-1 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-slate-500 rounded-full'}`}
                 >
                   <List size={13} className='relative top-[-0.5px]' />
                   Table
                 </button>
                 <button
                   onClick={() => setViewMode('card')}
-                  className={`px-4 py-1 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'card' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
+                  className={`px-4 py-1 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'card' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-slate-500 rounded-full'}`}
                 >
                   <Grid size={13} className='relative top-[-0.5px]' />
                   Card

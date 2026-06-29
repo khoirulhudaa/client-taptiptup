@@ -43,6 +43,48 @@ const getTokenPayload = () => {
   }
 };
 
+/* ─── CSS untuk efek tombol melayang ─── */
+const btnTransition = {
+  style: {
+    transition: 'transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease',
+  },
+};
+
+const getBtnClass = (isActive, extraClass = '') => {
+  const base = `
+    cursor-pointer mb-4 w-max md:w-full flex rounded-lg font-black text-sm select-none
+    ${extraClass}
+  `;
+
+ if (isActive) {
+    return base + `
+      bg-blue-600 text-white
+      -translate-y-[3px] translate-x-[-3px]
+      [box-shadow:4px_4px_0_#93c5fd]
+      hover:translate-y-0 hover:translate-x-0
+      border border-slate-300
+      hover:[box-shadow:0_0_0_#93c5fd]
+      active:translate-y-[2px] active:translate-x-[2px]
+      active:[box-shadow:none]
+    `;
+  }
+
+  return base + `
+    text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+    -translate-y-[3px] translate-x-[-3px]
+    [box-shadow:4px_6px_0_#f1f5f9]
+    dark:[box-shadow:4px_4px_0_#99a3b1]
+    hover:translate-y-0 hover:translate-x-0
+    hover:bg-slate-200 dark:hover:bg-slate-700
+    border border-slate-300
+    hover:[box-shadow:0_0_0_#f1f5f9]
+    dark:hover:[box-shadow:0_0_0_#94a3b8]
+    active:translate-y-[2px] active:translate-x-[2px]
+    active:[box-shadow:none]
+    active:bg-slate-300 dark:active:bg-slate-800
+  `;
+};
+
 const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isCollapsed, setIsCollapsed }) => {
   const navigate = useNavigate();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
@@ -52,7 +94,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
 
   const payload = getTokenPayload();
   const isSuperAdmin = payload?.role === 'superAdmin';
-  const isStreamerSuper = payload?.role === 'streamerSuper'; // ← tambah
+  const isStreamerSuper = payload?.role === 'streamerSuper';
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -63,68 +105,22 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
     const syncAdminMode = () => {
       setSuperMode(localStorage.getItem('adminMode') === 'true');
     };
-
-    syncAdminMode(); // <-- tambahkan ini
-
+    syncAdminMode();
     window.addEventListener('storage', syncAdminMode);
-
-    return () => {
-      window.removeEventListener('storage', syncAdminMode);
-    };
+    return () => window.removeEventListener('storage', syncAdminMode);
   }, []);
 
-  const superAdminOnly = ['whatsapp', 'suggestions', 'ghostAlert'];
-
   const hideForSuperAdmin = [
-    'alertSettings',
-    'mediaSettings',
-    'voiceSettings',
-    'store',
-    'songSettings',
-    'history',
-    'marquee',
-    'wallet',
-    'donatePageConfig',
-    'qrConfig',
-    'poll',
-    'feeConfig',
-    'subathon',
-    'milestones',
-    'leaderboard'
+    'alertSettings','mediaSettings','voiceSettings','store','songSettings',
+    'history','marquee','wallet','donatePageConfig','qrConfig','poll',
+    'feeConfig','subathon','milestones','leaderboard'
   ];
 
   const hideForAdminMode = [
-    'alertSettings', 'mediaSettings', 'voiceSettings', 'store', 'songSettings', 'donatePageConfig',
-    'history', 'wallet', 'poll', 'marquee', 'qrConfig', 'feeConfig', 'subathon', 'milestones', 'leaderboard'
+    'alertSettings','mediaSettings','voiceSettings','store','songSettings','donatePageConfig',
+    'history','wallet','poll','marquee','qrConfig','feeConfig','subathon','milestones','leaderboard'
   ];
 
-  const menuItems = [
-    { id: 'settings',      label: 'Editor Overlay',   icon: <Layout size={20} /> },
-    { id: 'alertSettings', label: 'Alert',         icon: <ZapIcon size={20} /> },
-    { id: 'mediaSettings', label: 'Mediashare',       icon: <Video size={20} /> },
-    { id: 'voiceSettings', label: 'Voice',        icon: <Mic size={20} /> },
-    { id: 'store',         label: 'Produk',          icon: <ShoppingBag size={20} /> },
-    { id: 'history',       label: 'Riwayat',    icon: <History size={20} /> },
-    { id: 'wallet',        label: 'Pencairan',    icon: <Wallet size={20} /> },
-    { id: 'poll',          label: 'Polling',     icon: <Vote size={20} /> },
-    { id: 'feeConfig',     label: 'Biaya',   icon: <ReceiptText size={20} /> },
-    { id: 'subathon',      label: 'Subathon',          icon: <Timer size={20} /> },
-    { id: 'milestones',    label: 'Target',        icon: <TrendingUp size={20} /> },
-    { id: 'leaderboard',   label: 'Peringkat',       icon: <Trophy size={20} /> },
-
-    ...(isSuperAdmin ? [
-      { id: 'whatsapp',    label: 'WhatsApp',          icon: <MessageSquare size={20} /> },
-      { id: 'suggestions', label: 'Saran',  icon: <MessageSquare size={20} /> },
-      { id: 'ghostAlert',  label: 'Test Notif', icon: <Zap size={20} /> },
-      {
-        id: 'streamerManager',
-        label: 'Data User',
-        icon: <Users size={20} />,
-      },
-    ] : [])
-  ];
-
-  // Function to toggle Admin/Streamer mode
   const handleAdminMode = () => {
     const nextMode = !superMode;
     setSuperMode(nextMode);
@@ -138,61 +134,56 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
       items: [
         { id: 'settings',      label: isSuperAdmin ? 'Statistik' : 'Overlay', icon: <Layout size={20} /> },
         { id: 'alertSettings', label: 'Alert',      icon: <ZapIcon size={20} /> },
-        { id: 'mediaSettings', label: 'Medser',    icon: <Video size={20} /> },
-        { id: 'songSettings', label: 'Req-Song', icon: <Music size={20} /> },
-        { id: 'marquee', label: 'Marquee', icon: <Users size={20} /> },
-        { id: 'qrConfig', label: 'QR Code', icon: <QrCode size={20} /> },
-        { id: 'voiceSettings', label: 'Voice',     icon: <Mic size={20} /> },
-        { id: 'store',         label: 'Produk',       icon: <ShoppingBag size={20} /> },
+        { id: 'mediaSettings', label: 'Medser',     icon: <Video size={20} /> },
+        { id: 'songSettings',  label: 'Req-Song',   icon: <Music size={20} /> },
+        { id: 'marquee',       label: 'Marquee',    icon: <Users size={20} /> },
+        { id: 'qrConfig',      label: 'QR Code',    icon: <QrCode size={20} /> },
+        { id: 'voiceSettings', label: 'Voice',      icon: <Mic size={20} /> },
+        { id: 'store',         label: 'Produk',     icon: <ShoppingBag size={20} /> },
       ]
     },
     {
       groupLabel: 'Keuangan',
       items: [
-        { id: 'wallet',  label: 'Pencairan', icon: <Wallet size={20} /> },
-        { id: 'history', label: 'Riwayat', icon: <History size={20} /> },
-        { id: 'ipBlacklist',      label: 'IP Blokir', icon: <Shield size={20} /> },
+        { id: 'wallet',      label: 'Pencairan', icon: <Wallet size={20} /> },
+        { id: 'history',     label: 'Riwayat',   icon: <History size={20} /> },
+        { id: 'ipBlacklist', label: 'IP Blokir', icon: <Shield size={20} /> },
       ]
     },
     {
       groupLabel: 'Interaksi',
       items: [
-        { id: 'inbox',       label: 'Pesan',        icon: <Mail size={20} /> },
-        { id: 'poll',        label: 'Polling', icon: <Vote size={20} /> },
-        { id: 'subathon',    label: 'Subathon',      icon: <Timer size={20} /> },
+        { id: 'inbox',       label: 'Pesan',     icon: <Mail size={20} /> },
+        { id: 'poll',        label: 'Polling',   icon: <Vote size={20} /> },
+        { id: 'subathon',    label: 'Subathon',  icon: <Timer size={20} /> },
         { id: 'milestones',  label: 'Target',    icon: <TrendingUp size={20} /> },
-        { id: 'leaderboard', label: 'Peringkat',   icon: <Trophy size={20} /> },
+        { id: 'leaderboard', label: 'Peringkat', icon: <Trophy size={20} /> },
       ]
     },
     {
       groupLabel: 'Konfigurasi',
       items: [
         { id: 'donatePageConfig', label: 'Donasi', icon: <Heart size={20} /> },
-        { id: 'feeConfig',        label: 'Biaya',    icon: <ReceiptText size={20} /> },
+        { id: 'feeConfig',        label: 'Biaya',  icon: <ReceiptText size={20} /> },
       ]
     },
-
     ...(isSuperAdmin ? [{
       groupLabel: 'Admin',
       items: [
-        { id: 'suggestions',  label: 'Saran', icon: <MessageSquare size={20} /> },
-        { id: 'ghostAlert',   label: 'Test notif',      icon: <Zap size={20} /> },
-        {
-          id: 'streamerManager',
-          label: 'Data User',
-          icon: <Users size={20} />,
-        },
-        { id: 'terminal',     label: 'Riwayat',       icon: <Terminal size={20} /> },
-        { id: 'maintenance',  label: 'Perbaikan', icon: <ShieldAlert size={20} /> },
-        { id: 'announcements',label: 'Informasi',       icon: <Megaphone size={20} /> },
+        { id: 'suggestions',     label: 'Saran',      icon: <MessageSquare size={20} /> },
+        { id: 'ghostAlert',      label: 'Test notif', icon: <Zap size={20} /> },
+        { id: 'streamerManager', label: 'Data User',  icon: <Users size={20} /> },
+        { id: 'terminal',        label: 'Riwayat',    icon: <Terminal size={20} /> },
+        { id: 'maintenance',     label: 'Perbaikan',  icon: <ShieldAlert size={20} /> },
+        { id: 'announcements',   label: 'Informasi',  icon: <Megaphone size={20} /> },
       ]
     }] : [])
   ];
 
-  const filteredMenuItems = menuItems.filter(item => {
-    if (isSuperAdmin && hideForSuperAdmin.includes(item.id)) return false;
-    return true;
-  });
+  /* layout kelas per collapse state */
+  const itemLayout = isCollapsed
+    ? 'md:flex-col items-center justify-center px-3 md:px-1 py-2 gap-1'
+    : 'flex-row items-center gap-3 px-4 py-3';
 
   return (
     <>
@@ -254,8 +245,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         `}
       >
         {/* Logo */}
-        <div className={`flex items-center mb-8 md:mb-11 ${isCollapsed ? 'md:justify-center px-2' : 'px-2 justify-between md:px-[8.5px] relative top-[1px]'}`}>
-        {/* Desktop collapsed — hanya icon */}
+        <div className={`flex items-center mb-8 md:mb-11 pr-2 ${isCollapsed ? 'md:justify-center px-1' : 'px-2 justify-between md:px-[8.5px] relative top-[1px]'}`}>
           {isCollapsed && (
             <a href='/'>
               <div className="w-11 md:w-full h-11 md:h-12 bg-blue-600 shadow-none rounded-lg flex items-center justify-center">
@@ -263,8 +253,6 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
               </div>
             </a>
           )}
-
-          {/* Desktop expanded / Mobile — icon + teks */}
           {!isCollapsed && (
             <a href='/'>
               <div className="flex shadow-none items-center gap-3">
@@ -283,7 +271,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
             <div className='relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white mb-2'>
               {superMode ? 'Mode Admin' : 'Mode Streamer'}
             </div>
-            <div className="flex items-center justify-stsrt gap-3 rounded-lg">
+            <div className="flex items-center gap-3 rounded-lg">
               <button
                 onClick={handleAdminMode}
                 className={`relative cursor-pointer active:scale-[0.99] hover:brightness-95 w-16 h-8 rounded-lg transition-colors duration-200 ease-in-out ${
@@ -301,49 +289,37 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         )}
 
         {/* Navigation */}
-        <nav className={`${isCollapsed ? 'mt-[-14.5px] md:mt-[-20px]' : 'mt-0'} md:border-0 border-t border-slate-500/30 pt-5 md:flex-1 space-y-3 px-2`}>
+        <nav className={`${isCollapsed ? 'mt-[-14.5px] md:mt-[-20px]' : 'mt-0'} md:border-0 border-t border-slate-500/30 pt-5 md:flex-1 space-y-1 px-2`}>
           {menuGroups.map((group) => {
             const visibleItems = group.items.filter(item => {
               if (isSuperAdmin && hideForSuperAdmin.includes(item.id)) return false;
-              if (isStreamerSuper && superMode && hideForAdminMode.includes(item.id)) return false; // ← tambah
+              if (isStreamerSuper && superMode && hideForAdminMode.includes(item.id)) return false;
               return true;
             });
             if (visibleItems.length === 0) return null;
 
             return (
               <div key={group.groupLabel}>
-                {/* Group Label */}
                 {!isCollapsed && (
                   <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white mb-2">
                     {group.groupLabel}
                     <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
                   </div>
                 )}
-
                 {isCollapsed && (
                   <div className="md:hidden flex text-[8px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 text-left mb-1 md:px-1 leading-tight">
                     {group.groupLabel}
                   </div>
                 )}
 
-                {/* Items */}
                 <div className="space-y-1 flex md:block flex-wrap gap-2 md:gap-0 pt-4">
                   {visibleItems.map((item) => (
                     <button
                       key={item.id}
                       id={`tour-${item.id}`}
-                      onClick={() => {
-                        setActiveTab(item.id);
-                        setIsSidebarOpen(false);
-                      }}
-                      title={undefined}
-                      className={`cursor-pointer mb-2 active:scale-[0.99] w-max md:w-full flex rounded-lg font-black text-sm 
-                        ${isCollapsed ? 'md:flex-col items-center justify-center px-3 md:px-1 py-2 gap-1' : 'flex-row items-center gap-3 px-4 py-3'}
-                        ${
-                          activeTab === item.id
-                            ? 'bg-blue-600 text-white'
-                            : 'text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-600 dark:hover:text-slate-300'
-                        }`}
+                      onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
+                      {...btnTransition}
+                      className={getBtnClass(activeTab === item.id, itemLayout)}
                     >
                       <span className="flex-shrink-0">{item.icon}</span>
                       {isCollapsed ? (
@@ -368,35 +344,14 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
             );
           })}
 
-          {/* {!isCollapsed && (
-            <div className="pt-4 mt-2 border-t border-slate-200 dark:border-slate-800">
-              <button
-                onClick={() => setShowLogoutConfirm(true)}
-                className="md:hidden w-full flex items-center gap-3 p-3 px-4 bg-red-100 dark:bg-red-900 text-white hover:bg-red-50 dark:hover:bg-red-950 rounded-lg cursor-pointer active:scale-[0.99] font-black"
-              >
-                <LogOut size={18} className='relative left-[1.2px]' />
-                <span className="text-sm ml-[2.2px]">Keluar</span>
-              </button>
-            </div>
-          )} */}
-
           <div className="w-full h-[1px] my-3 bg-slate-200 dark:bg-slate-800" />
 
           {isSuperAdmin && (
             <button
-              id="tour-admin" 
-              onClick={() => {
-                setActiveTab('admin');
-                setIsSidebarOpen(false);
-              }}
-              title={isCollapsed ? 'Permintaan Penarikan' : undefined}
-              className={`cursor-pointer mb-2 w-full flex items-center rounded-lg font-black text-sm
-                ${isCollapsed ? 'justify-center px-0 py-3' : 'gap-3 px-4 py-3'}
-                ${
-                  activeTab === 'admin'
-                    ? 'bg-blue-600 text-white shadow-xl shadow-blue-100 dark:shadow-blue-900/30'
-                    : 'text-slate-400 bg-white/20 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-600 dark:hover:text-slate-300'
-                }`}
+              id="tour-admin"
+              onClick={() => { setActiveTab('admin'); setIsSidebarOpen(false); }}
+              {...btnTransition}
+              className={getBtnClass(activeTab === 'admin', isCollapsed ? 'justify-center px-0 py-3' : 'gap-3 px-4 py-3')}
             >
               <ShieldAlert size={20} />
               {!isCollapsed && <span className="whitespace-nowrap">Permintaan Penarikan</span>}
@@ -406,43 +361,31 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           {isStreamerSuper && superMode && (
             <>
               <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">
-                {'Super Admin'}
+                Super Admin
                 <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
               </div>
-
-              {/* Menu admin yang muncul jika superMode ON */}
-              {superMode && (
-                <div className="space-y-1">
-                  {[
-                    { id: 'suggestions',     label: 'Saran', icon: <MessageSquare size={20} /> },
-                    { id: 'ghostAlert',      label: 'Test Notif',      icon: <Zap size={20} /> },
-                    { id: 'streamerManager', label: 'Data User',  icon: <Users size={20} /> },
-                    { id: 'terminal',        label: 'Riwayat',       icon: <Terminal size={20} /> },
-                    { id: 'maintenance',     label: 'Perbaikan', icon: <ShieldAlert size={20} /> },
-                    { id: 'announcements',   label: 'Informasi',       icon: <Megaphone size={20} /> },
-                  ].map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
-                      title={isCollapsed ? item.label : undefined}
-                      className={`cursor-pointer mb-2 active:scale-[0.99] w-full flex rounded-lg font-black text-sm 
-                        ${isCollapsed ? 'flex-col items-center justify-center px-1 py-2 gap-1' : 'flex-row items-center gap-3 px-4 py-3'}
-                        ${
-                          activeTab === item.id
-                            ? 'bg-blue-600 text-white'
-                            : 'text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-600 dark:hover:text-slate-300'
-                        }`}
-                    >
-                      <span className="flex-shrink-0">{item.icon}</span>
-                      <span className="text-[12px] font-bold text-center leading-tight break-words w-full">
-                        {item.label}
-                      </span>
-                      {/* {!isCollapsed && (
-                      )} */}
-                    </button>
-                  ))}
-                </div>
-              )}
+              <div className="space-y-1">
+                {[
+                  { id: 'suggestions',     label: 'Saran',      icon: <MessageSquare size={20} /> },
+                  { id: 'ghostAlert',      label: 'Test Notif', icon: <Zap size={20} /> },
+                  { id: 'streamerManager', label: 'Data User',  icon: <Users size={20} /> },
+                  { id: 'terminal',        label: 'Riwayat',    icon: <Terminal size={20} /> },
+                  { id: 'maintenance',     label: 'Perbaikan',  icon: <ShieldAlert size={20} /> },
+                  { id: 'announcements',   label: 'Informasi',  icon: <Megaphone size={20} /> },
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
+                    {...btnTransition}
+                    className={getBtnClass(activeTab === item.id, itemLayout)}
+                  >
+                    <span className="flex-shrink-0">{item.icon}</span>
+                    <span className="text-[12px] font-bold text-center leading-tight break-words w-full">
+                      {item.label}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </>
           )}
 

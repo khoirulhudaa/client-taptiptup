@@ -131,7 +131,20 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
         <button
           onClick={() => saveSettingsMutation.mutate(settings)}
           disabled={saveSettingsMutation.isPending}
-          className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900 dark:bg-slate-700 text-white py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2"
+          className="
+          text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+          -translate-y-[3px] translate-x-[-3px]
+          [box-shadow:4px_6px_0_#f1f5f9]
+          dark:[box-shadow:4px_4px_0_#99a3b1]
+          hover:translate-y-0 hover:translate-x-0
+          hover:bg-slate-200 dark:hover:bg-slate-700
+          border border-slate-300
+          hover:[box-shadow:0_0_0_#f1f5f9]
+          dark:hover:[box-shadow:0_0_0_#94a3b8]
+          active:translate-y-[2px] active:translate-x-[2px]
+          active:[box-shadow:none]
+          active:bg-slate-300 dark:active:bg-slate-800
+          cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-slate-900 dark:bg-slate-700 text-white py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-2"
         >
           <Save size={20} />
           {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Filter Kata'}

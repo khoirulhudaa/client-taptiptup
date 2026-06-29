@@ -430,7 +430,19 @@ const QrConfigPage = ({ overlayToken, username }) => {
                     borderColor: p.dark + '60',
                   }))}
                   style={{ background: p.bg, border: `2px solid ${p.dark}40` }}
-                  className="cursor-pointer active:scale-[0.98] py-3 h-11.5 rounded-xl font-black text-xs transition-all"
+                  className="
+                   text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+                  cursor-pointer active:scale-[0.98] py-3 h-11.5 rounded-xl font-black text-xs transition-all"
                 >
                   <span style={{ color: p.dark === '#000000' ? '#fff' : p.dark }}>{p.label}</span>
                 </button>
@@ -447,7 +459,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
                 {cfg.showLogo && (
                 <div className="md:col-span-1">
                     {/* <Label>Ukuran Logo</Label> */}
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-3">
                     {[
                         { label: 'Small', value: 24 },
                         { label: 'Medium', value: 36 },
@@ -457,7 +469,19 @@ const QrConfigPage = ({ overlayToken, username }) => {
                         <button
                         key={opt.label}
                         onClick={() => upd('logoSize', opt.value)}
-                        className={`cursor-pointer active:scale-[0.98] py-3 md:py-3 h-11.5 rounded-xl font-black text-xs transition-all border-2 ${
+                        className={`
+                           text-slate-900 dark:text-white
+                          -translate-y-[3px] translate-x-[-3px]
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          active:[box-shadow:none]
+                        active:bg-slate-300 dark:active:bg-slate-800
+                          cursor-pointer active:scale-[0.98] py-3 md:py-3 h-11.5 rounded-xl font-black text-xs transition-all border-2 ${
                             (cfg.logoSize ?? 36) === opt.value
                             ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600'
                             : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
@@ -525,7 +549,20 @@ const QrConfigPage = ({ overlayToken, username }) => {
               </p>
               <button
                 onClick={handleDownload}
-                className="cursor-pointer active:scale-[0.99] w-full py-3 h-11.5 bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl font-black text-sm flex items-center justify-center gap-3 hover:brightness-90 transition-all"
+                className="
+                 text-slate-900 dark:text-white
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                hover:bg-slate-200 dark:hover:bg-slate-700
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+                cursor-pointer active:scale-[0.99] w-full mt-4 py-3 h-11.5 bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl font-black text-sm flex items-center justify-center gap-3 hover:brightness-90 transition-all"
               >
                 <Download size={16} /> Download PNG
               </button>

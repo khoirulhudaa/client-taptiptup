@@ -326,7 +326,21 @@ export const InboxPage = () => {
             <button
               onClick={() => readAllMutation.mutate()}
               disabled={readAllMutation.isPending}
-              className="cursor-pointer flex-shrink-0 flex items-center gap-3 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl font-black text-sm border border-white/20 transition-all active:scale-[0.97] disabled:opacity-60"
+              className="
+               text-slate-900 dark:text-white 
+                bg-slate-100 dark:bg-white/20
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                hover:bg-slate-200 dark:hover:bg-slate-700
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer flex-shrink-0 flex items-center gap-3 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl font-black text-sm border border-white/20 transition-all active:scale-[0.97] disabled:opacity-60"
             >
               <CheckCheck size={15} />
               {readAllMutation.isPending ? 'Memproses...' : 'Tandai semua dibaca'}
@@ -338,12 +352,35 @@ export const InboxPage = () => {
       {/* Type filters */}
       <div className="flex gap-3 flex-wrap px-4 md:px-5">
         <button onClick={() => setTypeFilter('')}
-          className={`px-3 py-2 rounded-xl text-[11px] font-black border transition-all cursor-pointer active:scale-[0.97] ${!typeFilter ? 'bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 border-transparent' : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'}`}>
+          className={`
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+          active:bg-slate-300 dark:active:bg-slate-800
+          px-3 py-2 rounded-xl text-[11px] font-black border transition-all cursor-pointer active:scale-[0.97] ${!typeFilter ? 'bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 border-transparent' : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'}`}>
           Semua
         </button>
         {Object.entries(TYPE_CONFIG).map(([key, cfg]) => (
           <button key={key} onClick={() => setTypeFilter(k => k === key ? '' : key)}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-[11px] font-black border transition-all cursor-pointer active:scale-[0.97] ${typeFilter === key ? `${cfg.bg} ${cfg.text} ${cfg.border}` : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'}`}>
+            className={`
+             text-slate-900 dark:text-white 
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            flex items-center gap-1.5 px-3 py-2 rounded-xl text-[11px] font-black border transition-all cursor-pointer active:scale-[0.97] ${typeFilter === key ? `${cfg.bg} ${cfg.text} ${cfg.border}` : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-300'}`}>
             {cfg.icon} {cfg.label}
           </button>
         ))}

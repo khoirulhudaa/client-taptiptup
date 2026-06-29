@@ -106,6 +106,7 @@ export const PollManager = ({ overlayToken, username }) => {
   const [showCreate, setShowCreate] = useState(false);
   const [livePolls, setLivePolls] = useState({});
   const [pollCopied, setPollCopied] = useState(false);
+  const [pollCopied2, setPollCopied2] = useState(false);
 
   const { data: polls = [], isLoading: pollsLoading } = useQuery({
     queryKey: ['myPolls'],
@@ -224,7 +225,21 @@ export const PollManager = ({ overlayToken, username }) => {
       {/* Buat Poll Baru */}
       <button
         onClick={() => setShowCreate(!showCreate)}
-        className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 rounded-xl font-black text-sm hover:border-blue-400 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
+        className="
+         text-slate-900 dark:text-white 
+          bg-slate-100 dark:bg-white/20
+          -translate-y-[3px] translate-x-[-3px]
+          [box-shadow:4px_6px_0_#f1f5f9]
+          dark:[box-shadow:4px_4px_0_#99a3b1]
+          hover:translate-y-0 hover:translate-x-0
+          hover:bg-slate-200 dark:hover:bg-slate-700
+          border border-slate-300
+          hover:[box-shadow:0_0_0_#f1f5f9]
+          dark:hover:[box-shadow:0_0_0_#94a3b8]
+          active:translate-y-[2px] active:translate-x-[2px]
+          active:[box-shadow:none]
+        active:bg-slate-300 dark:active:bg-slate-800
+        cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 rounded-xl font-black text-sm hover:border-blue-400 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3">
         <Plus size={16} /> {showCreate ? 'Batal' : 'Buat Poll Baru'}
       </button>
 
@@ -310,7 +325,19 @@ export const PollManager = ({ overlayToken, username }) => {
                 setPollCopied(true);
                 setTimeout(() => setPollCopied(false), 2000);
               }}
-              className={`cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 ${pollCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
+              className={`
+               text-slate-900 dark:text-white 
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 ${pollCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
               {pollCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
             </button>
           </div>
@@ -330,15 +357,28 @@ export const PollManager = ({ overlayToken, username }) => {
               readOnly
               value={`${window.location.origin}/poll/${/* username dari props atau context */ 'USERNAME'}`}
               className="flex-1 bg-transparent font-mono text-xs text-blue-600 dark:text-blue-400 font-bold outline-none truncate"
-            />
+              />
             <button
               onClick={() => {
                 const pollUrl = `${window.location.origin}/poll/USERNAME`;
                 navigator.clipboard.writeText(pollUrl);
-              }}
-              className="cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black bg-blue-600 hover:bg-blue-700 text-white transition-all"
-            >
-              Salin
+                setPollCopied2(true);
+                setTimeout(() => setPollCopied2(false), 2000);
+                }}
+                className={`
+               text-slate-900 dark:text-white 
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 ${pollCopied2 ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'}`}>
+              {pollCopied2 ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
             </button>
           </div>
         </div>
@@ -593,7 +633,19 @@ export const SubathonManager = ({ overlayToken }) => {
             : startMutation.mutate()
           }
           disabled={startMutation.isPending || pauseMutation.isPending}
-          className={`cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-1.5 md:gap-3 py-3 md:py-4 rounded-xl font-black text-sm transition-all disabled:opacity-60 ${
+          className={`
+              text-slate-900 dark:text-white
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-1.5 md:gap-3 py-3 md:py-4 rounded-xl font-black text-sm transition-all disabled:opacity-60 ${
             isRunning ? 'bg-amber-500 hover:bg-amber-600 text-white' : 'bg-green-500 hover:bg-green-600 text-white'
           }`}>
           {isRunning ? <Pause size={20} /> : <Play size={20} />}
@@ -602,14 +654,40 @@ export const SubathonManager = ({ overlayToken }) => {
         <button
           onClick={() => { if (window.confirm('Reset timer ke waktu awal?')) resetMutation.mutate(); }}
           disabled={resetMutation.isPending}
-          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-1.5 md:gap-3 py-3 md:py-4 rounded-xl font-black text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all disabled:opacity-60">
+          className="
+            text-slate-900 dark:text-white 
+
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:bg-slate-200 dark:hover:bg-slate-700
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+          cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-1.5 md:gap-3 py-3 md:py-4 rounded-xl font-black text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-all disabled:opacity-60">
           <RotateCcw size={20} />
           Reset
         </button>
         <button
           onClick={() => addTimeMutation.mutate(manualAdd)}
           disabled={addTimeMutation.isPending}
-          className="cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-1.5 md:gap-3 py-3 md:py-4 rounded-xl font-black text-sm bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-60">
+          className="
+            text-slate-900 dark:text-white 
+
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:bg-slate-200 dark:hover:bg-slate-700
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+          cursor-pointer active:scale-[0.99] flex justify-center md:flex-col items-center gap-1.5 md:gap-3 py-3 md:py-4 rounded-xl font-black text-sm bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-60">
           <Plus size={20} />
           Waktu
         </button>
@@ -650,7 +728,19 @@ export const SubathonManager = ({ overlayToken }) => {
           <div className="grid grid-cols-2 gap-3">
             {[{ id: 'countdown', label: 'Countdown', desc: 'Waktu berkurang' }, { id: 'countup', label: 'Count Up', desc: 'Waktu bertambah' }].map(m => (
               <button key={m.id} onClick={() => upd('mode', m.id)}
-                className={`cursor-pointer active:scale-[0.99] p-3 rounded-xl border-2 text-left font-black text-xs transition-all ${
+                className={`
+                    text-slate-900 dark:text-white
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  active:bg-slate-300 dark:active:bg-slate-800
+                  cursor-pointer active:scale-[0.99] p-3 rounded-xl border-2 text-left font-black text-xs transition-all ${
                   localTimer.mode === m.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
                     : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
@@ -710,7 +800,19 @@ export const SubathonManager = ({ overlayToken }) => {
                 {/* Tombol Edit Tabel */}
                 <button
                   onClick={() => setShowTiersTable(!showTiersTable)}
-                  className="cursor-pointer active:scale-[0.99] px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-2xl text-xs font-black hover:bg-blue-200 dark:hover:bg-blue-800 transition-all">
+                  className="
+                      text-slate-900 dark:text-white
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                      active:bg-slate-300 dark:active:bg-slate-800
+                  cursor-pointer active:scale-[0.99] px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-2xl text-xs font-black hover:bg-blue-200 dark:hover:bg-blue-800 transition-all">
                   {showTiersTable ? 'Tutup' : 'Edit'}
                 </button>
               </div>
@@ -871,7 +973,19 @@ export const SubathonManager = ({ overlayToken }) => {
                     setSubCopied(prev => ({ ...prev, [t]: true }));
                     setTimeout(() => setSubCopied(prev => ({ ...prev, [t]: false })), 500);
                   }}
-                  className={`cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 flex-shrink-0 ${
+                  className={`
+                      text-slate-900 dark:text-white
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                      active:bg-slate-300 dark:active:bg-slate-800
+                    cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 flex-shrink-0 ${
                     subCopied[t] ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
                   }`}>
                   {subCopied[t] ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
@@ -882,7 +996,21 @@ export const SubathonManager = ({ overlayToken }) => {
         )}
 
         <button onClick={save} disabled={configMutation.isPending}
-          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-3.5 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 ${
+          className={`
+              text-slate-900 dark:text-white 
+            bg-slate-100 dark:bg-white/20
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            hover:bg-slate-200 dark:hover:bg-slate-700
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer active:scale-[0.99] w-full py-3 md:py-3.5 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 ${
             saved ? 'bg-green-500 text-white' : 'bg-slate-900 dark:bg-slate-100 hover:bg-blue-600 dark:hover:bg-blue-500 text-white dark:text-slate-900 dark:hover:text-white'
           } disabled:opacity-70`}>
           {saved ? <><CheckCircle2 size={16} /> Tersimpan!</> : configMutation.isPending ? 'Menyimpan...' : <><Save size={16} /> Simpan Konfigurasi</>}
@@ -1014,7 +1142,19 @@ export const LeaderboardSettings = ({ overlayToken }) => {
               { id: 'today',   label: '📅 Hari Ini',    desc: 'Dukungan hari ini saja' },
             ].map(p => (
               <button key={p.id} onClick={() => upd('leaderboardPeriod', p.id)}
-                className={`cursor-pointer active:scale-[0.99] p-4 rounded-xl border-2 text-left font-black text-xs transition-all ${
+                className={`
+                    text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                    dark:[box-shadow:4px_4px_0_#99a3b1]
+                    hover:translate-y-0 hover:translate-x-00
+                    border border-slate-300
+                    hover:[box-shadow:0_0_0_#f1f5f9]
+                    dark:hover:[box-shadow:0_0_0_#94a3b8]
+                    active:translate-y-[2px] active:translate-x-[2px]
+                    active:[box-shadow:none]
+                    active:bg-slate-300 dark:active:bg-slate-800
+                  cursor-pointer active:scale-[0.99] p-4 rounded-xl border-2 text-left font-black text-xs transition-all ${
                   local.leaderboardPeriod === p.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
                     : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
@@ -1072,7 +1212,19 @@ export const LeaderboardSettings = ({ overlayToken }) => {
                   setLbCopied(true);
                   setTimeout(() => setLbCopied(false), 500);
                 }}
-                className={`cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 ${
+                className={`
+                     text-slate-900 dark:text-white 
+                    -translate-y-[3px] translate-x-[-3px]
+                    [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-00
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                      active:bg-slate-300 dark:active:bg-slate-800
+                  cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 ${
                   lbCopied ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
                 }`}>
                 {lbCopied ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
@@ -1354,7 +1506,8 @@ export const MilestonesManager = ({ overlayToken }) => {
                           upd(i, 'periodSince', null);
                           upd(i, 'period', 'alltime');
                         }}
-                        className="cursor-pointer flex-shrink-0 text-slate-400 hover:text-red-400 transition-all"
+                        className="
+                        cursor-pointer flex-shrink-0 text-slate-400 hover:text-red-400 transition-all"
                       >
                         <Trash2 size={16} />
                       </button>
@@ -1362,7 +1515,19 @@ export const MilestonesManager = ({ overlayToken }) => {
                   </div>
                   <button
                     onClick={() => remove(i)}
-                    className="h-[44px] w-max flex-shrink-0 bg-red-500 flex items-center font-bold gap-2 justify-center text-white cursor-pointer p-3 hover:bg-red-600 rounded-xl transition-all">
+                    className="
+                      text-slate-900 dark:text-white 
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                      active:bg-slate-300 dark:active:bg-slate-800
+                    h-[44px] w-max flex-shrink-0 bg-red-500 flex items-center font-bold gap-2 justify-center text-white cursor-pointer p-3 hover:bg-red-600 rounded-xl transition-all">
                     <Trash2 size={14} />
                     <p className="text-xs">Hapus</p>
                   </button>
@@ -1405,7 +1570,21 @@ export const MilestonesManager = ({ overlayToken }) => {
       <div className='md:w-full w-[100vw] p-4 md:p-5 mx-auto space-y-3 bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800'>
         <button
           onClick={add}
-          className="cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 rounded-xl font-black text-sm hover:border-green-400 dark:hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-3">
+          className="
+            text-slate-900 dark:text-white 
+            -translate-y-[3px] translate-x-[-3px]
+            bg-slate-100 dark:bg-white/20
+            [box-shadow:4px_6px_0_#f1f5f9]
+            hover:bg-slate-200 dark:hover:bg-slate-700
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-00
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+          cursor-pointer active:scale-[0.99] w-full py-3 border-2 border-dashed border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 rounded-xl font-black text-sm hover:border-green-400 dark:hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all flex items-center justify-center gap-3">
           <Plus size={16} /> Tambah Milestone
         </button>
 
@@ -1413,17 +1592,29 @@ export const MilestonesManager = ({ overlayToken }) => {
           <button
             onClick={() => mutation.mutate(list)}
             disabled={mutation.isPending}
-            className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-70">
+            className="
+             text-slate-900 dark:text-white
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-70">
             <Save size={16} /> {mutation.isPending ? 'Menyimpan...' : 'Simpan Milestone'}
           </button>
         )}
 
         {overlayToken && (
-          <div className="space-y-2">
+          <div className="space-y-3">
             {/* <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Widget URL OBS</p> */}
               
               {/* ─── PRESET WARNA ─── */}
-              <div className="space-y-1 md:mt-0 mt-4">
+              <div className="space-y-3 mt-4">
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Preset Warna</p>
                 <div className="grid grid-cols-4 md:flex md:flex-wrap gap-3">
                   {COLOR_PRESETS.map((preset) => (
@@ -1435,7 +1626,21 @@ export const MilestonesManager = ({ overlayToken }) => {
                         setMlBgcolor(preset.bgcolor);
                         setMlTextcolor(preset.textcolor);
                       }}
-                      className="md:w-max w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 pr-3.5 md:pr-3 py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 transition-all"
+                      className="
+                       text-slate-900 dark:text-white 
+                      bg-slate-100 dark:bg-white/20
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      hover:bg-slate-200 dark:hover:bg-slate-700
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                      active:bg-slate-300 dark:active:bg-slate-800
+                      md:w-max w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 pr-3.5 md:pr-3 py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 transition-all"
                     >
                       {/* Swatch mini 3 warna */}
                       <div className="flex rounded-md overflow-hidden w-full md:w-9 h-4 flex-shrink-0 border border-black/10">

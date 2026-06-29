@@ -154,7 +154,21 @@
         <button
             onClick={() => saveSettingsMutation.mutate(settings)}
             disabled={saveSettingsMutation.isPending}
-            className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-violet-600 hover:bg-violet-700 text-white py-4 rounded-xl font-black text-sm transition-all disabled:opacity-70 flex items-center justify-center gap-2 mt-3"
+            className="
+             text-slate-900 dark:text-white 
+            bg-slate-100 dark:bg-white/20
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            hover:bg-slate-200 dark:hover:bg-slate-700
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer active:scale-[0.97] hover:brightness-90 w-full bg-violet-600 hover:bg-violet-700 text-white py-4 rounded-xl font-black text-sm transition-all disabled:opacity-70 flex items-center justify-center gap-2 mt-3"
         >
             <Save size={20} />
             {saveSettingsMutation.isPending ? 'Menyimpan...' : 'Simpan Durasi Voice'}
@@ -239,7 +253,21 @@
                 <button
                     onClick={sendTest}
                     disabled={isSending || !voiceUrl || !user?.overlayToken}
-                    className="cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-rose-200 dark:shadow-rose-900/30"
+                    className="
+                     text-slate-900 dark:text-white 
+                    bg-slate-100 dark:bg-white/20
+                    -translate-y-[3px] translate-x-[-3px]
+                    [box-shadow:4px_6px_0_#f1f5f9]
+                    dark:[box-shadow:4px_4px_0_#99a3b1]
+                    hover:translate-y-0 hover:translate-x-0
+                    hover:bg-slate-200 dark:hover:bg-slate-700
+                    border border-slate-300
+                    hover:[box-shadow:0_0_0_#f1f5f9]
+                    dark:hover:[box-shadow:0_0_0_#94a3b8]
+                    active:translate-y-[2px] active:translate-x-[2px]
+                    active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+                    cursor-pointer active:scale-[0.97] hover:brightness-90 w-full py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-2 disabled:opacity-60 shadow-lg shadow-rose-200 dark:shadow-rose-900/30"
                 >
                     {isSending ? (
                         <><RefreshCw size={18} className="animate-spin" /> Mengirim...</>

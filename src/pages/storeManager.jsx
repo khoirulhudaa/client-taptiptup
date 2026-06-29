@@ -202,7 +202,20 @@ const StoreManager = ({ overlayToken }) => {
               {/* Tombol Hapus Produk */}
               <button
                 onClick={() => removeProduct(i)}
-                className="cursor-pointer w-full bg-red-500 text-white flex justify-center py-4 mt-5 items-center gap-1.5 text-xs font-black text-red-500 hover:text-white hover:bg-red-50 dark:hover:bg-red-600 px-3 py-1.5 rounded-lg transition-all"
+                className="
+                 text-slate-900 dark:text-white
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                hover:bg-slate-200 dark:hover:bg-slate-700
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+                cursor-pointer w-full bg-red-500 text-white flex justify-center py-4 mt-5 items-center gap-1.5 text-xs font-black text-red-500 hover:text-white hover:bg-red-50 dark:hover:bg-red-600 px-3 py-1.5 rounded-lg transition-all"
               >
                 <Trash2 size={14} /> Hapus
               </button>
@@ -215,7 +228,21 @@ const StoreManager = ({ overlayToken }) => {
           <button
             onClick={() => saveMutation.mutate(products)}
             disabled={saveMutation.isPending}
-            className="cursor-pointer active:scale-[0.99] mt-10 w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm rounded-xl transition-all flex items-center justify-center gap-2"
+            className="
+             text-slate-900 dark:text-white 
+              bg-slate-100 dark:bg-white/20
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              hover:bg-slate-200 dark:hover:bg-slate-700
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer active:scale-[0.99] mt-10 w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm rounded-xl transition-all flex items-center justify-center gap-2"
           >
             <Save size={20} />
             {saveMutation.isPending ? 'Menyimpan...' : 'Simpan Produk ke OBS'}

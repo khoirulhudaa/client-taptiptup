@@ -58,7 +58,21 @@ const ThemeToggle = ({ theme, onToggle }) => {
       id="tour-theme-toggle"
       onClick={onToggle}
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="cursor-pointer relative h-[38px] w-[70px] rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 flex items-center px-1 transition-all active:scale-[0.99] hover:brightness-95 overflow-hidden"
+      className="
+        text-slate-900 dark:text-white 
+        bg-slate-100 dark:bg-white/20
+        -translate-y-[3px] translate-x-[-3px]
+        [box-shadow:4px_6px_0_#f1f5f9]
+        dark:[box-shadow:4px_4px_0_#99a3b1]
+        hover:translate-y-0 hover:translate-x-0
+        hover:bg-slate-200 dark:hover:bg-slate-700
+        border border-slate-300
+        hover:[box-shadow:0_0_0_#f1f5f9]
+        dark:hover:[box-shadow:0_0_0_#94a3b8]
+        active:translate-y-[2px] active:translate-x-[2px]
+        active:[box-shadow:none]
+        active:bg-slate-300 dark:active:bg-slate-800
+      cursor-pointer relative h-[38px] w-[70px] rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 flex items-center px-1 transition-all active:scale-[0.99] hover:brightness-95 overflow-hidden"
     >
       <motion.div
         className="absolute inset-0 rounded-xl"
@@ -207,12 +221,26 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
         </div>
 
         {/* Kanan */}
-        <div id="tour-topnavbar-group" className="flex items-center gap-2.5 md:pr-[7px] md:justify-end 2xl:w-max w-full flex-shrink-0">
+        <div id="tour-topnavbar-group" className="flex items-center gap-3.5 md:pr-[7px] md:justify-end 2xl:w-max w-full flex-shrink-0">
           <button
             id="tour-sidebar-toggle"
             onClick={() => setIsCollapsed(v => !v)}
             title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            className="rounded-xl cursor-pointer flex-shrink-0 h-[40px] border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 w-max px-2 mx-[1px] flex items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:brightness-110 transition-all"
+            className="
+              text-slate-900 dark:text-white 
+              bg-slate-100 dark:bg-white/20
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              hover:bg-slate-200 dark:hover:bg-slate-700
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+            rounded-xl cursor-pointer flex-shrink-0 h-[40px] border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 w-max px-2 mx-[1px] flex items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:brightness-110 transition-all"
           >
             <AnimatePresence mode="wait">
               {isCollapsed ? (
@@ -232,10 +260,23 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
           {/* ── Saldo + Tombol Kirim ─────────────────────────────────────── */}
           <div
             id="tour-balance"  
-            className="hidden sm:flex items-center h-[40px] gap-0 rounded-xl border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 overflow-hidden"
+            className="
+              text-slate-900 dark:text-white 
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            hidden sm:flex items-center h-[40px] gap-0 rounded-xl border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 overflow-hidden"
           >
             {/* Info saldo */}
-            <div className="flex items-center gap-2 px-3.5 py-2 border-r border-slate-200/80 dark:border-slate-700">
+            <div className="
+            flex items-center gap-2 px-3.5 py-2 border-r border-slate-200/80 dark:border-slate-700">
               <Wallet size={18} className="text-blue-400" />
               <span className="font-bold text-blue-600 dark:text-blue-400 text-md tracking-wide">
                 {showBalance
@@ -278,7 +319,21 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
           <button
             id="tour-help"
             onClick={() => setActiveTab('contact')}
-            className={`cursor-pointer h-[40px] active:scale-[0.99] flex items-center gap-2 px-3.5 rounded-xl border font-bold text-md transition-all ${
+            className={`
+                text-slate-900 dark:text-white 
+                bg-slate-100 dark:bg-white/20
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                hover:bg-slate-200 dark:hover:bg-slate-700
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer h-[40px] active:scale-[0.99] flex items-center gap-2 px-3.5 rounded-xl border font-bold text-md transition-all ${
               activeTab === 'contact'
                 ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent'
                 : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -293,15 +348,30 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
           <button
             id="tour-community"
             onClick={() => setActiveTab('community')}
-            className="cursor-pointer hover:brightness-90 h-[38px] active:scale-[0.99] relative flex items-center gap-2 px-3.5 py-3 rounded-xl font-bold text-md overflow-hidden"
+            className="
+              text-slate-900 dark:text-white 
+            bg-slate-100 dark:bg-white/20
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            hover:bg-slate-200 dark:hover:bg-slate-700
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer hover:brightness-90 h-[38px] active:scale-[0.99] relative flex items-center gap-2 px-3.5 py-3 rounded-xl font-bold text-md overflow-hidden"
             style={{
               background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)',
               backgroundSize: '300% 100%',
               animation: 'rainbowSlide 3s ease-in-out infinite',
-              boxShadow: '0 0 12px 1px rgba(48,43,99,0.4)',
+              // boxShadow: '0 0 12px 1px rgba(48,43,99,0.4)',
             }}>
             <span
-              className="absolute inset-0 pointer-events-none"
+              className="a
+              bsolute inset-0 pointer-events-none"
               style={{
                 background: 'linear-gradient(118deg, transparent 95%, rgba(255,255,255,0.1) 90%, transparent 85%)',
                 backgroundSize: '250% 100%',
@@ -317,7 +387,21 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
             <button
               id="tour-profile"
               onClick={() => setShowLogout(v => !v)}
-              className="cursor-pointer h-[38.4px] flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl px-1.5 py-3 transition-all active:scale-[0.99]"
+              className="
+                text-slate-900 dark:text-white 
+                bg-slate-100 dark:bg-white/20
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                hover:bg-slate-200 dark:hover:bg-slate-700
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer h-[38.4px] flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl px-1.5 py-3 transition-all active:scale-[0.99]"
             >
               <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-md flex-shrink-0">
                 {user?.profilePicture ? (
@@ -458,13 +542,39 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               <div className="flex flex-col gap-3">
                 <button
                   onClick={handleLogout}
-                  className="cursor-pointer active:scale-[0.99] w-full py-4 bg-red-600 text-white rounded-xl font-bold text-md shadow-xl shadow-red-200 dark:shadow-red-900/20 hover:bg-red-700 transition-all"
+                  className="
+                    text-slate-900 dark:text-white
+                    -translate-y-[3px] translate-x-[-3px]
+                    [box-shadow:4px_6px_0_#f1f5f9]
+                    dark:[box-shadow:4px_4px_0_#99a3b1]
+                    hover:translate-y-0 hover:translate-x-0
+                    border border-slate-300
+                    hover:[box-shadow:0_0_0_#f1f5f9]
+                    dark:hover:[box-shadow:0_0_0_#94a3b8]
+                    active:translate-y-[2px] active:translate-x-[2px]
+                    active:[box-shadow:none]
+                    active:bg-slate-300 dark:active:bg-slate-800
+                  cursor-pointer active:scale-[0.99] w-full py-4 bg-red-600 text-white rounded-xl font-bold text-md shadow-xl shadow-red-200 dark:shadow-red-900/20 hover:bg-red-700 transition-all"
                 >
                   Ya, Keluar
                 </button>
                 <button
                   onClick={() => setShowLogoutConfirm(false)}
-                  className="cursor-pointer active:scale-[0.99] w-full py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl font-bold text-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+                  className="
+                    text-slate-900 dark:text-white 
+                    bg-slate-100 dark:bg-white/20
+                    -translate-y-[3px] translate-x-[-3px]
+                    [box-shadow:4px_6px_0_#f1f5f9]
+                    dark:[box-shadow:4px_4px_0_#99a3b1]
+                    hover:translate-y-0 hover:translate-x-0
+                    hover:bg-slate-200 dark:hover:bg-slate-700
+                    border border-slate-300
+                    hover:[box-shadow:0_0_0_#f1f5f9]
+                    dark:hover:[box-shadow:0_0_0_#94a3b8]
+                    active:translate-y-[2px] active:translate-x-[2px]
+                    active:[box-shadow:none]
+                    active:bg-slate-300 dark:active:bg-slate-800
+                  cursor-pointer active:scale-[0.99] w-full py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl font-bold text-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
                 >
                   Batal
                 </button>

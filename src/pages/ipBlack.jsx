@@ -273,7 +273,19 @@ const AddFromDonations = ({ onAdd, blacklist }) => {
         <button
           onClick={handleManualAdd}
           disabled={adding === 'manual' || !manualIp.trim()}
-          className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl transition-all active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="
+           text-slate-900 dark:text-white 
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+          active:bg-slate-300 dark:active:bg-slate-800
+          w-full py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl transition-all active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {adding === 'manual' ? (
             <><Loader2 size={15} className="animate-spin" /> Memblokir...</>
@@ -395,8 +407,8 @@ const IpBlacklistPage = () => {
   };
 
   const tabs = [
-    { id: 'list', label: `Diblokir (${blacklist.length})`, icon: Shield },
-    { id: 'add',  label: 'Tambah / Riwayat',              icon: PlusCircle   },
+    { id: 'list', label: `Blokir (${blacklist.length})`, icon: Shield },
+    { id: 'add',  label: 'Tambah',              icon: PlusCircle   },
   ];
 
   return (
@@ -424,7 +436,20 @@ const IpBlacklistPage = () => {
           <button
             key={id}
             onClick={() => setActiveTab(id)}
-            className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-black text-sm transition-all cursor-pointer border ${
+            className={`
+               text-slate-900 dark:text-white
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                hover:bg-slate-200 dark:hover:bg-slate-700
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+              flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-black text-sm transition-all cursor-pointer border ${
               activeTab === id
                 ? 'bg-slate-900 dark:bg-slate-700 text-white border-transparent'
                 : 'bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-500/70'

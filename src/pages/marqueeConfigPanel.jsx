@@ -167,7 +167,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
             </h3>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 gap-3">
+        <div className="grid md:grid-cols-1 gap-3">
           {[
             { val: 'top',    label: '🏆 Top Donor',       desc: 'Berdasarkan total dukungan terbesar' },
             { val: 'recent', label: '⚡ Dukungan Terbaru',   desc: 'Dukungan yang baru masuk' },
@@ -175,7 +175,19 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
             <button
               key={m.val}
               onClick={() => upd('mode', m.val)}
-              className={`cursor-pointer text-left p-4 rounded-xl border-2 transition-all active:scale-[0.99] space-y-1 ${
+              className={`
+                text-slate-900 dark:text-white
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+                cursor-pointer text-left p-4 rounded-xl border-2 transition-all active:scale-[0.99] space-y-1 ${
                 cfg.mode === m.val
                   ? 'bg-blue-600 border-blue-600 text-white'
                   : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 hover:border-blue-300'
@@ -207,7 +219,20 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
             <button
               key={n}
               onClick={() => upd('limit', n)}
-              className={`w-full md:mb-0 mb-2.5 cursor-pointer text-left pl-3.5 flex-1 py-3.5 rounded-xl font-black text-sm border-2 transition-all active:scale-[0.97] ${
+              className={`
+                 text-slate-900 dark:text-white 
+                 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  active:bg-slate-300 dark:active:bg-slate-800
+                w-full md:mb-0 mb-2.5 cursor-pointer text-left pl-3.5 flex-1 py-3.5 rounded-xl font-black text-sm border-2 transition-all active:scale-[0.97] ${
                 cfg.limit === n
                   ? 'bg-blue-600 border-blue-600 text-white'
                   : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
@@ -322,7 +347,19 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
                   upd('bg', preset.value);
                 }
               }}
-              className={`cursor-pointer px-4 py-3 min-h-11.5 rounded-xl font-black text-xs border-2 transition-all active:scale-[0.97] ${
+              className={`
+                 text-slate-900 dark:text-white 
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+                cursor-pointer px-4 py-3 min-h-11.5 rounded-xl font-black text-xs border-2 transition-all active:scale-[0.97] ${
                 cfg.bg === preset.value
                   ? 'bg-blue-600 border-blue-600 text-white'
                   : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
@@ -397,7 +434,20 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
         <div className="gap-3 grid grid-cols-2">
           <button
             onClick={copy}
-            className={`w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 min-h-11.5 rounded-xl font-black text-sm transition-all border-2 ${
+            className={`
+              text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              hover:bg-slate-200 dark:hover:bg-slate-700
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+              w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 min-h-11.5 rounded-xl font-black text-sm transition-all border-2 ${
               copied
                 ? 'bg-green-600 border-green-600 text-white'
                 : 'bg-slate-900/70 dark:bg-slate-700 border-transparent text-white hover:brightness-90'
@@ -409,7 +459,20 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
             href={buildUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 min-h-11.5 rounded-xl font-black text-sm border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-300 transition-all"
+            className="
+            text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            hover:bg-slate-200 dark:hover:bg-slate-700
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 min-h-11.5 rounded-xl font-black text-sm border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-300 transition-all"
           >
             <ExternalLink size={16} /> Buka Preview
           </a>

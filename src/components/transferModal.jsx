@@ -161,8 +161,8 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
         
       >
         {/* Header */}
-        <div className="rounded-xl flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800">
-          <div className="rounded-xl flex items-center gap-2.5">
+        <div className="rounded-xl flex items-center justify-between px-4 py-4 border-b border-slate-100 dark:border-slate-800">
+          <div className="rounded-xl flex items-center gap-3.5">
             <div className="rounded-xl w-8 h-8 bg-blue-100 dark:bg-blue-950/60 flex items-center justify-center">
               <SendHorizonal size={16} className="text-blue-600 dark:text-blue-400" />
             </div>
@@ -197,7 +197,7 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
               exit={{ opacity: 0, x: 16 }}
               transition={{ duration: 0.18 }}
             >
-              <div className="rounded-xl px-6 pt-4 pb-2">
+              <div className="rounded-xl px-4 pt-4 pb-2">
                 <div className="relative rounded-xl">
                   <Search
                     size={14}
@@ -236,7 +236,10 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                     <button
                       key={u._id}
                       onClick={() => handleSelectUser(u)}
-                      className="rounded-xl cursor-pointer w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all active:scale-[0.99] group"
+                      className="
+                        text-slate-900 dark:text-whi
+                    
+                      rounded-xl cursor-pointer w-full flex items-center gap-3 px-3 py-2.5 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all active:scale-[0.99] group"
                     >
                       <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0 overflow-hidden">
                         {u.profilePicture ? (
@@ -339,7 +342,7 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
               </div>
 
               {/* Quick amounts */}
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-3">
                 {QUICK_AMOUNTS.map((v) => (
                   <button
                     key={v}
@@ -372,16 +375,30 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
               </div>
 
               {error && (
-                <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
+                <div className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
                   <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
                   <p className="text-xs font-bold text-red-600 dark:text-red-400">{error}</p>
                 </div>
               )}
 
-              <div className="flex gap-2 pt-1">
+              <div className="flex gap-3 pt-1">
                 <button
                   onClick={() => { setStep("list"); setSelected(null); }}
-                  className="rounded-xl cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-[0.99]"
+                  className="
+                    text-slate-900 dark:text-white 
+                    bg-slate-100 dark:bg-white/20
+                    -translate-y-[3px] translate-x-[-3px]
+                    [box-shadow:4px_6px_0_#f1f5f9]
+                    dark:[box-shadow:4px_4px_0_#99a3b1]
+                    hover:translate-y-0 hover:translate-x-0
+                    hover:bg-slate-200 dark:hover:bg-slate-700
+                    border border-slate-300
+                    hover:[box-shadow:0_0_0_#f1f5f9]
+                    dark:hover:[box-shadow:0_0_0_#94a3b8]
+                    active:translate-y-[2px] active:translate-x-[2px]
+                    active:[box-shadow:none]
+                    active:bg-slate-300 dark:active:bg-slate-800
+                  rounded-xl cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-[0.99]"
                   
                 >
                   Kembali
@@ -389,7 +406,20 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                 <button
                   onClick={handleConfirm}
                   disabled={!amountValid}
-                  className="rounded-xl cursor-pointer flex-[2] py-3 bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-[0.99] flex items-center justify-center gap-2"
+                  className="
+                    text-slate-900 dark:text-white 
+
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:bg-slate-200 dark:hover:bg-slate-700
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                      active:bg-slate-300 dark:active:bg-slate-800
+                  rounded-xl cursor-pointer flex-[2] py-3 bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-[0.99] flex items-center justify-center gap-3"
                   
                 >
                   <SendHorizonal size={15} />
@@ -429,11 +459,13 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
 
                 {/* 4 PIN inputs */}
                 {/* Toggle show/hide */}
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex items-center justify-center gap-3">
                   <button
                     type="button"
                     onClick={() => setShowPin(v => !v)}
-                    className="rounded-xl cursor-pointer flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-blue-500 transition-colors"
+                    className="
+                     
+                    rounded-xl cursor-pointer flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-blue-500 transition-colors"
                   >
                     {showPin ? <EyeOff size={13} /> : <Eye size={13} />}
                     {showPin ? 'Sembunyikan PIN' : 'Tampilkan PIN'}
@@ -465,17 +497,29 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                 </div>
 
                 {error && (
-                  <div className="flex items-center gap-2 p-3 justify-center bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
+                  <div className="flex items-center gap-3 p-3 justify-center bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
                     <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
                     <p className="text-xs font-bold text-red-600 dark:text-red-400">{error}</p>
                   </div>
                 )}
 
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <button
                     onClick={() => { setStep("form"); setPin(["", "", "", ""]); setError(""); }}
                     disabled={submitting}
-                    className="rounded-xl cursor-pointer flex-1 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-700 transition-all active:scale-[0.99] disabled:opacity-40"
+                    className="
+                      text-slate-900 dark:text-white
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                      active:bg-slate-300 dark:active:bg-slate-800
+                    rounded-xl cursor-pointer flex-1 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-700 transition-all active:scale-[0.99] disabled:opacity-40"
                     
                   >
                     Kembali
@@ -483,7 +527,19 @@ export const TransferModal = ({ user, onClose, onSuccess }) => {
                   <button
                     onClick={handlePinSubmit}
                     disabled={submitting || pin.join("").length < 4}
-                    className="rounded-xl cursor-pointer flex-[2] py-3.5 bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="
+                      text-slate-900 dark:text-white
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                      active:bg-slate-300 dark:active:bg-slate-800
+                    rounded-xl cursor-pointer flex-[2] py-3.5 bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-all active:scale-[0.99] flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
                     
                   >
                     {submitting ? (

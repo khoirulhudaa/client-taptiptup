@@ -100,7 +100,19 @@
               <p style={{ fontSize:14, color:'#64748b', lineHeight:1.6, marginBottom:24 }}>
                 {notification.message}
               </p>
-              <button className='cursor-pointer active:scale-[0.99]' onClick={onClose}
+              <button className='
+                text-slate-900 dark:text-white 
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer active:scale-[0.99]' onClick={onClose}
                 style={{ 
                   width:'100%', padding:'14px 0', borderRadius:10, fontWeight:900, fontSize:14, 
                   border:'none',  
@@ -530,7 +542,22 @@
               </button>
             </div>
 
-            <button type="submit" disabled={!isFormValid || loading} className="submit-btn"
+            <button type="submit" disabled={!isFormValid || loading} 
+              className="submit-btn
+                text-slate-900 dark:text-white 
+          bg-slate-100 dark:bg-white/20
+          -translate-y-[3px] translate-x-[-3px]
+          [box-shadow:4px_6px_0_#f1f5f9]
+          dark:[box-shadow:4px_4px_0_#99a3b1]
+          hover:translate-y-0 hover:translate-x-0
+          hover:bg-slate-200 dark:hover:bg-slate-700
+          border border-slate-300
+          hover:[box-shadow:0_0_0_#f1f5f9]
+          dark:hover:[box-shadow:0_0_0_#94a3b8]
+          active:translate-y-[2px] active:translate-x-[2px]
+          active:[box-shadow:none]
+          active:bg-slate-300 dark:active:bg-slate-800
+              "
               style={{ 
                 width:'100%', padding:'16px 0', borderRadius:10, fontWeight:900, fontSize:15, 
                 border:'none', cursor:'pointer', 
@@ -697,7 +724,19 @@
               <button 
                 onClick={handleCheckEmail} 
                 disabled={loading || !emailReset}
-                className='text-center flex justify-center items-center active:scale-[0.99]'
+                className='
+                  text-slate-900 dark:text-white
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  active:bg-slate-300 dark:active:bg-slate-800
+                text-center flex justify-center items-center active:scale-[0.99]'
                 style={{ 
                   width:'100%', padding:'16px 0', borderRadius:10, fontWeight:900, fontSize:14, 
                   border:'none', cursor:'pointer', 
