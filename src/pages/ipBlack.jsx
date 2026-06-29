@@ -107,7 +107,7 @@ const BlockedIpList = ({ blacklist, onDelete, loading }) => {
               className="flex items-center gap-3 p-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-700 rounded-xl"
             >
               {/* Icon */}
-              <div className="w-9 h-9 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-9 h-9 bg-red-100 dark:bg-red-900/30 border border-red-500/50 rounded-xl flex items-center justify-center flex-shrink-0">
                 <Ban size={15} className="text-red-500" />
               </div>
 
@@ -153,7 +153,7 @@ const BlockedIpList = ({ blacklist, onDelete, loading }) => {
               ) : (
                 <button
                   onClick={() => setConfirmId(entry._id)}
-                  className="w-8 h-8 flex items-center justify-center text-slate-300 dark:text-slate-600 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all cursor-pointer flex-shrink-0"
+                  className="w-8 h-8 flex items-center justify-center text-slate-300 dark:text-white hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all cursor-pointer flex-shrink-0"
                 >
                   <Trash2 size={14} />
                 </button>

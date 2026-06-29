@@ -2400,7 +2400,6 @@ const HistoryPage = () => {
   const [historyTab, setHistoryTab] = useState('received');
   const [replayLoading, setReplayLoading] = useState(new Set());
   const [lastReplayTime, setLastReplayTime] = useState({});
-  const [showIps, setShowIps] = useState(false);
   const [viewMode, setViewMode] = useState('card'); // 'table' | 'card'
   const [showAmounts, setShowAmounts] = useState(() => {
     const saved = localStorage.getItem('showBalance');
@@ -2569,10 +2568,6 @@ const HistoryPage = () => {
                 className={`flex items-center gap-1.5 px-3 py-3 rounded-xl  text-[10px] font-black transition-all border-2 ${showEmails ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
                 {showEmails ? <Eye size={12} /> : <EyeOff size={12} />} Email
               </button>
-              <button onClick={() => setShowIps(v => !v)}
-                className={`flex items-center gap-1.5 px-3 py-3 rounded-xl text-[10px] font-black transition-all border-2 ${showIps ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 text-slate-400'}`}>
-                {showIps ? <Eye size={12} /> : <EyeOff size={12} />} IP
-              </button>
             </div>
             <div className="flex gap-1">
               {[{ val: '', label: 'Semua' }, { val: 'PAID', label: 'PAID' }].map((f) => (
@@ -2601,9 +2596,7 @@ const HistoryPage = () => {
                     <tr className="bg-slate-100/50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">
                       <th className="px-4 md:px-8 py-6">Donatur</th>
                       <th className="px-4 md:px-8 py-6">Nominal</th>
-                      {showIps && (
-                        <th className="px-4 md:px-8 py-6">IP Address</th>
-                      )}
+                      <th className="px-4 md:px-8 py-6">IP Address</th>
                       <th className="px-4 md:px-8 py-6">Pesan</th>
                       <th className="px-4 md:px-8 py-6 text-center">Replay</th>
                       <th className="px-4 md:px-8 py-6">Media</th>
@@ -2627,17 +2620,15 @@ const HistoryPage = () => {
                                 <p className="text-xs text-slate-500 mt-0.5">{item.donorEmail}</p>
                               )}
                             </td>
-                            {showIps && (
-                              <td className="px-5 md:px-8 py-5">
-                                {item.donorIp ? (
-                                  <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md">
-                                    {item.donorIp}
-                                  </span>
-                                ) : (
-                                  <span className="text-slate-300 dark:text-slate-600 text-xs">-</span>
-                                )}
-                              </td>
-                            )}
+                            <td className="px-5 md:px-8 py-5">
+                              {item.donorIp ? (
+                                <span className="font-mono text-[11px] text-slate-400 dark:text-white bg-slate-100 dark:bg-slate-500/50 px-2 py-1 rounded-md">
+                                  {item.donorIp}
+                                </span>
+                              ) : (
+                                <span className="text-slate-300 dark:text-slate-600 text-xs">-</span>
+                              )}
+                            </td>
                             <td className="px-5 md:px-8 py-5">
                               {getDonationItemDisplay(item) ? (
                                 <div>
@@ -2719,17 +2710,12 @@ const HistoryPage = () => {
                               {showEmails && item.donorEmail && (
                                 <p className="text-xs text-slate-500 mt-1">{item.donorEmail}</p>
                               )}
-                              {showIps && item.donorIp && (
-                                <p className="text-[11px] mt-1 flex items-center gap-1">
-                                  <span className="font-mono text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
-                                    {item.donorIp}
-                                  </span>
-                                </p>
-                              )}
                             </div>
-                            <span className={`px-3 py-1 rounded-xl  text-xs font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600' : 'bg-amber-100 text-amber-600'}`}>
-                              {item.status}
-                            </span>
+                            <p className="text-[11px] relative mt-[2px] flex items-center gap-1">
+                              <span className="font-mono text-slate-400 dark:text-white bg-slate-100 dark:bg-slate-500/50 px-2 py-0.5 rounded-md">
+                                {item.donorIp}
+                              </span>
+                            </p>
                           </div>
                           
                           <div className='h-[60px]'>
