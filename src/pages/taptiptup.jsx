@@ -1336,7 +1336,7 @@ function FeeComparison({ C }) {
                   {p.feeDonate.toFixed(1)}% + {p.feeWdLabel || '—'}{p.name === 'Saweria' ? ` + ${p.feeMaintenance || ''}` : ''}
                 </div>
                 <div style={{ fontFamily: "'Space Mono',monospace", fontSize: 12, color: "black", letterSpacing: "0.05em", textTransform: "uppercase", marginTop: 10 }}>
-                  {p.name === 'TapTipTup' ? 'Setiap Dukungan + WD semua metode' : p.name === 'Saweria' ? 'Setiap Dukungan + WD Bank + Pemeliharaan' : 'Setiap Dukungan + WD Bank'}
+                  {p.name === 'TapTipTup' ? 'Per Dukungan + WD semua metode' : p.name === 'Saweria' ? 'Per Dukungan + WD Bank + Pemeliharaan' : 'Per Dukungan + WD Bank'}
                 </div>
               </div>
               </StaggerItem>

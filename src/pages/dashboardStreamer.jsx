@@ -1572,7 +1572,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   const [isFullscreen, setIsFullscreen] = useState(false);
   const timerRef = useRef(null);
   const donorIdxRef = useRef(0);
-  const [previewMode, setPreviewMode] = useState('alert'); // 'alert' | 'media'
+  const [previewMode, setPreviewMode] = useState('alert'); 
   const [mediaUrl, setMediaUrl] = useState('https://picsum.photos/400/300');
 
   const MEDIA_PRESETS = [
@@ -2342,7 +2342,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         <div className="absolute inset-0 pointer-events-none">
           <AnimatePresence>
             {showAlert && previewMode === 'alert' && (
-              <motion.div className='ml-1.5 md:ml-4 w-[90.7%] 2xl:w-[90%] md:w-[87%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
+              <motion.div className='ml-1.5 md:ml-3.5 w-[90.7%] 2xl:w-[90%] md:w-[87%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
                 {renderAlert()}
               </motion.div>
             )}
