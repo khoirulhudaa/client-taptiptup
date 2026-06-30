@@ -85,9 +85,6 @@ const ThemeToggle = ({ theme, onToggle }) => {
     <motion.button
       id="tour-theme-toggle"
       onClick={onToggle}
-      variants={navbarItemVariants}   // tambahkan ini
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       className="
         text-slate-900 dark:text-white 
@@ -273,8 +270,6 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
           <motion.button
             id="tour-sidebar-toggle"
             variants={navbarItemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             style={{originX: 0}}
             onClick={() => setIsCollapsed(v => !v)}
             title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
@@ -286,13 +281,12 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               dark:[box-shadow:4px_4px_0_#99a3b1]
               hover:translate-y-0 hover:translate-x-0
               hover:bg-slate-200 dark:hover:bg-slate-700
-              border border-slate-300
               hover:[box-shadow:0_0_0_#f1f5f9]
               dark:hover:[box-shadow:0_0_0_#94a3b8]
               active:translate-y-[2px] active:translate-x-[2px]
               active:[box-shadow:none]
               active:bg-slate-300 dark:active:bg-slate-800
-            rounded-xl cursor-pointer flex-shrink-0 h-[40px] border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 w-max px-2 mx-[1px] flex items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:brightness-110 transition-all"
+            rounded-xl cursor-pointer h-[40px] border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 w-max px-2 flex items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:brightness-110 transition-all"
           >
             <AnimatePresence mode="wait">
               {isCollapsed ? (
@@ -375,8 +369,6 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
             id="tour-help"
             onClick={() => setActiveTab('contact')}
             variants={navbarItemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             className={`
                 text-slate-900 dark:text-white 
                 bg-slate-100 dark:bg-white/20
@@ -408,8 +400,6 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
           <motion.button
             id="tour-community"
             variants={navbarItemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             onClick={() => setActiveTab('community')}
             className="
               text-slate-900 dark:text-white 
@@ -450,8 +440,6 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
             <motion.button
               id="tour-profile"
               variants={navbarItemVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               onClick={() => setShowLogout(v => !v)}
               className="
                 text-slate-900 dark:text-white 
