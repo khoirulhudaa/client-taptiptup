@@ -50,6 +50,32 @@ const btnTransition = {
   },
 };
 
+const menuContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.24,    // cepat & natural
+      delayChildren: 0.1,      // hampir instan
+    }
+  }
+};
+
+const menuItemVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 25 
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.5,                    // durasi tiap item
+      ease: [0.22, 1, 0.36, 1],
+    }
+  }
+};
+
 const getBtnClass = (isActive, extraClass = '') => {
   const base = `
     cursor-pointer mb-4 w-max md:w-full flex rounded-lg font-black text-sm select-none
@@ -290,125 +316,124 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
 
         {/* Navigation */}
         <nav className={`${isCollapsed ? 'mt-[-14.5px] md:mt-[-20px]' : 'mt-0'} md:border-0 border-t border-slate-500/30 pt-5 md:flex-1 space-y-1 px-2`}>
-          {menuGroups.map((group) => {
-            const visibleItems = group.items.filter(item => {
-              if (isSuperAdmin && hideForSuperAdmin.includes(item.id)) return false;
-              if (isStreamerSuper && superMode && hideForAdminMode.includes(item.id)) return false;
-              return true;
-            });
-            if (visibleItems.length === 0) return null;
+          
+          <motion.div
+            variants={menuContainerVariants}
+            initial="hidden"
+            animate="visible"
+            className="space-y-8"
+          >
+            {menuGroups.map((group, groupIndex) => {
+              const visibleItems = group.items.filter(item => {
+                if (isSuperAdmin && hideForSuperAdmin.includes(item.id)) return false;
+                if (isStreamerSuper && superMode && hideForAdminMode.includes(item.id)) return false;
+                return true;
+              });
+              if (visibleItems.length === 0) return null;
 
-            return (
-              <div key={group.groupLabel}>
-                {!isCollapsed && (
-                  <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white mb-2">
-                    {group.groupLabel}
-                    <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
-                  </div>
-                )}
-                {isCollapsed && (
-                  <div className="md:hidden flex text-[8px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 text-left mb-1 md:px-1 leading-tight">
-                    {group.groupLabel}
-                  </div>
-                )}
+              return (
+                <div key={group.groupLabel}>
+                  {/* Group Label */}
+                  {!isCollapsed && (
+                    <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white mb-2">
+                      {group.groupLabel}
+                      <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
+                    </div>
+                  )}
+                  {isCollapsed && (
+                    <div className="md:hidden flex text-[8px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 text-left mb-1 md:px-1 leading-tight">
+                      {group.groupLabel}
+                    </div>
+                  )}
 
-                <div className="space-y-1 flex md:block flex-wrap gap-2 md:gap-0 pt-4">
-                  {visibleItems.map((item) => (
-                    <button
+                  {/* Menu Items */}
+                  <div className="space-y-1 flex md:block flex-wrap gap-2 md:gap-0 pt-4">
+                    {visibleItems.map((item) => (
+                      <motion.button
+                        key={item.id}
+                        id={`tour-${item.id}`}
+                        onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
+                        {...btnTransition}
+                        variants={menuItemVariants}
+                        className={getBtnClass(activeTab === item.id, itemLayout)}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.97 }}
+                      >
+                        <span className="flex-shrink-0">{item.icon}</span>
+                        {isCollapsed ? (
+                          <span className="text-[12px] font-bold text-center leading-tight break-words w-full">
+                            {item.label}
+                          </span>
+                        ) : (
+                          <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.2 }}
+                            className="whitespace-nowrap overflow-hidden"
+                          >
+                            {item.label}
+                          </motion.span>
+                        )}
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Super Admin Section */}
+            {isStreamerSuper && superMode && (
+              <div>
+                <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2 mt-6">
+                  Super Admin
+                  <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
+                </div>
+                <div className="space-y-1">
+                  {[
+                    { id: 'suggestions',     label: 'Saran',      icon: <MessageSquare size={20} /> },
+                    { id: 'ghostAlert',      label: 'Test Notif', icon: <Zap size={20} /> },
+                    { id: 'streamerManager', label: 'Data User',  icon: <Users size={20} /> },
+                    { id: 'terminal',        label: 'Riwayat',    icon: <Terminal size={20} /> },
+                    { id: 'maintenance',     label: 'Perbaikan',  icon: <ShieldAlert size={20} /> },
+                    { id: 'announcements',   label: 'Informasi',  icon: <Megaphone size={20} /> },
+                  ].map((item) => (
+                    <motion.button
                       key={item.id}
-                      id={`tour-${item.id}`}
                       onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
                       {...btnTransition}
+                      variants={menuItemVariants}
                       className={getBtnClass(activeTab === item.id, itemLayout)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.97 }}
                     >
                       <span className="flex-shrink-0">{item.icon}</span>
-                      {isCollapsed ? (
-                        <span className="text-[12px] font-bold text-center leading-tight break-words w-full">
-                          {item.label}
-                        </span>
-                      ) : (
-                        <motion.span
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.15 }}
-                          className="whitespace-nowrap overflow-hidden"
-                        >
-                          {item.label}
-                        </motion.span>
-                      )}
-                    </button>
+                      <span className="text-[12px] font-bold text-center leading-tight break-words w-full">
+                        {item.label}
+                      </span>
+                    </motion.button>
                   ))}
                 </div>
               </div>
-            );
-          })}
+            )}
+          </motion.div>
 
           <div className="w-full h-[1px] my-3 bg-slate-200 dark:bg-slate-800" />
 
           {isSuperAdmin && (
-            <button
+            <motion.button
               id="tour-admin"
               onClick={() => { setActiveTab('admin'); setIsSidebarOpen(false); }}
               {...btnTransition}
+              variants={menuItemVariants}
               className={getBtnClass(activeTab === 'admin', isCollapsed ? 'justify-center px-0 py-3' : 'gap-3 px-4 py-3')}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
             >
               <ShieldAlert size={20} />
               {!isCollapsed && <span className="whitespace-nowrap">Permintaan Penarikan</span>}
-            </button>
+            </motion.button>
           )}
 
-          {isStreamerSuper && superMode && (
-            <>
-              <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">
-                Super Admin
-                <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
-              </div>
-              <div className="space-y-1">
-                {[
-                  { id: 'suggestions',     label: 'Saran',      icon: <MessageSquare size={20} /> },
-                  { id: 'ghostAlert',      label: 'Test Notif', icon: <Zap size={20} /> },
-                  { id: 'streamerManager', label: 'Data User',  icon: <Users size={20} /> },
-                  { id: 'terminal',        label: 'Riwayat',    icon: <Terminal size={20} /> },
-                  { id: 'maintenance',     label: 'Perbaikan',  icon: <ShieldAlert size={20} /> },
-                  { id: 'announcements',   label: 'Informasi',  icon: <Megaphone size={20} /> },
-                ].map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
-                    {...btnTransition}
-                    className={getBtnClass(activeTab === item.id, itemLayout)}
-                  >
-                    <span className="flex-shrink-0">{item.icon}</span>
-                    <span className="text-[12px] font-bold text-center leading-tight break-words w-full">
-                      {item.label}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
-
-          {!isCollapsed && (
-            <div className="pt-4 mt-2 border-t border-slate-200 dark:border-slate-800">
-              <button
-                onClick={() => setShowLogoutConfirm(true)}
-                className="md:hidden w-full flex items-center gap-3 p-3 px-4 bg-red-100 dark:bg-red-900 text-white hover:bg-red-50 dark:hover:bg-red-950 rounded-lg cursor-pointer active:scale-[0.99] font-black"
-              >
-                <LogOut size={18} className='relative left-[1.2px]' />
-                <span className="text-sm ml-[2.2px]">Keluar</span>
-              </button>
-            </div>
-          )}
-
-          {isCollapsed && (
-            <button
-              onClick={() => setIsSidebarOpen(false)}
-              className="relative right-0 w-full h-11 text-sm bg-red-600 hover:bg-red-700 rounded-lg cursor-pointer active:scale-[0.95] lg:hidden p-1.5 text-white"
-            >
-              <p>Tutup</p>
-            </button>
-          )}
         </nav>
       </aside>
     </>

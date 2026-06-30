@@ -48,15 +48,46 @@ const useTheme = () => {
   return { theme, toggle };
 };
 
+
+/* ─── Animasi Fade Right untuk TopNavbar ─── */
+const navbarContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.20,    
+      delayChildren: 1,     
+    }
+  }
+};
+
+const navbarItemVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: -10 
+  },
+  visible: { 
+    opacity: 1, 
+    y: -0,
+    transition: {
+      duration: 1,
+      ease: [0.25, 0.1, 0.25, 1]
+    }
+  }
+};
+
 // ─── ThemeToggle button ───────────────────────────────────────────────────────
 
 const ThemeToggle = ({ theme, onToggle }) => {
   const isDark = theme === 'dark';
 
   return (
-    <button
+    <motion.button
       id="tour-theme-toggle"
       onClick={onToggle}
+      variants={navbarItemVariants}   // tambahkan ini
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       className="
         text-slate-900 dark:text-white 
@@ -134,7 +165,7 @@ const ThemeToggle = ({ theme, onToggle }) => {
           )}
         </AnimatePresence>
       </motion.div>
-    </button>
+    </motion.button>
   );
 };
 
@@ -221,9 +252,18 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
         </div>
 
         {/* Kanan */}
-        <div id="tour-topnavbar-group" className="flex items-center gap-3.5 md:pr-[7px] md:justify-end 2xl:w-max w-full flex-shrink-0">
-          <button
+        <motion.div 
+          variants={navbarContainerVariants}
+          initial="hidden"
+          animate="visible"
+          id="tour-topnavbar-group" 
+          className="flex items-center gap-3.5 md:pr-[7px] md:justify-end 2xl:w-max w-full flex-shrink-0">
+          <motion.button
             id="tour-sidebar-toggle"
+            variants={navbarItemVariants}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            style={{originX: 0}}
             onClick={() => setIsCollapsed(v => !v)}
             title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             className="
@@ -255,11 +295,12 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                 </motion.span>
               )}
             </AnimatePresence>
-          </button>
+          </motion.button>
 
           {/* ── Saldo + Tombol Kirim ─────────────────────────────────────── */}
-          <div
+          <motion.div
             id="tour-balance"  
+            variants={navbarItemVariants}
             className="
               text-slate-900 dark:text-white 
             -translate-y-[3px] translate-x-[-3px]
@@ -311,14 +352,19 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               />
               <span className="text-md font-bold md:hidden 2xl:flex">Kirim</span>
             </button>
-          </div>
+          </motion.div>
 
           {/* Theme toggle */}
-          <ThemeToggle theme={theme} onToggle={toggle} />
+          <motion.div variants={navbarItemVariants}>
+            <ThemeToggle theme={theme} onToggle={toggle} />
+          </motion.div>
 
-          <button
+          <motion.button
             id="tour-help"
             onClick={() => setActiveTab('contact')}
+            variants={navbarItemVariants}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className={`
                 text-slate-900 dark:text-white 
                 bg-slate-100 dark:bg-white/20
@@ -340,13 +386,18 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
             }`}>
             <HeadphonesIcon size={14} />
             <span className="text-md font-bold md:hidden 2xl:flex">Bantuan</span>
-          </button>
+          </motion.button>
 
-          <InboxBell setActiveTab={setActiveTab} />
+          <motion.div variants={navbarItemVariants}>
+            <InboxBell setActiveTab={setActiveTab} />
+          </motion.div>
 
           {/* Komunitas */}
-          <button
+          <motion.button
             id="tour-community"
+            variants={navbarItemVariants}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setActiveTab('community')}
             className="
               text-slate-900 dark:text-white 
@@ -380,12 +431,15 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
             />
             <Users size={16} className="relative z-10 text-white/90" />
             <span className="hidden md:inline relative z-10 text-white/90 tracking-wide">Komunitas</span>
-          </button>
+          </motion.button>
 
           {/* Avatar + dropdown */}
           <div className="relative">
-            <button
+            <motion.button
               id="tour-profile"
+              variants={navbarItemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setShowLogout(v => !v)}
               className="
                 text-slate-900 dark:text-white 
@@ -424,7 +478,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 ml-0.5">
                 <path d="M6 9l6 6 6-6" />
               </svg>
-            </button>
+            </motion.button>
 
             <AnimatePresence>
               {showLogout && (
@@ -503,7 +557,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               )}
             </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* ── Modal Transfer ──────────────────────────────────────────────────── */}

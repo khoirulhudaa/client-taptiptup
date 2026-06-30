@@ -4937,12 +4937,12 @@ const handleChangePin = async () => {
                     {/* OBS URLs */}
                     <div id="tour-overlay-url" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 md:pb-2.5 shadow-xs border border-slate-100 dark:border-slate-800">
                       <div className='mb-5'>
-                        <SectionHeader icon={<Monitor size={20} />} title={`URL Overlay`} color="bg-blue-500" />
+                        <SectionHeader icon={<Monitor size={20} className='relative left-[0.2px]' />} title={`URL Overlay`} color="bg-blue-500" />
                       </div>
                       <div className="!mt-[21px] flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-3 py-4 rounded-xl  border border-slate-100/10 mb-3">
                         <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">💝</div>
                         <div className='flex-1 min-w-0'>
-                          <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-full uppercase tracking-widest">MY DONATE URL</label>
+                          <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-max uppercase tracking-widest">MY DONATE URL</label>
                           <input readOnly value={`https://taptiptup.vercel.app/donate/${user.username}`} aria-label="URL halaman dukungan" className="w-[86%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden truncate" />
                         </div>
                         <div className="flex gap-3">
@@ -4972,7 +4972,7 @@ const handleChangePin = async () => {
                         <div key={label} className="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-xl  border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
                           <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
                           <div className='flex-1 min-w-0 relative top-[3px]'>
-                            <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-fulll uppercase tracking-widest">{label}</label>
+                            <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-max uppercase tracking-widest">{label}</label>
                             <input readOnly value={url} aria-label={`URL ${label}`} className="w-[90%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis" />
                           </div>
                           <div className="flex gap-3">
@@ -4998,17 +4998,17 @@ const handleChangePin = async () => {
 
                     {/* GANTI OVERLAY TOKEN */}
                     <div id="tour-ganti-token" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-sm border border-slate-100 dark:border-slate-800 space-y-5">
-                      <SectionHeader icon={<RefreshCw size={18} />} title="Ganti Overlay Token" color="bg-violet-500" />
+                      <SectionHeader icon={<Link size={18} />} title="Ganti Overlay Token" color="bg-violet-500" />
                     
                       <div className="space-y-3">
                         {/* Info box: URL saat ini */}
-                        <div className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-200 dark:border-slate-700">
-                          <div className="w-9 h-9 flex-shrink-0 rounded-xl  bg-violet-100 dark:bg-slate-500/30 flex items-center justify-center">
-                            <Link2 size={17} className="text-white relative left-[-0.2px]" />
+                        <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-200 dark:border-slate-700">
+                          <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
+                            <Link2 size={20} className="text-white relative left-[-0.2px]" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-0.5">Token Aktif</p>
-                            <p className="font-mono text-sm text-slate-700 dark:text-slate-200 font-bold truncate">
+                            <p className="text-[10px] font-black text-slate-400 dark:text-white uppercase tracking-widest mb-0.5">Token Aktif</p>
+                            <p className="font-mono text-sm text-slate-700 dark:text-blue-400 font-bold truncate">
                               {user.overlayToken || '—'}
                             </p>
                           </div>
@@ -5026,8 +5026,7 @@ const handleChangePin = async () => {
                               active:translate-y-[2px] active:translate-x-[2px]
                               active:[box-shadow:none]
                               active:bg-slate-300 dark:active:bg-slate-800
-                            cursor-pointer p-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-xl  transition-all flex-shrink-0"
-                          >
+                            cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-xl  transition-all flex-shrink-0">
                             <Copy size={14} />
                           </button>
                         </div>

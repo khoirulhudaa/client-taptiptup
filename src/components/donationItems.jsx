@@ -102,7 +102,19 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
             <div className="relative" ref={pickerRef}>
             <button
               onClick={() => setShowEmojiPicker(v => !v)}
-              className="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all cursor-pointer active:scale-95 border-2 border-slate-200 dark:border-slate-600"
+              className="
+                 text-slate-900 dark:text-white
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+              w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all cursor-pointer active:scale-95 border-2 border-slate-200 dark:border-slate-600"
             >
               {item.emoji || '❓'}
             </button>
@@ -114,13 +126,25 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="absolute z-[999999999999999999] shadow-2xl right-[-56px] top-13 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 md:w-max w-[83.5vw] h-max overflow-y-auto"
                 >
-                  <div className="grid grid-cols-7 md:grid-cols-10 gap-1.5">
+                  <div className="grid grid-cols-7 md:grid-cols-10 gap-3">
                     {EMOJI_PRESETS.map(({ emoji, label }) => (
                       <button
                         key={emoji}
                         onClick={() => { onChange(index, 'emoji', emoji); setShowEmojiPicker(false); }}
                         title={label}
-                        className={`w-9 h-9 rounded-xl flex items-center justify-center text-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all cursor-pointer active:scale-95 ${
+                        className={`
+                            text-slate-900 dark:text-white
+                          -translate-y-[3px] translate-x-[-3px]
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          active:[box-shadow:none]
+                          active:bg-slate-300 dark:active:bg-slate-800
+                          w-9 h-9 rounded-xl flex items-center justify-center text-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all cursor-pointer active:scale-95 ${
                           item.emoji === emoji
                             ? 'bg-blue-100 dark:bg-blue-900/50 ring-2 ring-blue-500'
                             : 'bg-slate-50 dark:bg-slate-800'
@@ -147,7 +171,19 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
 
           <button
             onClick={() => onRemove(index)}
-            className="shrink-0 cursor-pointer bg-red-700 h-[44px] w-[44px] flex justify-center items-center text-slate-300 hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-800 rounded-xl transition-all active:scale-95"
+            className="
+               text-slate-900 dark:text-white
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+            shrink-0 cursor-pointer bg-red-700 h-[44px] w-[44px] flex justify-center items-center text-slate-300 hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-800 rounded-xl transition-all active:scale-95"
           >
             <Trash2 size={18} className='relative left-[-1px]' />
           </button>
