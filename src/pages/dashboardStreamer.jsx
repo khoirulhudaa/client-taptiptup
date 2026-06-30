@@ -5218,25 +5218,6 @@ const handleChangePin = async () => {
                       <SectionHeader icon={<Trash2 size={18} />} title="Hapus Akun" color="bg-red-500" />
                     
                       <div className="space-y-3">
-                        <p className="text-xs text-slate-400 dark:text-slate-500 md:block hidden font-medium leading-relaxed">
-                          Menghapus akun bersifat <span className="font-black text-red-400">permanen</span>.
-                          Seluruh data akan dihapus selamanya.
-                        </p>
-                    
-                        {/* Daftar konsekuensi */}
-                        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          {[
-                            { icon: '⚙️', label: 'Saldo tidak dapat dikembalikan' },
-                            { icon: '⚙️', label: 'Riwayat dukungan terhapus permanen' },
-                            { icon: '⚙️', label: 'Semua URL overlay tidak aktif' },
-                            { icon: '⚙️', label: 'Data komunitas & follower hilang' },
-                          ].map(({ icon, label }) => (
-                            <div key={label} className="flex items-center gap-3 p-3 bg-slate-500/20 rounded-xl  border border-slate-500/30">
-                              <span className="text-base flex-shrink-0">{icon}</span>
-                              <p className="text-[11px] font-bold text-white">{label}</p>
-                            </div>
-                          ))}
-                        </div>
                         <div className="grid md:hidden grid-cols-1 sm:grid-cols-2 gap-2">
                           <div key={"Note"} className="md:hidden flex items-center gap-3 p-3 py-2.5 bg-slate-500/20 rounded-xl  border border-slate-500/30">
                             <span className="text-base flex-shrink-0">{'⚙️'}</span>
@@ -5282,7 +5263,7 @@ const handleChangePin = async () => {
                                 dark:hover:[box-shadow:0_0_0_#94a3b8]
                                 active:translate-y-[2px] active:translate-x-[2px]
                                 active:[box-shadow:none]
-                              cursor-pointer active:scale-[0.99] w-full py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
+                              cursor-pointer active:scale-[0.99] w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
                             >
                               <Trash2 className='relative top-[-1px]' size={16} /> Lanjut ke Verifikasi PIN
                             </button>

@@ -114,7 +114,7 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
                 active:translate-y-[2px] active:translate-x-[2px]
                 active:[box-shadow:none]
                 active:bg-slate-300 dark:active:bg-slate-800
-              w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all cursor-pointer active:scale-95 border-2 border-slate-200 dark:border-slate-600"
+              w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-all cursor-pointer active:scale-95"
             >
               {item.emoji || '❓'}
             </button>
@@ -138,11 +138,11 @@ const ItemRow = ({ item, index, onChange, onRemove }) => {
                           [box-shadow:4px_6px_0_#f1f5f9]
                           dark:[box-shadow:4px_4px_0_#99a3b1]
                           hover:translate-y-0 hover:translate-x-0
-                          border border-slate-300
                           hover:[box-shadow:0_0_0_#f1f5f9]
                           dark:hover:[box-shadow:0_0_0_#94a3b8]
                           active:translate-y-[2px] active:translate-x-[2px]
                           active:[box-shadow:none]
+                          border border-slate-300
                           active:bg-slate-300 dark:active:bg-slate-800
                           w-9 h-9 rounded-xl flex items-center justify-center text-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all cursor-pointer active:scale-95 ${
                           item.emoji === emoji
