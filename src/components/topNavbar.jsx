@@ -443,9 +443,9 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                 active:translate-y-[2px] active:translate-x-[2px]
                 active:[box-shadow:none]
                 active:bg-slate-300 dark:active:bg-slate-800
-              cursor-pointer h-[38.4px] flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl px-[3.4px] py-3 transition-all active:scale-[0.99]"
+                cursor-pointer h-[38.4px] flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl px-1.5 py-3 transition-all active:scale-[0.99]"
             >
-              <div className="relative top-[-0.5px] w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-md flex-shrink-0">
+              <div className="relative top-[-0.5px] w-6 h-6 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-md flex-shrink-0">
                 {user?.profilePicture ? (
                   <img
                     src={user.profilePicture}
@@ -463,9 +463,6 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               <div className="text-left hidden sm:block">
                 <p className="font-bold text-slate-800 dark:text-white text-md leading-tight">@{user.username}</p>
               </div>
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 ml-0.5">
-                <path d="M6 9l6 6 6-6" />
-              </svg>
             </motion.button>
 
             <AnimatePresence>
