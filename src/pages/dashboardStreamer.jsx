@@ -4336,7 +4336,7 @@ const handleChangePin = async () => {
         {showOverlay && <LoadingOverlay onDone={() => setShowOverlay(false)} />}
 
         {/* <video src="/glass.mp4" className='absolute z-[1]' autoplay={true}></video> */}
-        <img src="/glass.jpg" className='opacity-[10%] fixed top-0 left-0 w-screen h-screen z-[1]'  alt='glass-img'></img>
+        {/* <img src="/glass.jpg" className='opacity-[10%] fixed top-0 left-0 w-screen h-screen z-[1]'  alt='glass-img'></img> */}
         {/* ── Modal Copy URL ── */}
         <AnimatePresence>
           {showCopyModal && (
