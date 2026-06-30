@@ -131,7 +131,7 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
     { key: 'widget',  label: 'Widget OBS' },
   ];
 
-  if (isOpen) return null;
+  if (!isOpen) return null;
 
   return (
     <AnimatePresence>
@@ -147,7 +147,7 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.92, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-          className="bg-white dark:bg-slate-900 w-full max-w-full max-h-[82vh] overflow-hidden rounded-xl flex flex-col border border-slate-200 dark:border-slate-700 shadow-2xl"
+          className="bg-white dark:bg-slate-900 w-full max-w-full h-max overflow-hidden rounded-xl flex flex-col border border-slate-200 dark:border-slate-700 shadow-2xl"
           onClick={e => e.stopPropagation()}
         >
 
@@ -266,7 +266,6 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
                   dark:hover:[box-shadow:0_0_0_#94a3b8]
                   active:translate-y-[2px] active:translate-x-[2px]
                   active:[box-shadow:none]
-                  active:bg-slate-300 dark:active:bg-slate-800
                   rounded-xl cursor-pointer w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-black text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
                 >
                   {adding ? (

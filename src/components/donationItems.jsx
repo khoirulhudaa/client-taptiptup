@@ -471,7 +471,7 @@ const DonationItemsEditor = ({
                 text-left px-4 pt-2.5 pb-3.5 rounded-xl border-2 transition-all cursor-pointer active:scale-[0.99] ${
                 currentMode === opt.value
                   ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                  : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300'
+                  : 'border-slate-200 dark:border-slate-300 bg-slate-50 dark:bg-slate-800 hover:border-slate-300'
               }`}
             >
               <div className="flex items-center justify-center md:justify-start gap-2 relative top-[1px]">

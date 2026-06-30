@@ -3530,6 +3530,84 @@ const PinRow = ({ label, groupKey, refs, pinForm, setPinForm, showPins, setShowP
 
 // ─── MAIN EXPORT ──────────────────────────────────────────────────────────────
 
+const IconPresetPicker = ({ value, onChange }) => {
+  const [open, setOpen] = useState(false);
+  const pickerRef = useRef(null);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (pickerRef.current && !pickerRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const selected = value || '❤️';
+
+  return (
+    <div className="relative" ref={pickerRef}>
+      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">
+        Icon Alert
+      </label>
+      <button
+        onClick={() => setOpen(v => !v)}
+        className="
+          text-slate-900 dark:text-white
+          [box-shadow:4px_6px_0_#f1f5f9]
+          dark:[box-shadow:4px_4px_0_#99a3b1]
+          hover:translate-y-0 hover:translate-x-0
+          border border-slate-300
+          hover:[box-shadow:0_0_0_#f1f5f9]
+          mt-3
+          dark:hover:[box-shadow:0_0_0_#94a3b8]
+          active:translate-y-[2px] active:translate-x-[2px]
+          active:[box-shadow:none]
+          active:bg-slate-300 dark:active:bg-slate-800
+          w-full flex items-center justify-between gap-3 h-[46px] px-4 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-300 transition-all cursor-pointer"
+      >
+        <span className="flex items-center gap-3">
+          <span className="text-2xl">{selected}</span>
+          <span className="text-xs font-black text-slate-600 dark:text-slate-300">Pilih Icon</span>
+        </span>
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: -4 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="absolute z-[999999] shadow-2xl left-0 top-[105%] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 w-[280px] max-h-72 overflow-y-auto"
+          >
+            <div className="grid grid-cols-6 gap-2.5">
+              {ICON_PRESETS.map(({ emoji, label }) => (
+                <button
+                  key={emoji}
+                  onClick={() => {
+                    onChange(emoji === '❤️' ? '' : emoji);
+                    setOpen(false);
+                  }}
+                  title={label}
+                  className={`
+                    w-9 h-9 rounded-xl flex items-center justify-center text-lg transition-all cursor-pointer active:scale-95 ${
+                    (value || '❤️') === emoji
+                      ? 'bg-blue-100 dark:bg-blue-900/50 ring-2 ring-blue-500'
+                      : 'bg-slate-50 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-900/30'
+                  }`}
+                >
+                  {emoji}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
 export const DashboardStreamer = () => {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
@@ -4716,25 +4794,23 @@ const handleChangePin = async () => {
                         </div>
 
                         {/* Icon Alert */}
-                          <div className="space-y-3 mt-3.5">
+                          {/* <div className="space-y-3 mt-3.5">
                             <div className="grid grid-cols-4 md:grid-cols-6 gap-3.5">
                              {ICON_PRESETS
                                 .slice(0, window.innerWidth < 768 ? -2 : undefined)
                                 .map(({ emoji, label }) => (
                                   <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
                                     className={`
-                                      -translate-y-[3px] translate-x-[-3px]
-                                      [box-shadow:4px_6px_0_#f1f5f9]
-                                      dark:[box-shadow:4px_4px_0_#99a3b1]
-                                      hover:translate-y-0 hover:translate-x-0
+                                      // hover:translate-y-0 hover:translate-x-0
                                       border border-slate-300
-                                      hover:[box-shadow:0_0_0_#f1f5f9]
-                                      dark:hover:[box-shadow:0_0_0_#94a3b8]
-                                      active:translate-y-[2px] active:translate-x-[2px]
+                                      // active:translate-y-[2px] active:translate-x-[2px]
                                       active:[box-shadow:none]
                                       flex flex-col items-center gap-1 px-3 pb-2.5 pt-1.5 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
                                       (settings.customIcon || '❤️') === emoji || (!settings.customIcon && emoji === '❤️')
-                                        ? 'border-white/40 bg-blue-50 dark:bg-blue-600 text-white'
+                                        ? `border-white/40 bg-blue-50 dark:bg-blue-600 text-white  
+                                        
+                                      [box-shadow:4px_6px_0_#f1f5f9]
+                                      dark:[box-shadow:4px_4px_0_#99a3b1]`
                                         : 'border-slate-100 text-slate-400 dark:border-slate-400 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
                                     }`}>
                                     <span>{emoji}</span>
@@ -4743,13 +4819,14 @@ const handleChangePin = async () => {
                                 ))}
                             </div>
 
-                          </div>
+                          </div> */}
                       </div>
 
                       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                         className=" 
                         text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
                         -translate-y-[3px] translate-x-[-3px]
+                        mt-3.5
                         [box-shadow:4px_6px_0_#f1f5f9]
                         dark:[box-shadow:4px_4px_0_#99a3b1]
                         hover:translate-y-0 hover:translate-x-0
@@ -4822,7 +4899,7 @@ const handleChangePin = async () => {
 
                       <div className="md:col-span-2 md:mt-0 mt-4">
                         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label>
-                        <div className="grid grid-cols-3 gap-3">
+                        <div className="grid grid-cols-3 gap-3.5">
                         {['modern', 'smooth', 'gifCard'].map(t => {
                           const themeLabels = {
                             modern:  'Taptip 1',
@@ -4844,10 +4921,10 @@ const handleChangePin = async () => {
                                 active:translate-y-[2px] active:translate-x-[2px]
                                 active:[box-shadow:none]
                                 active:bg-slate-300 dark:active:bg-slate-800
-                                cursor-pointer active:scale-[0.99] py-3 md:py-4 text-center md:text-left md:pl-3 rounded-xl border-2 transition-all font-black text-sm capitalize ${
+                                cursor-pointer active:scale-[0.99] py-3 md:py-4 text-center md:text-left md:pl-3 rounded-xl border transition-all font-black text-sm capitalize ${
                                 settings.theme === t
                                   ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
-                                  : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500'
+                                  : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-300 text-slate-400 dark:text-slate-500'
                               }`}>
                               {themeLabels[t] || t}
                             </button>
@@ -4857,15 +4934,28 @@ const handleChangePin = async () => {
                       </div>
 
                       <div className="md:col-span-2 w-full flex flex-col !mt-4 gap-3">
-                        {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1">Animasi Masuk</label> */}
+                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Animasi Masuk</label>
                         <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
-                          className="w-full px-2 py-3 bg-slate-100 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
+                          className="
+                          text-slate-900 dark:text-white
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          mb-1
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          active:[box-shadow:none]
+                          active:bg-slate-300 dark:active:bg-slate-800
+                          w-full px-2 py-3 bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-300 rounded-xl font-bold text-slate-900 dark:text-slate-100 outline-none focus:border-blue-500 transition-all">
                           <option value="bounce">Bounce</option><option value="slide-left">Slide Kiri</option>
                           <option value="slide-right">Slide Kanan</option><option value="fade">Fade</option>
                         </select>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                    <IconPresetPicker value={settings.customIcon} onChange={v => upd('customIcon', v)} />
+
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
                         {[
                           { key: 'primaryColor',   label: 'Background',  fallback: '#2e2f42' },
                           { key: 'highlightColor', label: 'Nominal', fallback: '#ffffff' },
