@@ -349,9 +349,9 @@ export const PollManager = ({ overlayToken, username }) => {
           <p className="text-[10px] font-black text-blue-400 dark:text-blue-500 uppercase tracking-widest mb-1">
             Link Vote untuk Donor
           </p>
-          <p className="text-[10px] text-blue-400 dark:text-blue-500 font-medium mb-2">
+          {/* <p className="text-[10px] text-blue-400 dark:text-blue-500 font-medium mb-2">
             Bagikan link ini ke penonton agar bisa vote sambil dukungan
-          </p>
+          </p> */}
           <div className="flex gap-3">
             <input
               readOnly
