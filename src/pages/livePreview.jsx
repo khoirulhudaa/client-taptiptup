@@ -167,8 +167,8 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
   const [mediaUrl, setMediaUrl] = useState('https://picsum.photos/400/300');
 
   const MEDIA_PRESETS = [
-    { url: 'https://picsum.photos/400/300?random=1', type: 'image', label: 'Foto' },
-    { url: 'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif', type: 'image', label: 'GIF' },
+    { url: 'https://picsum.photos/400/300?random=1', type: 'image', label: 'Media' },
+    { url: 'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif', type: 'image', label: 'Gifty' },
     { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', type: 'youtube', label: 'YouTube' },
   ];
 
@@ -945,10 +945,23 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
       {previewMode === 'media' && (
         <div className="space-y-3">
           <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Media URL (preview)</label>
-          <div className="flex gap-3 mt-1">
+          <div className="flex gap-3.5 mt-1">
             {MEDIA_PRESETS.map((p, i) => (
               <button key={i} onClick={() => setMediaUrl(p.url)}
-                className={`flex-1 py-2 text-[10px] font-black rounded-md border-2 transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-700 text-slate-400 hover:border-purple-300'}`}>
+                className={`
+                  text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  bg-slate-500/30
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+                flex-1 py-3.5 text-[14px] font-black rounded-xl transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-300 text-slate-400 hover:border-purple-300'}`}>
                 {p.label}
               </button>
             ))}

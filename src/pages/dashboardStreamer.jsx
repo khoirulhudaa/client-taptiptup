@@ -5816,7 +5816,7 @@ const handleChangePin = async () => {
                             active:bg-slate-300 dark:active:bg-slate-800
                             cursor-pointer flex-1 py-3 bg-violet-600 hover:bg-violet-700 text-white font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
                           >
-                            Ya, Ganti Sekarang
+                            Ya, Ganti
                           </button>
                         </div>
                       </div>
