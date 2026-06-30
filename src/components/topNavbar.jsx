@@ -85,10 +85,8 @@ const ThemeToggle = ({ theme, onToggle }) => {
     <motion.button
       id="tour-theme-toggle"
       onClick={onToggle}
-      variants={navbarItemVariants}   // tambahkan ini
-      whileTap={{ scale: 0.95 }}
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="
+       className="
         text-slate-900 dark:text-white 
         bg-slate-100 dark:bg-white/20
         -translate-y-[3px] translate-x-[-3px]
@@ -102,7 +100,7 @@ const ThemeToggle = ({ theme, onToggle }) => {
         active:translate-y-[2px] active:translate-x-[2px]
         active:[box-shadow:none]
         active:bg-slate-300 dark:active:bg-slate-800
-      cursor-pointer relative h-[38px] w-[70px] rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 flex items-center px-1 transition-all active:scale-[0.99] hover:brightness-95 overflow-hidden"
+      cursor-pointer relative h-[38px] w-[70px] rounded-xl border border-slate-200 dark:border-slate-300 flex items-center px-1 transition-all active:scale-[0.99] hover:brightness-95 overflow-hidden"
     >
       <motion.div
         className="absolute inset-0 rounded-xl"
@@ -170,6 +168,8 @@ const ThemeToggle = ({ theme, onToggle }) => {
 
 // ─── TopNavbar ─────────────────────────────────────────────────────────────────
 
+// ─── TopNavbar ─────────────────────────────────────────────────────────────────
+
 export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, navbar, isCollapsed, setIsCollapsed }) => {
   const [showLogout, setShowLogout]               = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
@@ -207,15 +207,15 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
   };
 
   const handleAdminMode = () => {
-  const nextMode = !adminMode;
+    const nextMode = !adminMode;
 
-  setAdminMode(nextMode);
-  localStorage.setItem('adminMode', String(nextMode));
+    setAdminMode(nextMode);
+    localStorage.setItem('adminMode', String(nextMode));
 
-  window.dispatchEvent(new Event('storage'));
+    window.dispatchEvent(new Event('storage'));
 
-  setShowLogout(false);
-};
+    setShowLogout(false);
+  };
 
   useEffect(() => {
     localStorage.setItem('showBalance', showBalance);
@@ -243,18 +243,18 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
         <div className="md:hidden 2xl:flex items-center gap-3 min-w-0">
           <div className="flex ml-[2.9px] items-center gap-1.5 min-w-0 pl-[5.8px]">
             <span 
-            onClick={() => setActiveTab('settings')}
-            className="
-            -translate-y-[3px] translate-x-[-3px]
-            [box-shadow:4px_6px_0_#f1f5f9]
-            dark:[box-shadow:4px_4px_0_#99a3b1]
-            hover:translate-y-0 hover:translate-x-0
-            border border-slate-300
-            hover:[box-shadow:0_0_0_#f1f5f9]
-            dark:hover:[box-shadow:0_0_0_#94a3b8]
-            active:translate-y-[2px] active:translate-x-[2px]
-            active:[box-shadow:none] rounded-md px-2 cursor-pointer
-            flex md:hidden 2xl:flex text-md font-bold text-slate-400 dark:text-white whitespace-nowrap">Dashboard</span>
+              onClick={() => setActiveTab('settings')}
+              className="
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none] rounded-md px-2 cursor-pointer
+              flex md:hidden 2xl:flex text-md font-bold text-slate-400 dark:text-white whitespace-nowrap">Dashboard</span>
             <ChevronRight size={16} className="text-slate-400 dark:text-slate-400 flex-shrink-0" />
             <span className="text-md font-bold text-slate-700 dark:text-slate-200 truncate">
               {TAB_LABELS[activeTab] || activeTab}
@@ -269,6 +269,8 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
           animate="visible"
           id="tour-topnavbar-group" 
           className="flex items-center gap-3.5 md:pr-[7px] md:justify-end 2xl:w-max w-full flex-shrink-0">
+
+          {/* Sidebar toggle (Expanded/Condense) — referensi warna */}
           <motion.button
             id="tour-sidebar-toggle"
             variants={navbarItemVariants}
@@ -283,12 +285,13 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               dark:[box-shadow:4px_4px_0_#99a3b1]
               hover:translate-y-0 hover:translate-x-0
               hover:bg-slate-200 dark:hover:bg-slate-700
+              border border-slate-300
               hover:[box-shadow:0_0_0_#f1f5f9]
               dark:hover:[box-shadow:0_0_0_#94a3b8]
               active:translate-y-[2px] active:translate-x-[2px]
               active:[box-shadow:none]
               active:bg-slate-300 dark:active:bg-slate-800
-            rounded-xl cursor-pointer h-[40px] border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 w-max px-3.5 flex items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:brightness-110 transition-all"
+            rounded-xl cursor-pointer flex-shrink-0 h-[40px] border border-slate-200/80 dark:border-slate-300 w-max px-2 mx-[1px] flex items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:brightness-110 transition-all"
           >
             <AnimatePresence mode="wait">
               {isCollapsed ? (
@@ -307,26 +310,25 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
 
           {/* ── Saldo + Tombol Kirim ─────────────────────────────────────── */}
           <motion.div
-              id="tour-balance"  
-              variants={navbarItemVariants}
-              className="
-                text-slate-900 dark:text-white 
-                bg-slate-100 dark:bg-white/20
-                -translate-y-[3px] translate-x-[-3px]
-                [box-shadow:4px_6px_0_#f1f5f9]
-                dark:[box-shadow:4px_4px_0_#99a3b1]
-                hover:translate-y-0 hover:translate-x-0
-                border border-slate-300
-                hover:[box-shadow:0_0_0_#f1f5f9]
-                dark:hover:[box-shadow:0_0_0_#94a3b8]
-                active:translate-y-[2px] active:translate-x-[2px]
-                active:[box-shadow:none]
-                active:bg-slate-300 dark:active:bg-slate-800
-                hidden sm:flex items-center h-[40px] gap-0 rounded-xl border border-slate-200/80 dark:border-slate-700 overflow-hidden"
-            >
+            id="tour-balance"  
+            variants={navbarItemVariants}
+            className="
+              text-slate-900 dark:text-white 
+              bg-slate-100 dark:bg-white/20
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+            hidden sm:flex items-center h-[40px] gap-0 rounded-xl border border-slate-200/80 dark:border-slate-300 overflow-hidden"
+          >
             {/* Info saldo */}
-            <div className="
-            flex items-center gap-2 px-3.5 py-2 border-r border-slate-200/80 dark:border-slate-700">
+            <div className="flex items-center gap-2 px-3.5 py-2 border-r border-slate-200/80 dark:border-slate-500">
               <Wallet size={18} className="text-white" />
               <span className="font-bold text-blue-600 dark:text-white text-md tracking-wide">
                 {showBalance
@@ -342,7 +344,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               </span>
               <button
                 onClick={handleShowBalance}
-                className="cursor-pointer p-2 rounded-xl bg-slate-100 dark:bg-slate-950/20 text-slate-400 hover:text-white transition-all hover:bg-blue-50 dark:hover:bg-blue-950/40"
+                className="cursor-pointer p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-blue-600 transition-all hover:bg-blue-50 dark:hover:bg-blue-950/40"
               >
                 {showBalance ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
@@ -363,11 +365,12 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
             </button>
           </motion.div>
 
-          {/* Theme toggle */}
+          {/* Theme toggle (navbar) */}
           <motion.div variants={navbarItemVariants}>
             <ThemeToggle theme={theme} onToggle={toggle} />
           </motion.div>
 
+          {/* Bantuan */}
           <motion.button
             id="tour-help"
             onClick={() => setActiveTab('contact')}
@@ -388,8 +391,8 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                 active:bg-slate-300 dark:active:bg-slate-800
               cursor-pointer h-[40px] active:scale-[0.99] flex items-center gap-2 px-3.5 rounded-xl border font-bold text-md transition-all ${
               activeTab === 'contact'
-                ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent'
-                : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
+                ? 'bg-slate-300 dark:bg-slate-700 text-white'
+                : 'text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-300'
             }`}>
             <HeadphonesIcon size={14} />
             <span className="text-md font-bold md:hidden 2xl:flex">Bantuan</span>
@@ -406,21 +409,34 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
             onClick={() => setActiveTab('community')}
             className="
               text-slate-900 dark:text-white 
-                bg-slate-100 dark:bg-white/20
-                -translate-y-[3px] translate-x-[-3px]
-                [box-shadow:4px_6px_0_#f1f5f9]
-                dark:[box-shadow:4px_4px_0_#99a3b1]
-                hover:translate-y-0 hover:translate-x-0
-                hover:bg-slate-200 dark:hover:bg-slate-700
-                hover:[box-shadow:0_0_0_#f1f5f9]
-                dark:hover:[box-shadow:0_0_0_#94a3b8]
-                active:translate-y-[2px] active:translate-x-[2px]
-                active:[box-shadow:none]
-                active:bg-slate-300 dark:active:bg-slate-800
-              cursor-pointer h-[38.4px] flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl px-3.5 py-3 transition-all active:scale-[0.99]"
-            >
+              bg-slate-100 dark:bg-white/20
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              hover:bg-slate-200 dark:hover:bg-slate-700
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer hover:brightness-90 h-[38px] active:scale-[0.99] relative flex items-center gap-2 px-3.5 py-3 rounded-xl font-bold text-md overflow-hidden"
+            style={{
+              background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)',
+              backgroundSize: '300% 100%',
+              animation: 'rainbowSlide 3s ease-in-out infinite',
+            }}>
+            <span
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: 'linear-gradient(118deg, transparent 95%, rgba(255,255,255,0.1) 90%, transparent 85%)',
+                backgroundSize: '250% 100%',
+                animation: 'shimmerSlide 3s ease-in-out infinite',
+              }}
+            />
             <Users size={16} className="relative z-10 text-white/90" />
-            <span className="hidden md:inline font-bold relative z-10 text-white tracking-wide">Komunitas</span>
+            <span className="hidden md:inline relative z-10 text-white/90 tracking-wide">Komunitas</span>
           </motion.button>
 
           {/* Avatar + dropdown */}
@@ -443,9 +459,9 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                 active:translate-y-[2px] active:translate-x-[2px]
                 active:[box-shadow:none]
                 active:bg-slate-300 dark:active:bg-slate-800
-                cursor-pointer h-[38.4px] flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl px-1.5 py-3 transition-all active:scale-[0.99]"
+              cursor-pointer h-[38.4px] flex items-center gap-2 rounded-xl px-1.5 py-3 transition-all active:scale-[0.99]"
             >
-              <div className="relative top-[-0.5px] w-6 h-6 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-md flex-shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-md flex-shrink-0">
                 {user?.profilePicture ? (
                   <img
                     src={user.profilePicture}
@@ -461,8 +477,11 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                 )}
               </div>
               <div className="text-left hidden sm:block">
-                <p className="font-bold text-slate-800 dark:text-white text-md leading-tight">@{user.username}</p>
+                <p className="font-bold text-slate-800 dark:text-slate-200 text-md leading-tight">@{user.username}</p>
               </div>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 ml-0.5">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
             </motion.button>
 
             <AnimatePresence>
@@ -474,7 +493,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-100 dark:border-slate-800 overflow-hidden z-20"
+                    className="absolute right-0 top-full mt-3 w-56 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-100 dark:border-slate-300 overflow-hidden z-20"
                   >
                     {/* Saldo mobile */}
                     <div className="sm:hidden px-4 py-3 border-b border-slate-50 dark:border-slate-800">
@@ -493,20 +512,20 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                       </button>
                     </div>
 
-                    {/* Theme toggle */}
+                    {/* Theme toggle (dropdown — animated dimatikan supaya tidak stuck invisible) */}
                     <div className="px-4 py-3 border-b border-slate-50 dark:border-slate-800 flex items-center justify-between">
-                      <span className="text-sm text-slate-500 dark:text-slate-400 font-bold">
+                      <span className="text-md text-slate-500 dark:text-slate-400 font-bold">
                         {theme === 'dark' ? 'Mode Gelap' : 'Mode Terang'}
                       </span>
-                      <ThemeToggle theme={theme} onToggle={toggle} />
+                      <ThemeToggle theme={theme} onToggle={toggle} animated={false} />
                     </div>
 
                     <div className="p-1 space-y-1 z-[9999]">
                       <button
                         onClick={onProfile}
-                        className="cursor-pointer w-full flex items-center gap-3 px-4 py-2.5 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold rounded-xl text-sm transition-all active:scale-[0.99]"
+                        className="cursor-pointer w-full flex items-center gap-3 px-3 py-2.5 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold rounded-xl text-md transition-all active:scale-[0.99]"
                       >
-                        <div className="w-5 h-5 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-[10px]">
+                        <div className="w-5.5 h-5.5 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-[10px]">
                           {user.username.charAt(0).toUpperCase()}
                         </div>
                         Profil saya
@@ -516,7 +535,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                           <div className="w-[92%] mx-auto h-[0.5px] bg-slate-100 dark:bg-slate-800" />
                           <button
                             onClick={handleAdminMode}
-                            className={`cursor-pointer w-full flex items-center gap-3 px-4 py-2.5 font-bold rounded-xl text-sm transition-all active:scale-[0.99]
+                            className={`cursor-pointer w-full flex items-center gap-3 px-4 py-2.5 font-bold rounded-xl text-md transition-all active:scale-[0.99]
                             ${
                               adminMode
                                 ? 'text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30'
@@ -531,7 +550,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                       <div className="w-[92%] mx-auto h-[0.5px] bg-slate-100 dark:bg-slate-800" />
                       <button
                         onClick={() => { setShowLogout(false); setShowLogoutConfirm(true); }}
-                        className="cursor-pointer ml-[1.3px] relative w-full flex items-center gap-3 px-4 py-2.5 text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 font-bold rounded-xl text-sm transition-all active:scale-[0.99]"
+                        className="cursor-pointer ml-[1.3px] relative w-full flex items-center gap-3 px-3 py-2.5 text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 font-bold rounded-xl text-md transition-all active:scale-[0.99]"
                       >
                         <LogOut size={19} />
                         Keluar
@@ -613,7 +632,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                     active:translate-y-[2px] active:translate-x-[2px]
                     active:[box-shadow:none]
                     active:bg-slate-300 dark:active:bg-slate-800
-                  cursor-pointer active:scale-[0.99] w-full py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl font-bold text-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+                  cursor-pointer active:scale-[0.99] w-full py-4 rounded-xl font-bold text-md transition-all"
                 >
                   Batal
                 </button>

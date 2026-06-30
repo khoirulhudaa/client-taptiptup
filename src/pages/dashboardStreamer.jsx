@@ -2518,7 +2518,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         </button>
 
         {/* Tab switcher */}
-        <div className="flex-1 flex gap-3">
+        <div className="flex-1 flex gap-3 pr-1">
           {[{ id: 'alert', label: '⚡ Alert OBS' }, { id: 'media', label: '🎦 Media share' }].map(tab => (
               <button key={tab.id} onClick={() => {
                 setPreviewMode(tab.id);
