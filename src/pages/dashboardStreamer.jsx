@@ -2450,7 +2450,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       <FullscreenPreview />
 
       {/* Tab switcher */}
-      <div className="flex gap-3">
+      <div className="flex gap-3 pl-[2px]">
         {/* Tombol toggle preview */}
         <button
           onClick={() => onTogglePreview?.()}

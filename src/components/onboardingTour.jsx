@@ -427,16 +427,36 @@ const TourCard = ({ step, stepIndex, total, rect, onNext, onSkip }) => {
       </p>
 
       {/* Actions */}
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <button
           onClick={onSkip}
-          className="flex-1 py-2 text-xs font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-xl cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+          className="
+            text-slate-900 dark:text-white 
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+          flex-1 py-2 text-xs font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-xl cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
         >
           Lewati
         </button>
         <button
           onClick={onNext}
-          className="flex-[2] py-2 text-xs font-black bg-blue-600 hover:bg-blue-700 text-white rounded-xl cursor-pointer transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]"
+          className="
+            text-slate-900 dark:text-white 
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+          flex-[2] py-2 text-xs font-black bg-blue-600 hover:bg-blue-700 text-white rounded-xl cursor-pointer transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]"
         >
           {isLast ? (
             <><Check size={13} /> Selesai</>
@@ -472,16 +492,36 @@ const TourStartModal = ({ onStart, onSkip }) => (
       <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
         Kamu baru pertama kali di sini. Yuk kenalan dulu dengan semua fitur TAPTIPTUP — hanya butuh beberapa detik.
       </p>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col space-y-1 gap-2">
         <button
           onClick={onStart}
-          className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl text-sm cursor-pointer transition-all active:scale-[0.99] flex items-center justify-center gap-2 shadow-lg shadow-blue-100 dark:shadow-blue-900/20"
+          className="
+          text-slate-900 dark:text-white 
+          -translate-y-[3px] translate-x-[-3px]
+          [box-shadow:4px_6px_0_#f1f5f9]
+          dark:[box-shadow:4px_4px_0_#99a3b1]
+          hover:translate-y-0 hover:translate-x-0
+          hover:[box-shadow:0_0_0_#f1f5f9]
+          dark:hover:[box-shadow:0_0_0_#94a3b8]
+          active:translate-y-[2px] active:translate-x-[2px]
+          active:[box-shadow:none]
+          w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl text-sm cursor-pointer transition-all active:scale-[0.99] flex items-center justify-center gap-2 shadow-lg shadow-blue-100 dark:shadow-blue-900/20"
         >
         Mulai Tur Fitur
         </button>
         <button
           onClick={onSkip}
-          className="w-full py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 font-black rounded-xl text-sm cursor-pointer transition-all active:scale-[0.99]"
+          className="
+            text-slate-900 dark:text-white 
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+          w-full py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 font-black rounded-xl text-sm cursor-pointer transition-all active:scale-[0.99]"
         >
           Nanti saja
         </button>
@@ -728,8 +768,18 @@ const DonationModeModal = ({ onComplete }) => {
               <button
                 key={mode.id}
                 onClick={() => setSelected(mode.id)}
-                className={`h-full relative text-left rounded-xl border-2 cursor-pointer active:scale-[0.99] transition-all ${
-                  isSelected ? `${c.border} shadow-lg ${c.shadow}` : 'border-slate-200 dark:border-slate-700 hover:border-slate-400'
+                className={`
+                  text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  h-full relative text-left rounded-xl border-2 cursor-pointer active:scale-[0.99] transition-all ${
+                  isSelected ? `border-[4px] border-slate-300 shadow-lg ${c.shadow}` : 'border-slate-200 dark:border-slate-400 hover:border-slate-400'
                 }`}
                 style={{ display: 'grid', gridTemplateRows: '78% 22%', overflow: 'hidden' }}
               >
@@ -740,14 +790,13 @@ const DonationModeModal = ({ onComplete }) => {
 
                 {/* Label */}
                 <div
-                  className={`${isSelected ? c.bg : 'bg-white dark:bg-slate-900'} h-[100%]`}
+                  className={` h-[100%]`}
                   style={{ overflow: 'hidden', padding: '14px 16px' }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
-                    <span style={{ fontSize: 16 }}>{mode.emoji}</span>
                     <p className="font-black text-slate-800 dark:text-slate-100 text-sm">{mode.label}</p>
                   </div>
-                  <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium leading-relaxed line-clamp-3">{mode.desc}</p>
+                  <p className="text-[11px] text-slate-400 dark:text-white font-medium leading-relaxed line-clamp-3">{mode.desc}</p>
                 </div>
               </button>
             );
@@ -757,11 +806,35 @@ const DonationModeModal = ({ onComplete }) => {
         {/* Footer */}
         <div className="h-[10%] px-4 md:px-6 flex gap-3">
           <button onClick={handleSkip}
-            className="flex-1 py-3 text-xs font-black text-slate-400 hover:text-slate-600 border border-slate-200 dark:border-slate-700 rounded-xl cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+            className="
+          text-slate-900 dark:text-white 
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            flex-1 py-3 text-xs font-black text-slate-400 hover:text-slate-600 border border-slate-200 dark:border-slate-700 rounded-xl cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
             Atur nanti
           </button>
           <button onClick={handleConfirm} disabled={!selected || saving}
-            className="flex-[2] py-3 text-xs font-black bg-blue-600 hover:bg-blue-700 text-white rounded-xl cursor-pointer transition-all flex items-center justify-center gap-1.5 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed">
+            className="
+              text-slate-900 dark:text-white 
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+            flex-[2] py-3 text-xs font-black bg-blue-600 hover:bg-blue-700 text-white rounded-xl cursor-pointer transition-all flex items-center justify-center gap-1.5 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed">
             {saving
               ? <><span className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Menyimpan...</>
               : <> Gunakan {selected === 'nominal' ? 'Mode Nominal' : selected === 'item' ? 'Mode Item' : selected === 'both' ? 'Keduanya' : 'Mode Ini'}</>
