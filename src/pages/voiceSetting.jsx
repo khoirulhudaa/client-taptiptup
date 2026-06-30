@@ -339,7 +339,19 @@
                 />
                 <button
                 onClick={() => onCopy(url, label)}
-                className="text-slate-400 hover:text-blue-600 cursor-pointer active:scale-[0.98] transition-colors"
+                className="
+                   text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+                  cursor-pointer active:scale-[0.98] p-2 bg-white dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-300 flex-shrink-0 hover:bg-slate-50 dark:hover:bg-slate-600 transition-all"
                 >
                 <Copy size={18} />
                 </button>

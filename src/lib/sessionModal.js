@@ -80,8 +80,22 @@ export const showSessionExpiredModal = () => {
         </text>
       </svg>
     </div>
-
-    <button id="sei-btn">
+    
+    <button id="sei-btn"
+      class="inline-flex items-center gap-2 px-4 py-2 rounded-md font-medium
+            bg-white dark:bg-slate-900
+            text-slate-900 dark:text-white
+            border border-slate-300 dark:border-slate-700
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            transition-all duration-150
+            hover:translate-y-0 hover:translate-x-0
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>

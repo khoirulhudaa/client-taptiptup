@@ -214,14 +214,13 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
             </h3>
           </div>
         </div>
-        <div className="md:flex gap-3">
+        <div className="md:flex gap-3.5">
           {[5, 10, 20].map(n => (
             <button
               key={n}
               onClick={() => upd('limit', n)}
               className={`
                  text-slate-900 dark:text-white 
-                 
                   -translate-y-[3px] translate-x-[-3px]
                   [box-shadow:4px_6px_0_#f1f5f9]
                   dark:[box-shadow:4px_4px_0_#99a3b1]
@@ -235,7 +234,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
                 w-full md:mb-0 mb-2.5 cursor-pointer text-left pl-3.5 flex-1 py-3.5 rounded-xl font-black text-sm border-2 transition-all active:scale-[0.97] ${
                 cfg.limit === n
                   ? 'bg-blue-600 border-blue-600 text-white'
-                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
+                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-300 text-slate-500 hover:border-blue-300'
               }`}
             >
               {cfg.mode === 'top' ? `Top ${n} donatur` : `${n} terakhir`}
@@ -334,7 +333,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
             </h3>
           </div>
         </div>
-        <div className="flex flex-wrap gap-2.5">
+        <div className="flex flex-wrap gap-3.5">
           {BG_PRESETS.map(preset => (
             <button
               key={preset.value}
@@ -447,10 +446,10 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
               active:translate-y-[2px] active:translate-x-[2px]
               active:[box-shadow:none]
               active:bg-slate-300 dark:active:bg-slate-800
-              w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 min-h-11.5 rounded-xl font-black text-sm transition-all border-2 ${
+              w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 min-h-11.5 rounded-xl font-black text-sm transition-all ${
               copied
                 ? 'bg-green-600 border-green-600 text-white'
-                : 'bg-slate-900/70 dark:bg-slate-700 border-transparent text-white hover:brightness-90'
+                : 'bg-slate-900/70 dark:bg-slate-700 text-white hover:brightness-90'
             }`}
           >
             {copied ? <><CheckCircle2 size={16} /> Tersalin!</> : <><Copy size={16} /> Salin URL</>}
@@ -472,7 +471,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
             active:translate-y-[2px] active:translate-x-[2px]
             active:[box-shadow:none]
             active:bg-slate-300 dark:active:bg-slate-800
-            w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 min-h-11.5 rounded-xl font-black text-sm border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-300 transition-all"
+            w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-4 py-3 min-h-11.5 rounded-xl font-black text-sm border-slate-200 dark:border-slate-300 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition-all"
           >
             <ExternalLink size={16} /> Buka Preview
           </a>

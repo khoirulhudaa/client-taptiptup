@@ -654,13 +654,23 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
       </div>
 
       <div className="pt-2">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-4">
           {PRESET_MEDIA.map((preset, i) => (
             <button key={i} onClick={() => { updateForm('mediaUrl', preset.url); updateForm('mediaType', preset.type); }}
-              className={`cursor-pointer active:scale-[0.99] group relative p-2 rounded-xl  border-2 transition-all overflow-hidden hover:shadow-md ${
+              className={`
+                 text-slate-900 dark:text-white 
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                cursor-pointer active:scale-[0.99] group relative p-2 rounded-xl  border transition-all overflow-hidden hover:shadow-md ${
                 formData.mediaUrl === preset.url
-                  ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/30 shadow-md ring-2 ring-purple-200'
-                  : 'border-slate-200 dark:border-slate-700 hover:border-purple-300 bg-slate-50 dark:bg-slate-800/50'
+                  ? 'bg-purple-50 dark:bg-purple-950/30 shadow-md border border-blue-600'
+                  : 'border-slate-200 dark:border-slate-300 hover:border-purple-300 bg-slate-50 dark:bg-slate-800/50'
               }`}>
               <div className="w-full h-16 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-700 dark:to-slate-600 rounded overflow-hidden">
                 <img src={preset.thumb} alt={preset.label} className="w-full h-full object-cover transition-transform group-hover:scale-110" />
@@ -927,11 +937,24 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
       <SectionHeader icon={<ShieldCheck size={20} />} title="Filter Kata Terlarang" color="bg-red-500" />
       <div className="space-y-3">
         {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Aksi saat kata terlarang terdeteksi</label> */}
-        <div className="grid grid-cols-1 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
           {ACTION_OPTIONS.map(opt => (
             <button key={opt.id}
               onClick={() => { setLocalAction(opt.id); saveMutation.mutate({ words, action: opt.id, replacement: localReplacement }); }}
-              className={`cursor-pointer active:scale-[0.99] text-left p-4 rounded-xl border-2 transition-all space-y-1.5 ${localAction === opt.id ? opt.active + ' shadow-md' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600'}`}>
+              className={`
+                 text-slate-900 dark:text-white 
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                mb-[3px]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800 
+              cursor-pointer active:scale-[0.99] text-left p-4 rounded-xl transition-all space-y-1.5 ${localAction === opt.id ? opt.active + ' shadow-md' : 'border-slate-100 dark:border-slate-300 bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600'}`}>
               <div className="flex items-center gap-3">
                 <span className="text-xl">{opt.emoji}</span>
                 <span className="font-black text-sm text-slate-700 dark:text-slate-200">{opt.title}</span>
@@ -972,9 +995,22 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
                 <p className="text-2xl mb-2">🚫</p>
                 <p className="font-black text-sm">Belum ada kata terlarang</p>
               </div>
-            : <div className="md:flex md:flex-wrap grid grid-cols-3 gap-3">
+            : <div className="md:flex md:flex-wrap grid grid-cols-3 gap-3.5">
                 {words.map(word => (
-                  <span key={word} className="w-full md:w-max flex justify-center md:justify-start items-center gap-3 px-4 py-3 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl  text-sm font-black border border-red-100 dark:border-red-900">
+                  <span key={word} className="
+                      text-slate-900 dark:text-white 
+                          -translate-y-[3px] translate-x-[-3px]
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          cursor-pointer
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          active:[box-shadow:none]
+                          active:bg-slate-300 dark:active:bg-slate-800
+                  w-full md:w-max flex justify-center md:justify-start items-center gap-3 px-4 py-3 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl  text-sm font-black border border-red-100 dark:border-red-900">
                     {word}
                     <button onClick={() => remove(word)} className="cursor-pointer hover:text-red-800 dark:hover:text-red-300 transition-colors"><Trash2 size={12} /></button>
                   </span>
@@ -4335,7 +4371,6 @@ const handleChangePin = async () => {
 
         {showOverlay && <LoadingOverlay onDone={() => setShowOverlay(false)} />}
 
-        {/* <video src="/glass.mp4" className='absolute z-[1]' autoplay={true}></video> */}
         {/* <img src="/glass.jpg" className='opacity-[10%] fixed top-0 left-0 w-screen h-screen z-[1]'  alt='glass-img'></img> */}
         {/* ── Modal Copy URL ── */}
         <AnimatePresence>
@@ -4391,8 +4426,8 @@ const handleChangePin = async () => {
               onClick={e => e.stopPropagation()}
               className="flex flex-col items-center gap-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-2xl p-10 mx-4 w-full max-w-sm text-center"
             >
-              <div className="w-20 h-20 bg-green-100 dark:bg-green-950/40 rounded-2xl flex items-center justify-center">
-                <CheckCircle2 size={40} className="text-green-500" />
+              <div className="w-20 h-20 bg-blue-100 dark:bg-blue-950/40 rounded-2xl flex items-center justify-center">
+                <CheckCircle2 size={40} className="text-blue-500" />
               </div>
               <div>
                 <p className="text-2xl font-black text-slate-800 dark:text-slate-100">Berhasil</p>
@@ -4400,7 +4435,19 @@ const handleChangePin = async () => {
               </div>
               <button
                 onClick={() => setShowToast(false)}
-                className="cursor-pointer w-full py-3 bg-green-600 hover:bg-green-700 active:scale-[0.99] text-white font-black rounded-xl transition-all"
+                className="
+                  text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  active:bg-slate-300 dark:active:bg-slate-800
+                cursor-pointer w-full py-3 bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-black rounded-xl transition-all"
               >
                 OK, Mengerti
               </button>
@@ -4436,7 +4483,19 @@ const handleChangePin = async () => {
               </div>
               <button
                 onClick={() => setShowErrorModal(false)}
-                className="cursor-pointer w-full py-3 bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white font-black rounded-xl transition-all"
+                className="
+                  text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  active:bg-slate-300 dark:active:bg-slate-800
+                cursor-pointer w-full py-3 bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white font-black rounded-xl transition-all"
               >
                 Tutup
               </button>
@@ -4461,7 +4520,21 @@ const handleChangePin = async () => {
                   </span>
                   <p className="text-slate-700 dark:text-slate-200 text-sm font-medium mt-1">{t.message}</p>
                 </div>
-                <button onClick={() => setDonationToasts(prev => prev.filter(x => x.id !== t.id))} className="text-slate-300 dark:text-slate-600 hover:text-slate-500 transition-colors flex-shrink-0 text-lg leading-none">×</button>
+                <button 
+                  onClick={() => setDonationToasts(prev => prev.filter(x => x.id !== t.id))} 
+                  className="
+                    text-slate-900 dark:text-white 
+                    -translate-y-[3px] translate-x-[-3px]
+                    [box-shadow:4px_6px_0_#f1f5f9]
+                    dark:[box-shadow:4px_4px_0_#99a3b1]
+                    hover:translate-y-0 hover:translate-x-0
+                    border border-slate-300
+                    hover:[box-shadow:0_0_0_#f1f5f9]
+                    dark:hover:[box-shadow:0_0_0_#94a3b8]
+                    active:translate-y-[2px] active:translate-x-[2px]
+                    active:[box-shadow:none]
+                    active:bg-slate-300 dark:active:bg-slate-800
+                  text-slate-300 dark:text-slate-600 hover:text-slate-500 transition-colors flex-shrink-0 text-lg leading-none">×</button>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -4716,7 +4789,7 @@ const handleChangePin = async () => {
                             {/* Status Badge */}
                             <div className={`px-3 py-1 text-[10px] font-black rounded-xl  transition-all ${
                               activeSlot === slot 
-                                ? 'bg-emerald-500 text-white shadow-inner' 
+                                ? 'bg-white text-slate-900 shadow-inner' 
                                 : 'bg-slate-200 dark:bg-slate-500/30 text-slate-500 dark:text-slate-400 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30'
                             }`}>
                               {activeSlot === slot ? 'AKTIF' : 'TIDAK AKTIF'}
@@ -5318,14 +5391,26 @@ const handleChangePin = async () => {
                               </div>
                             </div>
                     
-                            <div className="flex gap-3">
+                            <div className="flex gap-3.5">
                               <button
                                 onClick={() => {
                                   setDeleteStep('idle');
                                   setDeletePinForm(['','','','']);
                                   setDeleteError('');
                                 }}
-                                className="cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
+                                className="
+                                   text-slate-900 dark:text-white 
+                                  -translate-y-[3px] translate-x-[-3px]
+                                  [box-shadow:4px_6px_0_#f1f5f9]
+                                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                                  hover:translate-y-0 hover:translate-x-0
+                                  border border-slate-300
+                                  hover:[box-shadow:0_0_0_#f1f5f9]
+                                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                                  active:translate-y-[2px] active:translate-x-[2px]
+                                  active:[box-shadow:none]
+                                active:bg-slate-300 dark:active:bg-slate-800
+                                cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
                               >
                                 Batal
                               </button>
@@ -5355,7 +5440,19 @@ const handleChangePin = async () => {
                                   }
                                 }}
                                 disabled={deletePinForm.join('').length < 4}
-                                className="cursor-pointer flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                                className="
+                                   text-slate-900 dark:text-white 
+                                  -translate-y-[3px] translate-x-[-3px]
+                                  [box-shadow:4px_6px_0_#f1f5f9]
+                                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                                  hover:translate-y-0 hover:translate-x-0
+                                  border border-slate-300
+                                  hover:[box-shadow:0_0_0_#f1f5f9]
+                                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                                  active:translate-y-[2px] active:translate-x-[2px]
+                                  active:[box-shadow:none]
+                                active:bg-slate-300 dark:active:bg-slate-800
+                                cursor-pointer flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
                               >
                                 <Trash2 size={15} /> Hapus Selamanya
                               </button>
@@ -5683,14 +5780,25 @@ const handleChangePin = async () => {
                         <div>
                           <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-1">Ganti Overlay Token?</h3>
                           <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
-                            Semua URL overlay lama akan <span className="font-black text-red-500">langsung tidak aktif</span>. 
-                            Pastikan kamu siap memperbarui OBS setelah ini.
+                            Semua URL overlay lama akan <span className="font-black text-red-500">langsung tidak aktif</span>
                           </p>
                         </div>
-                        <div className="flex gap-3 w-full mt-2">
+                        <div className="flex gap-3.5 w-full mt-3">
                           <button
                             onClick={() => setShowTokenConfirm(false)}
-                            className="cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
+                            className="
+                             text-slate-900 dark:text-white 
+                              -translate-y-[3px] translate-x-[-3px]
+                              [box-shadow:4px_6px_0_#f1f5f9]
+                              dark:[box-shadow:4px_4px_0_#99a3b1]
+                              hover:translate-y-0 hover:translate-x-0
+                              border border-slate-300
+                              hover:[box-shadow:0_0_0_#f1f5f9]
+                              dark:hover:[box-shadow:0_0_0_#94a3b8]
+                              active:translate-y-[2px] active:translate-x-[2px]
+                              active:[box-shadow:none]
+                            active:bg-slate-300 dark:active:bg-slate-800
+                            cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
                           >
                             Batal
                           </button>
@@ -5712,7 +5820,19 @@ const handleChangePin = async () => {
                                 setTimeout(() => setTokenStep('idle'), 100);
                               }
                             }}
-                            className="cursor-pointer flex-1 py-3 bg-violet-600 hover:bg-violet-700 text-white font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
+                            className="
+                             text-slate-900 dark:text-white 
+                              -translate-y-[3px] translate-x-[-3px]
+                              [box-shadow:4px_6px_0_#f1f5f9]
+                              dark:[box-shadow:4px_4px_0_#99a3b1]
+                              hover:translate-y-0 hover:translate-x-0
+                              border border-slate-300
+                              hover:[box-shadow:0_0_0_#f1f5f9]
+                              dark:hover:[box-shadow:0_0_0_#94a3b8]
+                              active:translate-y-[2px] active:translate-x-[2px]
+                              active:[box-shadow:none]
+                            active:bg-slate-300 dark:active:bg-slate-800
+                            cursor-pointer flex-1 py-3 bg-violet-600 hover:bg-violet-700 text-white font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
                           >
                             Ya, Ganti Sekarang
                           </button>
@@ -6118,7 +6238,19 @@ const handleChangePin = async () => {
                 />
                 <button
                   onClick={() => setShowLoginModal(false)}
-                  className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-red-600 hover:bg-black/70 text-white rounded-xl transition-all cursor-pointer"
+                  className="
+                     text-slate-900 dark:text-white 
+                    -translate-y-[3px] translate-x-[-3px]
+                    [box-shadow:4px_6px_0_#f1f5f9]
+                    dark:[box-shadow:4px_4px_0_#99a3b1]
+                    hover:translate-y-0 hover:translate-x-0
+                    border border-slate-300
+                    hover:[box-shadow:0_0_0_#f1f5f9]
+                    dark:hover:[box-shadow:0_0_0_#94a3b8]
+                    active:translate-y-[2px] active:translate-x-[2px]
+                    active:[box-shadow:none]
+                  active:bg-slate-300 dark:active:bg-slate-800
+                  absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-red-600 hover:bg-black/70 text-white rounded-xl transition-all cursor-pointer"
                   aria-label="Tutup"
                 >
                   ✕

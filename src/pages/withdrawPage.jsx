@@ -649,7 +649,7 @@ export const WithdrawPage = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-2 gap-3 mb-6">
+          <div className="grid grid-cols-2 gap-3.5 mb-6">
             {[
               { id: 'BANK',    label: 'Transfer Bank',  icon: <CreditCard size={18} /> },
               { id: 'EWALLET', label: 'E-Wallet',       icon: <Smartphone size={18} /> },
@@ -674,7 +674,7 @@ export const WithdrawPage = () => {
                   cursor-pointer active:scale-[0.99] flex flex-col items-center gap-3 p-4 rounded-xl border transition-all font-black text-sm ${
                   method === m.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-lg shadow-blue-50 dark:shadow-none'
-                    : 'border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 hover:border-slate-200 dark:hover:border-slate-600'
+                    : 'border-slate-100 dark:border-slate-300 text-slate-400 dark:text-slate-500 hover:border-slate-200 dark:hover:border-slate-600'
                 }`}>
                 {m.icon} {m.label}
               </button>

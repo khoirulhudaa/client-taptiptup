@@ -60,7 +60,19 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings }) => {
           {ACTION_OPTIONS.map(opt => (
             <button key={opt.id}
               onClick={() => { setLocalAction(opt.id); saveMutation.mutate({ words, action: opt.id, replacement: localReplacement }); }}
-              className={`cursor-pointer active:scale-[0.99] text-left p-4 rounded-xl border-2 transition-all space-y-1.5 ${
+              className={`
+              text-slate-900 dark:text-white 
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+                cursor-pointer active:scale-[0.99] text-left p-4 rounded-xl border-2 transition-all space-y-1.5 ${
                 localAction === opt.id
                   ? opt.active + ' shadow-md'
                   : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600'

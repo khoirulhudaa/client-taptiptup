@@ -350,7 +350,7 @@ export const InboxPage = () => {
       </div>
 
       {/* Type filters */}
-      <div className="flex gap-3 flex-wrap px-4 md:px-5">
+      <div className="flex gap-3.5 flex-wrap px-4 md:px-5">
         <button onClick={() => setTypeFilter('')}
           className={`
             -translate-y-[3px] translate-x-[-3px]

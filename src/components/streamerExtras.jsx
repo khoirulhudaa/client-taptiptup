@@ -1136,7 +1136,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
 
         <div className="space-y-2">
           <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Periode Leaderboard</label>
-          <div className="grid md:grid-cols-2 gap-3 pt-1">
+          <div className="grid md:grid-cols-2 gap-3.5 pt-1">
             {[
               { id: 'alltime', label: '⏳ Semua Waktu', desc: 'Total dukungan sejak awal' },
               { id: 'today',   label: '📅 Hari Ini',    desc: 'Dukungan hari ini saja' },
@@ -1157,7 +1157,7 @@ export const LeaderboardSettings = ({ overlayToken }) => {
                   cursor-pointer active:scale-[0.99] p-4 rounded-xl border-2 text-left font-black text-xs transition-all ${
                   local.leaderboardPeriod === p.id
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300'
-                    : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'
+                    : 'border-slate-100 dark:border-slate-300 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-300'
                 }`}>
                 {p.label}<br/>
                 <span className="font-medium text-[10px] text-slate-400 dark:text-slate-400">{p.desc}</span>
@@ -1236,8 +1236,20 @@ export const LeaderboardSettings = ({ overlayToken }) => {
         <button
           onClick={() => saveMutation.mutate(local)}
           disabled={saveMutation.isPending}
-          className={`cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 ${
-            saved ? 'bg-green-500 text-white' : 'bg-slate-900 dark:bg-slate-100 hover:bg-blue-600 dark:hover:bg-blue-500 text-white dark:text-slate-900 dark:hover:text-white'
+          className={`
+             text-slate-900 dark:text-white 
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+          active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer active:scale-[0.99] w-full py-3 md:py-4 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 ${
+            saved ? 'bg-green-500 text-white' : 'bg-slate-900 dark:bg-slate-600 hover:dark:bg-slate-700 dark:hover:text-white'
           } disabled:opacity-70`}>
           {saved ? <><CheckCircle2 size={16} /> Tersimpan!</> : saveMutation.isPending ? 'Menyimpan...' : <><Save size={16} /> Simpan Pengaturan Leaderboard</>}
         </button>
@@ -1487,7 +1499,19 @@ export const MilestonesManager = ({ overlayToken }) => {
                   Sejak Tanggal
                 </p>
                 <div className="flex gap-3 items-center">
-                  <div className="flex-1 flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 h-[44px] rounded-xl">
+                  <div className="
+                   text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+                  flex-1 flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 h-[44px] rounded-xl">
                     <input
                       type="date"
                       value={m.periodSince ? m.periodSince.slice(0, 10) : ''}
@@ -1616,7 +1640,7 @@ export const MilestonesManager = ({ overlayToken }) => {
               {/* ─── PRESET WARNA ─── */}
               <div className="space-y-3 mt-4">
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Preset Warna</p>
-                <div className="grid grid-cols-4 md:flex md:flex-wrap gap-3">
+                <div className="grid grid-cols-4 md:flex md:flex-wrap gap-3.5">
                   {COLOR_PRESETS.map((preset) => (
                     <button
                       key={preset.label}
@@ -1640,7 +1664,7 @@ export const MilestonesManager = ({ overlayToken }) => {
                       active:translate-y-[2px] active:translate-x-[2px]
                       active:[box-shadow:none]
                       active:bg-slate-300 dark:active:bg-slate-800
-                      md:w-max w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 pr-3.5 md:pr-3 py-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 transition-all"
+                      md:w-max w-full cursor-pointer active:scale-[0.97] flex items-center gap-3 px-3 pr-3.5 md:pr-3 py-4 rounded-xl border border-slate-200 dark:border-slate-300 bg-slate-50 dark:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 transition-all"
                     >
                       {/* Swatch mini 3 warna */}
                       <div className="flex rounded-md overflow-hidden w-full md:w-9 h-4 flex-shrink-0 border border-black/10">

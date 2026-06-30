@@ -412,7 +412,7 @@ const QrConfigPage = ({ overlayToken, username }) => {
              {/* Preset Cepat */}
           <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800">
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">Preset Cepat</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
               {[
                 { label: 'Dark',    dark: '#000000', light: '#ffffff', bg: 'rgba(15,15,25,0.9)',  border: 0 },
                 { label: 'Neon',    dark: '#39ff14', light: '#0a1f0a',  bg: 'rgba(10,31,10,0.95)', border: 1 },
@@ -503,16 +503,40 @@ const QrConfigPage = ({ overlayToken, username }) => {
             </div>
           
           {/* Actions */}
-          <div className="grid md:grid-cols-2 grid-cols-1 px-4 md:px-0 gap-3">
+          <div className="grid md:grid-cols-2 grid-cols-1 px-4 md:px-0 gap-3.5">
             <button
               onClick={handleReset}
-              className="cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl font-black text-sm flex items-center justify-center gap-3 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+              className="
+                  text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer active:scale-[0.99] w-full py-3 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl font-black text-sm flex items-center justify-center gap-3 border border-slate-200 dark:border-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
             >
               <RotateCcw size={16} /> Reset
             </button>
             <button
               onClick={handleSave}
-              className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 md:py-3 bg-blue-600 text-white rounded-xl font-black text-sm flex items-center justify-center gap-3 transition-all"
+              className="
+                  text-slate-900 dark:text-white 
+                    -translate-y-[3px] translate-x-[-3px]
+                    [box-shadow:4px_6px_0_#f1f5f9]
+                    dark:[box-shadow:4px_4px_0_#99a3b1]
+                    hover:translate-y-0 hover:translate-x-0
+                    border border-slate-300
+                    hover:[box-shadow:0_0_0_#f1f5f9]
+                    dark:hover:[box-shadow:0_0_0_#94a3b8]
+                    active:translate-y-[2px] active:translate-x-[2px]
+                    active:[box-shadow:none]
+                    active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 md:py-3 bg-blue-600 text-white rounded-xl font-black text-sm flex items-center justify-center gap-3 transition-all"
             >
               {saved ? <><CheckCircle2 size={18} /> Tersimpan!</> : <><Save size={18} /> Simpan</>}
             </button>
@@ -539,7 +563,19 @@ const QrConfigPage = ({ overlayToken, username }) => {
                 <p className="flex-1 max-w-[74%] font-mono text-xs text-blue-500 dark:text-blue-400 truncate">{widgetUrl}</p>
                 <button
                   onClick={handleCopy}
-                  className="cursor-pointer active:scale-[0.98] p-2 bg-white dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-600 flex-shrink-0 hover:bg-slate-50 dark:hover:bg-slate-600 transition-all"
+                  className="
+                     text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+                  cursor-pointer active:scale-[0.98] p-2 bg-white dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-300 flex-shrink-0 hover:bg-slate-50 dark:hover:bg-slate-600 transition-all"
                 >
                   {copied ? <CheckCircle2 size={15} className="text-green-500" /> : <Copy size={15} />}
                 </button>

@@ -25,10 +25,10 @@ export const MediaShareControl = ({ overlayToken }) => {
 
   const BASE = window.location.origin;
   const shortcuts = [
-    { label: 'skip',     icon: <SkipForward size={14} />, url: `${BASE}/api/mediashare/shortcut/${overlayToken}/skip` },
-    // { label: 'mute',     icon: <VolumeX size={14} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=0` },
-    { label: 'vol 50%',  icon: <Volume2 size={14} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=50` },
-    { label: 'vol 100%', icon: <Volume2 size={14} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=100` },
+    { label: 'skip',     icon: <SkipForward size={18} />, url: `${BASE}/api/mediashare/shortcut/${overlayToken}/skip` },
+    // { label: 'mute',     icon: <VolumeX size={18} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=0` },
+    { label: 'vol 50%',  icon: <Volume2 size={18} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=50` },
+    { label: 'vol 100%', icon: <Volume2 size={18} />,     url: `${BASE}/api/mediashare/shortcut/${overlayToken}/volume?volume=100` },
   ];
 
   const copyShortcut = (url, idx) => {
@@ -127,15 +127,24 @@ export const MediaShareControl = ({ overlayToken }) => {
         </div>
 
         {/* Preset buttons */}
-        <div className="flex gap-2 md:mt-0 mt-6 justify-between">
+        <div className="flex gap-3 md:mt-0 mt-6 justify-between">
           {PRESETS.map(({ label, value }) => (
             <button
               key={value}
               onClick={() => handleVolumeChange(value)}
-              className={`cursor-pointer flex-1 py-2 text-xs font-black rounded-xl border transition-all active:scale-[0.99] ${
+              className={`
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                cursor-pointer flex-1 py-3 text-xs font-black rounded-xl border transition-all active:scale-[0.99] ${
                 volume === value
                   ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400'
-                  : 'border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-300 hover:border-slate-400'
+                  : 'border-slate-200 dark:border-slate-300 text-slate-400 dark:text-slate-300 hover:border-slate-300'
               }`}
             >
               {label}
@@ -166,12 +175,12 @@ export const MediaShareControl = ({ overlayToken }) => {
                 }`}
               >
                 {/* Icon */}
-                <span className={`flex-shrink-0 w-7 h-7 rounded flex items-center justify-center ${
+                <span className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center ${
                   copied
                     ? 'bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400'
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                    : 'bg-slate-100 dark:bg-slate-500 text-slate-500 dark:text-white'
                 }`}>
-                  {copied ? <Check size={13} /> : icon}
+                  {copied ? <Check size={18} /> : icon}
                 </span>
 
                 {/* Label */}
@@ -189,7 +198,20 @@ export const MediaShareControl = ({ overlayToken }) => {
                 </span>
 
                 {/* Copy icon */}
-                <span className={`flex-shrink-0 transition-colors ${
+                <span className={`
+                    text-slate-900 dark:text-white 
+                          -translate-y-[3px] translate-x-[-3px]
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          active:[box-shadow:none]
+                          active:bg-slate-300 dark:active:bg-slate-800
+                          cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-xl transition-all flex-shrink-0">
+                flex-shrink-0 transition-colors ${
                   copied ? 'text-green-500' : 'text-slate-300 dark:text-slate-500'
                 }`}>
                   {copied ? <Check size={18} /> : <Copy size={18} />}

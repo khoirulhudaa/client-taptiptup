@@ -53,7 +53,7 @@ const FeeSimulator = ({ feeBearer }) => {
       </p>
 
       {/* Preset buttons */}
-      <div className="w-full grid grid-cols-5 md:grid-cols-5 gap-3">
+      <div className="w-full grid grid-cols-5 md:grid-cols-5 gap-3.5">
         {PRESETS.map(v => (
           <button
             key={v}
@@ -73,7 +73,7 @@ const FeeSimulator = ({ feeBearer }) => {
               px-3 py-3 rounded-xl text-xs font-black transition-all border-2 cursor-pointer active:scale-[0.97] ${
               nominal === v
                 ? 'bg-indigo-600 border-indigo-600 text-white'
-                : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 hover:border-indigo-300'
+                : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-300 text-slate-400 hover:border-indigo-300'
             }`}
           >
             {v >= 1000000 ? `${v / 1000000}jt` : `${v / 1000}K`}
