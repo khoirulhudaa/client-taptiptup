@@ -3300,7 +3300,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
         </div>
       </div>
 
-      <div className="gap-3 grid grid-cols-3 md:grid-cols-5 mb-5 mt-5 md:px-0 px-4">
+      <div className="gap-3.5 grid grid-cols-3 md:grid-cols-5 mb-5 mt-5 md:px-0 px-4">
         {subTabs.map(t => (
           <button key={t.id} onClick={() => setSubTab(t.id)}
             className={`
@@ -3315,16 +3315,28 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
             active:translate-y-[2px] active:translate-x-[2px]
             active:[box-shadow:none]
             active:bg-slate-300 dark:active:bg-slate-800
-            w-full cursor-pointer active:scale-[0.99] px-5 py-3.5 rounded-xl  font-black text-sm transition-all ${subTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-400 border border-slate-100 dark:border-slate-700 hover:brightness-[80%]'}`}>
+            w-full cursor-pointer active:scale-[0.99] px-5 py-3.5 rounded-xl  font-black text-sm transition-all ${subTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-400 border border-slate-100 dark:border-slate-300 hover:brightness-[80%]'}`}>
             {t.label}
           </button>
         ))}
         {subTab === 'discover' && (
-          <div className="flex gap-3">
+          <div className="flex gap-3.5">
             <input value={searchInput} onChange={e => setSearchInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && setSearch(searchInput)}
               placeholder="Cari username streamer..."
-              className="flex-1 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
-            <button onClick={() => setSearch(searchInput)} className="cursor-pointer active:scale-[0.99] px-6 py-3.5 bg-blue-600 text-white rounded-xl  font-black text-sm hover:bg-blue-700 transition-all">Cari</button>
+              className="flex-1 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-300 rounded-xl px-5 py-3 font-bold text-sm text-slate-900 dark:text-slate-100 outline-none focus:border-blue-400 transition-all" />
+            <button onClick={() => setSearch(searchInput)} className="
+            text-slate-900 dark:text-white 
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer active:scale-[0.99] px-6 py-3.5 bg-blue-600 text-white rounded-xl  font-black text-sm hover:bg-blue-700 transition-all">Cari</button>
           </div>
         )}
       </div>
