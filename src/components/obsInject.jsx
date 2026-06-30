@@ -176,7 +176,7 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
             {groups.map(group => (
               <div key={group.key}>
                 <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-400 mb-2">{group.label}</p>
-                <div className="space-y-1.5 md:mt-3 md:space-y-0 md:grid-cols-3 grid gap-4">
+                <div className="space-y-1.5 md:mt-3 md:space-y-0 md:grid-cols-3 grid gap-3.5">
                   {allItems.filter(i => i.group === group.key).map(item => {
                     const isSelected = selected.has(item.id);
                     const result = results[item.id];
@@ -250,7 +250,7 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
           {/* Footer */}
           <div className="px-5 py-4 border-t border-slate-100 dark:border-slate-800 flex-shrink-0 space-y-2">
             {!done ? (
-              <div className='w-full flex items-center gap-2'>
+              <div className='w-full flex items-center gap-3'>
                 <button
                   onClick={handleAdd}
                   disabled={adding || selected.size === 0}
