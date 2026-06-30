@@ -109,10 +109,23 @@ export const InboxBell = ({ setActiveTab }) => {
       {/* Bell button */}
       <button
         onClick={handleOpen}
-        className={`cursor-pointer h-[38px] w-[38px] flex items-center justify-center rounded-xl border transition-all active:scale-[0.97] relative ${
+        className={`
+          text-slate-900 dark:text-white 
+        bg-slate-100 dark:bg-white/20
+        -translate-y-[3px] translate-x-[-3px]
+        [box-shadow:4px_6px_0_#f1f5f9]
+        dark:[box-shadow:4px_4px_0_#99a3b1]
+        hover:translate-y-0 hover:translate-x-0
+        hover:bg-slate-200 dark:hover:bg-slate-700
+        hover:[box-shadow:0_0_0_#f1f5f9]
+        dark:hover:[box-shadow:0_0_0_#94a3b8]
+        active:translate-y-[2px] active:translate-x-[2px]
+        active:[box-shadow:none]
+        active:bg-slate-300 dark:active:bg-slate-800
+          cursor-pointer h-[38px] w-[38px] flex items-center justify-center rounded-xl border transition-all active:scale-[0.97] relative ${
           open
             ? 'bg-blue-600 border-blue-600 text-white'
-            : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+            : 'bg-slate-100 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
         }`}
       >
         <Bell size={16} className={open ? 'text-white' : ''} />

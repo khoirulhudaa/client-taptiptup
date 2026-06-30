@@ -288,7 +288,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               active:translate-y-[2px] active:translate-x-[2px]
               active:[box-shadow:none]
               active:bg-slate-300 dark:active:bg-slate-800
-            rounded-xl cursor-pointer h-[40px] border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 w-max px-2 flex items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:brightness-110 transition-all"
+            rounded-xl cursor-pointer h-[40px] border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 w-max px-3.5 flex items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:brightness-110 transition-all"
           >
             <AnimatePresence mode="wait">
               {isCollapsed ? (
@@ -406,36 +406,21 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
             onClick={() => setActiveTab('community')}
             className="
               text-slate-900 dark:text-white 
-            bg-slate-100 dark:bg-white/20
-            -translate-y-[3px] translate-x-[-3px]
-            [box-shadow:4px_4px_0_#f1f5f9]
-            dark:[box-shadow:3px_3px_0_#99a3b1]
-            hover:translate-y-0 hover:translate-x-0
-            hover:bg-slate-200 dark:hover:bg-slate-700
-            border border-slate-300
-            hover:[box-shadow:0_0_0_#f1f5f9]
-            dark:hover:[box-shadow:0_0_0_#94a3b8]
-            active:translate-y-[2px] active:translate-x-[2px]
-            active:[box-shadow:none]
-            active:bg-slate-300 dark:active:bg-slate-800
-            cursor-pointer hover:brightness-90 h-[38px] active:scale-[0.99] relative flex items-center gap-2 px-3.5 py-3 rounded-xl font-bold text-md overflow-hidden"
-            style={{
-              background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)',
-              backgroundSize: '300% 100%',
-              animation: 'rainbowSlide 3s ease-in-out infinite',
-              // boxShadow: '0 0 12px 1px rgba(48,43,99,0.4)',
-            }}>
-            <span
-              className="a
-              bsolute inset-0 pointer-events-none"
-              style={{
-                background: 'linear-gradient(118deg, transparent 95%, rgba(255,255,255,0.1) 90%, transparent 85%)',
-                backgroundSize: '250% 100%',
-                animation: 'shimmerSlide 3s ease-in-out infinite',
-              }}
-            />
+                bg-slate-100 dark:bg-white/20
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                hover:bg-slate-200 dark:hover:bg-slate-700
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer h-[38.4px] flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl px-3.5 py-3 transition-all active:scale-[0.99]"
+            >
             <Users size={16} className="relative z-10 text-white/90" />
-            <span className="hidden md:inline relative z-10 text-white/90 tracking-wide">Komunitas</span>
+            <span className="hidden md:inline font-bold relative z-10 text-white tracking-wide">Komunitas</span>
           </motion.button>
 
           {/* Avatar + dropdown */}
