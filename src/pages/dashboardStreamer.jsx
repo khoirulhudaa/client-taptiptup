@@ -4371,7 +4371,7 @@ const handleChangePin = async () => {
 
         {showOverlay && <LoadingOverlay onDone={() => setShowOverlay(false)} />}
 
-        {/* <img src="/glass.jpg" className='opacity-[10%] fixed top-0 left-0 w-screen h-screen z-[1]'  alt='glass-img'></img> */}
+        <img src="/glass.jpg" className='opacity-[10%] fixed top-0 left-0 w-screen h-screen z-[1]'  alt='glass-img'></img>
         {/* ── Modal Copy URL ── */}
         <AnimatePresence>
           {showCopyModal && (
@@ -4809,7 +4809,7 @@ const handleChangePin = async () => {
                           className="cursor-pointer w-full flex items-center justify-between px-3 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
                         >
                           <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
-                          Tutorial Video
+                          Video Tutorial
                           </span>
                           <div className='w-6 h-6 border p-[1.4px] hover:bg-blue-600 border-slate-600 rounded-md'>
                             <ChevronDown
@@ -4832,7 +4832,7 @@ const handleChangePin = async () => {
                             className="cursor-pointer w-full flex items-center justify-between px-3 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
                           >
                             <span className="flex items-center gap-3 font-black text-sm text-slate-700 dark:text-slate-200">
-                            OBS Auto-connection 
+                            OBS Auto-inject 
                             </span>
                             <div className='w-6 h-6 border p-[1.4px] group hover:bg-blue-600 hover:text-white border-slate-600 rounded-md'>
                               <ChevronDown
@@ -4856,7 +4856,7 @@ const handleChangePin = async () => {
                             <div key={key} className="w-full flex items-center justify-between p-4 px-5 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-100 dark:border-slate-700">
                               <div>
                                 <p className="font-black text-slate-700 dark:text-slate-200 text-sm">{label}</p>
-                                <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{desc}</p>
+                                <p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium mt-0.5">{desc}</p>
                               </div>
                               <button onClick={() => upd(key, !settings[key])}
                                 className={`relative inline-flex h-7 w-14 items-center rounded-xl transition-colors duration-300 cursor-pointer focus:outline-none ${settings[key] ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
