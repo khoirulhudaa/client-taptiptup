@@ -448,7 +448,7 @@ const DonationItemsEditor = ({
 
       {/* Mode Selector */}
       <div className="space-y-3">
-        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">
           Mode Tampilan Dukungan
         </label>
         <div className="grid grid-cols-3 md:grid-cols-3 gap-3">
@@ -476,7 +476,7 @@ const DonationItemsEditor = ({
             >
               <div className="flex items-center justify-center md:justify-start gap-2 relative top-[1px]">
                 <div>
-                  <span className={`font-black text-xs ${
+                  <span className={`font-bold text-sm ${
                     currentMode === opt.value
                       ? 'text-blue-700 dark:text-blue-300'
                       : 'text-slate-700 dark:text-slate-200'
@@ -486,7 +486,7 @@ const DonationItemsEditor = ({
                   <p className={`text-[10px] md:flex hidden font-medium leading-relaxed ${
                     currentMode === opt.value
                       ? 'text-blue-500 dark:text-blue-400'
-                      : 'text-slate-400 dark:text-slate-500'
+                      : 'text-slate-400 dark:text-slate-400'
                   }`}>
                     {opt.desc}
                   </p>

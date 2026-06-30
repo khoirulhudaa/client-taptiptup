@@ -85,6 +85,8 @@ const ThemeToggle = ({ theme, onToggle }) => {
     <motion.button
       id="tour-theme-toggle"
       onClick={onToggle}
+      variants={navbarItemVariants}   // tambahkan ini
+      whileTap={{ scale: 0.95 }}
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       className="
         text-slate-900 dark:text-white 
@@ -305,27 +307,28 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
 
           {/* ── Saldo + Tombol Kirim ─────────────────────────────────────── */}
           <motion.div
-            id="tour-balance"  
-            variants={navbarItemVariants}
-            className="
-              text-slate-900 dark:text-white 
-            -translate-y-[3px] translate-x-[-3px]
-            [box-shadow:4px_6px_0_#f1f5f9]
-            dark:[box-shadow:4px_4px_0_#99a3b1]
-            hover:translate-y-0 hover:translate-x-0
-            border border-slate-300
-            hover:[box-shadow:0_0_0_#f1f5f9]
-            dark:hover:[box-shadow:0_0_0_#94a3b8]
-            active:translate-y-[2px] active:translate-x-[2px]
-            active:[box-shadow:none]
-            active:bg-slate-300 dark:active:bg-slate-800
-            hidden sm:flex items-center h-[40px] gap-0 rounded-xl border border-slate-200/80 dark:border-slate-700 dark:bg-slate-800/60 overflow-hidden"
-          >
+              id="tour-balance"  
+              variants={navbarItemVariants}
+              className="
+                text-slate-900 dark:text-white 
+                bg-slate-100 dark:bg-white/20
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+                hidden sm:flex items-center h-[40px] gap-0 rounded-xl border border-slate-200/80 dark:border-slate-700 overflow-hidden"
+            >
             {/* Info saldo */}
             <div className="
             flex items-center gap-2 px-3.5 py-2 border-r border-slate-200/80 dark:border-slate-700">
-              <Wallet size={18} className="text-blue-400" />
-              <span className="font-bold text-blue-600 dark:text-blue-400 text-md tracking-wide">
+              <Wallet size={18} className="text-white" />
+              <span className="font-bold text-blue-600 dark:text-white text-md tracking-wide">
                 {showBalance
                   ? `Rp ${parseFloat(currentBalance).toLocaleString('id-ID')}`
                   : 
@@ -339,7 +342,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               </span>
               <button
                 onClick={handleShowBalance}
-                className="cursor-pointer p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-blue-600 transition-all hover:bg-blue-50 dark:hover:bg-blue-950/40"
+                className="cursor-pointer p-2 rounded-xl bg-slate-100 dark:bg-slate-950/20 text-slate-400 hover:text-white transition-all hover:bg-blue-50 dark:hover:bg-blue-950/40"
               >
                 {showBalance ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
@@ -350,7 +353,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               id="tour-balance"
               onClick={() => setShowTransfer(true)}
               title="Kirim saldo ke streamer lain"
-              className="cursor-pointer h-full px-3.5 flex items-center gap-1.5 text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:text-blue-600 dark:hover:text-blue-400 transition-all active:scale-[0.97] group"
+              className="cursor-pointer h-full px-3.5 flex items-center gap-1.5 text-slate-500 dark:text-white hover:bg-blue-50 dark:hover:bg-blue-950/40 hover:text-blue-600 dark:hover:text-blue-400 transition-all active:scale-[0.97] group"
             >
               <SendHorizonal
                 size={16.5}
@@ -405,8 +408,8 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               text-slate-900 dark:text-white 
             bg-slate-100 dark:bg-white/20
             -translate-y-[3px] translate-x-[-3px]
-            [box-shadow:4px_6px_0_#f1f5f9]
-            dark:[box-shadow:4px_4px_0_#99a3b1]
+            [box-shadow:4px_4px_0_#f1f5f9]
+            dark:[box-shadow:3px_3px_0_#99a3b1]
             hover:translate-y-0 hover:translate-x-0
             hover:bg-slate-200 dark:hover:bg-slate-700
             border border-slate-300
@@ -455,9 +458,9 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                 active:translate-y-[2px] active:translate-x-[2px]
                 active:[box-shadow:none]
                 active:bg-slate-300 dark:active:bg-slate-800
-              cursor-pointer h-[38.4px] flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl px-1.5 py-3 transition-all active:scale-[0.99]"
+              cursor-pointer h-[38.4px] flex items-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl px-[3.4px] py-3 transition-all active:scale-[0.99]"
             >
-              <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-md flex-shrink-0">
+              <div className="relative top-[-0.5px] w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-md flex-shrink-0">
                 {user?.profilePicture ? (
                   <img
                     src={user.profilePicture}
@@ -473,7 +476,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                 )}
               </div>
               <div className="text-left hidden sm:block">
-                <p className="font-bold text-slate-800 dark:text-slate-200 text-md leading-tight">@{user.username}</p>
+                <p className="font-bold text-slate-800 dark:text-white text-md leading-tight">@{user.username}</p>
               </div>
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 ml-0.5">
                 <path d="M6 9l6 6 6-6" />

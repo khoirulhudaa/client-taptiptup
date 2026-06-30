@@ -576,7 +576,7 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         </motion.div>
       )}
 
-      <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium text-left">
+      <p className="text-[10px] text-slate-400 dark:text-slate-400 font-medium text-left">
         Pastikan OBS overlay kamu sudah dibuka di browser source
       </p>
     </div>
@@ -800,7 +800,7 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
                     active:translate-y-[2px] cursor-pointer active:translate-x-[2px]
                     active:[box-shadow:none]
                     active:bg-slate-300 dark:active:bg-slate-800
-                  w-full flex items-center justify-center gap-3 py-3 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl font-bold text-xs hover:bg-slate-50 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700">
+                  w-full flex items-center justify-center gap-3 py-3 bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-400 rounded-xl font-bold text-xs hover:bg-slate-50 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700">
                     {copied ? <><CheckCircle2 size={16} /> Tersalin!</> : <><Copy size={16} /> Salin Link Profile</>}
                   </button>
                   <button className="
@@ -832,7 +832,7 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
 
               {(streamer?.instagram || streamer?.facebook || streamer?.youtube || streamer?.twitter) && (
                 <div className="pt-4 border-t border-slate-100 dark:border-slate-700">
-                  <p className="text-xs font-black text-slate-400 dark:text-slate-500 mb-3">SOCIAL MEDIA</p>
+                  <p className="text-xs font-black text-slate-400 dark:text-slate-400 mb-3">SOCIAL MEDIA</p>
                   <div className="flex flex-wrap gap-3">
                     {streamer.instagram && (
                       <a href={`https://instagram.com/${streamer.instagram.replace('@','')}`} target="_blank" rel="noreferrer"
@@ -932,7 +932,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
       <SectionHeader icon={<ShieldCheck size={20} />} title="Filter Kata Terlarang" color="bg-red-500" />
       <div className="space-y-3">
-        {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Aksi saat kata terlarang terdeteksi</label> */}
+        {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Aksi saat kata terlarang terdeteksi</label> */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
           {ACTION_OPTIONS.map(opt => (
             <button key={opt.id}
@@ -955,7 +955,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
                 <span className="text-xl">{opt.emoji}</span>
                 <span className="font-black text-sm text-slate-700 dark:text-slate-200">{opt.title}</span>
               </div>
-              <p className="text-[11px] font-medium leading-relaxed text-slate-400 dark:text-slate-500">{opt.desc}</p>
+              <p className="text-[11px] font-medium leading-relaxed text-slate-400 dark:text-slate-400">{opt.desc}</p>
             </button>
           ))}
         </div>
@@ -971,7 +971,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
       </div>
       <div className="border-t border-slate-100 dark:border-slate-800" />
       <div className="space-y-3">
-        {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Daftar kata terlarang</label> */}
+        {/* <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Daftar kata terlarang</label> */}
         <div className="md:flex gap-3 md:space-y-0 space-y-3">
           <InputField
             label="Kata-kata"
@@ -1062,7 +1062,7 @@ const MilestonesEditor = () => {
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-5">
       <SectionHeader icon={<TrendingUp size={20} />} title="Milestones" color="bg-green-500" />
-      <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Tampilkan progress target dukungan di halaman publik kamu.</p>
+      <p className="text-xs text-slate-400 dark:text-slate-400 font-medium">Tampilkan progress target dukungan di halaman publik kamu.</p>
       {isLoading ? <div className="text-slate-400 text-sm font-bold animate-pulse">Memuat...</div> : (
         <div className="space-y-3">
           {list.length === 0 && (
@@ -1159,14 +1159,27 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
 
   return (
     <div className="space-y-3">
-      {/* {label && <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</label>} */}
+      {/* {label && <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">{label}</label>} */}
 
-      <div className="flex md:gap-3 gap-2">
+      <div className="flex md:gap-3.5 gap-3">
         {[{ id: 'preset', label: 'Preset' }, { id: 'upload', label: 'Upload MP3' }].map(m => (
           <button
             key={m.id}
             onClick={() => setMode(m.id)}
-            className={`cursor-pointer uppercase active:scale-[0.99] text-left px-4 py-4 rounded-xl font-black text-xs transition-all flex-1 ${
+            className={`
+                 text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  w-max
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer uppercase active:scale-[0.99] text-left px-4 py-4 rounded-xl font-black text-xs transition-all flex-1 ${
               mode === m.id ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
@@ -1180,7 +1193,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
         <div className="grid grid-cols-2 md:grid-cols-4 md:gap-3 gap-2">
           <button onClick={() => { onChange(''); setPlaying(null); }}
             className={`cursor-pointer uppercase active:scale-[0.99] flex items-center gap-1.5 p-3 rounded-xl border-2 font-black text-xs transition-all ${
-              !value ? 'border-slate-600 bg-slate-800 text-white' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
+              !value ? 'border-slate-600 bg-slate-800 text-white' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-400'
             }`}>
             <span className="text-lg">🔇</span> Tanpa Suara
           </button>
@@ -1189,7 +1202,7 @@ const SoundPicker = ({ value, onChange, label = 'Pilih Suara' }) => {
             <button key={preset.url}
               onClick={() => { playPreview(preset.url); onChange(preset.url); }}
               className={`cursor-pointer active:scale-[0.99] flex items-center gap-1.5 p-3 rounded-xl border-2 font-black text-xs transition-all ${
-                value === preset.url ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500'
+                value === preset.url ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-700' : 'border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-400'
               }`}>
               <span className="text-lg">{preset.label.split(' ')[1]}</span>
               <span className='text-xs md:text-sm uppercase'>{preset.label.split(' ')[0]}</span>
@@ -1255,7 +1268,7 @@ const QrCodeCard = ({ username }) => {
   const copy = () => { navigator.clipboard.writeText(donateUrl); setCopied(true); setTimeout(() => setCopied(false), 2000); };
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-5">
-      <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Tampilkan QR ini di stream / sosmed. Scan langsung ke halaman dukungan kamu.</p>
+      <p className="text-xs text-slate-400 dark:text-slate-400 font-medium">Tampilkan QR ini di stream / sosmed. Scan langsung ke halaman dukungan kamu.</p>
       <div className="flex flex-col items-start gap-3">
         <div className="p-4 bg-white rounded-xl border-4 border-slate-900 shadow-xl inline-block">
           <img src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(donateUrl)}&color=0f172a&bgcolor=ffffff&format=svg&margin=0`} alt="QR Code" width={200} height={200} />
@@ -1286,18 +1299,18 @@ const LeaderboardCard = ({ stats }) => {
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  pb-1.5 shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
       <div className="px-4 md:px-6 py-5 dark:border-slate-800 flex items-center gap-3">
         <div className="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center text-lg">🏆</div>
-        <div><p className="font-black text-slate-800 dark:text-slate-100">Leaderboard Donor</p><p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">Semua waktu</p></div>
+        <div><p className="font-black text-slate-800 dark:text-slate-100">Leaderboard Donor</p><p className="text-[10px] text-slate-400 dark:text-slate-400 font-medium">Semua waktu</p></div>
       </div>
       <div className="py-0 md:px-2 space-y-3">
         {topDonors.slice(0, 3).map((donor, i) => (
           <motion.div key={donor.name} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }}
             className={`flex items-center gap-3 p-4 dark:border-slate-100/10 border-t border-slate-200 dark:text-white text-black`}>
-            <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-lg flex-shrink-0 ${i < 3 ? 'bg-white/20' : 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}>
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-lg flex-shrink-0 ${i < 3 ? 'bg-white/20' : 'bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-400'}`}>
               {i < 3 ? medals[i] : `#${i + 1}`}
             </div>
             <div className="flex-1 min-w-0">
               <p className={`font-black text-sm truncate ${i < 3 ? 'dark:text-white text-black' : 'text-slate-800 dark:text-slate-100'}`}>{donor.name}</p>
-              <p className={`text-[10px] font-medium ${i < 3 ? 'dark:text-white text-black/70' : 'text-slate-400 dark:text-slate-500'}`}>{donor.count}x dukungan</p>
+              <p className={`text-[10px] font-medium ${i < 3 ? 'dark:text-white text-black/70' : 'text-slate-400 dark:text-slate-400'}`}>{donor.count}x dukungan</p>
             </div>
             <p className={`font-black text-sm flex-shrink-0 ${i < 3 ? 'dark:text-white text-black' : 'text-blue-600 dark:text-blue-400'}`}>
               Rp {Number(donor.totalAmount).toLocaleString('id-ID')}
@@ -1385,7 +1398,7 @@ const AdminWithdrawalPage = () => {
       <div className="flex px-4 md:px-0 gap-3 flex-wrap">
         {[{ val: 'PENDING', label: '⏳ Pending' }, { val: 'COMPLETED', label: '✅ Selesai' }, { val: 'FAILED', label: '❌ Ditolak' }, { val: '', label: '📋 Semua' }].map(f => (
           <button key={f.val} onClick={() => setStatusFilter(f.val)}
-            className={`cursor-pointer active:scale-[0.98] px-4 py-3 rounded-xl font-black text-sm transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700'}`}>
+            className={`cursor-pointer active:scale-[0.98] px-4 py-3 rounded-xl font-black text-sm transition-all ${statusFilter === f.val ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-400 border border-slate-100 dark:border-slate-700'}`}>
             {f.label}
           </button>
         ))}
@@ -1393,20 +1406,20 @@ const AdminWithdrawalPage = () => {
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm w-[91vw] mx-auto md:w-full rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
         <div className="hidden md:flex items-center justify-between px-4 md:px-6 py-5 border-b border-slate-100 dark:border-slate-800">
           <div>
-            <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{statusFilter ? `Request ${statusFilter}` : 'Semua Request'}</p>
-            <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">{pagination.total || 0} total</p>
+            <p className="text-xs font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">{statusFilter ? `Request ${statusFilter}` : 'Semua Request'}</p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-400 font-medium mt-0.5">{pagination.total || 0} total</p>
           </div>
           {/* <span className="px-4 py-3 bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl  text-[10px] font-black uppercase tracking-widest">Super Admin Only</span> */}
         </div>
         {isLoading
           ? <div className="flex items-center justify-center py-30 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-xl animate-spin" />Memuat data...</div>
           : withdrawals.length === 0
-            ? <div className="py-16 text-center text-slate-400"><p className="text-4xl mb-3">📭</p><p className="font-black text-slate-500">Tidak ada request</p></div>
+            ? <div className="py-16 text-center text-slate-400"><p className="text-4xl mb-3">📭</p><p className="font-black text-slate-400">Tidak ada request</p></div>
             : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left min-w-[900px]">
                   <thead>
-                    <tr className="bg-slate-50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">
+                    <tr className="bg-slate-50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-400 text-[10px] font-black uppercase tracking-widest">
                       {['Streamer', 'Jumlah', 'Metode', 'No. Rekening', 'Status', 'Waktu', ...(statusFilter === 'PENDING' ? ['Aksi'] : [])].map(h => <th key={h} className="px-6 py-5">{h}</th>)}
                     </tr>
                   </thead>
@@ -1420,7 +1433,7 @@ const AdminWithdrawalPage = () => {
                         <td className="px-6 py-5">
                           <span className={`inline-flex items-center gap-1.5 px-3 py-3 rounded-xl text-[10px] font-black ${wd.status === 'COMPLETED' ? 'bg-green-100 dark:bg-green-950/40 text-green-600 dark:text-green-400' : wd.status === 'FAILED' ? 'bg-red-100 dark:bg-red-950/40 text-red-500 dark:text-red-400' : 'bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400'}`}>{wd.status}</span>
                         </td>
-                        <td className="px-6 py-5"><p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium whitespace-nowrap">{formatDate(wd.createdAt)}</p></td>
+                        <td className="px-6 py-5"><p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium whitespace-nowrap">{formatDate(wd.createdAt)}</p></td>
                           {statusFilter === 'PENDING' && (
                           <td className="px-6 py-5">
                             {wd.status === 'PENDING' && (
@@ -1543,7 +1556,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
         {!mediaOnly && (
           <div className="space-y-5">
             <div>
-              <label className="text-xs font-black text-slate-500 block mb-1.5">
+              <label className="text-xs font-black text-slate-400 block mb-1.5">
                 Durasi Default Alert (detik)
               </label>
               <InputField
@@ -1554,7 +1567,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                 min={5} max={60}
                 inputClassName="text-center"
               />
-              <p className="text-[10px] text-slate-500 mt-2">
+              <p className="text-[10px] text-slate-400 mt-2">
                 Jika TTS lebih lama, akan mengikuti TTS
               </p>
             </div>
@@ -1567,7 +1580,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
             {/* <h4 className="font-black text-lg">Media share</h4> */}
             <div className="flex flex-col gap-3">
               <div>
-                {/* <label className="text-xs font-black text-slate-500 block mb-1.5">Durasi Dasar (detik)</label> */}
+                {/* <label className="text-xs font-black text-slate-400 block mb-1.5">Durasi Dasar (detik)</label> */}
                 <InputField
                   label="Detik"
                   type="number"
@@ -1579,7 +1592,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
               <div>
                 <div className="md:flex items-center gap-3">
                   <div className='w-full'>
-                    {/* <label className="text-xs font-black text-slate-500 block mb-1.5">Tambahan tiap Rp</label> */}
+                    {/* <label className="text-xs font-black text-slate-400 block mb-1.5">Tambahan tiap Rp</label> */}
                     <div className='md:flex items-center'>
                       <InputField
                         label="Tiap Rp"
@@ -1592,7 +1605,7 @@ const DurationSettings = ({ settings, onChange, saveSettingsMutation, alertOnly 
                     </div>
                   </div>
                   <div className='md:mt-0 mt-4'>
-                    {/* <label className="text-xs font-black text-slate-500 block mb-1.5">Detik</label> */}
+                    {/* <label className="text-xs font-black text-slate-400 block mb-1.5">Detik</label> */}
                     <InputField
                       label="Detik"
                       type="number"
@@ -1674,7 +1687,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
       {triggers.length === 0 && (
         <div className="rounded-xl  bg-slate-50 dark:bg-slate-800 border border-dashed border-slate-200 dark:border-slate-700 px-5 py-6 text-center">
           <div className="w-10 h-10 rounded-xl  bg-slate-100 dark:bg-slate-700 flex items-center justify-center mx-auto mb-3"><ImageIcon size={18} className="text-slate-400" /></div>
-          <p className="text-sm font-black text-slate-500 dark:text-slate-400">Belum ada ketentuan media</p>
+          <p className="text-sm font-black text-slate-400 dark:text-slate-400">Belum ada ketentuan media</p>
         </div>
       )}
       {triggers.map((t, i) => (
@@ -1703,7 +1716,7 @@ const MediaTriggersEditor = ({ triggers, onChange, saveSettingsMutation, setting
                   {opt.icon}
                 </span>
                 <span>{opt.label}</span>
-                <span className="md:flex hidden text-[9px] font-medium text-slate-300 dark:text-slate-500">{opt.desc}</span>
+                <span className="md:flex hidden text-[9px] font-medium text-slate-300 dark:text-slate-400">{opt.desc}</span>
               </button>
             ))}
           </div>
@@ -2499,7 +2512,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             active:translate-y-[2px] active:translate-x-[2px]
             active:[box-shadow:none]
             active:bg-slate-300 dark:active:bg-slate-800
-          cursor-pointer active:scale-[0.99] flex items-center justify-center w-13 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
+          cursor-pointer active:scale-[0.99] flex items-center justify-center w-13 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
         >
           <PanelLeft size={18} />
         </button>
@@ -2714,7 +2727,7 @@ const HistoryPage = () => {
       <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 md:px-6 py-5 border-b border-slate-100 dark:border-slate-800 gap-3">
           <div>
-            <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Riwayat Dukungan</p>
+            <p className="text-xs font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Riwayat Dukungan</p>
           </div>
           <div className='flex items-center gap-1.5'>
             <div className="flex gap-1.5">
@@ -2733,12 +2746,12 @@ const HistoryPage = () => {
                     active:translate-y-[2px] active:translate-x-[2px]
                     active:[box-shadow:none]
                   active:bg-slate-300 dark:active:bg-slate-800
-                  px-4 py-3 text-xs cursor-pointer font-black rounded-md transition-all border border-slate-200 dark:border-slate-700 ${historyTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-blue-200'}`}>
+                  px-4 py-3 text-xs cursor-pointer font-black rounded-md transition-all border border-slate-200 dark:border-slate-700 ${historyTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 hover:border-blue-200'}`}>
                   {t.label}
                 </button>
               ))}
             </div>
-            {/* <div className='!text-slate-500 h-[1px] bg-slate-700 mx-[2px] !w-[10px]'>
+            {/* <div className='!text-slate-400 h-[1px] bg-slate-700 mx-[2px] !w-[10px]'>
               
             </div> */}
             <div className="flex gap-1.5 rounded-md overflow-hidden">
@@ -2757,7 +2770,7 @@ const HistoryPage = () => {
                 active:translate-y-[2px] active:translate-x-[2px]
                 active:[box-shadow:none]
               active:bg-slate-300 dark:active:bg-slate-800
-                  px-4 py-3 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
+                  px-4 py-3 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'table' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 hover:border-white'}`}
               >
                 <List size={13} className='relative top-[-0.5px]' />
                 Table
@@ -2777,7 +2790,7 @@ const HistoryPage = () => {
                 active:translate-y-[2px] active:translate-x-[2px]
                 active:[box-shadow:none]
               active:bg-slate-300 dark:active:bg-slate-800
-                  px-4 py-3 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'card' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-500 hover:border-white'}`}
+                  px-4 py-3 flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 text-xs cursor-pointer font-black transition-all ${viewMode === 'card' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 hover:border-white'}`}
               >
                 <Grid size={13} className='relative top-[-0.5px]' />
                 Card
@@ -2865,7 +2878,7 @@ const HistoryPage = () => {
               ) : (
                 <table className="w-full text-left min-w-[700px]">
                   <thead>
-                    <tr className="bg-slate-100/50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">
+                    <tr className="bg-slate-100/50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-400 text-[10px] font-black uppercase tracking-widest">
                       <th className="px-4 md:px-8 py-6">Donatur</th>
                       <th className="px-4 md:px-8 py-6">Nominal</th>
                       <th className="px-4 md:px-8 py-6">IP Address</th>
@@ -2889,7 +2902,7 @@ const HistoryPage = () => {
                                 {item.donorName || 'Anonim'}
                               </p>
                               {showEmails && item.donorEmail && (
-                                <p className="text-xs text-slate-500 mt-0.5">{item.donorEmail}</p>
+                                <p className="text-xs text-slate-400 mt-0.5">{item.donorEmail}</p>
                               )}
                             </td>
                             <td className="px-5 md:px-8 py-5">
@@ -2918,7 +2931,7 @@ const HistoryPage = () => {
                               )}
                             </td>
                             <td className="px-5 md:px-8 py-5 max-w-[220px]">
-                              <p className="text-slate-500 dark:text-slate-400 text-sm font-medium italic line-clamp-2">
+                              <p className="text-slate-400 dark:text-slate-400 text-sm font-medium italic line-clamp-2">
                                 {item.message || '-'}
                               </p>
                             </td>
@@ -2980,7 +2993,7 @@ const HistoryPage = () => {
                                 {item.donorName || 'Anonim'} 
                               </p>
                               {showEmails && item.donorEmail && (
-                                <p className="text-xs text-slate-500 mt-1 truncate">{item.donorEmail}</p>
+                                <p className="text-xs text-slate-400 mt-1 truncate">{item.donorEmail}</p>
                               )}
                             </div>
                             <p className="text-[11px] relative mt-[2.4px] flex items-center gap-1 flex-shrink-0">
@@ -3048,7 +3061,7 @@ const HistoryPage = () => {
           ) : (
               <table className="w-full text-left min-w-[600px]">
                 <thead>
-                  <tr className="bg-slate-100/50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">
+                  <tr className="bg-slate-100/50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-400 text-[10px] font-black uppercase tracking-widest">
                     {['Kepada', 'Jumlah', 'Pesan', 'Status', 'Waktu'].map(h => <th key={h} className="px-5 md:px-8 py-6">{h}</th>)}
                   </tr>
                 </thead>
@@ -3080,7 +3093,7 @@ const HistoryPage = () => {
                                   {item.donationItem.quantity > 1 ? `${item.donationItem.quantity}× ` : ''}
                                   Rp {Number(item.donationItem.price).toLocaleString('id-ID')}
                                   {item.donationItem.quantity > 1 && (
-                                    <span className="ml-1 text-slate-500">
+                                    <span className="ml-1 text-slate-400">
                                       = Rp {Number(item.amount).toLocaleString('id-ID')}
                                     </span>
                                   )}
@@ -3100,11 +3113,11 @@ const HistoryPage = () => {
                             </p>
                           )}
                         </td>
-                        <td className="px-5 md:px-8 py-5 max-w-[250px]"><p className="text-slate-500 dark:text-slate-400 text-sm italic truncate">{item.message || '-'}</p></td>
+                        <td className="px-5 md:px-8 py-5 max-w-[250px]"><p className="text-slate-400 dark:text-slate-400 text-sm italic truncate">{item.message || '-'}</p></td>
                         <td className="px-5 md:px-8 py-5">
                           <span className={`px-3 py-3 rounded-xl  text-[10px] font-black ${item.status === 'PAID' ? 'bg-green-100 text-green-600 dark:bg-green-950/40 dark:text-green-400' : 'bg-amber-100 text-amber-600 dark:bg-amber-950/40 dark:text-amber-400'}`}>{item.status}</span>
                         </td>
-                        <td className="px-5 md:px-8 py-5 text-[10px] text-slate-400 dark:text-slate-500">{formatDate(item.createdAt)}</td>
+                        <td className="px-5 md:px-8 py-5 text-[10px] text-slate-400 dark:text-slate-400">{formatDate(item.createdAt)}</td>
                       </tr>
                     ))
                   )}
@@ -3119,7 +3132,7 @@ const HistoryPage = () => {
                 ← Sebelumnya
               </button>
               <div className="flex items-center gap-3">
-                <span className="text-xs font-bold text-slate-400 dark:text-slate-500 flex items-center gap-1"><span className='md:flex hidden'>Halaman</span> <span className="text-blue-600 dark:text-blue-400 font-black">{page}</span> dari {pagination.totalPages}</span>
+                <span className="text-xs font-bold text-slate-400 dark:text-slate-400 flex items-center gap-1"><span className='md:flex hidden'>Halaman</span> <span className="text-blue-600 dark:text-blue-400 font-black">{page}</span> dari {pagination.totalPages}</span>
                 <span className="md:flex hidden text-xs text-slate-300 dark:text-slate-600">({pagination.total} total dukungan)</span>
               </div>
               <button onClick={() => setPage(p => Math.min(pagination.totalPages, p + 1))} disabled={page === pagination.totalPages}
@@ -3177,13 +3190,13 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
     if (isLoading) return <div className="flex gap-4">{[...Array(2)].map((_, i) => <div key={i} className="w-12 h-5 bg-slate-200 dark:bg-slate-700 animate-pulse rounded" />)}</div>;
     const streamerBadges = userBadges?.badges?.streamer || {};
     const activeBadges = Object.entries(streamerBadges).filter(([_, active]) => active).map(([name]) => name);
-    if (activeBadges.length === 0) return <div className="flex items-center justify-center text-xs text-slate-400 dark:text-slate-500 font-medium h-6"><p className='relative top-1.5 ml-1 uppercase'>No badges</p></div>;
+    if (activeBadges.length === 0) return <div className="flex items-center justify-center text-xs text-slate-400 dark:text-slate-400 font-medium h-6"><p className='relative top-1.5 ml-1 uppercase'>No badges</p></div>;
     return <div className="flex gap-1.5 h-full">{activeBadges.map(name => <Badge key={name} type="streamer" name={name} active={true} />)}</div>;
   };
 
   const renderUsers = (users, isLoading, showFollowBtn = true) => {
     if (isLoading) return <div className="flex items-center justify-center py-30 text-slate-400 font-bold gap-3"><div className="w-5 h-5 border-4 border-slate-200 border-t-blue-600 rounded-xl animate-spin" />Memuat...</div>;
-    if (!users?.length) return <div className="text-center py-30 text-slate-400"><p className="text-4xl mb-3">👥</p><p className="font-black text-slate-500">Belum ada streamer</p></div>;
+    if (!users?.length) return <div className="text-center py-30 text-slate-400"><p className="text-4xl mb-3">👥</p><p className="font-black text-slate-400">Belum ada streamer</p></div>;
     return (
       <div className="grid grid-cols-1 md:mt-0 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {users.map(u => (
@@ -3201,14 +3214,14 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-black text-slate-800 dark:text-slate-100 truncate">@{u.username}</p>
-                {/* <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium truncate">{u.email}</p> */}
+                {/* <p className="text-[10px] text-slate-400 dark:text-slate-400 font-medium truncate">{u.email}</p> */}
               </div>
             </div>
             <div className="flex flex-wrap gap-1.5 p-1 h-[44px] bg-slate-50/50 dark:bg-slate-800/50 rounded-xl  border border-slate-100/50 dark:border-slate-700/50">
               <UserBadges userId={u._id} />
             </div>
             {u.followersCount !== undefined && (
-              <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold">
+              <p className="text-[10px] text-slate-400 dark:text-slate-400 font-bold">
                 <span className="text-blue-600 dark:text-blue-400 font-black">{u.followersCount}</span> followers
               </p>
             )}
@@ -3243,7 +3256,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
                     active:translate-y-[2px] active:translate-x-[2px]
                     active:[box-shadow:none]
                     active:bg-slate-300 dark:active:bg-slate-800
-                  flex-1 flex items-center justify-center gap-1.5 py-3.5 rounded-xl font-black text-xs transition-all disabled:opacity-60 cursor-pointer active:scale-[0.99] ${u.isFollowing ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-500 border border-slate-200 dark:border-slate-700' : 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm'}`}>
+                  flex-1 flex items-center justify-center gap-1.5 py-3.5 rounded-xl font-black text-xs transition-all disabled:opacity-60 cursor-pointer active:scale-[0.99] ${u.isFollowing ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-500 border border-slate-200 dark:border-slate-700' : 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm'}`}>
                   {toggleMutation.isPending ? <RefreshCw className="w-3 h-3 animate-spin" /> : u.isFollowing ? 'Unfollow' : '+ Follow'}
                 </button>
               )}
@@ -3302,7 +3315,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
             active:translate-y-[2px] active:translate-x-[2px]
             active:[box-shadow:none]
             active:bg-slate-300 dark:active:bg-slate-800
-            w-full cursor-pointer active:scale-[0.99] px-5 py-3.5 rounded-xl  font-black text-sm transition-all ${subTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-700 hover:brightness-[80%]'}`}>
+            w-full cursor-pointer active:scale-[0.99] px-5 py-3.5 rounded-xl  font-black text-sm transition-all ${subTab === t.id ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-400 border border-slate-100 dark:border-slate-700 hover:brightness-[80%]'}`}>
             {t.label}
           </button>
         ))}
@@ -3369,7 +3382,7 @@ const ColorInput = React.memo(({ label, value, onChange, allowAlpha = false, id 
 
   return (
     <div className="flex flex-col gap-3">
-      <label htmlFor={inputId} className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</label>
+      <label htmlFor={inputId} className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">{label}</label>
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 flex-shrink-0 rounded-xl  overflow-hidden border border-slate-300 dark:border-slate-600 relative group">
           <input id={`${inputId}-picker`} name={`${inputId}-picker`} type="color" value={pickerHex} onChange={handlePickerChange}
@@ -3384,7 +3397,7 @@ const ColorInput = React.memo(({ label, value, onChange, allowAlpha = false, id 
           aria-label={`${label} hex value`} />
         <div className="flex-1 h-full rounded-xl  border border-slate-200 dark:border-slate-700 cursor-pointer hover:shadow-md hover:border-blue-300 transition-all" style={{ backgroundColor: previewColor }} title={previewColor} aria-hidden="true" />
       </div>
-      <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate bg-slate-50/50 dark:bg-slate-800/50 px-2 py-3 rounded-xl" aria-live="polite">{previewColor}</div>
+      <div className="text-[10px] font-mono text-slate-400 dark:text-slate-400 truncate bg-slate-50/50 dark:bg-slate-800/50 px-2 py-3 rounded-xl" aria-live="polite">{previewColor}</div>
     </div>
   );
 });
@@ -3440,7 +3453,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) =>
       <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-100 dark:border-slate-700">
         <div>
           <p className="font-black text-slate-700 dark:text-slate-200">Aktifkan TTS</p>
-          <p className="md:flex hidden text-xs text-slate-400 dark:text-slate-500">
+          <p className="md:flex hidden text-xs text-slate-400 dark:text-slate-400">
             Otomatis membaca: Nama + Nominal + Pesan dukungan
           </p>
         </div>
@@ -3458,7 +3471,7 @@ const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) =>
               { label: 'Volume',    key: 'ttsVolume', min: 0.1, max: 1, step: 0.1, fmt: v => Math.round(v*100) + '%' },
             ].map(({ label, key, min, max, step, fmt }) => (
               <div key={key}>
-                {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">{label}</label> */}
+                {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest mb-2 block">{label}</label> */}
                 <input 
                   type="range" 
                   min={min} 
@@ -3580,7 +3593,7 @@ const IconPresetPicker = ({ value, onChange }) => {
 
   return (
     <div className="relative" ref={pickerRef}>
-      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">
+      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 mb-2 uppercase tracking-widest">
         Icon Alert
       </label>
       <button
@@ -4158,7 +4171,7 @@ const handleChangePin = async () => {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-1">
-                {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Min (Rp)</label> */}
+                {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Min (Rp)</label> */}
                 <InputField
                   label="Min"
                   type="number"
@@ -4169,7 +4182,7 @@ const handleChangePin = async () => {
                 />
               </div>
               <div className="flex flex-col gap-1">
-                {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Max (kosong=∞)</label> */}
+                {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Max (kosong=∞)</label> */}
                 <InputField
                   label="Max"
                   type="number"
@@ -4181,7 +4194,7 @@ const handleChangePin = async () => {
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Label (opsional)</label> */}
+              {/* <label className="text-[9px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Label (opsional)</label> */}
               <InputField
                 label="Label"
                 value={t.label || ''}
@@ -4321,7 +4334,7 @@ const handleChangePin = async () => {
               <div className="p-3 w-11 h-11 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg"><Music size={20} /></div>
               <div>
                 <h4 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-white">Quick Soundboard</h4>
-                {/* <p className="md:flex hidden text-sm text-slate-500 dark:text-slate-400">Donatur bisa pilih suara ini saat dukungan ke streamer</p> */}
+                {/* <p className="md:flex hidden text-sm text-slate-400 dark:text-slate-400">Donatur bisa pilih suara ini saat dukungan ke streamer</p> */}
               </div>
             </div>
             <AudioManager
@@ -4530,7 +4543,7 @@ const handleChangePin = async () => {
                     active:translate-y-[2px] active:translate-x-[2px]
                     active:[box-shadow:none]
                     active:bg-slate-300 dark:active:bg-slate-800
-                  text-slate-300 dark:text-slate-600 hover:text-slate-500 transition-colors flex-shrink-0 text-lg leading-none">×</button>
+                  text-slate-300 dark:text-slate-600 hover:text-slate-400 transition-colors flex-shrink-0 text-lg leading-none">×</button>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -4549,10 +4562,10 @@ const handleChangePin = async () => {
             </div>
           </a>
           <div className="flex items-center gap-3">
-            <button onClick={toggle} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} className="h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-xl  border bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
+            <button onClick={toggle} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} className="h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-xl  border bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700">
               {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
             </button>
-            <button onClick={() => setActiveTab('contact')} aria-label="Bantuan & Kontak" className={`h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-xl border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
+            <button onClick={() => setActiveTab('contact')} aria-label="Bantuan & Kontak" className={`h-[40px] cursor-pointer active:scale-[0.99] flex items-center gap-3 px-3 rounded-xl border shadow-none font-medium text-md transition-all ${activeTab === 'contact' ? 'bg-slate-800 dark:bg-slate-700 text-white border-transparent' : 'bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
               <HeadphonesIcon size={14} />
             </button>
             <button onClick={() => setActiveTab('community')} aria-label="Komunitas Streamer" className="h-[40px] cursor-pointer hover:brightness-90 active:scale-[0.99] relative flex items-center gap-3 px-3 py-3 rounded-xl  font-medium text-md overflow-hidden" style={{ background: 'linear-gradient(90deg, #0f0c29, #302b63, #24243e, #0f0c29)', backgroundSize: '300% 100%', animation: 'rainbowSlide 3s ease-in-out infinite' }}>
@@ -4725,7 +4738,7 @@ const handleChangePin = async () => {
                               active:translate-y-[2px] active:translate-x-[2px]
                               active:[box-shadow:none]
                               active:bg-slate-300 dark:active:bg-slate-800
-                              absolute right-6 top-[24px] cursor-pointer active:scale-[0.99] hidden md:flex items-center justify-center p-3 rounded-xl text-white shadow-lg rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
+                              absolute right-6 top-[24px] cursor-pointer active:scale-[0.99] hidden md:flex items-center justify-center p-3 rounded-xl text-white shadow-lg rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
                             >
                               <Monitor size={18} />
                             </button>
@@ -4761,7 +4774,7 @@ const handleChangePin = async () => {
                               w-full flex-1 flex items-center justify-between px-[14px] py-3.5 cursor-pointer font-black text-sm transition-all duration-200 active:scale-[0.99] relative overflow-hidden group ${
                               activeSlot === slot 
                                 ? 'bg-blue-600 text-white rounded-lg' 
-                                : 'dark:bg-slate-700 hover:bg-slate-600 rounded-lg bg-white text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                                : 'dark:bg-slate-700 hover:bg-slate-600 rounded-lg bg-white text-slate-400 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
                             }`}
                           >
                             {/* Background Glow Effect */}
@@ -4786,7 +4799,7 @@ const handleChangePin = async () => {
                             <div className={`px-3 py-1 text-[10px] font-black rounded-xl  transition-all ${
                               activeSlot === slot 
                                 ? 'bg-white text-slate-900 shadow-inner' 
-                                : 'bg-slate-200 dark:bg-slate-500/30 text-slate-500 dark:text-slate-400 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30'
+                                : 'bg-slate-200 dark:bg-white text-slate-400 dark:text-slate-900 group-hover:bg-slate-100 hover:dark:text-white'
                             }`}>
                               {activeSlot === slot ? 'AKTIF' : 'TIDAK AKTIF'}
                             </div>
@@ -4877,7 +4890,8 @@ const handleChangePin = async () => {
                         dark:hover:[box-shadow:0_0_0_#94a3b8]
                         active:translate-y-[2px] active:translate-x-[2px]
                         active:[box-shadow:none]
-                        active:bg-slate-300 dark:active:bg-slate-800 cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-3">
+                        active:bg-slate-300 dark:active:bg-slate-800 
+                        cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-3">
                         {saveSettingsMutation.isPending ? (
                           <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
                         ) : (
@@ -4939,7 +4953,7 @@ const handleChangePin = async () => {
                       />
 
                       <div className="md:col-span-2 md:mt-0 mt-4">
-                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Tema Visual</label>
+                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 mb-4 uppercase tracking-widest">Tema Visual</label>
                         <div className="grid grid-cols-3 gap-3.5">
                         {['modern', 'smooth', 'gifCard'].map(t => {
                           const themeLabels = {
@@ -4965,7 +4979,7 @@ const handleChangePin = async () => {
                                 cursor-pointer active:scale-[0.99] py-3 md:py-4 text-center md:text-left md:pl-3 rounded-xl border transition-all font-black text-sm capitalize ${
                                 settings.theme === t
                                   ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
-                                  : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-300 text-slate-400 dark:text-slate-500'
+                                  : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-300 text-slate-400 dark:text-slate-400'
                               }`}>
                               {themeLabels[t] || t}
                             </button>
@@ -4975,7 +4989,7 @@ const handleChangePin = async () => {
                       </div>
 
                       <div className="md:col-span-2 w-full flex flex-col !mt-4 gap-3">
-                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Animasi Masuk</label>
+                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Animasi Masuk</label>
                         <select value={settings.animation} aria-label="Pilih animasi masuk overlay" onChange={e => upd('animation', e.target.value)}
                           className="
                           text-slate-900 dark:text-white
@@ -5004,7 +5018,7 @@ const handleChangePin = async () => {
                         ].map(({ key, label, fallback }) => (
                           <ColorInput key={key} id={`color-${key}`} label={label} value={settings[key] || fallback} onChange={v => upd(key, v)} />
                         ))}
-                        <ColorInput id="color-borderColor" label="WarnBorder" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
+                        <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
                         <ColorInput id="color-progressBarColor" label="Progress" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
                       </div>
                       <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
@@ -5033,7 +5047,7 @@ const handleChangePin = async () => {
 
                     {/* Preset Warna Siap Pakai */}
                     <div className="md:block hidden md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6">
-                      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">
+                      <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 mb-3 uppercase tracking-widest">
                         Preset Warna Siap Pakai
                       </label>
                       <div className="grid grid-cols-3 md:grid-cols-3 gap-3">
@@ -5270,7 +5284,7 @@ const handleChangePin = async () => {
                         {deleteStep === 'idle' && (
                           <div className="space-y-3 pt-1">
                             <div className="space-y-1.5">
-                              <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block">
+                              <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest block">
                                 Ketik <span className="text-red-400 font-black">HAPUS AKUN SAYA</span> untuk lanjut
                               </label>
                               <InputField
@@ -5588,7 +5602,7 @@ const handleChangePin = async () => {
                     <div className="flex items-center justify-between p-4 mt-5 px-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
                       <div>
                         <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Aktifkan Song Request</p>
-                        <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Donor bisa request lagu</p>
+                        <p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium mt-0.5">Donor bisa request lagu</p>
                       </div>
                       <button onClick={() => upd('songRequestEnabled', !settings.songRequestEnabled)}
                         className={`relative inline-flex h-7 w-14 items-center rounded-xl transition-colors duration-300 cursor-pointer focus:outline-none ${settings.songRequestEnabled ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'}`}>
@@ -5607,7 +5621,7 @@ const handleChangePin = async () => {
                     </div>
 
                     <div>
-                      <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-2">
+                      <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest block mb-2">
                         Volume Player ({settings.songRequestVolume ?? 80}%)
                       </label>
                       <input
@@ -5747,7 +5761,7 @@ const handleChangePin = async () => {
                         </div>
                         <div>
                           <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 mb-1">Ganti Overlay Token?</h3>
-                          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+                          <p className="text-sm text-slate-400 dark:text-slate-400 font-medium">
                             Semua URL overlay lama akan <span className="font-black text-red-500">langsung tidak aktif</span>
                           </p>
                         </div>
@@ -5844,7 +5858,7 @@ const handleChangePin = async () => {
                     <SectionHeader icon={<User size={18} />} title="Profil Publik" color="bg-blue-500" />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-10">
                       <div className="md:col-span-2">
-                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-3 uppercase tracking-widest">Foto Profil</label>
+                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 mb-3 uppercase tracking-widest">Foto Profil</label>
                         <div className="flex flex-col sm:flex-row items-start gap-3">
                           <div className="w-20 h-20 rounded-xl  border-2 border-slate-200 dark:border-slate-700 overflow-hidden bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-5xl font-black flex-shrink-0">
                             {profileForm.profilePicture ? (
@@ -5866,7 +5880,7 @@ const handleChangePin = async () => {
                       </div>
 
                       <div className="md:col-span-2 mb-1 border-t border-slate-100/10 pt-5 mt-2">
-                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Link Halaman Dukungan</label>
+                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 mb-2 uppercase tracking-widest ml-1">Link Halaman Dukungan</label>
                         <div className="flex gap-3">
                           <input readOnly value={`${window.location.origin}/donate/${user.username}`}
                             className="flex-1 bg-blue-50 dark:bg-blue-950/40 border-2 border-blue-100 dark:border-blue-900 rounded-xl p-5 font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none" />
@@ -5881,7 +5895,7 @@ const handleChangePin = async () => {
                       <InputField label="Email Address" type="email" value={profileForm.email} onChange={v => setProfileForm(f => ({ ...f, email: v }))} />
 
                       <div className="md:col-span-2">
-                        {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Bio Singkat</label> */}
+                        {/* <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest ml-1 mb-2 block">Bio Singkat</label> */}
                         <TextareaField
                           label="Bio"
                           value={profileForm.bio}
@@ -5892,7 +5906,7 @@ const handleChangePin = async () => {
                       </div>
 
                       <div className="md:col-span-2 mb-1">
-                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest ml-1">Intro Halaman Donate</label>
+                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 mb-2 uppercase tracking-widest ml-1">Intro Halaman Donate</label>
                         <InputField
                           label="Intro"
                           type="text"
@@ -5904,7 +5918,7 @@ const handleChangePin = async () => {
                       </div>
 
                       <div className="md:col-span-2">
-                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-widest">Social Media</label>
+                        <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 mb-4 uppercase tracking-widest">Social Media</label>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           <InputField label="Instagram" value={profileForm.instagram} placeholder="@username" onChange={v => setProfileForm(f => ({ ...f, instagram: v }))} />
                           <InputField label="Facebook" value={profileForm.facebook} placeholder="facebook.com/username" onChange={v => setProfileForm(f => ({ ...f, facebook: v }))} />
@@ -5927,7 +5941,7 @@ const handleChangePin = async () => {
                   <QrCodeCard username={user.username} />
                     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-5">
                       <SectionHeader icon={<ShieldCheck size={18} />} title="Ubah PIN Keamanan" color="bg-amber-500" />
-                      <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">
+                      <p className="text-xs text-slate-400 dark:text-slate-400 font-medium">
                         PIN digunakan untuk konfirmasi transfer saldo. Pastikan tidak membagikannya ke siapapun.
                       </p>
 
