@@ -3200,7 +3200,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
     return (
       <div className="grid grid-cols-1 md:mt-0 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {users.map(u => (
-          <div key={u._id} className="md:bg-white/30 dark:md:bg-slate-900/60 md:backdrop-blur-sm rounded-xl p-4 md:p-6 md:mb-0 mb-0 border-b-slate-100/20 border border-slate-100 dark:border-slate-800 md:shadow-sm flex flex-col gap-3 hover:shadow-md hover:border-slate-200 dark:hover:border-slate-700 transition-all">
+          <div key={u._id} className="md:bg-white/30 dark:md:bg-slate-900/60 md:backdrop-blur-sm rounded-xl p-4 md:p-6 md:mb-0 mb-0 border-b-slate-100/20 border border-slate-100 dark:border-slate-700 md:shadow-sm flex flex-col gap-3 hover:shadow-md hover:border-slate-200 dark:hover:border-slate-700 transition-all">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl  bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-black text-xl flex-shrink-0 shadow-lg">
                 {
