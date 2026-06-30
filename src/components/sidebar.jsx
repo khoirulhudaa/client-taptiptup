@@ -271,10 +271,10 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         `}
       >
         {/* Logo */}
-        <div className={`flex items-center mb-8 md:mb-11 pr-2 ${isCollapsed ? 'md:justify-center px-1' : 'px-2 justify-between md:px-[8.5px] relative top-[1px]'}`}>
+        <div className={`flex items-center mb-8 md:mb-11 mt-[-4px] pr-2 ${isCollapsed ? 'md:justify-center px-1' : 'px-2 justify-between md:px-[8.5px] relative top-[1px]'}`}>
           {isCollapsed && (
             <a href='/'>
-              <div className="w-11 md:w-full h-11 md:h-12 bg-blue-600 shadow-none rounded-lg flex items-center justify-center">
+              <div className="w-11 md:w-full h-11 md:h-12 bg-blue-600  border border-slate-300/80 shadow-none rounded-lg flex items-center justify-center">
                 <img src="/tttnews.png" alt="icon" className="w-[75%] md:w-[40%]" />
               </div>
             </a>
@@ -282,7 +282,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           {!isCollapsed && (
             <a href='/'>
               <div className="flex shadow-none items-center gap-3">
-                <div className="ml-0 mt-[-2px] w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                <div className="ml-0 mt-[-2px] w-10 h-10 bg-blue-600  border border-slate-300 rounded-lg flex items-center justify-center">
                   <img src="/tttnews.png" alt="icon" className="w-[88%]" />
                 </div>
                 <h1 className="text-lg ml-0 font-black tracking-tight text-slate-800 dark:text-slate-100 whitespace-nowrap">TAPTIPTUP</h1>
@@ -315,7 +315,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
         )}
 
         {/* Navigation */}
-        <nav className={`${isCollapsed ? 'mt-[-14.5px] md:mt-[-37.1px] relative' : 'mt-0'} md:border-0 border-t border-slate-500/30 pt-5 md:flex-1 space-y-1 px-2`}>
+        <nav className={`${isCollapsed ? 'mt-[-14.5px] md:mt-[-33.5px] relative' : 'mt-0'} md:border-0 border-t border-slate-500/30 pt-5 md:flex-1 space-y-1 px-2`}>
           
           <motion.div
             variants={menuContainerVariants}
