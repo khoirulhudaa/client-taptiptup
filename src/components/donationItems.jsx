@@ -451,7 +451,7 @@ const DonationItemsEditor = ({
         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">
           Mode Tampilan Dukungan
         </label>
-        <div className="grid grid-cols-3 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-3.5 px-1">
           {MODE_OPTIONS.map((opt) => (
             <button
               key={opt.value}
