@@ -527,10 +527,10 @@ const DonationItemsEditor = ({
           <button
             onClick={handleAdd}
             disabled={localItems.length >= 20}
-            className="cursor-pointer active:scale-[0.99] w-full py-3 border border-blue-200 dark:border-blue-900 text-blue-500 dark:text-blue-400 rounded-xl font-black text-sm hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="cursor-pointer active:scale-[0.99] w-full py-3.5 border border-dashed border-slate-400 dark:border-slate-400 text-slate-500 dark:text-white rounded-xl font-black text-sm hover:border-slate-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Tambah Item Dukungan
             <Plus size={16} />
+            Tambah Item Dukungan
           </button>
 
           <div className="flex items-center justify-between">

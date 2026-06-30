@@ -348,7 +348,7 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
           </div>
         ))}
       </div>
-      <button onClick={add} className="cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full mt-4 py-3.5 border-2 border-dashed border-cyan-400/30 text-white rounded-xl font-black text-sm">
+      <button onClick={add} className="cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full mt-4 py-3.5 border-2 border-dashed border-slate-500 text-white rounded-xl font-black text-sm">
         + Tambah Nominal
       </button>
       <button
