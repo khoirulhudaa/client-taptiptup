@@ -131,7 +131,7 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
     { key: 'widget',  label: 'Widget OBS' },
   ];
 
-  if (!isOpen) return null;
+  if (isOpen) return null;
 
   return (
     <AnimatePresence>
@@ -147,7 +147,7 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.92, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-          className="bg-white dark:bg-slate-900 w-full max-w-md max-h-[82vh] overflow-hidden rounded-xl flex flex-col border border-slate-200 dark:border-slate-700 shadow-2xl"
+          className="bg-white dark:bg-slate-900 w-full max-w-full max-h-[82vh] overflow-hidden rounded-xl flex flex-col border border-slate-200 dark:border-slate-700 shadow-2xl"
           onClick={e => e.stopPropagation()}
         >
 
@@ -163,7 +163,8 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
             {!done && (
               <button
                 onClick={toggleAll}
-                className="w-full flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-blue-500 transition-colors"
+                className="
+                w-full flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white hover:text-blue-500 transition-colors"
               >
                 <div className={`w-4 h-4 border-2 flex items-center justify-center transition-colors ${selected.size === allItems.length ? 'bg-blue-600 border-blue-600' : 'border-slate-300 dark:border-slate-600'}`}>
                   {selected.size === allItems.length && <Check size={10} className="text-white" />}
@@ -174,8 +175,8 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
 
             {groups.map(group => (
               <div key={group.key}>
-                <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">{group.label}</p>
-                <div className="space-y-1.5">
+                <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-400 mb-2">{group.label}</p>
+                <div className="space-y-1.5 md:mt-3 md:space-y-0 md:grid-cols-3 grid gap-4">
                   {allItems.filter(i => i.group === group.key).map(item => {
                     const isSelected = selected.has(item.id);
                     const result = results[item.id];
@@ -184,13 +185,27 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
                         key={item.id}
                         onClick={() => !done && toggle(item.id)}
                         disabled={done}
-                        className={`w-full rounded-xl flex items-center gap-3 px-3 py-2.5 border transition-all text-left ${
+                        className={`
+                          cursor-pointer
+                          text-slate-900 dark:text-white 
+                          -translate-y-[3px] translate-x-[-3px]
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          md:mt-0 mt-4
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          active:[box-shadow:none]
+                          active:bg-slate-300 dark:active:bg-slate-800
+                          w-full rounded-xl flex items-center gap-3 px-3 py-2.5 border transition-all text-left ${
                           result === 'success' ? 'border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/30' :
                           result === 'exists'  ? 'border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/20' :
                           result === 'error'   ? 'border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950/20' :
                           isSelected
-                            ? 'border-blue-300 dark:border-blue-700 bg-blue-50 dark:bg-blue-950/30'
-                            : 'border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 opacity-50'
+                            ? 'border-blue-300 dark:border-white bg-blue-50 dark:bg-blue-950/30'
+                            : 'border-slate-100 dark:border-slate-300 bg-slate-50 dark:bg-slate-800/50 opacity-50'
                         }`}
                       >
                         {!done ? (
@@ -232,34 +247,6 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
             )}
           </div>
 
-          {/* Scroll Hint - Mouse Icon */}
-          <AnimatePresence>
-            {showScrollHint && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="relative w-full max-w-md max-h-[80vh] overflow-hidden flex flex-col"
-              >
-                {/* Mouse shape */}
-                <motion.div
-                  animate={{ y: [-3, 2, -3] }}
-                  transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
-                  className="flex flex-col h-max pb-3 py-3 items-center gap-0.5"
-                >
-                  <p className='text-xs text-slate-400 mb-1'>Scroll ke bawah</p>
-                  {/* Panah bawah */}
-                  <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
-                    <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 dark:text-slate-500" />
-                  </svg>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-
-          {/* <div className="relative flex-shrink-0 pointer-events-none -mt-8 h-8 bg-gradient-to-t from-white dark:from-slate-900 to-transparent" /> */}
-
           {/* Footer */}
           <div className="px-5 py-4 border-t border-slate-100 dark:border-slate-800 flex-shrink-0 space-y-2">
             {!done ? (
@@ -267,7 +254,20 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
                 <button
                   onClick={handleAdd}
                   disabled={adding || selected.size === 0}
-                  className="rounded-xl cursor-pointer w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-black text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
+                  className="
+                  text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  mt-3
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  active:bg-slate-300 dark:active:bg-slate-800
+                  rounded-xl cursor-pointer w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-black text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
                 >
                   {adding ? (
                     <><Loader2 size={15} className="animate-spin" /> Menambahkan...</>
@@ -278,7 +278,20 @@ const OBSAddModal = ({ isOpen, onClose, obsStatus, sceneName, overlayToken, orig
                 <button
                   onClick={onClose}
                   disabled={adding || selected.size === 0}
-                  className="rounded-xl cursor-pointer hover:bg-slate-100/10 w-full py-3 border border-slate-100/10 disabled:opacity-50 text-white font-black text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
+                  className="
+                  text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  mt-3
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  active:bg-slate-300 dark:active:bg-slate-800
+                  rounded-xl cursor-pointer hover:bg-slate-100/10 w-full py-3 border border-slate-100/10 disabled:opacity-50 text-white font-black text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
                 >
                   {adding ? (
                     <><Loader2 size={15} className="animate-spin" /> Menambahkan...</>
@@ -488,7 +501,20 @@ export const OBSConnectPanel = ({ overlayToken }) => {
             <button
               onClick={handleConnect}
               disabled={status === 'connecting'}
-              className="cursor-pointer rounded-xl active:scale-[0.99] w-full py-3.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-xl"
+              className="
+                text-slate-900 dark:text-white 
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                mt-3
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer rounded-xl active:scale-[0.99] w-full py-3.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-xl"
             >
               {status === 'connecting' ? (
                 <><Loader2 size={13} className="animate-spin" /> Menghubungkan...</>
@@ -504,13 +530,39 @@ export const OBSConnectPanel = ({ overlayToken }) => {
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => setShowModal(true)}
-              className="cursor-pointer active:scale-[0.99] py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-xl"
+              className="
+                text-slate-900 dark:text-white 
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                mt-3
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer active:scale-[0.99] py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-xl"
             >
               <Plus size={13} /> Tambah ke OBS
             </button>
             <button
               onClick={handleDisconnect}
-              className="cursor-pointer active:scale-[0.99] py-3.5 bg-slate-700 hover:bg-slate-600 text-slate-300 font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-xl"
+              className="
+                text-slate-900 dark:text-white 
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                mt-3
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer active:scale-[0.99] py-3.5 bg-slate-700 hover:bg-slate-600 text-slate-300 font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-[0.99] rounded-xl"
             >
               <WifiOff size={13} className='mr-[1px]' /> Disconnect
             </button>

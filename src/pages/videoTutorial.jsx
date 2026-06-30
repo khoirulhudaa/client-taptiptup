@@ -169,7 +169,20 @@ export const VideoTutorialSection = () => {
 
                 <button
                   onClick={() => setActiveModal(tut.id)}
-                  className="md:w-full px-2.5 md:px-0 w-max cursor-pointer active:scale-[0.98] !mt-2.5 py-2 md:py-2.5 bg-slate-800 dark:bg-slate-700 hover:bg-slate-700 dark:hover:bg-slate-600 border border-white/10 text-white font-black text-[10px] md:text-xs rounded-lg flex items-center justify-center gap-1.5 transition-all"
+                  className="
+                    text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+                    -translate-y-[3px] translate-x-[-3px]
+                    [box-shadow:4px_6px_0_#f1f5f9]
+                    dark:[box-shadow:4px_4px_0_#99a3b1]
+                    hover:translate-y-0 hover:translate-x-0
+                    hover:bg-slate-200 dark:hover:bg-slate-700
+                    border border-slate-300
+                    hover:[box-shadow:0_0_0_#f1f5f9]
+                    dark:hover:[box-shadow:0_0_0_#94a3b8]
+                    active:translate-y-[2px] active:translate-x-[2px]
+                    active:[box-shadow:none]
+                    active:bg-slate-300 dark:active:bg-slate-800
+                  md:w-full px-2.5 md:px-0 w-max cursor-pointer active:scale-[0.98] !mt-2.5 py-2 md:py-2.5 bg-slate-800 dark:bg-slate-700 hover:bg-slate-700 dark:hover:bg-slate-600 border border-white/10 text-white font-black text-[10px] md:text-xs rounded-lg flex items-center justify-center gap-1.5 transition-all"
                 >
                   <Play size={11} fill="white" className="md:flex hidden" />
                   Tonton Tutorial
