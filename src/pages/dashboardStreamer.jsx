@@ -216,11 +216,7 @@ const ICON_PRESETS = [
 ];
 
 const renderIconPreview = (customIcon, size = 20) => {
-  if (!customIcon) return '❤️';
-  if (customIcon.startsWith('http') || customIcon.startsWith('/')) {
-    return <img src={customIcon} alt="icon" style={{ width: size, height: size, objectFit: 'contain', borderRadius: 4, display: 'inline-block' }} />;
-  }
-  return customIcon;
+  return '🤑';
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────

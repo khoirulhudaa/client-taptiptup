@@ -33,7 +33,7 @@
     };
 
     const renderIcon = (customIcon, size = 20) => {
-      if (!customIcon) return '❤️';
+      if (!customIcon) return '🤑';
       if (customIcon.startsWith('http') || customIcon.startsWith('/')) {
         return <img src={customIcon} alt="icon" style={{ width: size, height: size, objectFit: 'contain', borderRadius: 0 }} />;
       }
