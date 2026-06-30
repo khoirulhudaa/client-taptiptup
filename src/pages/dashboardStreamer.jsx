@@ -4716,19 +4716,29 @@ const handleChangePin = async () => {
                         </div>
 
                         {/* Icon Alert */}
-                          <div className="space-y-3">
-                            <div className="grid grid-cols-4 md:grid-cols-6 gap-2.5">
+                          <div className="space-y-3 mt-3.5">
+                            <div className="grid grid-cols-4 md:grid-cols-6 gap-3.5">
                              {ICON_PRESETS
                                 .slice(0, window.innerWidth < 768 ? -2 : undefined)
                                 .map(({ emoji, label }) => (
                                   <button key={emoji} onClick={() => upd('customIcon', emoji === '❤️' ? '' : emoji)} title={label}
-                                    className={`flex flex-col items-center gap-1 px-3 pb-2.5 pt-1.5 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
+                                    className={`
+                                      -translate-y-[3px] translate-x-[-3px]
+                                      [box-shadow:4px_6px_0_#f1f5f9]
+                                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                                      hover:translate-y-0 hover:translate-x-0
+                                      border border-slate-300
+                                      hover:[box-shadow:0_0_0_#f1f5f9]
+                                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                                      active:translate-y-[2px] active:translate-x-[2px]
+                                      active:[box-shadow:none]
+                                      flex flex-col items-center gap-1 px-3 pb-2.5 pt-1.5 rounded-xl border-2 text-lg transition-all cursor-pointer active:scale-[0.95] ${
                                       (settings.customIcon || '❤️') === emoji || (!settings.customIcon && emoji === '❤️')
-                                        ? 'border-white/40 bg-blue-50 dark:bg-slate-500/30'
-                                        : 'border-slate-100 dark:border-slate-700 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
+                                        ? 'border-white/40 bg-blue-50 dark:bg-blue-600 text-white'
+                                        : 'border-slate-100 text-slate-400 dark:border-slate-400 hover:border-slate-300 bg-slate-50 dark:bg-slate-800'
                                     }`}>
                                     <span>{emoji}</span>
-                                    <span className="text-[10px] font-black text-slate-400 leading-none">{label}</span>
+                                    <span className="text-[10px] font-black leading-none">{label}</span>
                                   </button>
                                 ))}
                             </div>

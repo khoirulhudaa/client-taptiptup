@@ -242,9 +242,21 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
 
         {/* Kiri: Breadcrumb */}
         <div className="md:hidden 2xl:flex items-center gap-3 min-w-0">
-          <div className="flex ml-[2.9px] items-center gap-1.5 min-w-0">
-            <span className="flex md:hidden 2xl:flex text-md font-bold text-slate-400 dark:text-slate-500 whitespace-nowrap">Dashboard</span>
-            <ChevronRight size={16} className="text-slate-400 dark:text-slate-600 flex-shrink-0" />
+          <div className="flex ml-[2.9px] items-center gap-1.5 min-w-0 pl-[5.8px]">
+            <span 
+            onClick={() => setActiveTab('settings')}
+            className="
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none] rounded-md px-2 cursor-pointer
+            flex md:hidden 2xl:flex text-md font-bold text-slate-400 dark:text-white whitespace-nowrap">Dashboard</span>
+            <ChevronRight size={16} className="text-slate-400 dark:text-slate-400 flex-shrink-0" />
             <span className="text-md font-bold text-slate-700 dark:text-slate-200 truncate">
               {TAB_LABELS[activeTab] || activeTab}
             </span>
