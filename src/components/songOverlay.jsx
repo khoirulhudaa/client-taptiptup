@@ -295,7 +295,7 @@ const SongOverlay = () => {
           width: 440,
           background: bg,
           display: 'flex',
-          height: 125, 
+          height: 110, 
           padding: `${isIdle ? '0px' : '12px'} 6px 0px 6px`,
           borderRadius: 16,
           overflow: 'hidden',
@@ -314,10 +314,10 @@ const SongOverlay = () => {
           <div style={{ position: 'relative', flexShrink: 0, width: '100%' }}>
             {/* Konten */}
             {isIdle ? (
-            <div style={{ padding: '14px 16px 12px' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+            <div style={{ padding: '10px 10px 10px' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, position: 'relative', top: 3 }}>
                     <div style={{
-                        width: 40, height: 40, borderRadius: 8,
+                        width: 50, height: 50, borderRadius: 8,
                         background: fg + '1A',
                         color: 'white',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -325,15 +325,16 @@ const SongOverlay = () => {
                     }}>
                         <Music />
                     </div>
-                    <div style={{ flex: 1, minWidth: 0 ,position: 'relative', top: 3 }}>
-                        <div style={{ fontSize: 14, fontWeight: 800, color: fg, lineHeight: 1.3 }}>
+                    <div style={{ flex: 1, minWidth: 0 ,position: 'relative', top: 8 }}>
+                        <div style={{ fontSize: 16, fontWeight: 800, color: fg, lineHeight: 1.3 }}>
                         Tidak Ada Lagu Yang Diputar
                         </div>
-                        <div style={{ fontSize: 12, fontWeight: 500, color: `${fg}B3`, marginTop: 3 }}>
+                        <div style={{ fontSize: 13, fontWeight: 500, color: `${fg}B3`, marginTop: 3 }}>
                         Kirim hadiah untuk me-request lagu
                         </div>
                     </div>
                 </div>
+                <div style={{width: '100%', height: '4px', background: '#1c223f', borderRadius: '2px', marginTop: '16px'}}></div>
             </div>
             ) : (
             <>
@@ -343,7 +344,7 @@ const SongOverlay = () => {
                     <img
                     src={nowPlaying.artworkUrl || ''}
                     alt=""
-                    style={{ width: 54, height: 54, borderRadius: 10, objectFit: 'cover', border: `2px solid ${accent}40`, display: 'block' }}
+                    style={{ width: 50, height: 50, borderRadius: 10, objectFit: 'cover', border: `2px solid ${accent}40`, display: 'block' }}
                     onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
                     />
                     <div style={{ color: 'white', display: 'none', width: 54, height: 54, borderRadius: 10, background: accent + '22', border: `2px solid ${accent}40`, alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>
@@ -354,22 +355,22 @@ const SongOverlay = () => {
                     )}
                 </div>
                 <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-                    <Marquee text={nowPlaying.title} style={{ fontSize: 14, fontWeight: 700, color: fg, marginBottom: 3 }} />
+                    <Marquee text={nowPlaying.title} style={{ fontSize: 14, fontWeight: 700, color: fg, marginBottom: 0 }} />
                     <div style={{display: 'flex', alignItems: 'center', gap: 3, width: 'max-content'}}>
                     <Marquee text={nowPlaying.artist} style={{ fontSize: 12, fontWeight: 500, color: `${fg}80` }} />
-                    <span style={{ fontSize: 11, color: `white`, fontWeight: 500 }}>
+                    <span style={{ fontSize: 12, color: `white`, fontWeight: 500 }}>
                       - Request dari @{nowPlaying.donorName}
                     </span>
                   </div>
                 </div>
                 </div>
 
-                <div style={{ padding: '0 12px 0px', marginTop: 10, width: '100%' }}>
-                  <div style={{ width: '100%', height: 4, borderRadius: 999, background: accentFaint, overflow: 'hidden' }}>
-                      <div style={{ height: '100%', borderRadius: 999, background: accent, width: `${progress}%`, transition: 'width 0.5s linear' }} />
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
+                <div style={{ padding: '0 12px 0px', marginTop: 4, width: '100%' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, alignItems: 'center', gap: 10 }}>
                       <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}60` }}>{formatTime(currentTime)}</span>
+                      <div style={{ width: '100%', height: 4, borderRadius: 999, background: accentFaint, overflow: 'hidden' }}>
+                          <div style={{ height: '100%', borderRadius: 999, background: accent, width: `${progress}%`, transition: 'width 0.5s linear' }} />
+                      </div>
                       <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}60` }}>{formatTime(nowPlaying.duration || 0)}</span>
                   </div>
                 </div>

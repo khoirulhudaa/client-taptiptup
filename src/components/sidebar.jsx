@@ -90,7 +90,6 @@ const getBtnClass = (isActive, extraClass = '') => {
       hover:translate-y-0 hover:translate-x-0
       border border-slate-300
       hover:[box-shadow:0_0_0_#93c5fd]
-      active:translate-y-[2px] active:translate-x-[2px]
       active:[box-shadow:none]
     `;
   }
@@ -105,7 +104,6 @@ const getBtnClass = (isActive, extraClass = '') => {
     border border-slate-300
     hover:[box-shadow:0_0_0_#f1f5f9]
     dark:hover:[box-shadow:0_0_0_#94a3b8]
-    active:translate-y-[2px] active:translate-x-[2px]
     active:[box-shadow:none]
     active:bg-slate-300 dark:active:bg-slate-800
   `;

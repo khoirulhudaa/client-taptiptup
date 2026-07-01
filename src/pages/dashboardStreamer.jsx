@@ -5639,7 +5639,7 @@ const handleChangePin = async () => {
                       <InputField
                         label="Min. Nominal"
                         type="number"
-                        placeholder="30.000"
+                        placeholder="10.000"
                         value={settings.songRequestMinAmount}
                         onChange={v => upd('songRequestMinAmount', v === '' ? '' : Number(v))}
                       />
@@ -5684,7 +5684,7 @@ const handleChangePin = async () => {
                     <div className="mt-4 flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700">
                       <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">🎵</div>
                       <div className="flex-1 min-w-0 relative top-[3px]">
-                        <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white uppercase tracking-widest">
+                        <label className="block text-[10px] font-bold w-max rounded-sm bg-slate-500/30 text-white uppercase tracking-widest">
                           URL NOW PLAYING - OBS
                         </label>
                         <input
