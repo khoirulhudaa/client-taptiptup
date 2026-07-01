@@ -118,13 +118,13 @@ const QueueList = ({ queue, fg, accent, bg }) => {
             />
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{
-                fontSize: 12, fontWeight: 700, color: fg,
+                fontSize: 13, fontWeight: 700, color: fg,
                 whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
               }}>
                 {next.title}
               </div>
               <div style={{
-                fontSize: 10, fontWeight: 500, color: `${fg}80`,
+                fontSize: 11, fontWeight: 500, color: `white`, marginTop: 1.3,
                 whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
               }}>
                 @{next.donorName}
@@ -455,7 +455,7 @@ const SongOverlay = () => {
                     )}
                 </div>
                 <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                    <Marquee text={nowPlaying.title} style={{ fontSize: 14, fontWeight: 700, color: fg, marginBottom: 0 }} />
+                    <Marquee text={nowPlaying.title} style={{ fontSize: 13, fontWeight: 700, color: fg, marginBottom: 0 }} />
                     <span style={{ fontSize: 11, color: `white`, fontWeight: 500 }}>
                       @{nowPlaying.donorName}
                     </span>
