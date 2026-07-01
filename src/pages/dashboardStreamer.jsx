@@ -732,7 +732,7 @@ export const InstantTestSong = ({ overlayToken, user }) => {
       </AnimatePresence>
 
       {selected && (
-        <div className="space-y-3 pt-1">
+        <div className="space-y-3 pt-1 px-[4px]">
 
           {sendError && <p className="text-red-500 text-xs font-bold">{sendError}</p>}
           {sendSuccess && <p className="text-green-500 text-xs font-bold">✅ Test lagu terkirim ke overlay!</p>}
@@ -740,8 +740,21 @@ export const InstantTestSong = ({ overlayToken, user }) => {
           <button
             onClick={handleSendTest}
             disabled={sending}
-            className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-3.5 bg-slate-900/70 dark:bg-slate-700 hover:brightness-90 text-white rounded-xl font-black text-sm transition-all disabled:opacity-70 flex items-center justify-center gap-2"
-          >
+            className="
+              text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              hover:bg-slate-200 dark:hover:bg-slate-700
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+              cursor-pointer active:scale-[0.99] w-full py-3  md:py-3.5 bg-slate-900/70 dark:bg-slate-700 hover:brightness-90 text-white rounded-xl font-black text-sm transition-all disabled:opacity-70 flex items-center justify-center gap-2"
+            >
             {sending ? <><Loader2 size={16} className="animate-spin" /> Mengirim...</> : <><Send size={16} /> Kirim Test ke Overlay</>}
           </button>
         </div>
@@ -1021,7 +1034,20 @@ const StreamerProfileModal = ({ username, currentUserId, onClose }) => {
             onClick={e => e.stopPropagation()}>
             <p className="text-red-500 text-4xl mb-4">⚠️</p>
             <p className="font-black text-xl">Gagal memuat profil</p>
-            <button onClick={onClose} className="mt-6 px-6 py-3 bg-slate-900/70 text-white rounded-xl font-bold">Tutup</button>
+            <button onClick={onClose} className="
+              text-slate-900 dark:text-white 
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              hover:bg-slate-200 dark:hover:bg-slate-900
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+              active:bg-slate-300 dark:active:bg-slate-800
+            mt-6 px-6 py-3 bg-slate-900/70 text-white rounded-xl font-bold">Tutup</button>
           </motion.div>
         </motion.div>
       </AnimatePresence>,
@@ -5956,31 +5982,31 @@ const handleChangePin = async () => {
                           onChange={v => upd('songTextColor', v)}
                         />
                       </div>
+                      <div className='w-full px-[4px] mt-5 mb-[2px]'>
+                        <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                          className="
+                          text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+                          -translate-y-[3px] translate-x-[-3px]
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          hover:bg-slate-200 dark:hover:bg-slate-700
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          active:[box-shadow:none]
+                          active:bg-slate-300 dark:active:bg-slate-800
+                          cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+                          {saveSettingsMutation.isPending ? (
+                            <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+                          ) : (
+                            <> Simpan Sekarang</>
+                          )}
+                        </button>
+                      </div>
                     </div>
 
-                    <div className='w-full px-[4px] mt-5'>
-                      <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                        className="
-                        text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
-                        -translate-y-[3px] translate-x-[-3px]
-                        [box-shadow:4px_6px_0_#f1f5f9]
-                        dark:[box-shadow:4px_4px_0_#99a3b1]
-                        hover:translate-y-0 hover:translate-x-0
-                        hover:bg-slate-200 dark:hover:bg-slate-700
-                        border border-slate-300
-                        hover:[box-shadow:0_0_0_#f1f5f9]
-                        dark:hover:[box-shadow:0_0_0_#94a3b8]
-                        active:translate-y-[2px] active:translate-x-[2px]
-                        active:[box-shadow:none]
-                        active:bg-slate-300 dark:active:bg-slate-800
-                        cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-                        {saveSettingsMutation.isPending ? (
-                          <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
-                        ) : (
-                          <> Simpan Sekarang</>
-                        )}
-                      </button>
-                    </div>
 
                     <div className='w-full flex items-center gap-3'>
                       <div className="w-full mt-4 flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700">
