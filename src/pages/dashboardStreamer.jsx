@@ -660,7 +660,7 @@ export const InstantTestSong = ({ overlayToken, user }) => {
       {searchError && <p className="text-red-500 text-xs font-bold">{searchError}</p>}
 
       {results.length > 0 && (
-        <div className="max-h-72 grid md:grid-cols-4 grid-cols-2 gap-3 overflow-y-auto">
+        <div className="max-h-72 grid md:grid-cols-4 grid-cols-1 gap-3 overflow-y-auto">
           {results.map(track => (
             <div
               key={track.id}
@@ -2874,7 +2874,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             active:translate-y-[2px] active:translate-x-[2px]
             active:[box-shadow:none]
             active:bg-slate-300 dark:active:bg-slate-800
-          cursor-pointer active:scale-[0.99] flex items-center justify-center w-13 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
+          cursor-pointer active:scale-[0.99] flex items-center justify-center w-13 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0"
         >
           <PanelLeft size={18} />
         </button>
@@ -5145,7 +5145,7 @@ const handleChangePin = async () => {
                           )
                         }
                       </div>
-                      <div id="tour-overlay-slot" className="pl-1 md:flex mt-5.5 space-y-2.5 md:space-y-0 items-center gap-3">
+                      <div id="tour-overlay-slot" className="pl-1 md:flex mt-5.5 space-y-3.5 md:space-y-0 items-center gap-3">
                         {['A', 'B'].map((slot) => (
                           <button
                             key={slot}
@@ -5171,7 +5171,7 @@ const handleChangePin = async () => {
                                 active:translate-y-[2px] active:translate-x-[2px]
                                 active:[box-shadow:none]
                                 active:bg-slate-300 dark:active:bg-slate-800
-                              w-full flex-1 flex items-center justify-between px-[14px] py-3.5 cursor-pointer font-black text-sm transition-all duration-200 active:scale-[0.99] relative overflow-hidden group ${
+                                w-full flex-1 flex items-center justify-between px-[14px] py-3.5 cursor-pointer font-black text-sm transition-all duration-200 active:scale-[0.99] relative overflow-hidden group ${
                               activeSlot === slot 
                                 ? 'bg-blue-600 text-white rounded-lg' 
                                 : 'dark:bg-slate-700 hover:bg-slate-600 rounded-lg bg-white text-slate-400 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
@@ -6000,7 +6000,7 @@ const handleChangePin = async () => {
                     <InstantTestSong overlayToken={user.overlayToken} user={user} />
 
                     <div className="
-                    bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3 flex items-center justify-between"> 
+                    bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 px-[17px] md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 flex items-center justify-between"> 
                       <div>
                         <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Aktifkan Song Request</p>
                         <p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium mt-0.5">Donor bisa request lagu</p>
@@ -6050,7 +6050,7 @@ const handleChangePin = async () => {
                           onChange={v => upd('songTextColor', v)}
                         />
                       </div>
-                      <div className='w-full px-[4px] mt-5 mb-[2px]'>
+                      <div className='w-full px-1 mt-5 mb-[2px]'>
                         <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
                           className="
                           text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
@@ -6076,11 +6076,11 @@ const handleChangePin = async () => {
                     </div>
 
 
-                    <div className='w-full flex items-center gap-3'>
+                    <div className='w-full md:px-0 px-4 md:flex items-center gap-3'>
                       <div className="w-full mt-4 flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700">
                         <div className="flex-1 min-w-0 relative top-[3px]">
                           <label className="block text-[10px] font-bold w-max rounded-sm bg-slate-500/30 text-white uppercase tracking-widest">
-                            URL NOW PLAYING - OBS
+                            URL REQ SONG - OBS
                           </label>
                           <input
                             readOnly
@@ -6122,7 +6122,8 @@ const handleChangePin = async () => {
                     </div>
 
                     {/* Tombol Skip Lagu Sekarang */}
-                    <div className="mt-4 md:flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
+                    <div className='w-full md:px-0 px-4'>
+                  <div className="mt-4 md:flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
                       <div className="flex-1">
                         <p className="text-[12px] font-bold text-slate-700 dark:text-white">Skip Lagu Sekarang</p>
                         <p className="text-[10px] text-slate-400 font-medium mt-0.5">Lewati lagu yang sedang diputar</p>
@@ -6140,6 +6141,7 @@ const handleChangePin = async () => {
                       >
                         Skip
                       </button>
+                      </div>
                     </div>
                   </div>
                 </motion.div>

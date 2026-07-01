@@ -445,7 +445,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
           dark:hover:[box-shadow:0_0_0_#94a3b8]
           active:translate-y-[2px] active:translate-x-[2px]
           active:[box-shadow:none]
-          w-full py-2 md:hidden flex items-center rounded-xl text-sm justify-center text-white bg-red-500 font-bold cursor-pointer active:scale-[0.98] hover:bg-red-600'>
+          w-full py-2.5 md:hidden flex items-center rounded-xl text-sm justify-center text-white bg-red-500 font-bold cursor-pointer active:scale-[0.98] hover:bg-red-600'>
             Tutup
           </button>
 
