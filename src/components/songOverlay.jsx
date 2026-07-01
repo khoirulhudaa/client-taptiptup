@@ -91,9 +91,9 @@ const QueueList = ({ queue, fg, accent, bg }) => {
       </div>
 
       {isEmpty ? (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 18px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16.5px' }}>
           <div style={{
-            width: 40, height: 40, padding: 3, border: `1px solid ${fg}30`, borderRadius: 8,
+            width: 46, height: 46, padding: 4, border: `2px solid ${fg}30`, borderRadius: 12,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             background: fg + '1A', flexShrink: 0,
           }}>
@@ -385,6 +385,7 @@ const SongOverlay = () => {
         style={{
           width: 440,
           background: bg,
+          marginBottom: 2,
           display: 'flex',
           height: 110, 
           padding: `${isIdle ? '0px' : '12px'} 6px 0px 6px`,
