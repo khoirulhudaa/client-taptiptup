@@ -420,19 +420,7 @@ const calculateMediaShareDuration = (config, amount) => {
 
         if (alert.videoBlocked) {
           return (
-            <div 
-              className='  text-slate-900 dark:text-white 
-              -translate-y-[3px] translate-x-[-3px]
-              [box-shadow:4px_6px_0_#f1f5f9]
-              dark:[box-shadow:4px_4px_0_#99a3b1]
-              hover:translate-y-0 hover:translate-x-0
-              border border-slate-300
-              hover:[box-shadow:0_0_0_#f1f5f9]
-              dark:hover:[box-shadow:0_0_0_#94a3b8]
-              active:translate-y-[2px] active:translate-x-[2px]
-              active:[box-shadow:none]
-              active:bg-slate-300 dark:active:bg-slate-800 rounded-xl'
-            style={{ borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
+            <div style={{ borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
               <div style={{ width: '100%', height: '270px', aspectRatio: '16/9', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0a0a0a', gap: 10 }}>
                 <span style={{ fontSize: 34 }}>⚠️</span>
                 <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, fontWeight: 500, color: '#ff4444', letterSpacing: '0.1em', textTransform: 'uppercase', textAlign: 'center', padding: '0 16px' }}>
@@ -498,30 +486,15 @@ const calculateMediaShareDuration = (config, amount) => {
       // ── MODERN ───────────────────────────────────────────────────────────────────
       if (theme === 'modern') {
         return (
-          <div 
-            className='  text-slate-900 dark:text-white 
-            -translate-y-[3px] translate-x-[-3px]
-            [box-shadow:4px_6px_0_#f1f5f9]
-            dark:[box-shadow:4px_4px_0_#99a3b1]
-            hover:translate-y-0 hover:translate-x-0
-            border border-slate-300
-            hover:[box-shadow:0_0_0_#f1f5f9]
-            dark:hover:[box-shadow:0_0_0_#94a3b8]
-            active:translate-y-[2px] active:translate-x-[2px]
-            active:[box-shadow:none]
-            active:bg-slate-300 dark:active:bg-slate-800 rounded-xl'
-          style={{ position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'relative', overflow: 'hidden' }}>
             <div style={scanlineStyle} />
             {mediaBlock}
 
             <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
               {/* Nama mengirim amount */}
-              <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6 }}>
+              <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6, textAlign: 'center' }}>
                 <span style={{ fontWeight: 500 }}>{alert.donorName}</span>
                 <span> mengirim </span>
-                {/* <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}55` }}>
-                  Rp {Number(alert.amount).toLocaleString('id-ID')}
-                </span> */}
                 {renderAmountOrItem(alert, hl, { tWeight: 500, color: hl, textShadow: `0 0 10px ${hl}55` })}
               </div>
 
@@ -530,7 +503,8 @@ const calculateMediaShareDuration = (config, amount) => {
                 <div style={{
                   fontFamily: monospace, fontSize: 18, color: fg, fontWeight: 600,
                   lineHeight: 1.5, 
-                  maxWidth: 500
+                  maxWidth: 500,
+                  textAlign: 'center'
                 }}>
                   {alert.message}
                 </div>
@@ -548,29 +522,14 @@ const calculateMediaShareDuration = (config, amount) => {
       // ── SMOOTH ───────────────────────────────────────────────────────────────────
       if (theme === 'smooth') {
         return (
-          <div 
-            className='  text-slate-900 dark:text-white 
-            -translate-y-[3px] translate-x-[-3px]
-            [box-shadow:4px_6px_0_#f1f5f9]
-            dark:[box-shadow:4px_4px_0_#99a3b1]
-            hover:translate-y-0 hover:translate-x-0
-            border border-slate-300
-            hover:[box-shadow:0_0_0_#f1f5f9]
-            dark:hover:[box-shadow:0_0_0_#94a3b8]
-            active:translate-y-[2px] active:translate-x-[2px]
-            active:[box-shadow:none]
-            active:bg-slate-300 dark:active:bg-slate-800 rounded-xl'
-          style={{ fontFamily: "'Inter', sans-serif", overflow: 'hidden' }}>
+          <div style={{ fontFamily: "'Inter', sans-serif", overflow: 'hidden' }}>
             {mediaBlock}
 
             <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10, fontFamily: "'Inter', sans-serif" }}>
               {/* Nama mengirim amount */}
-              <div style={{ fontSize: 20, color: fg, lineHeight: 1 }}>
+              <div style={{ fontSize: 20, color: fg, lineHeight: 1, textAlign: 'center' }}>
                 <span style={{ color: hl }}>{alert.donorName}</span>
                 <span> mengirim </span>
-                {/* <span style={{ color: hl, letterSpacing: '-0.5px' }}>
-                  Rp {Number(alert.amount).toLocaleString('id-ID')}
-                </span> */}
               {renderAmountOrItem(alert, hl, { color: hl, letterSpacing: '-0.5px' })}
               </div>
 
@@ -582,6 +541,7 @@ const calculateMediaShareDuration = (config, amount) => {
                 <div style={{
                   fontFamily: monospace, fontSize: 18, color: fg, fontWeight: 600,
                   background: 'rgba(255,255,255,0.04)', border: dimBorder,
+                  textAlign: 'center',
                   padding: '4px 10px', lineHeight: 1.5, maxWidth: 500, borderRadius: 8
                 }}>
                   {alert.message}
@@ -601,7 +561,6 @@ const calculateMediaShareDuration = (config, amount) => {
       if (theme === 'gifCard') {
         return (
           <div style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'center', alignItems: 'center' }}> 
-            {/* Media block — full width */}
             {mediaBlock}
 
             {/* Info area */}
@@ -611,9 +570,8 @@ const calculateMediaShareDuration = (config, amount) => {
               textAlign: 'center',
               flexDirection: 'column',
               gap: 7,
-              // marginLeft: '40px',
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
                 <div style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: 20,
@@ -637,19 +595,7 @@ const calculateMediaShareDuration = (config, amount) => {
               </div>
 
               {alert.message && (
-                <div 
-                  className='  text-slate-900 dark:text-white 
-                  -translate-y-[3px] translate-x-[-3px]
-                  [box-shadow:4px_6px_0_#f1f5f9]
-                  dark:[box-shadow:4px_4px_0_#99a3b1]
-                  hover:translate-y-0 hover:translate-x-0
-                  border border-slate-300
-                  hover:[box-shadow:0_0_0_#f1f5f9]
-                  dark:hover:[box-shadow:0_0_0_#94a3b8]
-                  active:translate-y-[2px] active:translate-x-[2px]
-                  active:[box-shadow:none]
-                  active:bg-slate-300 dark:active:bg-slate-800 rounded-xl'
-                style={{
+                <div style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: 18,
                   color: 'black',
@@ -667,7 +613,7 @@ const calculateMediaShareDuration = (config, amount) => {
               )}
 
               {/* Progress bar */}
-              <div style={{ height: 3, background: hl + '20', overflow: 'hidden', marginTop: 4 }}>
+              <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
                 <div style={{
                   height: '100%',
                   width: `${progress}%`,

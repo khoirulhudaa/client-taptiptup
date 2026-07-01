@@ -2154,19 +2154,6 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           }}>   
           {/* Media block */}
           <div 
-           className="
-          text-slate-900 dark:text-white
-          -translate-y-[3px] translate-x-[-3px]
-        [box-shadow:6px_6px_0_0_#f1f5f9,4px_6px_0_1px_#000]
-          hover:translate-y-0 hover:translate-x-0
-          hover:bg-slate-200 dark:hover:bg-slate-700
-          border border-slate-300
-          hover:[box-shadow:0_0_0_#f1f5f9]
-          dark:hover:[box-shadow:0_0_0_#94a3b8]
-          active:translate-y-[2px] active:translate-x-[2px]
-          active:[box-shadow:none]
-          cursor-pointer hover:brightness-90 w-full py-3 md:py-4 
-          text-white font-black rounded-xl  transition-all active:scale-[0.99]"
           style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderBottom: `1px solid ${hl}25`, borderRadius: 18 }}>
             {mType === 'youtube' ? (
               <iframe src={getYouTubeEmbedUrl(mediaUrl)} width="100%" height="100%" frameBorder="0"
@@ -2188,21 +2175,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
               </div>
             </div>
             {currentDonor.msg && (
-              <div 
-               className="
-                text-slate-900 dark:text-white
-                -translate-y-[3px] translate-x-[-3px]
-              [box-shadow:6px_6px_0_0_#f1f5f9,4px_6px_0_1px_#000]
-                hover:translate-y-0 hover:translate-x-0
-                hover:bg-slate-200 dark:hover:bg-slate-700
-                border border-slate-300
-                hover:[box-shadow:0_0_0_#f1f5f9]
-                dark:hover:[box-shadow:0_0_0_#94a3b8]
-                active:translate-y-[2px] active:translate-x-[2px]
-                active:[box-shadow:none]
-                cursor-pointer hover:brightness-90 w-full
-                text-white font-black rounded-xl  transition-all active:scale-[0.99]"
-              style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: 'black', fontWeight: 400, background: 'white', border: `1px solid ${hl}25`, padding: '5px 8px', lineHeight: 1.5, maxWidth: 500, borderRadius: 8 }}>
+              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: 'black', fontWeight: 400, background: 'white', border: `1px solid ${hl}25`, padding: '5px 8px', lineHeight: 1.5, maxWidth: 500, borderRadius: 8 }}>
                 {currentDonor.msg}
               </div>
             )}
@@ -2219,23 +2192,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       return (
         <>
           <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-          <div 
-           className="
-            text-slate-900 dark:text-white
-            -translate-y-[3px] translate-x-[-3px]
-          [box-shadow:6px_6px_0_0_#f1f5f9,4px_6px_0_1px_#000]
-            hover:translate-y-0 hover:translate-x-0
-            hover:bg-slate-200 dark:hover:bg-slate-700
-            border border-slate-300
-            hover:[box-shadow:0_0_0_#f1f5f9]
-            dark:hover:[box-shadow:0_0_0_#94a3b8]
-            active:translate-y-[2px] active:translate-x-[2px]
-            active:[box-shadow:none]
-            cursor-pointer hover:brightness-90 w-full 
-            text-white font-black rounded-xl  transition-all active:scale-[0.99]"
-          style={{ ...wrapperBase, 
-            // boxShadow: `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`, 
-            // border: `2px solid ${settings.borderColor || hl + '40'}`,
+          <div style={{ ...wrapperBase, 
              width: 'max-content', position: 'relative', borderRadius: 18 }}>
             <div style={scanlineStyle} />
             <MediaBlock />
@@ -2264,21 +2221,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
     // ── SMOOTH ──────────────────────────────────────────────────────────────────
     if (theme === 'smooth') {
       return (
-        <div 
-         className="
-        text-slate-900 dark:text-white
-        -translate-y-[3px] translate-x-[-3px]
-       [box-shadow:6px_6px_0_0_#f1f5f9,4px_6px_0_1px_#000]
-        hover:translate-y-0 hover:translate-x-0
-        hover:bg-slate-200 dark:hover:bg-slate-700
-        border border-slate-300
-        hover:[box-shadow:0_0_0_#f1f5f9]
-        dark:hover:[box-shadow:0_0_0_#94a3b8]
-        active:translate-y-[2px] active:translate-x-[2px]
-        active:[box-shadow:none]
-        cursor-pointer hover:brightness-90 w-full
-        text-white font-black rounded-xl  transition-all active:scale-[0.99]"
-        style={{ ...wrapperBase, borderRadius: 16, 
+        <div style={{ ...wrapperBase, borderRadius: 16, 
           // border: `1.5px solid ${hl}30`, 
           // boxShadow: `0 8px 32px ${hl}18` 
           }}>
@@ -5435,7 +5378,7 @@ const handleChangePin = async () => {
                                 active:bg-slate-300 dark:active:bg-slate-800
                                 cursor-pointer active:scale-[0.99] py-3 md:py-4 text-center md:text-left md:pl-3 rounded-xl border transition-all font-black text-sm capitalize ${
                                 settings.theme === t
-                                  ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-md'
+                                  ? 'border-blue-600 bg-blue-50 dark:bg-cyan-600 text-blue-600 dark:text-blue-400 shadow-md'
                                   : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-300 text-slate-400 dark:text-slate-400'
                               }`}>
                               {themeLabels[t] || t}
