@@ -5703,12 +5703,11 @@ const handleChangePin = async () => {
 
               {activeTab === 'songSettings' && (
                 <motion.div key="songSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-5 pb-0 w-full">
-                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
-                    <SectionHeader icon={<Music size={20} />} title="Share Song" color="bg-blue-600" />
-
+                  <div className="backdrop-blur-sm rounded-xl shadow-xs space-y-3">
                     <InstantTestSong overlayToken={user.overlayToken} user={user} />
 
-                    <div className="flex items-center justify-between p-4 mt-5 px-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+                    <div className="
+                    bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3 flex items-center justify-between"> 
                       <div>
                         <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Aktifkan Song Request</p>
                         <p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium mt-0.5">Donor bisa request lagu</p>
@@ -5719,7 +5718,7 @@ const handleChangePin = async () => {
                       </button>
                     </div>
 
-                    <div>
+                    <div className='bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3'>
                       <InputField
                         label="Min. Nominal"
                         type="number"
@@ -5727,26 +5726,23 @@ const handleChangePin = async () => {
                         value={settings.songRequestMinAmount}
                         onChange={v => upd('songRequestMinAmount', v === '' ? '' : Number(v))}
                       />
+                      <div className='mt-5'>
+                        <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest block mb-2">
+                          Volume Player ({settings.songRequestVolume ?? 80}%)
+                        </label>
+                        <input
+                          type="range"
+                          min="0"
+                          max="100"
+                          value={settings.songRequestVolume ?? 80}
+                          onChange={e => upd('songRequestVolume', Number(e.target.value))}
+                          className="w-full cursor-pointer accent-blue-600"
+                        />
+                      </div>
                     </div>
 
-                    <div>
-                      <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest block mb-2">
-                        Volume Player ({settings.songRequestVolume ?? 80}%)
-                      </label>
-                      <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value={settings.songRequestVolume ?? 80}
-                        onChange={e => upd('songRequestVolume', Number(e.target.value))}
-                        className="w-full cursor-pointer accent-blue-600"
-                      />
-                    </div>
 
-                    <div className="mt-5 md:p-5 md:bg-slate-50 md:dark:bg-slate-800/50 rounded-xl md:border border-slate-200 dark:border-slate-700">
-                      <h4 className="font-black text-sm text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-3">
-                        🎨 Tampilan Overlay Now Playing
-                      </h4>
+                    <div className="mt-5 bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <ColorInput
                           id="color-songBgColor"
@@ -5785,34 +5781,55 @@ const handleChangePin = async () => {
                       )}
                     </button>
 
-                    <div className="mt-4 flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700">
-                      <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">🎵</div>
-                      <div className="flex-1 min-w-0 relative top-[3px]">
-                        <label className="block text-[10px] font-bold w-max rounded-sm bg-slate-500/30 text-white uppercase tracking-widest">
-                          URL NOW PLAYING - OBS
-                        </label>
-                        <input
-                          readOnly
-                          value={`${window.location.origin}/overlay/${user.overlayToken}/now-playing`}
-                          aria-label="URL Now Playing Overlay"
-                          className="w-[90%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis"
-                        />
+                    <div className='w-full flex items-center gap-3'>
+                      <div className="w-full mt-4 flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700">
+                        <div className="flex-1 min-w-0 relative top-[3px]">
+                          <label className="block text-[10px] font-bold w-max rounded-sm bg-slate-500/30 text-white uppercase tracking-widest">
+                            URL NOW PLAYING - OBS
+                          </label>
+                          <input
+                            readOnly
+                            value={`${window.location.origin}/overlay/${user.overlayToken}/now-playing`}
+                            aria-label="URL Now Playing Overlay"
+                            className="w-[90%] bg-transparent font-mono text-sm text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis"
+                          />
+                        </div>
+                        <button
+                          onClick={() => copyToClipboard(
+                            `${window.location.origin}/overlay/${user.overlayToken}/now-playing`,
+                            'Now Playing Overlay'
+                          )}
+                          className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 rounded-xl transition-all flex-shrink-0"
+                        >
+                          <Copy size={15} />
+                        </button>
                       </div>
-                      <button
-                        onClick={() => copyToClipboard(
-                          `${window.location.origin}/overlay/${user.overlayToken}/now-playing`,
-                          'Now Playing Overlay'
-                        )}
-                        className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 rounded-xl transition-all flex-shrink-0"
-                      >
-                        <Copy size={15} />
-                      </button>
+                      <div className="w-full mt-4 flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[12px] font-bold text-slate-700 dark:text-white">Stream Deck — Skip Lagu</p>
+                      <input
+                        readOnly
+                        value={`${import.meta.env.VITE_API_URL}/api/midtrans/song-shortcut/${user.overlayToken}/skip`}
+                        aria-label="URL Stream Deck Skip Lagu"
+                        className="w-[95%] bg-transparent font-mono text-xs text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis"
+                      />
+                    </div>
+                    <button
+                      onClick={() => copyToClipboard(
+                        `${import.meta.env.VITE_API_URL}/api/midtrans/song-shortcut/${user.overlayToken}/skip`,
+                        'Stream Deck Skip Lagu'
+                      )}
+                      className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 rounded-xl transition-all flex-shrink-0"
+                    >
+                      <Copy size={15} />
+                    </button>
+                      </div>
                     </div>
 
                     {/* Tombol Skip Lagu Sekarang */}
                     <div className="mt-4 md:flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
                       <div className="flex-1">
-                        <p className="font-black text-sm text-slate-700 dark:text-white">Skip Lagu Sekarang</p>
+                        <p className="text-[12px] font-bold text-slate-700 dark:text-white">Skip Lagu Sekarang</p>
                         <p className="text-[10px] text-slate-400 font-medium mt-0.5">Lewati lagu yang sedang diputar</p>
                       </div>
                       <button
@@ -5827,26 +5844,6 @@ const handleChangePin = async () => {
                         className="md:!mt-0 !mt-3 md:w-max w-full flex items-center justify-center px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black text-sm rounded-xl transition-all active:scale-[0.99] cursor-pointer flex items-center gap-2"
                       >
                         Skip
-                      </button>
-                    </div>
-                    <div className="mt-4 flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
-                      <div className="flex-1 min-w-0">
-                        <p className="font-black text-sm text-slate-700 dark:text-white">Stream Deck — Skip Lagu</p>
-                        <input
-                          readOnly
-                          value={`${import.meta.env.VITE_API_URL}/api/midtrans/song-shortcut/${user.overlayToken}/skip`}
-                          aria-label="URL Stream Deck Skip Lagu"
-                          className="w-[95%] bg-transparent font-mono text-xs text-blue-600 dark:text-blue-400 font-bold outline-none overflow-hidden text-ellipsis"
-                        />
-                      </div>
-                      <button
-                        onClick={() => copyToClipboard(
-                          `${import.meta.env.VITE_API_URL}/api/midtrans/song-shortcut/${user.overlayToken}/skip`,
-                          'Stream Deck Skip Lagu'
-                        )}
-                        className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 rounded-xl transition-all flex-shrink-0"
-                      >
-                        <Copy size={15} />
                       </button>
                     </div>
                   </div>
