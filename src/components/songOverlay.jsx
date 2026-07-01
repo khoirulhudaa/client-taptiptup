@@ -53,7 +53,6 @@ const Marquee = ({ text, style }) => {
   return (
     <div ref={containerRef} style={{ overflow: 'hidden', whiteSpace: 'nowrap', ...style }}>
       <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '330px', display: 'block' }} ref={textRef}>{text}</span>      
-
     </div>
   );
 };
@@ -84,26 +83,26 @@ const QueueList = ({ queue, fg, accent, bg }) => {
         display: 'flex', alignItems: 'center', gap: 8,
         padding: '9px 18px', borderBottom: `1px solid ${accent}20`,
       }}>
-        <ListMusic size={12} color={accent} />
-        <span style={{ fontSize: 10, fontWeight: 800, color: fg, opacity: 0.8, letterSpacing: 0.3, textTransform: 'uppercase' }}>
+        <ListMusic size={12} color={'white'} />
+        <span style={{ fontSize: 10, fontWeight: 800, color: 'white', opacity: 0.8, letterSpacing: 0.3, textTransform: 'uppercase' }}>
           Berikutnya
         </span>
       </div>
 
       {isEmpty ? (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16.5px', marginBottom: 2, marginTop: '1.5px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 11.5, padding: '10px 16.5px', marginBottom: 2, marginTop: '1.5px' }}>
           <div style={{
-            width: 46, height: 46, padding: 4, border: `2px solid ${fg}30`, borderRadius: 12,
+            width: 46, height: 46, padding: 4, border: `2px solid #ffffff40`, borderRadius: 12,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             background: fg + '1A', flexShrink: 0,
           }}>
             <Music size={16} color={`${fg}80`} />
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: `${fg}90` }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: `white` }}>
               Belum ada antrian
             </div>
-            <div style={{ fontSize: 10, fontWeight: 500, color: `${fg}60` }}>
+            <div style={{ fontSize: 11, fontWeight: 500, color: `${fg}80` }}>
               Lagu berikutnya akan muncul di sini
             </div>
           </div>
@@ -427,10 +426,10 @@ const SongOverlay = () => {
                         <Music size={20} />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 ,position: 'relative', top: 7.5, left: 1 }}>
-                        <div style={{ fontSize: 13, fontWeight: 800, color: fg, lineHeight: 1.3 }}>
-                        Tidak Ada Lagu Yang Diputar
+                        <div style={{ fontSize: 12, fontWeight: 800, color: fg}}>
+                        Tidak ada lagu yang diputar
                         </div>
-                        <div style={{ fontSize: 12, fontWeight: 500, color: `${fg}B3`, marginTop: 5 }}>
+                        <div style={{ fontSize: 11, fontWeight: 500, color: `${fg}B3`, marginTop: 1 }}>
                         Kirim hadiah untuk me-request lagu
                         </div>
                     </div>
@@ -455,24 +454,21 @@ const SongOverlay = () => {
                     <div style={{ position: 'absolute', inset: -3, borderRadius: 13, border: `2px solid ${accent}`, animation: 'pulse-ring 1.5s ease-in-out infinite' }} />
                     )}
                 </div>
-                <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                     <Marquee text={nowPlaying.title} style={{ fontSize: 14, fontWeight: 700, color: fg, marginBottom: 0 }} />
-                    <div style={{display: 'flex', alignItems: 'center', gap: 3, width: 'max-content'}}>
-                    <Marquee text={nowPlaying.artist} style={{ fontSize: 12, fontWeight: 500, color: `${fg}80` }} />
-                    <span style={{ fontSize: 12, color: `white`, fontWeight: 500 }}>
-                      - Request dari @{nowPlaying.donorName}
+                    <span style={{ fontSize: 11, color: `white`, fontWeight: 500 }}>
+                      @{nowPlaying.donorName}
                     </span>
-                  </div>
                 </div>
                 </div>
 
                 <div style={{ padding: '0 12px 0px', marginTop: 4, width: '100%' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, alignItems: 'center', gap: 10 }}>
-                      <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}60` }}>{formatTime(currentTime)}</span>
+                      <span style={{ fontSize: 10, fontWeight: 600, color: `white` }}>{formatTime(currentTime)}</span>
                       <div style={{ width: '100%', height: 4, borderRadius: 999, background: accentFaint, overflow: 'hidden' }}>
                           <div style={{ height: '100%', borderRadius: 999, background: accent, width: `${progress}%`, transition: 'width 0.5s linear' }} />
                       </div>
-                      <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}60` }}>
+                      <span style={{ fontSize: 10, fontWeight: 600, color: `white` }}>
                         {formatTime(duration || nowPlaying.duration || 0)}
                       </span>
                   </div>
