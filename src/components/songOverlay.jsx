@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { motion } from 'framer-motion';
-import { Music } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Music, ListMusic } from 'lucide-react';
 
 const SERVER_URL = 'https://taptiptup-server-1ee47f2895cb.herokuapp.com';
 
@@ -52,18 +52,99 @@ const Marquee = ({ text, style }) => {
 
   return (
     <div ref={containerRef} style={{ overflow: 'hidden', whiteSpace: 'nowrap', ...style }}>
-      {/* {shouldScroll ? (
-        <div style={{ display: 'inline-block', animation: `marquee ${dur}s linear infinite` }}>
-          <span className='truncate max-w-[140px]' ref={textRef} style={{ paddingRight: 40 }}>{text}</span>
-          <span style={{ paddingRight: 40 }}>{text}</span>
-          <style>{`@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }`}</style>
-        </div>
-      ) : (
-        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '330px', display: 'block' }} ref={textRef}>{text}</span>      
-      )} */}
       <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '330px', display: 'block' }} ref={textRef}>{text}</span>      
 
     </div>
+  );
+};
+
+// ── Komponen kecil: preview lagu berikutnya + ringkasan sisa antrian ──
+// Selalu tampil, walau antrian kosong (dengan isi berbeda untuk empty state)
+const QueueList = ({ queue, fg, accent, bg }) => {
+  const isEmpty = queue.length === 0;
+  const next = queue[0];
+  const remaining = queue.length - 1;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      style={{
+        width: 440,
+        marginTop: 6,
+        background: bg,
+        borderRadius: 14,
+        overflow: 'hidden',
+        border: `1px solid ${accent}30`,
+        boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
+      }}
+    >
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 8,
+        padding: '9px 18px', borderBottom: `1px solid ${accent}20`,
+      }}>
+        <ListMusic size={12} color={accent} />
+        <span style={{ fontSize: 10, fontWeight: 800, color: fg, opacity: 0.8, letterSpacing: 0.3, textTransform: 'uppercase' }}>
+          Berikutnya
+        </span>
+      </div>
+
+      {isEmpty ? (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 18px' }}>
+          <div style={{
+            width: 40, height: 40, padding: 3, border: `1px solid ${fg}30`, borderRadius: 8,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: fg + '1A', flexShrink: 0,
+          }}>
+            <Music size={16} color={`${fg}80`} />
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: `${fg}90` }}>
+              Belum ada antrian
+            </div>
+            <div style={{ fontSize: 10, fontWeight: 500, color: `${fg}60` }}>
+              Request lagu berikutnya akan muncul di sini
+            </div>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16.5px' }}>
+            <img
+              src={next.artworkUrl || ''}
+              alt=""
+              style={{ width: 46, height: 46, padding: 4, border: '2px solid #ffffff60', borderRadius: 12, objectFit: 'cover', flexShrink: 0, background: fg + '1A' }}
+              onError={(e) => { e.target.style.visibility = 'hidden'; }}
+            />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{
+                fontSize: 12, fontWeight: 700, color: fg,
+                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+              }}>
+                {next.title}
+              </div>
+              <div style={{
+                fontSize: 10, fontWeight: 500, color: `${fg}80`,
+                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+              }}>
+                @{next.donorName}
+              </div>
+            </div>
+          </div>
+
+          {remaining > 0 && (
+            <div style={{
+              padding: '8px 18px',
+              borderTop: `1px solid ${accent}15`,
+              fontSize: 10, fontWeight: 700, color: `${fg}70`, textAlign: 'left',
+            }}>
+              +{remaining} request lainnya dalam antrian
+            </div>
+          )}
+        </>
+      )}
+    </motion.div>
   );
 };
 
@@ -76,7 +157,7 @@ const SongOverlay = () => {
   const [progress, setProgress]     = useState(0);
   const [config, setConfig]         = useState(null);
   const [isSkipping, setIsSkipping] = useState(false);
-  const [duration, setDuration]     = useState(0); 
+  const [duration, setDuration]     = useState(0);
 
   const ytPlayerRef      = useRef(null);
   const playerDivRef     = useRef(null);
@@ -86,11 +167,17 @@ const SongOverlay = () => {
   // ── TAMBAH: antrian lagu lokal ──────────────────────────
   const songQueueRef     = useRef([]);   // array of song objects
   const nowPlayingRef     = useRef(null); // mirror isPlaying untuk diakses di closure
+  const [queueList, setQueueList] = useState([]); // ← state buat render UI antrian
 
   // Sync ref setiap isPlaying berubah
   useEffect(() => {
     nowPlayingRef.current = nowPlaying;
   }, [nowPlaying]);
+
+  // ── Helper: sync state antrian dari ref ke UI ───────────
+  const syncQueueState = () => {
+    setQueueList([...songQueueRef.current]);
+  };
 
   // ── Helper: ambil lagu berikutnya dari antrian ──────────
     // ── playNext ───────────────────────────────────────────
@@ -100,12 +187,14 @@ const SongOverlay = () => {
       setNowPlaying(null);
       setCurrentTime(0);
       setProgress(0);
+      syncQueueState();
       return;
     }
     const next = songQueueRef.current.shift();
     setNowPlaying(next);
     setCurrentTime(0);
     setProgress(0);
+    syncQueueState(); // ← update UI antrian setelah shift
   };
 
   // ── enqueueSong — baca nowPlayingRef, bukan nowPlaying ─
@@ -130,6 +219,7 @@ const SongOverlay = () => {
       songQueueRef.current.push(song);
       console.log(`[SongOverlay] 🎵 Masuk antrian [${songQueueRef.current.length}]:`, song.title);
     }
+    syncQueueState(); // ← update UI antrian setiap ada lagu masuk
   };
 
   // Load config
@@ -179,7 +269,7 @@ const SongOverlay = () => {
                 const ct = ytPlayerRef.current?.getCurrentTime() || 0;
                 const dt = ytPlayerRef.current?.getDuration() || nowPlaying.duration || 0;
                 setCurrentTime(ct);
-                setDuration(dt);          
+                setDuration(dt);
                 setProgress(dt > 0 ? (ct / dt) * 100 : 0);
               }, 500);
             } else {
@@ -278,8 +368,7 @@ const SongOverlay = () => {
     <div style={{
       width: '100vw', height: '100vh',
       background: 'transparent',
-      display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-start',
-      // padding: '0 24px 0px 24px',
+      display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-end',
       overflow: 'hidden',
       fontFamily: "'Inter', -apple-system, 'Segoe UI', sans-serif",
     }}>
@@ -301,7 +390,7 @@ const SongOverlay = () => {
           padding: `${isIdle ? '0px' : '12px'} 6px 0px 6px`,
           borderRadius: 16,
           overflow: 'hidden',
-          border: `1px solid $white`,
+          border: `1px solid ${accent}30`,
           boxShadow: isIdle
             ? `0 4px 20px rgba(0,0,0,0.4)`
             : `0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px ${accent}18`,
@@ -392,6 +481,9 @@ const SongOverlay = () => {
           }
         `}</style>
       </motion.div>
+
+      {/* ── Daftar Antrian (di bawah kartu now playing) — selalu tampil ── */}
+      <QueueList queue={queueList} fg={fg} accent={accent} bg={bg} />
     </div>
   );
 };
