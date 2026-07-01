@@ -91,7 +91,7 @@ const QueueList = ({ queue, fg, accent, bg }) => {
       </div>
 
       {isEmpty ? (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16.5px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16.5px', marginBottom: 2, marginTop: '1.5px' }}>
           <div style={{
             width: 46, height: 46, padding: 4, border: `2px solid ${fg}30`, borderRadius: 12,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -104,7 +104,7 @@ const QueueList = ({ queue, fg, accent, bg }) => {
               Belum ada antrian
             </div>
             <div style={{ fontSize: 10, fontWeight: 500, color: `${fg}60` }}>
-              Request lagu berikutnya akan muncul di sini
+              Lagu berikutnya akan muncul di sini
             </div>
           </div>
         </div>
@@ -133,13 +133,21 @@ const QueueList = ({ queue, fg, accent, bg }) => {
             </div>
           </div>
 
-          {remaining > 0 && (
+          {remaining > 0 ? (
             <div style={{
               padding: '8px 18px',
               borderTop: `1px solid ${accent}15`,
               fontSize: 10, fontWeight: 700, color: `${fg}70`, textAlign: 'left',
             }}>
               +{remaining} request lainnya dalam antrian
+            </div>
+          ): (
+            <div style={{
+              padding: '8px 18px',
+              borderTop: `1px solid ${accent}15`,
+              fontSize: 10, fontWeight: 700, color: `${fg}70`, textAlign: 'left',
+            }}>
+              Tidak ada antrian
             </div>
           )}
         </>
