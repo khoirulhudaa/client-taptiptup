@@ -81,7 +81,7 @@ const QueueList = ({ queue, fg, accent, bg }) => {
     >
       <div style={{
         display: 'flex', alignItems: 'center', gap: 8,
-        padding: '9px 18px', borderBottom: `1px solid ${accent}20`,
+        padding: '9px 16px', borderBottom: `1px solid ${accent}20`,
       }}>
         <ListMusic size={12} color={'white'} />
         <span style={{ fontSize: 10, fontWeight: 800, color: 'white', opacity: 0.8, letterSpacing: 0.3, textTransform: 'uppercase' }}>
@@ -134,7 +134,7 @@ const QueueList = ({ queue, fg, accent, bg }) => {
 
           {remaining > 0 ? (
             <div style={{
-              padding: '8px 18px',
+              padding: '8px 16px',
               borderTop: `1px solid ${accent}15`,
               fontSize: 10, fontWeight: 700, color: `${fg}70`, textAlign: 'left',
             }}>
@@ -142,7 +142,7 @@ const QueueList = ({ queue, fg, accent, bg }) => {
             </div>
           ): (
             <div style={{
-              padding: '8px 18px',
+              padding: '8px 16px',
               borderTop: `1px solid ${accent}15`,
               fontSize: 10, fontWeight: 700, color: `${fg}70`, textAlign: 'left',
             }}>
