@@ -322,9 +322,9 @@ const SongOverlay = () => {
                         border: `2px solid #ffffff40`,
                         color: 'white',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        flexShrink: 0, marginTop: 2, fontSize: 16, padding: 6,
+                        flexShrink: 0, marginTop: 2, padding: 6,
                     }}>
-                        <Music />
+                        <Music size={20} />
                     </div>
                     <div style={{ flex: 1, minWidth: 0 ,position: 'relative', top: 7.5, left: 1 }}>
                         <div style={{ fontSize: 13, fontWeight: 800, color: fg, lineHeight: 1.3 }}>
