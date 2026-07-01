@@ -4818,8 +4818,8 @@ const handleChangePin = async () => {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowCopyModal(false)}>
               <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-3xl md:max-w-sm max-w-md w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-500/40" onClick={e => e.stopPropagation()}>
                 <div className="py-4 p-6 pb-6 text-center">
-                  <div className="w-16 h-16 mx-auto mb-6 mt-1 md:mt-2 bg-green-100 dark:bg-green-950/40 rounded-xl  flex items-center justify-center">
-                    <CheckCircle2 size={40} className="text-green-600 dark:text-green-400" />
+                  <div className="w-16 h-16 mx-auto mb-6 mt-1 md:mt-2 bg-green-100 dark:bg-blue-950/40 rounded-xl  flex items-center justify-center">
+                    <CheckCircle2 size={40} className="text-blue-600 dark:text-blue-400" />
                   </div>
                   <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2">Berhasil</h3>
                   <p className="text-slate-600 dark:text-slate-400 mb-6"><span className="font-bold text-blue-600 dark:text-blue-400">{"URL"}</span> sudah selesai disalin</p>
@@ -4836,7 +4836,7 @@ const handleChangePin = async () => {
                       dark:hover:[box-shadow:0_0_0_#94a3b8]
                       active:translate-y-[2px] active:translate-x-[2px]
                       active:[box-shadow:none]
-                  cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-xl  transition-all active:scale-[0.99]">Tutup sekarang</button>
+                  cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-blue-600 text-white font-black rounded-xl  transition-all active:scale-[0.99]">Tutup sekarang</button>
                 </div>
               </motion.div>
             </motion.div>
@@ -5551,7 +5551,7 @@ const handleChangePin = async () => {
                       <div className='mb-5'>
                         <SectionHeader icon={<Monitor size={20} className='relative left-[0.2px]' />} title={`URL Overlay`} color="bg-blue-500" />
                       </div>
-                      <div className="!mt-[21px] flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-3 py-4 rounded-xl  border border-slate-100/10 mb-3">
+                      <div className="!mt-[21px] flex items-center gap-3 bg-slate-100 dark:bg-slate-800/70 p-3 py-4 rounded-xl  border border-slate-100/10 mb-3">
                         <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">💝</div>
                         <div className='flex-1 min-w-0'>
                           <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-max uppercase tracking-widest">MY DONATE URL</label>
@@ -5581,7 +5581,7 @@ const handleChangePin = async () => {
                         { label: 'URL VOICE NOTE - OBS',      emoji: '🎙️', url: `${window.location.origin}/overlay/${user.overlayToken}/voice` },
                         { label: 'URL COMBINED', emoji: '🧩', url: `${window.location.origin}/overlay/${user.overlayToken}/combined` }
                       ].map(({ label, emoji, url }) => (
-                        <div key={label} className="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-4 px-3 rounded-xl  border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
+                        <div key={label} className="flex items-center gap-3 bg-slate-100 dark:bg-slate-800/70 p-4 px-3 rounded-xl  border-2 border-dashed border-slate-200 dark:border-slate-700 mb-3">
                           <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">{emoji}</div>
                           <div className='flex-1 min-w-0 relative top-[3px]'>
                             <label className="block text-[10px] font-bold rounded-sm bg-slate-500/30 text-white w-max uppercase tracking-widest">{label}</label>
@@ -5614,7 +5614,7 @@ const handleChangePin = async () => {
                     
                       <div className="space-y-3">
                         {/* Info box: URL saat ini */}
-                        <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl  border border-slate-200 dark:border-slate-700">
+                        <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800/70 rounded-xl  border border-slate-200 dark:border-slate-700">
                           <div className="w-10 h-10 bg-white dark:bg-slate-700 rounded-xl flex items-center justify-center text-xl flex-shrink-0">
                             <Link2 size={20} className="text-white relative left-[-0.2px]" />
                           </div>
