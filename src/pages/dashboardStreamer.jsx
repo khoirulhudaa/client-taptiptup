@@ -628,7 +628,7 @@ export const InstantTestSong = ({ overlayToken, user }) => {
         <div ref={playerRef} />
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-3.5">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -639,7 +639,19 @@ export const InstantTestSong = ({ overlayToken, user }) => {
         <button
           onClick={handleSearch}
           disabled={searching || !query.trim()}
-          className="cursor-pointer active:scale-[0.99] w-14 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-xl disabled:opacity-50 transition-all flex-shrink-0"
+          className="
+           text-slate-900 dark:text-white
+          -translate-y-[3px] translate-x-[-3px]
+          [box-shadow:4px_6px_0_#f1f5f9]
+          dark:[box-shadow:4px_4px_0_#99a3b1]
+          hover:translate-y-0 hover:translate-x-0
+          hover:bg-slate-200 dark:hover:bg-slate-700
+          border border-slate-300
+          hover:[box-shadow:0_0_0_#f1f5f9]
+          dark:hover:[box-shadow:0_0_0_#94a3b8]
+          active:translate-y-[2px] active:translate-x-[2px]
+          active:[box-shadow:none]
+          cursor-pointer active:scale-[0.99] w-14 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-xl disabled:opacity-50 transition-all flex-shrink-0"
         >
           {searching ? <Loader2 className="animate-spin" size={18} /> : <Search size={18} />}
         </button>
@@ -838,21 +850,21 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
       <button 
         onClick={sendTest} 
         disabled={isSending || !overlayToken}
-        className="
+         className="
         text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
         -translate-y-[3px] translate-x-[-3px]
         [box-shadow:4px_6px_0_#f1f5f9]
         dark:[box-shadow:4px_4px_0_#99a3b1]
         hover:translate-y-0 hover:translate-x-0
         hover:bg-slate-200 dark:hover:bg-slate-700
+        mt-7
         border border-slate-300
         hover:[box-shadow:0_0_0_#f1f5f9]
         dark:hover:[box-shadow:0_0_0_#94a3b8]
         active:translate-y-[2px] active:translate-x-[2px]
         active:[box-shadow:none]
         active:bg-slate-300 dark:active:bg-slate-800
-        cursor-pointer active:scale-[0.99] w-full mt-5.5 py-3 hover:brightness-90 bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60"
-      >
+        cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
         {isSending ? (
           <><RefreshCw size={18} className="animate-spin" /> Mengirim...</>
         ) : (
@@ -943,7 +955,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
         </div>
       </div>
 
-      <div className="pt-2">
+      <div className="pt-3">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-4">
           {PRESET_MEDIA.map((preset, i) => (
             <button key={i} onClick={() => { updateForm('mediaUrl', preset.url); updateForm('mediaType', preset.type); }}
@@ -979,6 +991,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
           hover:translate-y-0 hover:translate-x-0
           hover:bg-slate-200 dark:hover:bg-slate-700
           border border-slate-300
+          mt-4
           hover:[box-shadow:0_0_0_#f1f5f9]
           dark:hover:[box-shadow:0_0_0_#94a3b8]
           active:translate-y-[2px] active:translate-x-[2px]
@@ -2127,7 +2140,8 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
 
      if (theme === 'gifCard') {
       return (
-          <div style={{
+          <div 
+          style={{
             ...wrapperBase,
             backgroundColor: 'transparent',
             border: 'none',
@@ -2139,7 +2153,21 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             overflow: 'visible',
           }}>   
           {/* Media block */}
-          <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderBottom: `1px solid ${hl}25`, borderRadius: 18 }}>
+          <div 
+           className="
+          text-slate-900 dark:text-white
+          -translate-y-[3px] translate-x-[-3px]
+        [box-shadow:6px_6px_0_0_#f1f5f9,4px_6px_0_1px_#000]
+          hover:translate-y-0 hover:translate-x-0
+          hover:bg-slate-200 dark:hover:bg-slate-700
+          border border-slate-300
+          hover:[box-shadow:0_0_0_#f1f5f9]
+          dark:hover:[box-shadow:0_0_0_#94a3b8]
+          active:translate-y-[2px] active:translate-x-[2px]
+          active:[box-shadow:none]
+          cursor-pointer hover:brightness-90 w-full py-3 md:py-4 
+          text-white font-black rounded-xl  transition-all active:scale-[0.99]"
+          style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderBottom: `1px solid ${hl}25`, borderRadius: 18 }}>
             {mType === 'youtube' ? (
               <iframe src={getYouTubeEmbedUrl(mediaUrl)} width="100%" height="100%" frameBorder="0"
                 allow="autoplay; encrypted-media" allowFullScreen style={{ display: 'block', border: 'none' }} />
@@ -2160,11 +2188,25 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
               </div>
             </div>
             {currentDonor.msg && (
-              <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: 'black', fontWeight: 400, background: 'white', border: `1px solid ${hl}25`, padding: '5px 8px', lineHeight: 1.5, maxWidth: 500, borderRadius: 8 }}>
+              <div 
+               className="
+                text-slate-900 dark:text-white
+                -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:6px_6px_0_0_#f1f5f9,4px_6px_0_1px_#000]
+                hover:translate-y-0 hover:translate-x-0
+                hover:bg-slate-200 dark:hover:bg-slate-700
+                border border-slate-300
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+                cursor-pointer hover:brightness-90 w-full
+                text-white font-black rounded-xl  transition-all active:scale-[0.99]"
+              style={{ fontFamily: "'Inter', sans-serif", fontSize: 16, color: 'black', fontWeight: 400, background: 'white', border: `1px solid ${hl}25`, padding: '5px 8px', lineHeight: 1.5, maxWidth: 500, borderRadius: 8 }}>
                 {currentDonor.msg}
               </div>
             )}
-            <div style={{ height: 4, background: hl + '20', overflow: 'hidden', width: '100%' }}>
+            <div style={{ height: 4, background: hl + '20', overflow: 'hidden', width: '100%', marginTop: 4 }}>
               <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl }} />
             </div>
           </div>
@@ -2177,9 +2219,24 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
       return (
         <>
           <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-          <div style={{ ...wrapperBase, 
+          <div 
+           className="
+            text-slate-900 dark:text-white
+            -translate-y-[3px] translate-x-[-3px]
+          [box-shadow:6px_6px_0_0_#f1f5f9,4px_6px_0_1px_#000]
+            hover:translate-y-0 hover:translate-x-0
+            hover:bg-slate-200 dark:hover:bg-slate-700
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            cursor-pointer hover:brightness-90 w-full 
+            text-white font-black rounded-xl  transition-all active:scale-[0.99]"
+          style={{ ...wrapperBase, 
             // boxShadow: `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`, 
-            border: `2px solid ${settings.borderColor || hl + '40'}`, width: 'max-content', position: 'relative', borderRadius: 18 }}>
+            // border: `2px solid ${settings.borderColor || hl + '40'}`,
+             width: 'max-content', position: 'relative', borderRadius: 18 }}>
             <div style={scanlineStyle} />
             <MediaBlock />
             <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2, width: 'max-content' }}>
@@ -2207,7 +2264,22 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
     // ── SMOOTH ──────────────────────────────────────────────────────────────────
     if (theme === 'smooth') {
       return (
-        <div style={{ ...wrapperBase, borderRadius: 16, border: `1.5px solid ${hl}30`, 
+        <div 
+         className="
+        text-slate-900 dark:text-white
+        -translate-y-[3px] translate-x-[-3px]
+       [box-shadow:6px_6px_0_0_#f1f5f9,4px_6px_0_1px_#000]
+        hover:translate-y-0 hover:translate-x-0
+        hover:bg-slate-200 dark:hover:bg-slate-700
+        border border-slate-300
+        hover:[box-shadow:0_0_0_#f1f5f9]
+        dark:hover:[box-shadow:0_0_0_#94a3b8]
+        active:translate-y-[2px] active:translate-x-[2px]
+        active:[box-shadow:none]
+        cursor-pointer hover:brightness-90 w-full
+        text-white font-black rounded-xl  transition-all active:scale-[0.99]"
+        style={{ ...wrapperBase, borderRadius: 16, 
+          // border: `1.5px solid ${hl}30`, 
           // boxShadow: `0 8px 32px ${hl}18` 
           }}>
           <MediaBlock />
@@ -2392,7 +2464,21 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   // MODERN — Retro terminal HUD
   // ══════════════════════════════════════════
   const modernInner = (
-    <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 10, }}>
+    <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 10, }}
+    className="
+        text-slate-900 dark:text-white
+        -translate-y-[3px] translate-x-[-3px]
+       [box-shadow:6px_6px_0_0_#f1f5f9,4px_6px_0_1px_#000]
+        hover:translate-y-0 hover:translate-x-0
+        hover:bg-slate-200 dark:hover:bg-slate-700
+        border border-slate-300
+        hover:[box-shadow:0_0_0_#f1f5f9]
+        dark:hover:[box-shadow:0_0_0_#94a3b8]
+        active:translate-y-[2px] active:translate-x-[2px]
+        active:[box-shadow:none]
+        cursor-pointer hover:brightness-90 w-full
+        text-white font-black rounded-xl  transition-all active:scale-[0.99]"
+    >
       <div style={scanlineStyle} />
       {/* Header bar */}
       <div style={{
@@ -2558,7 +2644,20 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           </div>
         </div>
         {currentDonor.msg && (
-          <div style={{
+          <div 
+          className='  text-slate-900 dark:text-white
+          -translate-y-[3px] translate-x-[-3px]
+        [box-shadow:4px_4px_0_0_#f1f5f9,4px_6px_0_1px_#000]
+          hover:translate-y-0 hover:translate-x-0
+          hover:bg-slate-200 dark:hover:bg-slate-700
+          border border-slate-300
+          hover:[box-shadow:0_0_0_#f1f5f9]
+          dark:hover:[box-shadow:0_0_0_#94a3b8]
+          active:translate-y-[2px] active:translate-x-[2px]
+          active:[box-shadow:none]
+          cursor-pointer hover:brightness-90 w-full
+          text-white font-black rounded-xl  transition-all active:scale-[0.99]'  
+          style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: 16, color: fg, fontWeight: 400,
             borderRadius: 9,
@@ -2568,7 +2667,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             {currentDonor.msg}
           </div>
         )}
-        <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+        <div style={{ height: 3, background: hl + '20', overflow: 'hidden', marginTop: 4 }}>
           <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl, transition: 'width 50ms linear' }} />
         </div>
       </div>
@@ -2579,7 +2678,20 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   // SMOOTH — Soft rounded card with Poppins
   // ══════════════════════════════════════════
   const smoothInner = (
-    <div style={{
+    <div 
+      className='  text-slate-900 dark:text-white
+          -translate-y-[3px] translate-x-[-3px]
+        [box-shadow:6px_6px_0_0_#f1f5f9,4px_6px_0_1px_#000]
+          hover:translate-y-0 hover:translate-x-0
+          hover:bg-slate-200 dark:hover:bg-slate-700
+          border border-slate-300
+          hover:[box-shadow:0_0_0_#f1f5f9]
+          dark:hover:[box-shadow:0_0_0_#94a3b8]
+          active:translate-y-[2px] active:translate-x-[2px]
+          active:[box-shadow:none]
+          cursor-pointer hover:brightness-90 w-full
+          text-white font-black rounded-xl  transition-all active:scale-[0.99]'  
+    style={{
       fontFamily: "'Inter', sans-serif",
       padding: '14px 16px',
       display: 'flex',
@@ -4704,14 +4816,27 @@ const handleChangePin = async () => {
         <AnimatePresence>
           {showCopyModal && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md z-[200] flex items-center justify-center p-4" onClick={() => setShowCopyModal(false)}>
-              <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl md:max-w-sm max-w-md w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800" onClick={e => e.stopPropagation()}>
-                <div className="p-4 text-center">
+              <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-3xl md:max-w-sm max-w-md w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-500/40" onClick={e => e.stopPropagation()}>
+                <div className="py-4 p-6 pb-6 text-center">
                   <div className="w-16 h-16 mx-auto mb-6 mt-1 md:mt-2 bg-green-100 dark:bg-green-950/40 rounded-xl  flex items-center justify-center">
                     <CheckCircle2 size={40} className="text-green-600 dark:text-green-400" />
                   </div>
                   <h3 className="text-2xl font-black text-slate-800 dark:text-slate-100 mb-2">Berhasil</h3>
                   <p className="text-slate-600 dark:text-slate-400 mb-6"><span className="font-bold text-blue-600 dark:text-blue-400">{"URL"}</span> sudah selesai disalin</p>
-                  <button onClick={() => setShowCopyModal(false)} className="cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-xl  transition-all active:scale-[0.99]">Tutup sekarang</button>
+                  <button onClick={() => setShowCopyModal(false)} 
+                  className="
+                     text-slate-900 dark:text-white
+                      -translate-y-[3px] translate-x-[-3px]
+                      [box-shadow:4px_6px_0_#f1f5f9]
+                      dark:[box-shadow:4px_4px_0_#99a3b1]
+                      hover:translate-y-0 hover:translate-x-0
+                      hover:bg-slate-200 dark:hover:bg-slate-700
+                      border border-slate-300
+                      hover:[box-shadow:0_0_0_#f1f5f9]
+                      dark:hover:[box-shadow:0_0_0_#94a3b8]
+                      active:translate-y-[2px] active:translate-x-[2px]
+                      active:[box-shadow:none]
+                  cursor-pointer hover:brightness-90 w-full py-3 md:py-4 bg-slate-900/70 dark:bg-slate-700 text-white font-black rounded-xl  transition-all active:scale-[0.99]">Tutup sekarang</button>
                 </div>
               </motion.div>
             </motion.div>

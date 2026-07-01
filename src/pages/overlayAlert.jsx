@@ -340,7 +340,21 @@
           // ── MODERN — Terminal HUD ────────────────────────────────────────────────────
           if (theme === 'modern') {
             return (
-              <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 10 }}>
+              <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 10 }}
+              className='
+                text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  active:bg-slate-300 dark:active:bg-slate-800
+              '
+              >
                 <div style={scanlineStyle} />
 
                 {/* Header bar */}
@@ -534,7 +548,19 @@
           // ── SMOOTH — Soft rounded card ────────────────────────────────────────────────
           if (theme === 'smooth') {
             return (
-              <div style={{ fontFamily: "'Inter', sans-serif", padding: '7px 6px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div
+              className='  text-slate-900 dark:text-white 
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  hover:translate-y-0 hover:translate-x-0
+                  border border-slate-300
+                  hover:[box-shadow:0_0_0_#f1f5f9]
+                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  active:bg-slate-300 dark:active:bg-slate-800 rounded-xl'
+              style={{ fontFamily: "'Inter', sans-serif", padding: '14px 14px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {/* Icon + Nama */}
                 <div style={{ justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
                   <div className='w-max  md:flex items-center gap-2' style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
