@@ -648,7 +648,7 @@ export const InstantTestSong = ({ overlayToken, user }) => {
       {searchError && <p className="text-red-500 text-xs font-bold">{searchError}</p>}
 
       {results.length > 0 && (
-        <div className="max-h-72 overflow-y-auto space-y-2 pr-1">
+        <div className="max-h-72 grid md:grid-cols-4 grid-cols-2 gap-3 overflow-y-auto">
           {results.map(track => (
             <div
               key={track.id}
@@ -658,10 +658,10 @@ export const InstantTestSong = ({ overlayToken, user }) => {
               <img src={track.artworkUrl} alt="" className="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <p className="font-bold truncate text-sm text-slate-800 dark:text-white">{track.title}</p>
-                <div className="flex items-center justify-between mt-1">
+                <div className="flex items-center justify-start gpa-3 mt-1">
                   <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{track.artist}</p>
                   {track.duration && (
-                    <span className="text-[11px] font-bold text-slate-400 flex-shrink-0 ml-2">{formatTime(track.duration)}</span>
+                    <span className="relative top-[-0.8px] text-[11px] font-bold text-slate-400 flex-shrink-0 ml-2">{formatTime(track.duration)}</span>
                   )}
                 </div>
               </div>
