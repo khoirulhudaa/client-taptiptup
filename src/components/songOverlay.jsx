@@ -76,7 +76,7 @@ const SongOverlay = () => {
   const [progress, setProgress]     = useState(0);
   const [config, setConfig]         = useState(null);
   const [isSkipping, setIsSkipping] = useState(false);
-
+  const [duration, setDuration]     = useState(0); 
 
   const ytPlayerRef      = useRef(null);
   const playerDivRef     = useRef(null);
@@ -158,6 +158,7 @@ const SongOverlay = () => {
     clearTimeout(autoResetTimer.current);
     setIsPlaying(false);
     setCurrentTime(0);
+    setDuration(0);
     setProgress(0);
 
     const initPlayer = () => {
@@ -178,6 +179,7 @@ const SongOverlay = () => {
                 const ct = ytPlayerRef.current?.getCurrentTime() || 0;
                 const dt = ytPlayerRef.current?.getDuration() || nowPlaying.duration || 0;
                 setCurrentTime(ct);
+                setDuration(dt);          
                 setProgress(dt > 0 ? (ct / dt) * 100 : 0);
               }, 500);
             } else {
@@ -267,7 +269,7 @@ const SongOverlay = () => {
   }, [token]);
 
   const accent      = config?.highlightColor || config?.songBgColor || config?.primaryColor || '#60a5fa';
-  const bg          = config?.songBgColor || config?.primaryColor   || '#1e293b';
+  const bg          = config?.songBgColor || config?.primaryColor   || '#0A0F1F';
   const fg          = config?.songTextColor || config?.textColor    || '#ffffff';
   const accentFaint = accent + '22';
   const isIdle      = !nowPlaying;
@@ -372,7 +374,9 @@ const SongOverlay = () => {
                       <div style={{ width: '100%', height: 4, borderRadius: 999, background: accentFaint, overflow: 'hidden' }}>
                           <div style={{ height: '100%', borderRadius: 999, background: accent, width: `${progress}%`, transition: 'width 0.5s linear' }} />
                       </div>
-                      <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}60` }}>{formatTime(nowPlaying.duration || 0)}</span>
+                      <span style={{ fontSize: 10, fontWeight: 600, color: `${fg}60` }}>
+                        {formatTime(duration || nowPlaying.duration || 0)}
+                      </span>
                   </div>
                 </div>
             </>

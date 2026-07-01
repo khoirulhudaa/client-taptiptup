@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   Copy,
   ExternalLink,
+  Send,
   Eye,
   EyeOff,
   Globe,
@@ -19,6 +20,7 @@ import {
   HeadphonesIcon,
   Heart,
   Image,
+  Search,
   ImageIcon,
   List,
   Loader2,
@@ -469,84 +471,282 @@ const InstantTestMediaShareSkeleton = () => {
   );
 };
 
-const InstantTestSong = ({ overlayToken, user }) => {
-  const [isSending, setIsSending] = useState(false);
-  const [lastSent, setLastSent] = useState(null);
-  const [videoId, setVideoId] = useState('');
-  const [title, setTitle] = useState('Test Song');
-  const [artist, setArtist] = useState('Test Artist');
-  const [duration, setDuration] = useState(180);
-  const [donorName, setDonorName] = useState('Tester');
+const formatTime = (s) => {
+  if (!s || isNaN(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2, '0')}`;
+};
 
-  const extractVideoId = (input) => {
-    if (!input) return '';
-    const trimmed = input.trim();
-    if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed; // sudah ID
+export const InstantTestSong = ({ overlayToken, user }) => {
+  const [query, setQuery]     = useState('');
+  const [results, setResults] = useState([]);
+  const [searching, setSearching] = useState(false);
+  const [searchError, setSearchError] = useState('');
+  const [selected, setSelected] = useState(null);
+  const [donorName, setDonorName] = useState('Seseorang');
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState('');
+  const [sendSuccess, setSendSuccess] = useState(false);
+
+  const [isPlaying, setIsPlaying]     = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration]       = useState(0);
+  const playerRef        = useRef(null);
+  const ytPlayerRef       = useRef(null);
+  const progressInterval  = useRef(null);
+
+  useEffect(() => {
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!selected?.videoId) return;
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
+    clearInterval(progressInterval.current);
+
+    const initPlayer = () => {
+      if (ytPlayerRef.current) { ytPlayerRef.current.destroy(); ytPlayerRef.current = null; }
+      ytPlayerRef.current = new window.YT.Player(playerRef.current, {
+        videoId: selected.videoId,
+        playerVars: { autoplay: 0, controls: 0, modestbranding: 1, rel: 0, disablekb: 1 },
+        events: {
+          onReady: (e) => setDuration(e.target.getDuration()),
+          onStateChange: (e) => {
+            if (e.data === window.YT.PlayerState.PLAYING) {
+              setIsPlaying(true);
+              progressInterval.current = setInterval(() => {
+                setCurrentTime(ytPlayerRef.current?.getCurrentTime() || 0);
+                setDuration(ytPlayerRef.current?.getDuration() || 0);
+              }, 500);
+            } else {
+              setIsPlaying(false);
+              clearInterval(progressInterval.current);
+              if (e.data === window.YT.PlayerState.ENDED) setCurrentTime(0);
+            }
+          },
+        },
+      });
+    };
+
+    if (window.YT?.Player) initPlayer();
+    else window.onYouTubeIframeAPIReady = initPlayer;
+
+    return () => clearInterval(progressInterval.current);
+  }, [selected?.videoId]);
+
+  useEffect(() => () => {
+    clearInterval(progressInterval.current);
+    if (ytPlayerRef.current) { ytPlayerRef.current.destroy(); ytPlayerRef.current = null; }
+  }, []);
+
+  const togglePlay = () => {
+    if (!ytPlayerRef.current) return;
+    isPlaying ? ytPlayerRef.current.pauseVideo() : ytPlayerRef.current.playVideo();
+  };
+
+  const handleSeek = (e) => {
+    if (!ytPlayerRef.current || !duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const percent = (e.clientX - rect.left) / rect.width;
+    const seekTo = percent * duration;
+    ytPlayerRef.current.seekTo(seekTo, true);
+    setCurrentTime(seekTo);
+  };
+
+  const handleSearch = async () => {
+    if (!query.trim()) return;
+    setSearching(true);
+    setSearchError('');
     try {
-      const url = new URL(trimmed);
-      if (url.hostname.includes('youtu.be')) return url.pathname.slice(1);
-      return url.searchParams.get('v') || '';
-    } catch {
-      return '';
+      const res = await api.get('/api/midtrans/youtube-search', { params: { q: query.trim() } });
+      setResults(res.data.tracks || []);
+    } catch (err) {
+      setSearchError(err.response?.data?.message || 'Gagal mencari lagu');
+    } finally {
+      setSearching(false);
     }
   };
 
-  const sendTest = async () => {
-    const id = extractVideoId(videoId);
-    if (!id) {
-      toast.error('Masukkan Video ID atau URL YouTube yang valid');
-      return;
-    }
-    setIsSending(true);
+  const selectTrack = (track) => {
+    setSelected(track);
+    setResults([]);
+    setQuery('');
+    setSendSuccess(false);
+    setSendError('');
+  };
+
+  const clearSelected = () => {
+    if (ytPlayerRef.current) ytPlayerRef.current.stopVideo();
+    setSelected(null);
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
+  };
+
+  const handleSendTest = async () => {
+    if (!selected) return;
+    setSending(true);
+    setSendError('');
+    setSendSuccess(false);
     try {
       await api.post('/api/overlay/test-song', {
-        videoId: id, title, artist, duration, donorName,
+        videoId: selected.videoId,
+        title: selected.title,
+        artist: selected.artist,
+        artworkUrl: selected.artworkUrl,
+        duration: selected.duration,
+        donorName: 'Seseorang',
       });
-      setLastSent(new Date());
-      toast.success('🎵 Test lagu berhasil dikirim ke overlay!');
+      setSendSuccess(true);
+      setTimeout(() => setSendSuccess(false), 3000);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Gagal mengirim test lagu');
+      setSendError(err.response?.data?.message || 'Gagal mengirim test lagu');
     } finally {
-      setIsSending(false);
+      setSending(false);
     }
   };
 
   return (
-    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4">
       <div className="flex items-center gap-3">
-        <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg">
+        <div className="p-3 w-11 h-11 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
           <Music size={20} />
         </div>
-        <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
-          Testing Song Request
-        </h3>
+        <div>
+          <h4 className="text-sm md:text-lg font-black text-slate-800 dark:text-white">Test Song Request</h4>
+          <p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium">Cari lagu, preview, lalu kirim ke overlay OBS</p>
+        </div>
       </div>
 
-      <InputField label="Video ID / URL YouTube" value={videoId} onChange={setVideoId} placeholder="https://youtube.com/watch?v=..." />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <InputField label="Judul Lagu" value={title} onChange={setTitle} />
-        <InputField label="Artis" value={artist} onChange={setArtist} />
-        <InputField label="Nama Donatur" value={donorName} onChange={setDonorName} />
-        <InputField label="Durasi (detik)" type="number" value={duration} onChange={v => setDuration(Number(v))} />
+      <div style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', opacity: 0, pointerEvents: 'none' }}>
+        <div ref={playerRef} />
       </div>
 
-      <button
-        onClick={sendTest}
-        disabled={isSending || !overlayToken}
-        className="cursor-pointer active:scale-[0.99] w-full mt-2 py-3 hover:brightness-90 bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60"
-      >
-        {isSending ? (<><RefreshCw size={18} className="animate-spin" /> Mengirim...</>) : (<><Zap size={18} /> Kirim Test Lagu ke OBS</>)}
-      </button>
+      <div className="flex gap-2">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          placeholder="Judul lagu atau nama artis..."
+          className="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-bold text-slate-800 dark:text-white outline-none focus:border-blue-400 transition-all"
+        />
+        <button
+          onClick={handleSearch}
+          disabled={searching || !query.trim()}
+          className="cursor-pointer active:scale-[0.99] w-14 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-xl disabled:opacity-50 transition-all flex-shrink-0"
+        >
+          {searching ? <Loader2 className="animate-spin" size={18} /> : <Search size={18} />}
+        </button>
+      </div>
 
-      {lastSent && (
-        <div className="flex items-center gap-3 text-xs text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-xl px-4 py-3 border border-emerald-100 dark:border-emerald-900">
-          <CheckCircle2 size={14} /> Test terakhir dikirim: {lastSent.toLocaleTimeString('id-ID')}
+      {searchError && <p className="text-red-500 text-xs font-bold">{searchError}</p>}
+
+      {results.length > 0 && (
+        <div className="max-h-72 overflow-y-auto space-y-2 pr-1">
+          {results.map(track => (
+            <div
+              key={track.id}
+              onClick={() => selectTrack(track)}
+              className="flex gap-3 p-3 items-center bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-400 cursor-pointer transition-all active:scale-[0.99]"
+            >
+              <img src={track.artworkUrl} alt="" className="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="font-bold truncate text-sm text-slate-800 dark:text-white">{track.title}</p>
+                <div className="flex items-center justify-between mt-1">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{track.artist}</p>
+                  {track.duration && (
+                    <span className="text-[11px] font-bold text-slate-400 flex-shrink-0 ml-2">{formatTime(track.duration)}</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       )}
 
-      <p className="text-[10px] text-slate-400 dark:text-slate-400 font-medium">
-        Pastikan overlay <b>Now Playing</b> sudah dibuka di OBS Browser Source
-      </p>
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            className="bg-slate-50 dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-800 overflow-hidden"
+          >
+            <div className="relative flex items-center gap-3 p-3">
+              <div className="relative flex-shrink-0">
+                <img
+                  src={selected.artworkUrl || '/default-cover.png'}
+                  alt={selected.title}
+                  className={`w-14 h-14 rounded-xl object-cover transition-all ${isPlaying ? 'ring-2 ring-blue-400 ring-offset-2' : ''}`}
+                />
+                {isPlaying && (
+                  <div className="absolute inset-0 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                    <div className="flex items-end gap-[2px] h-4">
+                      {[1, 2, 3].map(i => (
+                        <div key={i} className="w-[3px] bg-blue-500 rounded-full animate-bounce"
+                          style={{ height: `${[60, 100, 70][i-1]}%`, animationDelay: `${i * 0.1}s` }} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-black truncate text-sm text-slate-800 dark:text-white">{selected.title}</p>
+                <p className="text-[11px] text-slate-400 font-bold truncate mt-0.5">{selected.artist}</p>
+              </div>
+              <button
+                onClick={clearSelected}
+                className="cursor-pointer active:scale-[0.98] w-7 h-7 rounded-lg bg-white dark:bg-slate-900 hover:bg-red-100 dark:hover:bg-red-700 text-slate-400 hover:text-white flex items-center justify-center transition-all flex-shrink-0"
+              >
+                <X size={13} />
+              </button>
+            </div>
+
+            <div className="px-3 pb-1">
+              <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full cursor-pointer overflow-hidden" onClick={handleSeek}>
+                <div className="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all"
+                  style={{ width: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }} />
+              </div>
+              <div className="flex justify-between mt-1">
+                <span className="text-[11px] font-bold text-slate-400">{formatTime(currentTime)}</span>
+                <span className="text-[11px] font-bold text-slate-400">{formatTime(duration)}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-center gap-4 pb-4 pt-1">
+              <button
+                onClick={togglePlay}
+                className="cursor-pointer active:scale-[0.98] w-12 h-12 rounded-full bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center transition-all shadow-lg shadow-blue-200 dark:shadow-blue-900"
+              >
+                {isPlaying ? <Pause size={18} /> : <Play size={18} className="relative left-[1px]" />}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {selected && (
+        <div className="space-y-3 pt-1">
+
+          {sendError && <p className="text-red-500 text-xs font-bold">{sendError}</p>}
+          {sendSuccess && <p className="text-green-500 text-xs font-bold">✅ Test lagu terkirim ke overlay!</p>}
+
+          <button
+            onClick={handleSendTest}
+            disabled={sending}
+            className="cursor-pointer active:scale-[0.99] w-full py-3 md:py-3.5 bg-slate-900/70 dark:bg-slate-700 hover:brightness-90 text-white rounded-xl font-black text-sm transition-all disabled:opacity-70 flex items-center justify-center gap-2"
+          >
+            {sending ? <><Loader2 size={16} className="animate-spin" /> Mengirim...</> : <><Send size={16} /> Kirim Test ke Overlay</>}
+          </button>
+        </div>
+      )}
     </div>
   );
 };
