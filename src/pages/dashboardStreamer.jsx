@@ -616,12 +616,11 @@ export const InstantTestSong = ({ overlayToken, user }) => {
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-4">
       <div className="flex items-center gap-3">
-        <div className="p-3 w-11 h-11 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+        <div className="p-3 w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
           <Music size={20} />
         </div>
         <div>
           <h4 className="text-sm md:text-lg font-black text-slate-800 dark:text-white">Test Song Request</h4>
-          <p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium">Cari lagu, preview, lalu kirim ke overlay OBS</p>
         </div>
       </div>
 
@@ -677,7 +676,7 @@ export const InstantTestSong = ({ overlayToken, user }) => {
             initial={{ opacity: 0, scale: 0.96, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96 }}
-            className="bg-slate-50 dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-800 overflow-hidden"
+            className="bg-slate-50 p-3 dark:bg-slate-800 rounded-xl border border-blue-200 dark:border-blue-800 overflow-hidden"
           >
             <div className="relative flex items-center gap-3 p-3">
               <div className="relative flex-shrink-0">
@@ -703,7 +702,7 @@ export const InstantTestSong = ({ overlayToken, user }) => {
               </div>
               <button
                 onClick={clearSelected}
-                className="cursor-pointer active:scale-[0.98] w-7 h-7 rounded-lg bg-white dark:bg-slate-900 hover:bg-red-100 dark:hover:bg-red-700 text-slate-400 hover:text-white flex items-center justify-center transition-all flex-shrink-0"
+                className="relative top-[-4px] cursor-pointer active:scale-[0.98] w-7 h-7 rounded-lg bg-white dark:bg-slate-900 hover:bg-red-100 dark:hover:bg-red-700 text-slate-400 hover:text-white flex items-center justify-center transition-all flex-shrink-0"
               >
                 <X size={13} />
               </button>
