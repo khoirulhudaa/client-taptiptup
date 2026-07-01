@@ -299,11 +299,11 @@ const SongOverlay = () => {
           padding: `${isIdle ? '0px' : '12px'} 6px 0px 6px`,
           borderRadius: 16,
           overflow: 'hidden',
-          border: `1px solid ${isIdle ? accent + '18' : accent + '35'}`,
+          border: `1px solid $white`,
           boxShadow: isIdle
             ? `0 4px 20px rgba(0,0,0,0.4)`
             : `0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px ${accent}18`,
-          opacity: isIdle ? 0.72 : 1,
+          // opacity: isIdle ? 0.72 : 1,
           transition: 'opacity 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease',
         }}
       >
@@ -314,22 +314,23 @@ const SongOverlay = () => {
           <div style={{ position: 'relative', flexShrink: 0, width: '100%' }}>
             {/* Konten */}
             {isIdle ? (
-            <div style={{ padding: '10px 10px 10px' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, position: 'relative', top: 3 }}>
+            <div style={{ padding: '13px 10px 10px' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, position: 'relative' }}>
                     <div style={{
-                        width: 50, height: 50, borderRadius: 8,
+                        width: 46, height: 46, borderRadius: 12,
                         background: fg + '1A',
+                        border: `2px solid #ffffff40`,
                         color: 'white',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         flexShrink: 0, marginTop: 2, fontSize: 16, padding: 6,
                     }}>
                         <Music />
                     </div>
-                    <div style={{ flex: 1, minWidth: 0 ,position: 'relative', top: 8 }}>
-                        <div style={{ fontSize: 16, fontWeight: 800, color: fg, lineHeight: 1.3 }}>
+                    <div style={{ flex: 1, minWidth: 0 ,position: 'relative', top: 7.5, left: 1 }}>
+                        <div style={{ fontSize: 13, fontWeight: 800, color: fg, lineHeight: 1.3 }}>
                         Tidak Ada Lagu Yang Diputar
                         </div>
-                        <div style={{ fontSize: 13, fontWeight: 500, color: `${fg}B3`, marginTop: 3 }}>
+                        <div style={{ fontSize: 12, fontWeight: 500, color: `${fg}B3`, marginTop: 5 }}>
                         Kirim hadiah untuk me-request lagu
                         </div>
                     </div>
@@ -339,12 +340,12 @@ const SongOverlay = () => {
             ) : (
             <>
                 {/* Header + Album art + info lama (Now Playing) tetap di sini, tidak berubah */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '0px 12px 10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '0px 14px 10px' }}>
                 <div style={{ position: 'relative', flexShrink: 0, margin: '0px 4px 0px 0px' }}>
                     <img
                     src={nowPlaying.artworkUrl || ''}
                     alt=""
-                    style={{ width: 50, height: 50, borderRadius: 10, objectFit: 'cover', border: `2px solid ${accent}40`, display: 'block' }}
+                    style={{ width: 40, height: 40, borderRadius: 10, objectFit: 'cover', border: `2px solid ${accent}40`, display: 'block' }}
                     onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
                     />
                     <div style={{ color: 'white', display: 'none', width: 54, height: 54, borderRadius: 10, background: accent + '22', border: `2px solid ${accent}40`, alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>
