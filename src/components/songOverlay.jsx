@@ -266,9 +266,9 @@ const SongOverlay = () => {
     };
   }, [token]);
 
-  const accent      = config?.highlightColor || config?.primaryColor || '#60a5fa';
-  const bg          = config?.primaryColor   || '#1e293b';
-  const fg          = config?.textColor      || '#ffffff';
+  const accent      = config?.highlightColor || config?.songBgColor || config?.primaryColor || '#60a5fa';
+  const bg          = config?.songBgColor || config?.primaryColor   || '#1e293b';
+  const fg          = config?.songTextColor || config?.textColor    || '#ffffff';
   const accentFaint = accent + '22';
   const isIdle      = !nowPlaying;
 

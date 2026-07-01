@@ -469,6 +469,88 @@ const InstantTestMediaShareSkeleton = () => {
   );
 };
 
+const InstantTestSong = ({ overlayToken, user }) => {
+  const [isSending, setIsSending] = useState(false);
+  const [lastSent, setLastSent] = useState(null);
+  const [videoId, setVideoId] = useState('');
+  const [title, setTitle] = useState('Test Song');
+  const [artist, setArtist] = useState('Test Artist');
+  const [duration, setDuration] = useState(180);
+  const [donorName, setDonorName] = useState('Tester');
+
+  const extractVideoId = (input) => {
+    if (!input) return '';
+    const trimmed = input.trim();
+    if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed; // sudah ID
+    try {
+      const url = new URL(trimmed);
+      if (url.hostname.includes('youtu.be')) return url.pathname.slice(1);
+      return url.searchParams.get('v') || '';
+    } catch {
+      return '';
+    }
+  };
+
+  const sendTest = async () => {
+    const id = extractVideoId(videoId);
+    if (!id) {
+      toast.error('Masukkan Video ID atau URL YouTube yang valid');
+      return;
+    }
+    setIsSending(true);
+    try {
+      await api.post('/api/overlay/test-song', {
+        videoId: id, title, artist, duration, donorName,
+      });
+      setLastSent(new Date());
+      toast.success('🎵 Test lagu berhasil dikirim ke overlay!');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Gagal mengirim test lagu');
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  return (
+    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
+      <div className="flex items-center gap-3">
+        <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg">
+          <Music size={20} />
+        </div>
+        <h3 className="text-sm uppercase md:capitalize md:text-xl font-black text-slate-800 dark:text-slate-100 tracking-tight">
+          Testing Song Request
+        </h3>
+      </div>
+
+      <InputField label="Video ID / URL YouTube" value={videoId} onChange={setVideoId} placeholder="https://youtube.com/watch?v=..." />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <InputField label="Judul Lagu" value={title} onChange={setTitle} />
+        <InputField label="Artis" value={artist} onChange={setArtist} />
+        <InputField label="Nama Donatur" value={donorName} onChange={setDonorName} />
+        <InputField label="Durasi (detik)" type="number" value={duration} onChange={v => setDuration(Number(v))} />
+      </div>
+
+      <button
+        onClick={sendTest}
+        disabled={isSending || !overlayToken}
+        className="cursor-pointer active:scale-[0.99] w-full mt-2 py-3 hover:brightness-90 bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-60"
+      >
+        {isSending ? (<><RefreshCw size={18} className="animate-spin" /> Mengirim...</>) : (<><Zap size={18} /> Kirim Test Lagu ke OBS</>)}
+      </button>
+
+      {lastSent && (
+        <div className="flex items-center gap-3 text-xs text-white font-bold bg-emerald-50 dark:bg-emerald-950/40 rounded-xl px-4 py-3 border border-emerald-100 dark:border-emerald-900">
+          <CheckCircle2 size={14} /> Test terakhir dikirim: {lastSent.toLocaleTimeString('id-ID')}
+        </div>
+      )}
+
+      <p className="text-[10px] text-slate-400 dark:text-slate-400 font-medium">
+        Pastikan overlay <b>Now Playing</b> sudah dibuka di OBS Browser Source
+      </p>
+    </div>
+  );
+};
+
 const InstantTestAlert = ({ overlayToken, settings, user }) => {
   const [isSending, setIsSending] = useState(false);
   const [lastSent, setLastSent] = useState(null);
@@ -5624,6 +5706,8 @@ const handleChangePin = async () => {
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-3">
                     <SectionHeader icon={<Music size={20} />} title="Share Song" color="bg-blue-600" />
 
+                    <InstantTestSong overlayToken={user.overlayToken} user={user} />
+
                     <div className="flex items-center justify-between p-4 mt-5 px-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
                       <div>
                         <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Aktifkan Song Request</p>
@@ -5657,6 +5741,26 @@ const handleChangePin = async () => {
                         onChange={e => upd('songRequestVolume', Number(e.target.value))}
                         className="w-full cursor-pointer accent-blue-600"
                       />
+                    </div>
+
+                    <div className="mt-5 md:p-5 md:bg-slate-50 md:dark:bg-slate-800/50 rounded-xl md:border border-slate-200 dark:border-slate-700">
+                      <h4 className="font-black text-sm text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-3">
+                        🎨 Tampilan Overlay Now Playing
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <ColorInput
+                          id="color-songBgColor"
+                          label="Warna Background"
+                          value={settings.songBgColor || '#1e293b'}
+                          onChange={v => upd('songBgColor', v)}
+                        />
+                        <ColorInput
+                          id="color-songTextColor"
+                          label="Warna Teks"
+                          value={settings.songTextColor || '#ffffff'}
+                          onChange={v => upd('songTextColor', v)}
+                        />
+                      </div>
                     </div>
 
                     <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
