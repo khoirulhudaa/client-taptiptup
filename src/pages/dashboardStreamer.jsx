@@ -660,12 +660,24 @@ export const InstantTestSong = ({ overlayToken, user }) => {
       {searchError && <p className="text-red-500 text-xs font-bold">{searchError}</p>}
 
       {results.length > 0 && (
-        <div className="max-h-72 grid md:grid-cols-4 grid-cols-1 gap-3 overflow-y-auto">
-          {results.map(track => (
+        <div className="max-h-72 px-1 grid md:grid-cols-4 grid-cols-1 gap-3.5">
+          {results.
+          slice(0, 8).map(track => (
             <div
               key={track.id}
               onClick={() => selectTrack(track)}
-              className="flex gap-3 p-3 items-center bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-400 cursor-pointer transition-all active:scale-[0.99]"
+              className="
+                text-slate-900 dark:text-white
+                -translate-y-[3px] translate-x-[-3px]
+                [box-shadow:4px_6px_0_#f1f5f9]
+                dark:[box-shadow:4px_4px_0_#99a3b1]
+                hover:translate-y-0 hover:translate-x-0
+                hover:bg-slate-200 dark:hover:bg-slate-700
+                hover:[box-shadow:0_0_0_#f1f5f9]
+                dark:hover:[box-shadow:0_0_0_#94a3b8]
+                active:translate-y-[2px] active:translate-x-[2px]
+                active:[box-shadow:none]
+              flex gap-3 p-3 items-center bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-300 hover:border-blue-400 cursor-pointer transition-all active:scale-[0.99]"
             >
               <img src={track.artworkUrl} alt="" className="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
               <div className="flex-1 min-w-0">

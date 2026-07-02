@@ -735,7 +735,7 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
 
       {/* Hasil Pencarian */}
       {searchResults.length > 0 && (
-        <div className="max-h-72 overflow-y-auto space-y-2 pr-1">
+        <div className="max-h-72 overflow-y-auto space-y-2 pr-2.5">
           {searchResults.map(track => (
             <div
               key={track.id}
