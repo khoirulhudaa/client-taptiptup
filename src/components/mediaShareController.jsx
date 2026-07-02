@@ -214,7 +214,7 @@ export const MediaShareControl = ({ overlayToken }) => {
                 flex-shrink-0 transition-colors ${
                   copied ? 'text-green-500' : 'text-slate-300 dark:text-slate-500'
                 }`}>
-                  {copied ? <Check size={18} /> : <Copy size={18} />}
+                  {copied ? <Check size={15} /> : <Copy size={15} />}
                 </span>
               </button>
             );
