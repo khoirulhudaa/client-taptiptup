@@ -291,7 +291,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
         <div>
           <div className="flex items-center justify-between mb-2">
             <label className="text-[10px] font-black text-slate-400 uppercase md:capitalize tracking-widest">Ukuran Font</label>
-            <span className="text-sm md:text-xl font-black text-slate-700 dark:text-slate-200">{cfg.fontSize}px</span>
+            <span className="text-xs md:text-sm font-black text-slate-700 dark:text-slate-200">{cfg.fontSize}px</span>
           </div>
           <input
             type="range" min={12} max={28} step={1}
@@ -307,7 +307,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
         <div>
           <div className="flex items-center justify-between mb-2">
             <label className="text-[10px] font-black text-slate-400 uppercase md:capitalize tracking-widest">Kecepatan Scroll</label>
-            <span className="text-sm md:text-xl font-black text-slate-700 dark:text-slate-200">{cfg.speed} px/s</span>
+            <span className="text-xs md:text-sm font-black text-slate-700 dark:text-slate-200">{cfg.speed} px/s</span>
           </div>
           <input
             type="range" min={10} max={120} step={5}
