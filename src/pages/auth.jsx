@@ -132,7 +132,7 @@
   );
 
   // ─── Auth Input Component ─────────────────────────────────────────────────────
-  const AuthInput = ({ icon: Icon, type='text', label, value, onChange, placeholder, T, className = "" }) => {
+  const AuthInput = ({ icon: Icon, type='text', label, value, onChange, placeholder, T, id, autoComplete, className = "" }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [focused, setFocused] = useState(false);
     const isPassword = type === 'password';
@@ -169,6 +169,8 @@
           placeholder={placeholder}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
+          id={id}
+          autoComplete={autoComplete}
           style={{
             flex: 1,
             background: 'white',
@@ -505,6 +507,8 @@
                 <AuthInput 
                   label={'Email'}
                   icon={Mail} 
+                  id="login-email"
+                  autoComplete="email"
                   type="email" 
                   placeholder="Alamat Email" 
                   value={formData.email} 
@@ -519,6 +523,8 @@
                 <AuthInput 
                   label={'Password'}
                   icon={Lock} 
+                  id="login-password123"
+                  autoComplete="password"
                   type="password" 
                   placeholder="Password" 
                   value={formData.password} 

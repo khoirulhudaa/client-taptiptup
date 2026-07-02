@@ -590,14 +590,14 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-lg p-4 md:p-6 z-[9999] shadow-2xl text-center"
+              className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl p-4 md:p-6 z-[9999] shadow-2xl text-center"
             >
               <div className="w-20 h-20 mx-auto mb-6 bg-red-100 dark:bg-red-950/40 text-red-600 rounded-lg flex items-center justify-center">
                 <AlertCircle size={40} />
               </div>
               <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2">Konfirmasi Keluar</h3>
               <p className="text-slate-500 dark:text-slate-400 font-bold mb-8">Apakah kamu yakin ingin akhiri sesi ini?</p>
-              <div className="flex flex-col gap-3">
+              <div className="flex gap-3.5">
                 <button
                   onClick={handleLogout}
                   className="
@@ -612,7 +612,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                     active:translate-y-[2px] active:translate-x-[2px]
                     active:[box-shadow:none]
                     active:bg-slate-300 dark:active:bg-slate-800
-                  cursor-pointer active:scale-[0.99] w-full py-4 bg-red-600 text-white rounded-lg font-bold text-md shadow-xl shadow-red-200 dark:shadow-red-900/20 hover:bg-red-700 transition-all"
+                  cursor-pointer active:scale-[0.99] w-full py-4 bg-red-600 text-white rounded-2xl font-bold text-md shadow-xl shadow-red-200 dark:shadow-red-900/20 hover:bg-red-700 transition-all"
                 >
                   Ya, Keluar
                 </button>
@@ -632,7 +632,7 @@ export const TopNavbar = ({ user, onLogout, onProfile, activeTab, setActiveTab, 
                     active:translate-y-[2px] active:translate-x-[2px]
                     active:[box-shadow:none]
                     active:bg-slate-300 dark:active:bg-slate-800
-                  cursor-pointer active:scale-[0.99] w-full py-4 rounded-lg font-bold text-md transition-all"
+                  cursor-pointer active:scale-[0.99] w-full py-4 rounded-2xl font-bold text-md transition-all"
                 >
                   Batal
                 </button>

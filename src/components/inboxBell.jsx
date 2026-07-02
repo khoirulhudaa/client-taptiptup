@@ -125,7 +125,7 @@ export const InboxBell = ({ setActiveTab }) => {
           cursor-pointer h-[38px] w-[38px] flex items-center justify-center rounded-xl border transition-all active:scale-[0.97] relative ${
           open
             ? 'bg-blue-600 border-blue-600 text-white'
-            : 'bg-slate-100 dark:bg-slate-700 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+            : 'bg-slate-100 dark:bg-slate-700 border-slate-200 dark:border-slate-300 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
         }`}
       >
         <Bell size={16} className={open ? 'text-white' : ''} />
@@ -150,7 +150,7 @@ export const InboxBell = ({ setActiveTab }) => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.95 }}
               transition={{ duration: 0.15 }}
-              className="absolute right-[-127%] top-full mt-2 w-[88vw] md:w-120 bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-100 dark:border-slate-700 overflow-hidden z-[9999]"
+              className="absolute right-[-127%] top-full mt-4 w-[88vw] md:w-120 bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-100 dark:border-slate-500 overflow-hidden z-[9999]"
             >
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">

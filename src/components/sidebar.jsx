@@ -345,7 +345,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
                   )}
 
                   {/* Menu Items */}
-                  <div className="space-y-1 flex md:block flex-wrap gap-3 md:gap-0 pt-4">
+                  <div className="space-y-1 flex md:block flex-wrap gap-3  md:gap-0 pt-4">
                     {visibleItems.map((item) => (
                       <motion.button
                         key={item.id}
