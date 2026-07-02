@@ -190,7 +190,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
                 cursor-pointer text-left p-4 rounded-xl border-2 transition-all active:scale-[0.99] space-y-1 ${
                 cfg.mode === m.val
                   ? 'bg-blue-600 border-blue-600 text-white'
-                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 hover:border-blue-300'
+                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-300 text-slate-600 hover:border-blue-300'
               }`}
             >
               <p className="font-black text-sm relative left-[-3px]">{m.label}</p>
@@ -361,7 +361,7 @@ const MarqueeConfigPanel = ({ overlayToken }) => {
                 cursor-pointer px-4 py-3 min-h-11.5 rounded-xl font-black text-xs border-2 transition-all active:scale-[0.97] ${
                 cfg.bg === preset.value
                   ? 'bg-blue-600 border-blue-600 text-white'
-                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-blue-300'
+                  : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-300 text-slate-500 hover:border-blue-300'
               }`}
             >
               {preset.label}

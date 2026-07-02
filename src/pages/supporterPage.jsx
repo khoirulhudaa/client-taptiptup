@@ -770,7 +770,7 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
             initial={{ opacity: 0, scale: 0.96, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96 }}
-            className="bg-white dark:bg-slate-900 rounded-xl border border-blue-200 dark:border-blue-800 overflow-hidden"
+            className="bg-white dark:bg-slate-900 rounded-xl p-1 border border-blue-200 dark:border-blue-800 overflow-hidden"
           >
             {/* Album art + info */}
             <div className="relative flex items-center gap-3 p-3">
@@ -796,7 +796,7 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
                 )}
               </div>
 
-              <div className="flex-1 min-w-0">
+              <div className="flex-1 min-w-0 ml-[2px]">
                 <p className="font-black truncate max-w-[86%] text-sm text-slate-800 dark:text-white truncate">{songData.title}</p>
                 <p className="text-[11px] text-slate-400 font-bold truncate mt-0.5">{songData.artist}</p>
               </div>
@@ -809,24 +809,7 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
               </button>
             </div>
 
-            {/* Progress bar */}
-            <div className="px-3 pb-1">
-              <div
-                className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full cursor-pointer overflow-hidden"
-                onClick={handleSeek}
-              >
-                <div
-                  className="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all"
-                  style={{ width: `${progressPercent}%` }}
-                />
-              </div>
-              <div className="flex justify-between mt-1">
-                <span className="text-[11px] font-bold text-slate-400">{formatTime(currentTime)}</span>
-                <span className="text-[11px] font-bold text-slate-400">{formatTime(duration)}</span>
-              </div>
-            </div>
-
-            {/* Controls */}
+                 {/* Controls */}
             <div className="flex items-center justify-center gap-4 pb-4 pt-1">
               {/* Rewind 10s */}
               <button
@@ -869,13 +852,27 @@ const SongRequestSection = ({ minAmount, songData, setSongData, songUrl, setSong
                 10↪
               </button>
             </div>
+
+            {/* Progress bar */}
+            <div className="px-3 pb-1 mt-2">
+              <div
+                className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full cursor-pointer overflow-hidden"
+                onClick={handleSeek}
+              >
+                <div
+                  className="h-full bg-gradient-to-r from-blue-400 to-blue-500 rounded-full transition-all"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+              <div className="flex justify-between mt-1">
+                <span className="text-[11px] font-bold text-slate-400">{formatTime(currentTime)}</span>
+                <span className="text-[11px] font-bold text-slate-400">{formatTime(duration)}</span>
+              </div>
+            </div>
+
           </motion.div>
         )}
       </AnimatePresence>
-
-      <p className="text-[9px] text-slate-400 dark:text-slate-500 font-medium">
-        Powered by YouTube — preview lagu sebelum dikirim
-      </p>
     </div>
   );
 };
@@ -2067,8 +2064,13 @@ const SupporterPage = () => {
     const minDonate = overlaySetting?.minDonate || 1000;
     const maxDonate = overlaySetting?.maxDonate || 10000000;
    
-    if (activeTab === 'song' && !songData)
-    return alert('Pilih lagu SoundCloud dulu sebelum kirim dukungan');
+    if (activeTab === 'song') {
+      const minSong = overlaySetting?.songRequestMinAmount || 25000;
+      if (form.amount < minSong)
+        return alert(`Song Request butuh minimal Rp ${minSong.toLocaleString('id-ID')}`);
+      if (!songData)
+        return alert('Pilih lagu dulu sebelum kirim dukungan');
+    }
     
     if (!isLoggedIn && !form.isAnonymous) {
       if (!form.donorName?.trim()) {
@@ -2256,6 +2258,13 @@ const SupporterPage = () => {
       if (!mediaUrl.trim())
         return 'Link media wajib diisi untuk Media Share';
     }
+    if (activeTab === 'song') {
+      const minSong = overlaySetting?.songRequestMinAmount || 25000;
+      if (form.amount < minSong)
+        return `Nominal min. Rp ${Number(minSong).toLocaleString('id-ID')} untuk Song Request`;
+      if (!songData)
+        return 'Pilih lagu SoundCloud dulu';
+    }
     if (activeTab === 'song' && !songData)
       return 'Pilih lagu SoundCloud dulu';
     if (activeTab === 'voice' && !form.voiceUrl?.trim())
@@ -2334,7 +2343,7 @@ const SupporterPage = () => {
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90 dark:to-slate-900/90" />
             </div>
 
-            <div className="w-20 h-20 mt-2 md:ml-0 ml-[-2.5px] md:mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg mb-4 border-4 border-white dark:border-slate-900">
+            <div className="w-20 h-19 md:h-18 mt-2 md:ml-[-3.5px] ml-[-2.5px] md:mx-auto rounded-xl overflow-hidden bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white text-5xl font-black shadow-lg mb-4 border-4 border-white dark:border-slate-900">
               {streamer?.profilePicture ? (
                 <img src={streamer.profilePicture} alt={streamer.username} className="w-full h-full object-cover"
                   onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = streamer.username?.charAt(0).toUpperCase() || '?'; }} />
@@ -2587,7 +2596,7 @@ const SupporterPage = () => {
             )}
 
             {activeTab === 'song' && (
-              <motion.div key="tab-song" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
+              <motion.div key="tab-song" className='mb-4' initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
                 {!overlaySetting?.songRequestEnabled ? (
                   <div className="flex items-center gap-3 px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-500/50 rounded-xl">
                     <Music size={18} className="text-slate-300 dark:text-slate-600 flex-shrink-0" />
@@ -2779,10 +2788,17 @@ const SupporterPage = () => {
               whileTap={!isSubmitDisabled ? { scale: 0.99 } : {}}
               onClick={handleDonate}
               disabled={isSubmitDisabled}
-              className={`w-full py-3.5 md:py-4 rounded-xl font-black text-sm flex items-center justify-center gap-2 transition-all ${
+              className={`
+                  -translate-y-[3px] translate-x-[-3px]
+                  [box-shadow:4px_6px_0_#f1f5f9]
+                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                  border border-slate-300
+                  active:translate-y-[2px] active:translate-x-[2px]
+                  active:[box-shadow:none]
+                  w-full py-3.5 md:py-4 rounded-xl font-black text-sm flex items-center justify-center gap-2 transition-all ${
                 isSubmitDisabled
                   ? 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed'
-                  : 'active:scale-[0.99] cursor-pointer bg-blue-600 text-white hover:brightness-110'
+                  : 'active:scale-[0.99] dark:hover:[box-shadow:0_0_0_#94a3b8] hover:[box-shadow:0_0_0_#f1f5f9] hover:translate-y-0 hover:translate-x-0 cursor-pointer bg-blue-600 text-white hover:bg-blue-700'
               }`}
             >
               {loading ? (

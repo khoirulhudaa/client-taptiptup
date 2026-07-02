@@ -1323,7 +1323,7 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
                 <p className="text-2xl mb-2">🚫</p>
                 <p className="font-black text-sm">Belum ada kata terlarang</p>
               </div>
-            : <div className="md:flex md:flex-wrap grid grid-cols-3 gap-3.5">
+            : <div className="md:flex md:flex-wrap grid grid-cols-3 gap-3.5 py-1">
                 {words.map(word => (
                   <span key={word} className="
                       text-slate-900 dark:text-white 
@@ -1338,9 +1338,9 @@ const BannedWordsEditor = ({ saveSettingsMutation, settings, activeSlot }) => {
                           active:translate-y-[2px] active:translate-x-[2px]
                           active:[box-shadow:none]
                           active:bg-slate-300 dark:active:bg-slate-800
-                  w-full md:w-max flex justify-center md:justify-start items-center gap-3 px-4 py-3 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl  text-sm font-black border border-red-100 dark:border-red-900">
+                  w-full md:w-max flex justify-center md:justify-start items-center gap-3 px-4 py-3 bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl text-sm font-black border border-red-100 dark:border-slate-300">
                     {word}
-                    <button onClick={() => remove(word)} className="cursor-pointer hover:text-red-800 dark:hover:text-red-300 transition-colors"><Trash2 size={12} /></button>
+                    <button onClick={() => remove(word)} className="cursor-pointer hover:text-slate-800 dark:hover:text-red-300 transition-colors"><Trash2 size={12} /></button>
                   </span>
                 ))}
               </div>
