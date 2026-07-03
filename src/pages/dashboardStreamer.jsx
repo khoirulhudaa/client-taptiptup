@@ -787,7 +787,7 @@ export const InstantTestSong = ({ overlayToken, user }) => {
   );
 };
 
-const InstantTestAlert = ({ overlayToken, settings, user }) => {
+const InstantTestAlert = ({ overlayToken, settings, user, copyToClipboard }) => {
   const [isSending, setIsSending] = useState(false);
   const [lastSent, setLastSent] = useState(null);
   const [customAmount, setCustomAmount] = useState(50000);
@@ -859,10 +859,11 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
         </div>
       </div>
 
+      <div className='w-full px-1'>
       <button 
         onClick={sendTest} 
         disabled={isSending || !overlayToken}
-         className="
+        className="
         text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
         -translate-y-[3px] translate-x-[-3px]
         [box-shadow:4px_6px_0_#f1f5f9]
@@ -883,6 +884,39 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
           <><Zap size={18} /> Kirim Test ke OBS Sekarang</>
         )}
       </button>
+      </div>
+
+      <div className="flex items-center justify-between bg-blue-50 dark:bg-blue-950/30 p-4 rounded-xl border border-blue-200 dark:border-blue-800">
+        <div className='w-[85%]'>
+          <p className="text-[10px] font-black text-blue-400 dark:text-white uppercase tracking-widest mb-1">
+            Link OBS Alert
+          </p>
+          <input
+            readOnly
+            value={`${user.overlayUrl}`}
+            className="flex-1 w-full bg-transparent font-mono text-xs text-blue-600 dark:text-blue-300 font-bold outline-none truncate max-w-[86%]"
+            />
+        </div>
+        <div className="flex gap-3">
+          <button
+            onClick={() => copyToClipboard(`${user.overlayUrl}`, 'URL OBS Alert')}
+              className={`
+              text-slate-900 dark:text-white 
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 bg-blue-600 hover:bg-blue-700 text-white`}>
+            Salin
+          </button>
+        </div>
+      </div>
 
       {lastSent && (
         <motion.div 
@@ -893,17 +927,13 @@ const InstantTestAlert = ({ overlayToken, settings, user }) => {
           <CheckCircle2 size={14} /> Test terakhir dikirim: {lastSent.toLocaleTimeString('id-ID')}
         </motion.div>
       )}
-
-      <p className="text-[10px] text-slate-400 dark:text-slate-400 font-medium text-left">
-        Pastikan OBS overlay kamu sudah dibuka di browser source
-      </p>
     </div>
   );
 };
 
 // ─── InstantTestMediaShare ────────────────────────────────────────────────────
 
-const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
+const InstantTestMediaShare = ({ overlayToken, settings, user, copyToClipboard }) => {
   const [isSending, setIsSending] = useState(false);
   const [lastSent, setLastSent] = useState(null);
   const [useItem, setUseItem] = useState(false);
@@ -958,7 +988,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
 
   return (
     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xl border border-slate-100 dark:border-slate-800 space-y-3">
-      <div className="flex items-center gap-3 pb-[3px]">
+      <div className="flex items-center gap-3 pb-[3px] mb-6">
         <div className="bg-blue-600 p-3 rounded-xl  text-white shadow-lg">
           <Video size={20} />
         </div>
@@ -967,55 +997,62 @@ const InstantTestMediaShare = ({ overlayToken, settings, user }) => {
         </div>
       </div>
 
-      <div className="pt-3">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-4">
-          {PRESET_MEDIA.map((preset, i) => (
-            <button key={i} onClick={() => { updateForm('mediaUrl', preset.url); updateForm('mediaType', preset.type); }}
-              className={`
-                 text-slate-900 dark:text-white 
-                -translate-y-[3px] translate-x-[-3px]
-                [box-shadow:4px_6px_0_#f1f5f9]
-                dark:[box-shadow:4px_4px_0_#99a3b1]
-                hover:translate-y-0 hover:translate-x-0
-                hover:[box-shadow:0_0_0_#f1f5f9]
-                dark:hover:[box-shadow:0_0_0_#94a3b8]
-                active:translate-y-[2px] active:translate-x-[2px]
-                active:[box-shadow:none]
-                cursor-pointer active:scale-[0.99] group relative p-2 rounded-xl  border transition-all overflow-hidden hover:shadow-md ${
-                formData.mediaUrl === preset.url
-                  ? 'bg-purple-50 dark:bg-purple-950/30 shadow-md border border-blue-600'
-                  : 'border-slate-200 dark:border-slate-300 hover:border-purple-300 bg-slate-50 dark:bg-slate-800/50'
-              }`}>
-              <div className="w-full h-16 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-700 dark:to-slate-600 rounded overflow-hidden">
-                <img src={preset.thumb} alt={preset.label} className="w-full h-full object-cover transition-transform group-hover:scale-110" />
-              </div>
-            </button>
-          ))}
-        </div>
+      <div className='w-full px-1'>
+        <button onClick={sendTestMedia} disabled={isSending || !overlayToken || !formData.mediaUrl}
+          className="
+          text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            hover:bg-slate-200 dark:hover:bg-slate-700
+            border border-slate-300
+            mt-4
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+          active:bg-slate-300 dark:active:bg-slate-800
+          cursor-pointer hover:brightness-90 w-full py-3 hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl  font-black text-sm active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
+          {isSending ? (
+            <><div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" /><span>Mengirim...</span></>
+          ) : (
+            <><Zap size={18} /> Kirim Test ke OBS Sekarang</>
+          )}
+        </button>
       </div>
 
-      <button onClick={sendTestMedia} disabled={isSending || !overlayToken || !formData.mediaUrl}
-        className="
-        text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
-          -translate-y-[3px] translate-x-[-3px]
-          [box-shadow:4px_6px_0_#f1f5f9]
-          dark:[box-shadow:4px_4px_0_#99a3b1]
-          hover:translate-y-0 hover:translate-x-0
-          hover:bg-slate-200 dark:hover:bg-slate-700
-          border border-slate-300
-          mt-4
-          hover:[box-shadow:0_0_0_#f1f5f9]
-          dark:hover:[box-shadow:0_0_0_#94a3b8]
-          active:translate-y-[2px] active:translate-x-[2px]
-          active:[box-shadow:none]
-        active:bg-slate-300 dark:active:bg-slate-800
-        cursor-pointer hover:brightness-90 w-full py-3 hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl  font-black text-sm active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
-        {isSending ? (
-          <><div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" /><span>Mengirim...</span></>
-        ) : (
-          <><Zap size={18} /> Kirim Test ke OBS Sekarang</>
-        )}
-      </button>
+      <div className="flex items-center justify-between bg-blue-50 dark:bg-blue-950/30 p-4 rounded-xl border border-blue-200 dark:border-blue-800">
+        <div className='w-[85%]'>
+          <p className="text-[10px] font-black text-blue-400 dark:text-white uppercase tracking-widest mb-1">
+            Link OBS Mediashare
+          </p>
+          <input
+            readOnly
+            value={`${window.location.origin}/overlay/${user.overlayToken}/mediashare`}
+            className="flex-1 w-full bg-transparent font-mono text-xs text-blue-600 dark:text-blue-300 font-bold outline-none truncate max-w-[86%]"
+            />
+        </div>
+        <div className="flex gap-3">
+          <button
+            onClick={() => copyToClipboard(`${window.location.origin}/overlay/${user.overlayToken}/mediashare`, 'URL OBS Alert')}
+              className={`
+              text-slate-900 dark:text-white 
+              -translate-y-[3px] translate-x-[-3px]
+              [box-shadow:4px_6px_0_#f1f5f9]
+              dark:[box-shadow:4px_4px_0_#99a3b1]
+              hover:translate-y-0 hover:translate-x-0
+              border border-slate-300
+              hover:[box-shadow:0_0_0_#f1f5f9]
+              dark:hover:[box-shadow:0_0_0_#94a3b8]
+              active:translate-y-[2px] active:translate-x-[2px]
+              active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer active:scale-[0.99] cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 bg-blue-600 hover:bg-blue-700 text-white`}>
+            Salin
+          </button>
+        </div>
+      </div>
 
       {lastSent && (
         <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
@@ -5945,7 +5982,7 @@ const handleChangePin = async () => {
                 <motion.div key="alertSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-5 pb-0 w-full">
 
                   {/* Instant Test */}
-                  {profileLoading ? <InstantTestAlertSkeleton /> : <InstantTestAlert overlayToken={user.overlayToken} settings={settings} user={user} />}
+                  {profileLoading ? <InstantTestAlertSkeleton /> : <InstantTestAlert copyToClipboard={copyToClipboard} overlayToken={user.overlayToken} settings={settings} user={user} />}
 
                   {/* Durasi */}
                   {profileLoading ? (
@@ -5983,7 +6020,7 @@ const handleChangePin = async () => {
                 <motion.div key="mediaSettings" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-5 pb-0 w-full">
 
                   {/* Instant Test MediaShare */}
-                  {profileLoading ? <InstantTestMediaShareSkeleton /> : <InstantTestMediaShare overlayToken={user.overlayToken} settings={settings} user={user}/>}
+                  {profileLoading ? <InstantTestMediaShareSkeleton /> : <InstantTestMediaShare copyToClipboard={copyToClipboard} overlayToken={user.overlayToken} settings={settings} user={user}/>}
 
                   {/* Izin Media */}
                   <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800 space-y-7">
@@ -6151,7 +6188,7 @@ const handleChangePin = async () => {
                   <div className="mt-4 md:flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
                       <div className="flex-1">
                         <p className="text-[12px] font-bold text-slate-700 dark:text-white">Skip Lagu Sekarang</p>
-                        <p className="text-[10px] text-slate-400 font-medium mt-0.5">Lewati lagu yang sedang diputar</p>
+                        <p className="text-[12px] text-slate-400 font-medium mt-0.5">Lewati lagu yang sedang diputar</p>
                       </div>
                       <button
                         onClick={async () => {

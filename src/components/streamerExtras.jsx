@@ -345,19 +345,18 @@ export const PollManager = ({ overlayToken, username }) => {
       )}
 
       {overlayToken && (
-        <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-xl border border-blue-200 dark:border-blue-800">
-          <p className="text-[10px] font-black text-blue-400 dark:text-blue-500 uppercase tracking-widest mb-1">
-            Link Vote untuk Donor
-          </p>
-          {/* <p className="text-[10px] text-blue-400 dark:text-blue-500 font-medium mb-2">
-            Bagikan link ini ke penonton agar bisa vote sambil dukungan
-          </p> */}
-          <div className="flex gap-3">
+        <div className="flex items-center justify-between bg-blue-50 dark:bg-blue-950/30 p-4 rounded-xl border border-blue-200 dark:border-blue-800">
+          <div>
+            <p className="text-[10px] font-black text-blue-400 dark:text-blue-500 uppercase tracking-widest mb-1">
+              Link Vote untuk Donor
+            </p>
             <input
               readOnly
               value={`${window.location.origin}/poll/${/* username dari props atau context */ 'USERNAME'}`}
               className="flex-1 bg-transparent font-mono text-xs text-blue-600 dark:text-blue-400 font-bold outline-none truncate"
               />
+          </div>
+          <div className="flex gap-3">
             <button
               onClick={() => {
                 const pollUrl = `${window.location.origin}/poll/USERNAME`;
