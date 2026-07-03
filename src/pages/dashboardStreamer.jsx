@@ -5066,6 +5066,7 @@ const handleChangePin = async () => {
                   <DonatePageConfig
                     settings={settings}
                     upd={upd}
+                    user={user}
                     saveSettingsMutation={saveSettingsMutation}
                     activeSlot={activeSlot}
                   />
