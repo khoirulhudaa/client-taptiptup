@@ -475,11 +475,11 @@ const replyFromCS = (question) => {
               top: 0,
               right: 0,
               bottom: 0,
-              zIndex: 9998,
+              zIndex: 999999999,
               display: 'flex',
               flexDirection: 'column',
             }}
-            className="md:w-[33vw] w-[100vw] bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-700"
+            className="md:w-[91vw] h-screen w-[100vw] rounded-xl bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-700"
           >
             {/* Header */}
             <div className="flex items-center gap-3 px-4 py-4 bg-indigo-600 flex-shrink-0">
@@ -585,7 +585,8 @@ const replyFromCS = (question) => {
         )}
       </AnimatePresence>
 
-      {/* ── FAB — selalu tampilkan HeadphonesIcon, tidak pernah X ── */}
+      <div className='mt-0'>
+        {/* ── FAB — selalu tampilkan HeadphonesIcon, tidak pernah X ── */}
         <motion.button
             drag
             dragMomentum={false}
@@ -615,25 +616,33 @@ const replyFromCS = (question) => {
             style={{
                 position: 'fixed',
                 bottom: 16,
+                right: 10,
                 zIndex: 9999,
-                width: 56,
                 height: 56,
                 border: 'none',
             }}
 
-            className={`md:!right-[20px] !right-[18px] ${isOpen ? 'hidden' : ''} relative p-[2px] bg-gradient-to-r from-cyan-400 via-blue-500 to-yellow-400 shadow-2xl cursor-grab active:cursor-grabbing`}
+            className={`${isOpen ? 'hidden' : ''} w-max rounded-xl p-[2px] shadow-2xl cursor-grab active:cursor-grabbing`}
             >
         {/* inner button */}
-        <div className="w-full h-full bg-indigo-600 hover:bg-indigo-700 flex items-center justify-center text-white  shadow-indigo-200 dark:shadow-indigo-900/40 transition-colors relative">
+        <div className="
+           text-slate-900 dark:text-white 
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            hover:translate-y-0 hover:translate-x-0
+            border border-slate-300
+            hover:[box-shadow:0_0_0_#f1f5f9]
+            dark:hover:[box-shadow:0_0_0_#94a3b8]
+            active:translate-y-[2px] active:translate-x-[2px]
+            active:[box-shadow:none]
+            active:bg-slate-300 dark:active:bg-slate-800
+            cursor-pointer active:scale-[0.99] flex items-center justify-center w-13 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-400 hover:border-blue-400 hover:text-blue-500 transition-all flex-shrink-0">
 
-            <HeadphonesIcon size={22} />
-
-            {/* Unread badge */}
-            {hasUnread && (
-            <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-red-500 rounded-full border-2 border-white dark:border-slate-950" />
-            )}
+            <HeadphonesIcon size={22} className='relative top-[-1px]' />
         </div>
         </motion.button>
+      </div>
     </>
   );
 };

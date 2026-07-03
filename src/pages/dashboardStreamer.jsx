@@ -2130,14 +2130,14 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
     const mType = detectMediaType(mediaUrl);
 
     const MediaBlock = () => (
-      <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
+      <div style={{ padding: 14, borderRadius: 0, width: '100%', aspectRatio: '16/9', overflow: 'hidden', borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
         {mType === 'youtube' ? (
           <iframe src={getYouTubeEmbedUrl(mediaUrl)} width="100%" height="100%" frameBorder="0"
-            allow="autoplay; encrypted-media" allowFullScreen style={{ display: 'block', border: 'none' }} />
+            allow="autoplay; encrypted-media" allowFullScreen style={{ borderRadius: 10, display: 'block', border: 'none' }} />
         ) : mType === 'video' ? (
-          <video src={mediaUrl} autoPlay loop muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <video src={mediaUrl} autoPlay loop muted style={{ borderRadius: 10, width: '100%', height: '100%', objectFit: 'cover' }} />
         ) : (
-          <img src={mediaUrl} alt="media" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src={mediaUrl} alt="media" style={{ borderRadius: 10, width: '100%', height: '100%', objectFit: 'cover' }} />
         )}
       </div>
     );
@@ -2145,8 +2145,6 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
     const theme = settings.theme || 'modern';
     const wrapperBase = {
       backgroundColor: bg, color: fg,
-      maxWidth: `${settings.maxWidth || 380}px`,
-      minWidth: '340px',
       width: '100%', overflow: 'hidden',
     };
 
@@ -2166,14 +2164,14 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           }}>   
           {/* Media block */}
           <div 
-          style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderBottom: `1px solid ${hl}25`, borderRadius: 18 }}>
+          style={{ width: '100%', aspectRatio: '16/9', padding: 10, overflow: 'hidden', borderRadius: 18 }}>
             {mType === 'youtube' ? (
               <iframe src={getYouTubeEmbedUrl(mediaUrl)} width="100%" height="100%" frameBorder="0"
-                allow="autoplay; encrypted-media" allowFullScreen style={{ display: 'block', border: 'none' }} />
+                allow="autoplay; encrypted-media" allowFullScreen style={{ borderRadius: 10, display: 'block', border: 'none' }} />
             ) : mType === 'video' ? (
-              <video src={mediaUrl} autoPlay loop muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <video src={mediaUrl} autoPlay loop muted style={{ borderRadius: 10, width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
-              <img src={mediaUrl} alt="media" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={mediaUrl} alt="media" style={{ borderRadius: 10, width: '100%', height: '100%', objectFit: 'cover' }} />
             )}
           </div>
           {/* Info area */}
@@ -2205,10 +2203,10 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         <>
           <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
           <div style={{ ...wrapperBase, 
-             width: 'max-content', position: 'relative', borderRadius: 18 }}>
+             width: '100%', position: 'relative', borderRadius: 18 }}>
             <div style={scanlineStyle} />
             <MediaBlock />
-            <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2, width: 'max-content' }}>
+            <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2, width: '100%' }}>
               <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.5, marginBottom: 6, width: 'max-content' }}>
                 <span style={{ fontWeight: 500 }}>{currentDonor.name}</span>
                 <span> mengirim </span>
@@ -2221,7 +2219,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
                   {currentDonor.msg}
                 </div>
               )}
-              <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
+              <div style={{ width: '100%', height: 3, background: hl + '20', overflow: 'hidden' }}>
                 <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl }} />
               </div>
             </div>
@@ -2342,10 +2340,8 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   // useEffect(() => () => timerRef.current && clearTimeout(timerRef.current), []);
 
   const posMap = {
-    'top-left':      { top: '14%', left: '2%' },
     'top-right':     { top: '14%', right: '2%' },
     'bottom-left':   { bottom: '28%', left: '2%' },
-    // 'bottom-left':  { bottom: '18%', right: '2%' },
     'top-center':    { top: '14%', left: '50%', transform: 'translateX(-50%)' },
     'bottom-center': { bottom: '18%', left: '50%', transform: 'translateX(-50%)' },
   };
@@ -2363,7 +2359,6 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   const fg    = settings.textColor || '#ffffff';
   const maxW  = settings.maxWidth || 280;
   const theme = settings.theme || 'modern';
-  // const dur   = currentDonor ? getDuration(settings, currentDonor.amount) : 5;
 
   const handleFullScreen = () => { testFullScreen(); setIsFullscreen(!isFullscreen); };
   
@@ -2474,13 +2469,11 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           <div style={{
             width: 40,
             height: 40,
-            // border: pixelBorder,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: 20,
             flexShrink: 0,
-            // background: hl + '12',
             imageRendering: 'pixelated',
           }}>
             {renderIconPreview(settings.customIcon, 20)}
@@ -2506,7 +2499,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
           <div style={{
             fontFamily: "Inter', sans-serif",
             fontSize: 18,
-            color: fg,
+            // color: fg,
             background: 'rgba(255,255,255,0.04)',
             border: dimBorder,
             marginTop: 10,
@@ -2515,6 +2508,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
             width: 'max-content',
             lineHeight: 1.4,
             width: '100%',
+            fontWeight: 500,
             marginBottom: 6,
           }}>
             {currentDonor.msg}
@@ -2818,7 +2812,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
     <AnimatePresence>
       {isFullscreen && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed w-[100%] right-0 inset-0 z-[999999999] bg-black flex flex-col">
-          <div className="flex items-center justify-between px- py-3 md:py-4 bg-black/80 backdrop-blur-sm border-b border-white/10 flex-shrink-0">
+          <div className="flex items-center justify-between py-3 md:py-4 bg-black/80 backdrop-blur-sm border-b border-white/10 flex-shrink-0">
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 bg-red-500 rounded-xl  animate-pulse" />
               <span className="text-white font-black text-sm tracking-wide">LIVE PREVIEW</span>
@@ -2865,7 +2859,7 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
   );
 
     return (
-    <div id="tour-live-preview" className="sticky md:p-0 p-4 top-26 space-y-2.5">
+    <div id="tour-live-preview" className="sticky md:px-2 py-1 top-26 space-y-2.5">
       <FullscreenPreview />
 
       {/* Tab switcher */}
@@ -2910,27 +2904,28 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
                 active:translate-y-[2px] active:translate-x-[2px]
                 active:[box-shadow:none]
               cursor-pointer flex-1 py-3 text-xs font-black rounded-xl transition-all 
-              ${previewMode === tab.id ? 'bg-white/30 dark:bg-blue-600 backdrop-blur-sm text-slate-800 dark:text-slate-100 shadow-sm' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}>
+              ${previewMode === tab.id ? 'bg-white/30 dark:bg-blue-600 backdrop-blur-sm text-slate-800 dark:text-slate-100 shadow-sm' : 'bg-slate-900 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'}`}>
               {tab.label}
             </button>
           ))}
         </div>
       </div>
 
-      <div className={`relative overflow-hidden border-[1px] border-white/60 dark:border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[77.9vh] h-[73.4vh]' : '2xl:h-[77.9vh] h-[73vh]'} w-full`} style={{ aspectRatio: '16/9' }}>
+      <div className={`relative overflow-hidden rounded-xl ${previewMode === 'alert' ? '2xl:h-[40vh] h-[73.4vh]' : '2xl:h-[55vh] h-[73vh]'} w-full`} style={{ aspectRatio: '16/9' }}>
         <div className="absolute inset-0 flex items-center justify-center bg-white/30 dark:bg-slate-900/60">
-          {/* <span style={{ fontSize: 80, fontWeight: 500, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span> */}
         </div>
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="relative inset-0 w-full pointer-events-none">
           <AnimatePresence>
             {showAlert && previewMode === 'alert' && (
-              <motion.div className='ml-1.5 md:ml-[14.2px] w-[90.7%] 2xl:w-[90%] md:w-[87%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
+              <motion.div className='w-[100%] border border-slate-300/30 rounded-2xl' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'relative', marginTop: 20, zIndex: 10 }}>
                 {renderAlert()}
               </motion.div>
             )}
             {showAlert && previewMode === 'media' && (
               <motion.div
-                className='absolute bottom-10 2xl:ml-5 md:mt-[-12px] 2xl:mt-[0] w-[90%] 2xl:scale-[1] scale-[0.85]'
+                className={`relative mt-[20px] rounded-2xl h-max w-[100%] 2xl:scale-[1] scale-[0.85] ${
+                  settings.theme === 'gifCard' ? '' : 'border border-slate-300'
+                }`}
                 key={`media-${animKey}`}
                 initial={anim.initial}
                 animate={anim.animate}
@@ -2939,7 +2934,6 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
                   position: 'absolute',
                   ...pos,
                   zIndex: 10,
-                  top: 20,
                   transform: settings.theme === 'gifCard'
                     ? 'scale(0.5) translateX(-50%)'
                     : 'scale(0.4) translateX(-50%)',
@@ -2952,8 +2946,10 @@ export const YouTubeLivePreview = ({ settings, username, testFullScreen, onPrevi
         </div>
       </div>
 
+
       {/* Media URL picker — hanya muncul saat tab media aktif */}
      
+      {/* <CustomerServiceWidget /> */}
     </div>
   );
 }
@@ -4047,6 +4043,7 @@ export const DashboardStreamer = () => {
   const [showToast, setShowToast]         = useState(false);
   const [localSettings, setLocalSettings] = useState(null);
   const [obsActiveSlot, setObsActiveSlot] = useState('A');
+  const [activePreviewMode, setActivePreviewMode] = useState('alert');
   const [previewMode, setPreviewMode] = useState('alert'); 
   const [donationToasts, setDonationToasts] = useState([]);
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -4167,6 +4164,10 @@ useEffect(() => {
 ]);
 
 // ─── PIN HANDLERS (dipindah ke dalam komponen) ─────────────────────────────────
+
+const handlePreviewModeChange = (mode) => {
+  setActivePreviewMode(mode);
+};
 
 // const fetchProfile    = async () => (await api.get('/api/overlay/settings')).data;
 const fetchProfile = async (slot = 'A') => 
@@ -5127,7 +5128,7 @@ const handleChangePin = async () => {
                   key="settings"
                   className="grid grid-cols-1 gap-3 xl:grid-cols-12"
                 >
-                <section className={`space-y-5 ${showPreviewPanel ? 'xl:col-span-8' : 'xl:col-span-12'}`}>
+                <section className={`space-y-5 ${showPreviewPanel ? 'xl:col-span-12' : 'xl:col-span-12'}`}>
                     {/* Konfigurasi Alert */}
                     <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl space-y-3 p-4 md:p-6 shadow-xs border border-slate-100 dark:border-slate-800">
                       <div className="flex items-center justify-between gap-3">
@@ -5355,16 +5356,17 @@ const handleChangePin = async () => {
                     <div id="tour-tema-visual" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
                       <SectionHeader icon={<Palette size={20} />} title={`Tema visual`} color="bg-cyan-600" />
                       
-                      <YouTubeLivePreview2
+                     <YouTubeLivePreview2
                         settings={settings}
                         username={user.username}
                         testFullScreen={() => setNavbar(!navbar)}
-                        onPreviewModeChange={setPreviewMode}
+                        onPreviewModeChange={handlePreviewModeChange}
+                        onThemeChange={(newTheme) => upd('theme', newTheme)}
                         autoPreviewTick={autoPreviewTick}
                         onTogglePreview={() => setShowPreviewPanel(v => !v)}
                       />
 
-                      <div className="md:col-span-2 md:mt-0 mt-4">
+                      {/* <div className="md:col-span-2 md:mt-0 mt-4">
                         <label className="block text-[10px] font-black text-slate-400 dark:text-slate-400 mb-4 uppercase tracking-widest">Tema Visual</label>
                         <div className="grid grid-cols-3 gap-3.5">
                         {['modern', 'smooth', 'gifCard'].map(t => {
@@ -5398,7 +5400,7 @@ const handleChangePin = async () => {
                           );
                         })}
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="md:col-span-2 w-full flex flex-col !mt-4 gap-3">
                         <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Animasi Masuk</label>
@@ -5904,7 +5906,7 @@ const handleChangePin = async () => {
                     </div>
                   </section>
 
-                  {showPreviewPanel && (
+                  {/* {showPreviewPanel && (
                     <section
                       key="preview-panel"
                       className="xl:col-span-4 md:block hidden sticky top-26 self-start z-[2]"
@@ -5924,7 +5926,7 @@ const handleChangePin = async () => {
 
                     </motion.div>
                     </section>
-                  )}
+                  )} */}
                 </div>
               )}
 
@@ -6106,18 +6108,8 @@ const handleChangePin = async () => {
                             `${window.location.origin}/overlay/${user.overlayToken}/now-playing`,
                             'Now Playing Overlay'
                           )}
-                          className="    text-slate-900 dark:text-white 
-                          -translate-y-[3px] translate-x-[-3px]
-                          [box-shadow:4px_6px_0_#f1f5f9]
-                          dark:[box-shadow:4px_4px_0_#99a3b1]
-                          hover:translate-y-0 hover:translate-x-0
-                          border border-slate-300
-                          hover:[box-shadow:0_0_0_#f1f5f9]
-                          dark:hover:[box-shadow:0_0_0_#94a3b8]
-                          active:translate-y-[2px] active:translate-x-[2px]
-                          active:[box-shadow:none]
-                          active:bg-slate-300 dark:active:bg-slate-800
-                          cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 dark:hover:bg-blue-800text-white rounded-xl transition-all flex-shrink-0">
+                          className="cursor-pointer active:scale-[0.99] p-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-600 rounded-xl transition-all flex-shrink-0"
+                        >
                           <Copy size={15} />
                         </button>
                       </div>
@@ -6698,7 +6690,6 @@ const handleChangePin = async () => {
           )}
         </AnimatePresence>
 
-        {/* <CustomerServiceWidget /> */}
       </div>
     </>
   );

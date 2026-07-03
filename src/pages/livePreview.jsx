@@ -156,7 +156,7 @@ const renderIconPreview = (customIcon, size = 20) => {
   return customIcon;
 };
 
-export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPreviewModeChange, autoPreviewTick, onTogglePreview }) => {
+export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPreviewModeChange, autoPreviewTick, onTogglePreview, onThemeChange }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [animKey, setAnimKey] = useState(0);
   const [currentDonor, setCurrentDonor] = useState(null);
@@ -172,12 +172,13 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
     { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', type: 'youtube', label: 'YouTube' },
   ];
 
+
   const getYouTubeEmbedUrl = (url) => {
     if (!url) return null;
     const watchMatch = url.match(/youtube\.com\/watch\?v=([\w-]+)/);
-    if (watchMatch) return `https://www.youtube.com/embed/${watchMatch[1]}?autoplay=1&mute=0&controls=0&loop=1&playlist=${watchMatch[1]}`;
+    if (watchMatch) return `https://www.youtube.com/embed/${watchMatch[1]}?autoplay=1&mute=1&controls=0&loop=1&playlist=${watchMatch[1]}`;
     const shortMatch = url.match(/youtu\.be\/([\w-]+)/);
-    if (shortMatch) return `https://www.youtube.com/embed/${shortMatch[1]}?autoplay=1&mute=0&controls=0&loop=1&playlist=${shortMatch[1]}`;
+    if (shortMatch) return `https://www.youtube.com/embed/${shortMatch[1]}?autoplay=1&mute=1&controls=0&loop=1&playlist=${shortMatch[1]}`;
     return null;
   };
 
@@ -188,7 +189,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
     return 'image';
   };
 
-  const renderMediaAlert = () => {
+  const renderMediaAlert = (themeOverride) => {
     if (!currentDonor) return null;
     // if (settings.theme === 'gifCard') return null;
     const hl = settings.highlightColor || '#39ff14';
@@ -208,7 +209,8 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
       <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', background: '#000', borderBottom: pixelBorder, position: 'relative', zIndex: 2 }}>
         {mType === 'youtube' ? (
           <iframe src={getYouTubeEmbedUrl(mediaUrl)} width="100%" height="100%" frameBorder="0"
-            allow="autoplay; encrypted-media" allowFullScreen style={{ display: 'block', border: 'none' }} />
+            allow="autoplay; encrypted-media" allowFullScreen
+            style={{ display: 'block', border: 'none', pointerEvents: 'none' }} />
         ) : mType === 'video' ? (
           <video src={mediaUrl} autoPlay loop muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         ) : (
@@ -217,7 +219,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
       </div>
     );
 
-    const theme = settings.theme || 'modern';
+    const theme = themeOverride || settings.theme || 'modern';
     const wrapperBase = {
       backgroundColor: bg, color: fg,
       maxWidth: `${settings.maxWidth || 380}px`,
@@ -308,7 +310,6 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
     if (theme === 'smooth') {
       return (
         <div style={{ ...wrapperBase, borderRadius: 16, border: `1.5px solid ${hl}30`, 
-          // boxShadow: `0 8px 32px ${hl}18` 
           }}>
           <MediaBlock />
           <div style={{ fontFamily: "'Inter', sans-serif", padding: '14px 14px', display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -321,7 +322,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
             </div>
             {/* <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} /> */}
             {currentDonor.msg && (
-              <div style={{ fontWeight: 400, fontSize: 18, color: fg, background: hl + '10', borderRadius: 8, padding: '7px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
+              <div style={{ fontWeight: 400, fontSize: 18, color: fg, background: hl + '10', borderRadius: 8, padding: '1px 12px', lineHeight: 1.6, border: `1px solid ${hl}20` }}>
                 {currentDonor.msg}
               </div>
             )}
@@ -330,36 +331,6 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
             </div>
           </div>
         </div>
-      );
-    }
-
-    // ── CLASSIC ──────────────────────────────────────────────────────────────────
-    if (theme === 'classic') {
-      return (
-        <>
-          <style>{`@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }`}</style>
-          <div style={{ ...wrapperBase, border: `2px solid ${hl}`, position: 'relative', borderRadius: 18 }}>
-            <div style={scanlineStyle} />
-            <MediaBlock />
-            <div style={{ padding: '12px 14px', position: 'relative', zIndex: 2 }}>
-              <div style={{ fontFamily: monospace, fontSize: 20, color: fg, lineHeight: 1.6, marginBottom: 8, borderBottom: `1px dashed ${hl}30`, paddingBottom: 8 }}>
-                <span style={{ fontWeight: 500 }}>{currentDonor.name}</span>
-                <span> mengirim </span>
-                <span style={{ fontWeight: 500, color: hl, textShadow: `0 0 10px ${hl}50` }}>
-                  Rp {currentDonor.amount.toLocaleString('id-ID')}
-                </span>
-              </div>
-              {currentDonor.msg && (
-                <div style={{ fontWeight: 500, fontFamily: monospace, fontSize: 18, color: fg, lineHeight: 1.5 }}>
-                  {currentDonor.msg}
-                </div>
-              )}
-              <div style={{ height: 3, background: hl + '20', overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: '60%', background: settings.progressBarColor || hl }} />
-              </div>
-            </div>
-          </div>
-        </>
       );
     }
 
@@ -400,10 +371,8 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
     const d = donors[donorIdxRef.current % donors.length];
     donorIdxRef.current++;
     setCurrentDonor(d);
-    setShowAlert(false);
-    setTimeout(() => { setAnimKey(k => k + 1); setShowAlert(true); }, 50);
-    // const dur = getDuration(settings, d.amount);
-    // timerRef.current = setTimeout(() => setShowAlert(false), dur * 1000 + 500);
+    setAnimKey(k => k + 1);
+    setShowAlert(true);
   };
 
   useEffect(() => {
@@ -440,7 +409,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
 
   const handleFullScreen = () => { testFullScreen(); setIsFullscreen(!isFullscreen); };
   
-  const renderAlert = () => {
+  const renderAlert = (themeOverride) => {
   if (!currentDonor) return null;
   const hl = settings.highlightColor || '#39ff14';
   const fg = settings.textColor || '#c8f5c8';
@@ -568,13 +537,13 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
             color: fg,
             background: 'rgba(255,255,255,0.04)',
             border: dimBorder,
-            marginTop: 10,
+            marginTop: 14,
             borderRadius: 8,
             padding: '5px 8px',
             width: 'max-content',
             lineHeight: 1.4,
             width: '100%',
-            marginBottom: 6,
+            marginBottom: 10,
           }}>
             {currentDonor.msg}
           </div>
@@ -604,11 +573,10 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
       {/* GIF area — lebar sama dengan card, transparan */}
       <div style={{
         width: '100%',
-        height: 120,
+        height: 'max-content',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        // background: 'red',
         marginBottom: 16,
         overflow: 'hidden',
       }}>
@@ -625,7 +593,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
             }}
           />
         ) : (
-          <span style={{ fontSize: 72, lineHeight: 1 }}>{settings.customIcon || '❤️'}</span>
+          <span style={{ fontSize: 70, lineHeight: 1 }}>{settings.customIcon || '❤️'}</span>
         )}
       </div>
 
@@ -660,7 +628,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
         {currentDonor.msg && (
           <div style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: 16, color: fg, fontWeight: 400,
+            fontSize: 18, color: fg, fontWeight: 400,
             borderRadius: 9,
             background: hl + '12', border: `1px solid ${hl}25`,
             padding: '5px 8px', lineHeight: 1.5,
@@ -828,25 +796,23 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
     </div>
   );
 
-  const innerMap = { modern: modernInner, minimal: minimalInner, smooth: smoothInner, gifCard: gifCardInner };
+ const activeTheme = themeOverride || settings.theme || 'modern';
+ const innerMap = { modern: modernInner, smooth: smoothInner, gifCard: gifCardInner };
 
-    return (
-      <>
-        <style>{`@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>
-        <div style={{
-          backgroundColor: settings.theme === 'gifCard' ? 'transparent' : bg,
-          color: fg,
-          borderRadius: 20,
-          // maxWidth: `max-content`,
-          width: '100%',
-          // overflow: 'hidden',
-          // boxShadow: settings.theme === 'gifCard' ? 'none' : `0 0 0 2px ${hl}30, 0 8px 32px rgba(0,0,0,0.6)`,
-          border: settings.theme === 'gifCard' ? 'none' : `2px solid ${settings.borderColor || hl + '40'}`,
-          imageRendering: 'pixelated',
-        }}>
-          {innerMap[settings.theme] ?? modernInner}
-        </div>
-      </>
+  return (
+    <>
+      <style>{`@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>
+      <div style={{
+        backgroundColor: activeTheme === 'gifCard' ? 'transparent' : bg,
+        color: fg,
+        borderRadius: 20,
+        width: '100%',
+        border: activeTheme === 'gifCard' ? 'none' : `2px solid ${settings.borderColor || hl + '40'}`,
+        imageRendering: 'pixelated',
+      }}>
+        {innerMap[activeTheme] ?? modernInner}
+      </div>
+    </>
   );
 };
 
@@ -870,7 +836,6 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
             </div>
           </div>
           <div className="flex-1 relative overflow-hidden" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
-            <span className="absolute inset-0 flex items-center justify-center text-[clamp(60px,15vw,180px)] font-black text-white/[0.02] pointer-events-none select-none" style={{ letterSpacing: -8 }}>LIVE</span>
             <div className="absolute inset-0 pointer-events-none">
               <AnimatePresence>
                 {showAlert && (
@@ -887,7 +852,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
   );
 
     return (
-    <div className="relative space-y-2.5 block md:hidden">
+    <div className="relative space-y-2.5 block">
       <FullscreenPreview />
 
       {/* Tab switcher */}
@@ -906,39 +871,50 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
         </div>
       </div>
 
-      <div className={`relative overflow-hidden border-[4px] border-slate-800 rounded-xl ${previewMode === 'alert' ? '2xl:h-[70.5vh] h-[35.1vh]' : '2xl:h-[61.9vh] h-[41.5vh]'} w-full shadow-2xl`} style={{ aspectRatio: '16/9', background: '#000' }}>
-        <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)' }}>
-          {/* <span style={{ fontSize: 80, fontWeight: 500, color: 'rgba(255,255,255,0.04)', letterSpacing: -3, userSelect: 'none' }}>LIVE</span> */}
-        </div>
-        <div className="absolute inset-0 pointer-events-none">
-          <AnimatePresence>
-            {showAlert && previewMode === 'alert' && (
-              <motion.div className='ml-1.5 md:ml-4 w-[90.7%] 2xl:w-[90%] md:w-[87%]' key={animKey} initial={anim.initial} animate={anim.animate} exit={anim.exit} style={{ position: 'absolute', bottom: 30, left: 10, zIndex: 10 }}>
-                {renderAlert()}
-              </motion.div>
-            )}
-            {showAlert && previewMode === 'media' && (
-              <motion.div
-                className='absolute bottom-10 ml-1.5 2xl:ml-5 md:mt-[-12px] 2xl:mt-[0] w-[90%] 2xl:scale-[1] scale-[0.85]'
-                key={`media-${animKey}`}
-                initial={anim.initial}
-                animate={anim.animate}
-                exit={anim.exit}
+     <div className="grid grid-cols-3 gap-3.5 mt-3">
+        {['modern', 'smooth', 'gifCard'].map((themeName) => {
+          const isActive = (settings.theme || 'modern') === themeName;
+          return (
+          <button
+            type="button"
+            key={themeName}
+            onClick={() => onThemeChange?.(themeName)}
+            className="flex flex-col gap-1.5 cursor-pointer text-left"
+          >
+            <div
+              className={`relative overflow-hidden rounded-xl w-full h-[340px] shadow-xl transition-all ${isActive ? 'border border-slate-300' : 'border border-slate-600 hover:border-slate-600'}`}
+              style={{ aspectRatio: '16/9', background: '#000' }}
+            >
+            <div
+                className="absolute inset-0"
                 style={{
-                  position: 'absolute',
-                  ...pos,
-                  zIndex: 10,
-                  top: 20,
-                  transform: settings.theme === 'gifCard'
-                    ? 'scale(0.5) translateX(-50%)'
-                    : 'scale(0.4) translateX(-50%)',
+                  background: isActive
+                    ? 'linear-gradient(155deg, #3b82f6 0%, #2563eb 60%, #1d4ed8 100%)'
+                    : 'linear-gradient(155deg,#1a1a2e 0%,#0d0d1a 60%,#12121f 100%)',
                 }}
-              >
-                {renderMediaAlert()}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+              />
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center p-4">
+                {showAlert && previewMode === 'alert' && (
+                  <div style={{ width: '100%', transform: 'scale(0.9)', transformOrigin: 'center' }}>
+                    {renderAlert(themeName)}
+                  </div>
+                )}
+                {showAlert && previewMode === 'media' && (
+                  <div
+                     style={{
+                      width: 340,
+                      transform: themeName === 'gifCard' ? 'scale(0.85)' : 'scale(0.8)',
+                      transformOrigin: 'center center',
+                    }}
+                  >
+                    {renderMediaAlert(themeName)}
+                  </div>
+                )}
+              </div>
+            </div>
+          </button>
+          );
+        })}
       </div>
 
       {/* Media URL picker — hanya muncul saat tab media aktif */}
@@ -961,18 +937,13 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
                   active:translate-y-[2px] active:translate-x-[2px]
                   active:[box-shadow:none]
                 active:bg-slate-300 dark:active:bg-slate-800
-                flex-1 py-3.5 text-[14px] font-black rounded-xl transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-300 text-slate-400 hover:border-purple-300'}`}>
+                  flex-1 py-3.5 text-[14px] font-black rounded-xl transition-all cursor-pointer ${mediaUrl === p.url ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-600' : 'border-slate-100 dark:border-slate-300 text-slate-400 hover:border-purple-300'}`}>
                 {p.label}
               </button>
             ))}
           </div>
         </div>
       )}
-
-      <button onClick={triggerDemo}
-        className="cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 rounded-xl  bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-950 text-blue-600 dark:text-blue-400 font-black text-sm border-2 border-blue-100 dark:border-blue-900 transition-all hidden md:flex items-center justify-center gap-3">
-        Simulasi notifikasi
-      </button>
     </div>
   );
 }
