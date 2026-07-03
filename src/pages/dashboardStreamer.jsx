@@ -4846,7 +4846,7 @@ const handleChangePin = async () => {
               exit={{ scale: 0.85, opacity: 0, y: 24 }}
               transition={{ type: 'spring', stiffness: 320, damping: 28 }}
               onClick={e => e.stopPropagation()}
-              className="flex flex-col items-center gap-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-2xl p-10 mx-4 w-full max-w-sm text-center"
+              className="flex flex-col items-center gap-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-600 rounded-2xl shadow-2xl p-10 mx-4 w-full max-w-sm text-center"
             >
               <div className="w-20 h-20 bg-blue-100 dark:bg-blue-950/40 rounded-2xl flex items-center justify-center">
                 <CheckCircle2 size={40} className="text-blue-500" />
