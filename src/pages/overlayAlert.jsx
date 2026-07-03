@@ -484,18 +484,6 @@
                     }}>
                       {alert.donorName} mengirim
                     </div>
-                    {/* <div style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: 20,
-                      marginLeft: 5,
-                      fontWeight: 500,
-                      color: highlight,
-                      letterSpacing: '-0.5px',
-                      lineHeight: 1,
-                      textShadow: `0 0 10px ${highlight}55`,
-                    }}>
-                      Rp {Number(alert.amount).toLocaleString('id-ID')}
-                    </div> */}
                      {renderAmountOrItem(alert, hl, {
                         fontFamily: "'Inter', sans-serif",
                         fontSize: 20,
@@ -508,8 +496,6 @@
                       })}
                   </div>
                   
-                  {/* {renderDonationItem(alert, hl, fg)} */}
-
                   {alert.message && (
                     <div style={{
                       fontFamily: "'Inter', sans-serif",
