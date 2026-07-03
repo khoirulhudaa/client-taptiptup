@@ -361,7 +361,7 @@
                 <div style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                   background: hl + '18', borderBottom: pixelBorder,
-                  padding: '5px 7px', position: 'relative', zIndex: 2,
+                  padding: '5px 13px', position: 'relative', zIndex: 2,
                 }}>
                   <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
                     {['#ff4444', '#ffaa00', hl].map((c, i) => (
@@ -371,14 +371,14 @@
                 </div>
 
                 {/* Body */}
-                <div style={{ padding: '10px 6px', position: 'relative', zIndex: 2 }}>
+                <div style={{ padding: '10px 13px', position: 'relative', zIndex: 2 }}>
                   <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 0 }}>
                     <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
                       <div style={{ fontFamily: monospace, fontSize: 20, fontWeight: 500, color: fg, marginBottom: 8 }}>
                         {alert.donorName}
                       </div>
                       {renderAmountOrItem(alert, hl, { 
-                        marginLeft: '-3px',
+                        marginLeft: '0px',
                         position: 'relative',
                         top: 1,
                         fontFamily: monospace, fontSize: 18, fontWeight: 500, color: hl,
@@ -393,14 +393,11 @@
                       fontSize: 20,
                       position: 'relative',
                       top: -6 
-                      // background: hl + '12',
                     }}>
                       {renderIcon(customIcon, 20)}
                     </div>
                   </div>
                   
-                  {/* {renderDonationItem(alert, hl, fg)} */}
-
                   {alert.message && (
                     <div style={{
                       fontFamily: monospace, fontSize: 18, color: fg,
@@ -572,7 +569,7 @@
                 
                 {/* Divider */}
                 <div style={{ height: 1, background: hl + '25', borderRadius: 99 }} />
-                {renderAmountOrItem(alert, hl, { fontSize: 18, padding: '0px 0px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1, marginLeft: '-3px' })}
+                {renderAmountOrItem(alert, hl, { fontSize: 18, padding: '0px 3px', fontWeight: 500, color: hl, letterSpacing: '-0.5px', lineHeight: 1, marginLeft: '-3px' })}
               
 
                 {alert.message && (
