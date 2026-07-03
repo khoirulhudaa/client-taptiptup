@@ -353,26 +353,29 @@ const QuickAmountsEditor = ({ amounts = [], onChange, saveSettingsMutation, sett
       <button onClick={add} className="cursor-pointer active:scale-[0.98] hover:brightness-[85%] w-full mt-4 py-3.5 border-2 border-dashed border-slate-500 text-white rounded-xl font-black text-sm">
         + Tambah Nominal
       </button>
-      <button
-        onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })}
-        disabled={saveSettingsMutation.isPending}
-        className="
-        text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
-        -translate-y-[3px] translate-x-[-3px]
-        [box-shadow:4px_6px_0_#f1f5f9]
-        dark:[box-shadow:4px_4px_0_#99a3b1]
-        hover:translate-y-0 hover:translate-x-0
-        hover:bg-slate-200 dark:hover:bg-slate-700
-        border border-slate-300
-        hover:[box-shadow:0_0_0_#f1f5f9]
-        dark:hover:[box-shadow:0_0_0_#94a3b8]
-        active:translate-y-[2px] active:translate-x-[2px]
-        active:[box-shadow:none]
-        active:bg-slate-300 dark:active:bg-slate-800
-        cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
-        <Save size={18} className='relative top-[-1px]' />
-        Simpan Sekarang
-      </button>
+
+       <div className='w-full px-1.5'>
+        <button
+          onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })}
+          disabled={saveSettingsMutation.isPending}
+          className="
+          text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+          -translate-y-[3px] translate-x-[-3px]
+          [box-shadow:4px_6px_0_#f1f5f9]
+          dark:[box-shadow:4px_4px_0_#99a3b1]
+          hover:translate-y-0 hover:translate-x-0
+          hover:bg-slate-200 dark:hover:bg-slate-700
+          border border-slate-300
+          hover:[box-shadow:0_0_0_#f1f5f9]
+          dark:hover:[box-shadow:0_0_0_#94a3b8]
+          active:translate-y-[2px] active:translate-x-[2px]
+          active:[box-shadow:none]
+          active:bg-slate-300 dark:active:bg-slate-800
+          cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
+          <Save size={18} className='relative top-[-1px]' />
+          Simpan Sekarang
+        </button>
+       </div>
     </div>
   );
 };
@@ -3816,10 +3819,11 @@ const ColorInput = React.memo(({ label, value, onChange, allowAlpha = false, id 
           aria-label={`${label} hex value`} />
         <div className="flex-1 h-full rounded-xl  border border-slate-200 dark:border-slate-700 cursor-pointer hover:shadow-md hover:border-blue-300 transition-all" style={{ backgroundColor: previewColor }} title={previewColor} aria-hidden="true" />
       </div>
-      <div className="text-[10px] font-mono text-slate-400 dark:text-slate-400 truncate bg-slate-50/50 dark:bg-slate-800/50 px-2 py-3 rounded-xl" aria-live="polite">{previewColor}</div>
+      {/* <div className="text-[10px] font-mono text-slate-400 dark:text-slate-400 truncate bg-slate-50/50 dark:bg-slate-800/50 px-2 py-3 rounded-xl" aria-live="polite">{previewColor}</div> */}
     </div>
   );
 });
+
 ColorInput.displayName = 'ColorInput';
 const TTSSection = ({ settings, upd, saveSettingsMutation, api, activeSlot }) => {
   const [testText, setTestText] = useState('');
@@ -5326,29 +5330,31 @@ const handleChangePin = async () => {
                           ))}
                         </div>
                       </div>
-
-                      <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                        className=" 
-                        text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
-                        -translate-y-[3px] translate-x-[-3px]
-                        mt-3.5
-                        [box-shadow:4px_6px_0_#f1f5f9]
-                        dark:[box-shadow:4px_4px_0_#99a3b1]
-                        hover:translate-y-0 hover:translate-x-0
-                        hover:bg-slate-200 dark:hover:bg-slate-700
-                        border border-slate-300
-                        hover:[box-shadow:0_0_0_#f1f5f9]
-                        dark:hover:[box-shadow:0_0_0_#94a3b8]
-                        active:translate-y-[2px] active:translate-x-[2px]
-                        active:[box-shadow:none]
-                        active:bg-slate-300 dark:active:bg-slate-800 
-                        cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-3">
-                        {saveSettingsMutation.isPending ? (
-                          <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
-                        ) : (
-                          <> Simpan Sekarang</>
-                        )}
-                      </button>
+                      
+                       <div className='w-full px-1'>
+                        <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                          className=" 
+                          text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+                          -translate-y-[3px] translate-x-[-3px]
+                          mt-3.5
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          hover:bg-slate-200 dark:hover:bg-slate-700
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          active:[box-shadow:none]
+                          active:bg-slate-300 dark:active:bg-slate-800 
+                          cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-3">
+                          {saveSettingsMutation.isPending ? (
+                            <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+                          ) : (
+                            <> Simpan Sekarang</>
+                          )}
+                        </button>
+                       </div>
                     </div>
 
                     <div id="tour-donation-items" className='relative z-[1]'>
@@ -5367,28 +5373,30 @@ const handleChangePin = async () => {
                           <InputField label="Minimal" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
                           <InputField label="Maksimal" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
                         </div>
-                        <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                          className="
-                          text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
-                        -translate-y-[3px] translate-x-[-3px]
-                        [box-shadow:4px_6px_0_#f1f5f9]
-                        dark:[box-shadow:4px_4px_0_#99a3b1]
-                        hover:translate-y-0 hover:translate-x-0
-                        hover:bg-slate-200 dark:hover:bg-slate-700
-                        border border-slate-300
-                        hover:[box-shadow:0_0_0_#f1f5f9]
-                        dark:hover:[box-shadow:0_0_0_#94a3b8]
-                        active:translate-y-[2px] active:translate-x-[2px]
-                        active:[box-shadow:none]
-                        active:bg-slate-300 dark:active:bg-slate-800
-                          cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-                          <Save size={18} className='relative top-[-1px]' />
-                          {saveSettingsMutation.isPending ? (
-                            <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
-                          ) : (
-                            <> Simpan Sekarang</>
-                          )}
-                        </button>
+                         <div className='w-full px-1'>
+                          <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                            className="
+                            text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+                          -translate-y-[3px] translate-x-[-3px]
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          hover:bg-slate-200 dark:hover:bg-slate-700
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          active:[box-shadow:none]
+                          active:bg-slate-300 dark:active:bg-slate-800
+                            cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+                            <Save size={18} className='relative top-[-1px]' />
+                            {saveSettingsMutation.isPending ? (
+                              <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+                            ) : (
+                              <> Simpan Sekarang</>
+                            )}
+                          </button>
+                         </div>
                     </div>
 
                     <div id="tour-tema-visual" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
@@ -5473,28 +5481,30 @@ const handleChangePin = async () => {
                         <ColorInput id="color-borderColor" label="Warna Border" value={settings.borderColor || '#ffffff26'} onChange={v => upd('borderColor', v)} allowAlpha={true} />
                         <ColorInput id="color-progressBarColor" label="Progress" value={settings.progressBarColor || '#39ff14'} onChange={v => upd('progressBarColor', v)} />
                       </div>
-                      <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                        className="
-                        text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
-                        -translate-y-[3px] translate-x-[-3px]
-                        [box-shadow:4px_6px_0_#f1f5f9]
-                        dark:[box-shadow:4px_4px_0_#99a3b1]
-                        hover:translate-y-0 hover:translate-x-0
-                        hover:bg-slate-200 dark:hover:bg-slate-700
-                        border border-slate-300
-                        hover:[box-shadow:0_0_0_#f1f5f9]
-                        dark:hover:[box-shadow:0_0_0_#94a3b8]
-                        active:translate-y-[2px] active:translate-x-[2px]
-                        active:[box-shadow:none]
-                        active:bg-slate-300 dark:active:bg-slate-800
-                        cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
-                        <Save size={18} className='relative top-[-1px]' />
-                        {saveSettingsMutation.isPending ? (
-                          <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
-                        ) : (
-                          <> Simpan Sekarang</>
-                        )}
-                      </button>
+                       <div className='w-full px-1'>
+                        <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                          className="
+                          text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+                          -translate-y-[3px] translate-x-[-3px]
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          hover:bg-slate-200 dark:hover:bg-slate-700
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          active:[box-shadow:none]
+                          active:bg-slate-300 dark:active:bg-slate-800
+                          cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3 mt-8">
+                          <Save size={18} className='relative top-[-1px]' />
+                          {saveSettingsMutation.isPending ? (
+                            <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+                          ) : (
+                            <> Simpan Sekarang</>
+                          )}
+                        </button>
+                       </div>
                     </div>
 
                     {/* Preset Warna Siap Pakai */}
@@ -5683,6 +5693,7 @@ const handleChangePin = async () => {
                         </AnimatePresence>
                     
                         {/* Tombol trigger */}
+                        <div className='w-full px-1'>
                         {tokenStep !== 'success' && (
                           <button
                             onClick={() => setShowTokenConfirm(true)}
@@ -5709,6 +5720,7 @@ const handleChangePin = async () => {
                             )}
                           </button>
                         )}
+                        </div>
                         {tokenStep === 'success' && (
                           <button
                             onClick={() => { setTokenStep('idle'); setNewOverlayToken(''); setTokenError(''); }}
@@ -5748,32 +5760,34 @@ const handleChangePin = async () => {
                                 // className="w-full p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-400 dark:focus:border-red-600 text-slate-900 dark:text-slate-100 rounded-xl  font-bold text-sm outline-none transition-all"
                               />
                             </div>
-                            <button
-                              onClick={() => {
-                                if (deleteConfirmText !== 'HAPUS AKUN SAYA') {
-                                  setDeleteError('Ketik persis: HAPUS AKUN SAYA');
-                                  return;
-                                }
-                                setDeleteError('');
-                                setDeleteStep('pin');
-                              }}
-                              disabled={deleteConfirmText !== 'HAPUS AKUN SAYA'}
-                              className="
-                              text-slate-900 dark:text-white 
-                                -translate-y-[3px] translate-x-[-3px]
-                                [box-shadow:4px_6px_0_#f1f5f9]
-                                dark:[box-shadow:4px_4px_0_#99a3b1]
-                                hover:translate-y-0 hover:translate-x-0
-                                hover:bg-slate-200 dark:hover:bg-slate-700
-                                border border-slate-300
-                                hover:[box-shadow:0_0_0_#f1f5f9]
-                                dark:hover:[box-shadow:0_0_0_#94a3b8]
-                                active:translate-y-[2px] active:translate-x-[2px]
-                                active:[box-shadow:none]
-                              cursor-pointer active:scale-[0.99] w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
-                            >
-                              <Trash2 className='relative top-[-1px]' size={16} /> Lanjut ke Verifikasi PIN
-                            </button>
+                             <div className='w-full px-1'>
+                              <button
+                                onClick={() => {
+                                  if (deleteConfirmText !== 'HAPUS AKUN SAYA') {
+                                    setDeleteError('Ketik persis: HAPUS AKUN SAYA');
+                                    return;
+                                  }
+                                  setDeleteError('');
+                                  setDeleteStep('pin');
+                                }}
+                                disabled={deleteConfirmText !== 'HAPUS AKUN SAYA'}
+                                className="
+                                text-slate-900 dark:text-white 
+                                  -translate-y-[3px] translate-x-[-3px]
+                                  [box-shadow:4px_6px_0_#f1f5f9]
+                                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                                  hover:translate-y-0 hover:translate-x-0
+                                  hover:bg-slate-200 dark:hover:bg-slate-700
+                                  border border-slate-300
+                                  hover:[box-shadow:0_0_0_#f1f5f9]
+                                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                                  active:translate-y-[2px] active:translate-x-[2px]
+                                  active:[box-shadow:none]
+                                cursor-pointer active:scale-[0.99] w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
+                              >
+                                <Trash2 className='relative top-[-1px]' size={16} /> Lanjut ke Verifikasi PIN
+                              </button>
+                            </div>
                           </div>
                         )}
                     
