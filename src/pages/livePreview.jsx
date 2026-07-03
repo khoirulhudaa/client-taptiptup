@@ -871,7 +871,7 @@ export const YouTubeLivePreview2 = ({ settings, username, testFullScreen, onPrev
         </div>
       </div>
 
-     <div className="grid grid-cols-3 gap-3.5 mt-3">
+     <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 mt-3">
         {['modern', 'smooth', 'gifCard'].map((themeName) => {
           const isActive = (settings.theme || 'modern') === themeName;
           return (
