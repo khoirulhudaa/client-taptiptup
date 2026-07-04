@@ -98,7 +98,7 @@ const LeaderboardWidget = () => {
             letterSpacing: '0.12em',
             color: 'rgba(255,255,255,1)',
           }}>
-            Leaderboard
+            {settings?.leaderboardTitle || 'Leaderboard Donatur'}
           </span>
           <span style={{
             marginLeft: 'auto',

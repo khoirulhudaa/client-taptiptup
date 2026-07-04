@@ -34,7 +34,28 @@ const deletePoll    = async (id) => (await axios.delete(`${BASE_URL}/api/polls/$
 const fetchSubathon   = async () => (await axios.get(`${BASE_URL}/api/subathon`, { headers: authHeader() })).data;
 const updateSubConfig = async (d) => (await axios.put(`${BASE_URL}/api/subathon/config`, d, { headers: authHeader() })).data;
 const startSubathon   = async () => (await axios.post(`${BASE_URL}/api/subathon/start`, {}, { headers: authHeader() })).data;
-const pauseSubathon   = async (data) => (await axios.post(`${BASE_URL}/api/subathon/pause`, data, { headers: authHeader() })).data;
+// const pauseSubathon   = async (data) => (await axios.post(`${BASE_URL}/api/subathon/pause`, data, { headers: authHeader() })).data;
+const pauseSubathon = async () => {
+  // Hitung currentSeconds yang akurat saat tombol pause ditekan
+  let correctedSeconds = localTimer.currentSeconds;
+
+  if (localTimer.isRunning && localTimer.startedAt) {
+    const elapsed = Math.floor(
+      (Date.now() - new Date(localTimer.startedAt).getTime()) / 1000
+    );
+    if (localTimer.mode === 'countdown') {
+      correctedSeconds = Math.max(0, localTimer.currentSeconds - elapsed);
+    } else {
+      correctedSeconds = localTimer.currentSeconds + elapsed;
+    }
+  }
+
+  await fetch('/api/subathon/pause', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ currentSeconds: correctedSeconds }), // ← kirim nilai akurat
+  });
+};
 const resetSubathon   = async () => (await axios.post(`${BASE_URL}/api/subathon/reset`, {}, { headers: authHeader() })).data;
 const addTimeSubathon = async (s) => (await axios.post(`${BASE_URL}/api/subathon/add-time`, { seconds: s }, { headers: authHeader() })).data;
 
@@ -424,6 +445,7 @@ export const PollManager = ({ overlayToken, username }) => {
 export const SubathonManager = ({ overlayToken }) => {
   const queryClient = useQueryClient();
   const [localTimer, setLocalTimer] = useState(null);
+  const [timer, setTimer] = useState(null);
   const [manualAdd, setManualAdd] = useState(60);
   const [displaySeconds, setDisplaySeconds] = useState(0);
   const [saved, setSaved] = useState(false);
@@ -445,12 +467,8 @@ export const SubathonManager = ({ overlayToken }) => {
   });
 
   useEffect(() => {
-    if (data) {
-      setLocalTimer(t => t ? { ...t, ...data } : { ...data });
-      setDisplaySeconds(data.currentSeconds || 0);
-    }
+    if (data) syncTimer(data);
   }, [data]);
-
   
   useEffect(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -468,13 +486,29 @@ export const SubathonManager = ({ overlayToken }) => {
     return () => clearInterval(intervalRef.current);
   }, [localTimer?.isRunning, localTimer?.mode, localTimer?.maxSeconds]);
 
+  // Di useEffect yang fetch timer / terima socket update
+  const syncTimer = (timerData) => {
+    let correctedSeconds = timerData.currentSeconds;
+
+    if (timerData.isRunning && timerData.startedAt) {
+      const elapsed = Math.floor(
+        (Date.now() - new Date(timerData.startedAt).getTime()) / 1000
+      );
+      correctedSeconds = timerData.mode === 'countdown'
+        ? Math.max(0, timerData.currentSeconds - elapsed)
+        : timerData.currentSeconds + elapsed;
+    }
+
+    setLocalTimer({ ...timerData, currentSeconds: correctedSeconds });
+    setDisplaySeconds(correctedSeconds); // ← tambah ini
+  };
+
   useEffect(() => {
     if (!overlayToken) return;
     const socket = io(BASE_URL);
     socket.emit('join-room', overlayToken);
     socket.on('subathon-updated', (data) => {
-      setTimer(data);
-      setDisplaySeconds(data.currentSeconds || 0);
+      syncTimer(data); // syncTimer sudah set localTimer dengan nilai koreksi
     });
     return () => socket.disconnect();
   }, [overlayToken]);
@@ -717,7 +751,7 @@ export const SubathonManager = ({ overlayToken }) => {
           <InputField
             label="Judul Timer"
             value={localTimer.title || ''}
-            onChange={val => upd('title', val)}
+            onChange={(v) => setLocalTimer(prev => ({ ...prev, title: v }))}
             placeholder="Subathon Timer"
           />
         </div>
@@ -1021,7 +1055,7 @@ export const SubathonManager = ({ overlayToken }) => {
 
 // ─── LeaderboardSettings ──────────────────────────────────────────────────────
 
-export const LeaderboardSettings = ({ overlayToken }) => {
+export const LeaderboardSettings = ({ overlayToken, settings }) => {
   const queryClient = useQueryClient();
   const [local, setLocal] = useState(null);
   const [saved, setSaved] = useState(false);
@@ -1179,6 +1213,14 @@ export const LeaderboardSettings = ({ overlayToken }) => {
             <span>Top 3</span><span>Top 10</span><span>Top 20</span>
           </div>
         </div>
+
+        <InputField
+          label="Judul Leaderboard"
+          type="text"
+          value={settings?.leaderboardTitle || ''}
+          onChange={(v) => upd('leaderboardTitle', v)}
+          placeholder="Leaderboard Donatur"
+        />
 
         <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700">
           <div>

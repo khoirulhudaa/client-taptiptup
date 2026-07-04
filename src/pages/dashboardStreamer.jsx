@@ -6620,7 +6620,7 @@ const handleChangePin = async () => {
               {/* ══════════════════════ LEADERBOARD ══════════════════════ */}
               {activeTab === 'leaderboard' && (
                 <motion.div key="leaderboard" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                  <LeaderboardSettings overlayToken={user?.overlayToken} />
+                  <LeaderboardSettings overlayToken={user?.overlayToken} settings={settings} />
                   {/* <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-5">
                   </div> */}
                 </motion.div>
