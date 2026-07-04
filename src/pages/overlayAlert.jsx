@@ -121,12 +121,6 @@
                 finalConfig = resB.data;
               }
 
-              // if (!configRef.current || finalConfig.slot !== configRef.current.slot) {
-              //   console.log(`[Overlay] ✅ Config di-update ke Slot ${finalConfig.slot || 'A'}`);
-              //   setConfig(finalConfig);
-              //   configRef.current = finalConfig;
-              // }
-
               setConfig(finalConfig);
               configRef.current = finalConfig;
             } catch (err) {
