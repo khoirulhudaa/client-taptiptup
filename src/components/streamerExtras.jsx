@@ -991,40 +991,42 @@ export const SubathonManager = ({ overlayToken }) => {
               </div>
             </div>
             {/* ─── END PREVIEW ─── */}
-
-            {['subath1', 'subath2'].map(t => (
-              <div key={t} className="w-full justify-between flex gap-3 items-center bg-slate-500/20 px-3 p-3 rounded-xl">
-                <div className='flex items-center w-full'>
-                  <span className="text-[12px] font-black text-slate-400 w-14 flex-shrink-0">{t === 'subath1' ? 'Subath 1' : 'Subath 2'}</span>
-                  <input readOnly
-                    value={`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}&labelcolor=${subLabelColor}`}
-                    className="flex-1 max-w-[70%] truncate bg-transparent font-mono text-[12px] text-blue-600 dark:text-blue-400 font-bold outline-none" />
+            
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+              {['subath1', 'subath2'].map(t => (
+                <div key={t} className="w-full justify-between flex gap-3 items-center bg-slate-500/20 px-3 p-3 rounded-xl">
+                  <div className='flex items-center w-full'>
+                    <span className="text-[12px] font-black text-slate-400 w-14 flex-shrink-0">{t === 'subath1' ? 'Subath 1' : 'Subath 2'}</span>
+                    <input readOnly
+                      value={`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}&labelcolor=${subLabelColor}`}
+                      className="flex-1 max-w-[70%] truncate bg-transparent font-mono text-[12px] text-blue-600 dark:text-blue-400 font-bold outline-none" />
+                  </div>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}&labelcolor=${subLabelColor}`);
+                      setSubCopied(prev => ({ ...prev, [t]: true }));
+                      setTimeout(() => setSubCopied(prev => ({ ...prev, [t]: false })), 500);
+                    }}
+                    className={`
+                        text-slate-900 dark:text-white
+                        -translate-y-[3px] translate-x-[-3px]
+                        [box-shadow:4px_6px_0_#f1f5f9]
+                        dark:[box-shadow:4px_4px_0_#99a3b1]
+                        hover:translate-y-0 hover:translate-x-0
+                        border border-slate-300
+                        hover:[box-shadow:0_0_0_#f1f5f9]
+                        dark:hover:[box-shadow:0_0_0_#94a3b8]
+                        active:translate-y-[2px] active:translate-x-[2px]
+                        active:[box-shadow:none]
+                        active:bg-slate-300 dark:active:bg-slate-800
+                      cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 flex-shrink-0 ${
+                      subCopied[t] ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
+                    }`}>
+                    {subCopied[t] ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
+                  </button>
                 </div>
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(`${window.location.origin}/widget/${overlayToken}/subathon?theme=${t}&timercolor=${subTimerColor}&bgcolor=${subBgColor}&labelcolor=${subLabelColor}`);
-                    setSubCopied(prev => ({ ...prev, [t]: true }));
-                    setTimeout(() => setSubCopied(prev => ({ ...prev, [t]: false })), 500);
-                  }}
-                  className={`
-                      text-slate-900 dark:text-white
-                      -translate-y-[3px] translate-x-[-3px]
-                      [box-shadow:4px_6px_0_#f1f5f9]
-                      dark:[box-shadow:4px_4px_0_#99a3b1]
-                      hover:translate-y-0 hover:translate-x-0
-                      border border-slate-300
-                      hover:[box-shadow:0_0_0_#f1f5f9]
-                      dark:hover:[box-shadow:0_0_0_#94a3b8]
-                      active:translate-y-[2px] active:translate-x-[2px]
-                      active:[box-shadow:none]
-                      active:bg-slate-300 dark:active:bg-slate-800
-                    cursor-pointer active:scale-[0.98] px-3 py-3 rounded-xl text-xs font-black transition-all flex items-center gap-3.5 flex-shrink-0 ${
-                    subCopied[t] ? 'bg-green-500 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'
-                  }`}>
-                  {subCopied[t] ? <><CheckCircle2 size={12} /> Tersalin!</> : 'Salin'}
-                </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
 
@@ -1164,6 +1166,16 @@ export const LeaderboardSettings = ({ overlayToken, settings }) => {
         </div>
       </div>
 
+      <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
+        <InputField
+          label="Judul"
+          type="text"
+          value={settings?.leaderboardTitle || ''}
+          onChange={(v) => upd('leaderboardTitle', v)}
+          placeholder="Papan Donatur"
+          />
+      </div>
+
       {/* Pengaturan */}
       <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
 
@@ -1213,14 +1225,6 @@ export const LeaderboardSettings = ({ overlayToken, settings }) => {
             <span>Top 3</span><span>Top 10</span><span>Top 20</span>
           </div>
         </div>
-
-        <InputField
-          label="Judul Leaderboard"
-          type="text"
-          value={settings?.leaderboardTitle || ''}
-          onChange={(v) => upd('leaderboardTitle', v)}
-          placeholder="Leaderboard Donatur"
-        />
 
         <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700">
           <div>
