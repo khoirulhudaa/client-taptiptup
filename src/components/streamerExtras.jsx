@@ -1171,9 +1171,9 @@ export const LeaderboardSettings = ({ overlayToken, settings }) => {
           label="Judul"
           type="text"
           value={settings?.leaderboardTitle || ''}
-          onChange={(v) => upd('leaderboardTitle', v)}
-          placeholder="Papan Donatur"
-          />
+          onChange={(v) => setLocal(prev => ({ ...prev, leaderboardTitle: v }))}
+          placeholder="Leaderboard Donatur"
+        />
       </div>
 
       {/* Pengaturan */}
