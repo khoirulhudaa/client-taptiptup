@@ -63,10 +63,10 @@ const LeaderboardWidget = () => {
   const limit = settings.leaderboardLimit || 10;
   const showAmount = settings.leaderboardShowAmount !== false;
   const displayDonors = donors.slice(0, limit);
-
+  
   return (
     <div style={{
-      width: '100%',
+      width: 'max-conent',
       minHeight: '100vh',
       borderRadius: 20,
       background: 'transparent',
@@ -77,36 +77,30 @@ const LeaderboardWidget = () => {
         style={{
           background: 'rgba(15, 15, 25, 1)',
           borderRadius: 20,
-          overflow: 'hidden',
           border: '1.5px solid rgba(255,255,255,0.08)',
           boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
         }}
-      >
+        >
         {/* Header */}
         <div style={{
           padding: '14px 18px',
           borderBottom: '1px solid rgba(255,255,255,0.06)',
           display: 'flex',
+          width: 'max-content',
+          paddingRight: 130,
           alignItems: 'center',
           gap: 8,
         }}>
-          <span style={{ fontSize: 16 }}>🏆</span>
           <span style={{
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: 700,
+            position: 'relative',
+            top: 2,
             textTransform: 'uppercase',
             letterSpacing: '0.12em',
             color: 'rgba(255,255,255,1)',
           }}>
             {settings?.leaderboardTitle || 'Leaderboard Donatur'}
-          </span>
-          <span style={{
-            marginLeft: 'auto',
-            fontSize: 20,
-            color: 'rgba(255,255,255,1)',
-            fontWeight: 600,
-          }}>
-            {displayDonors.length} orang
           </span>
         </div>
 
@@ -121,14 +115,14 @@ const LeaderboardWidget = () => {
                 gap: 10,
                 padding: '9px 16px',
                 background: i < 3 ? `rgba(255,255,255,0.02)` : 'transparent',
-                borderLeft: i < 3 ? `3px solid ${RANK_COLORS[i]}` : '3px solid rgba(255,255,255,0.35)',
+                // borderLeft: i < 3 ? `3px solid ${RANK_COLORS[i]}` : '3px solid rgba(255,255,255,0.35)',
                 animation: `fadeIn 0.3s ease ${i * 0.05}s both`,
               }}
             >
               {/* Rank */}
               <div style={{
-                width: 28,
-                height: 28,
+                width: 50,
+                height: 50,
                 borderRadius: 0,
                 background: i < 3 ? `${RANK_COLORS[i]}22` : 'rgba(255,255,255,0.07)', // ← hapus putih
                 display: 'flex',
@@ -144,9 +138,9 @@ const LeaderboardWidget = () => {
               </div>
 
               {/* Name */}
-              <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ flex: 1, minWidth: 0, position: 'relative', top: 0.5 }}>
                 <p style={{
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: 700,
                   color: i < 3 ? '#ffffff' : 'rgba(255,255,255,1)',
                   overflow: 'hidden',
@@ -157,7 +151,7 @@ const LeaderboardWidget = () => {
                   {donor.name}
                 </p>
                 <p style={{
-                  fontSize: 20,
+                  fontSize: 16,
                   color: 'rgba(255,255,255,0.25)',
                   fontWeight: 600,
                   margin: 0,
@@ -169,7 +163,7 @@ const LeaderboardWidget = () => {
               {/* Amount */}
               {showAmount && (
                 <span style={{
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: 900,
                   color: i < 3 ? RANK_COLORS[i] : 'rgba(255,255,255,0.4)',
                   flexShrink: 0,
