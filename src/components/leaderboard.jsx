@@ -114,7 +114,7 @@ const LeaderboardWidget = () => {
                 alignItems: 'center',
                 gap: 10,
                 padding: '9px 16px',
-                background: i < 3 ? `rgba(255,255,255,0.02)` : 'transparent',
+                // background: i < 3 ? `rgba(255,255,255,0.02)` : 'transparent',
                 // borderLeft: i < 3 ? `3px solid ${RANK_COLORS[i]}` : '3px solid rgba(255,255,255,0.35)',
                 animation: `fadeIn 0.3s ease ${i * 0.05}s both`,
               }}
