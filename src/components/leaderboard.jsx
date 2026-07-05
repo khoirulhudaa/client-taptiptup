@@ -18,12 +18,12 @@ const LeaderboardWidget = () => {
   const [settings, setSettings] = useState({ leaderboardShowAmount: true, leaderboardLimit: 10 });
   const [animKey, setAnimKey] = useState(0);
 
-  // ✅ Wrap dengan useCallback agar referensi stabil
   const fetchData = useCallback(async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/widget/${token}/leaderboard`, {
-        headers: { 'Accept': 'application/json' }
-      });
+      const res = await axios.get(
+        `${BASE_URL}/widget/${token}/leaderboard?t=${Date.now()}`,  // ← tambah cache buster
+        { headers: { 'Accept': 'application/json' } }
+      );
       setDonors(res.data.donors || []);
       if (res.data.settings) setSettings(res.data.settings);
     } catch (err) {
@@ -51,6 +51,7 @@ const LeaderboardWidget = () => {
     socket.on('new-donation', refresh);
     socket.on('new-media-donation', refresh); // ✅ tambah
     socket.on('leaderboard-updated', refresh); 
+    socket.on('settings-updated', refresh);   // ← tambah ini
 
     return () => socket.disconnect();
   }, [token, fetchData]); // ✅ tambah fetchData ke dependency

@@ -3635,7 +3635,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
                 <span className="text-blue-600 dark:text-blue-400 font-black">{u.followersCount}</span> followers
               </p>
             )}
-            <div className="flex gap-3 mt-auto">
+            <div className="flex gap-3.5 mt-auto">
               <button onClick={() => setViewingProfile(u.username)}
                 className="
                   text-slate-900 dark:text-white 
@@ -3666,7 +3666,7 @@ const CommunityPage = ({ currentUserId, onFollowAction }) => {
                     active:translate-y-[2px] active:translate-x-[2px]
                     active:[box-shadow:none]
                     active:bg-slate-300 dark:active:bg-slate-800
-                  flex-1 flex items-center justify-center gap-1.5 py-3.5 rounded-xl font-black text-xs transition-all disabled:opacity-60 cursor-pointer active:scale-[0.99] ${u.isFollowing ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-500 border border-slate-200 dark:border-slate-700' : 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm'}`}>
+                  flex-1 flex items-center justify-center gap-1.5 py-3.5 rounded-xl font-black text-xs transition-all disabled:opacity-60 cursor-pointer active:scale-[0.99] ${u.isFollowing ? 'bg-slate-100 dark:bg-red-500 text-slate-400 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-600 hover:text-white' : 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm'}`}>
                   {toggleMutation.isPending ? <RefreshCw className="w-3 h-3 animate-spin" /> : u.isFollowing ? 'Unfollow' : '+ Follow'}
                 </button>
               )}

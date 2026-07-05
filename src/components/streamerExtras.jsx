@@ -1068,8 +1068,8 @@ export const LeaderboardSettings = ({ overlayToken, settings }) => {
       setLocal({
         leaderboardShowAmount: s.leaderboardShowAmount !== false,
         leaderboardLimit: s.leaderboardLimit || 10,
-        leaderboardTitle: s.leaderboardTitle || 'Leaderboard',
         leaderboardPeriod: s.leaderboardPeriod || 'alltime',
+        leaderboardTitle: s.leaderboardTitle || '',   // ← tambahin ini
       });
     }
   }, [data]);
@@ -1166,12 +1166,12 @@ export const LeaderboardSettings = ({ overlayToken, settings }) => {
 
       <div className="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-6 border border-slate-100 dark:border-slate-800 space-y-5">
         <InputField
-          label="Judul"
-          type="text"
-          value={settings?.leaderboardTitle || ''}
-          onChange={(v) => setLocal(prev => ({ ...prev, leaderboardTitle: v }))}
-          placeholder="Leaderboard Donatur"
-        />
+            label="Judul"
+            type="text"
+            value={local.leaderboardTitle || ''}              // ← ganti dari settings ke local
+            onChange={(v) => upd('leaderboardTitle', v)}       // ← pakai helper upd yang udah ada
+            placeholder="Leaderboard Donatur"
+          />
       </div>
 
       {/* Pengaturan */}
