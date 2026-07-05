@@ -824,11 +824,8 @@ export const SubathonManager = ({ overlayToken }) => {
           {localTimer.autoAddEnabled && (
             <div className="space-y-3">
               <div className="mb-4 md:mb-0 flex items-center justify-between">
-                <div>
+                <div className='mb-1'>
                   <p className="font-black text-slate-700 dark:text-slate-200 text-sm">Kelipatan Durasi</p>
-                  <p className="text-[11px] text-slate-400 dark:text-slate-400 font-medium mt-0.5">
-                    Setiap tier dukungan
-                  </p>
                 </div>
                 {/* Tombol Edit Tabel */}
                 <button
@@ -928,7 +925,7 @@ export const SubathonManager = ({ overlayToken }) => {
             <p className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest">Widget URL OBS</p>
 
             {/* Color pickers */}
-            <div className="grid grid-cols-1 md:flex gap-0 w-full">
+            <div className="grid grid-cols-1 md:flex gap-3 w-full">
               {[
                 { label: 'Timer', value: subTimerColor, onChange: setSubTimerColor, default: 'ffffff' },
                 { label: 'Overlay', value: subBgColor, onChange: setSubBgColor, default: '0f0f19' },
@@ -939,7 +936,7 @@ export const SubathonManager = ({ overlayToken }) => {
                     type="color"
                     value={`#${value}`}
                     onChange={e => onChange(e.target.value.replace('#', ''))}
-                    className="w-7 h-7 rounded cursor-pointer border-0 bg-transparent flex-shrink-0"
+                    className="w-7 h-6 rounded cursor-pointer border-0 bg-transparent flex-shrink-0"
                   />
                   <span className="font-mono text-xs text-slate-500 dark:text-slate-400 flex-1">#{value}</span>
                   <span className="text-[10px] ml-5 font-black text-slate-400 dark:text-slate-400 uppercase whitespace-nowrap">{label}</span>

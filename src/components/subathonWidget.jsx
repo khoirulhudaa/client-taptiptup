@@ -46,12 +46,6 @@ export const Subath1 = ({ timer, displaySeconds, timerColor, bgColor, labelColor
           <div style={{ height: '100%', width: `${progressPct}%`, background: progressColor, transition: 'width 1s linear, background 0.5s' }} />
         </div>
       )}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-        <span style={{ width: 6, height: 6, borderRadius: 0, background: timer.isRunning ? '#22c55e' : '#64748b', display: 'inline-block', animation: timer.isRunning ? 'pulse 1.5s ease-in-out infinite' : 'none' }} />
-        <span style={{ fontSize: 10, fontWeight: 600, color: timer.isRunning ? '#22c55e' : 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          {timer.isRunning ? 'Live' : 'Paused'}
-        </span>
-      </div>
     </div>
   );
 };
@@ -84,7 +78,7 @@ export const Subath2 = ({ displaySeconds, isRunning, timerColor, bgColor, labelC
           {/* Digit aktif */}
           <div style={{
             fontFamily: "'Share Tech Mono', monospace",
-            fontSize: 60,
+            fontSize: 50,
             fontWeight: 400,
             color: timerColor ? `#${timerColor}` : (isRunning ? '#ff3200' : '#7a1800'),
             width: '100%',
