@@ -1068,6 +1068,7 @@ export const LeaderboardSettings = ({ overlayToken, settings }) => {
       setLocal({
         leaderboardShowAmount: s.leaderboardShowAmount !== false,
         leaderboardLimit: s.leaderboardLimit || 10,
+        leaderboardTitle: s.leaderboardTitle || 'Leaderboard',
         leaderboardPeriod: s.leaderboardPeriod || 'alltime',
       });
     }

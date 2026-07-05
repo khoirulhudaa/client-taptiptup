@@ -121,7 +121,7 @@ const LeaderboardWidget = () => {
               <div style={{
                 width: 50,
                 height: 50,
-                borderRadius: 0,
+                borderRadius: 12,
                 background: i < 3 ? `${RANK_COLORS[i]}22` : 'rgba(255,255,255,0.07)', // ← hapus putih
                 display: 'flex',
                 textAlign: 'center',
