@@ -236,7 +236,7 @@
               style={{
                 position: 'absolute', inset: 0,
                 width: '100%', height: '100%',
-                objectFit: 'contain',
+                objectFit: 'cover',
                 opacity: i === currentSlide ? 1 : 0,
                 transition: 'opacity 0.7s ease',
               }}
@@ -640,7 +640,7 @@
 
       setLoading(true);
       try {
-        const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/forgot-password', {
+        const res = await axios.post('http://localhost:5101/api/auth/forgot-password', {
           email: sanitizeInput(emailReset)
         });
         
@@ -664,7 +664,7 @@
       setError('');
       
       try {
-        const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/verify-security-pin', {
+        const res = await axios.post('http://localhost:5101/api/auth/verify-security-pin', {
           email: sanitizeInput(emailReset),
           securityPin: pin
         });
@@ -823,7 +823,7 @@
       
       setLoading(true);
       try {
-        const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/verify-pin', {
+        const res = await axios.post('http://localhost:5101/api/auth/verify-pin', {
           email, pin
         });
         notify('Verifikasi Berhasil!', res.data.message, 'success');
@@ -840,7 +840,7 @@
       if (countdown > 0) return;
       setResendLoading(true);
       try {
-        const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/resend-pin', { email });
+        const res = await axios.post('http://localhost:5101/api/auth/resend-pin', { email });
         notify('PIN Baru Dikirim!', res.data.message, 'success');
         setCountdown(300);
       } catch (err) {
@@ -994,7 +994,7 @@
       setLoading(true);
 
       try {
-        const res = await axios.post('https://server-ttt-production.up.railway.app/api/auth/reset-password', {
+        const res = await axios.post('http://localhost:5101/api/auth/reset-password', {
           email: sanitizeInput(email),
           token: sanitizeInput(token),
           newPassword: formData.password
@@ -1539,7 +1539,7 @@
               securityPin: sanitizedData.securityPin  
             };
         
-        const res = await axios.post(`https://server-ttt-production.up.railway.app${endpoint}`, payload);
+        const res = await axios.post(`http://localhost:5101${endpoint}`, payload);
         
         if (isLogin) {
           // Login success - SIMPAN TOKEN DENGAN AMAN
