@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Music, ListMusic } from 'lucide-react';
 
-const SERVER_URL = 'https://taptiptup-server-1ee47f2895cb.herokuapp.com';
+const SERVER_URL = 'https://server-taptiptup.vercel.app';
 
 const formatTime = (s) => {
   if (!s || isNaN(s)) return '0:00';

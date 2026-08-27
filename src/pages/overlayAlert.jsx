@@ -63,7 +63,7 @@
     //     const text = `${donation.donorName || 'Seseorang'} mengirimkan Rp ${Number(donation.amount).toLocaleString('id-ID')}. ${donation.message || ''}`;
 
     //     try {
-    //       const res = await fetch('https://taptiptup-server-1ee47f2895cb.herokuapp.com/api/overlay/tts/speak', {
+    //       const res = await fetch('https://server-taptiptup.vercel.app/api/overlay/tts/speak', {
     //         method: 'POST',
     //         headers: { 'Content-Type': 'application/json' },
     //         body: JSON.stringify({ 
@@ -104,7 +104,7 @@
     //           const timestamp = Date.now();
 
     //           const resA = await axios.get(
-    //             `https://taptiptup-server-1ee47f2895cb.herokuapp.com/api/overlay/config/${token}?slot=A&t=${timestamp}`
+    //             `https://server-taptiptup.vercel.app/api/overlay/config/${token}?slot=A&t=${timestamp}`
     //           );
 
     //           const activeSlot = resA.data?.activeSlot || 'A';
@@ -116,7 +116,7 @@
     //             finalConfig = resA.data;
     //           } else {
     //             const resB = await axios.get(
-    //               `https://taptiptup-server-1ee47f2895cb.herokuapp.com/api/overlay/config/${token}?slot=${activeSlot}&t=${timestamp}`
+    //               `https://server-taptiptup.vercel.app/api/overlay/config/${token}?slot=${activeSlot}&t=${timestamp}`
     //             );
     //             finalConfig = resB.data;
     //           }
@@ -138,7 +138,7 @@
     //     useEffect(() => {
     //       if (!token) return;
 
-    //       const socket = io('https://taptiptup-server-1ee47f2895cb.herokuapp.com', {
+    //       const socket = io('https://server-taptiptup.vercel.app', {
     //         reconnection: true,
     //         reconnectionAttempts: Infinity,
     //         reconnectionDelay: 1500,
@@ -722,7 +722,7 @@ import * as Ably from 'ably';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 
-const API_BASE = 'https://taptiptup-server-1ee47f2895cb.herokuapp.com';
+const API_BASE = 'https://server-taptiptup.vercel.app';
 
 const getYouTubeEmbedUrl = (url) => {
   if (!url) return null;

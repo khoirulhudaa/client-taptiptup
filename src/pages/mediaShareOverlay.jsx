@@ -4,7 +4,7 @@
 //   import { io } from 'socket.io-client';
 //   import axios from 'axios';
 
-//   const API_URL = 'https://taptiptup-server-1ee47f2895cb.herokuapp.com';
+//   const API_URL = 'https://server-taptiptup.vercel.app';
 
 //   const isTikTokUrl = (url) => {
 //     if (!url) return false;
@@ -719,7 +719,7 @@ import { useParams } from 'react-router-dom';
 import * as Ably from 'ably';
 import axios from 'axios';
 
-const API_URL = 'https://taptiptup-server-1ee47f2895cb.herokuapp.com';
+const API_URL = 'https://server-taptiptup.vercel.app';
 
 const isTikTokUrl = (url) => !!url && /tiktok\.com/i.test(url);
 
