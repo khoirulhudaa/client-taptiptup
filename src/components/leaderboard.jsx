@@ -1,10 +1,200 @@
+// // LeaderboardWidget.jsx
+// // Route: /widget/:token/leaderboard
+// // OBS Browser Source — ukuran 360×420px, background transparan
+
+// import { useCallback, useEffect, useState } from 'react';
+// import { useParams } from 'react-router-dom';
+// import { io } from 'socket.io-client';
+// import axios from 'axios';
+
+// const BASE_URL = import.meta.env.VITE_API_URL;
+
+// const MEDALS = ['🥇', '🥈', '🥉'];
+// const RANK_COLORS = ['#f59e0b', '#94a3b8', '#f97316'];
+
+// const LeaderboardWidget = () => {
+//   const { token } = useParams();
+//   const [donors, setDonors] = useState([]);
+//   const [settings, setSettings] = useState({ leaderboardShowAmount: true, leaderboardLimit: 10 });
+//   const [animKey, setAnimKey] = useState(0);
+
+//   const fetchData = useCallback(async () => {
+//     try {
+//       const res = await axios.get(
+//         `${BASE_URL}/widget/${token}/leaderboard?t=${Date.now()}`,  // ← tambah cache buster
+//         { headers: { 'Accept': 'application/json' } }
+//       );
+//       setDonors(res.data.donors || []);
+//       if (res.data.settings) setSettings(res.data.settings);
+//     } catch (err) {
+//       console.error('Failed to fetch leaderboard:', err);
+//       setDonors([]);
+//     }
+//   }, [token]);
+
+//   useEffect(() => {
+//     if (!token) return;
+//     fetchData();
+//   }, [fetchData]);
+
+//   useEffect(() => {
+//     if (!token) return;
+//     const socket = io(BASE_URL);
+//     socket.emit('join-room', token);
+//     socket.emit('join-room', `${token}-mediashare`); // ✅ join mediashare room
+
+//     const refresh = () => {
+//       fetchData();
+//       setAnimKey(k => k + 1);
+//     };
+
+//     socket.on('new-donation', refresh);
+//     socket.on('new-media-donation', refresh); // ✅ tambah
+//     socket.on('leaderboard-updated', refresh); 
+//     socket.on('settings-updated', refresh);   // ← tambah ini
+
+//     return () => socket.disconnect();
+//   }, [token, fetchData]); // ✅ tambah fetchData ke dependency
+
+
+//   if (!donors.length) return (
+//     <div style={{ width: '100%', height: '100vh', background: 'transparent' }} />
+//   );
+
+//   const limit = settings.leaderboardLimit || 10;
+//   const showAmount = settings.leaderboardShowAmount !== false;
+//   const displayDonors = donors.slice(0, limit);
+  
+//   return (
+//     <div style={{
+//       width: 'max-conent',
+//       minHeight: '100vh',
+//       borderRadius: 20,
+//       background: 'transparent',
+//       fontFamily: "'Inter', 'Segoe UI', sans-serif",
+//     }}>
+//       <div
+//         key={animKey}
+//         style={{
+//           background: 'rgba(15, 15, 25, 1)',
+//           borderRadius: 20,
+//           border: '1.5px solid rgba(255,255,255,0.08)',
+//           boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+//         }}
+//         >
+//         {/* Header */}
+//         <div style={{
+//           padding: '14px 18px',
+//           borderBottom: '1px solid rgba(255,255,255,0.06)',
+//           display: 'flex',
+//           width: 'max-content',
+//           paddingRight: 130,
+//           alignItems: 'center',
+//           gap: 8,
+//         }}>
+//           <span style={{
+//             fontSize: 18,
+//             fontWeight: 700,
+//             position: 'relative',
+//             top: 2,
+//             textTransform: 'uppercase',
+//             letterSpacing: '0.12em',
+//             color: 'rgba(255,255,255,1)',
+//           }}>
+//             {settings?.leaderboardTitle || 'Leaderboard Donatur'}
+//           </span>
+//         </div>
+
+//         {/* Donor list */}
+//         <div style={{ padding: '10px 0' }}>
+//           {displayDonors.map((donor, i) => (
+//             <div
+//               key={donor.name + i}
+//               style={{
+//                 display: 'flex',
+//                 alignItems: 'center',
+//                 gap: 10,
+//                 padding: '9px 16px',
+//                 animation: `fadeIn 0.3s ease ${i * 0.05}s both`,
+//               }}
+//             >
+//               {/* Rank */}
+//               <div style={{
+//                 width: 50,
+//                 height: 50,
+//                 borderRadius: 12,
+//                 background: i < 3 ? `${RANK_COLORS[i]}22` : 'rgba(255,255,255,0.07)', // ← hapus putih
+//                 display: 'flex',
+//                 textAlign: 'center',
+//                 alignItems: 'center',
+//                 justifyContent: 'center',
+//                 fontSize: i < 3 ? 14 : 11,
+//                 fontWeight: 800,
+//                 color: i < 3 ? RANK_COLORS[i] : RANK_COLORS[2], // ← pakai warna posisi 3 (#f97316)
+//                 flexShrink: 0,
+//               }}>
+//                 {i < 3 ? MEDALS[i] : `#${i + 1}`}
+//               </div>
+
+//               {/* Name */}
+//               <div style={{ flex: 1, minWidth: 0, position: 'relative', top: 0.5 }}>
+//                 <p style={{
+//                   fontSize: 18,
+//                   fontWeight: 700,
+//                   color: i < 3 ? '#ffffff' : 'rgba(255,255,255,1)',
+//                   overflow: 'hidden',
+//                   textOverflow: 'ellipsis',
+//                   whiteSpace: 'nowrap',
+//                   margin: 0,
+//                 }}>
+//                   {donor.name}
+//                 </p>
+//                 <p style={{
+//                   fontSize: 16,
+//                   color: 'rgba(255,255,255,0.25)',
+//                   fontWeight: 600,
+//                   margin: 0,
+//                 }}>
+//                   {donor.count}x donasi
+//                 </p>
+//               </div>
+
+//               {/* Amount */}
+//               {showAmount && (
+//                 <span style={{
+//                   fontSize: 16,
+//                   fontWeight: 900,
+//                   color: i < 3 ? RANK_COLORS[i] : 'rgba(255,255,255,0.4)',
+//                   flexShrink: 0,
+//                 }}>
+//                   Rp {Number(donor.totalAmount).toLocaleString('id-ID')}
+//                 </span>
+//               )}
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+
+//       <style>{`
+//         @keyframes fadeIn {
+//           from { opacity: 0; transform: translateX(-8px); }
+//           to   { opacity: 1; transform: translateX(0); }
+//         }
+//       `}</style>
+//     </div>
+//   );
+// };
+
+// export default LeaderboardWidget;
+
+
 // LeaderboardWidget.jsx
 // Route: /widget/:token/leaderboard
 // OBS Browser Source — ukuran 360×420px, background transparan
 
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { io } from 'socket.io-client';
+import * as Ably from 'ably';
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -21,7 +211,7 @@ const LeaderboardWidget = () => {
   const fetchData = useCallback(async () => {
     try {
       const res = await axios.get(
-        `${BASE_URL}/widget/${token}/leaderboard?t=${Date.now()}`,  // ← tambah cache buster
+        `${BASE_URL}/widget/${token}/leaderboard?t=${Date.now()}`,
         { headers: { 'Accept': 'application/json' } }
       );
       setDonors(res.data.donors || []);
@@ -37,136 +227,68 @@ const LeaderboardWidget = () => {
     fetchData();
   }, [fetchData]);
 
+  // ==================== ABLY (ganti Socket.io) ====================
   useEffect(() => {
     if (!token) return;
-    const socket = io(BASE_URL);
-    socket.emit('join-room', token);
-    socket.emit('join-room', `${token}-mediashare`); // ✅ join mediashare room
+
+    const ably = new Ably.Realtime({ authUrl: `${BASE_URL}/api/overlay/ably-token?token=${token}` });
+    const mainChannel = ably.channels.get(token);
+    const mediaChannel = ably.channels.get(`${token}-mediashare`);
 
     const refresh = () => {
       fetchData();
       setAnimKey(k => k + 1);
     };
 
-    socket.on('new-donation', refresh);
-    socket.on('new-media-donation', refresh); // ✅ tambah
-    socket.on('leaderboard-updated', refresh); 
-    socket.on('settings-updated', refresh);   // ← tambah ini
+    mainChannel.subscribe('new-donation', refresh);
+    mainChannel.subscribe('leaderboard-updated', refresh);
+    mainChannel.subscribe('settings-updated', refresh);
+    mediaChannel.subscribe('new-media-donation', refresh);
 
-    return () => socket.disconnect();
-  }, [token, fetchData]); // ✅ tambah fetchData ke dependency
+    return () => {
+      mainChannel.unsubscribe();
+      mediaChannel.unsubscribe();
+      ably.close();
+    };
+  }, [token, fetchData]);
 
-
-  if (!donors.length) return (
-    <div style={{ width: '100%', height: '100vh', background: 'transparent' }} />
-  );
+  if (!donors.length) return <div style={{ width: '100%', height: '100vh', background: 'transparent' }} />;
 
   const limit = settings.leaderboardLimit || 10;
   const showAmount = settings.leaderboardShowAmount !== false;
   const displayDonors = donors.slice(0, limit);
-  
+
   return (
-    <div style={{
-      width: 'max-conent',
-      minHeight: '100vh',
-      borderRadius: 20,
-      background: 'transparent',
-      fontFamily: "'Inter', 'Segoe UI', sans-serif",
-    }}>
-      <div
-        key={animKey}
-        style={{
-          background: 'rgba(15, 15, 25, 1)',
-          borderRadius: 20,
-          border: '1.5px solid rgba(255,255,255,0.08)',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
-        }}
-        >
-        {/* Header */}
-        <div style={{
-          padding: '14px 18px',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
-          display: 'flex',
-          width: 'max-content',
-          paddingRight: 130,
-          alignItems: 'center',
-          gap: 8,
-        }}>
-          <span style={{
-            fontSize: 18,
-            fontWeight: 700,
-            position: 'relative',
-            top: 2,
-            textTransform: 'uppercase',
-            letterSpacing: '0.12em',
-            color: 'rgba(255,255,255,1)',
-          }}>
+    <div style={{ width: 'max-content', minHeight: '100vh', borderRadius: 20, background: 'transparent', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
+      <div key={animKey} style={{ background: 'rgba(15, 15, 25, 1)', borderRadius: 20, border: '1.5px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 32px rgba(0,0,0,0.5)' }}>
+        <div style={{ padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', width: 'max-content', paddingRight: 130, alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 18, fontWeight: 700, position: 'relative', top: 2, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(255,255,255,1)' }}>
             {settings?.leaderboardTitle || 'Leaderboard Donatur'}
           </span>
         </div>
 
-        {/* Donor list */}
         <div style={{ padding: '10px 0' }}>
           {displayDonors.map((donor, i) => (
-            <div
-              key={donor.name + i}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                padding: '9px 16px',
-                animation: `fadeIn 0.3s ease ${i * 0.05}s both`,
-              }}
-            >
-              {/* Rank */}
+            <div key={donor.name + i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 16px', animation: `fadeIn 0.3s ease ${i * 0.05}s both` }}>
               <div style={{
-                width: 50,
-                height: 50,
-                borderRadius: 12,
-                background: i < 3 ? `${RANK_COLORS[i]}22` : 'rgba(255,255,255,0.07)', // ← hapus putih
-                display: 'flex',
-                textAlign: 'center',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: i < 3 ? 14 : 11,
-                fontWeight: 800,
-                color: i < 3 ? RANK_COLORS[i] : RANK_COLORS[2], // ← pakai warna posisi 3 (#f97316)
-                flexShrink: 0,
+                width: 50, height: 50, borderRadius: 12,
+                background: i < 3 ? `${RANK_COLORS[i]}22` : 'rgba(255,255,255,0.07)',
+                display: 'flex', textAlign: 'center', alignItems: 'center', justifyContent: 'center',
+                fontSize: i < 3 ? 14 : 11, fontWeight: 800,
+                color: i < 3 ? RANK_COLORS[i] : RANK_COLORS[2], flexShrink: 0,
               }}>
                 {i < 3 ? MEDALS[i] : `#${i + 1}`}
               </div>
-
-              {/* Name */}
               <div style={{ flex: 1, minWidth: 0, position: 'relative', top: 0.5 }}>
-                <p style={{
-                  fontSize: 18,
-                  fontWeight: 700,
-                  color: i < 3 ? '#ffffff' : 'rgba(255,255,255,1)',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  margin: 0,
-                }}>
+                <p style={{ fontSize: 18, fontWeight: 700, color: i < 3 ? '#ffffff' : 'rgba(255,255,255,1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', margin: 0 }}>
                   {donor.name}
                 </p>
-                <p style={{
-                  fontSize: 16,
-                  color: 'rgba(255,255,255,0.25)',
-                  fontWeight: 600,
-                  margin: 0,
-                }}>
+                <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.25)', fontWeight: 600, margin: 0 }}>
                   {donor.count}x donasi
                 </p>
               </div>
-
-              {/* Amount */}
               {showAmount && (
-                <span style={{
-                  fontSize: 16,
-                  fontWeight: 900,
-                  color: i < 3 ? RANK_COLORS[i] : 'rgba(255,255,255,0.4)',
-                  flexShrink: 0,
-                }}>
+                <span style={{ fontSize: 16, fontWeight: 900, color: i < 3 ? RANK_COLORS[i] : 'rgba(255,255,255,0.4)', flexShrink: 0 }}>
                   Rp {Number(donor.totalAmount).toLocaleString('id-ID')}
                 </span>
               )}

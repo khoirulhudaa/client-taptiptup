@@ -1104,8 +1104,7 @@
             <button 
               type="submit" 
               disabled={loading}
-              className="submit-btn"
-              className="flex justify-center items-center text-center rounded-xl"
+              className="submit-btn flex justify-center items-center text-center rounded-xl"
               style={{ 
                 width: '100%', padding: '16px 0', 
                 // borderRadius: 0, 

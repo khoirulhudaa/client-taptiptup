@@ -3,7 +3,7 @@ import { showSessionExpiredModal } from './sessionModal';
 
 const api = axios.create({
   // baseURL: 'https://server-ttt-production.up.railway.app' || import.meta.env.VITE_API_URL,
-  baseURL: 'http://localhost:5101' || import.meta.env.VITE_API_URL,
+  baseURL: 'https://server-taptiptup.vercel.app' || import.meta.env.VITE_API_URL,
 });
 
 api.interceptors.request.use((config) => {
@@ -11,7 +11,6 @@ api.interceptors.request.use((config) => {
   const isOverlayPage = path.startsWith('/overlay') || path.startsWith('/widget');
 
   const token = localStorage.getItem('token');
-
 
   if (!token && !isOverlayPage) {
     showSessionExpiredModal();
