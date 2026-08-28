@@ -5731,231 +5731,6 @@ const handleChangePin = async () => {
                         )}
                       </div>
                     </div>
-
-                    {/* HAPUS AKUN */}
-                    <div id="tour-hapus-akun" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 pb-4.5 md:pb-6 md:p-6 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-3">
-                      <SectionHeader icon={<Trash2 size={18} />} title="Hapus Akun" color="bg-red-500" />
-                    
-                      <div className="space-y-3">
-                        <div className="grid md:hidden grid-cols-1 sm:grid-cols-2 gap-2">
-                          <div key={"Note"} className="md:hidden flex items-center gap-3 p-3 py-2.5 bg-slate-500/20 rounded-xl  border border-slate-500/30">
-                            <span className="text-base flex-shrink-0">{'⚙️'}</span>
-                            <p className="text-[11px] font-bold text-white">{"Semua data dan saldo terhapus permanent"}</p>
-                          </div>
-                        </div>
-                    
-                        {/* Step 1: ketik konfirmasi */}
-                        {deleteStep === 'idle' && (
-                          <div className="space-y-3 pt-1">
-                            <div className="space-y-1.5">
-                              <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest block">
-                                Ketik <span className="text-red-400 font-black">HAPUS AKUN SAYA</span> untuk lanjut
-                              </label>
-                              <InputField
-                                label='Ketik ulang'
-                                type="text"
-                                value={deleteConfirmText}
-                                onChange={e => setDeleteConfirmText(e)}
-                                placeholder="HAPUS AKUN SAYA"
-                                // className="w-full p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-400 dark:focus:border-red-600 text-slate-900 dark:text-slate-100 rounded-xl  font-bold text-sm outline-none transition-all"
-                              />
-                            </div>
-                             <div className='w-full px-1'>
-                              <button
-                                onClick={() => {
-                                  if (deleteConfirmText !== 'HAPUS AKUN SAYA') {
-                                    setDeleteError('Ketik persis: HAPUS AKUN SAYA');
-                                    return;
-                                  }
-                                  setDeleteError('');
-                                  setDeleteStep('pin');
-                                }}
-                                disabled={deleteConfirmText !== 'HAPUS AKUN SAYA'}
-                                className="
-                                text-slate-900 dark:text-white 
-                                  -translate-y-[3px] translate-x-[-3px]
-                                  [box-shadow:4px_6px_0_#f1f5f9]
-                                  dark:[box-shadow:4px_4px_0_#99a3b1]
-                                  hover:translate-y-0 hover:translate-x-0
-                                  hover:bg-slate-200 dark:hover:bg-slate-700
-                                  border border-slate-300
-                                  hover:[box-shadow:0_0_0_#f1f5f9]
-                                  dark:hover:[box-shadow:0_0_0_#94a3b8]
-                                  active:translate-y-[2px] active:translate-x-[2px]
-                                  active:[box-shadow:none]
-                                cursor-pointer active:scale-[0.99] w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
-                              >
-                                <Trash2 className='relative top-[-1px]' size={16} /> Lanjut ke Verifikasi PIN
-                              </button>
-                            </div>
-                          </div>
-                        )}
-                    
-                        {/* Step 2: verifikasi PIN sebelum hapus */}
-                        {deleteStep === 'pin' && (
-                          <motion.div
-                            key="delete-pin"
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="space-y-5 pt-1"
-                          >
-                            <div className="p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800/50 rounded-xl ">
-                              <p className="text-xs font-black text-red-600 dark:text-red-400 mb-0.5">Konfirmasi dengan PIN Keamanan</p>
-                              <p className="text-[11px] text-red-500 dark:text-red-500 font-medium">
-                                Masukkan PIN 4-digit yang kamu gunakan untuk konfirmasi transfer.
-                              </p>
-                            </div>
-                    
-                            {/* PIN input row (inline, tanpa reuse PinRow agar bebas styling) */}
-                            <div className="flex flex-col items-center gap-3">
-                              <div className="flex gap-3 justify-center">
-                                {deletePinForm.map((digit, idx) => (
-                                  <input
-                                    key={idx}
-                                    ref={deletePinRefs[idx]}
-                                    type="password"
-                                    inputMode="numeric"
-                                    maxLength={1}
-                                    value={digit}
-                                    onChange={e => {
-                                      const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 1);
-                                      setDeletePinForm(prev => {
-                                        const next = [...prev];
-                                        next[idx] = val;
-                                        return next;
-                                      });
-                                      if (val && idx < 3) {
-                                        setTimeout(() => deletePinRefs[idx + 1].current?.focus(), 10);
-                                      }
-                                    }}
-                                    onKeyDown={e => {
-                                      if (e.key === 'Backspace' && !deletePinForm[idx] && idx > 0) {
-                                        deletePinRefs[idx - 1].current?.focus();
-                                      }
-                                    }}
-                                    className="w-13 h-13 text-center text-xl font-black bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-500 dark:focus:border-red-500 rounded-xl outline-none text-slate-900 dark:text-slate-100 transition-all"
-                                  />
-                                ))}
-                              </div>
-                            </div>
-                    
-                            <div className="flex gap-3.5">
-                              <button
-                                onClick={() => {
-                                  setDeleteStep('idle');
-                                  setDeletePinForm(['','','','']);
-                                  setDeleteError('');
-                                }}
-                                className="
-                                   text-slate-900 dark:text-white 
-                                  -translate-y-[3px] translate-x-[-3px]
-                                  [box-shadow:4px_6px_0_#f1f5f9]
-                                  dark:[box-shadow:4px_4px_0_#99a3b1]
-                                  hover:translate-y-0 hover:translate-x-0
-                                  border border-slate-300
-                                  hover:[box-shadow:0_0_0_#f1f5f9]
-                                  dark:hover:[box-shadow:0_0_0_#94a3b8]
-                                  active:translate-y-[2px] active:translate-x-[2px]
-                                  active:[box-shadow:none]
-                                active:bg-slate-300 dark:active:bg-slate-800
-                                cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
-                              >
-                                Batal
-                              </button>
-                              <button
-                                onClick={async () => {
-                                  const pin = deletePinForm.join('');
-                                  if (pin.length < 4) {
-                                    setDeleteError('Masukkan PIN 4 digit');
-                                    return;
-                                  }
-                                  setDeleteStep('loading');
-                                  setDeleteError('');
-                                  try {
-                                    await api.delete('/api/auth/delete-account', {
-                                      data: { pin }
-                                    });
-                                    setDeleteStep('done');
-                                    // Logout otomatis setelah 3 detik
-                                    setTimeout(() => {
-                                      localStorage.removeItem('token');
-                                      window.location.href = '/login';
-                                    }, 3000);
-                                  } catch (err) {
-                                    const msg = err.response?.data?.message || err.message || 'Gagal menghapus akun';
-                                    setDeleteError(msg);
-                                    setDeleteStep('pin');
-                                  }
-                                }}
-                                disabled={deletePinForm.join('').length < 4}
-                                className="
-                                   text-slate-900 dark:text-white 
-                                  -translate-y-[3px] translate-x-[-3px]
-                                  [box-shadow:4px_6px_0_#f1f5f9]
-                                  dark:[box-shadow:4px_4px_0_#99a3b1]
-                                  hover:translate-y-0 hover:translate-x-0
-                                  border border-slate-300
-                                  hover:[box-shadow:0_0_0_#f1f5f9]
-                                  dark:hover:[box-shadow:0_0_0_#94a3b8]
-                                  active:translate-y-[2px] active:translate-x-[2px]
-                                  active:[box-shadow:none]
-                                active:bg-slate-300 dark:active:bg-slate-800
-                                cursor-pointer flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
-                              >
-                                <Trash2 size={15} /> Hapus Selamanya
-                              </button>
-                            </div>
-                          </motion.div>
-                        )}
-                    
-                        {/* Loading */}
-                        {deleteStep === 'loading' && (
-                          <motion.div
-                            key="delete-loading"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="flex flex-col items-center gap-3 py-8"
-                          >
-                            <Loader2 size={32} className="animate-spin text-red-500" />
-                            <p className="text-sm font-black text-slate-700 dark:text-slate-200">Menghapus akun...</p>
-                            <p className="text-xs text-slate-400 font-medium">Mohon tunggu, jangan tutup halaman ini.</p>
-                          </motion.div>
-                        )}
-                    
-                        {/* Done / Success */}
-                        {deleteStep === 'done' && (
-                          <motion.div
-                            key="delete-done"
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="flex flex-col items-center gap-3 py-8 bg-slate-50 dark:bg-slate-800/50 rounded-xl "
-                          >
-                            <div className="w-16 h-16 bg-red-100 dark:bg-red-950/40 rounded-xl flex items-center justify-center">
-                              <Trash2 size={28} className="text-red-500" />
-                            </div>
-                            <div className="text-center">
-                              <p className="font-black text-slate-800 dark:text-slate-100 text-lg">Akun Berhasil Dihapus</p>
-                              <p className="text-xs text-slate-400 font-medium mt-1">Kamu akan dialihkan ke halaman login...</p>
-                            </div>
-                          </motion.div>
-                        )}
-                    
-                        {/* Error */}
-                        <AnimatePresence>
-                          {deleteError && (
-                            <motion.div
-                              initial={{ opacity: 0, y: -4 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0 }}
-                              className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-xl "
-                            >
-                              <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
-                              <p className="text-xs font-bold text-red-600 dark:text-red-400">{deleteError}</p>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    </div>
                   </section>
 
                   {/* {showPreviewPanel && (
@@ -6430,8 +6205,21 @@ const handleChangePin = async () => {
                       <div className="md:col-span-2">
                         <button onClick={() => updateProfileMutation.mutate(profileForm)} disabled={updateProfileMutation.isPending}
                           className="
-                          
-                          cursor-pointer active:scale-[0.99] hover:brightness-90 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black text-md transition-all flex items-center justify-center gap-3 disabled:opacity-70">
+                        text-slate-900 dark:text-white 
+                          -translate-y-[3px] translate-x-[-3px]
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          hover:bg-slate-200 dark:hover:bg-slate-700
+                          mt-4
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          rounded-xl
+                          active:[box-shadow:none]
+                          cursor-pointer active:scale-[0.99] w-full py-4
+                          bg-blue-500 hover:bg-amber-600 font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed">
                           
                           {updateProfileMutation.isPending ? 'Menyimpan...' : 'Simpan Semua Perubahan'}
                         </button>
@@ -6439,96 +6227,335 @@ const handleChangePin = async () => {
                     </div>
                   </div>
                   <QrCodeCard username={user.username} />
-                    <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl  p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-5">
-                      <SectionHeader icon={<ShieldCheck size={18} />} title="Ubah PIN Keamanan" color="bg-amber-500" />
-                      <p className="text-xs text-slate-400 dark:text-slate-400 font-medium">
-                        PIN digunakan untuk konfirmasi transfer saldo. Pastikan tidak membagikannya ke siapapun.
-                      </p>
+                  <div className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 space-y-1">
+                    <SectionHeader icon={<ShieldCheck size={18} />} title="Ubah PIN Keamanan" color="bg-amber-500" />
+                    {/* <span className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest block">
+                      PIN digunakan untuk konfirmasi transfer saldo. Pastikan tidak membagikannya ke siapapun.
+                    </span> */}
 
-                      <AnimatePresence mode="wait">
-                        {pinStep === 'success' ? (
+                    <AnimatePresence mode="wait">
+                      {pinStep === 'success' ? (
+                        <motion.div
+                          key="pin-success"
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="flex flex-col items-center gap-3 py-8"
+                        >
+                          <div className="w-16 h-16 bg-green-100 dark:bg-green-950/40 flex items-center justify-center">
+                            <CheckCircle2 size={32} className="text-green-600 dark:text-green-400" />
+                          </div>
+                          <p className="font-black text-slate-800 dark:text-slate-100 text-lg">PIN Berhasil Diubah!</p>
+                          <p className="text-sm text-slate-400 font-medium">Gunakan PIN baru untuk konfirmasi transfer berikutnya.</p>
+                        </motion.div>
+                      ) : (
+                        <motion.div key="pin-form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl w-full grid grid-cols-1 gap-3 md:gap-14 items-center justify-center md:grid-cols-3 space-y-0">
+                          <PinRow
+                            label="PIN Saat Ini"
+                            groupKey="currentPin"
+                            refs={currentPinRefs}
+                            pinForm={pinForm}
+                            setPinForm={setPinForm}
+                            showPins={showPins}
+                            setShowPins={setShowPins}
+                            handlePinInputChange={handlePinInputChange}
+                            handlePinKeyDown={handlePinKeyDown}
+                          />
+                          <PinRow
+                            label="PIN Baru"
+                            groupKey="newPin"
+                            refs={newPinRefs}
+                            pinForm={pinForm}
+                            setPinForm={setPinForm}
+                            showPins={showPins}
+                            setShowPins={setShowPins}
+                            handlePinInputChange={handlePinInputChange}
+                            handlePinKeyDown={handlePinKeyDown}
+                          />
+                          <PinRow
+                            label="Konfirmasi PIN Baru"
+                            groupKey="confirmPin"
+                            refs={confirmPinRefs}
+                            pinForm={pinForm}
+                            setPinForm={setPinForm}
+                            showPins={showPins}
+                            setShowPins={setShowPins}
+                            handlePinInputChange={handlePinInputChange}
+                            handlePinKeyDown={handlePinKeyDown}
+                          />
+
+                        </motion.div>
+                    )}
+                    </AnimatePresence>
+                      <AnimatePresence>
+                        {pinError && (
                           <motion.div
-                            key="pin-success"
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
+                            className="rounded-xl w-max flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800"
+                          >
+                            <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
+                            <p className="text-xs font-bold text-red-600 dark:text-red-400">{pinError}</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      <button
+                        onClick={handleChangePin}
+                        disabled={
+                          pinLoading ||
+                          pinForm.currentPin.join('').length < 4 ||
+                          pinForm.newPin.join('').length < 4 ||
+                          pinForm.confirmPin.join('').length < 4
+                        }
+                        className="
+                        text-slate-900 dark:text-white 
+                          -translate-y-[3px] translate-x-[-3px]
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          hover:bg-slate-200 dark:hover:bg-slate-700
+                          mt-4
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          rounded-xl
+                          active:[box-shadow:none]
+                          cursor-pointer active:scale-[0.99] w-full py-3.5
+                          bg-blue-500 hover:bg-amber-600 font-black text-sm transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
+                      >
+                        {pinLoading ? (
+                          <><Loader2 size={16} className="animate-spin" /> Memproses...</>
+                        ) : (
+                          <><Save />Simpan PIN terbaru</>
+                        )}
+                      </button>
+                  </div>
+                     {/* HAPUS AKUN */}
+                    <div id="tour-hapus-akun" className="bg-white/30 dark:bg-slate-900/60 backdrop-blur-sm rounded-xl p-4 pb-4.5 md:pb-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-500/20 space-y-3">
+                      <SectionHeader icon={<Trash2 size={18} />} title="Hapus Akun" color="bg-red-500" />
+                    
+                      <div className="space-y-3">
+                        <div className="grid md:hidden grid-cols-1 sm:grid-cols-2 gap-2">
+                          <div key={"Note"} className="md:hidden flex items-center gap-3 p-3 py-2.5 bg-slate-500/20 rounded-xl  border border-slate-500/30">
+                            <span className="text-base flex-shrink-0">{'⚙️'}</span>
+                            <p className="text-[11px] font-bold text-white">{"Semua data dan saldo terhapus permanent"}</p>
+                          </div>
+                        </div>
+                    
+                        {/* Step 1: ketik konfirmasi */}
+                        {deleteStep === 'idle' && (
+                          <div className="space-y-3 pt-1">
+                            <div className="space-y-1.5">
+                              <label className="text-[10px] font-black text-slate-400 dark:text-slate-400 uppercase tracking-widest block">
+                                Ketik <span className="text-red-400 font-black">HAPUS AKUN SAYA</span> untuk lanjut
+                              </label>
+                              <InputField
+                                label='Ketik ulang'
+                                type="text"
+                                value={deleteConfirmText}
+                                onChange={e => setDeleteConfirmText(e)}
+                                placeholder="HAPUS AKUN SAYA"
+                                // className="w-full p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-400 dark:focus:border-red-600 text-slate-900 dark:text-slate-100 rounded-xl  font-bold text-sm outline-none transition-all"
+                              />
+                            </div>
+                             <div className='w-full'>
+                              <button
+                                onClick={() => {
+                                  if (deleteConfirmText !== 'HAPUS AKUN SAYA') {
+                                    setDeleteError('Ketik persis: HAPUS AKUN SAYA');
+                                    return;
+                                  }
+                                  setDeleteError('');
+                                  setDeleteStep('pin');
+                                }}
+                                disabled={deleteConfirmText !== 'HAPUS AKUN SAYA'}
+                                className="
+                                text-slate-900 dark:text-white 
+                                  -translate-y-[3px] translate-x-[-3px]
+                                  [box-shadow:4px_6px_0_#f1f5f9]
+                                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                                  hover:translate-y-0 hover:translate-x-0
+                                  hover:bg-slate-200 dark:hover:bg-slate-700
+                                  border border-slate-300
+                                  hover:[box-shadow:0_0_0_#f1f5f9]
+                                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                                  active:translate-y-[2px] active:translate-x-[2px]
+                                  active:[box-shadow:none] py-4
+                                cursor-pointer active:scale-[0.99] w-full bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
+                              >
+                                <Trash2 className='relative top-[-1px]' size={16} /> Lanjut ke Verifikasi PIN
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                    
+                        {/* Step 2: verifikasi PIN sebelum hapus */}
+                        {deleteStep === 'pin' && (
+                          <motion.div
+                            key="delete-pin"
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="space-y-5 pt-1"
+                          >
+                            <div className="p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800/50 rounded-xl ">
+                              <p className="text-xs font-black text-red-600 dark:text-red-400 mb-0.5">Konfirmasi dengan PIN Keamanan</p>
+                              <p className="text-[11px] text-red-500 dark:text-red-500 font-medium">
+                                Masukkan PIN 4-digit yang kamu gunakan untuk konfirmasi transfer.
+                              </p>
+                            </div>
+                    
+                            {/* PIN input row (inline, tanpa reuse PinRow agar bebas styling) */}
+                            <div className="flex flex-col items-center gap-3">
+                              <div className="flex gap-3 justify-center">
+                                {deletePinForm.map((digit, idx) => (
+                                  <input
+                                    key={idx}
+                                    ref={deletePinRefs[idx]}
+                                    type="password"
+                                    inputMode="numeric"
+                                    maxLength={1}
+                                    value={digit}
+                                    onChange={e => {
+                                      const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 1);
+                                      setDeletePinForm(prev => {
+                                        const next = [...prev];
+                                        next[idx] = val;
+                                        return next;
+                                      });
+                                      if (val && idx < 3) {
+                                        setTimeout(() => deletePinRefs[idx + 1].current?.focus(), 10);
+                                      }
+                                    }}
+                                    onKeyDown={e => {
+                                      if (e.key === 'Backspace' && !deletePinForm[idx] && idx > 0) {
+                                        deletePinRefs[idx - 1].current?.focus();
+                                      }
+                                    }}
+                                    className="w-13 h-13 text-center text-xl font-black bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-500 dark:focus:border-red-500 rounded-xl outline-none text-slate-900 dark:text-slate-100 transition-all"
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                    
+                            <div className="flex gap-3.5">
+                              <button
+                                onClick={() => {
+                                  setDeleteStep('idle');
+                                  setDeletePinForm(['','','','']);
+                                  setDeleteError('');
+                                }}
+                                className="
+                                   text-slate-900 dark:text-white 
+                                  -translate-y-[3px] translate-x-[-3px]
+                                  [box-shadow:4px_6px_0_#f1f5f9]
+                                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                                  hover:translate-y-0 hover:translate-x-0
+                                  border border-slate-300
+                                  hover:[box-shadow:0_0_0_#f1f5f9]
+                                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                                  active:translate-y-[2px] active:translate-x-[2px]
+                                  active:[box-shadow:none]
+                                active:bg-slate-300 dark:active:bg-slate-800
+                                cursor-pointer flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-black text-sm rounded-xl  transition-all active:scale-[0.99]"
+                              >
+                                Batal
+                              </button>
+                              <button
+                                onClick={async () => {
+                                  const pin = deletePinForm.join('');
+                                  if (pin.length < 4) {
+                                    setDeleteError('Masukkan PIN 4 digit');
+                                    return;
+                                  }
+                                  setDeleteStep('loading');
+                                  setDeleteError('');
+                                  try {
+                                    await api.delete('/api/auth/delete-account', {
+                                      data: { pin }
+                                    });
+                                    setDeleteStep('done');
+                                    // Logout otomatis setelah 3 detik
+                                    setTimeout(() => {
+                                      localStorage.removeItem('token');
+                                      window.location.href = '/login';
+                                    }, 3000);
+                                  } catch (err) {
+                                    const msg = err.response?.data?.message || err.message || 'Gagal menghapus akun';
+                                    setDeleteError(msg);
+                                    setDeleteStep('pin');
+                                  }
+                                }}
+                                disabled={deletePinForm.join('').length < 4}
+                                className="
+                                   text-slate-900 dark:text-white 
+                                  -translate-y-[3px] translate-x-[-3px]
+                                  [box-shadow:4px_6px_0_#f1f5f9]
+                                  dark:[box-shadow:4px_4px_0_#99a3b1]
+                                  hover:translate-y-0 hover:translate-x-0
+                                  border border-slate-300
+                                  hover:[box-shadow:0_0_0_#f1f5f9]
+                                  dark:hover:[box-shadow:0_0_0_#94a3b8]
+                                  active:translate-y-[2px] active:translate-x-[2px]
+                                  active:[box-shadow:none]
+                                active:bg-slate-300 dark:active:bg-slate-800
+                                cursor-pointer flex-1 py-3 bg-red-600 hover:bg-red-700 text-white font-black text-sm rounded-xl  transition-all active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                              >
+                                <Trash2 size={15} /> Hapus Selamanya
+                              </button>
+                            </div>
+                          </motion.div>
+                        )}
+                    
+                        {/* Loading */}
+                        {deleteStep === 'loading' && (
+                          <motion.div
+                            key="delete-loading"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
                             className="flex flex-col items-center gap-3 py-8"
                           >
-                            <div className="w-16 h-16 bg-green-100 dark:bg-green-950/40 flex items-center justify-center">
-                              <CheckCircle2 size={32} className="text-green-600 dark:text-green-400" />
+                            <Loader2 size={32} className="animate-spin text-red-500" />
+                            <p className="text-sm font-black text-slate-700 dark:text-slate-200">Menghapus akun...</p>
+                            <p className="text-xs text-slate-400 font-medium">Mohon tunggu, jangan tutup halaman ini.</p>
+                          </motion.div>
+                        )}
+                    
+                        {/* Done / Success */}
+                        {deleteStep === 'done' && (
+                          <motion.div
+                            key="delete-done"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="flex flex-col items-center gap-3 py-8 bg-slate-50 dark:bg-slate-800/50 rounded-xl "
+                          >
+                            <div className="w-16 h-16 bg-red-100 dark:bg-red-950/40 rounded-xl flex items-center justify-center">
+                              <Trash2 size={28} className="text-red-500" />
                             </div>
-                            <p className="font-black text-slate-800 dark:text-slate-100 text-lg">PIN Berhasil Diubah!</p>
-                            <p className="text-sm text-slate-400 font-medium">Gunakan PIN baru untuk konfirmasi transfer berikutnya.</p>
+                            <div className="text-center">
+                              <p className="font-black text-slate-800 dark:text-slate-100 text-lg">Akun Berhasil Dihapus</p>
+                              <p className="text-xs text-slate-400 font-medium mt-1">Kamu akan dialihkan ke halaman login...</p>
+                            </div>
                           </motion.div>
-                        ) : (
-                          <motion.div key="pin-form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-xl  w-full grid grid-cols-1 gap-3 md:gap-14 items-center justify-center md:grid-cols-3 space-y-0">
-                            <PinRow
-                              label="PIN Saat Ini"
-                              groupKey="currentPin"
-                              refs={currentPinRefs}
-                              pinForm={pinForm}
-                              setPinForm={setPinForm}
-                              showPins={showPins}
-                              setShowPins={setShowPins}
-                              handlePinInputChange={handlePinInputChange}
-                              handlePinKeyDown={handlePinKeyDown}
-                            />
-                            <PinRow
-                              label="PIN Baru"
-                              groupKey="newPin"
-                              refs={newPinRefs}
-                              pinForm={pinForm}
-                              setPinForm={setPinForm}
-                              showPins={showPins}
-                              setShowPins={setShowPins}
-                              handlePinInputChange={handlePinInputChange}
-                              handlePinKeyDown={handlePinKeyDown}
-                            />
-                            <PinRow
-                              label="Konfirmasi PIN Baru"
-                              groupKey="confirmPin"
-                              refs={confirmPinRefs}
-                              pinForm={pinForm}
-                              setPinForm={setPinForm}
-                              showPins={showPins}
-                              setShowPins={setShowPins}
-                              handlePinInputChange={handlePinInputChange}
-                              handlePinKeyDown={handlePinKeyDown}
-                            />
-
-                          </motion.div>
-                      )}
-                      </AnimatePresence>
+                        )}
+                    
+                        {/* Error */}
                         <AnimatePresence>
-                          {pinError && (
+                          {deleteError && (
                             <motion.div
                               initial={{ opacity: 0, y: -4 }}
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0 }}
-                              className="rounded-xl w-max flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800"
+                              className="flex items-center gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-xl "
                             >
                               <AlertCircle size={14} className="text-red-500 flex-shrink-0" />
-                              <p className="text-xs font-bold text-red-600 dark:text-red-400">{pinError}</p>
+                              <p className="text-xs font-bold text-red-600 dark:text-red-400">{deleteError}</p>
                             </motion.div>
                           )}
                         </AnimatePresence>
-
-                        <button
-                          onClick={handleChangePin}
-                          disabled={
-                            pinLoading ||
-                            pinForm.currentPin.join('').length < 4 ||
-                            pinForm.newPin.join('').length < 4 ||
-                            pinForm.confirmPin.join('').length < 4
-                          }
-                          className="rounded-xl cursor-pointer md:mt-0 mt-2 w-full px-4 relative md:top-[7px] py-3 bg-blue-500 hover:bg-amber-600 text-white font-black text-sm transition-all active:scale-[0.99] flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed"
-                        >
-                          {pinLoading ? (
-                            <><Loader2 size={16} className="animate-spin" /> Memproses...</>
-                          ) : (
-                            <><Save />Simpan PIN terbaru</>
-                          )}
-                        </button>
+                      </div>
                     </div>
                 </motion.div>
               )}

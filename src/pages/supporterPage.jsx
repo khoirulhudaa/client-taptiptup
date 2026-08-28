@@ -2296,7 +2296,7 @@ const SupporterPage = () => {
       {/* Background GIF layer */}
       <div className="absolute inset-0 md:flex hidden pointer-events-none overflow-hidden">
         <img
-          src="/gold.gif"
+          src="/gold2.gif"
           alt=""
           className="w-full h-full object-cover opacity-[0.04] dark:opacity-[0.035]"
         />
