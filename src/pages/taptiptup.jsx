@@ -268,7 +268,6 @@ function AlertPop({ visible, C }) {
 
 function Hero({ C, isDark }) {
   const [alertVisible, setAlertVisible] = useState(false);
-  const [ref, inView] = useInView(0.3);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const rotate = useMotionValue(0);
@@ -302,7 +301,7 @@ function Hero({ C, isDark }) {
 
   return (
     <section id="home"
-      className="select-none bg-blue-900 !border-b border-[azure] hero-wrapper md:py-0 min-h-max md:h-[95vh] overflow-hidden relative"
+      className="select-none md:mt-0 !mt-[-10px] bg-blue-900 !border-b border-[azure] hero-wrapper md:py-0 min-h-max md:h-[95vh] overflow-hidden relative"
       style={{
         display: "grid",
         gridTemplateRows: "1fr auto",
@@ -376,13 +375,13 @@ function Hero({ C, isDark }) {
       <img src="/woman1.png" alt="image woman" className="absolute select-none bottom-0 md:flex hidden md:bottom-[-40px] left-[-34px] md:left-[-22px] 2xl:left-[-32px] w-[46%] md:w-[43.0%] z-[99999]" />
       <img src="/woman2.png" alt="image woman" className="absolute select-none bottom-0  md:flex hidden md:bottom-[-100px] right-12 w-[32%] z-[99999]" />
       <img src="/man1.png" alt="image man" className="absolute select-none bottom-0 md:flex hidden md:bottom-[-40px] right-[-17px] md:right-[-208px] w-[39.5%] md:w-[40%] z-[999]" />
-      <div className="absolute bottom-0 flex z-[5]">
+      <div className="absolute bottom-0 hidden md:flex z-[5]">
         <Marquee C={C} />
       </div>
       {/* Main Content */}
       <div
         style={{ zIndex: 4, transition: "border-color 0.4s" }}
-        className="select-none relative top-[-40px] hero-main-grid relative h-full flex items-center"
+        className="select-none relative top-[-40px] hero-main-grid h-full flex items-center"
       >
         <div
           className="select-none text-center mx-auto w-full flex flex-col !pt-0 md:!pt-[40px] justify-center items-center px-6"
@@ -2517,7 +2516,7 @@ export default function TapTipTup() {
       }}
     >
       <style>{buildGlobalStyles(C)}</style>
-      <div className="flex">
+      <div className="md:flex hidden">
         <Marquee C={C} />
       </div>
       <Hero C={C} isDark={isDark} />
