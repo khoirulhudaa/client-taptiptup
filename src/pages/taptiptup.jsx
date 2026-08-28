@@ -306,7 +306,7 @@ function Hero({ C, isDark }) {
 
   return (
     <section id="home"
-      className="select-none md:mt-0 !mt-[-10px] bg-blue-900 !border-b border-[azure] hero-wrapper md:py-0 min-h-max md:h-[95vh] overflow-hidden relative"
+      className="select-none md:mt-0 bg-blue-900 !border-b border-[azure] hero-wrapper md:py-0 h-[82vh] md:h-[95vh] overflow-hidden relative"
       style={{
         display: "grid",
         gridTemplateRows: "1fr auto",
