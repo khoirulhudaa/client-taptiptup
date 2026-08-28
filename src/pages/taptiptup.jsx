@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
+import SuggestionForm from "../components/FormSuggestion";
 /* ─────────────────────────────────────────
    DATA
 ───────────────────────────────────────── */
@@ -47,9 +48,12 @@ function StaggerGroup({ children, className, style, once = true, amount = 0.15 }
   );
 }
 
-function StaggerItem({ children, className, style }) {
+function StaggerItem({ children, className, style, onClick, ...rest }) {
   return (
-    <motion.div className={className} style={style} variants={staggerItemVariant}>
+    <motion.div className={className} style={style} variants={staggerItemVariant}
+     onClick={onClick}
+      {...rest}
+    >
       {children}
     </motion.div>
   );
@@ -195,6 +199,7 @@ function BtnMain({ children, href, style, C }) {
       -translate-y-[3px] translate-x-[-3px]
       [box-shadow:4px_6px_0_#f1f5f9]
       dark:[box-shadow:4px_4px_0_#99a3b1]
+      bg-blue-950
       hover:translate-y-0 hover:translate-x-0
       border border-slate-300
       hover:[box-shadow:0_0_0_#f1f5f9]
@@ -202,7 +207,7 @@ function BtnMain({ children, href, style, C }) {
       active:translate-y-[2px] active:translate-x-[2px]
       active:[box-shadow:none]
       active:bg-slate-300 dark:active:bg-slate-800
-      rounded-xl hover:bg-[azure] active:scale-[0.98] opacity-100 text-[azure] hover:text-blue-900 select-none w-[90vw] relative flex justify-center items-center md:w-max text-center" // Tambahkan class ini
+      rounded-xl hover:bg-blue-800 active:scale-[0.98] opacity-100 text-[azure] select-none w-[90vw] relative flex justify-center items-center md:w-max text-center" // Tambahkan class ini
       style={{
         fontFamily: "'Space Grotesk', sans-serif",
         fontSize: 13, fontWeight: 700, 
@@ -800,7 +805,7 @@ function OverlayCustom({ C }) {
         />
       </div>
 
-      <div className="relative w-[90vw] md:w-[82vw] mx-auto" style={{ zIndex: 10 }}>
+      <div className="relative w-[90vw] md:w-[83vw] mx-auto" style={{ zIndex: 10 }}>
 
         {/* ── HEADER ── */}
         <Reveal className="text-center flex flex-col items-center mb-4">
@@ -827,20 +832,26 @@ function OverlayCustom({ C }) {
         </Reveal>
 
         {/* ── CARDS ── */}
-        <StaggerGroup className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-xl overflow-hidden !mt-8">
+        <StaggerGroup
+          className="grid rounded-xl gap-7 grid-cols-1 md:grid-cols-3 w-full"
+          style={{
+            border: "1px solid rgba(255,255,255,0.08)",
+            alignItems: "start",   // ← TAMBAHKAN INI
+          }}
+>
           {ITEMS.map((item, i) => {
             const isLast = i === PLATFORMS.length - 1;
             return (
               <StaggerItem
-                className={'md:!!py-[36px] md:!px-[28px] !py-[36px] !px-4'}
+                className={'md:!!py-[36px] border border-[azure] md:!px-[28px] !py-[36px] !px-4'}
                 key={item.num}
                 style={{
                   // padding: "36px 28px",
-                  borderRight: i < ITEMS.length - 1 ? "1px solid rgba(255,255,255,0.1)" : "none",
+                  // borderRight: i < ITEMS.length - 1 ? "1px solid rgba(255,255,255,0.1)" : "none",
                   background: i % 2 === 0 ? "#0d2b45" : "#0d2b45",
                   position: "relative",
                   borderRadius: 14,
-                  borderRight: !isLast ? `1px solid ${C.line}` : "none",
+                  // borderRight: !isLast ? `1px solid ${C.line}` : "none",
                   transition: "background 0.2s",
                 }}
               >
@@ -1531,179 +1542,6 @@ const FAQ_DATA = [
   },
 ];
 
-// ─── KOMPONEN FAQ ────────────────────────────────────────────────────────────
-function FAQ({ C }) {
-  const [openIndex, setOpenIndex] = useState(null);
-
-  function toggle(i) {
-    setOpenIndex(prev => (prev === i ? null : i));
-  }
-
-  return (
-    <section
-      id="faq"
-      className="relative overflow-hidden w-full hidden md:flex flex-col justify-center !pt-[80px] md:!pt-[100px] !pb-[34px] md:!pb-[100px] items-center"
-      style={{
-        background: "#0a0f1e",
-        borderTop: "1px solid rgba(255,255,255,0.08)",
-        // padding: "100px 0 100px",
-      }}
-    >
-      {/* Grid background */}
-      <div className="absolute inset-0 pointer-events-none select-none" style={{ zIndex: 0 }}>
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="faq-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#faq-grid)" />
-        </svg>
-      </div>
-
-      {/* Header */}
-      <Reveal className="relative text-center flex flex-col items-center px-6 mb-14" style={{ zIndex: 2 }}>
-        <span style={{
-          fontFamily: "'Space Mono', monospace",
-          fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase",
-          color: "azure", marginBottom: 20, display: "block",
-        }}>
-          Pertanyaan Umum
-        </span>
-        <h2 style={{
-          fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: "clamp(32px,6vw,72px)",
-          lineHeight: 1.1, color: "white", letterSpacing: "0.01em",
-        }}>
-          ADA YANG <span style={{ color: "azure" }}>DITANYAKAN?</span>
-        </h2>
-      </Reveal>
-
-      {/* Accordion */}
-      <div
-        className="relative rounded-xl mx-auto grid grid-cols-2 w-[90vw] gap-10 !mt-10 px-4 md:px-0"
-        style={{ zIndex: 2 }}
-      >
-      <StaggerGroup
-        className="grid rounded-xl gap-7 grid-cols-1 md:grid-cols-3 w-[90vw]"
-        style={{
-          border: "1px solid rgba(255,255,255,0.08)", // border terluar
-        }}
-      >
-        {FAQ_DATA.map((item, i) => {
-          const isOpen = openIndex === i;
-          const isLeftCol  = i % 2 === 0;
-          const isTopRow   = i < 2;
-
-          return (
-            <StaggerItem
-              key={i}
-              className="
-              text-slate-900 dark:text-white 
-              -translate-y-0px] translate-x-[0px]
-              [box-shadow:4px_4px_0_#f1f5f9]
-              hover:translate-y-0 hover:translate-x-0
-              border border-slate-300
-              hover:[box-shadow:0_0_0_#f1f5f9]
-              dark:hover:[box-shadow:0_0_0_#94a3b8]
-              active:translate-y-[2px] active:translate-x-[2px]
-              active:[box-shadow:none]
-              w-full rounded-xl cursor-pointer hover:bg-slate-100/5 active:scale-[0.99]"
-              onClick={() => toggle(i)}
-              style={{
-                // borderLeft: !isLeftCol ? "1px solid rgba(255,255,255,0.08)" : "none",
-                // borderTop: !isTopRow ? "1px solid rgba(255,255,255,0.08)" : "none",
-                padding: "54px 20px",
-              }}
-            >
-              <button
-                style={{
-                  width: "100%", 
-                  textAlign: "left", 
-                  background: "none", 
-                  border: "none",
-                  padding: 0, 
-                  cursor: "pointer",
-                  display: "flex", 
-                  justifyContent: "space-between", 
-                  alignItems: "flex-start",
-                  gap: 16,
-                }}
-              >
-                <span style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: "clamp(13px,1.6vw,15px)",
-                  fontWeight: 600, color: isOpen ? "azure" : "white",
-                  lineHeight: 1.8, flex: 1,
-                  transition: "color 0.2s",
-                }}>
-                  {item.q}
-                </span>
-                <span style={{
-                  width: 26, height: 26, flexShrink: 0,
-                  border: "1px solid rgba(255,255,255,0.2)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  color: isOpen ? "azure" : "rgba(255,255,255,0.5)",
-                  fontSize: 18, lineHeight: 1,
-                  transition: "all 0.2s",
-                  background: isOpen ? "#1C398E" : "transparent",
-                }}>
-                  {isOpen ? "−" : "+"}
-                </span>
-              </button>
-
-              <div style={{
-                overflow: "hidden",
-                maxHeight: isOpen ? 400 : 0,
-                opacity: isOpen ? 1 : 0,
-                transition: "max-height 0.35s ease, opacity 0.25s ease",
-              }}>
-                <p style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: 13, color: "rgba(255,255,255,0.55)",
-                  lineHeight: 1.75, paddingTop: 12,
-                }}>
-                  {item.a}
-                </p>
-              </div>
-            </StaggerItem>
-          );
-        })}
-      </StaggerGroup>
-    </div>
-  </section>
-  );
-}
-
-function SharePromo({ C }) {
-  const [format, setFormat] = useState('ig');
-  const [selectedCard, setSelectedCard] = useState(1);
-  const [copied, setCopied] = useState(false);
-
-  const tpls = SHARE_TEMPLATES[selectedCard][format];
-
-  function copyAll() {
-    const all = tpls.map(t => `[${t.platform}]\n${t.text}`).join('\n\n---\n\n');
-    navigator.clipboard.writeText(all);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }
-
-  return (
-    <section id="promo" className="select-none md:block hidden" style={{ borderBottom: `1px solid ${C.line}` }}>
-      {/* Header */}
-      <div className="select-none text-center flex flex-col justify-center items-center"
-        style={{ padding: "80px 20px", borderBottom: `1px solid ${C.line}` }}>
-        <Kicker C={C}>Share & Promosi</Kicker>
-        <BigTitle C={C}>SEBARKAN KE SESAMA <span style={{ color: C.lime }}>STREAMER</span></BigTitle>
-        <p style={{ fontSize: 14, color: C.muted, marginTop: 16 }}>
-          Pilih gambar & salin teks siap pakai untuk Instagram atau media sosial lainnya
-        </p>
-      </div>
-    </section>
-  );
-}
-
 const THEMES2 = [
   { id: "modern",  label: "Taptip 1" },
   // { id: "minimal", label: "Taptip 2" },
@@ -2273,7 +2111,7 @@ export function OverlayCustomizer({ C }) {
                 borderRadius: 12,
                 minWidth: isMobile ? '100%' : 170,
                 border: previewMode === m.id ? "2px solid azure" : "1.5px solid rgba(255,255,255",
-                background: previewMode === m.id ? "azure" : "rgba(255,255,255,.06)",
+                background: previewMode === m.id ? "azure" : "#162556",
                 color: previewMode === m.id ? "#0d2b45" : "rgba(255,255,255,.7)",
                 fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 12,
                 cursor: "pointer", transition: "all .15s",
@@ -2439,12 +2277,13 @@ export function OverlayCustomizer({ C }) {
             dark:[box-shadow:4px_4px_0_#99a3b1]
             hover:translate-y-0 hover:translate-x-0
             border border-slate-300
+            bg-[#162556]
             hover:[box-shadow:0_0_0_#f1f5f9]
             dark:hover:[box-shadow:0_0_0_#94a3b8]
             active:translate-y-[2px] active:translate-x-[2px]
             active:[box-shadow:none]
             active:bg-slate-300 dark:active:bg-slate-800
-            rounded-xl hover:bg-[azure] active:scale-[0.98] hover:text-blue-900 select-none"
+            rounded-xl hover:bg-blue-800 active:scale-[0.98] text-[azure] select-none"
             style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: ".05em", textTransform: "uppercase", padding: "16px 46px", border: "1px solid azure", cursor: "pointer", textDecoration: "none", display: "inline-block", transition: "all .2s" }}>
             Mulai Kustomisasi Gratis
           </a>
@@ -2662,7 +2501,7 @@ export default function TapTipTup() {
         </Reveal>
       </section>
 
-      <FAQ C={C} />
+      <SuggestionForm C={C} />
 
       {/* ===== FOOTER ===== */}
      <footer className="text-center flex justify-center gap-8 items-center w-full px-0 !pt-[20px] !pb-[0px] md:!pt-[90px] md:!pb-[60px]" 
