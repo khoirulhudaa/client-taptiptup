@@ -1016,7 +1016,7 @@ const InstantTestMediaShare = ({ overlayToken, settings, user, copyToClipboard }
             active:translate-y-[2px] active:translate-x-[2px]
             active:[box-shadow:none]
           active:bg-slate-300 dark:active:bg-slate-800
-          cursor-pointer hover:brightness-90 w-full py-3 hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl  font-black text-sm active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
+          cursor-pointer hover:brightness-90 w-full py-4 hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white rounded-xl  font-black text-sm active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3">
           {isSending ? (
             <><div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" /><span>Mengirim...</span></>
           ) : (

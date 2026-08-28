@@ -975,7 +975,16 @@ const OverlayAlert = () => {
 
     if (theme === 'modern') {
       return (
-        <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 10 }}>
+        <div 
+          style={{ position: 'relative', overflow: 'hidden', borderRadius: 10 }}
+          className="
+            text-slate-900 dark:text-white 
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            border border-slate-300
+          "
+        >
           <div style={scanlineStyle} />
           <div style={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -1069,7 +1078,17 @@ const OverlayAlert = () => {
 
     if (theme === 'smooth') {
       return (
-        <div style={{ fontFamily: "'Inter', sans-serif", padding: '14px 14px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+         <div
+          className="
+            text-slate-900 dark:text-white 
+            -translate-y-[3px] translate-x-[-3px]
+            [box-shadow:4px_6px_0_#f1f5f9]
+            dark:[box-shadow:4px_4px_0_#99a3b1]
+            border border-slate-300
+            rounded-xl
+          "
+          style={{ fontFamily: "'Inter', sans-serif", padding: '14px 14px', display: 'flex', flexDirection: 'column', gap: 10 }}
+        >
           <div style={{ justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
             <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', gap: '6px', justifyContent: 'center', alignItems: 'center', fontSize: 20, fontWeight: 500, color: fg, position: 'relative' }}>
