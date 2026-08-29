@@ -1,19 +1,17 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   AlertCircle,
-  Bell,
   Heart,
   History,
   Layout,
-  LogOut,
   Mail,
   Megaphone,
   MessageSquare,
   Mic,
-  PanelLeftClose,
-  PanelLeftOpen,
+  Music,
   QrCode,
   ReceiptText,
+  Shield,
   ShieldAlert,
   ShoppingBag,
   Terminal,
@@ -24,14 +22,11 @@ import {
   Video,
   Vote,
   Wallet,
-  X,
-  Music,
   Zap,
-  ZapIcon,
-  Shield
+  ZapIcon
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const getTokenPayload = () => {
   const token = localStorage.getItem('token');
@@ -154,7 +149,7 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
 
   const menuGroups = [
     {
-      groupLabel: 'OBS & Overlay',
+      groupLabel: 'Overlay',
       items: [
         { id: 'settings',      label: isSuperAdmin ? 'Statistik' : 'Overlay', icon: <Layout size={20} /> },
         { id: 'alertSettings', label: 'Alert',      icon: <ZapIcon size={20} /> },
@@ -330,22 +325,22 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
               if (visibleItems.length === 0) return null;
 
               return (
-                <div key={group.groupLabel}>
+                <div key={group.groupLabel} className={`${groupIndex != 0 ? 'mt-7' : ''}`}>
                   {/* Group Label */}
                   {!isCollapsed && (
-                    <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-white mb-2">
+                    <div className="relative text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white mb-2">
                       {group.groupLabel}
                       <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
                     </div>
                   )}
                   {isCollapsed && (
-                    <div className="md:hidden flex text-[8px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 text-left mb-1 md:px-1 leading-tight">
+                    <div className="flex text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-white text-center md:text-left justify-center md:justify-start mb-1 leading-tight">
                       {group.groupLabel}
                     </div>
                   )}
 
                   {/* Menu Items */}
-                  <div className="space-y-1 flex md:block flex-wrap gap-3  md:gap-0 pt-4">
+                  <div className="space-y-1 flex md:block flex-wrap gap-3 md:gap-0 pt-4">
                     {visibleItems.map((item) => (
                       <motion.button
                         key={item.id}
@@ -382,9 +377,9 @@ const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, setIsSidebarOpen, isC
             {/* Super Admin Section */}
             {isStreamerSuper && superMode && (
               <div>
-                <div className="relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2 mt-6">
+                <div className={`relative text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2 mt-6 ${isCollapsed ? 'text-center md:text-left' : ''}`}>
                   Super Admin
-                  <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>
+                  {!isCollapsed && <div className='top-1/2 absolute right-0 w-[66%] h-[1px] bg-white/10'></div>}
                 </div>
                 <div className="space-y-1">
                   {[
