@@ -59,48 +59,6 @@ function StaggerItem({ children, className, style, onClick, ...rest }) {
   );
 }
 
-const FEATURES = [
-  { num: "01", ico: "🎨", name: "Overlay OBS Kustom", desc: "Alert Dukungan tampil langsung di stream. Tema modern, classic, atau minimal dengan animasi dan warna sesukamu" },
-  { num: "02", ico: "🔊", name: "Suara per Nominal", desc: "Suara notif dukungan masuk! Atur efek suara berbeda untuk setiap tier Dukungan. 16+ preset siap pakai" },
-  { num: "03", ico: "🛡️", name: "Filter Kata Terlarang", desc: "Blokir, sensor, atau ganti kata tidak pantas otomatis. Jagain konten tetap aman dan profesional" },
-  { num: "04", ico: "🎯", name: "Milestones & Goals", desc: "Tampilkan progress target Dukungan di OBS. Donor bisa lihat seberapa dekat goal tercapai" },
-  { num: "05", ico: "🖼️", name: "Media Alert", desc: "Izinkan donor kirim gambar atau video saat Dukungan mencapai nominal tertentu. Sultan alert yang epic" },
-  { num: "06", ico: "🗳️", name: "Poll & Subathon", desc: "Voting live untuk penonton dan timer subathon yang bertambah otomatis setiap ada Dukungan masuk" },
-  { num: "07", ico: "🏆", name: "Leaderboard", desc: "Tampilkan top donor di overlay OBS. Gamifikasi Dukungan bikin penonton makin kompetitif dan seru" },
-  { num: "08", ico: "👥", name: "Streamer Community", desc: "Temukan dan follow sesama streamer. Bangun network, kolaborasi, dan berkembang bersama" },
-];
-
-const HOW_IT_WORKS = [
-  { num: "01", ico: "🚀", title: "Daftar Gratis", desc: "Buat akun dalam hitungan detik. Tidak perlu kartu kredit apapun" },
-  { num: "02", ico: "🎨", title: "Konfigurasi Overlay", desc: "Pilih tema, warna, animasi, dan atur suara sesuai brand stream-mu" },
-  { num: "03", ico: "📺", title: "Pasang di OBS", desc: "Copy URL overlay, tambahkan sebagai Browser Source di OBS Studio" },
-  { num: "04", ico: "💸", title: "Terima Dukungan", desc: "Donor bayar via QRIS atau transfer — alert langsung muncul di stream!" },
-];
-
-const TESTIMONIALS = [
-  { avatar: "R", avatarBg: "#7c5cbf", avatarColor: "#fff", name: "@ZulionZX", role: "Coding Streamer", text: '"Setup-nya gampang banget, 5 menit udah live. Alert-nya keren dan donatur makin semangat karena ada leaderboard!"', statNum: "2026", statLabel: "tahun ini" },
-  { avatar: "S", avatarBg: "#e05a3a", avatarColor: "#fff", name: "@Krigatsu", role: "Gaming Streamer", text: '"Fitur filter kata terlarang beneran ngebantu banget. Streamku jadi lebih aman dan aku bisa fokus main"', statNum: "2026", statLabel: "tahun ini" },
-  { avatar: "B", avatarBg: 'white', avatarColor: "#080808", name: "@MinusGamdes", role: "Music Streamer", text: '"Sound tier sultan pakai efek beda — penonton jadi pengen Dukungan lebih gede biar dapat sound kenceng!"', statNum: "2026", statLabel: "tahun ini" },
-];
-
-const PLANS = [
-  {
-    name: "Gratis", desc: "Mulai tanpa risiko", price: "Rp 0", period: "// selamanya",
-    features: ["Overlay OBS basic", "Alert Dukungan real-time", "1 preset suara", "QR Code Dukungan", "Dashboard riwayat"],
-    cta: "Mulai Gratis", hot: false,
-  },
-  {
-    name: "Pro", desc: "Untuk streamer serius", price: "49rb", period: "// per bulan",
-    features: ["Semua fitur Gratis", "Sound tiers tak terbatas", "Filter kata terlarang", "Media alert (gambar/video)", "Poll & Subathon timer", "Milestones & Leaderboard", "Prioritas support"],
-    cta: "Coba 14 Hari Gratis", hot: true,
-  },
-  {
-    name: "Partner", desc: "Untuk agency & partner", price: "Custom", period: "// hubungi kami",
-    features: ["Semua fitur Pro", "White-label branding", "API akses penuh", "Dedicated support", "Revenue sharing"],
-    cta: "Hubungi Kami", hot: false,
-  },
-];
-
 /* ─────────────────────────────────────────
    THEME TOKENS
 ───────────────────────────────────────── */
@@ -376,10 +334,10 @@ function Hero({ C, isDark }) {
         </svg>
       </div>
 
-      <img src="/man2.png" alt="image man" className="absolute select-none md:flex hidden bottom-0 md:bottom-[-56px] left-[-40px] 2xl:left-[-280px] md:left-[-257px] w-[44%] md:w-[50%] z-[99999]" />
-      <img src="/woman1.png" alt="image woman" className="absolute select-none bottom-0 md:flex hidden md:bottom-[-40px] left-[-34px] md:left-[-22px] 2xl:left-[-32px] w-[46%] md:w-[43.0%] z-[99999]" />
-      <img src="/woman2.png" alt="image woman" className="absolute select-none bottom-0  md:flex hidden md:bottom-[-100px] right-12 w-[32%] z-[99999]" />
-      <img src="/man1.png" alt="image man" className="absolute select-none bottom-0 md:flex hidden md:bottom-[-40px] right-[-17px] md:right-[-208px] w-[39.5%] md:w-[40%] z-[999]" />
+      <img src="/img7.png" alt="image man" className="absolute select-none md:flex hidden bottom-0 md:bottom-[-40px] left-[4%] 2xl:left-[4%] md:left-[-257px] w-[44%] md:w-[32%] z-[99999]" />
+      {/* <img src="/woman1.png" alt="image woman" className="absolute select-none bottom-0 md:flex hidden md:bottom-[-40px] left-[-34px] md:left-[-22px] 2xl:left-[-32px] w-[46%] md:w-[43.0%] z-[99999]" /> */}
+      <img src="/img2.png" alt="image woman" className="absolute select-none bottom-0  md:flex hidden md:bottom-[-17px] right-[6%] w-[26%] z-[99999]" />
+      {/* <img src="/man1.png" alt="image man" className="absolute select-none bottom-0 md:flex hidden md:bottom-[-40px] right-[-17px] md:right-[-208px] w-[39.5%] md:w-[40%] z-[999]" /> */}
       <div className="absolute bottom-0 hidden md:flex z-[5]">
         <Marquee C={C} />
       </div>
@@ -389,7 +347,7 @@ function Hero({ C, isDark }) {
         className="select-none relative top-[-40px] hero-main-grid h-full flex items-center"
       >
         <div
-          className="select-none text-center mx-auto w-full flex flex-col !pt-0 md:!pt-[40px] justify-center items-center px-6"
+          className="select-none text-center mx-auto w-full flex flex-col !pt-0 md:!pt-[20px] justify-center items-center px-6"
           style={{ paddingBottom: "0px" }}
         >
 
@@ -439,17 +397,25 @@ function Hero({ C, isDark }) {
                 <div className="absolute w-[1px] h-[40vh] bg-white rotate-30 top-[-34vh] right-[-64px] md:flex hidden" />
 
                 {/* Banner */}
-                <span className="md:!inline-block !hidden md:!px-2 2xl:min-w-[68vw] rounded-xl min-w-[100vw] md:min-w-[69vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure]">
-                  POTONGAN HANYA 3.0% UNTUK
+                  <span className="md:!inline-block !hidden md:!px-2 2xl:min-w-[68vw] rounded-xl min-w-[100vw] md:min-w-[69vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure]">
+                  STREAMING JADI LEBIH CUAN
                 </span>
                 <span className="!inline-block md:!hidden md:!px-2 2xl:min-w-[70vw] rounded-xl min-w-[100vw] md:min-w-[64vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure]">
-                  POTONGAN HANYA 3.0%
+                  POTONGAN HANYA 
+                  <span className="relative w-max">
+                    <img src="/line.png" alt="decoration-line-cyan" className="absolute bottom-0 w-full" />
+                    3.0%
+                  </span>
                 </span>
               </motion.div>
 
               {/* Tetap diam */}
               <span className="md:!inline-block !hidden">
-                SETIAP DUKUNGAN MASUK
+                POTONGAN HANYA   
+                <span className="relative w-max !ml-4">
+                    <img src="/line.png" alt="decoration-line-cyan" className="absolute bottom-3 w-full right-0" />
+                    3.0%
+                  </span>
               </span>
               <span className="!inline-block md:!hidden">
                 UNTUK SETIAP DUKUNGAN MASUK
@@ -535,20 +501,30 @@ function Hero({ C, isDark }) {
         </div>
       </div>
       {[
-        { left: "18%", dur: "7s",   delay: "1.2s", emoji: "💰" },
-        { left: "25%", dur: "5s", delay: "0s",   emoji: "🤑" },
-        { left: "32%", dur: "9s",   delay: "0.7s", emoji: "👍" },
-        { left: "38%", dur: "7.5s", delay: "1.5s", emoji: "💵" },
-        { left: "42%", dur: "6s",   delay: "0.2s", emoji: "💰" },
-        // { left: "50%", dur: "8.5s", delay: "1s",   emoji: "🤑" },
-        { left: "55%", dur: "7s",   delay: "0s",   emoji: "👍" },
-        { left: "60%", dur: "6.5s", delay: "0.8s", emoji: "💵" },
+        { left: "2%", dur: "7s",   delay: "1.2s", emoji: "💰" },
+        { left: "6%", dur: "5s", delay: "0s",   emoji: "🤑" },
+        { left: "10%", dur: "9s",   delay: "0.7s", emoji: "👍" },
+        { left: "15%", dur: "9s",   delay: "0.7s", emoji: "👍" },
+        { left: "20%", dur: "9s",   delay: "0.7s", emoji: "👍" },
+        { left: "27%", dur: "7.5s", delay: "1.5s", emoji: "💵" },
+        { left: "36%", dur: "6s",   delay: "0.2s", emoji: "💰" },
+        { left: "42%", dur: "6s",   delay: "0.2s", emoji: "💵" },
+        { left: "48%", dur: "7s",   delay: "0s",   emoji: "👍" },
+        { left: "55%", dur: "6.5s", delay: "0.8s", emoji: "💵" },
+
+        { left: "38%", dur: "6s",   delay: "1s", emoji: "💵" },
+        { left: "44%", dur: "6s",   delay: "1s", emoji: "💰" },
+        { left: "50%", dur: "7s",   delay: "1s",   emoji: "👍" },
+        { left: "57%", dur: "6.5s", delay: "1s", emoji: "💵" },
+
         { left: "65%", dur: "9s",   delay: "1.8s", emoji: "💰" },
         { left: "70%", dur: "7.5s", delay: "0.4s", emoji: "🤑" },
         { left: "76%", dur: "6s",   delay: "1.3s", emoji: "👍" },
         { left: "82%", dur: "8s",   delay: "0s",   emoji: "💵" },
         { left: "88%", dur: "7s",   delay: "0.6s", emoji: "💰" },
-        { left: "94%", dur: "6.5s", delay: "1.1s", emoji: "🤑" },
+        { left: "92%", dur: "6.5s", delay: "1.1s", emoji: "🤑" },
+        { left: "90%", dur: "7s",   delay: "1s", emoji: "💰" },
+        { left: "95%", dur: "6.5s", delay: "1.5s", emoji: "👍" },
       ].map((item, i) => (
         <span
           key={i}
@@ -678,6 +654,7 @@ function Hero({ C, isDark }) {
           85%  { opacity: 0.5; }
           100% { transform: translateY(-44vh) scale(1.1) rotate(calc(var(--rot) + 15deg)); opacity: 0; }
         }
+          
         .thumb-float {
           position: absolute;
           bottom: -30px;
@@ -1323,12 +1300,14 @@ function FeeComparison({ C }) {
 
                 {/* Ribbon hanya di kartu ke-2 */}
                 {i === 1 && (
-                  <div style={{
+                  <div 
+                  className="bg-cyan-500"
+                  style={{
                     position: 'absolute',
                     top: 10,
-                    right: -22,
+                    right: -24,
                     width: 90,
-                    background: '#0d2b45',
+                    // background: '#0d2b45',
                     color: '#fff',
                     textAlign: 'center',
                     fontFamily: "'Space Mono', monospace",
@@ -1340,7 +1319,7 @@ function FeeComparison({ C }) {
                     textTransform: 'uppercase',
                     zIndex: 10,
                   }}>
-                    Terbaik
+                    terkecil
                   </div>
                 )}
                 <div style={{ fontSize: 24, fontWeight: 700, color: "#000000", marginBottom: 28, marginTop: 6, fontFamily: "'Space Grotesk',sans-serif" }}>
