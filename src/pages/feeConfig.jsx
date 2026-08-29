@@ -8,7 +8,7 @@ import api from '../lib/axiosInstance';
 const fetchFeeConfig = async () => (await api.get('/api/overlay/settings')).data;
 const saveFeeConfig  = async (d) => (await api.put('/api/overlay/settings', d)).data;
 
-const FEE_PERCENT = 0.030; // 3.0%
+const FEE_PERCENT = 0.035; // 3.5%
 const ADMIN_FEE   = 3500;  // Rp 1.500 tetap ditanggung streamer
 
 const formatRupiah = (num) =>
@@ -39,7 +39,7 @@ const FeeSimulator = ({ feeBearer }) => {
     ? amt + percentFee 
     : amt;
 
-  // Streamer menerima (setelah potongan 3.0%)
+  // Streamer menerima (setelah potongan 3.5%)
   const streamerGets = feeBearer === 'donor' 
     ? amt 
     : amt - percentFee;
@@ -97,7 +97,7 @@ const FeeSimulator = ({ feeBearer }) => {
         </div>
 
         <div className="flex justify-between text-red-300">
-          <spa className='font-medium'>Biaya admin 3.0%</spa>
+          <spa className='font-medium'>Biaya admin 3.5%</spa>
           <span className='font-medium'>- Rp {formatRupiah(percentFee)}</span>
         </div>
 
@@ -164,8 +164,8 @@ export const FeeConfigPage = () => {
       id: 'streamer',
       icon: <Wallet size={19} />,
       title: 'Streamer Menanggung',
-      subtitle: '3.0% dipotong dari saldo streamer',
-      desc: 'Donor hanya membayar sesuai nominal yang diketik. Biaya 3.0% akan dipotong otomatis dari saldo kamu saat donasi masuk. Biaya tetap Rp4.000 dibebankan saat penarikan.',
+      subtitle: '3.5% dipotong dari saldo streamer',
+      desc: 'Donor hanya membayar sesuai nominal yang diketik. Biaya 3.5% akan dipotong otomatis dari saldo kamu saat donasi masuk. Biaya tetap Rp4.000 dibebankan saat penarikan.',
       badge: 'Ramah Donor',
       badgeColor: 'bg-indigo-100 dark:bg-white text-slate-900',
       borderActive: 'border-indigo-600',
@@ -176,8 +176,8 @@ export const FeeConfigPage = () => {
       id: 'donor',
       icon: <Users size={19} />,
       title: 'Donatur Menanggung',
-      subtitle: '3.0% ditambahkan ke nominal donasi',
-      desc: 'Donor akan membayar nominal + 3.0%. Streamer menerima persis sesuai nominal yang diinput donor. Biaya tetap Rp4.000 tetap ditanggung streamer saat penarikan.',
+      subtitle: '3.5% ditambahkan ke nominal donasi',
+      desc: 'Donor akan membayar nominal + 3.5%. Streamer menerima persis sesuai nominal yang diinput donor. Biaya tetap Rp4.000 tetap ditanggung streamer saat penarikan.',
       badge: 'Saldo Penuh',
       badgeColor: 'bg-emerald-100 dark:bg-white text-slate-900',
       borderActive: 'border-emerald-500',
@@ -262,13 +262,13 @@ export const FeeConfigPage = () => {
           : 'bg-emerald-50 border-emerald-200 dark:bg-emerald-950/30'}`}>
           <p className="font-black text-sm mb-1">
             {feeBearer === 'streamer' 
-              ? 'Mode Aktif: Streamer Menanggung 3.0%' 
-              : 'Mode Aktif: Donor Menanggung 3.0%'}
+              ? 'Mode Aktif: Streamer Menanggung 3.5%' 
+              : 'Mode Aktif: Donor Menanggung 3.5%'}
           </p>
           <p className="text-[11px] text-slate-600 dark:text-slate-400">
             {feeBearer === 'streamer' 
-              ? 'Donor bayar Rp100.000 → Streamer terima Rp97.000' 
-              : 'Donor bayar Rp103.093 → Streamer terima Rp100.000'}
+              ? 'Donor bayar Rp100.000 → Streamer terima Rp96.500' 
+              : 'Donor bayar Rp103.500 → Streamer terima Rp100.000'}
           </p>
           {/* <p className="text-[10px] text-slate-400 mt-2">* Rp4.000 selalu dipotong saat penarikan dana</p> */}
         </div>
