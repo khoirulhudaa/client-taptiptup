@@ -85,7 +85,7 @@ export const ContactPage = () => {
         className="relative overflow-hidden rounded-xl mx-0 mb-5 px-4 md:px-8 py-12"
         style={{ background: 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)' }}
       >
-        <div className="relative z-[2] max-w-full">
+        <div className="relative max-w-full">
           <div className="flex items-center gap-3 mb-5">
             <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center">
               <Headphones size={16} className="text-white/80" />
@@ -100,7 +100,7 @@ export const ContactPage = () => {
           </p>
         </div>
 
-        <div className="relative z-2 hidden md:grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 pt-8 border-t border-white/10">
+        <div className="relative hidden md:grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 pt-8 border-t border-white/10">
           {[
             { val: '1x24 Jam', label: 'Avg. Response'     },
             { val: '98%',      label: 'Resolved Tickets'  },

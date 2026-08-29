@@ -123,7 +123,7 @@ export const SuggestionsManager = () => {
             initial={{ opacity: 0, y: 16, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.96 }}
-            className={`fixed bottom-6 right-6 z-[9999] flex items-center gap-3 px-5 py-4 rounded-xl shadow-2xl font-bold text-sm ${
+            className={`fixed bottom-6 right-6 flex items-center gap-3 px-5 py-4 rounded-xl shadow-2xl font-bold text-sm ${
               toast.type === 'success' ? 'bg-emerald-600 text-white' : 'bg-red-600 text-white'
             }`}
           >
@@ -135,7 +135,7 @@ export const SuggestionsManager = () => {
 
       {/* Header */}
       <div className="bg-slate-900 md:flex flex-col hidden rounded-xl p-4 md:p-8 text-white relative overflow-hidden">
-        <div className="relative z-10">
+        <div className="relative">
           <div className="flex items-center gap-3 mb-2">
             <MessageCircle size={20} />
             <span className="text-blue-200 text-xs font-black uppercase tracking-widest">Feedback</span>
