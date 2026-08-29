@@ -398,7 +398,7 @@ function Hero({ C, isDark }) {
 
                 {/* Banner */}
                   <span className="md:!inline-block !hidden md:!px-2 2xl:min-w-[68vw] rounded-xl min-w-[100vw] md:min-w-[69vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure]">
-                  STREAMING JADI LEBIH CUAN
+                  STREAMINGNYA JADI LEBIH CUAN
                 </span>
                 <span className="!inline-block md:!hidden md:!px-2 2xl:min-w-[70vw] rounded-xl min-w-[100vw] md:min-w-[64vw] relative md:text-black 2xl:h-[98px] md:h-[85px] md:bg-[azure]">
                   POTONGAN HANYA 
