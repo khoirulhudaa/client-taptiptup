@@ -103,7 +103,7 @@ export const ContactPage = () => {
         <div className="relative hidden md:grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 pt-8 border-t border-white/10">
           {[
             { val: '1x24 Jam', label: 'Avg. Response'     },
-            { val: '98%',      label: 'Resolved Tickets'  },
+            { val: 'High',      label: 'Resolved Tickets'  },
             { val: '24/7',     label: 'System Monitor'    },
             { val: '2026',     label: 'New Generation'    },
           ].map((s, i) => (
