@@ -334,9 +334,9 @@ function Hero({ C, isDark }) {
         </svg>
       </div>
 
-      <img src="/img7.png" alt="image man" className="absolute select-none md:flex hidden bottom-0 md:bottom-[-40px] left-[4%] 2xl:left-[4%] md:left-[-257px] w-[44%] md:w-[32%] z-[99999]" />
-      {/* <img src="/woman1.png" alt="image woman" className="absolute select-none bottom-0 md:flex hidden md:bottom-[-40px] left-[-34px] md:left-[-22px] 2xl:left-[-32px] w-[46%] md:w-[43.5%] z-[99999]" /> */}
-      <img src="/img2.png" alt="image woman" className="absolute select-none bottom-0  md:flex hidden md:bottom-[-17px] right-[6%] w-[26%] z-[99999]" />
+      <img src="/img7.png" alt="image man" className="absolute select-none md:flex hidden bottom-0 md:bottom-[-40px] left-[4%] 2xl:left-[4%] md:left-[-257px] w-[44%] md:w-[32%] z-[6]" />
+      {/* <img src="/woman1.png" alt="image woman" className="absolute select-none bottom-0 md:flex hidden md:bottom-[-40px] left-[-34px] md:left-[-22px] 2xl:left-[-32px] w-[46%] md:w-[43.5%] z-[6]" /> */}
+      <img src="/img2.png" alt="image woman" className="absolute select-none bottom-0  md:flex hidden md:bottom-[-17px] right-[6%] w-[26%] z-[6]" />
       {/* <img src="/man1.png" alt="image man" className="absolute select-none bottom-0 md:flex hidden md:bottom-[-40px] right-[-17px] md:right-[-208px] w-[39.5%] md:w-[40%] z-[999]" /> */}
       <div className="absolute bottom-0 hidden md:flex z-[5]">
         <Marquee C={C} />

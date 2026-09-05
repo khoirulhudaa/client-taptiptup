@@ -5357,49 +5357,8 @@ const handleChangePin = async () => {
                        </div>
                     </div>
 
-                    <div id="tour-donation-items" className='relative z-[1]'>
-                      <DonationItemsEditor
-                        items={settings.donationItems || []}
-                        onChange={v => upd('donationItems', v)}
-                        saveSettingsMutation={saveSettingsMutation}
-                        settings={settings}
-                        activeSlot={activeSlot}
-                      />
-                    </div>
                     
-                    <div id="tour-min-max-dukungan" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
-                        <SectionHeader icon={<BadgeDollarSign size={20} />} title={`Nominal Dukungan`} color="bg-red-600" />
-                        <div className='grid grid-cols-1 md:space-y-0 md:grid-cols-2 gap-3'>
-                          <InputField label="Minimal" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
-                          <InputField label="Maksimal" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
-                        </div>
-                         <div className='w-full px-1'>
-                          <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
-                            className="
-                            text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
-                          -translate-y-[3px] translate-x-[-3px]
-                          [box-shadow:4px_6px_0_#f1f5f9]
-                          dark:[box-shadow:4px_4px_0_#99a3b1]
-                          hover:translate-y-0 hover:translate-x-0
-                          hover:bg-slate-200 dark:hover:bg-slate-700
-                          border border-slate-300
-                          hover:[box-shadow:0_0_0_#f1f5f9]
-                          dark:hover:[box-shadow:0_0_0_#94a3b8]
-                          active:translate-y-[2px] active:translate-x-[2px]
-                          active:[box-shadow:none]
-                          active:bg-slate-300 dark:active:bg-slate-800
-                            cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
-                            <Save size={18} className='relative top-[-1px]' />
-                            {saveSettingsMutation.isPending ? (
-                              <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
-                            ) : (
-                              <> Simpan Sekarang</>
-                            )}
-                          </button>
-                         </div>
-                    </div>
-
-                    <div id="tour-tema-visual" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
+                       <div id="tour-tema-visual" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
                       <SectionHeader icon={<Palette size={20} />} title={`Tema visual`} color="bg-cyan-600" />
                       
                      <YouTubeLivePreview2
@@ -5505,6 +5464,48 @@ const handleChangePin = async () => {
                           )}
                         </button>
                        </div>
+                    </div>
+
+                    <div id="tour-donation-items" className='relative z-[1]'>
+                      <DonationItemsEditor
+                        items={settings.donationItems || []}
+                        onChange={v => upd('donationItems', v)}
+                        saveSettingsMutation={saveSettingsMutation}
+                        settings={settings}
+                        activeSlot={activeSlot}
+                      />
+                    </div>
+                    
+                    <div id="tour-min-max-dukungan" className="md:col-span-2 px-4 md:bg-white/30 md:dark:bg-slate-900/60 rounded-xl backdrop-blur-sm border border-slate-100 dark:border-slate-800 md:py-6 py-3 md:py-4 md:px-6 space-y-3">
+                        <SectionHeader icon={<BadgeDollarSign size={20} />} title={`Nominal Dukungan`} color="bg-red-600" />
+                        <div className='grid grid-cols-1 md:space-y-0 md:grid-cols-2 gap-3'>
+                          <InputField label="Minimal" type="number" value={settings.minDonate} onChange={v => upd('minDonate', v)} />
+                          <InputField label="Maksimal" type="number" value={settings.maxDonate} onChange={v => upd('maxDonate', v)} />
+                        </div>
+                         <div className='w-full px-1'>
+                          <button onClick={() => saveSettingsMutation.mutate({ settings, slot: activeSlot })} disabled={saveSettingsMutation.isPending}
+                            className="
+                            text-slate-900 dark:text-white bg-slate-100 dark:bg-white/20
+                          -translate-y-[3px] translate-x-[-3px]
+                          [box-shadow:4px_6px_0_#f1f5f9]
+                          dark:[box-shadow:4px_4px_0_#99a3b1]
+                          hover:translate-y-0 hover:translate-x-0
+                          hover:bg-slate-200 dark:hover:bg-slate-700
+                          border border-slate-300
+                          hover:[box-shadow:0_0_0_#f1f5f9]
+                          dark:hover:[box-shadow:0_0_0_#94a3b8]
+                          active:translate-y-[2px] active:translate-x-[2px]
+                          active:[box-shadow:none]
+                          active:bg-slate-300 dark:active:bg-slate-800
+                            cursor-pointer active:scale-[0.99] hover:brightness-90 w-full bg-slate-900/70 dark:bg-slate-700 text-white py-3 md:py-4 rounded-xl font-black text-sm transition-all shadow-xl shadow-slate-200 dark:shadow-none disabled:opacity-70 flex items-center justify-center gap-3">
+                            <Save size={18} className='relative top-[-1px]' />
+                            {saveSettingsMutation.isPending ? (
+                              <><RefreshCw size={18} className="animate-spin" /> Menyimpan...</>
+                            ) : (
+                              <> Simpan Sekarang</>
+                            )}
+                          </button>
+                         </div>
                     </div>
 
                     {/* Preset Warna Siap Pakai */}
